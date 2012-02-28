@@ -38,6 +38,7 @@ class MunicipalitiesController < ApplicationController
 
     def create
         error = false
+        puts ("ADMIN #{current_admin}")
         authorize!(:create, Municipality)
         location = params[:municipality][:location]
         if location != nil

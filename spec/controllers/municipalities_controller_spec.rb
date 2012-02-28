@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MunicipalitiesController do
 
-  describe "POST 'create'" do
+  describe "create action" do
 
     before(:each) do
       @slug = "t1"
@@ -20,6 +20,8 @@ describe MunicipalitiesController do
       @admin = Admin.new(:email => "polar@test.com", :name => "Test User",
                          :password => "123345678", :password_confirmation => "123345678")
       @admin.save!
+      @guest = Guest.new
+
     end
 
     it "creates the Municipality and its database and Super User" do
@@ -41,9 +43,15 @@ describe MunicipalitiesController do
       assert_not_nil amuni, "main db municipality is not saved"
       assert amuni.owner == @admin, "main db municipality owner is not correct"
     end
+
+    it "should deny create non admin" do
+      post "create", :municipality => { :name => "T1", :location => "0.0,0.0" }
+      # There is no admin user that must be authenticated
+      response.should be_redirect
+    end
   end
 
-  describe "edit and update" do
+  describe "index edit and update actions" do
     before(:each) do
       @slug = "t1"
       @database_base = "#Busme-#{Rails.env}"
@@ -108,18 +116,19 @@ describe MunicipalitiesController do
 
     it "wrong admin should deny edit" do
       sign_in :admin, @admin2
-      lambda { get "edit", :id => @muni1 }.should raise_error
+      lambda { get "edit", :id => @muni1 }.should raise_error(CanCan::AccessDenied)
     end
 
-    it "should accept user"   do
+    it "should accept user for udpate"   do
       sign_in :admin, @admin1
       put "update", :id => @muni1, :municipality => {:name => "T2", :location => "-76.0,43.3"}
       response.should redirect_to(municipality_path(@muni1))
     end
 
-    it "wrong admin should deny update" do
+    it "should deny update wrong admin" do
       sign_in :admin, @admin2
-      lambda { get "update", :id => @muni1 }.should raise_error
+      lambda { get "update", :id => @muni1 }.should raise_error(CanCan::AccessDenied)
     end
+
   end
 end
