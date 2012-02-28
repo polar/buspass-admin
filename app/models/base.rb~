@@ -1,0 +1,8 @@
+class Base
+
+  include MongoMapper::Document
+
+  def set_database(name)
+      MongoMapper.database=name
+  end
+end

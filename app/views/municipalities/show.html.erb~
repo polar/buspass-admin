@@ -1,0 +1,22 @@
+<h2>Municipality </h2>
+<% if current_admin %>
+  <p><%= "Welcome #{current_admin.name}" %></p>
+<% end %>
+
+<table>
+<tr>
+<th>Name</th>
+<td><%= @muni.name %></td>
+</tr>
+<tr>
+<th>Location</th>
+<td><%= to_location_str(@muni.location) %></td>
+</tr>
+<tr>
+<th>Owner</th>
+<td><%= @muni.owner.name %></td>
+</tr>
+</table>
+
+<p>
+<%= link_to "Edit", edit_municipality_path %> | <%= link_to "All", municipalities_path %>

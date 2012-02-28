@@ -1,0 +1,17 @@
+<H3>Welcome to Other Planning for <%=  @muni.name %></H3>
+
+
+<table>
+  <tr>
+    <th>Name</th>
+    <td><%= @muni.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@muni.location) %></td>
+  </tr>
+  <tr>
+    <th>Owner</th>
+    <td><%= @muni.owner.name %></td>
+  </tr>
+</table>

@@ -1,0 +1,14 @@
+<h2>Muni Plan Home View for <%=  @muni.name %></h2>
+
+Database: <%=  @database %><br />
+Slug <%= @slug %>          <br />
+<table>
+  <tr>
+    <th>Name</th>
+    <td><%= @muni.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@muni.location) %></td>
+  </tr>
+</table>

@@ -1,0 +1,19 @@
+class ApplicationController < ActionController::Base
+  protect_from_forgery
+  before_filter :base_database
+
+  def base_database
+      @muni = params[:muni]
+      p request
+      puts "The Master #{MongoMapper.database.inspect}"
+      puts "User Database is #{User.database}"
+      if (!@muni.blank?)
+          # And should check that it is in a database.
+          puts "Setting User Database to #{@muni}"
+          User.set_database(@muni)
+          puts "User Database is #{User.database.inspect}"
+      end
+      puts "The Master #{MongoMapper.database.inspect}"
+  end
+
+end

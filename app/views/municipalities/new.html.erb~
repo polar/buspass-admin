@@ -1,0 +1,13 @@
+<h2>New Municipality</h2>
+
+<%= form_for(@muni) do |f| %>
+  <%= f.error_messages! %>
+
+  <div><%= f.label :name, "Name" %><br />
+  <%= f.text_field :name %></div>
+
+  <div><%= f.label :location, "Location (Lon,Lat)" %><br />
+  <%= f.text_field :location %></div>
+
+  <div><%= f.submit "Submit" %></div>
+<% end %>

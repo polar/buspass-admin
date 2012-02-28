@@ -1,0 +1,12 @@
+class Municipality
+  include MongoMapper::Document
+
+  key :name, :type => String, :required => true
+  key :slug, :type => String, :unique => true
+
+  before_validation :make_slug
+
+  def make_slug
+      slug = name.to_url()
+  end
+end

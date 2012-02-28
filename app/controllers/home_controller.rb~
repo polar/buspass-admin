@@ -1,0 +1,7 @@
+class HomeController < ApplicationController
+    helper :all
+  def index
+      puts request.path
+    @users = User.all
+  end
+end

@@ -1,10 +1,35 @@
 Rails3MongoidDevise::Application.routes.draw do
-  #get \"users\/show\"
+  root :to => "municipalities#index"
+  mount CantangoEditor::Engine => "/cantango_editor"
 
-  root :to => "home#index"
+  devise_for :admins, :controllers => {
+      :registrations => "mydevise/registrations",
+      :sessions => "mydevise/sessions" }
 
-  devise_for :users
-  resources :users, :only => :show
+  resources :admins
+  resources :municipalities
+
+  scope ":muni" do
+      devise_for :muni_admins, :controllers => {
+          :registrations => "muni/mydevise/registrations",
+          :sessions => "muni/mydevise/sessions" }
+
+      resources :muni_admins, :controller => "muni/muni_admins"
+  end
+
+  scope ":muni" do
+      root :to => "muni/home#show"
+      resource :home, :controller => "muni/home", :only => [:edit, :show, :update]
+      scope "plan" do
+          resource :home,  :controller => "muni/plan/home", :only => [:edit, :show, :update], :as => "plan_home"
+      end
+      scope "ops" do
+          resource :home, :controller => "muni/ops/home", :only => [:edit, :show, :update], :as => "ops_home"
+      end
+      scope "cust" do
+          resource :home, :controller => "muni/ops/home", :only => [:edit, :show, :update], :as => "cust_home"
+      end
+  end
 
 
   # The priority is based upon order of creation:

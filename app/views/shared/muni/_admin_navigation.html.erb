@@ -1,0 +1,21 @@
+<% if muni_admin_signed_in? %>
+    <li>
+      Logged in as <%= current_muni_admin.name %>
+    </li>
+  <li>
+  <%= link_to('Logout', destroy_muni_admin_session_path, :method=>'delete') %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_muni_admin_session_path)  %>
+  </li>
+<% end %>
+<% if muni_admin_signed_in? %>
+  <li>
+  <%= link_to('Edit account', edit_muni_admin_registration_path) %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Sign up', new_muni_admin_registration_path)  %>
+  </li>
+<% end %>

@@ -1,0 +1,10 @@
+CanTango.config do |config|
+  config.engines.all :on
+  # more configuration here...
+
+  config.engine(:cache).set :off
+  config.debug.set :on
+  config.users.register :muni_admin, MuniAdmin
+  config.users.register :muni_user, MuniUser
+  config.users.register :admin, Admin
+end

@@ -1,0 +1,2 @@
+module Muni::HomeHelper
+end

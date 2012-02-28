@@ -1,0 +1,9 @@
+<h3>Municipalities</h3>
+<% if current_user %>
+  <p><%= "Welcome #{current_admin.name}" %></p>
+<% end %>
+<% @munis.each do |muni| %>
+  <p>Municipality: <%= link_to muni.name, :controller => :municipalities, :action => :show, :id => muni %></p>
+<% end %>
+
+<%= link_to "New", new_municipality_path %>

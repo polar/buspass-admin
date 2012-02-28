@@ -1,0 +1,29 @@
+class AdminPermit < CanTango::UserPermit
+  def initialize ability
+    super
+  end
+
+  protected
+
+  def dynamic_rules
+    can(:manage, Municipality) do |muni|
+        puts "WHAT IS GOING ON HERE?"
+        muni.owner === user
+    end
+  end
+
+  def permit_rules
+    # insert your can, cannot and any other rule statements here
+     # use any licenses here
+  end
+
+  module Cached
+    def permit_rules
+    end
+  end
+
+  module NonCached
+    def permit_rules
+    end
+  end
+end
