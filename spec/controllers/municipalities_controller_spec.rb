@@ -61,32 +61,65 @@ describe MunicipalitiesController do
                          :password => "123345678", :password_confirmation => "123345678")
       @admin2.save!
 
-      @muni = Municipality.new(:name => "T1", :location => [0.0,0.0])
-      @muni.owner = @admin1
-      @muni.save!
+      @muni1 = Municipality.new(:name => "T1", :location => [0.0,0.0])
+      @muni1.owner = @admin1
+      @muni1.save!
 
+      @muni2 = Municipality.new(:name => "T2", :location => [0.0,0.0])
+      @muni2.owner = @admin2
+      @muni2.save!
+
+    end
+
+    it "should allow index" do
+      get "index"
+      response.should be_success
+      assert_not_nil assigns[:munis]
+      assert assigns[:munis].length == 2
+      assert assigns[:munis].include?(@muni1)
+      assert assigns[:munis].include?(@muni2)
+    end
+
+    it "should allow admin index for read" do
+      sign_in :admin, @admin1
+      get "index", :purpose => "read"
+      response.should be_success
+      assert_not_nil assigns[:munis]
+      assert assigns[:munis].length == 2, "length is incorrect"
+      assert assigns[:munis].include?(@muni1)
+      assert assigns[:munis].include?(@muni2)
+    end
+
+    it "should allow admin limited index for edit" do
+      sign_in :admin, @admin1
+      get "index", :purpose => "edit"
+      response.should be_success
+      assert_not_nil assigns[:munis]
+      assert assigns[:munis].length == 1, "length is incorrect"
+      assert assigns[:munis].include?(@muni1)
+      assert !assigns[:munis].include?(@muni2)
     end
 
     it "should allow edit" do
       sign_in :admin, @admin1
-      get "edit", :id => @muni
+      get "edit", :id => @muni1
       response.should be_success
     end
 
     it "wrong admin should deny edit" do
       sign_in :admin, @admin2
-      lambda { get "edit", :id => @muni }.should raise_error
+      lambda { get "edit", :id => @muni1 }.should raise_error
     end
 
     it "should accept user"   do
       sign_in :admin, @admin1
-      put "update", :id => @muni, :municipality => {:name => "T2", :location => "-76.0,43.3"}
-      response.should redirect_to(municipality_path(@muni))
+      put "update", :id => @muni1, :municipality => {:name => "T2", :location => "-76.0,43.3"}
+      response.should redirect_to(municipality_path(@muni1))
     end
 
     it "wrong admin should deny update" do
       sign_in :admin, @admin2
-      lambda { get "update", :id => @muni }.should raise_error
+      lambda { get "update", :id => @muni1 }.should raise_error
     end
   end
 end
