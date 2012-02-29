@@ -1,4 +1,4 @@
-class Muni::OperatorRolePermit < CanTango::RolePermit
+class Muni::MuniAdminPermit < CanTango::UserPermit
   def initialize(ability)
     super
   end
@@ -6,9 +6,7 @@ class Muni::OperatorRolePermit < CanTango::RolePermit
   protected
 
   def permit_rules
-    # insert your can, cannot and any other rule statements here
-    
-     # use any licenses here
+    can(:read, Network)
   end
 
   module Cached

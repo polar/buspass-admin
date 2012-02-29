@@ -1,0 +1,23 @@
+<h2>Networks</h2>
+<p>Welcome Planner <%= current_muni_admin.name %></p>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Mode</th>
+    <th>Route Definitions</th>
+    <th>Service Definitions</th>
+    <th>Total Journeys</th>
+  </tr>
+  <% for n in @networks do %>
+    <tr>
+      <td><%= n.name %></td>
+      <td><%= n.description %></td>
+      <td><%= n.mode %></td>
+      <td><%= n.route_count %></td>
+      <td><%= n.service_count %></td>
+      <td><%= n.vehicle_journey_count %></td>
+    </tr>
+  <% end %>
+</table>

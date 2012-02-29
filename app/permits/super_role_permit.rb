@@ -1,4 +1,4 @@
-class Muni::SuperRolePermit < CanTango::RolePermit
+class SuperRolePermit < CanTango::RolePermit
     def initialize(ability)
         super
     end
@@ -6,9 +6,7 @@ class Muni::SuperRolePermit < CanTango::RolePermit
   protected
 
   def permit_rules
-    # insert your can, cannot and any other rule statements here
-    
-     # use any licenses here
+    cannot(:read, Network)
   end
 
   module Cached

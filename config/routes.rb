@@ -7,6 +7,7 @@ Rails3MongoidDevise::Application.routes.draw do
       :sessions => "mydevise/sessions" }
 
   resources :admins
+
   resources :municipalities
 
   scope ":muni" do
@@ -21,7 +22,8 @@ Rails3MongoidDevise::Application.routes.draw do
       root :to => "muni/home#show"
       resource :home, :controller => "muni/home", :only => [:edit, :show, :update]
       scope "plan" do
-          resource :home,  :controller => "muni/plan/home", :only => [:edit, :show, :update], :as => "plan_home"
+        resource :home,  :controller => "muni/plan/home", :only => [:edit, :show, :update], :as => "plan_home"
+        resources :networks,  :controller => "muni/plan/networks", :as => "plan_networks"
       end
       scope "ops" do
           resource :home, :controller => "muni/ops/home", :only => [:edit, :show, :update], :as => "ops_home"

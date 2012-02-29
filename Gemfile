@@ -6,6 +6,8 @@ group :assets do
   gem 'uglifier', '>= 1.2.3'
 end
 gem 'jquery-rails'
+gem 'hpricot'
+gem "fastercsv"
 gem "rspec-rails", ">= 2.8.1", :group => [:development, :test]
 gem "database_cleaner", ">= 0.7.1", :group => :test
 gem "factory_girl_rails", ">= 1.6.0", :group => :test

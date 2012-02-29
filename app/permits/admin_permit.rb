@@ -14,6 +14,7 @@ class AdminPermit < CanTango::UserPermit
   def permit_rules
       can(:create, Municipality)
       can(:read, Municipality)
+      can(:read, Network)
   end
 
   module Cached
