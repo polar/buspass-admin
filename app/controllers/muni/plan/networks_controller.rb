@@ -3,6 +3,7 @@ class Muni::Plan::NetworksController < Muni::ApplicationController
   before_filter :authenticate_muni_admin!
 
   def authorize!(action, obj)
+    p self.methods
     p current_user_ability(:muni_admin)
     # Looks like muni_admin_can?  is not generated.
     raise CanCan::AccessDenied if current_user_ability(:muni_admin).cannot?(action, obj)

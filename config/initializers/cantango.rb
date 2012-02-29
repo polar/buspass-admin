@@ -6,6 +6,8 @@ CanTango.config do |config|
     engine.mode = :no_cache
   end
   config.debug.set :on
+  #config.models.exclude :admin, :muni_admin
+  #config.enable_helpers :rest
   config.users.register :muni_admin, MuniAdmin
   config.users.register :admin, Admin
     #config.guest.user = Guest.new

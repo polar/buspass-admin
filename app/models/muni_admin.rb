@@ -1,4 +1,4 @@
-class Muni::MuniAdmin
+class MuniAdmin
     include MongoMapper::Document
 
    # tango_user
