@@ -1,10 +1,14 @@
-Rails3MongoidDevise::Application.routes.draw do
+BuspassAdmin::Application.routes.draw do
+
   root :to => "municipalities#index"
+
   mount CantangoEditor::Engine => "/cantango_editor"
 
-  devise_for :admins, :controllers => {
-      :registrations => "mydevise/registrations",
-      :sessions => "mydevise/sessions" }
+  devise_for :admins,
+             :controllers => {
+                 :registrations => "mydevise/registrations",
+                 :sessions      => "mydevise/sessions"
+             }
 
   resources :admins
 
@@ -15,22 +19,48 @@ Rails3MongoidDevise::Application.routes.draw do
           :registrations => "muni/mydevise/registrations",
           :sessions => "muni/mydevise/sessions" }
 
-      resources :muni_admins, :controller => "muni/eatme123
-muni_admins"
+      resources :muni_admins, :controller => "muni/muni_admins"
   end
 
   scope ":muni" do
       root :to => "muni/home#show"
-      resource :home, :controller => "muni/home", :only => [:edit, :show, :update]
+
+      resource :home,
+               :controller => "muni/home",
+               :only => [:edit, :show, :update]
+
       scope "plan" do
-        resource :home,  :controller => "muni/plan/home", :only => [:edit, :show, :update], :as => "plan_home"
-        resources :networks,  :controller => "muni/plan/networks", :as => "plan_networks"
+        resource :home,
+                 :controller => "muni/plan/home",
+                 :only => [:edit, :show, :update],
+                 :as => "plan_home"
+
+        resources :networks,
+                  :controller => "muni/plan/networks",
+                  :as => "plan_networks"
+
+        resources :networkplan,
+                  :controller => "muni/plan/networkplan",
+                  :as => "plan_networkplan",
+                  :except => [:index] do
+          member do
+            get :display
+          end
+        end
       end
+
       scope "ops" do
-          resource :home, :controller => "muni/ops/home", :only => [:edit, :show, :update], :as => "ops_home"
+          resource :home,
+                   :controller => "muni/ops/home",
+                   :only => [:edit, :show, :update],
+                   :as => "ops_home"
       end
+
       scope "cust" do
-          resource :home, :controller => "muni/ops/home", :only => [:edit, :show, :update], :as => "cust_home"
+          resource :home,
+                   :controller => "muni/ops/home",
+                   :only => [:edit, :show, :update],
+                   :as => "cust_home"
       end
   end
 

@@ -15,7 +15,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Rails3MongoidDevise
+module BuspassAdmin
   class Application < Rails::Application
 
     # don't generate RSpec tests for views and helpers
