@@ -8,6 +8,7 @@ class GuestPermit < CanTango::UserPermit
   def permit_rules
     # insert your can, cannot and any other rule statements here
     can :read, Municipality
+    can :read, Network
      # use any licenses here
   end
 

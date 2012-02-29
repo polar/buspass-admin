@@ -12,7 +12,7 @@
   </tr>
   <% for n in @networks do %>
     <tr>
-      <td><%= n.name %></td>
+      <td><%= link_to n.name, plan_network_path(n, :muni => @muni.slug) %></td>
       <td><%= n.description %></td>
       <td><%= n.mode %></td>
       <td><%= n.route_count %></td>
@@ -21,3 +21,5 @@
     </tr>
   <% end %>
 </table>
+
+<%=  link_to "New Network", new_plan_network_path(:muni => @muni.slug) %>

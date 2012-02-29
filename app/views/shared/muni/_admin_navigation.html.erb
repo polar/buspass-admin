@@ -1,6 +1,7 @@
 <% if muni_admin_signed_in? %>
     <li>
-      Logged in as <%= current_muni_admin.name %>
+      Logged in as <%= current_muni_admin.name %><
+      <p><%=  current_muni_admin.inspect %></p>
     </li>
   <li>
   <%= link_to('Logout', destroy_muni_admin_session_path, :method=>'delete') %>

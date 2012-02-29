@@ -1,0 +1,13 @@
+<h2>Creating a New Network</h2>
+
+<%= form_for @network, :url => plan_networks_path(:muni => @muni.slug), :method => "post" do |f| %>
+    <%= render "shared/muni/error_messages", :target => @network %>
+    <p>
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :description, "Description" %>
+      <%= f.text_field :description %>
+    </p>
+<% end %>

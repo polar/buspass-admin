@@ -6,7 +6,7 @@ class SuperRolePermit < CanTango::RolePermit
   protected
 
   def permit_rules
-    cannot(:read, Network)
+    can(:read, Network)
   end
 
   module Cached

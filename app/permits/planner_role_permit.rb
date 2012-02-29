@@ -6,7 +6,7 @@ class PlannerRolePermit < CanTango::RolePermit
   protected
 
   def permit_rules
-    can(:read, Network)
+    can([:read, :edit, :create], Network)
   end
 
   module Cached

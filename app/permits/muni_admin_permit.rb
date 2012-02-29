@@ -1,4 +1,4 @@
-class Muni::MuniAdminPermit < CanTango::UserPermit
+class MuniAdminPermit < CanTango::UserPermit
   def initialize(ability)
     super
   end

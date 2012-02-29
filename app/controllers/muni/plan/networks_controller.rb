@@ -32,6 +32,19 @@ class Muni::Plan::NetworksController < Muni::ApplicationController
   def create
     authorize!(:create, Network)
     @network = Network.new(params[:network])
+    @network.mode = :planning
+    error = !@network.save
+    respond_to do |format|
+      format.html {
+        if error
+          flash[:error] = "cannot create network"
+          render :new
+        else
+          flash[:notice] = "Network #{@network.name} has been created"
+          redirect_to(plan_network_path(@network, :muni => @muni.slug))
+        end
+      }
+    end
   end
 
   def update

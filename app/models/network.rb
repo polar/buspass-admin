@@ -1,7 +1,7 @@
 class Network
   include MongoMapper::Document
 
-  key :name,        String
+  key :name,        String, :unique => true
   key :description, String
   key :mode,        String # :planning, :testing, :retired, :active
 

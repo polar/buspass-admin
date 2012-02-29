@@ -15,7 +15,8 @@ Rails3MongoidDevise::Application.routes.draw do
           :registrations => "muni/mydevise/registrations",
           :sessions => "muni/mydevise/sessions" }
 
-      resources :muni_admins, :controller => "muni_admins"
+      resources :muni_admins, :controller => "muni/eatme123
+muni_admins"
   end
 
   scope ":muni" do
