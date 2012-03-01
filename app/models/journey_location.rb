@@ -14,6 +14,8 @@ class JourneyLocation
   validates_presence_of :service
   validates_presence_of :route
 
+  attr_accessible :route, :service, :vehicle_journey
+
   before_save  :cache_fields
 
   def cache_fields

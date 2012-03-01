@@ -39,12 +39,29 @@ BuspassAdmin::Application.routes.draw do
                   :controller => "muni/plan/networks",
                   :as => "plan_networks"
 
-        resources :networkplan,
-                  :controller => "muni/plan/networkplan",
-                  :as => "plan_networkplan",
-                  :except => [:index] do
-          member do
-            get :display
+        scope ":network" do
+          resource :networkplan,
+                    :controller => "muni/plan/networkplan",
+                    :as => "plan_networkplan",
+                    :except => [:index] do
+            member do
+              get :display
+              get :upload
+            end
+          end
+
+          resources :routes,
+                    :controller => "muni/plan/routes",
+                    :as => "plan_routes"
+
+          resources :services,
+                    :controller => "muni/plan/services",
+                    :as => "plan_services"
+
+          scope ":route" do
+            resources :services,
+                      :controller => "muni/plan/routeservices",
+                      :as => "plan_routeservices"
           end
         end
       end

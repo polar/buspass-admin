@@ -6,8 +6,9 @@ class Service
   include MongoMapper::Document
 
   belongs_to :route
+  belongs_to :network
 
-  key :name,         String
+  key :name,         String, :unique => true
 
   key :operating_period_start_date, Date
   key :operating_period_end_date,   Date
@@ -25,7 +26,14 @@ class Service
 
   timestamps!
 
-  attr_accessible :name, :route, :operating_period_end_date, :operating_period_start_date, :direction, :day_class
+  def self.create_indexes
+    self.ensure_index(:network_id)
+    self.ensure_index(:route_id)
+    self.ensure_index(:name, :unique => true)
+  end
+
+  attr_accessible :name, :route, :operating_period_end_date, :operating_period_start_date, :direction, :day_class,
+                  :network_id, :route_id
 
   before_validation :day_class_sync
 
@@ -38,10 +46,10 @@ class Service
   # are their timing links.
   #
   #many :journey_patterns, :dependent => :destroy
-  #many :vehicle_journeys
+  many :vehicle_journeys
 
   def journey_patterns
-    (vehicle_journeys.map {|s| s.journey_patterns}).reduce([]) {|v,x| v + x}
+    vehicle_journeys.map {|s| s.journey_pattern}
   end
 
   def network
@@ -56,15 +64,17 @@ class Service
   #
   validates_uniqueness_of :name, :scope => :network
 
-  def self.find_or_create_by_route(route_number, direction, designator, start_date, end_date)
+  def self.find_or_create_by_route(network, route_number, direction, designator, start_date, end_date)
     sd = start_date.strftime("%Y-%m-%d")
     ed = end_date.strftime("%Y-%m-%d")
-    s = self.find_or_initialize_by_name( "Route #{route_number} #{designator} Service #{direction} #{sd} to #{ed}" )
+    name = "Route #{route_number} #{designator} Service #{direction} #{sd} to #{ed}"
+    s = Service.first(:network_id => network.id, :name => name)
+    s ||= Service.new(:network_id => network.id, :name => name)
     s.operating_period_start_date = start_date
     s.operating_period_end_date = end_date
     s.setOperatingDays(designator)
     s.direction = direction
-    s.route = Route.find_by_code(route_number)
+    s.route = Route.first(:network_id => network.id, :code => route_number)
     s.save!
     return s
   end
@@ -127,10 +137,7 @@ class Service
   def get_journey_pattern(time, index)
     # We nake the name unique with the start time
     name = "Route #{route.code} #{direction} #{day_class} S #{self.name}-#{index} #{time.strftime("%H:%M")}"
-    jp = JourneyPattern.find_or_initialize_by_name(
-        :name => name,
-        :route => route,
-        :service => self)
+    jp = JourneyPattern.new(:name => name)
     return jp
   end
 

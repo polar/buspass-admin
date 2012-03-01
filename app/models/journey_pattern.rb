@@ -12,11 +12,20 @@ class JourneyPattern
 
   key :name, String
 
+  key :nw_lat, Float
+  key :nw_lon, Float
+  key :se_lat, Float
+  key :se_lon, Float
+
+  key :version_cache, Integer
+
   # journey_pattern_timing_links is an ordered list
   many :journey_pattern_timing_links
 
   key :coordinates_cache, Array
   #serialize :coordinates_cache
+
+  timestamps!
 
   def route
     vehicle_journey.route
@@ -44,6 +53,9 @@ class JourneyPattern
   end
 
   def get_version
+    if updated_at == nil
+      return Time.now.to_i
+    end
     date = updated_at
     for jptl in journey_pattern_timing_links do
       date = date > jptl.updated_at ? date : jptl.updated_at
@@ -72,13 +84,13 @@ class JourneyPattern
       location = jptl.from.location
       if DIST_FUDGE < getGeoDistance(last_to_location.coordinates["LonLat"],location.coordinates["LonLat"])
         str = "#{last_jptl.position}.to:#{last_to_location.inspect} != #{jptl.position}.from:#{location.inspect}"
-        raise "Inconsitent Locations, from '#{last_jptl.name} to '#{jptl.name}'\n#{str}"
+        raise "Inconsistent Locations, from '#{last_jptl.name} to '#{jptl.name}'\n#{str}"
       end
       coord = jptl.view_path_coordinates["LonLat"].first
       if DIST_FUDGE < getGeoDistance(coord,last_coord)
         path1str = "#{last_jptl.from.location.coordinates["LonLat"].inspect} - #{last_jptl.view_path_coordinates["LonLat"].inspect} - #{last_jptl.to.location.coordinates["LonLat"].inspect}"
         path2str = "#{jptl.from.location.coordinates["LonLat"].inspect} - #{jptl.view_path_coordinates["LonLat"].inspect} - #{jptl.to.location.coordinates["LonLat"].inspect}"
-        raise "Inconsitent Path, from '#{last_jptl.name} to '#{jptl.name}'\n#{path1str}\n#{path2str}"
+        raise "Inconsistent Path, from '#{last_jptl.name} to '#{jptl.name}'\n#{path1str}\n#{path2str}"
       end
       last_coord = jptl.view_path_coordinates["LonLat"].last
       last_jptl = jptl
@@ -87,26 +99,12 @@ class JourneyPattern
     return true
   end
 
-  def get_vehicle_journey(departure_time)
-    dtimelit = departure_time.strftime("%H:%M")
-    # We use the name of the Journey Pattern for the Vehicle Journey
-    # Right now we have a 1-1 relationship.
-    # This gets the minutes after midnight.
-    # TODO: Must work on scheme for minutes before midnight, threshold?
-    dtime = (Time.parse(dtimelit)-Time.parse("0:00"))/60
-    self.vehicle_journey =
-        VehicleJourney.find_or_initialize_by_name(
-            :name => name,
-            :departure_time => dtime,
-            :persistentid => name.hash.abs,
-            :service_id => self.service)
-    return self.vehicle_journey
-  end
 
   # Names the JPTL with an index into this JourneyPattern.
   def get_journey_pattern_timing_link(position)
     name = "#{self.name} #{position}"
-    jptl = JourneyPatternTimingLink.find_or_initialize_by_name(
+    jptl = journey_pattern_timing_links.find(:name => name)
+    jptl ||= JourneyPatternTimingLink.new(
         :name => name,
         :position => position)
     return jptl

@@ -22,5 +22,9 @@ gem 'devise-mongo_mapper',
 # Stringex is for String.to_url
 gem 'stringex'
 gem 'cantango'
+gem "carrierwave"
+gem "mm-carrierwave"
+gem "libarchive"  # requires apt-get install libarchive-dev
+gem "rubyzip"
 gem 'cantango_editor', :git => "git://github.com/stanislaw/cantango_editor.git"
 

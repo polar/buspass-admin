@@ -5,9 +5,7 @@ class StopPoint
   include MongoMapper::EmbeddedDocument
 
   key :common_name, String
-  one :location, Location
+  key :location, Location
 
-  validates_presence_of   :common_name
-  validates_presence_of   :location
-
+  attr_accessible :common_name, :location
 end

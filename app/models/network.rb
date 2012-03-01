@@ -1,9 +1,12 @@
+require "carrierwave/orm/mongomapper"
+
 class Network
   include MongoMapper::Document
 
-  key :name,        String, :unique => true
+  key :name,        String #, :unique => true
   key :description, String
   key :mode,        String # :planning, :testing, :retired, :active
+  key :file,        String
 
   belongs_to  :municipality
 
@@ -11,7 +14,13 @@ class Network
 
   timestamps!
 
-  attr_accessible :name, :mode, :municipality, :routes
+  def self.create_indexes
+    self.ensure_index(:name, :unique => true)
+  end
+
+  attr_accessible :name, :mode, :municipality, :routes, :file
+
+  mount_uploader :file, NetworkFileUploader
 
   def route_count
     routes.count

@@ -1,7 +1,8 @@
+
+require "csv"
+require "open-uri"
+require "hpricot"
 class ServiceTable
-  require "fastercsv"
-  require "open-uri"
-  require "hpricot"
 
   def self.designator
     {
@@ -80,36 +81,103 @@ class ServiceTable
     end
   end
 
-  def self.generateJPTLs(table_file, jtpl_file)
-    tab = FasterCSV.read(table_file)
+  def self.get_vehicle_journey(network, service, journey_pattern, departure_time)
+    dtimelit = departure_time.strftime("%H:%M")
+    # We use the name of the Service for the Vehicle Journey + the time.
+    # Right now we have a 1-1 relationship.
+    name = "#{service.name} #{dtimelit}"
+    name = "#{service.route.code} #{dtimelit}"
+    # This gets the minutes after midnight.
+    # TODO: Must work on scheme for minutes before midnight, threshold?
+    dtime = (Time.parse(dtimelit)-Time.parse("0:00"))/60
+    vehicle_journey =
+        VehicleJourney.find_or_initialize_by_name(
+            :network_id => network.id,
+            :name => name,
+            :departure_time => dtime,
+            :persistentid => name.hash.abs,  # TODO: We may want to put Network in here.
+            :service_id => service.id,
+            :journey_pattern_id => journey_pattern.id)
+    return vehicle_journey
+  end
 
-    direction  = tab[0][1]
-    start_date = Time.parse(tab[1][1])
-    end_date   = Time.parse(tab[2][1])
 
-    out = FasterCSV.open(jtpl_file, "w", :force_quotes => true)
+  def self.generateJPTLs(network, table_file, jtpl_file)
+    tab = CSV.read(table_file)
 
-    # We do not reuse stop points and locations.
-    stop_point_names     = tab[3].drop(3)
-    stop_point_locations = tab[4].drop(3)
+    out = CSV.open(jtpl_file, "w", :force_quotes => true)
 
-    # We index the journeys, which makes us a presistent
+    # We index the journeys, which makes us a persistent
     # name for the JourneyPattern and its JPTLs
     journey_index = 0
 
+    stop_points_changed = false
+    locations_changed = false
+    direction_changed = false
+    start_date_changed = false
+    end_date_changed = false
+
     #
-    # Starting on the 6th row
+    # Starting reading
     #
-    for cols in tab.drop(5)
+    for cols in tab
+      if cols[0] == "Direction"
+        direction = cols[0]
+        direction_changed = true
+        next
+      end
+      if cols[0] == "Start Date"
+        start_date = Date.strptime(cols[1], "%m/%d/%Y").to_time
+        start_date_changed = true
+        next
+      end
+      if cols[0] == "End Date"
+        end_date = Date.strptime(cols[1], "%m/%d/%Y").to_time
+        end_date_changed = true
+        next
+      end
+      if cols[0] == "Route Name"
+        route_number = cols[1]
+        route = Route.find_or_create_by_number(network, route_number)
+        route.display_name = cols[2]
+        route.save!
+        next
+      end
+      if cols[0] == "Stop Points"
+        # We do not reuse stop points and locations.
+        stop_point_names    = cols.drop(3)
+        stop_points_changed = true
+        next
+      end
+      if cols[0] == "Locations"
+        # We do not reuse stop points and locations.
+        stop_point_locations  = cols.drop(3)
+        locations_changed = true
+        next
+      end
+      if stop_points_changed != locations_changed
+        raise "cannot continue with this file; inconsistent stop points and locations."
+      elsif stop_points_changed
+        stop_points_changed = locations_changed = false
+      end
+      # We can individually change these at any time, but we need them all.
+      if !start_date_changed && !end_date_changed && !direction_changed
+        raise "cannot continue with this file; needs start date, end date, and direction."
+      end
+      if stop_point_names == nil || stop_point_locations == nil
+        raise "cannot continue with this file, no stop points or no locations"
+      end
+
+      # Otherwise, we start reading JPTLs
       route_number = cols[0]
       day_class = getDesignator(cols[1])
       display_name = cols[2]
 
       # Route is persistent by the number
-      route = Route.find_or_create_by_number(route_number)
+      route = Route.find_or_create_by_number(network, route_number)
 
       # Service is persistent by all of the following arguments.
-      service = Service.find_or_create_by_route(route.code,
+      service = Service.find_or_create_by_route(network, route.code,
                                                 direction, day_class, start_date, end_date)
 
       # position is the order of the JPTL in the JourneyPattern
@@ -131,26 +199,27 @@ class ServiceTable
       i = 0
       while i < stop_point_names.size-1
         stop_name = stop_point_names[i]
-        # We only do someting if there is a time in the column
+        # We only do something if there is a time in the column
         if times[i] != nil && !times[i].strip.empty?
           if start_time == nil
-            # This is the begining point. The first time found.
+            # This is the beginning point. The first time found.
             current_time = parseTime(times[i])
             start_time = current_time
 
-            # There is a VehcileJourney and a JourneyPattern
+            # There is a VehicleJourney and a JourneyPattern
             # for each line associated with this service.
             journey_index += 1
 
-            # Both the JourneyPattern and VehcileJourney are persistent
+            # Both the JourneyPattern and VehicleJourney are persistent
             # by their constructed names.
             journey_pattern = service.get_journey_pattern(start_time, journey_index)
-            vehicle_journey = journey_pattern.get_vehicle_journey(start_time)
+            vehicle_journey = get_vehicle_journey(network, service, journey_pattern, start_time)
 
             # The JourneyPattern is persistent, and so are its JPTLs.
             # So we are replacing any previous JPTLs and regenerating them
             # in case we modified the stop points.
-            journey_pattern.journey_pattern_timing_links.destroy_all
+            #journey_pattern.journey_pattern_timing_links.destroy_all
+            journey_pattern.journey_pattern_timing_links = []
 
             # Our starting StopPoint
             latlonliteral = "[#{stop_point_locations[i]}]"
@@ -183,7 +252,8 @@ class ServiceTable
             # Add and output to "fix it" file.
             journey_pattern.journey_pattern_timing_links << jptl
             # Put this out in the file that will get the URIs updated.
-            out << [journey_pattern.name,
+            out << [service.name,
+                    journey_pattern.name,
                     position,
                     jptl.from.common_name,
                     jptl.to.common_name,
@@ -215,91 +285,85 @@ class ServiceTable
     out.close
   end
 
-  def self.updateJPTLs(jptl_file)
-    tab = FasterCSV.read(jptl_file)
+  def self.updateJPTLs(network, jptl_file)
+    tab = CSV.read(jptl_file)
     puts "Potentially updating #{tab.count} JPTL links"
     for row in tab do
-      journey_pattern = JourneyPattern.find_by_name(row[0])
-      if journey_pattern != nil
-        jptl= journey_pattern.journey_pattern_timing_links[row[1].to_i]
-        if jptl.google_uri != row[4]
-          puts "Updating #{jptl.name} #{jptl.from.common_name} -> #{jptl.to.common_name}"
-          jptl.google_uri = row[4]
-          # Could also be a <kml> document from Google Earth
-          vpc = GoogleUriViewPath.getViewPathCoordinates(jptl.google_uri)
-          if vpc != nil
-            jptl.view_path_coordinates = vpc
+      service = Service.find(:network_id => network.id, :name => row[0])
+      if (service != nil)
+        vechicle_journey = service.vehicle_journeys.find(:name => row[1])
+        if vehicle_journey != nil
+          journey_pattern = vehicle_journey.journey_pattern
+          if journey_pattern != nil
+            jptl= journey_pattern.journey_pattern_timing_links[row[2].to_i]
+            if jptl.google_uri != row[5]
+              puts "Updating #{jptl.name} #{jptl.from.common_name} -> #{jptl.to.common_name}"
+              jptl.google_uri = row[5]
+              # Could also be a <kml> document from Google Earth
+              vpc             = GoogleUriViewPath.getViewPathCoordinates(jptl.google_uri)
+              if vpc != nil
+                jptl.view_path_coordinates = vpc
+              end
+              jptl.save!
+            end
+          else
+            puts "Cannot find JP for #{row[0]} #{row[1]} #{row[2]}"
           end
-          jptl.save!
         end
-      else
-        puts "Cannot find JP for #{row[0]}"
       end
     end
     return nil
   end
-
-  def self.readRouteNames(file)
-    tab = FasterCSV.read(file)
-    for row in tab do
-      route_number = row[0]
-      route = Route.find_or_create_by_number(route_number)
-      route.display_name = row[1]
-      route.save!
-    end
-  end
-
-  def self.createRoute(routedir)
-    self.readRouteNames("#{routedir}/RouteNames.csv")
+  def self.createRoute(network, routedir)
     if File.exists? "#{routedir}/Inbound-1.csv"
-      self.generateJPTLs("#{routedir}/Inbound-1.csv", "#{routedir}/JPTL-Inbound.csv")
+      self.generateJPTLs(network, "#{routedir}/Inbound-1.csv", "#{routedir}/JPTL-Inbound.csv")
     end
     if File.exists? "#{routedir}/Outbound-1.csv"
-      self.generateJPTLs("#{routedir}/Outbound-1.csv", "#{routedir}/JPTL-Outbound.csv")
+      self.generateJPTLs(network, "#{routedir}/Outbound-1.csv", "#{routedir}/JPTL-Outbound.csv")
     end
   end
 
-  def self.fixRoute(routedir)
+  def self.fixRoute(network, routedir)
     if File.exists? "#{routedir}/JPTL-Inbound-fixed.csv"
-      self.updateJPTLs("#{routedir}/JPTL-Inbound-fixed.csv");
+      self.updateJPTLs(network, "#{routedir}/JPTL-Inbound-fixed.csv");
     end
     if File.exists? "#{routedir}/JPTL-Outbound-fixed.csv"
-      self.updateJPTLs("#{routedir}/JPTL-Outbound-fixed.csv");
+      self.updateJPTLs(network, "#{routedir}/JPTL-Outbound-fixed.csv");
     end
   end
 
   # For a route that will need to be rebuilt, but is already fixed.
-  def self.rebuildRoute(routedir)
-    self.createRoute(routedir)
-    self.fixRoute(routedir)
+  def self.rebuildRoute(network, routedir)
+    self.createRoute(network, routedir)
+    self.fixRoute(network, routedir)
   end
 
-  def self.rebuildRoutes(routes_dir)
+  def self.rebuildRoutes(network, routes_dir)
     puts "Rebuilding Routes in #{routes_dir}"
     ::Dir.foreach(routes_dir) do |routedir|
       if (routedir =~ /^Route_.*/)
         path = ::File.expand_path(routedir, routes_dir)
-        self.rebuildRoute(path)
+        self.rebuildRoute(network, path)
       end
     end
   end
 
-  def self.createRoutes(routes_dir)
+  def self.createRoutes(network, routes_dir)
     puts "Rebuilding Routes in #{routes_dir}"
     ::Dir.foreach(routes_dir) do |routedir|
       if (routedir =~ /^Route_.*/)
         path = ::File.expand_path(routedir, routes_dir)
-        self.createRoute(path)
+        self.createRoute(network, path)
       end
     end
   end
 
-  def self.fixRoutes(routes_dir)
+  def self.fixRoutes(network, routes_dir)
     puts "Rebuilding Routes in #{routes_dir}"
     ::Dir.foreach(routes_dir) do |routedir|
       if (routedir =~ /^Route_.*/)
         path = ::File.expand_path(routedir, routes_dir)
-        self.fixRoute(path)
+        self.fixRoute(network, path)
       end
     end
   end
@@ -316,15 +380,15 @@ class ServiceTable
   end
 
   def self.doR(num)
-    self.rebuildRoute(rd("Route_#{num}"));
+    self.rebuildRoute(network, rd("Route_#{num}"));
   end
 
   def self.createR(num)
-    self.createRoute(rd("Route_#{num}"));
+    self.createRoute(network, rd("Route_#{num}"));
   end
 
   def self.fixR(num)
-    self.fixRoute(rd("Route_#{num}"));
+    self.fixRoute(network, rd("Route_#{num}"));
   end
 
   def self.doall
@@ -340,6 +404,6 @@ class ServiceTable
   end
 
   def self.cRs
-    createRoutes(routedir)
+    createRoutes(network, routedir)
   end
 end

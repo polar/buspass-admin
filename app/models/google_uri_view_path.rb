@@ -5,13 +5,19 @@ class GoogleUriViewPath
   require "hpricot"
   require "faster_csv"
 
-  key :uri, String
+  key :uri, String, :unique => true
 
-  key :view_path_coordinates, Hash
+  ensure_index :uri, :unique => true
+
+  key :view_path_coordinates, Hash, :default => nil
 
   attr_accessible :uri, :view_path_coordinates
 
   timestamps!
+
+  def self.create_indexes
+    self.ensure_index(:uri, :unique => true)
+  end
 
   def self.find_or_create(uri)
     GoogleUriViewPath.find_by_uri(uri) ||  GoogleUriViewPath.new(:uri => uri)
@@ -20,7 +26,7 @@ class GoogleUriViewPath
   def self.getViewPathCoordinates(uri)
     if uri.start_with?("http:")
       cache = GoogleUriViewPath.find_or_create(uri)
-      if cache.view_path_coordinates == nil
+      if cache.view_path_coordinates == nil || cache.view_path_coordinates == {}
         doc = open("#{uri}&output=kml") {|f| Hpricot(f) }
         x = doc.at("geometrycollection/linestring/coordinates").inner_html.split(",0.000000 ").map {|x| eval "[#{x}]" }
         ans = { "LonLat" => x }

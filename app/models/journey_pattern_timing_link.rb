@@ -1,5 +1,5 @@
 class JourneyPatternTimingLink
-  include MongoMapper;:EmbeddedDocument
+  include MongoMapper::EmbeddedDocument
   include LocationBoxing
 
   embedded_in :journey_pattern
@@ -7,10 +7,19 @@ class JourneyPatternTimingLink
   key :name, String
   key :to,   StopPoint
   key :from, StopPoint
+  key :time, Integer
+  key :google_uri, String
 
-  key :view_path_coordinates, Hash
+  key :nw_lat, Float
+  key :nw_lon, Float
+  key :se_lat, Float
+  key :se_lon, Float
 
-  after_initialize  :init_view_path_coordinates
+  key :position, Integer
+
+  key :view_path_coordinates, Hash, :default => { "LonLat" => [[0.0,0.0],[0.0,0.0]] }
+
+  timestamps!
 
   # We have unique names so that we can readably identify them
   #validates_uniqueness_of :name

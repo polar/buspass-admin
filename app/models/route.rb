@@ -17,6 +17,13 @@ class Route
 
   timestamps!
 
+  attr_accessible :name, :code, :network, :description,:display_name, :persistentid
+
+  def self.create_indexes
+    self.ensure_index(:network_id)
+    self.ensure_index(:name, :unique => true)
+  end
+
   #
   # Route has many JourneyPatterns by way of its Services.
   # The Service will destroy the JourneyPatterns.
@@ -80,9 +87,9 @@ class Route
     self.all.select {|r| r.locatedBy(location)}
   end
 
-  def self.find_or_create_by_number(route_number)
-    r = self.find_or_create_by_name("Route #{route_number}")
-    r.code = route_number
+  def self.find_or_create_by_number(network, route_number)
+    r = Route.first(:network_id => network.id, :code => route_number)
+    r ||= Route.new(:network_id => network.id, :code => route_number, :name => "Route #{route_number}")
     r.persistentid = r.name.hash.abs
     r.save!
     return r

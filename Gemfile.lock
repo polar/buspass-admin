@@ -66,6 +66,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    carrierwave (0.5.8)
+      activesupport (~> 3.0)
     childprocess (0.3.1)
       ffi (~> 1.0.6)
     coffee-rails (3.2.2)
@@ -116,11 +118,15 @@ GEM
     json_pure (1.6.5)
     launchy (2.0.5)
       addressable (~> 2.2.6)
+    libarchive (0.1.2)
     mail (2.4.1)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.17.2)
+    mm-carrierwave (0.0.2)
+      carrierwave (~> 0.5)
+      mongo_mapper (~> 0.9)
     mongo (1.5.2)
       bson (= 1.5.2)
     mongo_mapper (0.11.0)
@@ -215,6 +221,7 @@ DEPENDENCIES
   cantango
   cantango_editor!
   capybara (>= 1.1.2)
+  carrierwave
   coffee-rails (~> 3.2.2)
   cucumber-rails (>= 1.2.1)
   database_cleaner (>= 0.7.1)
@@ -225,9 +232,12 @@ DEPENDENCIES
   hpricot
   jquery-rails
   launchy (>= 2.0.5)
+  libarchive
+  mm-carrierwave
   mongo_mapper
   rails (= 3.2.1)
   rspec-rails (>= 2.8.1)
+  rubyzip
   sass-rails (~> 3.2.4)
   stringex
   uglifier (>= 1.2.3)

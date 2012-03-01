@@ -1,0 +1,20 @@
+<h2>Network <%= @network.name %></h2>
+<h2>Services</h2>
+<table>
+  <tr>
+    <th>Route</th>
+    <th>Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>VehicleJourney Count</th>
+  </tr>
+  <% for s in @services do %>
+      <tr>
+        <td><%=  s.route.name  %></td>
+        <td><%=  s.name  %></td>
+        <td><%=  s.operating_start_date %></td>
+        <td><%=  s.operating_end_date %></td>
+        <td><%=  s.vehicle_journies.count %></td>
+      </tr>
+  <% end %>
+</table>
