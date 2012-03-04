@@ -1,8 +1,13 @@
-require "zip/zip"
+require "zipruby"
+require "fileutils"
 require "carrierwave"
 require 'carrierwave/uploader/proxy'
 require 'carrierwave/orm/mongomapper'
 
+##
+# This class represents a serrializable object that gets passed to
+# Delayed Job.
+#
 class CompileServiceTableJob < Struct.new(:database, :network)
 
   def logger
@@ -24,16 +29,16 @@ class CompileServiceTableJob < Struct.new(:database, :network)
     # with its id. We need to retrieve it from the DB.
     net = Network.find(network.id)
 
+    if !net.file_path || !File.exists?(net.file_path)
+      net.processing_errors << "Failed to get zip file"
+      raise "No file.: #{net.inspect} DB==#{MongoMapper.database.name}"
+    end
+
     # Start processing anew
     net.processing_started_at = Time.now
     net.processing_errors = []
     net.processing_log = []
     net.save
-
-    if !net.file_path || !File.exists?(net.file_path)
-      net.processing_errors << "Failed to get zip file"
-      raise "No file.: #{net.inspect} DB==#{MongoMapper.database.name}"
-    end
 
     dir = Dir.mktmpdir()
 
@@ -51,9 +56,21 @@ class CompileServiceTableJob < Struct.new(:database, :network)
     say "Begin rebuild"
     ServiceTable.processDirectory(net, dir)
     say "End Rebuild"
+
+    begin
+      say "Creating Zip file #{net.file_path}"
+      zip(net, net.file_path, dir)
+      say "Created Zip file #{net.file_path}"
+      say "Removing Tmp Dir #{dir}"
+     # FileUtils.rm_rf(dir)
+    rescue Exception => boom2
+      say "Bad zip"
+      net.processing_errors << "Failed to zip resultant directory #{dir}"
+      raise "Zip #{boom2}"
+    end
+
   ensure
     say "Ending Job"
-    #raise "network #{net} id #{id} DB=#{MongoMapper.database.name} #{Network.find(id).file} #{Network.find(id).processing_lock}" if net == nil
     net.processing_lock = nil
     net.processing_completed_at = Time.now
     net.save
@@ -62,14 +79,35 @@ class CompileServiceTableJob < Struct.new(:database, :network)
   private
 
   def unzip(zip, unzip_dir, remove_after = false)
-    Zip::ZipFile.open(zip) do |zip_file|
+    Zip::Archive.open(zip) do |zip_file|
       zip_file.each do |f|
-        f_path=File.join(unzip_dir, f.name)
-        FileUtils.mkdir_p(File.dirname(f_path))
-        zip_file.extract(f, f_path) # unless File.exist?(f_path)
+        f_path = File.join(unzip_dir, f.name)
+        if f.directory?
+          FileUtils.mkdir_p(File.dirname(f_path))
+        else
+          FileUtils.mkdir_p(File.dirname(f_path))
+          File.open(f_path, "wb") do |w|
+            w << f.read
+          end
+        end
       end
     end
     FileUtils.rm(zip) if remove_after
+  end
+
+  def zip(network, zip, dir)
+    say "ZIP IT #{dir}"
+    Zip::Archive.open(zip, Zip::CREATE | Zip::TRUNC) do |zip_file|
+      Dir.glob("#{dir}/**/*").each do |path|
+        zpath = path.sub(/^#{dir}/, network.name)
+        say "zipping #{zpath} <- #{path}"
+        if File.directory?(path)
+          zip_file.add_dir(zpath)
+        else
+          zip_file.add_file(zpath, path)
+        end
+      end
+    end
   end
 
 end

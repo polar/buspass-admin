@@ -336,7 +336,11 @@ class ServiceTable
         #vehicle_journey.save!
       end
     end
-    out.close()
+    if out != nil
+      progress.log("Finished creating JPTLs in #{File.join(jptl_dir,"JPTL-#{service.name}.csv")}")
+      out.close()
+      out = nil
+    end
 
     progress.progress(0, file_line, line_count)
     progress.log("Finished Processing #{table_file}.")

@@ -36,8 +36,13 @@
                                                @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
                                                "" %></div></td>
       </tr>
+      <tr  id="processing_statusC2" style='display: <%= @network.processing_lock ? 'none': ''%>'>
+        <th>Process Result File</th>
+        <td><div id="process_file"><%= @network.file_path ?
+                                      link_to("Download", file_plan_networkplan_path(:muni  => @muni.slug, :network => @network)): "" %></div></td>
+      </tr>
     </table>
-    <div id="processing_statusC2" style='display: <%= @network.processing_lock ? 'none': ''%>'>
+    <div id="processing_statusC3" style='display: <%= @network.processing_lock ? 'none': ''%>'>
     <p>
       <%= link_to "Upload New Definition", upload_plan_networkplan_path(:muni => @muni.slug, :network => @network) %>
     </p>
@@ -68,7 +73,12 @@
                           $('#processing_statusP').hide();
                           $('#processing_statusC1').show();
                           $('#processing_statusC2').show();
+                          $('#processing_statusC3').show();
                           polling = false;
+                      }
+                      if (data['process_file']) {
+                          $('#process_file').html("<a href='"+data['process_file']+"'>Download</a>");
+
                       }
                       if (data['services_count']) {
                           $('#services_count').html(""+data['services_count']);
