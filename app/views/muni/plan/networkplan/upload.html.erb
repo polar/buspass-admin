@@ -6,9 +6,9 @@
              :url => plan_networkplan_path(:network => @network, :muni => @muni.slug),
              :html => {:multipart => true} do |f| %>
   <p>
-    <%= f.label :file, "File" %>
-    <%= f.file_field :file %>
-    <%= f.hidden_field :file_cache %>
+    <%= f.label :upload_file, "Zip File" %>
+    <%= f.file_field :upload_file %>
+    <%= f.hidden_field :upload_file_cache %>
   </p>
   <p><%=  f.submit %></p>
 <% end %>

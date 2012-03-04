@@ -2,6 +2,9 @@ class Muni::Plan::ApplicationController < ActionController::Base
     protect_from_forgery
     before_filter :base_database
 
+    # This is the Plan Controller, it must have an authenticated administrator.
+    before_filter :authenticate_muni_admin!
+
     layout "muni/application"
 
     def base_database
@@ -21,6 +24,13 @@ class Muni::Plan::ApplicationController < ActionController::Base
         if @muni.slug != @slug
             raise "Municipality Routing Mismatch"
         end
+    end
+
+    def authorize!(action, obj)
+      p self.methods
+      p current_user_ability(:muni_admin)
+      # Looks like muni_admin_can?  is not generated.
+      raise CanCan::AccessDenied if current_user_ability(:muni_admin).cannot?(action, obj)
     end
 
 end

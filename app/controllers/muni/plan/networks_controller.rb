@@ -1,14 +1,5 @@
 class Muni::Plan::NetworksController < Muni::ApplicationController
 
-  before_filter :authenticate_muni_admin!
-
-  def authorize!(action, obj)
-    p self.methods
-    p current_user_ability(:muni_admin)
-    # Looks like muni_admin_can?  is not generated.
-    raise CanCan::AccessDenied if current_user_ability(:muni_admin).cannot?(action, obj)
-  end
-  
   def index
     authorize!(:read, Network)
     @networks = Network.all
@@ -22,17 +13,22 @@ class Muni::Plan::NetworksController < Muni::ApplicationController
   def new
     authorize!(:create, Network)
     @network = Network.new
+    @network = municipality = @muni
   end
 
   def edit
     authorize!(:edit, Network)
     @network = Network.find(params[:id])
+    if @network.municipality != @muni
+      raise "Wrong Municipality"
+    end
   end
 
   def create
     authorize!(:create, Network)
     @network = Network.new(params[:network])
     @network.mode = :planning
+    @network.municipality = @muni
     error = !@network.save
     respond_to do |format|
       format.html {
@@ -50,10 +46,18 @@ class Muni::Plan::NetworksController < Muni::ApplicationController
   def update
     @network = Network.find(params[:id])
     authorize!(:edit, @network)
+    if @network.municipality != @muni
+      raise "Wrong Municipality"
+    end
   end
 
   def destroy
     @network = Network.find(params[:id])
     authorize!(:delete, @network)
+    if @network.municipality != @muni
+      raise "Wrong Municipality"
+    end
+    # TODO: Delete files, Services, Routes, VehicleJourneys, JourneyLocations, ReportedJourneyLocations
+    @network.destroy
   end
 end

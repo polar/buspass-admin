@@ -1,8 +1,34 @@
 <h2>Planning Network <%= @network.name %></h2>
 Welcome <%= current_muni_admin.name %>
-<p>
-  <%= link_to "Upload Definition", upload_plan_networkplan_path(:muni => @muni.slug, :network => @network) %>
-</p>
+
+<table>
+  <tr>
+    <th>Services</th>
+    <td><%= @network.services.count %></td>
+  </tr>
+  <tr>
+    <th>Routes</th>
+    <td><%=  @network.routes.count %></td>
+  </tr>
+  <tr>
+    <th>VehicleJourneys</th>
+    <td><%=  @network.vehicle_journeys.count %></td>
+  </tr>
+</table>
+
+<% if @network.processing_lock %>
+    <table>
+      <tr>
+        <th>Processor</th>
+        <td><%=  @network.processing_lock.name %></td>
+      </tr>
+      <tr>
+        <th>Progress</th>
+        <td><%= (@network.processing_progress * 100).floor %></td>
+      </tr>
+    </table>
+<% end %>
+
 <P>
   <%= link_to "All", plan_networks_path(:muni => @muni.slug) %>
 </P>

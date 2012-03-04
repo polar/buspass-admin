@@ -4,6 +4,34 @@ require "open-uri"
 require "hpricot"
 class ServiceTable
 
+  class Progress < Struct.new(:network)
+    def error(s)
+      network.errors << s
+    end
+
+    def log(s)
+      network.processing_log << s
+    end
+
+    def initialize(*args)
+      super(*args)
+      @prog = []
+    end
+
+    def progress(level,i,n)
+      percent = 0
+      @prog[level] = i/n
+      while 0 < (level -= 1)
+        @prog[level] = 0
+      end
+      network.processing_progress = @prog.reduce(0) { |t,v| (t + v*10)/10 }
+    end
+
+    def commit
+      network.save
+    end
+  end
+
   def self.designator
     {
         "W" => "Weekday",
@@ -102,10 +130,17 @@ class ServiceTable
   end
 
 
-  def self.generateJPTLs(network, table_file, jtpl_file)
+  def self.generateJPTLs(network, table_file, jptl_dir, progress)
     tab = CSV.read(table_file)
+    out = nil
 
-    out = CSV.open(jtpl_file, "w", :force_quotes => true)
+    # Collects Errors for reporting.
+    line_count = tab.size
+    file_line = 0
+
+    progress.log("Processing #{table_file}. lines #{line_count} to #{jptl_dir}")
+    progress.progress(0, 0, line_count)
+    progress.commit()
 
     # We index the journeys, which makes us a persistent
     # name for the JourneyPattern and its JPTLs
@@ -121,9 +156,18 @@ class ServiceTable
     # Starting reading
     #
     for cols in tab
+      file_line += 1
+      progress.progress(0, file_line, line_count)
+
       if cols[0] == "Direction"
-        direction = cols[0]
+        if out != nil
+          progress.log("Finished creating JPTLs in #{File.join(jptl_dir,"JPTL-#{service.name}.csv")}")
+          out.close()
+          out = nil
+        end
+        direction = cols[1]
         direction_changed = true
+        progress.commit()
         next
       end
       if cols[0] == "Start Date"
@@ -156,15 +200,18 @@ class ServiceTable
         next
       end
       if stop_points_changed != locations_changed
+        progress.error "#{table_file}:#{file_line}:Processing after a 'Stop Points' or 'Locations' line was encountered without a corresponding one. Processing of file stopped."
         raise "cannot continue with this file; inconsistent stop points and locations."
       elsif stop_points_changed
         stop_points_changed = locations_changed = false
       end
       # We can individually change these at any time, but we need them all.
       if !start_date_changed && !end_date_changed && !direction_changed
+        progress.error "#{table_file}:#{file_line}:Need to have all 'Start Date', 'End Date', and 'Direction' lines before processing routes. Processing of file stopped."
         raise "cannot continue with this file; needs start date, end date, and direction."
       end
       if stop_point_names == nil || stop_point_locations == nil
+        progress.error "#{table_file}:#{file_line}:Need to have 'Stop Points' or 'Locations' lines. Processing of file stopped."
         raise "cannot continue with this file, no stop points or no locations"
       end
 
@@ -180,6 +227,12 @@ class ServiceTable
       service = Service.find_or_create_by_route(network, route.code,
                                                 direction, day_class, start_date, end_date)
 
+      if out == nil
+        progress.log("Creating JPTLs in #{File.join(jptl_dir,"JPTL-#{service.name}.csv")}")
+        out = CSV.open(File.join(jptl_dir,"JPTL-#{service.name}.csv"), "w", :force_quotes => true)
+        progress.commit()
+      end
+
       # position is the order of the JPTL in the JourneyPattern
       position = 0
       last_stop = nil
@@ -189,8 +242,9 @@ class ServiceTable
       # Times start on Column D
       times = cols.drop(3)
 
-      puts "Service #{service.name}"
-      puts "#{times.inspect}"
+      progress.log("Service #{service.name}")
+      progress.log("#{times.inspect}")
+      progress.commit()
 
       # The last column of the stop_point_names
       # *should be* NOTE and is and end marker
@@ -212,7 +266,7 @@ class ServiceTable
 
             # Both the JourneyPattern and VehicleJourney are persistent
             # by their constructed names.
-            journey_pattern = service.get_journey_pattern(start_time, journey_index)
+            journey_pattern = service.get_journey_pattern(start_time, journey_index, table_file, file_line)
             vehicle_journey = get_vehicle_journey(network, service, journey_pattern, start_time)
 
             # The JourneyPattern is persistent, and so are its JPTLs.
@@ -282,22 +336,32 @@ class ServiceTable
         #vehicle_journey.save!
       end
     end
-    out.close
+    out.close()
+
+    progress.progress(0, file_line, line_count)
+    progress.log("Finished Processing #{table_file}.")
+    progress.commit()
+
   end
 
-  def self.updateJPTLs(network, jptl_file)
+  # @param network [Network]
+  # @param jptl_file [File]
+  # @param progress [Progress]
+  def self.updateJPTLs(network, jptl_file, progress)
     tab = CSV.read(jptl_file)
-    puts "Potentially updating #{tab.count} JPTL links"
+    progress.log("Potentially updating #{tab.count} JPTL links")
+    progress.commit()
+
     for row in tab do
       service = Service.find(:network_id => network.id, :name => row[0])
       if (service != nil)
-        vechicle_journey = service.vehicle_journeys.find(:name => row[1])
+        vehicle_journey = service.vehicle_journeys.find(:name => row[1])
         if vehicle_journey != nil
           journey_pattern = vehicle_journey.journey_pattern
           if journey_pattern != nil
             jptl= journey_pattern.journey_pattern_timing_links[row[2].to_i]
             if jptl.google_uri != row[5]
-              puts "Updating #{jptl.name} #{jptl.from.common_name} -> #{jptl.to.common_name}"
+              progress.log("Updating #{jptl.name} #{jptl.from.common_name} -> #{jptl.to.common_name}")
               jptl.google_uri = row[5]
               # Could also be a <kml> document from Google Earth
               vpc             = GoogleUriViewPath.getViewPathCoordinates(jptl.google_uri)
@@ -307,13 +371,15 @@ class ServiceTable
               jptl.save!
             end
           else
-            puts "Cannot find JP for #{row[0]} #{row[1]} #{row[2]}"
+            progress.log("Cannot find JP for #{row[0]} #{row[1]} #{row[2]}")
           end
+          progress.commit()
         end
       end
     end
     return nil
   end
+
   def self.createRoute(network, routedir)
     if File.exists? "#{routedir}/Inbound-1.csv"
       self.generateJPTLs(network, "#{routedir}/Inbound-1.csv", "#{routedir}/JPTL-Inbound.csv")
@@ -345,6 +411,47 @@ class ServiceTable
         path = ::File.expand_path(routedir, routes_dir)
         self.rebuildRoute(network, path)
       end
+    end
+  end
+
+  def self.dir_structure(dir)
+    def self.doit(s, file)
+      puts file
+      if !(file =~/^\./)
+        path = ::File.expand_path(File.join(s[:dir], file))
+        if File.directory?(path)
+          p Dir.entries(path)
+          depth = s[:depth]
+          dir = s[:dir]
+          s[:depth] += 1
+          s[:maxdepth] = [depth+1,s[:maxdepth]].max
+          s[:files][ s[:depth] ] ||= []
+          s[:dir] = path
+          s =  Dir.entries(path).reduce(s) { |s,file| doit(s, file) }
+          s[:depth] = depth
+          s[:dir] = dir
+          return s
+        end
+        if !(file =~ /^JPTL-/) && (file =~/\.csv$/)
+          s[:files][ s[:depth] ] << path
+          return s
+        end
+      end
+      return s
+    end
+    doit({:depth => -1, :maxdepth => 0, :files => [], :dir => "/"}, File.expand_path(dir))
+  end
+
+  def self.processDirectory(network, dir)
+    progress = Progress.new(network)
+    progress.log("Processing Directory #{dir}")
+
+    s = self.dir_structure(dir)
+    # Ah, we'll just process them flat.
+    nfiles = s[:files].flatten()
+    progress.log("Directory Levels #{s[:depth]+1} consisting of #{nfiles.count} files")
+    nfiles.each do |f|
+      self.generateJPTLs(network, f, File.dirname(f), progress)
     end
   end
 

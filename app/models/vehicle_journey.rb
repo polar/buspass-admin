@@ -7,7 +7,7 @@ class VehicleJourney
 
   key :name,        String
   key :description, String
-  key :departure_time, Integer # in minutes before midnight
+  key :departure_time, Integer # in minutes from midnight
   key :display_name, String
   key :persistentid, String
 

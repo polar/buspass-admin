@@ -89,7 +89,7 @@ class Route
 
   def self.find_or_create_by_number(network, route_number)
     r = Route.first(:network_id => network.id, :code => route_number)
-    r ||= Route.new(:network_id => network.id, :code => route_number, :name => "Route #{route_number}")
+    r ||= Route.new(:network => network, :code => route_number, :name => "Route #{route_number}")
     r.persistentid = r.name.hash.abs
     r.save!
     return r

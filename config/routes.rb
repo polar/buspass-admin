@@ -47,6 +47,7 @@ BuspassAdmin::Application.routes.draw do
             member do
               get :display
               get :upload
+              get :partial_status
             end
           end
 

@@ -26,5 +26,8 @@ gem "carrierwave"
 gem "mm-carrierwave"
 gem "libarchive"  # requires apt-get install libarchive-dev
 gem "rubyzip"
+gem "delayed_job"
+gem "delayed_job_mongo_mapper", :git => "git://github.com/polar/delayed_job_mongo_mapper.git"
+gem "daemons"
 gem 'cantango_editor', :git => "git://github.com/stanislaw/cantango_editor.git"
 

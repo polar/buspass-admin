@@ -25,7 +25,13 @@ class JourneyPattern
   key :coordinates_cache, Array
   #serialize :coordinates_cache
 
+  # Source line from CSV file
+  key :csv_file,        String
+  key :csv_file_lineno, Integer
+
   timestamps!
+
+  attr_accessible :name, :csv_file, :csv_file_lineno
 
   def route
     vehicle_journey.route

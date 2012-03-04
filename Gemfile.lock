@@ -6,6 +6,14 @@ GIT
       devise
 
 GIT
+  remote: git://github.com/polar/delayed_job_mongo_mapper.git
+  revision: 046509cd31f7e97840fa930485f84337add36925
+  specs:
+    delayed_job_mongo_mapper (1.0.1)
+      delayed_job (~> 3.0.1)
+      mongo_mapper (~> 0.11.0)
+
+GIT
   remote: git://github.com/stanislaw/cantango_editor.git
   revision: caa455fe1dd6c51244ceec8148b86a93cd0e635b
   specs:
@@ -46,11 +54,11 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.7)
-    arel (3.0.1)
+    arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bson (1.5.2)
-    bson_ext (1.5.2)
-      bson (= 1.5.2)
+    bson (1.6.0)
+    bson_ext (1.6.0)
+      bson (= 1.6.0)
     builder (3.0.0)
     cancan (1.6.7)
     cantango (0.9.4.7)
@@ -77,17 +85,20 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
-    cucumber (1.1.8)
+    cucumber (1.1.9)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
-      gherkin (~> 2.8.0)
+      gherkin (~> 2.9.0)
       json (>= 1.4.6)
       term-ansicolor (>= 1.0.6)
     cucumber-rails (1.3.0)
       capybara (>= 1.1.2)
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
+    daemons (1.1.8)
     database_cleaner (0.7.1)
+    delayed_job (3.0.1)
+      activesupport (~> 3.0)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -104,18 +115,17 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.4)
     ffi (1.0.11)
-    gherkin (2.8.0)
+    gherkin (2.9.0)
       json (>= 1.4.6)
     hashie (1.2.0)
     hike (1.2.1)
-    hpricot (0.8.4)
+    hpricot (0.8.6)
     i18n (0.6.0)
-    journey (1.0.2)
-    jquery-rails (2.0.0)
-      railties (>= 3.2.0.beta, < 5.0)
+    journey (1.0.3)
+    jquery-rails (2.0.1)
+      railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
     json (1.6.5)
-    json_pure (1.6.5)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     libarchive (0.1.2)
@@ -127,8 +137,8 @@ GEM
     mm-carrierwave (0.0.2)
       carrierwave (~> 0.5)
       mongo_mapper (~> 0.9)
-    mongo (1.5.2)
-      bson (= 1.5.2)
+    mongo (1.6.0)
+      bson (= 1.6.0)
     mongo_mapper (0.11.0)
       activemodel (~> 3.0)
       activesupport (~> 3.0)
@@ -183,10 +193,10 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.13.0)
-      childprocess (>= 0.2.1)
-      ffi (~> 1.0.9)
-      json_pure
+    selenium-webdriver (2.20.0)
+      childprocess (>= 0.2.5)
+      ffi (~> 1.0)
+      multi_json (~> 1.0)
       rubyzip
     sprockets (2.1.2)
       hike (~> 1.2)
@@ -224,7 +234,10 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 3.2.2)
   cucumber-rails (>= 1.2.1)
+  daemons
   database_cleaner (>= 0.7.1)
+  delayed_job
+  delayed_job_mongo_mapper!
   devise (>= 2.0.0)
   devise-mongo_mapper!
   factory_girl_rails (>= 1.6.0)

@@ -9,7 +9,6 @@ class Service
   belongs_to :network
 
   key :name,         String, :unique => true
-
   key :operating_period_start_date, Date
   key :operating_period_end_date,   Date
 
@@ -46,7 +45,7 @@ class Service
   # are their timing links.
   #
   #many :journey_patterns, :dependent => :destroy
-  many :vehicle_journeys
+  many :vehicle_journeys, :dependent => :destroy
 
   def journey_patterns
     vehicle_journeys.map {|s| s.journey_pattern}
@@ -132,13 +131,23 @@ class Service
     read_attribute(today) && operating_period_start_date <= date && date <= operating_period_end_date
   end
 
+  ##
   # We create a JourneyPattern with a readable name for route, day_class, and direction.
   # The given index should make the name unique.
-  def get_journey_pattern(time, index)
-    # We nake the name unique with the start time
+  #
+  # @param time [Time]
+  # @param index [Integer]
+  # @param csv_file [File]
+  # @param csv_file_lineno [Integer]
+  #
+  # @returns [JourneyPattern] new and unsaved
+  #
+  def get_journey_pattern(time, index, csv_file, csv_file_lineno)
+    # We make the name unique with the start time and index
     name = "Route #{route.code} #{direction} #{day_class} S #{self.name}-#{index} #{time.strftime("%H:%M")}"
-    jp = JourneyPattern.new(:name => name)
-    return jp
+    JourneyPattern.new(:name            => name,
+                       :csv_file        => csv_file,
+                       :csv_file_lineno => csv_file_lineno)
   end
 
   #--------------------------------------------------------------------------------------
