@@ -24,18 +24,21 @@ class GoogleUriViewPath
   end
 
   def self.getViewPathCoordinates(uri)
+    #puts ("looking for #{uri}")
     if uri.start_with?("http:")
       cache = GoogleUriViewPath.find_or_create(uri)
       if cache.view_path_coordinates == nil || cache.view_path_coordinates == {}
+        #puts "no cache item, getting from Internet"
         doc = open("#{uri}&output=kml") {|f| Hpricot(f) }
         x = doc.at("geometrycollection/linestring/coordinates").inner_html.split(",0.000000 ").map {|x| eval "[#{x}]" }
         ans = { "LonLat" => x }
         cache.view_path_coordinates = ans
         cache.save!
+        #puts "got it"
       else
         ans = cache.view_path_coordinates
       end
-      #     puts "URI = #{ans.inspect}"
+           #puts "URI = #{ans.inspect}"
       return ans
     else
       # KML
@@ -49,7 +52,7 @@ class GoogleUriViewPath
     ts = []
     FasterCSV.read(file, :headers => true).each do |opts|
       t = GoogleUriViewPath.find_or_create(opts["uri"])
-      puts "Found #{GoogleUriViewPath.class_name} at #{t.id} #{t.uri}"
+      #puts "Found #{GoogleUriViewPath.class_name} at #{t.id} #{t.uri}"
       t.uri = opts["uri"]
       s =  YAML::load(opts["coordinates"])
       if (s.is_a? Hash)

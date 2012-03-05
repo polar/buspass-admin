@@ -20,7 +20,7 @@ class JourneyPattern
   key :version_cache, Integer
 
   # journey_pattern_timing_links is an ordered list
-  many :journey_pattern_timing_links
+  many :journey_pattern_timing_links, :autosave => false
 
   key :coordinates_cache, Array
   #serialize :coordinates_cache

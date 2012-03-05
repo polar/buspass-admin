@@ -2,15 +2,15 @@
 <H2>Routes</H2>
 <table>
   <tr>
-    <th>Name</th>
     <th>Code</th>
+    <th>Name</th>
     <th>Description</th>
     <th>Service Count</th>
   </tr>
   <% for r in @routes do %>
     <tr>
-      <td><%=  r.name  %></td>
       <td><%=  r.code %></td>
+      <td><%=  r.name  %></td>
       <td><%=  r.description %></td>
       <td><%=  r.services.count %></td>
     </tr>

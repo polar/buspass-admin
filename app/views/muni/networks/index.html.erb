@@ -1,5 +1,4 @@
 <h2>Networks</h2>
-<p>Welcome Planner <%= current_muni_admin.name %></p>
 
 <table>
   <tr>
@@ -9,6 +8,7 @@
     <th>Route Definitions</th>
     <th>Service Definitions</th>
     <th>Total Journeys</th>
+    <th>Navigation</th>
   </tr>
   <% for n in @networks do %>
     <tr>
@@ -18,6 +18,8 @@
       <td><%= n.route_count %></td>
       <td><%= n.service_count %></td>
       <td><%= n.vehicle_journey_count %></td>
+      <td><%= link_to "Explore", plan_network_path(n, :muni => @muni.slug) %>
+          <%= link_to "Plan", plan_networkplan_path(n, :muni => @muni.slug) %></td>
     </tr>
   <% end %>
 </table>

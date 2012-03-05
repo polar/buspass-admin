@@ -25,11 +25,9 @@ class Service
 
   timestamps!
 
-  def self.create_indexes
-    self.ensure_index(:network_id)
-    self.ensure_index(:route_id)
-    self.ensure_index(:name, :unique => true)
-  end
+  ensure_index(:network)
+  ensure_index(:route)
+  ensure_index(:name, :unique => true)
 
   attr_accessible :name, :route, :operating_period_end_date, :operating_period_start_date, :direction, :day_class,
                   :network_id, :route_id
@@ -40,12 +38,31 @@ class Service
     self.setOperatingDays(day_class)
   end
 
+  def bv
+    #puts "Service before validation .."
+    @valid_start = Time.now
+  end
+  def aval
+    #puts "Service after validation #{Time.now - @valid_start}"
+  end
+  before_validation :bv
+  after_validation :aval
+  def bs
+    #puts "Service before save"
+    @save_start = Time.now
+  end
+  def asave
+    #puts "Service after save #{Time.now - @save_start}"
+  end
+
+  before_save :bs
+  after_save :asave
   #
   # Currently, journey patterns are not shared, and neither
   # are their timing links.
   #
   #many :journey_patterns, :dependent => :destroy
-  many :vehicle_journeys, :dependent => :destroy
+  many :vehicle_journeys, :dependent => :destroy, :autosave => false
 
   def journey_patterns
     vehicle_journeys.map {|s| s.journey_pattern}
@@ -66,15 +83,19 @@ class Service
   def self.find_or_create_by_route(network, route_number, direction, designator, start_date, end_date)
     sd = start_date.strftime("%Y-%m-%d")
     ed = end_date.strftime("%Y-%m-%d")
-    name = "Route #{route_number} #{designator} Service #{direction} #{sd} to #{ed}"
+    name = "Route #{route_number} #{designator} #{direction} #{sd} to #{ed}"
+    #puts "Service query"
     s = Service.first(:network_id => network.id, :name => name)
+    #puts s ? "Found" : "creating......"
     s ||= Service.new(:network_id => network.id, :name => name)
     s.operating_period_start_date = start_date
     s.operating_period_end_date = end_date
     s.setOperatingDays(designator)
     s.direction = direction
     s.route = Route.first(:network_id => network.id, :code => route_number)
+    #puts "Service saving...."
     s.save!
+    #puts "Service Done"
     return s
   end
 

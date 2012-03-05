@@ -6,7 +6,7 @@ class ServiceTable
 
   class Progress < Struct.new(:network)
     def error(s)
-      network.errors << s
+      network.processing_errors << s
     end
 
     def log(s)
@@ -16,15 +16,29 @@ class ServiceTable
     def initialize(*args)
       super(*args)
       @prog = []
+      @totals = [1.0]
     end
 
-    def progress(level,i,n)
-      percent = 0
-      @prog[level] = i/n
-      while 0 < (level -= 1)
+    def progress(glevel,j,n)
+      level = glevel
+      @totals[level] = n.to_f
+      @prog[level] = j.to_f
+      while 0 <= (level -= 1)
         @prog[level] = 0
+        @totals[level] = 1
       end
-      network.processing_progress = @prog.reduce(0) { |t,v| (t + v*10)/10 }
+      i = 0
+      value = 0.0
+      @totals[@prog.size] = 1.0
+      while i < @prog.size
+        value = (value + ((@prog[i] / @totals[i]) * (1.0 / @totals[i+1])) * @totals[i+1]) / @totals[i+1]
+        i += 1
+      end
+      p [glevel, j, n]
+      p @prog
+      p @totals
+      p value
+      network.processing_progress = value
     end
 
     def commit
@@ -130,16 +144,23 @@ class ServiceTable
   end
 
 
-  def self.generateJPTLs(network, table_file, jptl_dir, progress)
-    tab = CSV.read(table_file)
+  def self.generateJPTLs(network, dir, file, progress)
+    service = nil
+    tab = CSV.read(file)
     out = nil
 
     # Collects Errors for reporting.
     line_count = tab.size
     file_line = 0
 
-    progress.log("Processing #{table_file}. lines #{line_count} to #{jptl_dir}")
-    progress.progress(0, 0, line_count)
+    jptl_dir = File.dirname(file)
+
+    table_file = File.join(jptl_dir.sub(/^#{dir}/, "."), File.basename(file))
+    out_dirname = File.dirname(table_file)
+    jptl_dname = ""
+
+    progress.log("Processing #{table_file} with #{line_count} lines to #{out_dirname}/")
+    progress.progress(0, file_line, line_count)
     progress.commit()
 
     # We index the journeys, which makes us a persistent
@@ -151,17 +172,20 @@ class ServiceTable
     direction_changed = false
     start_date_changed = false
     end_date_changed = false
+    direction = nil
+    start_date = nil
+    end_date = nil
 
     #
     # Starting reading
     #
     for cols in tab
-      file_line += 1
       progress.progress(0, file_line, line_count)
+      file_line += 1
 
       if cols[0] == "Direction"
         if out != nil
-          progress.log("Finished creating JPTLs in #{File.join(jptl_dir,"JPTL-#{service.name}.csv")}")
+          progress.log("Finished creating JPTLs in #{jptl_dname} for Direction #{direction}")
           out.close()
           out = nil
         end
@@ -199,19 +223,36 @@ class ServiceTable
         locations_changed = true
         next
       end
-      if stop_points_changed != locations_changed
-        progress.error "#{table_file}:#{file_line}:Processing after a 'Stop Points' or 'Locations' line was encountered without a corresponding one. Processing of file stopped."
+      if start_date_changed != end_date_changed
+        progress.error "#{table_file}:#{file_line}: Processing after a 'Start Date' or 'End Date' line was encountered without a corresponding one. Processing of file stopped."
         raise "cannot continue with this file; inconsistent stop points and locations."
-      elsif stop_points_changed
-        stop_points_changed = locations_changed = false
+      elsif start_date_changed
+        start_date_changed = end_date_changed = false
+      end
+      if stop_point_names == nil || stop_point_locations == nil || direction == nil
+        progress.error "#{table_file}:#{file_line}: Need to have all 'Stop Points', 'Locations', and 'Direction' lines before processing routes. Processing of file stopped."
+        raise "cannot continue with this file; needs start date, end date, and direction."
+      else
+        # We can individually change these at any time, but we need them all.
+        # (sdc || edc || dc) implies ()sdc && edc && dc)
+        # ()p implies q) === (!p || q)
+        if !(!(stop_points_changed || locations_changed || direction_changed) || (stop_points_changed && locations_changed && direction_changed))
+          progress.error "#{table_file}:#{file_line}: Need to change all 'Stop Points', 'Locations', and 'Direction' lines before processing routes. Processing of file stopped."
+          raise "cannot continue with this file; needs start date, end date, and direction."
+        end
       end
       # We can individually change these at any time, but we need them all.
-      if !start_date_changed && !end_date_changed && !direction_changed
-        progress.error "#{table_file}:#{file_line}:Need to have all 'Start Date', 'End Date', and 'Direction' lines before processing routes. Processing of file stopped."
-        raise "cannot continue with this file; needs start date, end date, and direction."
+      if stop_points_changed && locations_changed && direction_changed
+        stop_points_changed = false
+        locations_changed = false
+        direction_changed = false
       end
-      if stop_point_names == nil || stop_point_locations == nil
-        progress.error "#{table_file}:#{file_line}:Need to have 'Stop Points' or 'Locations' lines. Processing of file stopped."
+      if stop_point_names == nil || stop_point_locations == nil || direction == nil
+        progress.error "#{table_file}:#{file_line}: Need to have 'Stop Points' and 'Locations' lines. Processing of file stopped."
+        raise "cannot continue with this file, no stop points or no locations"
+      end
+      if start_date == nil || end_date == nil
+        progress.error "#{table_file}:#{file_line}: Need to have 'Start Date' and 'End Date' lines. Processing of file stopped."
         raise "cannot continue with this file, no stop points or no locations"
       end
 
@@ -220,16 +261,20 @@ class ServiceTable
       day_class = getDesignator(cols[1])
       display_name = cols[2]
 
+      #puts "Finding Route and Service"
       # Route is persistent by the number
       route = Route.find_or_create_by_number(network, route_number)
 
       # Service is persistent by all of the following arguments.
       service = Service.find_or_create_by_route(network, route.code,
                                                 direction, day_class, start_date, end_date)
-
+      #puts "Done Route and Service"
       if out == nil
-        progress.log("Creating JPTLs in #{File.join(jptl_dir,"JPTL-#{service.name}.csv")}")
-        out = CSV.open(File.join(jptl_dir,"JPTL-#{service.name}.csv"), "w", :force_quotes => true)
+        jptl_name = "JPTL-#{File.basename(table_file)}"
+        jptl_dname = File.join(File.dirname(table_file), jptl_name)
+        fname = File.join(dir, File.join(File.dirname(table_file), jptl_name))
+        progress.log("Creating JPTLs in #{jptl_dname} for Direction #{direction}")
+        out = CSV.open(fname, "w", :force_quotes => true)
         progress.commit()
       end
 
@@ -266,9 +311,12 @@ class ServiceTable
 
             # Both the JourneyPattern and VehicleJourney are persistent
             # by their constructed names.
+            #puts "Getting Journey Pattern and VJ"
+            @jv_lookup = Time.now
             journey_pattern = service.get_journey_pattern(start_time, journey_index, table_file, file_line)
             vehicle_journey = get_vehicle_journey(network, service, journey_pattern, start_time)
 
+            #puts "Done Journey Pattern and VJ  #{Time.now - @jv_lookup}"
             # The JourneyPattern is persistent, and so are its JPTLs.
             # So we are replacing any previous JPTLs and regenerating them
             # in case we modified the stop points.
@@ -304,7 +352,9 @@ class ServiceTable
             jptl.view_path_coordinates = vpc
 
             # Add and output to "fix it" file.
+            #puts "Adding JPTL #{position}"
             journey_pattern.journey_pattern_timing_links << jptl
+            #puts "Done JPTL"
             # Put this out in the file that will get the URIs updated.
             out << [service.name,
                     journey_pattern.name,
@@ -337,7 +387,7 @@ class ServiceTable
       end
     end
     if out != nil
-      progress.log("Finished creating JPTLs in #{File.join(jptl_dir,"JPTL-#{service.name}.csv")}")
+      progress.log("Finished creating JPTLs in #{jptl_dname} for Direction #{direction}.")
       out.close()
       out = nil
     end
@@ -384,51 +434,17 @@ class ServiceTable
     return nil
   end
 
-  def self.createRoute(network, routedir)
-    if File.exists? "#{routedir}/Inbound-1.csv"
-      self.generateJPTLs(network, "#{routedir}/Inbound-1.csv", "#{routedir}/JPTL-Inbound.csv")
-    end
-    if File.exists? "#{routedir}/Outbound-1.csv"
-      self.generateJPTLs(network, "#{routedir}/Outbound-1.csv", "#{routedir}/JPTL-Outbound.csv")
-    end
-  end
-
-  def self.fixRoute(network, routedir)
-    if File.exists? "#{routedir}/JPTL-Inbound-fixed.csv"
-      self.updateJPTLs(network, "#{routedir}/JPTL-Inbound-fixed.csv");
-    end
-    if File.exists? "#{routedir}/JPTL-Outbound-fixed.csv"
-      self.updateJPTLs(network, "#{routedir}/JPTL-Outbound-fixed.csv");
-    end
-  end
-
-  # For a route that will need to be rebuilt, but is already fixed.
-  def self.rebuildRoute(network, routedir)
-    self.createRoute(network, routedir)
-    self.fixRoute(network, routedir)
-  end
-
-  def self.rebuildRoutes(network, routes_dir)
-    puts "Rebuilding Routes in #{routes_dir}"
-    ::Dir.foreach(routes_dir) do |routedir|
-      if (routedir =~ /^Route_.*/)
-        path = ::File.expand_path(routedir, routes_dir)
-        self.rebuildRoute(network, path)
-      end
-    end
-  end
-
   def self.dir_structure(dir)
+    # @param s [Object]
+    # @param file [Object]
     def self.doit(s, file)
-      puts file
-      if !(file =~/^\./)
+      if (File.basename(file) =~ /^\./).nil?
         path = ::File.expand_path(File.join(s[:dir], file))
         if File.directory?(path)
-          p Dir.entries(path)
           depth = s[:depth]
           dir = s[:dir]
           s[:depth] += 1
-          s[:maxdepth] = [depth+1,s[:maxdepth]].max
+          s[:maxdepth] = [depth+1, s[:maxdepth]].max
           s[:files][ s[:depth] ] ||= []
           s[:dir] = path
           s =  Dir.entries(path).reduce(s) { |s,file| doit(s, file) }
@@ -436,7 +452,7 @@ class ServiceTable
           s[:dir] = dir
           return s
         end
-        if !(file =~ /^JPTL-/) && (file =~/\.csv$/)
+        if (File.basename(file) =~ /^JPTL-/).nil? && !(File.basename(file) =~/\.csv$/).nil?
           s[:files][ s[:depth] ] << path
           return s
         end
@@ -452,15 +468,41 @@ class ServiceTable
 
     s = self.dir_structure(dir)
     # Ah, we'll just process them flat.
-    nfiles = s[:files].flatten()
-    progress.log("Directory Levels #{s[:depth]+1} consisting of #{nfiles.count} files")
-    nfiles.each do |f|
-      self.generateJPTLs(network, f, File.dirname(f), progress)
+    files = s[:files].flatten()
+    nfiles = files.size
+    progress.log("Directory Levels #{s[:maxdepth]+1} consisting of #{nfiles} files")
+    ifile = 0
+    files.each do |f|
+      progress.progress(1, ifile, nfiles)
+      ifile += 1
+      begin
+        self.generateJPTLs(network, dir, f, progress)
+      rescue Exception => boom
+        p boom
+        progress.error("#{boom}")
+        progress.commit()
+      end
+    end
+  end
+
+  # For a route that will need to be rebuilt, but is already fixed.
+  def self.rebuildRoute(network, routedir)
+    self.createRoute(network, routedir)
+    self.fixRoute(network, routedir)
+  end
+
+  def self.rebuildRoutes(network, routes_dir)
+    #puts "Rebuilding Routes in #{routes_dir}"
+    ::Dir.foreach(routes_dir) do |routedir|
+      if (routedir =~ /^Route_.*/)
+        path = ::File.expand_path(routedir, routes_dir)
+        self.rebuildRoute(network, path)
+      end
     end
   end
 
   def self.createRoutes(network, routes_dir)
-    puts "Rebuilding Routes in #{routes_dir}"
+    #puts "Rebuilding Routes in #{routes_dir}"
     ::Dir.foreach(routes_dir) do |routedir|
       if (routedir =~ /^Route_.*/)
         path = ::File.expand_path(routedir, routes_dir)
@@ -470,51 +512,12 @@ class ServiceTable
   end
 
   def self.fixRoutes(network, routes_dir)
-    puts "Rebuilding Routes in #{routes_dir}"
+    #puts "Rebuilding Routes in #{routes_dir}"
     ::Dir.foreach(routes_dir) do |routedir|
       if (routedir =~ /^Route_.*/)
         path = ::File.expand_path(routedir, routes_dir)
         self.fixRoute(network, path)
       end
     end
-  end
-
-  ##
-  ## Typing Convenience Functions
-  ##
-  def self.routedir
-    "#{Rails.root}/db/routes/Network_CENTRO-SU"
-  end
-
-  def self.rd(name)
-    "#{routedir}/#{name}"
-  end
-
-  def self.doR(num)
-    self.rebuildRoute(network, rd("Route_#{num}"));
-  end
-
-  def self.createR(num)
-    self.createRoute(network, rd("Route_#{num}"));
-  end
-
-  def self.fixR(num)
-    self.fixRoute(network, rd("Route_#{num}"));
-  end
-
-  def self.doall
-    self.doR 43
-    self.doR 340
-    self.doR 243
-    self.doR 244
-    self.doR 44
-    self.doR 144
-    self.doR 30
-    self.doR 343
-    self.doR "Sadler"
-  end
-
-  def self.cRs
-    createRoutes(network, routedir)
   end
 end

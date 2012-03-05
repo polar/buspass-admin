@@ -16,14 +16,41 @@ class VehicleJourney
   # Embedded
   one :journey_pattern
 
+  ensure_index(:name)
+
   # We only make the name unique so that we may update them by
   # human sight and reading in a CSV file.
   validates_uniqueness_of :name, :scope => :network
 
   validates_presence_of :journey_pattern
   validates_presence_of :service
+  validates_presence_of :departure_time
 
   before_save :make_id_name
+
+  def route
+    service.route
+  end
+
+  def bv
+    #puts "VJ before validation .."
+    @valid_start = Time.now
+  end
+  def aval
+    #puts "VJ after validation #{Time.now - @valid_start}"
+  end
+  before_validation :bv
+  after_validation :aval
+  def bs
+    #puts "VJ before save"
+    @save_start = Time.now
+  end
+  def asave
+    #puts "VJ after save #{Time.now - @save_start}"
+  end
+
+  before_save :bs
+  after_save :asave
 
   def self.find_by_routes(routes)
     self.joins(:journey_pattern).where(:journey_patterns => {:route_id => routes})
@@ -34,7 +61,7 @@ class VehicleJourney
   end
 
   def check_name
-    puts "AfterSAVE  id #{persistentid} hash #{name.hash.abs} name #{name}"
+    #puts "AfterSAVE  id #{persistentid} hash #{name.hash.abs} name #{name}"
   end
 
   # Minutes from Midnight
@@ -49,6 +76,14 @@ class VehicleJourney
   # Minutes from Midnight
   def end_time
     start_time + duration
+  end
+
+  def time_start
+    base_time + departure_time.minutes
+  end
+
+  def time_end
+    time_start + duration.minutes
   end
 
   # Time is a time of day.
@@ -379,7 +414,7 @@ class VehicleJourney
   # Simulator for all VehicleJourneys
   # Run from a Console or Background Process
   #---------------------------------------------------
-  # TODO: Make puts calls to log
+  # TODO: Make #puts calls to log
 
   class JourneyRunner
     attr_accessor :journey
@@ -435,7 +470,7 @@ class VehicleJourney
     logger.info "Simulation Ending because #{boom}"
     logger.info boom.backtrace.join("\n")
   ensure
-    puts "Stopping Simulation #{runners.keys.size} Runners"
+    #puts "Stopping Simulation #{runners.keys.size} Runners"
     keys = runners.keys.clone
     for k in keys do
       runner = runners[k]

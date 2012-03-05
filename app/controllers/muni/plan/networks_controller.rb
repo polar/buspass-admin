@@ -1,4 +1,4 @@
-class Muni::Plan::NetworksController < Muni::ApplicationController
+class Muni::Plan::NetworksController < Muni::Plan::ApplicationController
 
   def index
     authorize!(:read, Network)

@@ -28,7 +28,7 @@
       </tr>
       <tr>
         <th>Process Progress</th>
-        <td><div id="progress"><%= (@network.processing_progress * 100).floor %></div></td>
+        <td><div id="progress"><%= (@network.processing_progress * 100).floor %>%</div></td>
       </tr>
       <tr  id="processing_statusC1" style='display: <%= @network.processing_lock ? 'none': ''%>'>
         <th>Process Complete Time</th>
@@ -90,7 +90,7 @@
                           $('#vj_count').html(""+data['vj_count']);
                       }
                       if (data['progress']) {
-                          $('#progress').html(""+data['progress']);
+                          $('#progress').html(""+(Math.floor(data['progress']*100))+"%");
                       }
                       if (data['started_at']) {
                           $('#started_at').html(data['started_at']);

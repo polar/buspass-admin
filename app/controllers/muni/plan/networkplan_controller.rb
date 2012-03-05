@@ -50,6 +50,9 @@ class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
     if (@network.file_path)
       resp[:process_file] = file_plan_networkplan_path(:muni => @muni.slug, :network => @network)
     end
+    if (@network.processing_progress)
+      resp[:progress] = @network.processing_progress
+    end
 
     respond_to do |format|
       format.json { render :json => resp.to_json }

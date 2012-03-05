@@ -23,4 +23,20 @@ class Muni::ApplicationController < ActionController::Base
         end
     end
 
+
+    ##
+    # For sorting Route Codes. Most significant is last 2 digits, then the first.
+    #
+    def codeOrd(code1, code2)
+      code1 = code1.to_i
+      base1 = code1 % 100
+      code2 = code2.to_i
+      base2 = code2 % 100
+      if (base1 == base2)
+        code1/100 <=> code2/100
+      else
+        base1 <=> base2
+      end
+    end
+
 end

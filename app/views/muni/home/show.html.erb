@@ -12,3 +12,6 @@ Slug <%= @slug %>          <br />
     <td><%= to_location_str(@muni.location) %></td>
   </tr>
 </table>
+<p>
+  <%= link_to "Network Planning", plan_networks_path( :muni => @muni.slug ) %>
+</p>

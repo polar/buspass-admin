@@ -1,0 +1,40 @@
+<h2>Network <%= @network.name %></h2>
+<table>
+  <tr>
+    <th>Route</th>
+    <th>Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Vehicle Journeys</th>
+  </tr>
+  <% for s in [@service] do %>
+      <tr>
+        <td><%=  s.route.code  %></td>
+        <td><%=  s.name  %></td>
+        <!--- TODO: Internatialize Time -->
+        <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
+        <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
+        <td><%=  s.vehicle_journeys.count %></td>
+      </tr>
+  <% end %>
+</table>
+<table>
+  <tr>
+    <th>Route</th>
+    <th>Name</th>
+    <th>Display Name</th>
+    <th>Departure Time</th>
+    <th>End Time</th>
+    <th>Links</th>
+  </tr>
+  <% for vj in @journeys do %>
+      <tr>
+        <td><%=  vj.route.code  %></td>
+        <td><%=  vj.name  %></td>
+        <!--- TODO: Internatialize Time -->
+        <td><%=  vj.time_start.strftime("%H:%M") %></td>
+        <td><%=  vj.time_end.strftime("%H:%M") %></td>
+        <td><%=  vj.journey_pattern_timing_links.count %></td>
+      </tr>
+  <% end %>
+</table>

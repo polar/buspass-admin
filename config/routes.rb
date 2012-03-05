@@ -29,6 +29,16 @@ BuspassAdmin::Application.routes.draw do
                :controller => "muni/home",
                :only => [:edit, :show, :update]
 
+      resources :networks,
+                :controller => "muni/networks" do
+        resources :services,
+                  :controller => "muni/networks/services"
+        resources :routes,
+                  :controller => "muni/networks/routes"
+        resources :vehicle_journeys,
+                  :controller => "muni/networks/vehicle_journeys"
+      end
+
       scope "plan" do
         resource :home,
                  :controller => "muni/plan/home",
@@ -37,7 +47,11 @@ BuspassAdmin::Application.routes.draw do
 
         resources :networks,
                   :controller => "muni/plan/networks",
-                  :as => "plan_networks"
+                  :as => "networks"  do
+          resources :services,
+                    :controller => "muni/plan/services",
+                    :as => "services"
+        end
 
         scope ":network" do
           resource :networkplan,
