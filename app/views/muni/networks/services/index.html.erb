@@ -10,7 +10,7 @@
   </tr>
   <% for s in @services do %>
       <tr>
-        <td><%=  s.route.code  %></td>
+        <td><%=  link_to s.route.code, network_route_path(s.route,:muni => @muni.slug, :network_id => @network)  %></td>
         <td><%=  link_to s.name, network_service_path(:id => s, :muni => @muni.slug, :network_id => @network)  %></td>
         <!--- TODO: Internatialize Time -->
         <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>

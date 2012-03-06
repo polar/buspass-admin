@@ -1,6 +1,10 @@
 <h2><%= link_to "Network #{@network.name}", network_path(@network, :muni => @muni.slug) %></h2>
 <table>
   <tr>
+    <th>Mode</th>
+    <td><%=  @network.mode %></td>
+  </tr>
+  <tr>
     <th><%= link_to "Services", network_services_path(:muni => @muni.slug, :network_id => @network) %></th>
     <td><%= @network.services.count %></td>
   </tr>

@@ -10,8 +10,8 @@
   </tr>
   <% for r in @routes do %>
     <tr>
-      <td><%=  r.code %></td>
-      <td><%=  r.name  %></td>
+      <td><%=  link_to r.code, network_route_path(r, :muni => @muni.slug, :network_id => @network) %></td>
+      <td><%=  link_to r.name, network_route_path(r, :muni => @muni.slug, :network_id => @network)  %></td>
       <td><%=  r.description %></td>
       <td><%=  r.services.count %></td>
       <td><%=  r.vehicle_journey_count %></td>

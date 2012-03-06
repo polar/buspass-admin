@@ -3,6 +3,7 @@ class VehicleJourney
   include LocationBoxing
 
   belongs_to :service
+  belongs_to :network
   one :journey_location, :dependent => :delete
 
   key :name,        String
@@ -81,12 +82,27 @@ class VehicleJourney
     start_time + duration
   end
 
-  def time_start
-    base_time + departure_time.minutes
+  def time_start(position = 0)
+    time = base_time + departure_time.minutes
+    i = 0
+    while i < position
+      time += journey_pattern_timing_links[i].time.minutes
+      i += 1
+    end
+    return time
   end
 
-  def time_end
-    time_start + duration.minutes
+  def time_end(position = -1)
+    # -1 means the end of last timing link
+    raise "bad position" if position >= journey_pattern_timing_links.size
+    position = journey_pattern_timing_links.size-1 if position == -1
+    time = time_start
+    i = 0
+    while i <= position
+      time += journey_pattern_timing_links[i].time.minutes
+      i += 1
+    end
+    return time
   end
 
   def journey_pattern_timing_links

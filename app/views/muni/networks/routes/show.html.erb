@@ -1,0 +1,42 @@
+<h2><%= link_to "Network #{@network.name}", network_path(@network, :muni => @muni.slug) %></h2>
+<h3><%= link_to "Route: #{@route.name}", network_route_path(@route, :muni => @muni.slug, :network_id => @network) %></h3>
+
+  <% for s in @route.services do %>
+    <h3><%= link_to "Service #{s.name}", network_service_path(s, :muni => @muni.slug, :network_id => @network)  %></h3>
+    <table>
+      <tr>
+        <th>Route</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Vehicle Journeys</th>
+      </tr>
+      <tr>
+        <td><%=  link_to s.route.code, network_route_path(s.route,:muni => @muni.slug, :network_id => @network)  %></td>
+        <!--- TODO: Internatialize Time -->
+        <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
+        <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
+        <td><%=  s.vehicle_journeys.count %></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Route</th>
+        <th>Display Name</th>
+        <th>Direction</th>
+        <th>Departs</th>
+        <th>Ends</th>
+        <th>Links</th>
+      </tr>
+      <% for vj in s.vehicle_journeys do %>
+          <tr>
+            <td><%=  link_to vj.route.code, network_route_path(vj.route,:muni => @muni.slug, :network_id => @network)  %></td>
+            <td><%=  link_to vj.display_name, network_vehicle_journey_path(vj, :muni => @muni.slug, :network_id => @network)  %></td>
+            <td><%=  s.direction  %></td>
+            <!--- TODO: Internatialize Time -->
+            <td><%=  vj.time_start.strftime("%H:%M") %></td>
+            <td><%=  vj.time_end.strftime("%H:%M") %></td>
+            <td><%=  vj.journey_pattern_timing_links.count %></td>
+          </tr>
+      <% end %>
+    </table>
+  <% end %>
