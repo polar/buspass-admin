@@ -1,4 +1,4 @@
-<h2>Network <%= @network.name %></h2>
+<h2><%= link_to "Network #{@network.name}", network_path(@network, :muni => @muni.slug) %></h2>
 <h2>Services</h2>
 <table>
   <tr>

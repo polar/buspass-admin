@@ -32,6 +32,13 @@ class Service
   attr_accessible :name, :route, :operating_period_end_date, :operating_period_start_date, :direction, :day_class,
                   :network_id, :route_id
 
+=begin
+  validates_date :operating_period_start_date
+  validates_date :operating_period_end_date,
+                 :after => :operating_period_start_date
+                 :after_message => "end date must be after start date"
+=end
+
   before_validation :day_class_sync
 
   def day_class_sync

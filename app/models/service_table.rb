@@ -126,19 +126,31 @@ class ServiceTable
   def self.get_vehicle_journey(network, service, journey_pattern, departure_time)
     dtimelit = departure_time.strftime("%H:%M")
     # We use the name of the Service for the Vehicle Journey + the time.
-    # Right now we have a 1-1 relationship.
-    name = "#{service.name} #{dtimelit}"
-    name = "#{service.route.code} #{dtimelit}"
-    # This gets the minutes after midnight.
+    # We add differentiators in case there are two vjs with the same times
+    # This could be more efficient, but probably won't happen that much.
+    diff     = 0
+    name     = "#{service.name} #{dtimelit}"
+    while VehicleJourney.where(:name => name).first do
+      diff = diff + 1
+      name = "#{service.name} #{dtimelit} #{diff}"
+    end
+
     # TODO: Must work on scheme for minutes before midnight, threshold?
     dtime = (Time.parse(dtimelit)-Time.parse("0:00"))/60
+
+    # TODO: PersistentId needs help.
+    pid = (network.name + name).hash.abs
+    while VehicleJourney.where(:persistentid => pid).first do
+      pid += 1
+    end
+
     vehicle_journey =
-        VehicleJourney.find_or_initialize_by_name(
-            :network_id => network.id,
-            :name => name,
-            :departure_time => dtime,
-            :persistentid => name.hash.abs,  # TODO: We may want to put Network in here.
-            :service_id => service.id,
+        VehicleJourney.find_or_initialize(
+            :network_id         => network.id,
+            :name               => name,
+            :departure_time     => dtime,
+            :persistentid       => pid,
+            :service_id         => service.id,
             :journey_pattern_id => journey_pattern.id)
     return vehicle_journey
   end
@@ -255,7 +267,7 @@ class ServiceTable
         progress.error "#{table_file}:#{file_line}: Need to have 'Start Date' and 'End Date' lines. Processing of file stopped."
         raise "cannot continue with this file, no stop points or no locations"
       end
-
+      begin
       # Otherwise, we start reading JPTLs
       route_number = cols[0]
       day_class = getDesignator(cols[1])
@@ -382,8 +394,12 @@ class ServiceTable
         #service.journey_patterns << journey_pattern
         vehicle_journey.journey_pattern = journey_pattern
         vehicle_journey.display_name = display_name
+        # autosave is false for vehicle_journey
         service.vehicle_journeys << vehicle_journey
-        #vehicle_journey.save!
+        vehicle_journey.save!
+      end
+      rescue Exception => boom
+        progress.error "Error in file #{table_file}: line #{file_line}: #{boom}" # + "#{boom.backtrace.select {|s| s.match(/service_table/)}}"
       end
     end
     if out != nil

@@ -1,4 +1,4 @@
-<h2>Network <%= @network.name %></h2>
+<h2><%= link_to "Network #{@network.name}", network_path(@network, :muni => @muni.slug) %></h2>
 <table>
   <tr>
     <th>Route</th>
@@ -21,8 +21,8 @@
 <table>
   <tr>
     <th>Route</th>
-    <th>Name</th>
     <th>Display Name</th>
+    <th>Direction</th>
     <th>Departure Time</th>
     <th>End Time</th>
     <th>Links</th>
@@ -30,7 +30,8 @@
   <% for vj in @journeys do %>
       <tr>
         <td><%=  vj.route.code  %></td>
-        <td><%=  vj.name  %></td>
+        <td><%=  vj.display_name  %></td>
+        <td><%=  @service.direction  %></td>
         <!--- TODO: Internatialize Time -->
         <td><%=  vj.time_start.strftime("%H:%M") %></td>
         <td><%=  vj.time_end.strftime("%H:%M") %></td>

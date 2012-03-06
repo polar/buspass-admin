@@ -29,5 +29,6 @@ gem "zipruby"
 gem "delayed_job"
 gem "delayed_job_mongo_mapper", :git => "git://github.com/polar/delayed_job_mongo_mapper.git"
 gem "daemons"
+#gem "validates_timeliness"
 gem 'cantango_editor', :git => "git://github.com/stanislaw/cantango_editor.git"
 

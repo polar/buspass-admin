@@ -5,23 +5,21 @@
     <th>Name</th>
     <th>Description</th>
     <th>Mode</th>
-    <th>Route Definitions</th>
-    <th>Service Definitions</th>
-    <th>Total Journeys</th>
+    <th>Routes</th>
+    <th>Services</th>
+    <th>Journeys</th>
     <th>Navigation</th>
   </tr>
   <% for n in @networks do %>
     <tr>
-      <td><%= link_to n.name, plan_network_path(n, :muni => @muni.slug) %></td>
+      <td><%= link_to n.name, plan_networkplan_path(n, :muni => @muni.slug, :network => n) %></td>
       <td><%= n.description %></td>
       <td><%= n.mode %></td>
       <td><%= n.route_count %></td>
       <td><%= n.service_count %></td>
       <td><%= n.vehicle_journey_count %></td>
-      <td><%= link_to "Explore", plan_network_path(n, :muni => @muni.slug) %>
+      <td><%= link_to "Explore", network_path(n, :muni => @muni.slug) %>
           <%= link_to "Plan", plan_networkplan_path(n, :muni => @muni.slug) %></td>
     </tr>
   <% end %>
 </table>
-
-<%=  link_to "New Network", new_plan_network_path(:muni => @muni.slug) %>

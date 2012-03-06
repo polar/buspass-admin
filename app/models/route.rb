@@ -32,6 +32,11 @@ class Route
     (services.map {|s| s.journey_patterns}).reduce([]) {|v,x| v + x}
   end
 
+  def vehicle_journey_count
+    (services.map {|s| s.vehicle_journeys.count}).reduce(0) {|v,x| v + x}
+
+  end
+
   # Services are created for a particular route only
   many :services, :dependent => :destroy, :autosave => false
 
@@ -56,7 +61,7 @@ class Route
   after_save :asave
 
   # The Route's persistenid is its code
-  validates_uniqueness_of :name, :scope => :network_id
+  #validates_uniqueness_of :name, :scope => :network_id
   validates_uniqueness_of :code, :scope => :network_id
 
   # A version of a route depends on the modification of its

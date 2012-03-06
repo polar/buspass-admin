@@ -1,4 +1,4 @@
-<h2>Planning for <%= @network.name %></h2>
+<h2>Planning for <%= link_to @network.name, network_path(@network, :muni => @muni.slug) %></h2>
 
 <table>
   <tr>

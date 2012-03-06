@@ -17,6 +17,9 @@ class VehicleJourney
   one :journey_pattern
 
   ensure_index(:name)
+  ensure_index(:persistentid)
+
+  attr_accessible :service, :name, :description, :departure_time, :display_name, :persistentid, :network, :network_id, :service, :service_id
 
   # We only make the name unique so that we may update them by
   # human sight and reading in a CSV file.
@@ -86,6 +89,9 @@ class VehicleJourney
     time_start + duration.minutes
   end
 
+  def journey_pattern_timing_links
+    journey_pattern.journey_pattern_timing_links
+  end
   # Time is a time of day.
   def is_scheduled?(time)
     diff = (time-base_time)
@@ -193,6 +199,10 @@ class VehicleJourney
     all.select { |vj| vj.is_scheduled?(time) }
   end
 
+  def self.find_or_initialize(options)
+    vj = VehicleJourney.where(options).first
+    vj ||= VehicleJourney.new(options)
+  end
   ############################################################################
   # Simulations
   ############################################################################

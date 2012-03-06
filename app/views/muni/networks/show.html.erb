@@ -1,17 +1,15 @@
-<h2>Planning Network <%= @network.name %></h2>
-Welcome <%= current_muni_admin.name %>
-
+<h2><%= link_to "Network #{@network.name}", network_path(@network, :muni => @muni.slug) %></h2>
 <table>
   <tr>
-    <th>Services</th>
+    <th><%= link_to "Services", network_services_path(:muni => @muni.slug, :network_id => @network) %></th>
     <td><%= @network.services.count %></td>
   </tr>
   <tr>
-    <th>Routes</th>
+    <th><%= link_to "Routes", network_routes_path(:muni => @muni.slug, :network_id => @network) %></th>
     <td><%=  @network.routes.count %></td>
   </tr>
   <tr>
-    <th>VehicleJourneys</th>
+    <th><%= link_to "Vehicle Journeys", network_vehicle_journeys_path(:muni => @muni.slug, :network_id => @network) %></th>
     <td><%=  @network.vehicle_journey_count %></td>
   </tr>
 </table>
@@ -30,5 +28,9 @@ Welcome <%= current_muni_admin.name %>
 <% end %>
 
 <P>
-  <%= link_to "All", plan_networks_path(:muni => @muni.slug) %>
+  <%= link_to "All", networks_path(:muni => @muni.slug) %>
+  <% if muni_admin_signed_in? %>
+    <%=  link_to "Plan Network", plan_networkplan_path(:muni => @muni.slug, :network => @network ) %>
+  <% end %>
+
 </P>
