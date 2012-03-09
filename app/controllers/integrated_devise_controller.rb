@@ -1,6 +1,6 @@
 class IntegratedDeviseController < ApplicationController
     protect_from_forgery
-    before_filter :eatme2
+    prepend_before_filter :eatme2
 
     layout :my_layout_function
 
@@ -8,6 +8,11 @@ class IntegratedDeviseController < ApplicationController
     # The value is set by the base_database method
     #
     def my_layout_function
+      @mylayout = "application"
+      if @master
+        @mylayout = "muni/application"
+      end
+
       return @mylayout
     end
 

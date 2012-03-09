@@ -10,5 +10,5 @@ CanTango.config do |config|
   #config.enable_helpers :rest
   config.users.register :muni_admin, MuniAdmin
   config.users.register :admin, Admin
-    #config.guest.user = Guest.new
+    config.guest.user = Guest.new
 end
