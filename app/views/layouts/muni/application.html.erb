@@ -24,7 +24,7 @@
     <%- end -%>
   </header>
   <div id="main" role="main">
-    <div class="header">Municipality <%= @muni.name %></div>
+    <div class="header"><%= link_to "Municipality #{@master.name}", master_municipalities_path(:master_id => @master) %></div>
     <%= yield %>
   </div>
   <footer>

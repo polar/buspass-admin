@@ -1,6 +1,6 @@
 BuspassAdmin::Application.routes.draw do
 
-  root :to => "municipalities#index"
+  root :to => "masters#index"
 
   mount CantangoEditor::Engine => "/cantango_editor"
 
@@ -12,23 +12,20 @@ BuspassAdmin::Application.routes.draw do
 
   resources :admins
 
-  resources :municipalities
+  devise_for :muni_admins, :controllers => {
+      :registrations => "muni/mydevise/registrations",
+      :sessions      => "muni/mydevise/sessions" }
 
-  scope ":muni" do
-      devise_for :muni_admins, :controllers => {
-          :registrations => "muni/mydevise/registrations",
-          :sessions => "muni/mydevise/sessions" }
+  resources :masters do
 
-      resources :muni_admins, :controller => "muni/muni_admins"
-  end
+    resources :muni_admins, :controller => "muni/muni_admins"
 
-  scope ":muni" do
-      root :to => "muni/home#show"
+    resource :home,
+             :controller => "muni/home",
+             :only       => [:edit, :show, :update]
 
-      resource :home,
-               :controller => "muni/home",
-               :only => [:edit, :show, :update]
-
+    resources :municipalities,
+               :controller => "muni/municipalities"  do
       resources :networks,
                 :controller => "muni/networks" do
         resources :services,
@@ -38,7 +35,8 @@ BuspassAdmin::Application.routes.draw do
         resources :vehicle_journeys,
                   :controller => "muni/networks/vehicle_journeys"
       end
-
+    end
+  end
       scope "plan" do
         resource :home,
                  :controller => "muni/plan/home",
@@ -47,7 +45,7 @@ BuspassAdmin::Application.routes.draw do
 
         resources :networks,
                   :controller => "muni/plan/networks",
-                  :as => "networks"  do
+                  :as => "plan_networks" do
           resources :services,
                     :controller => "muni/plan/services",
                     :as => "services"
@@ -95,8 +93,6 @@ BuspassAdmin::Application.routes.draw do
                    :only => [:edit, :show, :update],
                    :as => "cust_home"
       end
-  end
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

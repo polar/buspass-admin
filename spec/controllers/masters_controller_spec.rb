@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MunicipalitiesController do
+describe MasterMunicipalitiesController do
 
   describe "create action" do
 

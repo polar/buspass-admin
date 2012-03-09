@@ -1,0 +1,22 @@
+<h2>Municipality</h2>
+<% if current_admin %>
+    <p><%= "Welcome #{current_admin.name}" %></p>
+<% end %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <td><%= @master.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@master.location) %></td>
+  </tr>
+  <tr>
+    <th>Owner</th>
+    <td><%= @master.owner.name %></td>
+  </tr>
+</table>
+<%= link_to "Login to #{@master.name}", master_municipalities_path(:master_id => @master) %> |
+<%= link_to("Edit", edit_master_path(@master)) if admin_can?(:edit, @master) %> |
+<%= link_to "All", masters_path %>

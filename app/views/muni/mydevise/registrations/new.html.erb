@@ -1,6 +1,6 @@
-<h2>Sign up</h2>
+<h2>Sign up for Municipality <%= @master.name %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => muni_admin_registration_path(resource_name, :master => @master)) do |f| %>
     <%= devise_error_messages! %>
 
     <div><%= f.label :name %>

@@ -6,15 +6,17 @@ class AdminPermit < CanTango::UserPermit
   protected
 
   def dynamic_rules
-    can([:edit,:delete], Municipality) do |muni|
-        muni.owner === user
+    can([:edit, :delete], Master) do |muni|
+      muni.owner === user
     end
   end
 
   def permit_rules
-      can(:create, Municipality)
-      can(:read, Municipality)
-      can(:read, Network)
+    can(:create, Master)
+    can(:read, Master)
+    can(:create, Municipality)
+    can(:read, Municipality)
+    can(:read, Network)
   end
 
   module Cached

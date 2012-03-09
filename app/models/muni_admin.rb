@@ -5,6 +5,8 @@ class MuniAdmin
 
     plugin MongoMapper::Devise
 
+    key :master, Master
+
     # Include default devise modules. Others available are:
     # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
     devise :database_authenticatable, :registerable, :token_authenticatable,
@@ -49,7 +51,7 @@ class MuniAdmin
     key :role_symbols, Array, :default => []
 
     validates_presence_of :name
-    validates_uniqueness_of :email, :case_sensitive => false
+    validates_uniqueness_of :email, :case_sensitive => false, :scope => :master
     attr_accessible :name, :email, :password, :password_confirmation, :remember_me
     attr_accessible :role_symbols
     attr_accessible :encrypted_password

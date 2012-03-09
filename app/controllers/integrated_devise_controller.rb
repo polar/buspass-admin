@@ -1,6 +1,6 @@
 class IntegratedDeviseController < ApplicationController
     protect_from_forgery
-    before_filter :base_database
+    before_filter :eatme2
 
     layout :my_layout_function
 
@@ -15,7 +15,11 @@ class IntegratedDeviseController < ApplicationController
     # This call has to work for both the generic top level
     # and for each municipality "site".
     #
-    def base_database
+    def eatme2
+      @master = Master.find(params[:master_id]) if params[:master_id]
+      @municipality = Municipality.find(params[:municipality_id]) if params[:municipality_id]
+    end
+=begin
         @slug = params[:muni]
         # We should be checking the main database here for a
         # valid municipality or else these calls could be creating lots
@@ -44,4 +48,5 @@ class IntegratedDeviseController < ApplicationController
         end
         puts "IntegratedDeviseController using #{@database}"
     end
+=end
 end

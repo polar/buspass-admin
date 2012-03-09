@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
 
   def base_database
       @database            = "#Busme-#{Rails.env}"
-      MongoMapper.database = @database
+      #MongoMapper.database = @database
   end
 end

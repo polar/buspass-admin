@@ -1,0 +1,13 @@
+<h3>Municipality Deployments</h3>
+<% if current_muni_admin %>
+    <p><%= "Welcome #{current_muni_admin.name}" %></p>
+<% end %>
+<p>
+  Database <%=  MongoMapper.database.name %>
+<p>
+  Muncipality Database <%= Municipality.database.name %>
+<% @municipalities.each do |muni| %>
+    <p>Municipality: <%= link_to muni.name, master_municipality_path(muni, :master_id => @master) %></p>
+<% end %>
+<p>
+<%= link_to "New", new_master_municipality_path %>

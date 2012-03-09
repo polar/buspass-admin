@@ -3,19 +3,19 @@
       Logged in as <%= current_muni_admin.name %>
     </li>
   <li>
-  <%= link_to('Logout', destroy_muni_admin_session_path, :method=>'delete') %>
+  <%= link_to('Logout', destroy_muni_admin_session_path(:master_id => @master), :method=>'delete') %>
   </li>
 <% else %>
   <li>
-  <%= link_to('Login', new_muni_admin_session_path)  %>
+  <%= link_to('Login', new_muni_admin_session_path(:master_id => @master))  %>
   </li>
 <% end %>
 <% if muni_admin_signed_in? %>
   <li>
-  <%= link_to('Edit account', edit_muni_admin_registration_path) %>
+  <%= link_to('Edit account', edit_muni_admin_registration_path(:master_id => @master)) %>
   </li>
 <% else %>
   <li>
-  <%= link_to('Sign up', new_muni_admin_registration_path)  %>
+  <%= link_to('Sign up', new_muni_admin_registration_path(:master_id => @master))  %>
   </li>
 <% end %>

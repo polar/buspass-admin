@@ -27,7 +27,11 @@ module ApplicationHelper
     # to a string for display.
     #
     def to_location_str(location)
+      if location && location.is_a?(Array) && location.length == 2
         return "#{location[0]}, #{location[1]}"
+      else
+        return ""
+      end
     end
 
     ##

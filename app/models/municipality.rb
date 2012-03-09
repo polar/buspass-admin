@@ -9,16 +9,26 @@ class Municipality
     #include CanTango:Model
     include CanTango::Model::Scope
 
-    key :name, String, :required => true
+    key :display_name, String, :required => true
+    key :name, String
+    key :mode, String
+    key :status, String
     key :slug, String, :required => true, :unique => true
     key :location, Array
     key :hosturl, String
-    key :owner, Admin
+    key :owner, MuniAdmin
 
+    # The database we are stored in. Self referentcial
+    key :dbname, String
 
-    attr_accessible :name, :slug, :location, :owner
+    # The database we need to look up the master_municipality in.
+    key :masterdb, String
+    belongs_to :master_municipality
 
-    before_validation :make_slug, :ensure_lonlat
+    attr_accessible :display_name, :slug, :location, :hosturl, :name
+
+    before_validation :ensure_slug, :ensure_lonlat
+    many :networks, :autosave => false
 
     def ensure_lonlat
         if self.location != nil
@@ -44,7 +54,7 @@ class Municipality
 
     SLUG_TRIES = 10
 
-    def make_slug
+    def ensure_slug
         if self.slug == nil
             self.slug = self.name.to_url()
             tries     = 0
@@ -52,7 +62,7 @@ class Municipality
                 self.slug = name.to_url() + "-" + (Random.rand*1000).floor
             end
             if tries == SLUG_TRIES
-                self.slug = Random.srand.to_s
+                self.slug = self.id.to_s
             end
         end
         return true
