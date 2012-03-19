@@ -23,7 +23,7 @@ class Municipality
 
     # The database we need to look up the master_municipality in.
     key :masterdb, String
-    belongs_to :master_municipality
+    belongs_to :master
 
     attr_accessible :display_name, :slug, :location, :hosturl, :name
 

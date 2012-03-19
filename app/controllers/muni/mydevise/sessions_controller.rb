@@ -1,10 +1,6 @@
 class Muni::Mydevise::SessionsController < Devise::SessionsController
   #noinspection RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable
 
-  def sign_in
-    super
-  end
-
   def after_sign_in_path_for(resource)
     # Resource should be a Admin
     if @master.nil?

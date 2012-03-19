@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
       @database            = "#Busme-#{Rails.env}"
       #MongoMapper.database = @database
   end
+
+  #load_and_authorize_resource
+
+
 end

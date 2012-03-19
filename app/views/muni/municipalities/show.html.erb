@@ -5,12 +5,16 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>Version</th>
     <td><%= @municipality.name %></td>
   </tr>
   <tr>
     <th>Location</th>
     <td><%= to_location_str(@municipality.location) %></td>
+  </tr>
+  <tr>
+    <th>Mode</th>
+    <td><%= @municipality.mode %></td>
   </tr>
   <tr>
     <th>Owner</th>
@@ -35,10 +39,10 @@
   <% end %>
 </table>
 
-<%= link_to("Edit", edit_master_municipality_path(@municipality)) if muni_admin_can?(:edit, @municipality) %>
+<%= link_to("Edit", edit_master_municipality_path(@municipality, :master_id => @master.id)) if muni_admin_can?(:edit, @municipality) %>
 | <%= link_to "All", master_municipalities_path %>
 <p>
-  <%= link_to "Edit", edit_master_municipality_path(@municipality) %> | <%= link_to "All", master_municipalities_path %>
+  <%= link_to "Edit", edit_master_municipality_path(@municipality, :master_id => @master.id) %> | <%= link_to "All", master_municipalities_path %>
 
   <% if muni_admin_can? :edit, @municipality %>
       <%= link_to("Municipality Planning", master_municipality_path(@municipality)) %>

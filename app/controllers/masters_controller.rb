@@ -123,6 +123,10 @@ class MastersController < ApplicationController
         raise "cannot create the masters DB for the municipality."
       end
 
+      # This is the owner of the Master in the Muni realm.
+      master.muni_owner = muni_admin
+      master.save!
+
       # create the first Municipality from the Master in the masters database because
       # it has the same name. The slug is where we infer the database name..
       #Municipality.set_database_name(local_masterdb)

@@ -5,8 +5,20 @@ class PlannerRolePermit < CanTango::RolePermit
 
   protected
 
+  def dynamic_rules
+    # user is a MuniAdmin
+
+    can([:edit, :delete], Master) do |master|
+      master.muni_owner === user
+    end
+    can([:edit, :delete], Municipality) do |muni|
+      muni.owner === user
+    end
+  end
+
   def permit_rules
-    can([:read, :edit, :create], Network)
+    can([:read, :create], Municipality)
+    can([:read, :create], Network)
   end
 
   module Cached

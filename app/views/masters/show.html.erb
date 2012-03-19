@@ -14,7 +14,7 @@
   </tr>
   <tr>
     <th>Owner</th>
-    <td><%= @master.owner.name %></td>
+    <td><%= @master.owner.name if !@master.owner.nil? %></td>
   </tr>
 </table>
 <%= link_to "Login to #{@master.name}", master_municipalities_path(:master_id => @master) %> |

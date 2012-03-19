@@ -1,0 +1,12 @@
+<h2>New Deployment</h2>
+
+<%= form_for(@municipality, :url => master_municipality_path(:master_id => @master.id)) do |f| %>
+    <%= error_messages!(@municipality) %>
+
+    <div><%= f.label :name, "Internal Name" %><br />
+      <%= f.text_field :name %></div>
+    <div><%= f.label :mode, "Mode" %><br />
+      <%= f.text_field :mode %></div>
+
+    <div><%= f.submit "Update" %></div>
+<% end %>

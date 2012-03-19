@@ -5,6 +5,12 @@ class Muni::ApplicationController < ActionController::Base
     protect_from_forgery
     before_filter :base_database
 
+    before_filter :authenticate_muni_admin!, :except => [:index, :show]
+
+    def authorize!(action, obj)
+      raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
+    end
+
     layout "muni/application"
 
     def base_database
