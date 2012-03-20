@@ -1,4 +1,4 @@
-#noinspection ALL
+
 module ApplicationHelper
 
     ##

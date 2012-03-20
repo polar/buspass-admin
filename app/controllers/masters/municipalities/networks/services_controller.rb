@@ -1,7 +1,8 @@
 ##
 # This controller as @network already assigned.
 #
-class Muni::Networks::ServicesController < Muni::Networks::NetworkBaseController
+class Masters::Municipalities::Networks::ServicesController <
+  Masters::Municipalities::Networks::NetworkBaseController
 
   def index
     @services = @network.services.clone

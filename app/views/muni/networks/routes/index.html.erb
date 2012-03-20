@@ -1,4 +1,4 @@
-<h2><%= link_to "Network #{@network.name}", network_path(@network, :muni => @muni.slug) %></h2>
+<h2><%= link_to "Network #{@network.name}", network_path(@network, :masters => @muni.slug) %></h2>
 <H2>Routes</H2>
 <table>
   <tr>
@@ -10,8 +10,8 @@
   </tr>
   <% for r in @routes do %>
     <tr>
-      <td><%=  link_to r.code, network_route_path(r, :muni => @muni.slug, :network_id => @network) %></td>
-      <td><%=  link_to r.name, network_route_path(r, :muni => @muni.slug, :network_id => @network)  %></td>
+      <td><%=  link_to r.code, network_route_path(r, :masters => @muni.slug, :network_id => @network) %></td>
+      <td><%=  link_to r.name, network_route_path(r, :masters => @muni.slug, :network_id => @network)  %></td>
       <td><%=  r.description %></td>
       <td><%=  r.services.count %></td>
       <td><%=  r.vehicle_journey_count %></td>

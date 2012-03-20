@@ -1,7 +1,7 @@
-class Muni::MunicipalitiesController < Muni::ApplicationController
+class Masters::MunicipalitiesController < Masters::MasterBaseController
 
   def index
-    @municipalities = Municipality.where(:master_municipality_id => @master.id).all
+    @municipalities = Municipality.where(:master_id => @master.id).all
   end
 
   def show
@@ -42,6 +42,7 @@ class Muni::MunicipalitiesController < Muni::ApplicationController
     @municipality.location = @master.location
 
     @municipality.ensure_slug()
+    # TODO: Fix URL
     @municipality.hosturl = "http://#{@municipality.slug}.busme.us/#{@municipality.slug}" # hopeful
     error = ! @municipality.save
     if error
@@ -74,19 +75,19 @@ class Muni::MunicipalitiesController < Muni::ApplicationController
     @municipality.location = @master.location
 
     @municipality.ensure_slug()
+    # TODO: Fix URL
     @municipality.hosturl = "http://#{@municipality.slug}.busme.us/#{@municipality.slug}" # hopeful
     error = ! @municipality.save
     if error
-      flash[:error] = "Could not create deployment"
+      flash[:error] = "Could not update deployment"
     end
     respond_to do |format|
       format.html {
         if error
           render :edit
         else
-          redirect_to master_municipalities_path
+          redirect_to master_municipality_path(@municipality, :master_id => @master)
         end
-
       }
     end
   end

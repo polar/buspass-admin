@@ -10,7 +10,7 @@ class IntegratedDeviseController < ApplicationController
     def my_layout_function
       @mylayout = "application"
       if @master
-        @mylayout = "muni/application"
+        @mylayout = "masters/application"
       end
 
       return @mylayout
@@ -25,7 +25,7 @@ class IntegratedDeviseController < ApplicationController
       @municipality = Municipality.find(params[:municipality_id]) if params[:municipality_id]
     end
 =begin
-        @slug = params[:muni]
+        @slug = params[:masters]
         # We should be checking the main database here for a
         # valid municipality or else these calls could be creating lots
         # of empty databases
@@ -37,19 +37,19 @@ class IntegratedDeviseController < ApplicationController
             MongoMapper.database = @database
             @mylayout = "application"
         else
-            # /:muni/muni_admins
+            # /:masters/muni_admins
             # We are trying for a particular municipality.
             # We need the specific.
             @database            = "#Busme-#{Rails.env}-#{@slug}"
             MongoMapper.database = @database
-            @muni                = Municipality.first
-            if @muni.nil?
+            @masters                = Municipality.first
+            if @masters.nil?
                 raise "Municipality Not Found"
             end
-            if @muni.slug != @slug
+            if @masters.slug != @slug
                 raise "Municipality Routing Mismatch"
             end
-            @mylayout = "muni/application"
+            @mylayout = "masters/application"
         end
         puts "IntegratedDeviseController using #{@database}"
     end

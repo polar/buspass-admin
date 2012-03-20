@@ -1,17 +1,4 @@
-class MastersController < ApplicationController
-
-  before_filter :set_master_database
-
-  def set_master_database
-    #Master.set_database_name(@database)
-  end
-
-  before_filter :authenticate_admin!, :except => [:index, :show]
-  #load_and_authorize_resource
-
-  def authorize!(action, obj)
-    raise CanCan::AccessDenied if admin_cannot?(action, obj)
-  end
+class MastersController < MastersBaseController
 
   def index
     if admin_signed_in?
@@ -104,14 +91,14 @@ class MastersController < ApplicationController
 
       #MuniAdmin.set_database_name(local_masterdb)
 
-      muni_admin = MuniAdmin.new(current_admin.attributes.slice("encrypted_password", "email", "name"))
-      muni_admin.master = local_master
-      muni_admin.disable_empty_password_validation() # Keeps from arguing for a non-empty password.
-      muni_admin.add_roles([:super, :planner, :operator])
+      @muni_admin = MuniAdmin.new(current_admin.attributes.slice("encrypted_password", "email", "name"))
+      @muni_admin.master = local_master
+      @muni_admin.disable_empty_password_validation() # Keeps from arguing for a non-empty password.
+      @muni_admin.add_roles([:super, :planner, :operator])
 
-      muni_admin.save!
+      @muni_admin.save!
       # This is the owner of the Master in the Muni realm.
-      master.muni_owner = muni_admin
+      master.muni_owner = @muni_admin
       master.save!
 
 
@@ -119,24 +106,29 @@ class MastersController < ApplicationController
       # it has the same name. The slug is where we infer the database name..
       #Municipality.set_database_name(local_masterdb)
 
-      municipality                     = Municipality.new()
-      municipality.mode                = :plan
-      municipality.status              = :plan
-      municipality.name                = local_master.name
-      municipality.display_name        = local_master.name
-      municipality.location            = local_master.location
-      municipality.owner               = muni_admin
+      @municipality                     = Municipality.new()
+      @municipality.mode                = :plan
+      @municipality.status              = :plan
+      @municipality.name                = local_master.name
+      @municipality.display_name        = local_master.name
+      @municipality.location            = local_master.location
+      @municipality.owner               = @muni_admin
       # The municipality database will be unique to its instance, but we can stuff
                                                                                          # the first one in the local masterdb.
-      municipality.dbname              = local_masterdb
-      municipality.masterdb            = local_masterdb
-      municipality.master = local_master
+      @municipality.dbname              = local_masterdb
+      @municipality.masterdb            = local_masterdb
+      @municipality.master = local_master
 
-      municipality.ensure_slug()
-      municipality.hosturl = "http://#{municipality.slug}.busme.us/#{municipality.slug}" # hopeful
+      @municipality.ensure_slug()
+      @municipality.hosturl = "http://#{@municipality.slug}.busme.us/#{@municipality.slug}" # hopeful
 
-      municipality.save!
+      @municipality.save!
       redirect_to master_path(@master)
+  rescue Exception => boom
+    @master.delete if @master
+    @municipality.delete if @municipality
+    @muni_admin.delete if @muni_admin
+    raise boom
   end
 
   def update

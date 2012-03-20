@@ -12,7 +12,7 @@ class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
     @network_param_name = :networkplan
 
     if (@network.processing_lock)
-      redirect_to plan_networkplan_path(:muni => @muni.slug, :network => @network)
+      redirect_to plan_networkplan_path(:masters => @muni.slug, :network => @network)
     end
   end
 
@@ -48,7 +48,7 @@ class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
       resp[:started_at] = @network.processing_started_at.strftime("%m-%d-%Y %H:%M %Z")
     end
     if (@network.file_path)
-      resp[:process_file] = file_plan_networkplan_path(:muni => @muni.slug, :network => @network)
+      resp[:process_file] = file_plan_networkplan_path(:masters => @muni.slug, :network => @network)
     end
     if (@network.processing_progress)
       resp[:progress] = @network.processing_progress
@@ -98,7 +98,7 @@ class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
       Delayed::Job.enqueue(:payload_object => CompileServiceTableJob.new(MongoMapper.database.name, @network))
 
       flash[:notice] = "Your job is currently scheduled for processing."
-      redirect_to plan_networkplan_path(:muni => @muni.slug, :network => @network)
+      redirect_to plan_networkplan_path(:masters => @muni.slug, :network => @network)
     else
       flash[:error] = "Your file was unspecified or not uploaded. Please retry with new file name."
       @network_param_name = :networkplan

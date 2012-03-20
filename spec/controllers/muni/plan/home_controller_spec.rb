@@ -21,10 +21,10 @@ describe Muni::Plan::HomeController do
     describe "GET 'Show'" do
         it "should decipher the right database and return the right Municipality" do
             sign_in :muni_admin, @admin
-            get 'show', :muni => @slug
+            get 'show', :masters => @slug
             assigns[:database].equal?(@database_name)
             assigns[:slug].equal?(@slug)
-            assigns[:muni].equal?(@tmuni)
+            assigns[:masters].equal?(@tmuni)
             response.should be_success
         end
     end

@@ -13,47 +13,38 @@ BuspassAdmin::Application.routes.draw do
   resources :admins
 
   devise_for :muni_admins, :controllers => {
-      :registrations => "muni/mydevise/registrations",
-      :sessions      => "muni/mydevise/sessions" }
+      :registrations => "masters/mydevise/registrations",
+      :sessions      => "masters/mydevise/sessions" }
 
   resources :masters do
 
-    resources :muni_admins, :controller => "muni/muni_admins"
+    resources :muni_admins, :controller => "masters/muni_admins"
 
-    resource :home,
-             :controller => "muni/home",
-             :only       => [:edit, :show, :update]
-
-    resources :municipalities,
-               :controller => "muni/municipalities"  do
-      resources :networks,
-                :controller => "muni/networks" do
-        resources :services,
-                  :controller => "muni/networks/services"
-        resources :routes,
-                  :controller => "muni/networks/routes"
-        resources :vehicle_journeys,
-                  :controller => "muni/networks/vehicle_journeys"
+    resources :municipalities do
+      resources :networks do
+        resources :services
+        resources :routes
+        resources :vehicle_journeys
       end
     end
   end
       scope "plan" do
         resource :home,
-                 :controller => "muni/plan/home",
+                 :controller => "masters/plan/home",
                  :only => [:edit, :show, :update],
                  :as => "plan_home"
 
         resources :networks,
-                  :controller => "muni/plan/networks",
+                  :controller => "masters/plan/networks",
                   :as => "plan_networks" do
           resources :services,
-                    :controller => "muni/plan/services",
+                    :controller => "masters/plan/services",
                     :as => "services"
         end
 
         scope ":network" do
           resource :networkplan,
-                    :controller => "muni/plan/networkplan",
+                    :controller => "masters/plan/networkplan",
                     :as => "plan_networkplan",
                     :except => [:index] do
             member do
@@ -65,16 +56,16 @@ BuspassAdmin::Application.routes.draw do
           end
 
           resources :routes,
-                    :controller => "muni/plan/routes",
+                    :controller => "masters/plan/routes",
                     :as => "plan_routes"
 
           resources :services,
-                    :controller => "muni/plan/services",
+                    :controller => "masters/plan/services",
                     :as => "plan_services"
 
           scope ":route" do
             resources :services,
-                      :controller => "muni/plan/routeservices",
+                      :controller => "masters/plan/routeservices",
                       :as => "plan_routeservices"
           end
         end
@@ -82,14 +73,14 @@ BuspassAdmin::Application.routes.draw do
 
       scope "ops" do
           resource :home,
-                   :controller => "muni/ops/home",
+                   :controller => "masters/ops/home",
                    :only => [:edit, :show, :update],
                    :as => "ops_home"
       end
 
       scope "cust" do
           resource :home,
-                   :controller => "muni/ops/home",
+                   :controller => "masters/ops/home",
                    :only => [:edit, :show, :update],
                    :as => "cust_home"
       end

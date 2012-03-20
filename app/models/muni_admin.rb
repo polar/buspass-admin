@@ -52,7 +52,7 @@ class MuniAdmin
     key :role_symbols, Array, :default => []
 
     validates_presence_of :name
-    validates_uniqueness_of :email, :case_sensitive => false, :scope => :master
+    validates_uniqueness_of :email, :case_sensitive => false, :scope => :master_id
     attr_accessible :name, :email, :password, :password_confirmation, :remember_me
     attr_accessible :role_symbols
     attr_accessible :encrypted_password
@@ -99,14 +99,14 @@ class MuniAdmin
     end
 
     ##
-    # This allows us to programmatically disable empty password validation
+    # This method allows us to programmatically disable empty password validation
     # by making the @password instance variable non-empty.
     #
     # Purpose:
     # We cannot skip this check on new records without rewriting password_required?. Even
     # so, we would have to build a method to handle the check. We can skip the validate_presence_of
     # check on :password just by assigning the @password instance variable to something that is not empty.
-    # We cannot subsert this check by using password= because that alters the encrypted_password, and we want
+    # We cannot subvert this check by using password= because that alters the encrypted_password, and we want
     # to be able to assign a new user without having to go through the password process.
     #
     #noinspection RubyInstanceMethodNamingConvention

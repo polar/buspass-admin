@@ -1,5 +1,5 @@
 <h3>Home</h3>
-  <p><%= new_home_url(:muni => @muni) %>
+  <p><%= new_home_url(:masters => @muni) %>
 <% @users.each do |user| %>
   <p>User: <%=link_to user.name, :controller => :users, :action => :show, :id => user, :muni => @muni %></p>
 

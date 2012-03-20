@@ -6,8 +6,20 @@
   Database <%=  MongoMapper.database.name %>
 <p>
   Muncipality Database <%= Municipality.database.name %>
+
+<table>
+  <tr>
+    <th>Deployment</th>
+    <th>Owner</th>
+    <th>Mode</th>
+  </tr>
 <% @municipalities.each do |muni| %>
-    <p>Municipality: <%= link_to muni.name, master_municipality_path(muni, :master_id => @master) %></p>
+    <tr>
+      <td><%= link_to muni.name, master_municipality_path(muni, :master_id => @master) %></td>
+      <td><%= muni.owner.name %></td>
+      <td><%=  muni.mode %></td>
+    </tr>
 <% end %>
+</table>
 <p>
-<%= link_to "New", new_master_municipality_path %>
+<%= link_to "New Deployment", new_master_municipality_path %>

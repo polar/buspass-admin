@@ -1,5 +1,6 @@
 <h2>Networks</h2>
 
+<h2>Deployment <%= @municipality.name %></h2>
 <table>
   <tr>
     <th>Name</th>
@@ -12,14 +13,14 @@
   </tr>
   <% for n in @networks do %>
     <tr>
-      <td><%= link_to n.name, plan_networkplan_path(n, :muni => @muni.slug, :network => n) %></td>
+      <td><%= link_to n.name, plan_networkplan_path(n, :masters => @muni.slug, :network => n) %></td>
       <td><%= n.description %></td>
       <td><%= n.mode %></td>
       <td><%= n.route_count %></td>
       <td><%= n.service_count %></td>
       <td><%= n.vehicle_journey_count %></td>
-      <td><%= link_to "Explore", network_path(n, :muni => @muni.slug) %>
-          <%= link_to "Plan", plan_networkplan_path(n, :muni => @muni.slug) %></td>
+      <td><%= link_to "Explore", network_path(n, :masters => @muni.slug) %>
+          <%= link_to "Plan", plan_networkplan_path(n, :masters => @muni.slug) %></td>
     </tr>
   <% end %>
 </table>

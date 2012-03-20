@@ -1,6 +1,8 @@
 class Muni::Plan::NetworksController < Muni::Plan::ApplicationController
 
   def index
+    authorize!(:read, @master)
+    authorize!(:read, @municipality)
     authorize!(:read, Network)
     @networks = Network.all
   end
@@ -37,7 +39,7 @@ class Muni::Plan::NetworksController < Muni::Plan::ApplicationController
           render :new
         else
           flash[:notice] = "Network #{@network.name} has been created"
-          redirect_to(plan_network_path(@network, :muni => @muni.slug))
+          redirect_to(plan_network_path(@network, :masters => @muni.slug))
         end
       }
     end

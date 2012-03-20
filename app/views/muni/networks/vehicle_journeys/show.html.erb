@@ -1,9 +1,9 @@
-<h2><%= link_to "Network #{@network.name}", network_path(@network, :muni => @muni.slug) %></h2>
+<h2><%= link_to "Network #{@network.name}", network_path(@network, :masters => @muni.slug) %></h2>
 <h3><%= link_to "Route #{@vehicle_journey.route.name}",
-                network_route_path(@vehicle_journey.route, :muni => @muni.slug, :network_id => @network) %></h3>
+                network_route_path(@vehicle_journey.route, :masters => @muni.slug, :network_id => @network) %></h3>
 
 <% for s in [@vehicle_journey.service] do %>
-    <h3><%= link_to "Service #{s.name}", network_service_path(s, :muni => @muni.slug, :network_id => @network) %></h3>
+    <h3><%= link_to "Service #{s.name}", network_service_path(s, :masters => @muni.slug, :network_id => @network) %></h3>
     <table>
       <tr>
         <th>Route</th>
@@ -31,7 +31,7 @@
       <% for vj in [@vehicle_journey] do %>
           <tr>
             <td><%=  vj.route.code  %></td>
-            <td><%=  link_to vj.display_name, network_vehicle_journey_path(vj, :muni => @muni.slug, :network_id => @network)  %></td>
+            <td><%=  link_to vj.display_name, network_vehicle_journey_path(vj, :masters => @muni.slug, :network_id => @network)  %></td>
             <td><%=  s.direction  %></td>
             <!--- TODO: Internatialize Time -->
             <td><%=  vj.time_start.strftime("%H:%M") %></td>

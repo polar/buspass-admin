@@ -1,9 +1,6 @@
-class Muni::ApplicationController < ActionController::Base
+class Masters::MasterBaseController < ApplicationController
 
-    helpers
-
-    protect_from_forgery
-    before_filter :base_database
+    before_filter :set_master
 
     before_filter :authenticate_muni_admin!, :except => [:index, :show]
 
@@ -11,11 +8,11 @@ class Muni::ApplicationController < ActionController::Base
       raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
     end
 
-    layout "muni/application"
+    layout "masters/application"
 
-    def base_database
+    def set_master
 =begin
-        @slug = params[:muni]
+        @slug = params[:masters]
         # We should be checking the main database here for a
         # valid municipality or else these calls could be creating lots
         # of empty databases
