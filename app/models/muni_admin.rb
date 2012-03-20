@@ -5,7 +5,7 @@ class MuniAdmin
 
     plugin MongoMapper::Devise
 
-    key :master, Master
+    belongs_to :master
 
     # Include default devise modules. Others available are:
     # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -48,6 +48,7 @@ class MuniAdmin
     # key :authentication_token, String
     key :name, String
 
+    # Array of String
     key :role_symbols, Array, :default => []
 
     validates_presence_of :name
@@ -67,8 +68,8 @@ class MuniAdmin
         if !roles.is_a? Array
             roles = [roles]
         end
-        rs = (role_symbols + roles).uniq
-        role_symbols = rs
+        rs = (self.role_symbols + roles.map {|x| x.to_s}).uniq
+        self.role_symbols = rs
     end
 
     def add_roles!(roles)
@@ -80,7 +81,7 @@ class MuniAdmin
         if !roles.is_a? Array
             roles = [roles]
         end
-        rs = (role_symbols) - roles
+        rs = (self.role_symbols) - (roles.map {|x| x.to_s})
     end
 
     def remove_roles!(roles)
@@ -90,11 +91,11 @@ class MuniAdmin
 
     # This needs an optional argument. Who knew?
     def roles_list(role = nil)
-        role_symbols
+        self.role_symbols
     end
 
     def has_role?(role)
-        role_symbols.include?(role.to_s)
+        self.role_symbols.include?(role.to_s)
     end
 
     ##

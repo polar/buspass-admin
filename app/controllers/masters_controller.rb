@@ -58,7 +58,6 @@ class MastersController < ApplicationController
     end
 
     local_master = nil
-    begin
       @master       = Master.new(params[:master])
       @master.owner = current_admin
 
@@ -72,14 +71,9 @@ class MastersController < ApplicationController
       end
 
       @master.dbname = dbname
-      @error         = !@master.save
+      @master.save!
 
       master = @master
-
-      if @error
-        flash[:error] = "cannot create the masters municipality"
-        raise "Cannot Create"
-      end
 
       logger.info("Creating New Municipality Database #{dbname} for Master #{@master.name}")
 
@@ -114,18 +108,12 @@ class MastersController < ApplicationController
       muni_admin.master = local_master
       muni_admin.disable_empty_password_validation() # Keeps from arguing for a non-empty password.
       muni_admin.add_roles([:super, :planner, :operator])
-      @error = !muni_admin.save
 
-      if @error
-        flash[:error] = "Could not create the Master DB for Municipality"
-        local_master.delete
-        @master.delete
-        raise "cannot create the masters DB for the municipality."
-      end
-
+      muni_admin.save!
       # This is the owner of the Master in the Muni realm.
       master.muni_owner = muni_admin
       master.save!
+
 
       # create the first Municipality from the Master in the masters database because
       # it has the same name. The slug is where we infer the database name..
@@ -134,6 +122,7 @@ class MastersController < ApplicationController
       municipality                     = Municipality.new()
       municipality.mode                = :plan
       municipality.status              = :plan
+      municipality.name                = local_master.name
       municipality.display_name        = local_master.name
       municipality.location            = local_master.location
       municipality.owner               = muni_admin
@@ -141,41 +130,13 @@ class MastersController < ApplicationController
                                                                                          # the first one in the local masterdb.
       municipality.dbname              = local_masterdb
       municipality.masterdb            = local_masterdb
-      municipality.master_municipality = local_master
+      municipality.master = local_master
 
       municipality.ensure_slug()
       municipality.hosturl = "http://#{municipality.slug}.busme.us/#{municipality.slug}" # hopeful
 
-      @error = !municipality.save!
-
-      if @error
-        flash[:error] = "Could not create the Municipality in the new DB"
-        muni_admin.delete
-        local_master.delete
-        @master.delete
-        raise "cannot create the masters DB for the municipality."
-      end
-
+      municipality.save!
       redirect_to master_path(@master)
-
-    rescue CanCan::AccessDenied => access_denied
-      raise access_denied
-    rescue Exception => boom
-      respond_to do |format|
-        format.html {
-          if @error
-            render :new
-          else
-            redirect_to master_path(@master)
-          end
-        }
-        format.all do
-          method = "to_#{request_format}"
-          text   = { }.respond_to?(method) ? { }.send(method) : ""
-          render :text => text, :status => :ok
-        end
-      end
-    end
   end
 
   def update

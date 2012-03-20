@@ -9,10 +9,11 @@ class PlannerRolePermit < CanTango::RolePermit
     # user is a MuniAdmin
 
     can([:edit, :delete], Master) do |master|
-      master.muni_owner === user
+      master.muni_owner === user && user.master === master
     end
     can([:edit, :delete], Municipality) do |muni|
-      muni.owner === user
+      muni.owner === user && user.master === muni.master &&
+        muni.master.muni_owner === user
     end
   end
 

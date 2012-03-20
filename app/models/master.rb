@@ -14,7 +14,7 @@ class Master
   key :dbname, String #, :unique => true, :allow_nil => true
   key :slug, String
 
-  attr_accessible :name, :slug, :location, :owner, :dbname, :hosturl
+  attr_accessible :name, :slug, :location, :owner, :dbname, :hosturl, :email, :muni_owner
 
   before_validation :ensure_slug, :ensure_lonlat
 
