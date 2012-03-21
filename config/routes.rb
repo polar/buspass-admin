@@ -20,11 +20,11 @@ BuspassAdmin::Application.routes.draw do
 
     resources :muni_admins, :controller => "masters/muni_admins"
 
-    resources :municipalities do
-      resources :networks do
-        resources :services
-        resources :routes
-        resources :vehicle_journeys
+    resources :municipalities, :controller => "masters/municipalities" do
+      resources :networks, :controller => "masters/municipalities/networks" do
+        resources :services,         :controller => "masters/municipalities/networks/services"
+        resources :routes,           :controller => "masters/municipalities/networks/routes"
+        resources :vehicle_journeys, :controller => "masters/municipalities/networks/vehicle_journeys"
       end
     end
   end

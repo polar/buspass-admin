@@ -4,6 +4,10 @@ class Masters::MasterBaseController < ApplicationController
 
     before_filter :authenticate_muni_admin!, :except => [:index, :show]
 
+    #def authenticate_muni_admin!
+    #  redirect_to(:url => "muni_admins/sign_in", :master_id => @master, :municipality_id => @municipality) if current_muni_admin.nil?
+    #end
+
     def authorize!(action, obj)
       raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
     end

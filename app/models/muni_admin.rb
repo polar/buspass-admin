@@ -5,12 +5,16 @@ class MuniAdmin
 
     plugin MongoMapper::Devise
 
-    belongs_to :master
+    class << self
+      Devise::Models.config(self, :email_regexp, :password_length)
+    end
 
     # Include default devise modules. Others available are:
-    # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+    # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable, :validatable
     devise :database_authenticatable, :registerable, :token_authenticatable,
-           :recoverable, :rememberable, :trackable, :validatable
+           :recoverable, :rememberable, :trackable
+
+    belongs_to :master
 
     ## Database authenticatable
     key :email,              String, :null => false, :default => ""
@@ -46,16 +50,40 @@ class MuniAdmin
 
     ## Token authenticatable
     # key :authentication_token, String
-    key :name, String
 
+
+    key :name, String
     # Array of String
     key :role_symbols, Array, :default => []
 
     validates_presence_of :name
-    validates_uniqueness_of :email, :case_sensitive => false, :scope => :master_id
+
     attr_accessible :name, :email, :password, :password_confirmation, :remember_me
     attr_accessible :role_symbols
     attr_accessible :encrypted_password
+
+    validates_presence_of   :email, :if => :email_required?
+    validates_uniqueness_of :email, :allow_blank => true, :if => :email_changed?, :scope => :master_id
+    validates_format_of     :email, :with  => email_regexp, :allow_blank => true, :if => :email_changed?
+
+    validates_presence_of     :password, :if => :password_required?
+    validates_confirmation_of :password, :if => :password_required?
+    validates_length_of       :password, :within => password_length, :allow_blank => true
+
+    # Checks whether a password is needed or not. For validations only.
+    # Passwords are always required if it's a new record, or if the password
+    # or confirmation are being set somewhere.
+    def password_required?
+      !persisted? || !password.nil? || !password_confirmation.nil?
+    end
+
+    def email_required?
+      true
+    end
+
+    def self.find_for_database_authentication(conditions)
+      super
+    end
 
     def initialize(attrs = {})
         super

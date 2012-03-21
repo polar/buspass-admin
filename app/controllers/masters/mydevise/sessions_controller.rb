@@ -1,6 +1,9 @@
-class Muni::Mydevise::SessionsController < Devise::SessionsController
+class Masters::Mydevise::SessionsController < Devise::SessionsController
   #noinspection RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable
 
+  def auth_options
+    { :scope => resource_name, :recall => "#{controller_path}#new", :master_id => params[:master_id] }
+  end
   def after_sign_in_path_for(resource)
     # Resource should be a Admin
     if @master.nil?
