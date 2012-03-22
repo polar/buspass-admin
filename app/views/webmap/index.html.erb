@@ -1,0 +1,80 @@
+<H1>WebMap</H1>
+    <script type="text/javascript">
+      console.log("STARTING");
+      var layer;
+      var opacity = 1.0;
+        var api;
+        var map;
+        var routesController;
+        var routesView;
+        function login() {
+            api.login(function() {});
+        };
+
+      function doit() {
+        api.fetchRouteJourneyIds(function(result) {
+            for (var i in result) {
+               api.fetchRouteDefinition(result[i],
+                   function(route) {
+                       routesController.addRoute(route);
+                   });
+            };
+        });
+      }
+    </script>
+<script>
+// execute your scripts when DOM is ready. this is a good habit
+$(function() {
+        $("body").layout({ applyDefaultStyles: true });
+        // initialize scrollable with mousewheel support
+        $("#routesView").scrollable({ vertical: true, mousewheel: true });
+         api = new BusPassAPI("http://localhost:3000/");
+         routesController = new BusPass.RoutesController("#routesView .items","map");
+});
+</script>
+
+<DIV class="ui-layout-north">North</DIV>
+<DIV class="ui-layout-center">
+    <div class="row">
+        <DIV class="span10">
+            <h3>Webmap</h3>
+        </DIV>
+        <DIV class="span6"/>
+            <h3>Routes</h3>
+        </DIV>
+    </div>
+    <div class="row">
+        <DIV class="span10">
+            <div id="map" class="smallmap">
+            </div>
+            <hr>
+            <button class="btn" onclick="login()">Login</button>
+            <button class="btn" onclick="doit()">Doit</button>
+        </DIV>
+        <DIV class="span6"/>
+        <div class="row">
+            <div class="span4">
+            </div>
+            <div class="span2">
+                <a class="prev">&laquo; Up</a>
+            </div>
+        </div>
+        <div class="row">
+        <div class="span6">
+            <div id="routesView" class="scrollable vertical">
+                <div class="items">
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+            </div>
+            <div class="span2">
+                <a class="next">Down &raquo;</a>
+            </div>
+        </div>
+        </DIV>
+    </div>
+</DIV>
+<DIV class="ui-layout-south">South</DIV>

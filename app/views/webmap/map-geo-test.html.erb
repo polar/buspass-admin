@@ -1,0 +1,147 @@
+<H1>WebMap 2</H1>
+    <script type="text/javascript">
+        console.log("STARTING TEST SETUP");
+        var view;
+        function login() {
+            api.login(function() {});
+            $("#Login")[0].disabled=true;
+            $("#onCreate")[0].disabled=false;
+        };
+
+        // Lifecycle Management
+        function onCreate() {
+            basket.onCreate();
+            $("#onCreate")[0].disabled=true;
+            $("#onStart")[0].disabled=false;
+        };
+        function onStart() {
+            basket.onStart();
+            $("#onStart")[0].disabled=true;
+            $("#onResume")[0].disabled=false;
+        };
+        function onResume() {
+            basket.onResume();
+            $("#onResume")[0].disabled=true;
+            $("#onPause")[0].disabled=false;
+        };
+        function onPause() {
+            basket.onPause();
+            $("#onPause")[0].disabled=true;
+            $("#onResume")[0].disabled=false;
+            $("#onStop")[0].disabled=false;
+        };
+        function onStop() {
+            basket.onStop();
+            $("#onStop")[0].disabled=true;
+            $("#onResume")[0].disabled=true;
+            $("#onRestart")[0].disabled=false;
+            $("#onDestroy")[0].disabled=false;
+        };
+        function onRestart() {
+            basket.onRestart();
+            $("#onRestart")[0].disabled=true;
+            $("#onStart")[0].disabled=false;
+            $("#onDestroy")[0].disabled=false;
+        };
+        function onDestroy() {
+            basket.onDestroy();
+            $("#onDestroy")[0].disabled=true;
+            $("#onCreate")[0].disabled=false;
+            $("#onRestart")[0].disabled=true;
+        };
+
+        function enableClick() {
+            view.enableClickControl();
+        };
+
+
+    </script>
+<script>
+// execute your scripts when DOM is ready. this is a good habit
+$(function() {
+        $("body").layout({ applyDefaultStyles: true });
+        // initialize scrollable with mousewheel support
+        $("#routesView").scrollable({ vertical: true, mousewheel: true, keyboard : true, easing: "swing" });
+        view = new BusPass.GeoLocationController( {
+            scope : this,
+            onFeatureAdded : function (feature) {
+              var lonlat = this.getFeatureLonLat(feature);
+              $("#message").html("Location Added, <input type='text' value='" + lonlat.lon + "," + lonlat.lat + "'/>");
+              view.disableClickControl();
+            },
+            onFeatureMoved : function (feature) {
+              var lonlat = this.getFeatureLonLat(feature);
+              $("#message").html("Location Moved, <input type='text' value='" + lonlat.lon + "," + lonlat.lat + "'/>");
+          }
+        });
+        view.mapView($("#map")[0]);
+view.addMarker([-76.136884301514,43.057349158534]);
+view.addMarker([-76.150960534424,43.041543201684]);
+
+        $("#Login")[0].disabled=false;
+        $("#onCreate")[0].disabled=true;
+        $("#onStart")[0].disabled=true;
+        $("#onResume")[0].disabled=true;
+        $("#onPause")[0].disabled=true;
+        $("#onStop")[0].disabled=true;
+        $("#onRestart")[0].disabled=true;
+        $("#onDestroy")[0].disabled=true;
+        $("#altButton1")[0].disabled=false;
+
+});
+</script>
+
+<DIV class="ui-layout-north">North</DIV>
+<DIV class="ui-layout-center">
+    <div class="row">
+        <DIV class="span10">
+            <h3>Webmap</h3>
+        </DIV>
+        <DIV class="span6"/>
+            <h3>Routes</h3>
+        </DIV>
+    </div>
+    <div class="row">
+        <DIV class="span10">
+            <div id="map" class="smallmap">
+            </div>
+            <hr />
+            <div id="message">A message</div>
+            <hr />
+            <button id="Login" class="btn" onclick="login()">Login</button>
+            <button id="onCreate" class="btn" onclick="onCreate()">onCreate</button>
+            <button id="onStart" class="btn" onclick="onStart()">onStart</button>
+            <button id="onResume" class="btn" onclick="onResume()">onResume</button>
+            <button id="onPause"  class="btn" onclick="onPause()">onPause</button>
+            <button id="onStop"  class="btn" onclick="onStop()">onStop</button>
+            <button id="onRestart" class="btn" onclick="onRestart()">onRestart</button>
+            <button id="onDestroy" class="btn" onclick="onDestroy()">onDestroy</button>
+            <button id="altButton1" class="btn" onclick="enableClick()">Place Point</button>
+        </DIV>
+        <DIV class="span6">
+            <div class="row">
+                <div class="span4">
+                </div>
+                <div class="span2">
+                    <a class="prev">&laquo; Up</a>
+                </div>
+            </div>
+             <div class="row">
+                <div class="span6">
+                    <div id="routesView" class="scrollable vertical">
+                        <div class="items">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                </div>
+                <div class="span2">
+                    <a class="next">Down &raquo;</a>
+                </div>
+            </div>
+        </DIV>
+    </div>
+</DIV>
+<DIV class="ui-layout-south">South</DIV>

@@ -1,0 +1,61 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+ *= require_self
+ */
+
+/* root element for scrollable */
+.scrollable {
+
+    /* required settings */
+    position:relative;
+    overflow:hidden;
+
+    /* vertical scrollables have typically larger height than width but not now */
+    height: 300px;
+    width: 800px;
+}
+
+/* root element for scrollable items */
+.scrollable .items {
+    position:absolute;
+
+    /* this time we have very large space for the height */
+    height:20000em;
+}
+
+.route-times .route-time {
+    font-size: 6pt;
+}
+
+/* Display of a Route Code */
+.item.route-selected {
+    background: pink;
+}
+.item.route-highlighted {
+    background: lightgray;
+}
+.item.route-invisible {
+    display: none;
+}
+.item .route-code {
+    text-align: right;
+}
+.item.rtype-journey .route-icon {
+    background : url('/assets/bus_icon_active.png') no-repeat;
+    height : 1em;
+    width : 1em;
+    float : left;
+}
+.item.rtype-route .route-icon {
+    background : url('/assets/route_icon.png') no-repeat;
+    height : 1em;
+    width : 1em;
+    float : left;
+}
+.item.route-hasactivejourneys .route-icon {
+    background : url('/assets/route_icon_active.png') no-repeat;
+    height : 1em;
+    width : 1em;
+    float : left;
+}

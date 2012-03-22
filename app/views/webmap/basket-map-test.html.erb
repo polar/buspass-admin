@@ -1,0 +1,200 @@
+<H1>WebMap 2</H1>
+    <script type="text/javascript">
+        console.log("STARTING TEST SETUP");
+        var basket;
+        var mapView;
+        function login() {
+            api.login(function() {});
+            $("#Login")[0].disabled=true;
+            $("#onCreate")[0].disabled=false;
+        };
+
+        // Lifecycle Management
+        function onCreate() {
+            basket.onCreate();
+            $("#onCreate")[0].disabled=true;
+            $("#onStart")[0].disabled=false;
+        };
+        function onStart() {
+            basket.onStart();
+            $("#onStart")[0].disabled=true;
+            $("#onResume")[0].disabled=false;
+        };
+        function onResume() {
+            basket.onResume();
+            $("#onResume")[0].disabled=true;
+            $("#onPause")[0].disabled=false;
+        };
+        function onPause() {
+            basket.onPause();
+            $("#onPause")[0].disabled=true;
+            $("#onResume")[0].disabled=false;
+            $("#onStop")[0].disabled=false;
+        };
+        function onStop() {
+            basket.onStop();
+            $("#onStop")[0].disabled=true;
+            $("#onResume")[0].disabled=true;
+            $("#onRestart")[0].disabled=false;
+            $("#onDestroy")[0].disabled=false;
+        };
+        function onRestart() {
+            basket.onRestart();
+            $("#onRestart")[0].disabled=true;
+            $("#onStart")[0].disabled=false;
+            $("#onDestroy")[0].disabled=false;
+        };
+        function onDestroy() {
+            basket.onDestroy();
+            $("#onDestroy")[0].disabled=true;
+            $("#onCreate")[0].disabled=false;
+            $("#onRestart")[0].disabled=true;
+        };
+
+        function pathVisible(visibility) {
+             var routes = basket.getJourneys();
+             for(var i = 0; i < routes.length; i++ ) {
+                 mapView.setVisibility(routes[i], visibility);
+             }
+             mapView.redraw();
+        }
+    </script>
+<script>
+// execute your scripts when DOM is ready. this is a good habit
+$(function() {
+        $("body").layout({ applyDefaultStyles: true });
+        // initialize scrollable with mousewheel support
+        $("#routesView").scrollable({ vertical: true, mousewheel: true, keyboard : true, easing: "swing" });
+        var scroll = $("#routesView").data("scrollable");
+        api = new BusPassAPI("http://localhost:3000/");
+        mapView = new BusPass.RoutesMapController( {
+            scope : this,
+            onRouteSelected : function( route ) {
+                scroll.addItem($("<div class='item' style='color:red'>Route Selected: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteUnselected : function( route ) {
+                scroll.addItem($("<div class='item' style='color:blue'>Route Unselected: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteHighlighted : function( route ) {
+                scroll.addItem($("<div class='item' style='color:green'>Route Highlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteUnhighlighted : function( route ) {
+                scroll.addItem($("<div class='item' style='color:black'>Route Unhighlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+        });
+        mapView.mapView("#map");
+        basket = new BusPass.JourneyBasket();
+        basket.busAPI = api;
+        basket.journeyStore = new BusPass.JourneyStore();
+        basket.onJourneyAddedListener =  {
+            onJourneyAdded : function (basket, r) {
+                console.log("Route Added! " + r.getName() + " : " + r.getId());
+                mapView.addRoute(r);
+            }
+        };
+
+        basket.onJourneyRemovedListener = {
+            onJourneyRemoved : function (basket, r) {
+                mapView.removeRoute(r);
+            }
+        };
+
+        basket.onBasketUpdatedListener = {
+            onBasketUpdated : function (basket) {
+                console.log("Basket Updated");
+            }
+        };
+
+        basket.onIOErrorListener = {
+            onIOError : function(basket, ioe) {
+                alert("Basket IO Error: " + ioe.message);
+            }
+        };
+
+        basket.progressListener = {
+            onSyncStart : function () {
+                console.log("Basket: SyncStart");
+            },
+            onSyncEnd : function (nRoutes) {
+                console.log("Basket: SyncEnd");
+            },
+            onRouteStart : function (iRoute) {
+                console.log("Basket: StartRoute " + iRoute);
+            },
+            onRouteEnd : function (iRoute) {
+                console.log("Basket: EndRoute " + iRoute);
+            },
+            onDone : function () {
+                console.log("Basket: Done.");
+            },
+        };
+
+        $("#Login")[0].disabled=false;
+        $("#onCreate")[0].disabled=true;
+        $("#onStart")[0].disabled=true;
+        $("#onResume")[0].disabled=true;
+        $("#onPause")[0].disabled=true;
+        $("#onStop")[0].disabled=true;
+        $("#onRestart")[0].disabled=true;
+        $("#onDestroy")[0].disabled=true;
+        $("#visibile")[0].disabled=false;
+        $("#invisibile")[0].disabled=false;
+
+});
+</script>
+
+<DIV class="ui-layout-north">North</DIV>
+<DIV class="ui-layout-center">
+    <div class="row">
+        <DIV class="span10">
+            <h3>Webmap</h3>
+        </DIV>
+        <DIV class="span6"/>
+            <h3>Routes</h3>
+        </DIV>
+    </div>
+    <div class="row">
+        <DIV class="span10">
+            <div id="map" class="smallmap">
+            </div>
+            <hr />
+            <div id="message">A message</div>
+            <hr />
+            <button id="Login" class="btn" onclick="login()">Login</button>
+            <button id="onCreate" class="btn" onclick="onCreate()">onCreate</button>
+            <button id="onStart" class="btn" onclick="onStart()">onStart</button>
+            <button id="onResume" class="btn" onclick="onResume()">onResume</button>
+            <button id="onPause"  class="btn" onclick="onPause()">onPause</button>
+            <button id="onStop"  class="btn" onclick="onStop()">onStop</button>
+            <button id="onRestart" class="btn" onclick="onRestart()">onRestart</button>
+            <button id="onDestroy" class="btn" onclick="onDestroy()">onDestroy</button>
+            <button id="visibile" class="btn" onclick="pathVisible(true)">Make Visible</button>
+            <button id="invisibile" class="btn" onclick="pathVisible(false)">Make Invisible</button>
+        </DIV>
+        <DIV class="span6"/>
+        <div class="row">
+            <div class="span4">
+            </div>
+            <div class="span2">
+                <a class="prev">&laquo; Up</a>
+            </div>
+        </div>
+        <div class="row">
+        <div class="span6">
+            <div id="routesView" class="scrollable vertical">
+                <div class="items">
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+            </div>
+            <div class="span2">
+                <a class="next">Down &raquo;</a>
+            </div>
+        </div>
+        </DIV>
+    </div>
+</DIV>
+<DIV class="ui-layout-south">South</DIV>
