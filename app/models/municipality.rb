@@ -16,7 +16,7 @@ class Municipality
     key :slug, String, :required => true, :unique => true
     key :location, Array
     key :hosturl, String
-    key :owner, MuniAdmin
+    belongs_to :owner, :class_name => "MuniAdmin"
 
     # The database we are stored in. Self referentcial
     key :dbname, String

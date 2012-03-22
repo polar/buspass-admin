@@ -1,0 +1,122 @@
+<h2>Planning for <%= link_to @network.name, network_path(@network, :master_id => @master.id) %></h2>
+
+<table>
+  <tr>
+    <th>Services</th>
+    <td><div id="services_count"><%= @network.services.count %></div></td>
+  </tr>
+  <tr>
+    <th>Routes</th>
+    <td><div id="routes_count"><%=  @network.routes.count %></div></td>
+  </tr>
+  <tr>
+    <th>VehicleJourneys</th>
+    <td><div id="vj_count"><%=  @network.vehicle_journey_count %></div></td>
+  </tr>
+</table>
+
+<table>
+  <tr id="processing_statusP" style="display: <%= @network.processing_lock ? '': 'none' %> ">
+    <th>Processor Admin</th>
+    <td><%= @network.processing_lock.name if @network.processing_lock %></td>
+  </tr>
+  <tr>
+    <th>Process Start Time</th>
+    <td><div id="started_at"><%=  @network.processing_completed_at ?
+                                          @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                          "Pending" %></div></td>
+  </tr>
+  <tr>
+    <th>Process Progress</th>
+    <td><div id="progress"><%= (@network.processing_progress * 100).floor %>%</div></td>
+  </tr>
+  <tr  id="processing_statusC1" style='display: <%= @network.processing_lock ? 'none': ''%>'>
+    <th>Process Complete Time</th>
+    <td><div id="completed_at"><%= @network.processing_completed_at ?
+                                           @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                           "" %></div></td>
+  </tr>
+  <tr  id="processing_statusC2" style='display: <%= @network.processing_lock ? 'none': ''%>'>
+    <th>Process Result File</th>
+    <td><div id="process_file"><%= @network.file_path ?
+                                           link_to("Download", file_plan_networkplan_path(:masters  => @muni.slug, :network => @network)): "" %></div></td>
+  </tr>
+</table>
+<div id="processing_statusC3" style='display: <%= @network.processing_lock ? 'none': ''%>'>
+  <p>
+    <%= link_to "Upload New Definition", upload_plan_networkplan_path(:masters => @muni.slug, :network => @network) %>
+  </p>
+</div>
+
+<h3>Processing Log</h3>
+<% if @network.processing_lock %>
+    <script type="text/javascript">
+        $(function() {
+            var polling = true;
+            function poll() {
+                var log = $('#processing_log')[0].children.length;
+                var err = $('#processing_err')[0].children.length;
+                $.ajax({
+                    type: "GET",
+                    url: "<%= partial_status_plan_networkplan_path(:masters => @muni.slug, :network => @network) %>" +
+                            "?err="+err+"&log="+log,
+                    dataType: "json",
+                    success: function(data) {
+                        $.each(data['logs'], function(i, item) {
+                            $('#processing_log').append('<div>'+item+'</div>');
+                        });
+                        $.each(data['errors'], function(i, item) {
+                            $('#processing_err').append('<div>'+item+'</div>');
+                        });
+                        if (data['completed_at']) {
+                            $('#completed_at').html(data['completed_at']);
+                            $('#processing_statusP').hide();
+                            $('#processing_statusC1').show();
+                            $('#processing_statusC2').show();
+                            $('#processing_statusC3').show();
+                            polling = false;
+                        }
+                        if (data['process_file']) {
+                            $('#process_file').html("<a href='"+data['process_file']+"'>Download</a>");
+
+                        }
+                        if (data['services_count']) {
+                            $('#services_count').html(""+data['services_count']);
+                        }
+                        if (data['routes_count']) {
+                            $('#routes_count').html(data[""+'routes_count']);
+                        }
+                        if (data['vj_count']) {
+                            $('#vj_count').html(""+data['vj_count']);
+                        }
+                        if (data['progress']) {
+                            $('#progress').html(""+(Math.floor(data['progress']*100))+"%");
+                        }
+                        if (data['started_at']) {
+                            $('#started_at').html(data['started_at']);
+                        }
+                    }
+                });
+                if (polling) {
+                    setTimeout(poll,5000);
+                }
+            }
+            setTimeout(poll,0);
+        });
+    </script>
+<% end %>
+<p>
+<div id="processing_log">
+  <% for i in @network.processing_log %>
+      <div><%= i %></div>
+  <% end %>
+</div>
+</p>
+<h3>Errors</h3>
+<p>
+<div id="processing_err">
+  <% for i in @network.processing_errors %>
+      <div><%= i %></div>
+  <% end %>
+</div>
+</p>

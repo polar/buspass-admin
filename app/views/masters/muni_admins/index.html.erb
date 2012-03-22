@@ -1,0 +1,16 @@
+<h3>Users for <%= @master.name %></h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Roles</th>
+  </tr>
+  <% for u in @muni_admins do %>
+    <tr>
+      <td><%= u.name %></td>
+      <td><%= u.email %></td>
+      <td><%= u.role_symbols.inspect %></td>
+      <td><%= link_to( "Edit", edit_master_muni_admin_path(u, :master_id => @master.id)) %></td>
+    </tr>
+  <% end %>
+</table>

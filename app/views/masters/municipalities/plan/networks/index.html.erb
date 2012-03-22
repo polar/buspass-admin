@@ -1,0 +1,30 @@
+<h2>Networks</h2>
+
+<h2>Deployment <%= @municipality.name %></h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Mode</th>
+    <th>Routes</th>
+    <th>Services</th>
+    <th>Journeys</th>
+    <th>Navigation</th>
+  </tr>
+  <% for n in @networks do %>
+      <tr>
+        <td><%= link_to n.name, plan_networkplan_path(n, :masters => @muni.slug, :network => n) %></td>
+        <td><%= n.description %></td>
+        <td><%= n.mode %></td>
+        <td><%= n.route_count %></td>
+        <td><%= n.service_count %></td>
+        <td><%= n.vehicle_journey_count %></td>
+        <td><%= link_to "Explore", network_path(n, :masters => @muni.slug) %>
+          <%= link_to "Plan", plan_networkplan_path(n, :masters => @muni.slug) %></td>
+      </tr>
+  <% end %>
+</table>
+
+<% if muni_admin_can?(:create, Network) %>
+ <%=  link_to "Add Network", new_master_municipality_network_path(:master_id => @master, :municipality_id => @municipality) %>
+<% end %>

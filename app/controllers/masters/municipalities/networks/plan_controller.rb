@@ -1,6 +1,6 @@
 require "delayed_job"
 
-class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
+class Masters::Municipalities::Networks::PlanController < Masters::Municipalities::Networks::NetworkBaseController
 
   def show
     authorize!(:edit, @network)
@@ -9,10 +9,10 @@ class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
   def upload
     authorize!(:edit, @network)
 
-    @network_param_name = :networkplan
+    @network_param_name = :plan
 
     if (@network.processing_lock)
-      redirect_to plan_networkplan_path(:masters => @muni.slug, :network => @network)
+      redirect_to master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
     end
   end
 
@@ -48,7 +48,7 @@ class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
       resp[:started_at] = @network.processing_started_at.strftime("%m-%d-%Y %H:%M %Z")
     end
     if (@network.file_path)
-      resp[:process_file] = file_plan_networkplan_path(:masters => @muni.slug, :network => @network)
+      resp[:process_file] = file_master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
     end
     if (@network.processing_progress)
       resp[:progress] = @network.processing_progress
@@ -71,8 +71,8 @@ class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
       @network.upload_file = nil
     end
 
-    @network.update_attributes!(params[:networkplan])
-    @network.upload_file = params[:networkplan][:upload_file]
+    @network.update_attributes!(params[:plan])
+    @network.upload_file = params[:plan][:upload_file]
 
     # Save automatically reads the uploaded file and stores it
     @network.save!
@@ -98,10 +98,10 @@ class Muni::Plan::NetworkplanController < Muni::Plan::NetworkController
       Delayed::Job.enqueue(:payload_object => CompileServiceTableJob.new(MongoMapper.database.name, @network))
 
       flash[:notice] = "Your job is currently scheduled for processing."
-      redirect_to plan_networkplan_path(:masters => @muni.slug, :network => @network)
+      redirect_to master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
     else
       flash[:error] = "Your file was unspecified or not uploaded. Please retry with new file name."
-      @network_param_name = :networkplan
+      @network_param_name = :plan
       render :upload
     end
   end

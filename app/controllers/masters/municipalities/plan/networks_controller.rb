@@ -1,4 +1,4 @@
-class Muni::Plan::NetworksController < Muni::Plan::ApplicationController
+class Masters::Municipalities::Plan::NetworksController < Masters::Municipalities::Plan::ApplicationController
 
   def index
     authorize!(:read, @master)

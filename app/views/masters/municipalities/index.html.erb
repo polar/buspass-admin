@@ -1,12 +1,11 @@
 <h3><%= @master.name %> Deployments</h3>
 <% if current_muni_admin %>
-    <p><%= "Welcome #{current_muni_admin.name}" %></p>
+    <p><%= "Welcome #{current_muni_admin.name} in your roles of " %>
+      <% for r in current_muni_admin.roles_list %>
+         <%= r.to_s.humanize %>
+      <% end %>
+    </p>
 <% end %>
-<p>
-  Database <%=  MongoMapper.database.name %>
-<p>
-  Muncipality Database <%= Municipality.database.name %>
-
 <table>
   <tr>
     <th>Deployment</th>
@@ -22,4 +21,6 @@
 <% end %>
 </table>
 <p>
+<% if muni_admin_can?(:create, Municipality) %>
 <%= link_to "New Deployment", new_master_municipality_path %>
+<% end %>

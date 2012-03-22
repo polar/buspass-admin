@@ -60,7 +60,7 @@ class MuniAdmin
 
     attr_accessible :name, :email, :password, :password_confirmation, :remember_me
     attr_accessible :role_symbols
-    attr_accessible :encrypted_password
+    attr_accessible :encrypted_password, :master_id
 
     validates_presence_of   :email, :if => :email_required?
     validates_uniqueness_of :email, :allow_blank => true, :if => :email_changed?, :scope => :master_id
@@ -89,6 +89,10 @@ class MuniAdmin
         super
         # This little hack allows us to assign encrypted_password while making a new
         # User.non-empty
+    end
+
+    def possible_roles
+      return ["operator", "super", "planner"]
     end
 
     # TODO: Important. The last role in the list is the only significant one.

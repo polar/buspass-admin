@@ -9,7 +9,6 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   end
 
   def new
-    authorize!(:edit, @master)
     authorize!(:create, Municipality)
 
     @municipality = Municipality.new
@@ -25,7 +24,6 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   end
 
   def create
-    authorize!(:edit, @master)
     authorize!(:create, Municipality)
 
     @municipality = Municipality.new(params[:municipality])

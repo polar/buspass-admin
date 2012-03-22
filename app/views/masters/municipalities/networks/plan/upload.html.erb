@@ -1,11 +1,13 @@
-<h2>Network <%= @network.name %></h2>
+<h2>Network <%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
 <h2>Upload File</h2>
 <%= form_for @network,
              # Cannot use :network here, it's already taken'
              :as => @network_param_name,
-             :url => plan_networkplan_path(:network => @network, :masters => @muni.slug),
+             :url => master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id),
+             :method => "put",
              :html => {:multipart => true} do |f| %>
   <p>
+    <% error_messages!(@network) %>
     <%= f.label :upload_file, "Zip File" %>
     <%= f.file_field :upload_file %>
     <%= f.hidden_field :upload_file_cache %>

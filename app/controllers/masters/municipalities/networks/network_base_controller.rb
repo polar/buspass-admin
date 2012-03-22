@@ -1,5 +1,5 @@
 class Masters::Municipalities::Networks::NetworkBaseController < Masters::Municipalities::MunicipalityBaseController
-  postpend_before_filter :set_network
+  append_before_filter :set_network
 
   private
 
@@ -8,7 +8,7 @@ class Masters::Municipalities::Networks::NetworkBaseController < Masters::Munici
     if @network.nil?
       raise "No Network"
     end
-    if @metwork.municipality != @municipality
+    if @network.municipality != @municipality
       raise "Wrong Network for Deployment"
     end
   end

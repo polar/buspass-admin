@@ -1,4 +1,4 @@
-class Muni::Plan::NetworkController < Muni::Plan::ApplicationController
+class Masters::Municipalities::Plan::NetworkController < Masters::Municipalities::Plan::ApplicationController
 
   before_filter :setup_network
 

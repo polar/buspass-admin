@@ -1,9 +1,9 @@
-<h2><%= link_to "Network #{@network.name}", network_path(@network, :masters => @muni.slug) %></h2>
+<h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
 <h3><%= link_to "Route #{@vehicle_journey.route.name}",
-                network_route_path(@vehicle_journey.route, :masters => @muni.slug, :network_id => @network) %></h3>
+                master_municipality_network_route_path(@vehicle_journey.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
 
 <% for s in [@vehicle_journey.service] do %>
-    <h3><%= link_to "Service #{s.name}", network_service_path(s, :masters => @muni.slug, :network_id => @network) %></h3>
+    <h3><%= link_to "Service #{s.name}", master_municipality_network_service_path(s, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
     <table>
       <tr>
         <th>Route</th>
@@ -12,7 +12,7 @@
         <th>Vehicle Journeys</th>
       </tr>
       <tr>
-        <td><%=  s.route.code  %></td>
+        <td><%=  link_to s.route.code, master_municipality_network_route_path(s.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
         <!--- TODO: Internatialize Time -->
         <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
         <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
@@ -30,8 +30,8 @@
       </tr>
       <% for vj in [@vehicle_journey] do %>
           <tr>
-            <td><%=  vj.route.code  %></td>
-            <td><%=  link_to vj.display_name, network_vehicle_journey_path(vj, :masters => @muni.slug, :network_id => @network)  %></td>
+            <td><%=  link_to vj.route.code, master_municipality_network_route_path(vj.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
+            <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(vj, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
             <td><%=  s.direction  %></td>
             <!--- TODO: Internatialize Time -->
             <td><%=  vj.time_start.strftime("%H:%M") %></td>

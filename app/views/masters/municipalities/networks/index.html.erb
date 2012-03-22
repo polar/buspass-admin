@@ -13,14 +13,14 @@
   </tr>
   <% for n in @networks do %>
     <tr>
-      <td><%= link_to n.name, plan_networkplan_path(n, :masters => @muni.slug, :network => n) %></td>
+      <td><%= link_to n.name, master_municipality_network_plan_path(n, :master_id => @master.id, :municipality_id => @municipality) %></td>
       <td><%= n.description %></td>
       <td><%= n.mode %></td>
       <td><%= n.route_count %></td>
       <td><%= n.service_count %></td>
       <td><%= n.vehicle_journey_count %></td>
-      <td><%= link_to "Explore", network_path(n, :masters => @muni.slug) %>
-          <%= link_to "Plan", plan_networkplan_path(n, :masters => @muni.slug) %></td>
+      <td><%= link_to "Explore", master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality) %>
+          <%= link_to "Plan", master_municipality_network_plan_path(n, :master_id => @master.id, :municipality_id => @municipality) %></td>
     </tr>
   <% end %>
 </table>

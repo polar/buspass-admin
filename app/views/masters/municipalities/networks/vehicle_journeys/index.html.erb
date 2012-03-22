@@ -1,0 +1,49 @@
+<h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
+<h3>Vehicle Journeys</h3>
+
+<% if @routes.empty? %>
+    There are not yet any Routes and Vehicle Journeys for this Network.
+<% end %>
+
+<% for r in @routes %>
+<h3><%= link_to "Route #{r.name}",
+                master_municipality_network_route_path(r, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
+    <h3><%= link_to "Service #{r.service.name}", master_municipality_network_service_path(r.service, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
+    <table>
+      <tr>
+        <th>Route</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Vehicle Journeys</th>
+      </tr>
+      <tr>
+        <td><%=  r..code  %></td>
+        <!--- TODO: Internatialize Time -->
+        <td><%=  r.service.operating_period_start_date.strftime("%m-%d-%Y") %></td>
+        <td><%=  r.service.operating_period_end_date.strftime("%m-%d-%Y") %></td>
+        <td><%=  r.service.vehicle_journeys.count %></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Route</th>
+        <th>Display Name</th>
+        <th>Direction</th>
+        <th>Departs</th>
+        <th>Ends</th>
+        <th>Links</th>
+      </tr>
+      <% for vj in [r.vehicle_journeys] do %>
+          <tr>
+            <td><%=  vj.route.code  %></td>
+            <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(vj, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
+            <td><%=  vj.route.service.direction  %></td>
+            <!--- TODO: Internatialize Time -->
+            <td><%=  vj.time_start.strftime("%H:%M") %></td>
+            <td><%=  vj.time_end.strftime("%H:%M") %></td>
+            <td><%=  vj.journey_pattern_timing_links.count %></td>
+          </tr>
+      <% end %>
+    </table>
+
+<% end %>

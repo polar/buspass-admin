@@ -33,18 +33,22 @@
       </tr>
       <% for n in @municipality.networks do %>
           <tr>
-            <td><%=  link_to "Network #{n.name}", master_municipality_network_path(n) %></td>
+            <td><%=  link_to "Network #{n.name}", master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
             <td><%=  n.routes.count %></td>
             <td><%=  n.services.count %></td>
-            <td><%=  n.vehicle_journies.count %></td>
+            <td><%=  n.vehicle_journey_count %></td>
           </tr>
       <% end %>
     </table>
  <% end %>
 
-<%= link_to("Edit Description", edit_master_municipality_path(@municipality, :master_id => @master.id)) if muni_admin_can?(:edit, @municipality) %>
-| <%= link_to "All", master_municipalities_path %>
 
-  <% if muni_admin_can? :edit, @municipality %>
-      | <%= link_to("Planning", plan_networks_path(:master_id => @master, :municipality_id => @municipality)) %>
+<%= link_to "All", master_municipalities_path %>
+<% if muni_admin_can?(:edit, @municipality) %>
+   | <%= link_to("Edit Description", edit_master_municipality_path(@municipality, :master_id => @master.id)) %>
+<% end %>
+
+
+<% if muni_admin_can? :edit, @municipality %>
+  | <%= link_to("Add Network", new_master_municipality_network_path(:master_id => @master, :municipality_id => @municipality)) %>
 <% end %>

@@ -12,12 +12,15 @@ class PlannerRolePermit < CanTango::RolePermit
       master.muni_owner === user && user.master === master
     end
     can([:edit, :delete], Municipality) do |muni|
-      muni.owner === user && user.master === muni.master &&
-        muni.master.muni_owner === user
+      muni.owner === user && user.master === muni.master
+    end
+    can([:edit, :delete], Network) do |network|
+      network.owner === user && user.master === network.master
     end
   end
 
   def permit_rules
+    can([:read], Master)
     can([:read, :create], Municipality)
     can([:read, :create], Network)
   end

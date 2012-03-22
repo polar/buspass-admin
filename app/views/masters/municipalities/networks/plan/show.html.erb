@@ -1,4 +1,4 @@
-<h2>Planning for <%= link_to @network.name, network_path(@network, :masters => @muni.slug) %></h2>
+<h2>Planning for <%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
 
 <table>
   <tr>
@@ -39,12 +39,12 @@
       <tr  id="processing_statusC2" style='display: <%= @network.processing_lock ? 'none': ''%>'>
         <th>Process Result File</th>
         <td><div id="process_file"><%= @network.file_path ?
-                                      link_to("Download", file_plan_networkplan_path(:masters  => @muni.slug, :network => @network)): "" %></div></td>
+                                      link_to("Download", file_master_municipality_network_plan_path(@network, :master_id  => @master.id, :municipality_id => @municipality.id)): "" %></div></td>
       </tr>
     </table>
     <div id="processing_statusC3" style='display: <%= @network.processing_lock ? 'none': ''%>'>
     <p>
-      <%= link_to "Upload New Definition", upload_plan_networkplan_path(:masters => @muni.slug, :network => @network) %>
+      <%= link_to "Upload New Definition", upload_master_municipality_network_plan_path(@network, :master_id  => @master.id, :municipality_id => @municipality.id) %>
     </p>
     </div>
 
@@ -58,7 +58,7 @@
               var err = $('#processing_err')[0].children.length;
               $.ajax({
                   type: "GET",
-                  url: "<%= partial_status_plan_networkplan_path(:masters => @muni.slug, :network => @network) %>" +
+                  url: "<%= partial_status_master_municipality_network_plan_path(@network, :master_id  => @master.id, :municipality_id => @municipality.id) %>" +
                      "?err="+err+"&log="+log,
                   dataType: "json",
                   success: function(data) {

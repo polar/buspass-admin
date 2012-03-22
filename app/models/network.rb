@@ -17,6 +17,8 @@ class Network
   key :processing_completed_at, Time
 
   belongs_to  :municipality
+  belongs_to  :owner, :class_name => "MuniAdmin"
+  belongs_to  :master
 
   many :routes, :dependent => :destroy
   many :services
@@ -27,6 +29,8 @@ class Network
   mount_uploader :upload_file, NetworkFileUploader
 
   timestamps!
+
+  validates_uniqueness_of :name, :scope => [ :master_id, :municipality_id ]
 
   def self.create_indexes
     self.ensure_index(:name, :unique => true)
