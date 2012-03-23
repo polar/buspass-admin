@@ -16,6 +16,7 @@
         <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
         <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
         <td><%=  s.vehicle_journeys.count %></td>
+        <td><%= link_to "Map", map_master_municipality_network_route_path(@route, :service_id => s.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
       </tr>
     </table>
     <h4>Vehicle Journeys on this Service and Route</h4>

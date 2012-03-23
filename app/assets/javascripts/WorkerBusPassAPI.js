@@ -23,10 +23,15 @@ BusPassAPI.prototype = {
                     failureC(this.responseText);
                 }
             }
+        };
+        var parts = url.split("?");
+        if (parts.length > 1) {
+            url = parts[0] + ".json" + "?" + parts[1];
+        } else {
+            url = url + ".json" + "?web=1";
         }
-        var url = this.apiMap["getRouteJourneyIds"] +".json";
         if (routeids != null && routeids.length > 0) {
-            url += "?routes=";
+            url += "&routes=";
             var ids = [];
             for(var i = 0; i < routeids.length; i++ ) {
                 ids.push(routeids[i].id);
@@ -51,10 +56,16 @@ BusPassAPI.prototype = {
                 }
             }
         }
-        var url = this.apiMap["getRouteDefinition"] + "/" + nameid.id + ".json";
-        args = "";
+        var args = "";
+        var url = this.apiMap["getRouteDefinition"];
+        var parts = url.split("?");
+        if (parts.length > 1) {
+            url = parts[0] + "/" + nameid.id + ".json" + "?" + parts[1];
+        } else {
+            url = url + "/" + nameid.id+  ".json" + "?web=1";
+        }
         if (nameid.type != null) {
-            args += "?type=" + nameid.type;
+            args += "&type=" + nameid.type;
         }
         $.ajax.get( { url: url+args, success: resultC, dataType: "json"});
     },
@@ -73,10 +84,16 @@ BusPassAPI.prototype = {
                 }
             }
         }
-        var url = this.apiMap["getJourneyLocation"] + "/" + nameid.id + ".json";
-        args = "";
+        var args = "";
+        var url = this.apiMap["getJourneyLocation"];
+        var parts = url.split("?");
+        if (parts.length > 1) {
+            url = parts[0] + "/" + nameid.id + ".json" + "?" + parts[1];
+        } else {
+            url = url + "/" + nameid.id+  ".json" + "?web=1";
+        }
         if (nameid.type != null) {
-            args += "?type=" + nameid.type;
+            args += "&type=" + nameid.type;
         }
         $.ajax.get( { url: url+args, success: resultC, dataType: "json"});
     }

@@ -5,7 +5,7 @@ class Masters::Municipalities::MunicipalityBaseController < Masters::MasterBaseC
   def set_municipality
     @municipality  = Municipality.find(params[:municipality_id])
     if @municipality.nil?
-      raise "Master Not Found"
+      raise "Municipality Not Found"
     end
     if @municipality.master != @master
       raise "Wrong Deployment for Municipality Master"

@@ -37,6 +37,7 @@
             <td><%=  vj.time_start.strftime("%H:%M") %></td>
             <td><%=  vj.time_end.strftime("%H:%M") %></td>
             <td><%=  vj.journey_pattern_timing_links.count %></td>
+            <td><%=  link_to "Map", map_master_municipality_network_vehicle_journey_path(vj, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
           </tr>
       <% end %>
     </table>

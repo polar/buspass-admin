@@ -1,37 +1,7 @@
-class WebmapController < ApplicationController
+class Masters::Municipalities::Networks::WebmapController < Masters::Municipalities::Networks::NetworkBaseController
   layout "webmap"
 
   def index
-  end
-
-  def api
-      @api = {
-          :majorVersion => 1,
-          :minorVersion => 0,
-          "getRoutePath" => "/webmap/route",
-          "getRouteJourneyIds" => "/webmap/route_journeys",
-          "getRouteDefinition" => "/webmap/routedef",
-          "getJourneyLocation" => "/webmap/curloc"
-      }
-
-      respond_to do |format|
-          format.json { render :json => @api }
-      end
-  end
-
-  def apiadm
-      @api = {
-          :majorVersion => 1,
-          :minorVersion => 0,
-          "getRoutePath" => "/webmap/route",
-          "getRouteJourneyIds" => "/webmap/all_route_journeys",
-          "getRouteDefinition" => "/webmap/routedef",
-          "getJourneyLocation" => "/webmap/curloc"
-      }
-
-      respond_to do |format|
-          format.json { render :json => @api }
-      end
   end
 
   def route
@@ -68,7 +38,8 @@ class WebmapController < ApplicationController
 
   # We are going return two types, Routes and Active VehicleJourneys.
   def route_journeys
-    @routes = Route.all
+    # TODO: searching by :network_id should be sufficient.
+    @routes = Route.where(:master_id => @master.id, :municipality_id => @municipality.id, :network_id => @network.id).all
     rs = []
     if params[:routes] != nil
       rs = params[:routes].split(',')
@@ -114,7 +85,8 @@ class WebmapController < ApplicationController
 
   # We are going return two types, Routes and VehicleJourneys.
   def all_route_journeys
-      @routes = Route.all
+    # TODO: searching by :network_id should be sufficient.
+    @routes = Route.where(:master_id => @master.id, :municipality_id => @municipality.id, :network_id => @network.id).all
 
       # if we have a route or routes parameter, we are only looking for
       # VehicleJourneys.

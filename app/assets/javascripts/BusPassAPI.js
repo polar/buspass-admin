@@ -2,7 +2,7 @@
  * BusPassAPI.js
  */
 BusPassAPI = function(options) {
-    $.extend(this,options);
+    $.extend(this, options);
 };
 
 BusPassAPI.prototype = {
@@ -60,7 +60,7 @@ BusPassAPI.prototype = {
                 }
             }
         }
-        $.get(this.loginUrl,loginCallback, "json");
+        $.get(this.loginUrl, loginCallback, "json");
     },
 
 
@@ -78,7 +78,11 @@ BusPassAPI.prototype = {
                 }
             }
         }
-        var url = this.apiMap["getRouteJourneyIds"] +".json";
+        var url = this.apiMap["getRouteJourneyIds"];
+        var parts = url.split("?");
+        if (parts.length > 1) {
+            url = parts[0] + ".json" + "?" + parts[1];
+        }
         $.get(url, resultC, "json");
     },
 
@@ -113,8 +117,13 @@ BusPassAPI.prototype = {
             }
         }
 
-        var url = this.apiMap["getJourneyLocation"] + "/" + nameid.id + ".json";
-        var args = "?web=1";
+        var url = this.apiMap["getJourneyLocation"];
+        var parts = url.split("?");
+        if (parts.length > 1) {
+            url = parts[0] + "/" + nameid.id + ".json" + "?" + parts[1];
+        } else {
+            url = url + "/" + nameid.id+  ".json" + "?web=1";
+        }
         if (nameid.type != null) {
             args += "&type=" + nameid.type;
         }
@@ -138,8 +147,13 @@ BusPassAPI.prototype = {
             }
         }
 
-        var url = this.apiMap["getRouteDefinition"] + "/" + nameid.id + ".json";
-        var args = "?web=1";
+        var url = this.apiMap["getRouteDefinition"];
+        var parts = url.split("?");
+        if (parts.length > 1) {
+            url = parts[0] + "/" + nameid.id + ".json" + "?" + parts[1];
+        } else {
+            url = url + "/" + nameid.id+  ".json" + "?web=1";
+        }
         if (nameid.type != null) {
             args += "&type=" + nameid.type;
         }
