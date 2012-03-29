@@ -38,7 +38,7 @@ class Masters::Municipalities::Networks::RoutesController  <
         :minorVersion => 0,
         "getRoutePath" => route_master_municipality_network_route_webmap_path(:route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
         "getRouteJourneyIds" => route_journeys_master_municipality_network_route_webmap_path(:route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
-        "getRouteDefinition" => routedef_master_municipality_network_route_webmap_path(:id => nil, :route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
+        "getRouteDefinition" => routedef_master_municipality_network_route_webmap_path(:route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
         "getJourneyLocation" => curloc_master_municipality_network_route_webmap_path(:route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)
     }
 

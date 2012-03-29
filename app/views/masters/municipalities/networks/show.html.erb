@@ -36,5 +36,5 @@
   <% if muni_admin_can? :edit, @network %>
     <%=  link_to "Plan Network", master_municipality_network_plan_path(:network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %>
   <% end %>
-
+  <%= link_to "Copy to Deployment", move_master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %>
 </P>

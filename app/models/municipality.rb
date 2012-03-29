@@ -18,7 +18,7 @@ class Municipality
     key :hosturl, String
     belongs_to :owner, :class_name => "MuniAdmin"
 
-    # The database we are stored in. Self referentcial
+    # The database we are stored in. Self referential
     key :dbname, String
 
     # The database we need to look up the master_municipality in.
@@ -29,6 +29,10 @@ class Municipality
 
     before_validation :ensure_slug, :ensure_lonlat
     many :networks, :autosave => false
+
+    def route_codes
+      networks.reduce([]) { |v,n| v + (n.routes.map {|x| x.code})}
+    end
 
     def ensure_lonlat
         if self.location != nil

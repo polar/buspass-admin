@@ -1,7 +1,7 @@
 class Masters::Municipalities::Networks::Routes::WebmapController < Masters::Municipalities::Networks::NetworkBaseController
 
   def route
-    @object ||= Route.find(params[:id])
+    @object ||= Route.find(params[:ref])
 
     data =  getRouteGeoJSON(@object)
     respond_to do |format|
@@ -10,7 +10,7 @@ class Masters::Municipalities::Networks::Routes::WebmapController < Masters::Mun
   end
 
   def journey
-    @object ||= VehicleJourney.find(params[:id])
+    @object ||= VehicleJourney.find(params[:ref])
 
     data =  getRouteGeoJSON(@object)
     respond_to do |format|
@@ -20,13 +20,16 @@ class Masters::Municipalities::Networks::Routes::WebmapController < Masters::Mun
 
   def routedef
     @object   = params[:type] == "V" &&
-                 VehicleJourney.find(params[:id], :include => "service")
+                 VehicleJourney.find(params[:ref], :include => "service")
     @object ||= params[:type] == "R" &&
                  Route.find(params[:id])
     # We are only really lax here if we are typing things in.
-    @object ||= VehicleJourney.find(params[:id], :include => "service")
+    @object ||= VehicleJourney.find(params[:ref], :include => "service")
     @object ||= Route.find(params[:id])
 
+    if @object.is_a? Array
+      @object = @object.first
+    end
     respond_to do |format|
       format.json { render :json => getDefinitionJSON(@object) }
     end
@@ -143,7 +146,7 @@ class Masters::Municipalities::Networks::Routes::WebmapController < Masters::Mun
    data[:_name]="#{journey.display_name}"
    data[:_code]="#{journey.service.route.code}"
    data[:_version]="#{journey.service.route.version}"
-   data[:_geoJSONUrl]= journey_master_municipality_network_route_webmap_path(:id => journey.id, :route_id => journey.service.route.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id, :vehicle_journey_id => journey.id, :format => "json" )
+   data[:_geoJSONUrl]= journey_master_municipality_network_route_webmap_path(:ref => journey.id, :route_id => journey.service.route.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id, :vehicle_journey_id => journey.id, :format => "json" )
    data[:_startOffset] = "#{journey.start_time}"
    data[:_duration] ="#{journey.duration}"
    # TODO: TimeZone for Locality.

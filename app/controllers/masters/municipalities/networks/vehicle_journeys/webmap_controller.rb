@@ -6,7 +6,7 @@ class Masters::Municipalities::Networks::VehicleJourneys::WebmapController < Mas
 
   def route
     @vehicle_journey = VehicleJourney.find(params[:vehicle_journey_id])
-    @object = @vehicle_journey.journey_pattern.journey_pattern_timing_links.find(params[:id])
+    @object = @vehicle_journey.journey_pattern.journey_pattern_timing_links.find(params[:ref])
 
     data =  getGeoJSON(@object)
     respond_to do |format|
@@ -20,7 +20,7 @@ class Masters::Municipalities::Networks::VehicleJourneys::WebmapController < Mas
 
   def routedef
     @vehicle_journey = VehicleJourney.find(params[:vehicle_journey_id])
-    @object = @vehicle_journey.journey_pattern.journey_pattern_timing_links.find(params[:id])
+    @object = @vehicle_journey.journey_pattern.journey_pattern_timing_links.find(params[:ref])
 
     respond_to do |format|
       format.json { render :json => getDefinitionJSON(@object) }
@@ -70,7 +70,7 @@ class Masters::Municipalities::Networks::VehicleJourneys::WebmapController < Mas
    data[:_name]="#{timing_link.from.common_name} - #{timing_link.to.common_name}"
    data[:_code]="#{timing_link.position+1}"
    data[:_version]="#{timing_link.created_at.to_i}"
-   data[:_geoJSONUrl]= route_master_municipality_network_vehicle_journey_webmap_path(:id => timing_link.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id, :vehicle_journey_id => @vehicle_journey.id, :format => "json" )
+   data[:_geoJSONUrl]= route_master_municipality_network_vehicle_journey_webmap_path(:ref => timing_link.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id, :vehicle_journey_id => @vehicle_journey.id, :format => "json" )
    data[:_nw_lon]="#{box[0][0]}"
    data[:_nw_lat]="#{box[0][1]}"
    data[:_se_lon]="#{box[1][0]}"

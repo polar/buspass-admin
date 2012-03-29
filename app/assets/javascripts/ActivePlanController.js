@@ -244,7 +244,7 @@ BusPass.ActivePlanController.prototype = {
     },
 
     _onListRouteHighlight : function(route) {
-        this._mapViewC.highlightRouteNoTrigger(route);
+        this._mapViewC.highlightRoute(route);
     },
 
     _onMapRouteunhighlight : function(route) {
@@ -252,7 +252,7 @@ BusPass.ActivePlanController.prototype = {
     },
 
     _onListRouteUnhighlight : function(route) {
-        this._mapViewC.unhighlightRouteNoTrigger(route);
+        this._mapViewC.unhighlightRoute(route);
     },
 
     getCurrentLocation : function() {

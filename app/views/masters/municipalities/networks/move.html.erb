@@ -1,0 +1,9 @@
+<H3>Move Network to Deployment</H3>
+<p>
+You can only move a network to a deployment that does not have a network with the same routes.
+</p>
+
+<%=  form_for( @network, :url => moveto_master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality)) do |f| %>
+    <%= f.collection_select(:municipality, @municipalities, :id, :name, :disabled => @disabled_options) %>
+    <%= f.submit "Copy" %>
+<% end %>

@@ -8,7 +8,8 @@ class Service
   belongs_to :route
   belongs_to :network
 
-  key :name,         String, :unique => true
+  key :name,     String
+
   key :operating_period_start_date, Date
   key :operating_period_end_date,   Date
 
@@ -25,12 +26,9 @@ class Service
 
   timestamps!
 
-  ensure_index(:network)
-  ensure_index(:route)
-  ensure_index(:name, :unique => true)
+  ensure_index(:name)
 
-  attr_accessible :name, :route, :operating_period_end_date, :operating_period_start_date, :direction, :day_class,
-                  :network_id, :route_id
+  attr_accessible :name, :operating_period_end_date, :operating_period_start_date, :direction, :day_class
 
 =begin
   validates_date :operating_period_start_date
@@ -40,6 +38,13 @@ class Service
 =end
 
   before_validation :day_class_sync
+
+  def copy!(to_route, to_network)
+    ret = Service.new(self.attributes)
+    ret.route = to_route
+    ret.network = to_network
+    ret
+  end
 
   def day_class_sync
     self.setOperatingDays(day_class)

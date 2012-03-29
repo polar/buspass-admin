@@ -8,16 +8,16 @@ class Route
 
   belongs_to :network
 
-  key :name, String
-  key :code, String
-  key :description, String
-  key :display_name, String
-  key :persistentid, String
+  key :name,          String
+  key :code,          String
+  key :description,   String
+  key :display_name,  String
+  key :persistentid,  String
   key :version_cache, Integer
 
   timestamps!
 
-  attr_accessible :name, :code, :network, :description,:display_name, :persistentid
+  attr_accessible :name, :code, :network, :description, :display_name, :persistentid, :version_cache
 
   #ensure_index(:network)
   ensure_index(:name) # cannot be unique because of the scope, :unique => true)
@@ -41,6 +41,12 @@ class Route
   many :services, :dependent => :destroy, :autosave => false
 
   before_validation :bv
+
+  def copy(to_network)
+    ret = Route.new(self.attributes)
+    ret.network = to_network
+    ret
+  end
 
   def bv
     #puts "Route. validating..."

@@ -20,9 +20,10 @@ class VehicleJourney
   ensure_index(:name)
   ensure_index(:persistentid)
 
-  attr_accessible :service, :name, :description, :departure_time, :display_name, :persistentid, :network, :network_id, :service, :service_id
+  attr_accessible :name, :description, :departure_time, :display_name, :persistentid,
+                  :journey_pattern, :journey_pattern_id
 
-  # We only make the name unique so that we may update them by
+                  # We only make the name unique so that we may update them by
   # human sight and reading in a CSV file.
   validates_uniqueness_of :name, :scope => :network
 
@@ -31,6 +32,13 @@ class VehicleJourney
   validates_presence_of :departure_time
 
   before_save :make_id_name
+
+  def copy(to_service, to_network)
+    ret = VehicleJourney.new(self)
+    ret.service = to_service
+    ret.network = to_network
+    ret
+  end
 
   def route
     service.route

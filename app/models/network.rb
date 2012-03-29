@@ -36,7 +36,44 @@ class Network
     self.ensure_index(:name, :unique => true)
   end
 
-  attr_accessible :name, :mode, :municipality, :routes, :file_path, :upload_file, :upload_file_cache
+  attr_accessible :name, :mode, :municipality
+
+  def copy!(new_municipality)
+    network = Network.new(self.attributes)
+    network.municipality = new_municipality
+    # May have to change name.
+    if network.save
+      routes = {}
+      services = []
+      vehicle_journeys = []
+      begin
+        for s in self.services
+          if routes[s.route.code] != nil
+            routes[s.route.code] = route
+          end
+          route = routes[s.route.code]
+          service = s.copy!(route, network)
+          services << service
+          for vj in service.vehicle_journeys
+            vehicle_journey = vj.copy!(service, network)
+            vehicle_journeys << vehicle_journey
+          end
+        end
+      rescue
+        routes.values.each {|x| x.delete() }
+        services.each {|x| x.delete() }
+        vehicle_journeys.each {|x| x.delete() }
+        network.delete
+        raise "Cannot create network"
+      end
+    else
+      raise "Cannot create network"
+    end
+  end
+
+  def route_codes
+    routes.map {|x| x.code }
+  end
 
   def route_count
     routes.count

@@ -22,6 +22,10 @@ BuspassAdmin::Application.routes.draw do
 
     resources :municipalities, :controller => "masters/municipalities" do
       resources :networks, :controller => "masters/municipalities/networks" do
+        member do
+          get :move
+          put :moveto
+        end
         resources :services,         :controller => "masters/municipalities/networks/services"
         resources :routes,           :controller => "masters/municipalities/networks/routes"  do
           member do
@@ -31,8 +35,9 @@ BuspassAdmin::Application.routes.draw do
           resource :webmap,          :controller => "masters/municipalities/networks/routes/webmap" do
             member do
               get :route
+              get :journey
               get :route_journeys
-              get "routedef/:id", :action => :routedef, :as => :routedef
+              get :routedef
               get :curloc
             end
           end
@@ -46,7 +51,7 @@ BuspassAdmin::Application.routes.draw do
             member do
               get :route
               get :route_journeys
-              get "routedef/:id", :action => :routedef
+              get :routedef
               get :curloc
             end
           end

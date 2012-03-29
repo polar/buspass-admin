@@ -120,9 +120,9 @@ BusPassAPI.prototype = {
         var url = this.apiMap["getJourneyLocation"];
         var parts = url.split("?");
         if (parts.length > 1) {
-            url = parts[0] + "/" + nameid.id + ".json" + "?" + parts[1];
+            url = parts[0] + ".json?ref=" + nameid.id +  "&" + parts[1];
         } else {
-            url = url + "/" + nameid.id+  ".json" + "?web=1";
+            url = url + ".json?ref=" + nameid.id;
         }
         if (nameid.type != null) {
             args += "&type=" + nameid.type;
@@ -150,9 +150,9 @@ BusPassAPI.prototype = {
         var url = this.apiMap["getRouteDefinition"];
         var parts = url.split("?");
         if (parts.length > 1) {
-            url = parts[0] + "/" + nameid.id + ".json" + "?" + parts[1];
+            url = parts[0] + ".json?ref=" + nameid.id + "&" + parts[1];
         } else {
-            url = url + "/" + nameid.id+  ".json" + "?web=1";
+            url = url + ".json?ref=" + nameid.id;
         }
         if (nameid.type != null) {
             args += "&type=" + nameid.type;
