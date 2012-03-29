@@ -5,7 +5,7 @@
 
 <table>
   <tr>
-    <th>Version</th>
+    <th>Name</th>
     <td><%= @municipality.name %></td>
   </tr>
   <tr>
@@ -21,7 +21,7 @@
     <td><%= @municipality.owner.name %></td>
   </tr>
 </table>
-<h3>Networks <%=  @municipality.networks.count %></h3>
+<h3>Networks</h3>
 
 <% if @municipality.networks.count > 0 %>
     <table>
@@ -30,13 +30,20 @@
         <th>Routes</th>
         <th>Services</th>
         <th>Vehicle Journeys</th>
+        <th>Route Codes</th>
       </tr>
       <% for n in @municipality.networks do %>
+          <% n.master = @municipality.master; n.save! %>
           <tr>
-            <td><%=  link_to "Network #{n.name}", master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
-            <td><%=  n.routes.count %></td>
-            <td><%=  n.services.count %></td>
-            <td><%=  n.vehicle_journey_count %></td>
+            <td><%= link_to "#{n.name}", master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
+            <td><%= n.routes.count %></td>
+            <td><%= n.services.count %></td>
+            <td><%= n.vehicle_journey_count %></td>
+            <td><%= n.route_codes.join(", ") %></td>
+            <td><%= link_to("Explore", master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality)) if muni_admin_can?(:edit, n)%></td>
+            <td><%= link_to("Edit", edit_master_municipality_network_path(n,:master_id => @master.id, :municipality_id => @municipality.id)) if muni_admin_can?(:edit, n) %></td>
+            <td><%= link_to("Plan", master_municipality_network_plan_path(n, :master_id => @master.id, :municipality_id => @municipality)) if muni_admin_can?(:edit, n) %></td>
+            <td><%= button_to("Delete", master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality.id), :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, n) %></td>
           </tr>
       <% end %>
     </table>

@@ -4,6 +4,9 @@ class VehicleJourney
 
   belongs_to :service
   belongs_to :network
+  belongs_to :master
+  belongs_to :municipality
+
   one :journey_location, :dependent => :delete
 
   key :name,        String
@@ -12,20 +15,23 @@ class VehicleJourney
   key :display_name, String
   key :persistentid, String
 
+  # Embedded
+  one :journey_pattern, :autosave => true
+
   timestamps!
 
-  # Embedded
-  one :journey_pattern
 
-  ensure_index(:name)
-  ensure_index(:persistentid)
+  ensure_index(:name, :unique => false)
+  ensure_index(:persistentid, :unique => false)
 
   attr_accessible :name, :description, :departure_time, :display_name, :persistentid,
-                  :journey_pattern, :journey_pattern_id
+                  :journey_pattern, :journey_pattern_id, :master, :master_id,
+                  :municipality, :municipality_id, :network, :network_id,
+                  :service, :service_id
 
-                  # We only make the name unique so that we may update them by
-  # human sight and reading in a CSV file.
-  validates_uniqueness_of :name, :scope => :network
+  # Network is unique to Master and Municipality
+  #validates_uniqueness_of :name, :scope => [:network_id, :master_id, :municipality_id]
+  validates_uniqueness_of :name, :scope => [:network_id]
 
   validates_presence_of :journey_pattern
   validates_presence_of :service
@@ -33,36 +39,21 @@ class VehicleJourney
 
   before_save :make_id_name
 
-  def copy(to_service, to_network)
-    ret = VehicleJourney.new(self)
+  def copy!(to_service, to_network)
+    ret = VehicleJourney.new(self.attributes)
+
+    # TODO: Does the journey_pattern get copied here?
+
     ret.service = to_service
     ret.network = to_network
+
+    ret.save!(:safe => true)
     ret
   end
 
   def route
     service.route
   end
-
-  def bv
-    #puts "VJ before validation .."
-    @valid_start = Time.now
-  end
-  def aval
-    #puts "VJ after validation #{Time.now - @valid_start}"
-  end
-  before_validation :bv
-  after_validation :aval
-  def bs
-    #puts "VJ before save"
-    @save_start = Time.now
-  end
-  def asave
-    #puts "VJ after save #{Time.now - @save_start}"
-  end
-
-  before_save :bs
-  after_save :asave
 
   def self.find_by_routes(routes)
     self.joins(:journey_pattern).where(:journey_patterns => {:route_id => routes})

@@ -11,12 +11,16 @@
     <th>Deployment</th>
     <th>Owner</th>
     <th>Mode</th>
+    <th>Networks</th>
   </tr>
 <% @municipalities.each do |muni| %>
     <tr>
       <td><%= link_to muni.name, master_municipality_path(muni, :master_id => @master) %></td>
       <td><%= muni.owner.name %></td>
-      <td><%=  muni.mode %></td>
+      <td><%= muni.mode %></td>
+      <td><%= muni.networks.count %></td>
+      <td><%= link_to("Edit", edit_master_municipality_path(muni, :master_id => @master.id)) if muni_admin_can?(:edit, muni) %></td>
+      <td><%= button_to("Delete", master_municipality_path(muni, :master_id => @master.id), :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, muni) %></td>
     </tr>
 <% end %>
 </table>

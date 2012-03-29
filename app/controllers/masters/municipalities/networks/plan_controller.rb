@@ -92,10 +92,11 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
       @network.processing_log          = []
       @network.processing_errors       = []
       @network.processing_completed_at = nil
+      @network.processing_progress     = 0.0
 
       @network.save!
 
-      Delayed::Job.enqueue(:payload_object => CompileServiceTableJob.new(MongoMapper.database.name, @network))
+      Delayed::Job.enqueue(:payload_object => CompileServiceTableJob.new(@network.id))
 
       flash[:notice] = "Your job is currently scheduled for processing."
       redirect_to master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)

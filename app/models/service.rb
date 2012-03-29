@@ -7,6 +7,8 @@ class Service
 
   belongs_to :route
   belongs_to :network
+  belongs_to :municipality
+  belongs_to :master
 
   key :name,     String
 
@@ -26,9 +28,13 @@ class Service
 
   timestamps!
 
-  ensure_index(:name)
+  ensure_index(:name, :unique => false)
 
-  attr_accessible :name, :operating_period_end_date, :operating_period_start_date, :direction, :day_class
+  attr_accessible :name, :operating_period_end_date, :operating_period_start_date, :direction, :day_class,
+                  :route, :route_id,
+                  :network, :network_id,
+                  :master, :master_id,
+                  :municipality, :municipality_id
 
 =begin
   validates_date :operating_period_start_date
@@ -39,36 +45,22 @@ class Service
 
   before_validation :day_class_sync
 
-  def copy!(to_route, to_network)
-    ret = Service.new(self.attributes)
-    ret.route = to_route
-    ret.network = to_network
-    ret
-  end
-
   def day_class_sync
     self.setOperatingDays(day_class)
   end
 
-  def bv
-    #puts "Service before validation .."
-    @valid_start = Time.now
-  end
-  def aval
-    #puts "Service after validation #{Time.now - @valid_start}"
-  end
-  before_validation :bv
-  after_validation :aval
-  def bs
-    #puts "Service before save"
-    @save_start = Time.now
-  end
-  def asave
-    #puts "Service after save #{Time.now - @save_start}"
+  def copy!(to_route, to_network)
+    ret = Service.new(self.attributes)
+
+    ret.route        = to_route
+    ret.network      = to_network
+    ret.master       = to_network.master
+    ret.municipality = to_network.municipality
+
+    ret.save!(:safe => true)
+    ret
   end
 
-  before_save :bs
-  after_save :asave
   #
   # Currently, journey patterns are not shared, and neither
   # are their timing links.
@@ -80,33 +72,40 @@ class Service
     vehicle_journeys.map {|s| s.journey_pattern}
   end
 
-  def network
-    route.network
-  end
-
   #
   # The constructed name of a service is unique so it can be a persistent id
   # as well. That means we can update it from a CSV file.  Example:
   #  Route {code} {Weekday|Daily|Saturday|Sunday|Weekend} {Inbound|Outbound} Service <StartDate> to <EndDate>
-  # For consistency the id is the hash of the name
   #
-  validates_uniqueness_of :name, :scope => :network
+  # Network is unique to Master and Municipality.
+  #validates_uniqueness_of :name, :scope => [:network_id, :master_id, :municipality_id]
+  validates_uniqueness_of :name, :scope => [:network_id]
 
-  def self.find_or_create_by_route(network, route_number, direction, designator, start_date, end_date)
+  validates_presence_of :network
+  validates_presence_of :master
+  validates_presence_of :municipality
+  validates_presence_of :route
+
+  def self.find_or_create_by_route(route, direction, designator, start_date, end_date)
     sd = start_date.strftime("%Y-%m-%d")
     ed = end_date.strftime("%Y-%m-%d")
-    name = "Route #{route_number} #{designator} #{direction} #{sd} to #{ed}"
+    name = "Route #{route.code} #{designator} #{direction} #{sd} to #{ed}"
     #puts "Service query"
-    s = Service.first(:network_id => network.id, :name => name)
+    s = Service.first(:network_id => route.network.id, :name => name)
     #puts s ? "Found" : "creating......"
-    s ||= Service.new(:network_id => network.id, :name => name)
-    s.operating_period_start_date = start_date
-    s.operating_period_end_date = end_date
-    s.setOperatingDays(designator)
-    s.direction = direction
-    s.route = Route.first(:network_id => network.id, :code => route_number)
-    #puts "Service saving...."
-    s.save!
+    if s.nil?
+      s = Service.new(:network => route.network,
+                      :master => route.network.master,
+                      :municipality => route.network.municipality,
+                      :name => name,
+                      :operating_period_start_date => start_date,
+                      :operating_period_end_date => end_date,
+                      :day_class => designator,
+                      :direction => direction,
+                      :route => route)
+      #puts "Service saving...."
+      s.save!(:safe => true)
+    end
     #puts "Service Done"
     return s
   end

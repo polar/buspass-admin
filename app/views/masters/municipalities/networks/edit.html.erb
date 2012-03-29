@@ -1,21 +1,18 @@
-<h2>Network</h2>
-<%= error_messages!(@new_network) if @new_network %>
+<h2><%= link_to "Network #{@network.name}", master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
+<%=  form_for @network, :url => master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) do |f| %>
+    <%=  f.label :name %><br />
+    <%=  f.text_field :name %>   <br />
+    <%=  f.label :description %>    <br />
+    <%=  f.text_area :description %>   <br />
+    <p>
+      <%=  f.submit %>
+    </p>
+<% end %>
 <table>
-  <tr>
-    <th>Name</th>
-    <td><%= link_to "#{@network.name}", master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
-  </tr>
   <tr>
     <th>Mode</th>
     <td><%=  @network.mode %></td>
   </tr>
-  <tr>
-    <th>Description</th>
-    <td><%=  @network.description %></td>
-  </tr>
-</table>
-<h3>Content</h3>
-<table>
   <tr>
     <th><%= link_to "Services", master_municipality_network_services_path(:master_id => @master.id, :municipality_id => @municipality.id, :network_id => @network.id) %></th>
     <td><%= @network.services.count %></td>
@@ -42,11 +39,11 @@
       </tr>
     </table>
 <% end %>
-<hr />
+
 <P>
-  <%= link_to "Networks",  master_municipality_networks_path(:master_id => @master.id, :municipality_id => @municipality.id) %>
+  <%= link_to "All",  master_municipality_networks_path(:master_id => @master.id, :municipality_id => @municipality.id) %>
   <% if muni_admin_can? :edit, @network %>
-    <%=  link_to "Plan Network", master_municipality_network_plan_path(:network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %>
+      <%=  link_to "Plan Network", master_municipality_network_plan_path(:network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %>
   <% end %>
   <%= link_to "Copy to Deployment", move_master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %>
 </P>

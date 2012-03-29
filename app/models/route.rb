@@ -7,6 +7,8 @@ class Route
   include LocationBoxing
 
   belongs_to :network
+  belongs_to :master
+  belongs_to :municipality
 
   key :name,          String
   key :code,          String
@@ -17,10 +19,11 @@ class Route
 
   timestamps!
 
-  attr_accessible :name, :code, :network, :description, :display_name, :persistentid, :version_cache
+  attr_accessible :name, :code, :network, :network_id, :description, :display_name, :persistentid, :version_cache,
+                  :network, :network_id, :master, :master_id, :municipality, :municipality_id
 
   #ensure_index(:network)
-  ensure_index(:name) # cannot be unique because of the scope, :unique => true)
+  ensure_index(:name, :unique => false) # cannot be unique because of the scope, :unique => true)
 
   #
   # Route has many JourneyPatterns by way of its Services.
@@ -40,41 +43,26 @@ class Route
   # Services are created for a particular route only
   many :services, :dependent => :destroy, :autosave => false
 
-  before_validation :bv
-
-  def copy(to_network)
+  def copy!(network)
     ret = Route.new(self.attributes)
-    ret.network = to_network
+
+    ret.network      = network
+    ret.master       = network.master
+    ret.municipality = network.municipality
+
+    ret.save!(:safe => true)
     ret
   end
 
-  def bv
-    #puts "Route. validating..."
-    @valid_start = Time.now
-  end
-  def av
-    #puts "Route. Done. validation #{Time.now - @valid_start}"
-  end
-
-  def bs
-    #puts "Route before save"
-    @save_start = Time.now
-  end
-  def asave
-    #puts "Route after save #{Time.now - @save_start}"
-  end
-  before_save :bs
-  after_save :asave
-
   # The Route's persistenid is its code
   #validates_uniqueness_of :name, :scope => :network_id
-  validates_uniqueness_of :code, :scope => :network_id
+  validates_uniqueness_of :code, :scope => [:network_id, :master_id, :municipality_id]
 
   # A version of a route depends on the modification of its
   # Journey Patterns. If we modified a single journey pattern
   # we've got a new version of the route. The version is
   # the time of the newest journey pattern.
-  after_validation :assign_version_cache, :av
+  after_validation :assign_version_cache
 
   def version
     if (version_cache)
@@ -120,11 +108,18 @@ class Route
     #puts "Route query"
     r = Route.first(:network_id => network.id, :code => route_number)
     #puts r ? "Route found" : "creating...."
-    r ||= Route.new(:network => network, :code => route_number, :name => "Route #{route_number}")
+    if r.nil?
+      r = Route.new(:network => network,
+                    :code => route_number,
+                    :name => "Route #{route_number}",
+                    :master => network.master,
+                    :municipality => network.municipality)
 
-    r.persistentid = r.name.hash.abs
-    #puts "Route saving...."
-    r.save!
+      r.persistentid = r.name.hash.abs
+      #puts "Route saving...."
+      r.save!(:safe => true)
+    end
+
     #puts "Done."
     return r
   end

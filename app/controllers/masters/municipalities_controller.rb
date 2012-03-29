@@ -89,4 +89,14 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
       }
     end
   end
+
+  def destroy
+    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
+    if (@municipality.nil?)
+      throw "Not Found"
+    end
+    authorize!(:delete, @municipality)
+    @municipality.delete
+    redirect_to master_municipalities_path(:master_id => @master.id)
+  end
 end

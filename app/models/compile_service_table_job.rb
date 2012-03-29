@@ -5,10 +5,10 @@ require 'carrierwave/uploader/proxy'
 require 'carrierwave/orm/mongomapper'
 
 ##
-# This class represents a serrializable object that gets passed to
+# This class represents a serializable object that gets passed to
 # Delayed Job.
 #
-class CompileServiceTableJob < Struct.new(:database, :network)
+class CompileServiceTableJob < Struct.new(:network_id)
 
   def logger
     Rails.logger
@@ -21,17 +21,15 @@ class CompileServiceTableJob < Struct.new(:database, :network)
   end
 
   def perform
-    MongoMapper.database = database
-    say "Job Started. using DB #{MongoMapper.database.name}"
-    say "Network.id #{network.id}"
-    say "Network.file #{network.file_path}"
+    say "Network.id #{network_id}"
     # Since we were deserialized network is only an instantiation of Network
     # with its id. We need to retrieve it from the DB.
-    net = Network.find(network.id)
+    net = Network.find(network_id)
+    say "Network.file #{net.file_path}"
 
     if !net.file_path || !File.exists?(net.file_path)
       net.processing_errors << "Failed to get zip file"
-      raise "No file.: #{net.inspect} DB==#{MongoMapper.database.name}"
+      raise "No file.: #{net.inspect}"
     end
 
     # Start processing anew

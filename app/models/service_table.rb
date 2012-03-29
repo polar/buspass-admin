@@ -123,14 +123,14 @@ class ServiceTable
     end
   end
 
-  def self.get_vehicle_journey(network, service, journey_pattern, departure_time)
+  def self.create_vehicle_journey(network, service, journey_pattern, departure_time)
     dtimelit = departure_time.strftime("%H:%M")
     # We use the name of the Service for the Vehicle Journey + the time.
     # We add differentiators in case there are two vjs with the same times
     # This could be more efficient, but probably won't happen that much.
-    diff     = 0
-    name     = "#{service.name} #{dtimelit}"
-    while VehicleJourney.where(:name => name).first do
+    diff = 0
+    name = "#{service.name} #{dtimelit}"
+    while VehicleJourney.first(:network_id => network.id, :name => name) do
       diff = diff + 1
       name = "#{service.name} #{dtimelit} #{diff}"
     end
@@ -139,19 +139,20 @@ class ServiceTable
     dtime = (Time.parse(dtimelit)-Time.parse("0:00"))/60
 
     # TODO: PersistentId needs help.
-    pid = (network.name + name).hash.abs
-    while VehicleJourney.where(:persistentid => pid).first do
+    pid   = (network.name + name).hash.abs
+    while VehicleJourney.first(:network_id => network.id, :persistentid => pid) do
       pid += 1
     end
-
-    vehicle_journey =
-        VehicleJourney.find_or_initialize(
-            :network_id         => network.id,
-            :name               => name,
-            :departure_time     => dtime,
-            :persistentid       => pid,
-            :service_id         => service.id,
-            :journey_pattern_id => journey_pattern.id)
+    vehicle_journey = VehicleJourney.new(
+        :master          => network.master,
+        :municipality    => network.municipality,
+        :network         => network,
+        :service         => service,
+        :name            => name,
+        :departure_time  => dtime,
+        :persistentid    => pid,
+        :journey_pattern => journey_pattern)
+    vehicle_journey.save!
     return vehicle_journey
   end
 
@@ -278,8 +279,9 @@ class ServiceTable
       route = Route.find_or_create_by_number(network, route_number)
 
       # Service is persistent by all of the following arguments.
-      service = Service.find_or_create_by_route(network, route.code,
+      service = Service.find_or_create_by_route(route,
                                                 direction, day_class, start_date, end_date)
+
       #puts "Done Route and Service"
       if out == nil
         jptl_name = "JPTL-#{File.basename(table_file)}"
@@ -326,7 +328,7 @@ class ServiceTable
             #puts "Getting Journey Pattern and VJ"
             @jv_lookup = Time.now
             journey_pattern = service.get_journey_pattern(start_time, journey_index, table_file, file_line)
-            vehicle_journey = get_vehicle_journey(network, service, journey_pattern, start_time)
+            vehicle_journey = create_vehicle_journey(network, service, journey_pattern, start_time)
 
             #puts "Done Journey Pattern and VJ  #{Time.now - @jv_lookup}"
             # The JourneyPattern is persistent, and so are its JPTLs.
@@ -399,7 +401,7 @@ class ServiceTable
         vehicle_journey.save!
       end
       rescue Exception => boom
-        progress.error "Error in file #{table_file}: line #{file_line}: #{boom}" # + "#{boom.backtrace.select {|s| s.match(/service_table/)}}"
+        progress.error "Error in file #{table_file}: line #{file_line}: #{boom}" + "#{boom.backtrace.select {|s| s.match(/service_table/)}}"
       end
     end
     if out != nil
