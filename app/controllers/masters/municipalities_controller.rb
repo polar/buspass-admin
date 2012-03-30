@@ -100,7 +100,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     route_codes = []
     for n in @municipality.networks do
       route_codes += n.route_codes
-      if ! n.has_errors?
+      if n.has_errors?
         @status << "Network ''#{n.name}'' has errors."
       end
     end
