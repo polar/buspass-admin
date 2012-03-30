@@ -77,6 +77,10 @@ class Network
     end
   end
 
+  def has_errors?
+    !processing_errors.empty?
+  end
+
   def owner
     municipality.owner
   end

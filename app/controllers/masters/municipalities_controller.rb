@@ -90,6 +90,29 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     end
   end
 
+  def check
+    @municipality = Municipality.find(params[:id])
+    if (@municipality.nil?)
+      throw "Not Found"
+    end
+    authorize!(:read, @municipality)
+    @status = []
+    route_codes = []
+    for n in @municipality.networks do
+      route_codes += n.route_codes
+      if ! n.has_errors?
+        @status << "Network ''#{n.name}'' has errors."
+      end
+    end
+    dups = route_codes.inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
+    if ! dups.empty?
+      @status << "Networks share route codes #{dups.join(', ')}"
+    end
+    if @status.empty?
+      @status << "Municipality is consistent and can be deployed."
+    end
+  end
+
   def destroy
     @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
     if (@municipality.nil?)

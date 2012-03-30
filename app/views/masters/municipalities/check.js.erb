@@ -1,0 +1,5 @@
+// This updates the status div in the show page.
+$("#status").html("<%= escape_javascript(render(:partial => "ulist", :locals => { :items => @status })) %>");
+
+// Change the Label on the button to "recheck"
+$("#check")[0].value="Recheck Deploy Status";

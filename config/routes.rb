@@ -21,6 +21,9 @@ BuspassAdmin::Application.routes.draw do
     resources :muni_admins, :controller => "masters/muni_admins"
 
     resources :municipalities, :controller => "masters/municipalities" do
+      member do
+        get :check
+      end
       resources :networks, :controller => "masters/municipalities/networks" do
         member do
           get :move
