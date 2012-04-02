@@ -106,10 +106,13 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     end
     dups = route_codes.inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
     if ! dups.empty?
-      @status << "Networks share route codes #{dups.join(', ')}"
+      @status << "Networks within a plan must not have common routes."
+      @status << "Some networks in this plan share these route codes: #{dups.join(', ')}."
     end
     if @status.empty?
-      @status << "Municipality is consistent and can be deployed."
+      @status << "This plan is consistent and can be deployed."
+    else
+      @status = ["This plan may not be deployed because of the following:"] + @status
     end
   end
 
@@ -121,5 +124,36 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     authorize!(:delete, @municipality)
     @municipality.delete
     redirect_to master_municipalities_path(:master_id => @master.id)
+  end
+
+  def map
+    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
+    if (@municipality.nil?)
+      throw "Not Found"
+    end
+    authorize!(:read, @municipality)
+    @routes = @municipality.routes
+    @routes = @routes.sort { |s1, s2| codeOrd(s1.code, s2.code) }
+    render :layout => "webmap"
+  end
+
+  def api
+    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
+    if (@municipality.nil?)
+      throw "Not Found"
+    end
+    authorize!(:read, @municipality)
+    @api = {
+        :majorVersion => 1,
+        :minorVersion => 0,
+        "getRoutePath" => route_master_municipality_webmap_path(@municipality, :master_id => @master.id),
+        "getRouteJourneyIds" => route_journeys_master_municipality_webmap_path(@municipality, :master_id => @master.id),
+        "getRouteDefinition" => routedef_master_municipality_webmap_path(@municipality, :master_id => @master.id),
+        "getJourneyLocation" => curloc_master_municipality_webmap_path(@municipality, :master_id => @master.id)
+    }
+
+    respond_to do |format|
+      format.json { render :json => @api }
+    end
   end
 end

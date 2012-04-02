@@ -154,7 +154,7 @@ BusPass.ActivePlanController.prototype = {
                 newState.selectedRouteCodes = [route.getCode()];
                 newState.selectedRoutes = null;
 
-                this._mapViewC.unselectRouteNoTrigger(route);
+                this._mapViewC.unselectRoute(route);
                 this._listViewC.unselectRouteNoTrigger(route);
                 for(var i = 0; i < this._routes.length; i++) {
                     var route = this._routes[i];
@@ -170,7 +170,7 @@ BusPass.ActivePlanController.prototype = {
                     newState.selectedRouteCodes = [route.getCode()];
                     newState.selectedRoutes = [route];
 
-                    this._mapViewC.unselectRouteNoTrigger(route);
+                    this._mapViewC.unselectRoute(route);
                     this._listViewC.unselectRouteNoTrigger(route);
                     for(var i = 0; i < this._routes.length; i++) {
                         var route = this._routes[i];
@@ -198,7 +198,7 @@ BusPass.ActivePlanController.prototype = {
                 newState.selectedRouteCodes = [route.getCode()];
                 newState.selectedRoutes = [route];
 
-                this._mapViewC.unselectRouteNoTrigger(route);
+                this._mapViewC.unselectRoute(route);
                 this._listViewC.unselectRouteNoTrigger(route);
                 for(var i = 0; i < this._routes.length; i++) {
                     var route = this._routes[i];

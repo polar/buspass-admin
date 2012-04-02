@@ -196,21 +196,22 @@ class VehicleJourney
 
   DATE_FIELDS = [ "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ]
 
-  def self.find_by_date(date)
+  def self.find_by_date(date, options = {})
     date = date.to_date
 
     day_field = DATE_FIELDS[date.wday]
-    all = self.all :joins => [ :service ],
-                   :conditions =>
-                       ["services.#{day_field} " +
-                            "AND ? BETWEEN services.operating_period_start_date AND services.operating_period_end_date ",
-                        date],
-                   :readonly => false
+    options = options.merge({
+        :operating_period_start_date.lte => date.to_mongo,
+        :operating_period_end_date.gte => date.to_mongo,
+        day_field.to_sym => true
+        })
+    services = Service.where(options).all
+    all = services.reduce([]) {|t,v| t + v.vehicle_journeys }
   end
 
   # Time is in minutes of midnight of the date. Be careful of TimeZone.
-  def self.find_by_date_time(date, time)
-    all = self.find_by_date(date)
+  def self.find_by_date_time(date, time, options = {})
+    all = self.find_by_date(date, options)
     all.select { |vj| vj.is_scheduled?(time) }
   end
 
@@ -447,12 +448,14 @@ class VehicleJourney
     attr_accessor :thread
     attr_accessor :time_interval
     attr_accessor :logger
+    attr_accessor :clock
 
-    def initialize(rs,j,t, logger = VehicleJourney.logger)
+    def initialize(rs,j,t, clk = Time, logger = VehicleJourney.logger)
       @runners = rs
       @journey = j
       @time_interval = t
       @logger = logger
+      @clock = clk
       logger.info "Initializing Journey #{journey.id} #{journey.name}"
     end
 
@@ -460,7 +463,7 @@ class VehicleJourney
       logger.info "Starting Journey #{journey.id} #{journey.name}"
       thread = Thread.new do
         begin
-          journey.simulate(time_interval, logger)
+          journey.simulate(time_interval, clock, logger)
           logger.info "Journey ended normally #{journey.id} #{journey.name}"
         rescue Error => boom
           logger.info "Stopping Journey #{journey.id} #{journey.name} on #{boom}"
@@ -477,41 +480,62 @@ class VehicleJourney
   # on the time_interval. The active journey list checked every 60
   # seconds. An exception delivered to this function will end the
   # simulation of all running journeys.
-  def self.simulate_all(time_interval)
-    logger = AuditLogger.new(STDOUT)
-    JourneyLocation.delete_all
-    runners = {}
-    while true do
-      journeys = VehicleJourney.find_by_date_time(Time.now, Time.now)
-      # Create Journey Runners for new Journeys.
-      for j in journeys do
-        if !runners.keys.include?(j.id)
-          runners[j.id] = JourneyRunner.new(runners,j,time_interval,logger).run
+  def self.simulate_all(time_interval, time = Time.now, options = {})
+    clock = BaseTime.new(time)
+    syslogger = logger = AuditLogger.new(STDOUT)
+    logger.info "Staring simulation for #{options.inspect}"
+    job = SimulateJob.first(options)
+    logger.info "Got Job #{job.inspect}"
+    logger = job
+    logger.info "Starting Simulation for #{options.inspect}."
+    begin
+      job.processing_started_at = Time.now
+      job.set_processing_status!("Running")
+      JourneyLocation.where(options).all.each {|x| x.delete() }
+      syslogger.info "Deleted all JourneyLocations"
+      runners = {}
+      while (x = SimulateJob.first(options)) && !x.please_stop do
+        syslogger.info "Finding VehicleJourneys"
+        date = time = clock.now
+        journeys = VehicleJourney.find_by_date_time(date, time, options)
+        syslogger.info "found #{journeys.length} journeys for #{date.strftime("%m-%d-%Y")} and #{time.strftime("%H:%M %Z")}"
+        # Create Journey Runners for new Journeys.
+        for j in journeys do
+          if !runners.keys.include?(j.id)
+            runners[j.id] = JourneyRunner.new(runners,j,time_interval, clock, logger).run
+          end
+        end
+        sleep 60
+      end
+    rescue Exception => boom
+      job.set_processing_status!("Stopping")
+      syslogger.info "Simulation Ending because #{boom}"
+      syslogger.info boom.backtrace.join("\n")
+      logger.info "Simulation Ending because #{boom}"
+      logger.info boom.backtrace.join("\n")
+    ensure
+      job.set_processing_status!("Stopping")
+      logger.info "Stopping Simulation for #{options.inspect} with #{runners.keys.size} Runners"
+      keys = runners.keys.clone
+      for k in keys do
+        runner = runners[k]
+        if runner != nil
+          logger.info "Killing #{runner.journey.id} #{runner.journey.id} thread = #{runner.journey.id}"
+          if runner.journey != nil
+            runner.journey.stop_simulating
+          end
         end
       end
-      sleep 60
-    end
-  rescue Exception => boom
-    logger.info "Simulation Ending because #{boom}"
-    logger.info boom.backtrace.join("\n")
-  ensure
-    #puts "Stopping Simulation #{runners.keys.size} Runners"
-    keys = runners.keys.clone
-    for k in keys do
-      runner = runners[k]
-      if runner != nil
-        logger.info "Killing #{runner.journey.id} #{runner.journey.id} thread = #{runner.journey.id}"
-        if runner.journey != nil
-          runner.journey.stop_simulating
-        end
+      logger.info "Waiting"
+      while !runners.empty? do
+        logger.info "#{runners.keys.size} Runners"
+        sleep time_interval
       end
+      logger.info "All stopped"
+      job.processing_completed_at = Time.now
+      job.set_processing_status!("Stopped")
     end
-    logger.info "Waiting"
-    while !runners.empty? do
-      logger.info "#{runners.keys.size} Runners"
-      sleep time_interval
-    end
-    logger.info "All stopped"
   end
+
 
 end

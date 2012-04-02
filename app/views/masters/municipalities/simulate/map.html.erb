@@ -1,0 +1,241 @@
+
+<script type="text/javascript">
+    var basket;
+    var view;
+</script>
+
+<% if @job %>
+    <script type="text/javascript">
+        $(function() {
+            // Clear log on Start Simulation
+            $("#start").click(function(ev) {
+                $('#processing_log').html("");
+                this.disabled=true;
+                $('#start_status').html("");
+            });
+            $("#stop").click(function(ev) {
+                this.disabled=true;
+                $('#start_status').html("");
+            });
+            var polling = true;
+            function poll() {
+                var log = $('#processing_log')[0].children.length;
+                $.ajax({
+                    type: "GET",
+                    url: "<%= partial_status_master_municipality_simulate_path(@municipality, :master_id  => @master.id) %>" +
+                            "?log="+log,
+                    dataType: "json",
+                    success: function(data) {
+                        if (data) {
+                            $.each(data['logs'], function(i, item) {
+                                $('#processing_log').append('<div>'+item+'</div>');
+                            });
+                            if (data['completed_at']) {
+                                $('#completed_at').html(data['completed_at']);
+                            }
+                            if (data['started_at']) {
+                                $('#started_at').html(data['started_at']);
+                            }
+                            if (data['sim_time']) {
+                                $('#sim_time').html(data['sim_time']);
+                            }
+                            if (data['status']) {
+                                $('#status').html(data['status']);
+                                $("#start")[0].disabled=data['status'] != "Stopped";
+                                $("#stop")[0].disabled=data['status'] == "Stopped";
+                            }
+                        } else {
+                            $('#processing_log').html("");
+                            $('#processing_log').append('<div>No simulation has ran.</div>');
+                            $('#completed_at').html("");
+                            $('#started_at').html("");
+                            $('#sim_time').html("");
+                            $('#status').html("");
+                            $('#start')[0].disabled=false;
+                            $('#stop')[0].disabled=true;
+                        }
+                    }
+                });
+                if (polling) {
+                    setTimeout(poll,5000);
+                }
+            }
+            setTimeout(poll,0);
+        });
+    </script>
+<% end %>
+
+<script>
+    $(function() {
+        $("body").layout({ applyDefaultStyles: true });
+        // initialize scrollable with mousewheel support
+        $("#routesView").scrollable({ vertical: true, mousewheel: true, keyboard : true, easing: "swing" });
+        var scroll = $("#routesView").data("scrollable");
+        var api = new BusPassAPI( { loginUrl : '<%= api_master_municipality_simulate_path(@municipality, :master_id => @master.id) %>' });
+        view = new BusPass.ActivePlanController( {
+            scope : this,
+            busAPI : api,
+            onRouteSelected : function( route ) {
+                scroll.addItem($("<div class='item' style='color:red'>Route Selected: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteUnselected : function( route ) {
+                scroll.addItem($("<div class='item' style='color:blue'>Route Unselected: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteHighlighted : function( route ) {
+                scroll.addItem($("<div class='item' style='color:green'>Route Highlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteUnhighlighted : function( route ) {
+                scroll.addItem($("<div class='item' style='color:black'>Route Unhighlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+            }
+        });
+        view.mapView($("#map")[0]);
+        view.listView($("#routesView .items"));
+        basket = new BusPass.JourneyBasket();
+        basket.busAPI = api;
+        basket.journeyStore = new BusPass.JourneyStore();
+        basket.onJourneyAddedListener =  {
+            onJourneyAdded : function (basket, r) {
+                console.log("Route Added! " + r.getName() + " : " + r.getId());
+                view.addRoute(r);
+            }
+        };
+
+        basket.onJourneyRemovedListener = {
+            onJourneyRemoved : function (basket, r) {
+                view.removeRoute(r);
+            }
+        };
+
+        basket.onBasketUpdatedListener = {
+            onBasketUpdated : function (basket) {
+                console.log("Basket Updated");
+            }
+        };
+
+        basket.onIOErrorListener = {
+            onIOError : function(basket, ioe) {
+                alert("Basket IO Error: " + ioe.message);
+            }
+        };
+
+        basket.progressListener = {
+            onSyncStart : function () {
+                console.log("Basket: SyncStart");
+            },
+            onSyncEnd : function (nRoutes) {
+                console.log("Basket: SyncEnd");
+            },
+            onRouteStart : function (iRoute) {
+                console.log("Basket: StartRoute " + iRoute);
+            },
+            onRouteEnd : function (iRoute) {
+                console.log("Basket: EndRoute " + iRoute);
+            },
+            onDone : function () {
+                console.log("Basket: Done.");
+            }
+        };
+        api.login(function() {
+            basket.onCreate();
+            basket.onStart();
+            basket.onResume();
+        });
+    });
+</script>
+
+<DIV class="ui-layout-north">North</DIV>
+<DIV class="ui-layout-center">
+  <div class="row">
+    <div class="span16">
+      <h2><%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <DIV class="span10">
+      <h3>Webmap</h3>
+    </DIV>
+    <DIV class="span6">
+      <h3>Routes</h3>
+    </DIV>
+  </div>
+  <div class="row">
+    <DIV class="span10">
+      <div id="map" class="smallmap">
+      </div>
+    </DIV>
+    <DIV class="span6">
+      <div class="row">
+        <div class="span4">
+        </div>
+        <div class="span2">
+          <a class="prev">&laquo; Up</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span6">
+          <div id="routesView" class="scrollable vertical">
+            <div class="items">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span4">
+        </div>
+        <div class="span2">
+          <a class="next">Down &raquo;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <%= form_tag start_master_municipality_simulate_path(@municipality, :master_id => @master.id), :remote => true, :class=>"span8" do %>
+        <%= label_tag(:date, "Date[YYYY-MM-DD]:")  %>
+        <%= text_field_tag(:date, @date.strftime("%Y-%m-%d")) %>
+        <%= label_tag(:time, "Time[HH:MM ZZZ]:")  %>
+        <%= text_field_tag(:time, @time.strftime("%H:%M %Z") ) %>
+        <%= submit_tag("Start Simulation", :id => "start", :disabled => (@job && @job.processing_status != "Stopped")) %>
+     <% end %>
+    <div class="span3">
+      <%= button_to( "Stop Simulation", stop_master_municipality_simulate_path(@municipality, :master_id => @master.id), :id => "stop", :remote => true, :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
+    </div>
+  </div>
+      <div class="row">
+        <div class="span16">
+          <div id="start_status">
+
+          </div>
+          <h3>Simulation Status</h3>
+          <table>
+            <tr>
+              <th>Simulation Base Time</th>
+              <td><div id="sim_time"><%=  @job.sim_time ?
+                                                    @job.sim_time.strftime("%m-%d-%Y %H:%M %Z"):
+                                                    "Pending" if @job %></div></td>
+            </tr>
+            <tr>
+              <th>Process Start Time</th>
+              <td><div id="started_at"><%=  @job.processing_completed_at ?
+                                                    @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                                    "Pending" if @job  %></div></td>
+            </tr>
+            <tr>
+              <th>Process Status</th>
+              <td><div id="status"><%= @job.processing_status if @job  %></div></td>
+            </tr>
+            <tr>
+              <th>Process Complete Time</th>
+              <td><div id="completed_at"><%= @job.processing_completed_at ?
+                                                     @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                                     ""  if @job %></div></td>
+          </table>
+          <h3>Simulation Log</h3>
+          <div id="processing_log">
+            <% for i in @job.processing_log %>
+                <div><%= i %></div>
+            <% end if @job%>
+          </div>
+        </div>
+      </div>
+</DIV>
+<DIV class="ui-layout-south">South</DIV>

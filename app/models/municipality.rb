@@ -34,6 +34,10 @@ class Municipality
       networks.reduce([]) { |v,n| v + (n.routes.map {|x| x.code})}
     end
 
+    def routes
+      networks.reduce([]) { |v,n| v + n.routes }
+    end
+
     def ensure_lonlat
         if self.location != nil
             if self.location.is_a? String

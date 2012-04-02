@@ -1,7 +1,7 @@
 BusPass.LocationController = function (options) {
     this._routes = [];
     this._active = true;
-    $.extend(this,options);
+    $.extend(this, options);
 
     // Set up Worker.
     this._worker = new Worker("/assets/LocationWebWorker.js");

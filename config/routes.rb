@@ -23,7 +23,35 @@ BuspassAdmin::Application.routes.draw do
     resources :municipalities, :controller => "masters/municipalities" do
       member do
         get :check
+        get :map
+        get :api
       end
+      resource :webmap,            :controller => "masters/municipalities/webmap" do
+        member do
+          get :route
+          get :journey
+          get :route_journeys
+          get :routedef
+          get :curloc
+        end
+      end
+      resource :simulate, :controller => "masters/municipalities/simulate" do
+        get :api
+        get :map
+        post :start
+        post :stop
+        get :partial_status
+        resource :webmap,            :controller => "masters/municipalities/simulate/webmap" do
+          member do
+            get :route
+            get :journey
+            get :route_journeys
+            get :routedef
+            get :curloc
+          end
+        end
+      end
+
       resources :networks, :controller => "masters/municipalities/networks" do
         member do
           get :move

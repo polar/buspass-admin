@@ -9,8 +9,8 @@
         $("body").layout({ applyDefaultStyles: true });
         // initialize scrollable with mousewheel support
         $("#routesView").scrollable({ vertical: true, mousewheel: true, keyboard : true, easing: "swing" });
-        var scroll = $("#routesView").data("scrollable")
-        api = new BusPassAPI( { loginUrl : '<%= api_master_municipality_network_route_path(@route, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %>' });
+        var scroll = $("#routesView").data("scrollable");
+        var api = new BusPassAPI( { loginUrl : '<%= api_master_municipality_path(@municipality, :master_id => @master.id) %>' });
         view = new BusPass.ActivePlanController( {
             scope : this,
             busAPI : api,
@@ -25,7 +25,7 @@
             },
             onRouteUnhighlighted : function( route ) {
                 scroll.addItem($("<div class='item' style='color:black'>Route Unhighlighted: " + route.getCode() + " " +route.getName() + "</div>"));
-            },
+            }
         });
         view.mapView($("#map")[0]);
         view.listView($("#routesView .items"));
@@ -72,7 +72,7 @@
             },
             onDone : function () {
                 console.log("Basket: Done.");
-            },
+            }
         };
         api.login(function() {
             basket.onCreate();
@@ -86,10 +86,7 @@
 <DIV class="ui-layout-center">
   <div class="row">
     <div class="span16">
-      <h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
-      <h3><%= link_to "Route #{@route.name}",
-                      master_municipality_network_route_path(@route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
-      <h3><%= link_to "Service #{@service.name}", master_municipality_network_service_path(@service, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></h3>
+      <h2><%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %></h2>
     </div>
   </div>
   <div class="row">
@@ -132,25 +129,16 @@
   </div>
   <div class="row">
     <div class="span16">
-      <h4>Vehicle Journeys on this Service and Route</h4>
+      <h4>Routes on this Municipality Deployment</h4>
       <table>
         <tr>
           <th>Route</th>
-          <th>Display Name</th>
-          <th>Direction</th>
-          <th>Departs</th>
-          <th>Ends</th>
-          <th>Links</th>
+          <th>Network</th>
         </tr>
-        <% for vj in @service.vehicle_journeys do %>
+        <% for route in @routes do %>
             <tr>
-              <td><%=  link_to vj.route.code, master_municipality_network_route_path(@route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-              <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(vj, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-              <td><%=  @service.direction  %></td>
-              <!--- TODO: Internatialize Time -->
-              <td><%=  vj.time_start.strftime("%H:%M") %></td>
-              <td><%=  vj.time_end.strftime("%H:%M") %></td>
-              <td><%=  vj.journey_pattern_timing_links.count %></td>
+              <td><%=  link_to route.code, master_municipality_network_route_path(route, :network_id => route.network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
+              <td><%=  link_to route.network.name, master_municipality_network_path(route.network, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
             </tr>
         <% end %>
       </table>
