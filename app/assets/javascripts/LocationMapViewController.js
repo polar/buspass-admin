@@ -50,8 +50,8 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
         BusPass.RoutesMapController.prototype.selectRouteAndTrigger.apply(this, [route, feature]);
         if (route.__marker) {
             if (feature == route.__marker) {
-                // as opposed to its actual route line
-            // So, for an experiment here, if we want to select a journy
+            // as opposed to its actual route line
+            // So, for an experiment here, if we want to select a journey
             // we make sure we set enough data here to only display
             // the one route selected by its marker.
             }

@@ -336,9 +336,9 @@ BusPass.RoutesMapController = OpenLayers.Class({
     },
 
     /**
-     * Method: unselectRouteNoTrigger
+     * Method: unselectRoute
      * This method only unselects the route in this View.
-     * It doesn't trigger a callback.
+     * It triggers a callback only if it triggered one on selection.
      */
     unselectRoute : function (route) {
         if (route.__selected) {
@@ -396,7 +396,7 @@ BusPass.RoutesMapController = OpenLayers.Class({
     /**
      * Method: unhighlightRouteNoTrigger
      * This method only unhighlights the routes in this View.
-     * It doesn't trigger callbacks.
+     * It triggers a callback only if it triggered one on highlight.
      */
     unhighlightRoute : function (route) {
         console.log("map.unhighlightRouteNoTrigger " + route.getName() + " - " + route.isSelected());

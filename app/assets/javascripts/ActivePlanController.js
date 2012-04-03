@@ -63,6 +63,10 @@ BusPass.ActivePlanController.prototype = {
         this._controlViewC.controlView(jq);
     },
 
+    overrideLocationPollTime : function (pollTime) {
+        this._locationC.pollTime = pollTime;
+    },
+
     addRoute : function(route) {
         this._routes.push(route);
         this._listViewC.addRoute(route);
@@ -181,7 +185,7 @@ BusPass.ActivePlanController.prototype = {
                 }
                 break;
             case state.SHOW_VEHICLE:
-                this._mapViewC.unselectRouteNoTrigger(route);
+                this._mapViewC.unselectRoute(route);
                 this._listViewC.unselectRouteNoTrigger(route);
                 break;
         }

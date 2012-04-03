@@ -4,7 +4,6 @@
     var view;
 </script>
 
-<% if @job %>
     <script type="text/javascript">
         $(function() {
             // Clear log on Start Simulation
@@ -12,14 +11,22 @@
                 $('#processing_log .items').html("");
                 this.disabled=true;
                 $('#start_status').html("");
+                $('#completed_at').html("");
+                $('#started_at').html("");
+                $('#sim_time').html("");
+                $("#status").html("Submitting");
+                $("#sim_clock").html("");
+                clock_set = false;
             });
             $("#stop").click(function(ev) {
                 this.disabled=true;
                 $('#start_status').html("");
+                $("#status").html("StopRequested")
             });
             var polling = true;
+            var clock_set = false;
             function poll() {
-                var log = $('#processing_log')[0].children.length;
+                var log = $('#processing_log .items')[0].children.length;
                 $.ajax({
                     type: "GET",
                     url: "<%= partial_status_master_municipality_simulate_path(@municipality, :master_id  => @master.id) %>" +
@@ -36,13 +43,36 @@
                             if (data['started_at']) {
                                 $('#started_at').html(data['started_at']);
                             }
+                            if (data['clock_mult']) {
+                                var mult = data['clock_mult'] + 0;
+                                $('#clock_mult').html(data['clock_mult']);
+                                if (mult > 1) {
+                                    basket.setPollTime(10/mult);
+                                    view.overrideLocationPollTime(30/mult);
+                                }
+                            }
                             if (data['sim_time']) {
                                 $('#sim_time').html(data['sim_time']);
+                                if (!clock_set && data['status'] != "Stopped") {
+                                    if (data['sim_time'] && data['started_at']) {
+                                        var sim_time = Date.parse(data['sim_time']).getTime();
+                                        var time_start = Date.parse(data['started_at']).getTime();
+                                        sim_time += Date.now() - time_start;
+                                        $("#sim_clock").clock({format: "24", timestamp: sim_time, 'mult': data['clock_mult']});
+                                        $("#sim_clock").show();
+                                        clock_set = true;
+                                    }
+                                }
                             }
                             if (data['status']) {
                                 $('#status').html(data['status']);
                                 $("#start")[0].disabled = data['status'] != "Stopped";
                                 $("#stop")[0].disabled = data['status'] == "Stopped" || data['status'] == "StopRequested" || data['status'] == "Stopping";
+                                if (data['status'] == "Stopped") {
+                                    $("#sim_clock").clock("destroy");
+                                    $("#sim_clock").hide();
+                                    clock_set = false;
+                                }
                             }
                         } else {
                             $('#processing_log').html("");
@@ -63,7 +93,6 @@
             setTimeout(poll,0);
         });
     </script>
-<% end %>
 
 <script>
     $(function() {
@@ -147,22 +176,24 @@
 <DIV class="ui-layout-center">
   <div class="row">
     <div class="span16">
-      <h2><%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %></h2>
+      <h2><%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %> Simulation</h2>
     </div>
   </div>
   <div class="row">
-    <DIV class="span10">
-      <h3>Webmap</h3>
+    <DIV class="span9">
+      <h3>Map</h3>
     </DIV>
     <DIV class="span6">
       <h3>Routes</h3>
     </DIV>
   </div>
   <div class="row">
-    <DIV class="span10">
+    <DIV class="span9">
       <div id="map" class="smallmap">
       </div>
+      <div id="sim_clock"></div>
     </DIV>
+
     <DIV class="span6">
       <div class="row">
         <div class="span4">
@@ -194,6 +225,8 @@
         <%= text_field_tag(:date, @date.strftime("%Y-%m-%d")) %>
         <%= label_tag(:time, "Time[HH:MM ZZZ]:")  %>
         <%= text_field_tag(:time, @time.strftime("%H:%M %Z") ) %>
+        <%= label_tag(:mult, "Clock Multiplier:")  %>
+        <%= text_field_tag(:mult, @mult ) %>
         <%= submit_tag("Start Simulation", :id => "start", :disabled => (@job && @job.processing_status != "Stopped")) %>
      <% end %>
     <div class="span3">
@@ -210,9 +243,15 @@
             <tr>
               <th>Simulation Base Time</th>
               <td><div id="sim_time"><%=  @job.sim_time ?
-                                                    @job.sim_time.strftime("%m-%d-%Y %H:%M %Z"):
-                                                    "Pending" if @job %></div></td>
+                                                  @job.sim_time.strftime("%m-%d-%Y %H:%M %Z"):
+                                                  "Pending" if @job %></div></td>
             </tr>
+            <% if @job && @job.clock_mult && @job.clock_mult != 1 %>
+            <tr>
+              <th>Clock Multiplier</th>
+              <td><div id="clock_mult"><%=  @job.clock_mult %></div></td>
+            </tr>
+            <% end %>
             <tr>
               <th>Process Start Time</th>
               <td><div id="started_at"><%=  @job.processing_completed_at ?

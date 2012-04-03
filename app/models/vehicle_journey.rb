@@ -254,13 +254,14 @@ class VehicleJourney
   logger = AuditLogger.new(STDERR)
 
   class BaseTime
-    def initialize(basetime)
+    def initialize(basetime, mult = 1)
+      @mult = mult
       @basetime = basetime
       @tm = Time.now
     end
 
     def now
-      @basetime + (Time.now - @tm)
+      @basetime + (Time.now - @tm) * @mult
     end
   end
 
@@ -481,8 +482,8 @@ class VehicleJourney
   # on the time_interval. The active journey list checked every 60
   # seconds. An exception delivered to this function will end the
   # simulation of all running journeys.
-  def self.simulate_all(time_interval, time = Time.now, options = {})
-    clock = BaseTime.new(time)
+  def self.simulate_all(find_interval, time_interval, time = Time.now, mult = 1, options = {})
+    clock = BaseTime.new(time, mult)
     syslogger = logger = AuditLogger.new(STDOUT)
     logger.info "Staring simulation for #{options.inspect}"
     job = SimulateJob.first(options)
@@ -491,6 +492,7 @@ class VehicleJourney
     logger.info "Starting Simulation for #{options.inspect}."
     begin
       job.sim_time = time
+      job.clock_mult = mult
       job.processing_started_at = Time.now
       job.processing_completed_at = nil
       job.set_processing_status!("Running")
@@ -508,7 +510,7 @@ class VehicleJourney
             runners[j.id] = JourneyRunner.new(runners,j,time_interval, clock, logger).run
           end
         end
-        sleep 60
+        sleep find_interval
       end
     rescue Exception => boom
       job.set_processing_status!("Stopping")

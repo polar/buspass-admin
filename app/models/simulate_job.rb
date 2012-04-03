@@ -9,6 +9,7 @@ class SimulateJob
   key :processing_started_at, Time
   key :processing_completed_at, Time
   key :sim_time, Time
+  key :clock_mult, Integer
 
   key :please_stop, Boolean
 

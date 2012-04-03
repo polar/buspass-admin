@@ -160,7 +160,7 @@ RoutesView.prototype = {
   },
 
   _highlightRoute : function(route) {
-      if (route.isSelected() {
+      if (route.isSelected()) {
           route.__element.className = "item row route-selected route-highlighted";
       } else {
           route.__element.className = "item row route-highlighted";
@@ -168,7 +168,7 @@ RoutesView.prototype = {
   },
 
   _unhighlightRoute : function(route) {
-      if (route.isSelected() {
+      if (route.isSelected()) {
           route.__element.className = "item row route-selected";
       } else {
           route.__element.className = "item row";

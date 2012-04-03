@@ -24,6 +24,13 @@ BusPass.LocationController = function (options) {
 
 BusPass.LocationController.prototype = {
 
+    /**
+     * If pollTime is zero, the API supplies the poll time for
+     * the particular route. If overridden here (i.e for simulations)
+     * this takes effect. Value is in seconds.
+     */
+    pollTime : 0,
+
     onLocationReceived : function(route, locationData) {
     },
 
@@ -91,7 +98,7 @@ BusPass.LocationController.prototype = {
             // TODO: is this a closure memory leak?
             setTimeout(function () {
                 ctrl._runUpdate(ctrl, route);
-            }, route.getLocationRefreshRate() * 1000);
+            }, ctrl.pollTime > 0 ? ctrl.pollTime * 1000 : route.getLocationRefreshRate() * 1000);
         }
     },
 
