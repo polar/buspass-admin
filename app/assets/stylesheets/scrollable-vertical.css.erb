@@ -1,0 +1,42 @@
+    /* root element for scrollable */
+    .vertical {
+
+        /* required settings */
+        position:relative;
+        overflow:hidden;
+
+        /* vertical scrollers have typically larger height than width */
+        border-top:1px solid #ddd;
+    }
+
+        /* root element for scrollable items */
+    .items {
+    }
+
+        /* single scrollable item */
+    .item {
+    }
+
+        /* the action buttons above the scrollable */
+   .scroll_actions {
+       position:relative;
+    }
+
+    .scroll_actions a {
+        font-size:11px;
+        cursor:pointer;
+        color:#666;
+    }
+
+    .scroll_actions a:hover {
+        text-decoration:underline;
+        color:#000;
+    }
+
+    .disabled {
+        visibility:hidden;
+    }
+
+    .next {
+        float:right;
+    }

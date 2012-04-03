@@ -2,8 +2,20 @@ class JourneyLocation
   include MongoMapper::Document
 
   # Coordinates are { :lat => float, :lon => float }
-  key :coordinates, Hash
-  key :last_coordinates, Hash
+  # Coordinates are [ lon, lat ]
+  key :coordinates, Array
+  key :direction, Float
+  key :distance, Float
+  key :timediff, Integer
+  key :reported_time, Time
+  key :recorded_time, Time
+
+  key :last_coordinates, Array
+  key :last_direction, Float
+  key :last_distance, Float
+  key :last_timediff, Integer
+  key :last_reported_time, Integer
+
 
   belongs_to :vehicle_journey
   belongs_to :service
@@ -14,7 +26,10 @@ class JourneyLocation
   validates_presence_of :service
   validates_presence_of :route
 
-  attr_accessible :route, :service, :vehicle_journey
+  attr_accessible :route, :service, :vehicle_journey,
+                  :vehicle_journey_id, :service_id, :route_id,
+                  :coordinates, :direction, :timediff, :reported_time, :recorded_time,
+                  :last_coordinates, :last_direction, :last_timediff, :last_reported_time
 
   before_save  :cache_fields
 

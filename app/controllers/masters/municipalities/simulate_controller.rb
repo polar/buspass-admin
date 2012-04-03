@@ -49,10 +49,14 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
     end
     begin
       @clock = Time.parse(@date.strftime("%Y-%m-%d") + " " + @time.strftime("%H:%M %Z"))
-    rescue ArgumentError
+      @status = "WTF?"
+    rescue Exception => boom
       @status = "Cannot parse time"
       return
+    ensure
+      @status = "GODMAN"
     end
+
 
     @job = SimulateJob.first(options)
     if @job
@@ -67,7 +71,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
     end
     @job.save!
     VehicleJourney.delay.simulate_all(10, @clock, options)
-    @status = "Simulation for #{@municipality.name} is started"
+    @status = "Simulation for #{@municipality.name} has been started."
   end
 
   def stop
@@ -119,10 +123,6 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   end
 
   def api
-    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
-    if (@municipality.nil?)
-      throw "Not Found"
-    end
     authorize!(:read, @municipality)
     @api = {
         :majorVersion => 1,

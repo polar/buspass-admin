@@ -299,7 +299,7 @@ class VehicleJourney
 
       #Look for ReportedJourneyLocation
       rjls = ReportedJourneyLocation.find(:all,
-                                          :conditions => {:vehicle_journey_id => self},
+                                          :conditions => {:vehicle_journey_id => self.id},
                                           :order => "reported_time, recorded_time")
       if (rjls == nil)
         return estimate
@@ -391,6 +391,7 @@ class VehicleJourney
     while (distance < target_distance) do
       ans = figure_location(distance, tm_last, tm_now, tm_start)
       if (ans != nil)
+        logger.info "VehicleJourney '#{self.name}' answer #{ans.inspect}"
         if journey_location == nil
           create_journey_location(:service => service, :route => service.route)
         else
@@ -463,9 +464,9 @@ class VehicleJourney
       logger.info "Starting Journey #{journey.id} #{journey.name}"
       thread = Thread.new do
         begin
-          journey.simulate(time_interval, clock, logger)
+          journey.simulate(time_interval, logger, clock)
           logger.info "Journey ended normally #{journey.id} #{journey.name}"
-        rescue Error => boom
+        rescue Exception => boom
           logger.info "Stopping Journey #{journey.id} #{journey.name} on #{boom}"
         ensure
           logger.info "Removing Journey #{journey.id} #{journey.name}"
@@ -489,7 +490,9 @@ class VehicleJourney
     logger = job
     logger.info "Starting Simulation for #{options.inspect}."
     begin
+      job.sim_time = time
       job.processing_started_at = Time.now
+      job.processing_completed_at = nil
       job.set_processing_status!("Running")
       JourneyLocation.where(options).all.each {|x| x.delete() }
       syslogger.info "Deleted all JourneyLocations"

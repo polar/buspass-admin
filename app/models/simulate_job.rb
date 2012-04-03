@@ -36,7 +36,7 @@ class SimulateJob
   end
 
   def is_processing?
-    return "Stopped" != processing_status
+    return ! ["Stopped"].include?(processing_status)
   end
 
   def set_processing_status(status)

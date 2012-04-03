@@ -20,7 +20,6 @@ class MastersController < MastersBaseController
     if @master.nil?
       raise "Not found"
     end
-    authorize!(:read, @master)
   end
 
   def new

@@ -76,7 +76,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     respond_to do |format|
       format.html { render :nothing, :status => 403 } #forbidden
       format.json {
-        render :json => getJourneyLocationJSON(@vehicile_journey, @journey_location)
+        render :json => getJourneyLocationJSON(@vehicle_journey, @journey_location)
       }
       format.text {
         if @vehicle_journey == nil
@@ -113,7 +113,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
   end
 
   def getRouteSpecText(route)
-    "#{route.name.tr(",", "_")},#{route.persistentid},R,#{route.version}"
+    "#{route.name.tr(",", "_")},#{route.id.to_s},R,#{route.version}"
   end
 
   def getJourneySpec(journey, route)
@@ -127,7 +127,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
   end
 
   def getJourneySpecText(journey, route)
-    "#{journey.display_name.tr(",", "_")},#{journey.persistentid},V,#{route.persistentid},#{route.version}"
+    "#{journey.display_name.tr(",", "_")},#{journey.id.to_s},V,#{route.id.to_s},#{route.version}"
   end
 
 
@@ -144,7 +144,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
   def getRouteDefinitionJSON(route)
     box                = route.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
     data               = { }
-    data[:_id]         = "#{route.persistentid}"
+    data[:_id]         = "#{route.id.to_s}"
     data[:_type]       = 'route'
     data[:_name]       = "#{route.display_name}"
     data[:_code]       = "#{route.code}"
@@ -160,7 +160,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
   def getJourneyDefinitionJSON(journey)
     box                         = journey.journey_pattern.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
     data                        = { }
-    data[:_id]                  = "#{journey.persistentid}"
+    data[:_id]                  = "#{journey.id.to_s}"
     data[:_type]                = 'journey'
     data[:_name]                = "#{journey.display_name}"
     data[:_code]                = "#{journey.service.route.code}"
@@ -235,7 +235,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
 
   def getJourneyLocationJSON(journey, journey_location)
     data        = { }
-    data[:id]   ="#{journey.persistentid}"
+    data[:id]   ="#{journey.id.to_s}"
     data[:type] = 'journey'
     data[:name] ="#{journey.display_name}"
     data[:code] ="#{journey.service.route.code}"
