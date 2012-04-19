@@ -203,6 +203,7 @@ Devise.setup do |config|
   #
   # The "*/*" below is required to match Internet Explorer requests.
   # config.navigational_formats = ["*/*", :html]
+  config.navigational_formats = ["*/*", :html, :json]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = Rails.env.test? ? :get : :delete
@@ -220,5 +221,5 @@ Devise.setup do |config|
      manager.intercept_401 = false
      manager.failure_app = DeviseFailureApp
   end
-    config.parent_controller = "IntegratedDeviseController"
+  config.parent_controller = "IntegratedDeviseController"
 end

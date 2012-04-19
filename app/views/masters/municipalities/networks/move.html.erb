@@ -2,8 +2,9 @@
 <p>
 You can only move a network to a deployment that does not have a network with the same routes.
 </p>
-
 <%=  form_for( @network, :url => moveto_master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality)) do |f| %>
+
+    Move <%= link_to(@network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)) %> to
     <%= f.collection_select(:municipality, @municipalities, :id, :name, :disabled => @disabled_options) %>
-    <%= f.submit "Copy" %>
+    <%= f.submit "Copy", :disabled => @disabled_options.reduce(false) {|t,v| t || v } %>
 <% end %>

@@ -25,7 +25,7 @@
     <td><%=  @network.routes.count %></td>
   </tr>
   <tr>
-    <th><%= link_to "Vehicle Journeys", master_municipality_network_vehicle_journeys_path(:master_id => @master.id, :municipality_id => @municipality.id, :network_id => @network.id) %></th>
+    <th><%= link_to "Journeys", master_municipality_network_vehicle_journeys_path(:master_id => @master.id, :municipality_id => @municipality.id, :network_id => @network.id) %></th>
     <td><%=  @network.vehicle_journey_count %></td>
   </tr>
 </table>
@@ -48,5 +48,5 @@
   <% if muni_admin_can? :edit, @network %>
     <%=  link_to "Plan Network", master_municipality_network_plan_path(:network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %>
   <% end %>
-  <%= link_to "Copy to Deployment", move_master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %>
+  <%= button_to "Copy to Deployment", move_master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %>
 </P>

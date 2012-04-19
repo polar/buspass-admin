@@ -13,6 +13,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
       @time = Time.parse(params[:time])
     end
     @mult = @job && @job.clock_mult || 1
+    @duration = @job && @job.duration || 30
     render :layout => "webmap"
   end
 
@@ -48,6 +49,10 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
     if params[:mult]
       @mult = params[:mult].to_i;
     end
+    if params[:duration]
+      @duration = params[:duration].to_i
+    end
+
     if !@status.empty?
       return
     end
@@ -81,7 +86,9 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
       @find_interval = 60 / @mult
       @time_interval = 10 / @mult
     end
-    VehicleJourney.delay.simulate_all(@find_interval, @time_interval, @clock, @mult, options)
+    job = VehicleJourney.delay.simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
+    @job.delayed_job = job
+    @job.save!
     @status = "Simulation for #{@municipality.name} has been started."
   end
 
@@ -121,13 +128,13 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
         resp[:clock_mult] = @job.clock_mult
       end
       if (@job.sim_time)
-        resp[:sim_time] = @job.sim_time.strftime("%Y-%m-%d %H:%M %Z")
+        resp[:sim_time] = @job.sim_time.strftime("%Y-%m-%d %H:%M:%S %Z")
       end
       if (@job.processing_completed_at)
-        resp[:completed_at] = @job.processing_completed_at.strftime("%Y-%m-%d %H:%M %Z")
+        resp[:completed_at] = @job.processing_completed_at.strftime("%Y-%m-%d %H:%M:%S %Z")
       end
       if (@job.processing_started_at)
-        resp[:started_at] = @job.processing_started_at.strftime("%Y-%m-%d %H:%M %Z")
+        resp[:started_at] = @job.processing_started_at.strftime("%Y-%m-%d %H:%M:%S %Z")
       end
     end
 

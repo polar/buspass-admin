@@ -12,13 +12,31 @@ BuspassAdmin::Application.routes.draw do
 
   resources :admins
 
-  devise_for :muni_admins, :controllers => {
-      :registrations => "masters/mydevise/registrations",
-      :sessions      => "masters/mydevise/sessions" }
+  devise_for :muni_admins,
+             :controllers => {
+                :registrations => "masters/mydevise/registrations",
+                :sessions      => "masters/mydevise/sessions"
+             }
+
+  devise_for :users,
+             :controllers => {
+                 :registrations => "masters/mydevise/registrations",
+                 :sessions      => "masters/mydevise/sessions"
+             }
+
+  # For some bullshit with devise
+  resources :muni_admins, :controller => "masters/muni_admins"
 
   resources :masters do
 
+    resources :users, :controller => "masters/users"
+
     resources :muni_admins, :controller => "masters/muni_admins"
+
+    resource :home, :controller => "masters/home" do
+      member do
+      end
+    end
 
     resources :municipalities, :controller => "masters/municipalities" do
       member do
@@ -26,6 +44,7 @@ BuspassAdmin::Application.routes.draw do
         get :map
         get :api
       end
+
       resource :webmap,            :controller => "masters/municipalities/webmap" do
         member do
           get :route
@@ -54,9 +73,16 @@ BuspassAdmin::Application.routes.draw do
 
       resources :networks, :controller => "masters/municipalities/networks" do
         member do
-          get :move
+          post :move
           put :moveto
         end
+
+
+
+
+
+
+
         resources :services,         :controller => "masters/municipalities/networks/services"
         resources :routes,           :controller => "masters/municipalities/networks/routes"  do
           member do

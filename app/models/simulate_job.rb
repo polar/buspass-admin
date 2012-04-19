@@ -10,6 +10,8 @@ class SimulateJob
   key :processing_completed_at, Time
   key :sim_time, Time
   key :clock_mult, Integer
+  key :duration, Integer
+  belongs_to :delayed_job, :class_name => "Delayed::Job"
 
   key :please_stop, Boolean
 

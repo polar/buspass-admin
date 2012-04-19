@@ -1,6 +1,7 @@
 class IntegratedDeviseController < ApplicationController
     protect_from_forgery
-    prepend_before_filter :eatme2
+
+    before_filter :setup_municipality
 
     layout :my_layout_function
 
@@ -19,8 +20,12 @@ class IntegratedDeviseController < ApplicationController
     ##
     # This call has to work for both the generic top level
     # and for each municipality "site".
+    # Note: This needs to be explicitly called for anything that isn't
+    # a routed action, such as after_sign_in_path_for.
     #
-    def eatme2
+    def setup_municipality
+      puts("IntegratedDeviseController eatme2")
+      logger.debug "tring to initialize for master and municipality"
       @master = Master.find(params[:master_id]) if params[:master_id]
       @municipality = Municipality.find(params[:municipality_id]) if params[:municipality_id]
     end

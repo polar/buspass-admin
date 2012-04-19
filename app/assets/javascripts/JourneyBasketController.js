@@ -5,16 +5,20 @@ BusPass.JourneyBasketController = function (api,journeyBasket,routesController) 
 };
 
 BusPass.JourneyBasketController.prototype = {
+
     onVisibilityChangedListener : {
         onVisibilityChanged : function(journeyBasketController) {}
     },
+
     onIOErrorListener : {
         onIOError : function(journeyBasketController, err) {}
     },
+
     onRouteDisplayAddedListner : {
         onRouteDisplayAddedPre : function(journeyBasketController, basket, journeyDisplay) {},
         onRouteDisplayAddedPost : function(journeyBasketController, basket, journeyDisplay) {}
     },
+
     onRouteDisplayRemovedListner : {
         onRouteDisplayRemovedPre : function(journeyBasketController, basket, journeyDisplay) {},
         onRouteDisplayRemovedPost : function(journeyBasketController, basket, journeyDisplay) {}
@@ -56,9 +60,11 @@ BusPass.JourneyBasketController.prototype = {
             onRouteDisplayRemovedListener.onRouteDisplayRemovedPost(this,this._journeyBasket,removed);
         }
     },
+
     onUpdateListener : {
         onUpdate : function (journeyBasketController) {}
     },
+
     onJourneyBasketUpdateListener : {
         onUpdateBasket : function (basket) {
             this.onUpdateListener.onUpdate(this);
@@ -109,6 +115,7 @@ BusPass.JourneyBasketController.prototype = {
         }
         this._updateInProgress = false;
     },
+
     onStop : function () {
         console.log("JourneyBasketController: onStop");
         state = "STOP";
@@ -124,6 +131,7 @@ BusPass.JourneyBasketController.prototype = {
             }
         }
     },
+
     onRestart : function() {
         console.log("JourneyBasketController: onRestart");
         if (this._state != "STOP") {

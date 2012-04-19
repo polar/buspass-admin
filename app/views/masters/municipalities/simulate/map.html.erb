@@ -43,8 +43,9 @@
                             if (data['started_at']) {
                                 $('#started_at').html(data['started_at']);
                             }
+                            var mult = 1;
                             if (data['clock_mult']) {
-                                var mult = data['clock_mult'] + 0;
+                                mult = data['clock_mult'] + 0;
                                 $('#clock_mult').html(data['clock_mult']);
                                 if (mult > 1) {
                                     basket.setPollTime(10/mult);
@@ -57,8 +58,8 @@
                                     if (data['sim_time'] && data['started_at']) {
                                         var sim_time = Date.parse(data['sim_time']).getTime();
                                         var time_start = Date.parse(data['started_at']).getTime();
-                                        sim_time += Date.now() - time_start;
-                                        $("#sim_clock").clock({format: "24", timestamp: sim_time, 'mult': data['clock_mult']});
+                                        sim_time += (Date.now() - time_start) * mult;
+                                        $("#sim_clock").clock({format: "24", timestamp: sim_time, 'mult': mult});
                                         $("#sim_clock").show();
                                         clock_set = true;
                                     }
@@ -75,8 +76,8 @@
                                 }
                             }
                         } else {
-                            $('#processing_log').html("");
-                            $('#processing_log').append('<div>No simulation has ran.</div>');
+                            $('#processing_log .items').html("");
+                            $('#processing_log .items').append('<div class="item">No simulation has ran.</div>');
                             $('#completed_at').html("");
                             $('#started_at').html("");
                             $('#sim_time').html("");
@@ -168,6 +169,7 @@
             basket.onCreate();
             basket.onStart();
             basket.onResume();
+            $("#back").click(function() { view.back(); })
         });
     });
 </script>
@@ -215,6 +217,7 @@
         </div>
         <div class="span2 scroll_actions">
           <a class="next">Down &raquo;</a>
+          <a id="back" href="#">Back</a>
         </div>
       </div>
     </div>
@@ -227,6 +230,8 @@
         <%= text_field_tag(:time, @time.strftime("%H:%M %Z") ) %>
         <%= label_tag(:mult, "Clock Multiplier:")  %>
         <%= text_field_tag(:mult, @mult ) %>
+        <%= label_tag(:duration, "Duration[mins]:")  %>
+        <%= text_field_tag(:duration, @duration ) %>
         <%= submit_tag("Start Simulation", :id => "start", :disabled => (@job && @job.processing_status != "Stopped")) %>
      <% end %>
     <div class="span3">

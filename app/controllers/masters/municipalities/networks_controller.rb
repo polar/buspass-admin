@@ -69,7 +69,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     route_codes = []
     @disabled_options = @municipalities.map do |muni|
       route_codes += muni.route_codes
-      muni.id if (route_codes - @network.route_codes).length != route_codes.length
+      muni.id if muni.route_codes.length > 0 && (route_codes - @network.route_codes).length != route_codes.length
     end
 
   end
@@ -79,7 +79,9 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     if @network.nil?
       raise "Network not found"
     end
-    @dest_municipality = Municipality.where(:master_id => @master.id, :id => params[:network][:municipality]).first
+    if params[:network] && params[:network][:municipality]
+      @dest_municipality = Municipality.where(:master_id => @master.id, :id => params[:network][:municipality]).first
+      end
     if @dest_municipality.nil?
       raise "Destination Municipality not found"
     end

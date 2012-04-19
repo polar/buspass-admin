@@ -392,7 +392,7 @@ class VehicleJourney
     while (distance < target_distance) do
       ans = figure_location(distance, tm_last, tm_now, tm_start)
       if (ans != nil)
-        logger.info "VehicleJourney '#{self.name}' answer #{ans.inspect}"
+        logger.info "Journey '#{self.name}' answer #{ans.inspect}"
         if journey_location == nil
           create_journey_location(:service => service, :route => service.route)
         else
@@ -418,11 +418,11 @@ class VehicleJourney
       tm_now = clock.now
       logger.info("VehicleJourney '#{self.name}' tick #{tm_now} tm_start #{tm_start}")
       if @please_stop_simulating
-        logger.info "Stopping the Simulation of #{name}"
+        logger.info "Stopping the Simulation of #{self.name}"
         break
       end
       if @please_stop_simulating
-        logger.info "Break didnt' work: #{name}"
+        logger.info "Break didn't work: #{name}"
       end
     end
     logger.info "Ending VehicleJourney '#{self.name}' at #{distance} at #{tm_now}"
@@ -458,19 +458,19 @@ class VehicleJourney
       @time_interval = t
       @logger = logger
       @clock = clk
-      logger.info "Initializing Journey #{journey.id} #{journey.name}"
+      logger.info "Initializing Journey #{journey.name}"
     end
 
     def run
-      logger.info "Starting Journey #{journey.id} #{journey.name}"
+      logger.info "Starting Journey #{journey.name}"
       thread = Thread.new do
         begin
           journey.simulate(time_interval, logger, clock)
-          logger.info "Journey ended normally #{journey.id} #{journey.name}"
+          logger.info "Journey ended normally #{journey.name}"
         rescue Exception => boom
-          logger.info "Stopping Journey #{journey.id} #{journey.name} on #{boom}"
+          logger.info "Stopping Journey #{journey.name} on #{boom}"
         ensure
-          logger.info "Removing Journey #{journey.id} #{journey.name}"
+          logger.info "Removing Journey #{journey.name}"
           runners.delete(journey.id)
         end
       end
@@ -482,14 +482,14 @@ class VehicleJourney
   # on the time_interval. The active journey list checked every 60
   # seconds. An exception delivered to this function will end the
   # simulation of all running journeys.
-  def self.simulate_all(find_interval, time_interval, time = Time.now, mult = 1, options = {})
+  def self.simulate_all(find_interval, time_interval, time = Time.now, mult = 1, duration = -1, options = {})
     clock = BaseTime.new(time, mult)
-    syslogger = logger = AuditLogger.new(STDOUT)
     logger.info "Staring simulation for #{options.inspect}"
     job = SimulateJob.first(options)
     logger.info "Got Job #{job.inspect}"
     logger = job
     logger.info "Starting Simulation for #{options.inspect}."
+    logical_start_time = clock.now
     begin
       job.sim_time = time
       job.clock_mult = mult
@@ -497,13 +497,11 @@ class VehicleJourney
       job.processing_completed_at = nil
       job.set_processing_status!("Running")
       JourneyLocation.where(options).all.each {|x| x.delete() }
-      syslogger.info "Deleted all JourneyLocations"
       runners = {}
-      while (x = SimulateJob.first(options)) && !x.please_stop do
-        syslogger.info "Finding VehicleJourneys"
+      while (x = SimulateJob.first(options)) && !x.please_stop && (duration < 0 || (clock.now - logical_start_time) <= duration.minutes) do
         date = time = clock.now
         journeys = VehicleJourney.find_by_date_time(date, time, options)
-        syslogger.info "found #{journeys.length} journeys for #{date.strftime("%m-%d-%Y")} and #{time.strftime("%H:%M %Z")}"
+        logger.info "Found #{journeys.length} journeys at #{date.strftime("%m-%d-%Y")} #{time.strftime("%H:%M %Z")}"
         # Create Journey Runners for new Journeys.
         for j in journeys do
           if !runners.keys.include?(j.id)
@@ -514,8 +512,6 @@ class VehicleJourney
       end
     rescue Exception => boom
       job.set_processing_status!("Stopping")
-      syslogger.info "Simulation Ending because #{boom}"
-      syslogger.info boom.backtrace.join("\n")
       logger.info "Simulation Ending because #{boom}"
       logger.info boom.backtrace.join("\n")
     ensure

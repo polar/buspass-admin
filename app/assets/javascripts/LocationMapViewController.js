@@ -70,6 +70,11 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
         BusPass.RoutesMapController.prototype.unselectRoute.apply(this, [route]);
     },
 
+    removeRoute : function (route) {
+        console.log("LocationMapViewController.removeRoute: will it call the correct _removeMapFeatures? " + route.name);
+        BusPass.RoutesMapController.prototype.removeRoute.apply(this, [route]);
+    },
+
     highlightRoute : function (route) {
         BusPass.RoutesMapController.prototype.highlightRoute.apply(this, [route]);
         if (route.__marker) {
@@ -186,7 +191,9 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
 
     // Override
     _removeMapFeatures : function (route) {
+        console.log("LocationMapViewController.r_removeMapFeatures: " + route.name);
         if (route.__marker) {
+            this._locationMarkers.removeFeatures(marker);
             route.__marker.__route = null;
             delete route.__marker;
         }
