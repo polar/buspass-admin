@@ -1,0 +1,283 @@
+
+<script type="text/javascript">
+    var basket;
+    var view;
+</script>
+
+    <script type="text/javascript">
+        $(function() {
+            // Clear log on Start Simulation
+            $("#start").click(function(ev) {
+                $('#processing_log .items').html("");
+                this.disabled=true;
+                $('#start_status').html("");
+                $('#completed_at').html("");
+                $('#started_at').html("");
+                $('#sim_time').html("");
+                $("#status").html("Submitting");
+                $("#sim_clock").html("");
+                clock_set = false;
+            });
+            $("#stop").click(function(ev) {
+                this.disabled=true;
+                $('#start_status').html("");
+                $("#status").html("StopRequested")
+            });
+            var polling = true;
+            var clock_set = false;
+            function poll() {
+                var log = $('#processing_log .items')[0].children.length;
+                $.ajax({
+                    type: "GET",
+                    url: "<%= partial_status_deployment_run_path(@deployment) %>" +
+                            "?log="+log,
+                    dataType: "json",
+                    success: function(data) {
+                        if (data != null) {
+                            $.each(data['logs'], function(i, item) {
+                                $('#processing_log .items').append('<div class="item">'+item+'</div>');
+                            });
+                            if (data['completed_at']) {
+                                $('#completed_at').html(data['completed_at']);
+                            }
+                            if (data['started_at']) {
+                                $('#started_at').html(data['started_at']);
+                            }
+                            var mult = 1;
+                            if (data['clock_mult']) {
+                                mult = data['clock_mult'] + 0;
+                                $('#clock_mult').html(data['clock_mult']);
+                                if (mult > 1) {
+                                    basket.setPollTime(10/mult);
+                                    view.overrideLocationPollTime(30/mult);
+                                }
+                            }
+                            if (data['sim_time']) {
+                                $('#sim_time').html(data['sim_time']);
+                                if (!clock_set && data['status'] != "Stopped") {
+                                    if (data['sim_time'] && data['started_at']) {
+                                        var sim_time = Date.parse(data['sim_time']).getTime();
+                                        var time_start = Date.parse(data['started_at']).getTime();
+                                        sim_time += (Date.now() - time_start) * mult;
+                                        $("#sim_clock").clock({format: "24", timestamp: sim_time, 'mult': mult});
+                                        $("#sim_clock").show();
+                                        clock_set = true;
+                                    }
+                                }
+                            }
+                            if (data['status']) {
+                                $('#status').html(data['status']);
+                                $("#start")[0].disabled = data['status'] != "Stopped";
+                                $("#stop")[0].disabled = data['status'] == "Stopped" || data['status'] == "StopRequested" || data['status'] == "Stopping";
+                                if (data['status'] == "Stopped") {
+                                    $("#sim_clock").clock("destroy");
+                                    $("#sim_clock").hide();
+                                    clock_set = false;
+                                }
+                            }
+                        } else {
+                            $('#processing_log .items').html("");
+                            $('#processing_log .items').append('<div class="item">No simulation has ran.</div>');
+                            $('#completed_at').html("");
+                            $('#started_at').html("");
+                            $('#sim_time').html("");
+                            $('#status').html("");
+                            $('#start')[0].disabled=false;
+                            $('#stop')[0].disabled=true;
+                        }
+                    }
+                });
+                if (polling) {
+                    setTimeout(poll,5000);
+                }
+            }
+            setTimeout(poll,0);
+        });
+    </script>
+
+<script>
+    $(function() {
+        $("body").layout({ applyDefaultStyles: true });
+        // initialize scrollable with mousewheel support
+        $(".scrollable").scrollable({ vertical: true, mousewheel: true, keyboard : true, easing: "swing" });
+        var scroll = $("#routesView").data("scrollable");
+        var api = new BusPassAPI( { loginUrl : '<%= api_deployment_path(@deployment) %>' });
+        view = new BusPass.ActivePlanController( {
+            scope : this,
+            busAPI : api,
+            onRouteSelected : function( route ) {
+                scroll.addItem($("<div class='item' style='color:red'>Route Selected: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteUnselected : function( route ) {
+                scroll.addItem($("<div class='item' style='color:blue'>Route Unselected: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteHighlighted : function( route ) {
+                scroll.addItem($("<div class='item' style='color:green'>Route Highlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+            },
+            onRouteUnhighlighted : function( route ) {
+                scroll.addItem($("<div class='item' style='color:black'>Route Unhighlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+            }
+        });
+        view.mapView($("#map")[0]);
+        view.listView($("#routesView .items"));
+        basket = new BusPass.JourneyBasket();
+        basket.busAPI = api;
+        basket.journeyStore = new BusPass.JourneyStore();
+        basket.onJourneyAddedListener =  {
+            onJourneyAdded : function (basket, r) {
+                console.log("Route Added! " + r.getName() + " : " + r.getId());
+                view.addRoute(r);
+            }
+        };
+
+        basket.onJourneyRemovedListener = {
+            onJourneyRemoved : function (basket, r) {
+                view.removeRoute(r);
+            }
+        };
+
+        basket.onBasketUpdatedListener = {
+            onBasketUpdated : function (basket) {
+                console.log("Basket Updated");
+            }
+        };
+
+        basket.onIOErrorListener = {
+            onIOError : function(basket, ioe) {
+                alert("Basket IO Error: " + ioe.message);
+            }
+        };
+
+        basket.progressListener = {
+            onSyncStart : function () {
+                console.log("Basket: SyncStart");
+            },
+            onSyncEnd : function (nRoutes) {
+                console.log("Basket: SyncEnd");
+            },
+            onRouteStart : function (iRoute) {
+                console.log("Basket: StartRoute " + iRoute);
+            },
+            onRouteEnd : function (iRoute) {
+                console.log("Basket: EndRoute " + iRoute);
+            },
+            onDone : function () {
+                console.log("Basket: Done.");
+            }
+        };
+        api.login(function() {
+            basket.onCreate();
+            basket.onStart();
+            basket.onResume();
+            $("#back").click(function() { view.back(); })
+        });
+    });
+</script>
+
+<DIV class="ui-layout-north">North</DIV>
+<DIV class="ui-layout-center">
+  <div class="row">
+    <div class="span16">
+      <h2><%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %> Run</h2>
+    </div>
+  </div>
+  <div class="row">
+    <DIV class="span9">
+      <h3>Map</h3>
+    </DIV>
+    <DIV class="span6">
+      <h3>Routes</h3>
+    </DIV>
+  </div>
+  <div class="row">
+    <DIV class="span9">
+      <div id="map" class="smallmap">
+      </div>
+      <div id="sim_clock"></div>
+    </DIV>
+
+    <DIV class="span6">
+      <div class="row">
+        <div class="span4">
+        </div>
+        <div class="span2 scroll_actions">
+          <a class="prev">&laquo; Up</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span6">
+          <div id="routesView" class="scrollable vertical">
+            <div class="items">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span4">
+        </div>
+        <div class="span2 scroll_actions">
+          <a class="next">Down &raquo;</a>
+          <a id="back" href="#">Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2">
+      <%= button_to("Start Run", start_deployment_run_path(@deployment), :id => "start", :disabled => (@job && @job.processing_status != "Stopped")) %>
+    </div>
+    <div class="span3">
+      <%= button_to( "Stop Run", stop_deployment_run_path(@deployment), :id => "stop", :remote => true, :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
+    </div>
+  </div>
+      <div class="row">
+        <div class="span16">
+          <div id="start_status">
+
+          </div>
+          <h3>Run Status</h3>
+          <table>
+            <tr>
+              <th>Run Base Time</th>
+              <td><div id="sim_time"><%=  @job.sim_time ?
+                                                  @job.sim_time.strftime("%m-%d-%Y %H:%M %Z"):
+                                                  "Pending" if @job %></div></td>
+            </tr>
+            <% if @job && @job.clock_mult && @job.clock_mult != 1 %>
+            <tr>
+              <th>Clock Multiplier</th>
+              <td><div id="clock_mult"><%=  @job.clock_mult %></div></td>
+            </tr>
+            <% end %>
+            <tr>
+              <th>Process Start Time</th>
+              <td><div id="started_at"><%=  @job.processing_completed_at ?
+                                                    @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                                    "Pending" if @job  %></div></td>
+            </tr>
+            <tr>
+              <th>Process Status</th>
+              <td><div id="status"><%= @job.processing_status if @job  %></div></td>
+            </tr>
+            <tr>
+              <th>Process Complete Time</th>
+              <td><div id="completed_at"><%= @job.processing_completed_at ?
+                                                     @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                                     ""  if @job %></div></td>
+          </table>
+          <h3>Run Log</h3>
+          <div class="scroll_actions">
+            <a class="previous">&laquo; Older</a>
+            <a class="next">Newer &raquo;</a>
+          </div>
+          <div id="processing_log" class="scrollable vertical">
+            <div class="items">
+            <% for i in @job.processing_log %>
+                <div class="item"><%= i %></div>
+            <% end if @job%>
+            </div>
+          </div>
+        </div>
+      </div>
+</DIV>
+<DIV class="ui-layout-south">South</DIV>

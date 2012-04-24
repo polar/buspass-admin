@@ -7,6 +7,8 @@ class OperatorRolePermit < CanTango::RolePermit
 
   def permit_rules
     can(:read, Network)
+    can(:deploy, Master)
+    can(:deploy, Municipality)
   end
 
   module Cached

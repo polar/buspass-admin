@@ -25,7 +25,7 @@ class IntegratedDeviseController < ApplicationController
     #
     def setup_municipality
       puts("IntegratedDeviseController eatme2")
-      logger.debug "tring to initialize for master and municipality"
+      logger.debug "trying to initialize for master and municipality"
       @master = Master.find(params[:master_id]) if params[:master_id]
       @municipality = Municipality.find(params[:municipality_id]) if params[:municipality_id]
     end

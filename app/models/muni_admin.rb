@@ -49,7 +49,7 @@ class MuniAdmin
     # key :locked_at,       Time
 
     ## Token authenticatable
-    # key :authentication_token, String
+    key :authentication_token, String
 
 
     key :name, String
@@ -58,7 +58,7 @@ class MuniAdmin
 
     validates_presence_of :name
 
-    attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+    attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :authentication_token
     attr_accessible :role_symbols
     attr_accessible :encrypted_password, :master_id
 
@@ -69,6 +69,8 @@ class MuniAdmin
     validates_presence_of     :password, :if => :password_required?
     validates_confirmation_of :password, :if => :password_required?
     validates_length_of       :password, :within => password_length, :allow_blank => true
+
+    before_save :ensure_authentication_token
 
     # Checks whether a password is needed or not. For validations only.
     # Passwords are always required if it's a new record, or if the password

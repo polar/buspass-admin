@@ -2,8 +2,7 @@ class Masters::MasterBaseController < ApplicationController
 
     before_filter :set_master
 
-    before_filter :authenticate_muni_admin!, :except => [:index, :show]
-
+    before_filter :authenticate_muni_admin!
     #def authenticate_muni_admin!
     #  redirect_to(:url => "muni_admins/sign_in", :master_id => @master, :municipality_id => @municipality) if current_muni_admin.nil?
     #end

@@ -44,6 +44,10 @@
   <%=  button_to "Check Deploy Status", check_master_municipality_path(@municipality, :master_id => @master), :method => :get, :remote => true, :id => "check" %>
 </p>
 <div id="status"></div>
+<div id="deploy_button" style="display: none">
+  <p></p>
+  <%= button_to "Select as Active", deploy_master_municipality_path(@municipality, :master_id => @master.id) %>
+</div>
 <h3>Networks</h3>
 
 <% if @municipality.networks.count > 0 %>

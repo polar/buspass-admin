@@ -229,7 +229,7 @@ BusPass.RoutesMapController = OpenLayers.Class({
      * Constructor: BusPass.RoutesMapController
      */
     initialize : function (options) {
-        console.log("RoutesMapController: initialize" + $.toJSON(options));
+        console.log("RoutesMapController: initialize");
         OpenLayers.Util.extend(this, options);
         this._routes = [];
         this._selectedRoutes = [];

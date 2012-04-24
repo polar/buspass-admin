@@ -96,21 +96,13 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
       throw "Not Found"
     end
     authorize!(:read, @municipality)
-    @status = []
-    route_codes = []
-    for n in @municipality.networks do
-      route_codes += n.route_codes
-      if n.has_errors?
-        @status << "Network ''#{n.name}'' has errors."
-      end
-    end
-    dups = route_codes.inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
-    if ! dups.empty?
-      @status << "Networks within a plan must not have common routes."
-      @status << "Some networks in this plan share these route codes: #{dups.join(', ')}."
-    end
+    @status = @municipality.deployment_check
+
+    # Hide or Show the deploy button. Only show on a municipality that can be deployed.
+    @show_deploy_button = false
     if @status.empty?
       @status << "This plan is consistent and can be deployed."
+      @show_deploy_button = muni_admin_can?(:deploy, @master)
     else
       @status = ["This plan may not be deployed because of the following:"] + @status
     end
@@ -137,6 +129,29 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     render :layout => "webmap"
   end
 
+  def deploy
+    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
+    if (@municipality.nil?)
+      throw "Not Found"
+    end
+    authorize!(:deploy, @master)
+    authorize!(:deploy, @municipality)
+    @deployment = Deployment.where(:master_id => @master.id).first
+    if (@deployment == nil)
+      @deployment = Deployment.new(:master => @master)
+    end
+    @deployment.municipality = @municipality
+    previous = @municipality.mode
+    @municipality.mode = "Deployed"
+    if @municipality.save
+      if @deployment.save
+        redirect_to map_deployment_run_path(@deployment)
+      else
+        @municipality.mode = previous
+        @municipality.save
+      end
+    end
+  end
   def api
     @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
     if (@municipality.nil?)

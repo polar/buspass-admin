@@ -3,3 +3,10 @@ $("#status").html("<%= escape_javascript(render(:partial => "ulist", :locals => 
 
 // Change the Label on the button to "recheck"
 $("#check")[0].value="Recheck Deploy Status";
+
+var show_deploy_button = <%= escape_javascript("#{@show_deploy_button}") %> ;
+if(show_deploy_button) {
+   $("#deploy_button").show();
+} else {
+   $("#deploy_button").hide();
+}

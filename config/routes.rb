@@ -20,16 +20,39 @@ BuspassAdmin::Application.routes.draw do
 
   devise_for :users,
              :controllers => {
-                 :registrations => "masters/mydevise/registrations",
-                 :sessions      => "masters/mydevise/sessions"
+                 :registrations => "deployments/mydevise/registrations",
+                 :sessions      => "deployments/mydevise/sessions"
              }
 
   # For some bullshit with devise
   resources :muni_admins, :controller => "masters/muni_admins"
+  resources :users, :controller => "deployments/users"
+
+  resources :deployments do
+    member do
+      get :api
+    end
+
+    resource :run, :controller => "deployments/run" do
+      get :api
+      get :map
+      post :start
+      post :stop
+      get :partial_status
+    end
+
+    resource :webmap, :controller => "deployments/webmap" do
+      member do
+        get :route
+        get :journey
+        get :route_journeys
+        get :routedef
+        get :curloc
+      end
+    end
+  end
 
   resources :masters do
-
-    resources :users, :controller => "masters/users"
 
     resources :muni_admins, :controller => "masters/muni_admins"
 
@@ -43,6 +66,7 @@ BuspassAdmin::Application.routes.draw do
         get :check
         get :map
         get :api
+        post :deploy
       end
 
       resource :webmap,            :controller => "masters/municipalities/webmap" do

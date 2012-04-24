@@ -32,7 +32,7 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
      * Constructor: BusPass.LocationMapViewController
      */
     initialize : function (options) {
-        console.log("LocationMapViewController: initialize" + $.toJSON(options));
+        console.log("LocationMapViewController: initialize" );
 
         BusPass.RoutesMapController.prototype.initialize.apply(this, [options]);
     },

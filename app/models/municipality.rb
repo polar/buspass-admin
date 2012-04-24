@@ -75,4 +75,27 @@ class Municipality
         end
         return true
     end
+
+    #
+    # A Municipality can only be deployed if its networks do not
+    # have any overlapping route codes. If this municipality can be deployed,
+    # it returns  an empty array of strings. Otherwise, it contains a list of strings
+    # denoting the errors encountered.
+    #
+    def deployment_check
+      status = []
+      route_codes = []
+      for n in networks do
+        route_codes += n.route_codes
+        if n.has_errors?
+          status << "Network ''#{n.name}'' has errors."
+        end
+      end
+      dups = route_codes.inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
+      if ! dups.empty?
+        status << "Networks within a plan must not have common routes."
+        status << "Some networks in this plan share these route codes: #{dups.join(', ')}."
+      end
+      return status
+    end
 end
