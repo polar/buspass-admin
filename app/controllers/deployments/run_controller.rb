@@ -14,6 +14,9 @@ class Deployments::RunController < DeploymentsBaseController
     end
     @mult = @job && @job.clock_mult || 1
     @duration = @job && @job.duration || 30
+    @processing_status_label = "Run"
+    @updateUrl = partial_status_deployment_run_path(@deployment, :format => :json)
+    @loginUrl = api_deployment_path(@deployment, :format => :json)
     render :layout => "webmap"
   end
 

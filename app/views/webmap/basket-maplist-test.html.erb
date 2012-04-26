@@ -53,9 +53,9 @@
         function setVisibility(visibility) {
              var routes = basket.getJourneys();
              for(var i = 0; i < routes.length; i++ ) {
-                 view.setVisibility(routes[i], visibility);
+                 activePlanController.setVisibility(routes[i], visibility);
              }
-             view.redraw();
+             activePlanController.redraw();
         }
     </script>
 <script>
@@ -65,7 +65,7 @@ $(function() {
         // initialize scrollable with mousewheel support
         $("#routesView").scrollable({ vertical: true, mousewheel: true });
         api = new BusPassAPI("http://localhost:3000/");
-        view = new BusPass.RoutesController( {
+        activePlanController = new BusPass.RoutesController( {
             scope : this,
             onRouteSelected : function( route ) {
                 $("#message").html("<span style='color:red'>Route Selected: " + route.getCode() + " " +route.getName() + "</span>");

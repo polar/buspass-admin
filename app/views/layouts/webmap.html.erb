@@ -46,6 +46,7 @@ debug = true;
     <%= javascript_include_tag "ListViewController.js" %>
     <%= javascript_include_tag "JourneyBasket.js" %>
     <%= javascript_include_tag "JourneyStore.js" %>
+    <%= javascript_include_tag "RunStatusView.js" %>
     <script type='text/javascript'>
          console.log("Staring7");
    </script>
@@ -58,6 +59,7 @@ debug = true;
     <%= javascript_include_tag "jquery.mousewheel.js" %>
     <%= javascript_include_tag "jquery.layout-latest.js" %>
     <%= stylesheet_link_tag "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" %>
+    <%= javascript_include_tag params[:controller] %>
     <script type="text/javascript">
 console.log("STARTING 333");
     </script>
