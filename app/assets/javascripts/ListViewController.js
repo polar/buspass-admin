@@ -60,6 +60,9 @@ BusPass.ListViewController.prototype = {
 
     listView : function(element) {
         this._element = element;
+        $(this._element).jScrollPane({ showArrows : true, autoReinitialise : true });
+        this._scrollApi = this._element.data('jsp');
+        this._contentPane = this._scrollApi.getContentPane();
     },
 
     /**
@@ -68,7 +71,7 @@ BusPass.ListViewController.prototype = {
      */
     addRoute : function(route) {
         this._routes.push(route);
-        $(this._element).append(this._constructRouteElement(route));
+        $(this._contentPane).append(this._constructRouteElement(route));
         this._sortRouteElements();
     },
 
@@ -244,13 +247,13 @@ BusPass.ListViewController.prototype = {
 
     /**
      * Method: private _redisplayRoutes
-     * This method reconstructs the elememnts under the RouteDisplay Element.
+     * This method reconstructs the elements under the RouteDisplay Element.
      */
     _redisplayRoutes : function() {
         var ctrl = this;
-        $(ctrl._element).html("");
+        $(ctrl._contentPane).html("");
         $.each(ctrl._routes, function(i,x) {
-            $(ctrl._element).append(ctrl._constructRouteElement(x)); });
+            $(ctrl._contentPane).append(ctrl._constructRouteElement(x)); });
     },
 
     /**
@@ -267,7 +270,7 @@ BusPass.ListViewController.prototype = {
     /**
      * Method: private _compareCodes
      * This method compares Route codes.
-     * TODO: Parameterize this for muncipalities
+     * TODO: Parameterize this for municipalities
      * Codes are compared on their route base, which is their
      * last 2 digits. The 43 has routes 143, 243, 443, 543.
      */
@@ -371,13 +374,13 @@ BusPass.ListViewController.prototype = {
 
     _sortRouteElements : function() {
         var ctrl = this;
-        var children = $(ctrl._element).children("div");
+        var children = $(ctrl._element).children(".items .item");
         // TODO: We can just insert at the right place.
         children.detach().sort(
             function(a,b) {
                 return ctrl._compareRouteElements(a,b);
             });
-        $(ctrl._element).append(children);
+        $(ctrl._contentPane).append(children);
     },
 
     _triggerCallback : function(cb, route) {

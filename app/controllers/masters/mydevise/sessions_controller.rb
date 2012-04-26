@@ -46,6 +46,11 @@ class Masters::Mydevise::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
+    location = stored_location_for(resource)
+    if (location)
+      return location
+    end
+
     setup_municipality
     # Resource should be a Admin
     if @master.nil?

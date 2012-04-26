@@ -37,7 +37,18 @@ class VehicleJourney
   validates_presence_of :service
   validates_presence_of :departure_time
 
+  validate :consistency_check
+
   before_save :make_id_name
+
+  def consistency_check
+    master == municipality.master &&
+        master == network.master &&
+        master == service.master &&
+        municipality == network.municipality &&
+        municipality == service.municipality &&
+        network == service.network
+  end
 
   def copy!(to_service, to_network)
     ret = VehicleJourney.new(self.attributes)

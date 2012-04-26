@@ -29,6 +29,7 @@
         });
         view.mapView($("#map")[0]);
         view.listView($("#routesView .items"));
+        view.backButton($("#back"));
         basket = new BusPass.JourneyBasket();
         basket.busAPI = api;
         basket.journeyStore = new BusPass.JourneyStore();
@@ -53,7 +54,7 @@
 
         basket.onIOErrorListener = {
             onIOError : function(basket, ioe) {
-                alert("Basket IO Error: " + ioe.message);
+                console.log("Basket IO Error: " + ioe.message);
             }
         };
 
@@ -90,23 +91,25 @@
     </div>
   </div>
   <div class="row">
-    <DIV class="span10">
-      <h3>Webmap</h3>
+    <DIV class="span9">
+      <h3>Map</h3>
     </DIV>
     <DIV class="span6">
       <h3>Routes</h3>
     </DIV>
   </div>
   <div class="row">
-    <DIV class="span10">
+    <DIV class="span9">
       <div id="map" class="smallmap">
       </div>
+      <div id="sim_clock"></div>
     </DIV>
+
     <DIV class="span6">
       <div class="row">
         <div class="span4">
         </div>
-        <div class="span2">
+        <div class="span2 scroll_actions">
           <a class="prev">&laquo; Up</a>
         </div>
       </div>
@@ -121,11 +124,11 @@
       <div class="row">
         <div class="span4">
         </div>
-        <div class="span2">
+        <div class="span2 scroll_actions">
+          <a id="back" href="#">Back</a>
           <a class="next">Down &raquo;</a>
         </div>
       </div>
     </div>
   </div>
-</DIV>
 <DIV class="ui-layout-south">South</DIV>

@@ -27,6 +27,7 @@ BusPass.ActivePlanController = function(options) {
         }
     });
 };
+
 BusPass.ActivePlanController.VisualState = function() {
 };
 // Used as a State Object.
@@ -63,6 +64,13 @@ BusPass.ActivePlanController.prototype = {
         this._controlViewC.controlView(jq);
     },
 
+    backButton : function (jq) {
+        var ctrl = this;
+        jq.click(function () {
+            ctrl.back();
+        });
+    },
+
     overrideLocationPollTime : function (pollTime) {
         this._locationC.pollTime = pollTime;
     },
@@ -95,6 +103,7 @@ BusPass.ActivePlanController.prototype = {
 
     // For testing rightnow
     back : function () {
+        console.log("back button pressesd");
         oldState = this._stateStack[0];
         if (this._stateStack.length > 1) {
             // pop

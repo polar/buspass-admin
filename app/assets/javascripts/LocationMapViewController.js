@@ -208,7 +208,7 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
      * creating Vector Features and placing them on the markers
      * layer.
      *
-     * Paramteers
+     * Parameters
      * route   <Route>  The route to set the location on.
      *                  It should be of type "journey".
      * loc     [lon,lat] It can be null, in which case the

@@ -5,8 +5,10 @@ class Deployments::WebmapController < DeploymentsBaseController
   end
 
   def route
-    @object ||= Route.find_by_persistentid(params[:id])
-
+    @object ||=
+        Route.where(:persistentid => params[:ref],
+                    :master_id => @master.id,
+                    :municipality_id => @municipality.id).first
     data =  getRouteGeoJSON(@object)
     respond_to do |format|
       format.json { render :json => data }
@@ -14,7 +16,10 @@ class Deployments::WebmapController < DeploymentsBaseController
   end
 
   def journey
-    @object ||= VehicleJourney.find_by_persistentid(params[:id])
+    @object ||=
+        VehicleJourney.where(:persistentid => params[:ref],
+                             :master_id => @master.id,
+                             :municipality_id => @municipality.id).first
 
     data =  getRouteGeoJSON(@object)
     respond_to do |format|
@@ -24,12 +29,13 @@ class Deployments::WebmapController < DeploymentsBaseController
 
   def routedef
     @object   = params[:type] == "V" &&
-                 VehicleJourney.find_by_persistentid(params[:id], :include => "service")
+                 VehicleJourney.where(:persistentid => params[:ref],
+                                      :master_id => @master.id,
+                                      :municipality_id => @municipality.id).first
     @object ||= params[:type] == "R" &&
-                 Route.find_by_persistentid(params[:id])
-    # We are only really lax here if we are typing things in.
-    @object ||= VehicleJourney.find_by_persistentid(params[:id], :include => "service")
-    @object ||= Route.find_by_persistentid(params[:id])
+                 Route.where(:persistentid => params[:ref],
+                             :master_id => @master.id,
+                             :municipality_id => @municipality.id).first
 
     respond_to do |format|
       format.json { render :json => getDefinitionJSON(@object) }
@@ -50,8 +56,8 @@ class Deployments::WebmapController < DeploymentsBaseController
       @routes.select { |x| rs.include?(x.id) }
     end
 
-    #@vehicle_journeys = VehicleJourney.where(:master_id => @master.id, :municipality_id => @municipality.id).all
-    @vehicle_journeys = []
+    @journey_locations = JourneyLocation.where(:municipality_id => @municipality.id).all
+    @vehicle_journeys = @journey_locations.map {|x| x.vehicle_journey }
 
     specs = []
     specs += @vehicle_journeys.map { |x| getJourneySpec(x, @routes[0]) }
@@ -64,7 +70,10 @@ class Deployments::WebmapController < DeploymentsBaseController
   end
 
   def curloc
-      @vehicle_journey = VehicleJourney.find_by_persistentid(params[:id]);
+    # TODO: searching by :municipality_id should be sufficient.
+      @vehicle_journey = VehicleJourney.where(:persistentid => params[:ref],
+                                              :master_id => @master.id,
+                                              :municipality_id => @municipality.id).first
 
       if @vehicle_journey != nil && @vehicle_journey.journey_location != nil
           @journey_location = @vehicle_journey.journey_location
@@ -85,8 +94,8 @@ class Deployments::WebmapController < DeploymentsBaseController
 
   # We are going return two types, Routes and VehicleJourneys.
   def all_route_journeys
-    # TODO: searching by :network_id should be sufficient.
-    @routes = Route.where(:master_id => @master.id, :municipality_id => @municipality.id, :network_id => @network.id).all
+    # TODO: searching by :municipality_id should be sufficient.
+    @routes = Route.where(:master_id => @master.id, :municipality_id => @municipality.id).all
 
       # if we have a route or routes parameter, we are only looking for
       # VehicleJourneys.
@@ -166,7 +175,7 @@ class Deployments::WebmapController < DeploymentsBaseController
    data[:_name]="#{route.display_name}"
    data[:_code]="#{route.code}"
    data[:_version]="#{route.version}"
-   data[:_geoJSONUrl]="/webmap/route/#{route.persistentid}.json"
+   data[:_geoJSONUrl]= route_deployment_webmap_path(:ref => route.persistentid, :format => :json)
    data[:_nw_lon]="#{box[0][0]}"
    data[:_nw_lat]="#{box[0][1]}"
    data[:_se_lon]="#{box[1][0]}"
@@ -182,7 +191,7 @@ class Deployments::WebmapController < DeploymentsBaseController
    data[:_name]="#{journey.display_name}"
    data[:_code]="#{journey.service.route.code}"
    data[:_version]="#{journey.service.route.version}"
-   data[:_geoJSONUrl]="/webmap/journey/#{journey.persistentid}.json"
+   data[:_geoJSONUrl]= journey_deployment_webmap_path(:ref => journey.persistentid, :format => :json)
    data[:_startOffset] = "#{journey.start_time}"
    data[:_duration] ="#{journey.duration}"
    # TODO: TimeZone for Locality.

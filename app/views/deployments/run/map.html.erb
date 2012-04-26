@@ -4,11 +4,21 @@
     var view;
 </script>
 
+<head>
+  <style type="text/css" id="page-css">
+    #processing_log
+    {
+        width: 100%;
+        height: 300px;
+        overflow: auto;
+    }
+  </style>
+</head>
     <script type="text/javascript">
         $(function() {
             // Clear log on Start Simulation
             $("#start").click(function(ev) {
-                $('#processing_log .items').html("");
+                $('#processing_log').data('jsp').getContentPane().html("");
                 this.disabled=true;
                 $('#start_status').html("");
                 $('#completed_at').html("");
@@ -26,7 +36,7 @@
             var polling = true;
             var clock_set = false;
             function poll() {
-                var log = $('#processing_log .items')[0].children.length;
+                var log = $('#processing_log').data('jsp').getContentPane().children.length;
                 $.ajax({
                     type: "GET",
                     url: "<%= partial_status_deployment_run_path(@deployment) %>" +
@@ -35,7 +45,7 @@
                     success: function(data) {
                         if (data != null) {
                             $.each(data['logs'], function(i, item) {
-                                $('#processing_log .items').append('<div class="item">'+item+'</div>');
+                                $('#processing_log').data('jsp').getContentPane().append('<div class="item">'+item+'</div>');
                             });
                             if (data['completed_at']) {
                                 $('#completed_at').html(data['completed_at']);
@@ -76,8 +86,8 @@
                                 }
                             }
                         } else {
-                            $('#processing_log .items').html("");
-                            $('#processing_log .items').append('<div class="item">No simulation has ran.</div>');
+                            $('#processing_log').data('jsp').getContentPane().html("");
+                            $('#processing_log').data('jsp').getContentPane().append('<div class="item">No simulation has ran.</div>');
                             $('#completed_at').html("");
                             $('#started_at').html("");
                             $('#sim_time').html("");
@@ -98,28 +108,14 @@
 <script>
     $(function() {
         $("body").layout({ applyDefaultStyles: true });
-        // initialize scrollable with mousewheel support
-        $(".scrollable").scrollable({ vertical: true, mousewheel: true, keyboard : true, easing: "swing" });
-        var scroll = $("#routesView").data("scrollable");
+        $("#processing_log").jScrollPane();
         var api = new BusPassAPI( { loginUrl : '<%= api_deployment_path(@deployment) %>' });
         view = new BusPass.ActivePlanController( {
             scope : this,
-            busAPI : api,
-            onRouteSelected : function( route ) {
-                scroll.addItem($("<div class='item' style='color:red'>Route Selected: " + route.getCode() + " " +route.getName() + "</div>"));
-            },
-            onRouteUnselected : function( route ) {
-                scroll.addItem($("<div class='item' style='color:blue'>Route Unselected: " + route.getCode() + " " +route.getName() + "</div>"));
-            },
-            onRouteHighlighted : function( route ) {
-                scroll.addItem($("<div class='item' style='color:green'>Route Highlighted: " + route.getCode() + " " +route.getName() + "</div>"));
-            },
-            onRouteUnhighlighted : function( route ) {
-                scroll.addItem($("<div class='item' style='color:black'>Route Unhighlighted: " + route.getCode() + " " +route.getName() + "</div>"));
-            }
+            busAPI : api
         });
         view.mapView($("#map")[0]);
-        view.listView($("#routesView .items"));
+        view.listView($("#routesView"));
         basket = new BusPass.JourneyBasket();
         basket.busAPI = api;
         basket.journeyStore = new BusPass.JourneyStore();
@@ -178,7 +174,10 @@
 <DIV class="ui-layout-center">
   <div class="row">
     <div class="span16">
-      <h2><%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %> Run</h2>
+      <h2><%= link_to "#{@master.name}", master_path(@master) %>
+        Active Deployment
+        <%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %>
+      </h2>
     </div>
   </div>
   <div class="row">
@@ -198,16 +197,9 @@
 
     <DIV class="span6">
       <div class="row">
-        <div class="span4">
-        </div>
-        <div class="span2 scroll_actions">
-          <a class="prev">&laquo; Up</a>
-        </div>
-      </div>
-      <div class="row">
         <div class="span6">
           <div id="routesView" class="scrollable vertical">
-            <div class="items">
+            <div class="scrollPane items">
             </div>
           </div>
         </div>
@@ -215,8 +207,7 @@
       <div class="row">
         <div class="span4">
         </div>
-        <div class="span2 scroll_actions">
-          <a class="next">Down &raquo;</a>
+        <div class="span2">
           <a id="back" href="#">Back</a>
         </div>
       </div>
@@ -224,10 +215,10 @@
   </div>
   <div class="row">
     <div class="span2">
-      <%= button_to("Start Run", start_deployment_run_path(@deployment), :id => "start", :disabled => (@job && @job.processing_status != "Stopped")) %>
+      <%= button_to("Start Run", start_deployment_run_path(@deployment, :format => :js), :id => "start", :remote => true, :disabled => (@job && @job.processing_status != "Stopped")) %>
     </div>
     <div class="span3">
-      <%= button_to( "Stop Run", stop_deployment_run_path(@deployment), :id => "stop", :remote => true, :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
+      <%= button_to( "Stop Run", stop_deployment_run_path(@deployment, :format => :js), :id => "stop", :remote => true, :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
     </div>
   </div>
       <div class="row">
@@ -266,16 +257,10 @@
                                                      ""  if @job %></div></td>
           </table>
           <h3>Run Log</h3>
-          <div class="scroll_actions">
-            <a class="previous">&laquo; Older</a>
-            <a class="next">Newer &raquo;</a>
-          </div>
-          <div id="processing_log" class="scrollable vertical">
-            <div class="items">
+          <div id="processing_log">
             <% for i in @job.processing_log %>
                 <div class="item"><%= i %></div>
             <% end if @job%>
-            </div>
           </div>
         </div>
       </div>

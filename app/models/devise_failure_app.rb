@@ -13,6 +13,12 @@ class DeviseFailureApp < Devise::FailureApp
     # when getting a new session for MuniAdmins.
     opts[:master_id] = params[:master_id] if params[:master_id]
 
+    # If we are on a deployment, get the master from it.
+    if (opts[:master_id] == nil)
+      deployment = Deployment.find(params[:deployment_id])
+      opts[:master_id] ||= deployment.master.id if deployment
+    end
+
     context = send(Devise.available_router_name)
 
     if context.respond_to?(route)

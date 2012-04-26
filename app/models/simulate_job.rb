@@ -1,6 +1,7 @@
 class SimulateJob
   include MongoMapper::Document
 
+  belongs_to :deployment # if this isn't nil, it is for a deployment.
   belongs_to :master
   belongs_to :municipality
 
@@ -16,7 +17,7 @@ class SimulateJob
   key :please_stop, Boolean
 
 
-  attr_accessible :master, :master_id, :municipality, :municipality_id
+  attr_accessible :master, :master_id, :municipality, :municipality_id, :deployment, :deployment_id
 
   class AuditLogger < Logger
     def format_message(severity, timestamp, progname, msg)

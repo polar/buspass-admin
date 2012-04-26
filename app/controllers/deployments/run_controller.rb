@@ -18,7 +18,7 @@ class Deployments::RunController < DeploymentsBaseController
   end
 
   def status
-    authorize!(:read, @municipality)
+    #authorize!(:read, @municipality)
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     if @job.nil?
@@ -28,10 +28,18 @@ class Deployments::RunController < DeploymentsBaseController
 
   def start
     #authorize!(:deploy, @municipality)
-    options = {:master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    # Start the "run"
+    # Date and time is now
+    # mult is 1, which is time multiplier
+    # empty the status.
+    # duration of -1 means run forever
     @date = Time.now
     @time = @date
+
+    @mult = 1
     @status = ""
+    @duration = -1
     begin
       @clock = Time.parse(@date.strftime("%Y-%m-%d") + " " + @time.strftime("%H:%M %Z"))
       @status = "WTF?"
@@ -62,6 +70,8 @@ class Deployments::RunController < DeploymentsBaseController
       @find_interval = 60 / @mult
       @time_interval = 10 / @mult
     end
+
+    # Schedule the job with delayed_job
     job = VehicleJourney.delay.simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
     @job.delayed_job = job
     @job.save!
@@ -70,7 +80,7 @@ class Deployments::RunController < DeploymentsBaseController
 
   def stop
     #authorize!(:deploy, @municipality)
-    options = {:master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
     if @job && @job.processing_status == "Running"
@@ -85,9 +95,9 @@ class Deployments::RunController < DeploymentsBaseController
   # This action gets called by a javascript updater on the show page.
   #
   def partial_status
-    authorize!(:read, @municipality)
+    #authorize!(:read, @municipality)
 
-    options = {:master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     if @job
       @last_log = params[:log].to_i
