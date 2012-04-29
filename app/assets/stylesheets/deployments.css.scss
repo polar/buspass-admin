@@ -1,0 +1,60 @@
+// Place all the styles related to the deployments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/*
+* Same height as small map.
+*/
+.activePlanRoutesView {
+  height : 256px;
+}
+
+/**
+ * From H2 of Twitter Bootstrap
+ */
+#deployment-header {
+  float: left;
+  font-weight: bold;
+  font-size:24px;
+  line-height:36px;
+}
+
+/**
+ * Clock for Deployment Page
+ */
+#deployment-clock {
+  float: right;
+}
+
+#deployment-clock.jqclock {
+  border: 1px Black solid;
+  background: whitesmoke;
+  padding: 2px;
+  margin:2px;
+}
+
+#deployment-clock .clockdate {
+  float: left;
+  color: DarkRed;
+  margin-top: 7px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right : 5px;
+  font-size: 12px;
+  display: block;
+}
+
+#deployment-clock .clocktime {
+  float: right;
+  border: 2px inset White;
+  background: Black;
+  padding: 2px;
+  padding-left : 5px;
+  padding-right : 5px;
+  font-size: 14px;
+  font-family: "Courier";
+  font-weight: bold;
+  color: White;
+  margin: 2px;
+  display: block;
+}
