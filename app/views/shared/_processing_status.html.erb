@@ -1,9 +1,16 @@
-
+<%
+# This part holds the processing status log display.
+#
+# Requires @processing_status_label and @job controller variables.
+#
+# TODO: Internatioanalize Date and Time, and use local TimeZone
+#
+%>
 <div id="processing_status">
-  <div id="start_status">
+  <div id="start_status"></div>
 
-  </div>
   <h3><%= @processing_status_label %> Status</h3>
+
   <table>
     <tr>
       <th>Run Base Time</th>
@@ -33,7 +40,9 @@
                                                                 @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
                                                                 ""  if @job %></div></td>
   </table>
+
   <h3><%= @processing_status_label %> Log</h3>
+
   <div id="processing_log" class="log">
     <% for i in @job.processing_log %>
         <div class="item"><%= i %></div>

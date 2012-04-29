@@ -1,20 +1,45 @@
-<h3>Edit User for <%= @master.name %></h3>
-
-
-<%= form_for(@muni_admin, :url => master_muni_admin_path(@muni_admin, :master_id => @master), :html => { :method => :put }) do |f| %>
+<h3>Edit Administrative User for <%= @master.name %></h3>
+<%= form_for(@muni_admin, :url => master_muni_admin_path(:master_id => @master.id), :method => :put) do |f| %>
     <%= error_messages!(@muni_admin) %>
 
-    <div><%= f.label :email %>
-      <br/>
-      <%= f.email_field :email %></div>
+
     <div>
+      <%= f.label :email %>
+      <br />
+      <%= f.email_field :email %>
+      <br />
+      <%= f.label :name, "Name" %>
+      <br />
+      <%= f.text_field :name %>
+      <br />
+      <%= f.label :password, "New Password (leave empty to leave unchanged)" %>
+      <br />
+      <%= f.password_field :password %>
+      <br />
+      <%= f.label :password_confirmation, "Confirm Password" %>
+      <br />
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div>
+      <%= f.label :possible_roles, "Select Roles for this administrative user" %>
+      <br />
       <% for r in @muni_admin.possible_roles do %>
-      <div>
-        <%= f.label "roles_"+r.to_s, r.to_s.humanize %>
-        <%= check_box_tag "muni_admin[roles][]", r, @muni_admin.has_role?(r) %>
-      </div>
+          <div>
+            <%= check_box_tag "muni_admin[roles][]", r, @muni_admin.has_role?(r) %>
+            <%= f.label "roles_"+r.to_s, r.to_s.humanize %>
+          </div>
       <% end %>
     </div>
     <%= f.hidden_field :master_id, :value => @master.id %>
-    <div><%= f.submit "Update" %></div>
+    <br />
+    <%= f.label :nothing, "Email User about account change?" %>
+    <br />
+    <%= check_box_tag "email_user", "1" %>
+    <br />
+    <%= f.submit "Update Administrator Account" %>
 <% end %>
+
+<%= button_to "Cancel",  master_muni_admins_path(:master_id => @master.id), :method => :get %>
+<p>
+<%= link_to "Administrative Users", master_muni_admins_path(:master_id => @master.id) %>
+</p>

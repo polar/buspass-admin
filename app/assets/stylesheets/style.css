@@ -137,3 +137,8 @@ body {
     -webkit-text-size-adjust: none;
 }
 
+/* Specific things.
+*/
+.user_nav .name {
+        float: right;
+}

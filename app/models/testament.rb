@@ -1,16 +1,15 @@
-class Deployment
+class Testament
   include MongoMapper::Document
 
   belongs_to :master
   belongs_to :municipality
+  one :simulate_job
 
   attr_accessible :master, :master_id, :municipality, :municipality_id
 
   validate :master_consistent
 
   before_validation :set_master
-
-  one :simulate_job
 
   def set_master
     master = municipality.master
@@ -19,6 +18,7 @@ class Deployment
   def master_consistent
     master == municipality.master
   end
+
 
   def status
     simulate_job ? simulate_job.processing_status : "Unrun"

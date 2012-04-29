@@ -182,6 +182,8 @@ BusPass.RunStatusView.prototype = {
             if (data['status'] && this.status) {
                 this.status.html(data['status']);
             }
+        } else {
+            this.clearLog();
         }
         this.onUpdateStatus(data);
     },

@@ -10,16 +10,21 @@
   <tr>
     <th>Deployment</th>
     <th>Owner</th>
-    <th>Mode</th>
+    <th>Active</th>
+    <th>Testing</th>
     <th>Networks</th>
+    <th colspan="3">Operations</th>
   </tr>
 <% @municipalities.each do |muni| %>
     <tr>
       <td><%= link_to muni.name, master_municipality_path(muni, :master_id => @master) %></td>
       <td><%= muni.owner.name %></td>
-      <td><%= muni.mode %></td>
+      <td><%= "Deployed(#{muni.deployment.status})" if muni.deployment %></td>
+      <td><%= "Testing(#{muni.testament.status})" if muni.testament %></td>
       <td><%= muni.networks.count %></td>
       <td><%= link_to("Edit", edit_master_municipality_path(muni, :master_id => @master.id)) if muni_admin_can?(:edit, muni) %></td>
+      <td><%= button_to("Deactivate", deactivate_deployment_run_path(muni.deployment)) if muni.deployment && muni_admin_can?(:delete, muni.deployment) %></td>
+      <td><%= button_to("Deactivate Test", deactivate_testament_run_path(muni.testament)) if muni.testament && muni_admin_can?(:delete, muni.testament) %></td>
       <td><%= button_to("Delete", master_municipality_path(muni, :master_id => @master.id), :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, muni) %></td>
     </tr>
 <% end %>

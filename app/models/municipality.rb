@@ -30,6 +30,9 @@ class Municipality
     before_validation :ensure_slug, :ensure_lonlat
     many :networks, :autosave => false
 
+    one :deployment
+    one :testament
+
     def route_codes
       networks.reduce([]) { |v,n| v + (n.routes.map {|x| x.code})}
     end
@@ -98,4 +101,5 @@ class Municipality
       end
       return status
     end
+
 end

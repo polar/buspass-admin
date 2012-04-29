@@ -1,4 +1,4 @@
-class Deployments::RunController < DeploymentsBaseController
+class Testaments::RunController < TestamentsBaseController
 
   def map
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
@@ -15,8 +15,8 @@ class Deployments::RunController < DeploymentsBaseController
     @mult = @job && @job.clock_mult || 1
     @duration = @job && @job.duration || 30
     @processing_status_label = "Run"
-    @updateUrl = partial_status_deployment_run_path(@deployment, :format => :json)
-    @loginUrl = api_deployment_path(@deployment, :format => :json)
+    @updateUrl = partial_status_testament_run_path(@testament, :format => :json)
+    @loginUrl = api_testament_path(@testament, :format => :json)
     render :layout => "webmap"
   end
 
@@ -31,7 +31,7 @@ class Deployments::RunController < DeploymentsBaseController
 
   def start
     #authorize!(:deploy, @municipality)
-    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
     # Start the "run"
     # Date and time is now
     # mult is 1, which is time multiplier
@@ -83,7 +83,7 @@ class Deployments::RunController < DeploymentsBaseController
 
   def stop
     #authorize!(:deploy, @municipality)
-    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
     if @job && @job.processing_status == "Running"
@@ -100,7 +100,7 @@ class Deployments::RunController < DeploymentsBaseController
   def partial_status
     #authorize!(:read, @municipality)
 
-    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     if @job
       @last_log = params[:log].to_i
@@ -133,14 +133,14 @@ class Deployments::RunController < DeploymentsBaseController
   end
 
   def deactivate
-    authorize!(:delete, @deployment)
+    authorize!(:delete, @testament)
 
-    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     # We automatically kill any job if we remove the SimulateJob
     @job.destroy
-    @deployment.destroy
-    flash[:notice] = "#{@master.name} Deployment #{@municipality.name} has been deactivated."
+    @testament.destroy
+    flash[:notice] = "#{@master.name} Testing Deployment #{@municipality.name} has been deactivated."
     redirect_to master_municipalities_path(:master_id => @master.id)
   end
 

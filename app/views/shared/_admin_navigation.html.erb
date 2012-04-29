@@ -1,0 +1,16 @@
+<div class="user_nav">
+
+  <% if admin_signed_in? %>
+      <%= link_to('Logout', destroy_admin_session_path, :method=>'delete',
+                  :class => "logout") %>
+  <% else %>
+      <%= link_to('Login', new_admin_session_path, :class => "login")  %>
+  <% end %>
+  <% if admin_signed_in? %>
+      <%= link_to('Edit account', edit_admin_registration_path, :class => "edit_account") %>
+  <% else %>
+      <%= link_to('Sign up', new_admin_registration_path, :class => "sign_up")  %>
+  <% end %>
+
+  <%= link_to( current_admin.name, edit_admin_registration_path, :class => "name") if current_admin %>
+</div>

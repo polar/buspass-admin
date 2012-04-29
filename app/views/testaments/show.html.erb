@@ -10,8 +10,6 @@
               loginUrl : '<%= @loginUrl %>'
           });
 
-          $("#deployment-clock").clock({format : 24});
-
           // Start the show!
           activePlanView.onCreate();
           activePlanView.onStart();
@@ -21,14 +19,16 @@
 </head>
 
 <div class="ui-layout-north">
-  <div id="application-header">Busme <%=  @master.name %></div>
-  <%= render :partial => "shared/user_navigation" %>
+  <%= render :partial => "shared/muni_admin_navigation" %>
 </div>
 
 <div class="ui-layout-center">
   <div class="row">
     <div class="span16">
-      <div id="deployment-header"><%= @master.name %></div><div id="deployment-clock"></div>
+      <h2><%= link_to "#{@master.name}", master_path(@master) %>
+        Testing Deployment
+        <%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %>
+      </h2>
     </div>
   </div>
 

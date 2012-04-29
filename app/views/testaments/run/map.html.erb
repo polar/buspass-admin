@@ -15,7 +15,7 @@
           runStatusView = new BusPass.RunStatusView();
           runStatusView.statusView("#processing_status", {
               // The route helpers don't seem to be available here.
-              // updateUrl : "< %= partial_status_deployment_run_path(@deployment, :format => :json) %>"
+              // updateUrl : "< %= partial_status_testament_run_path(@testament, :format => :json) %>"
               updateUrl : "<%= @updateUrl %>",
               'onUpdateStatus' : onUpdateStatus
           });
@@ -49,7 +49,7 @@
   <div class="row">
     <div class="span16">
       <h2><%= link_to "#{@master.name}", master_path(@master) %>
-        Active Deployment
+        Testing Deployment
         <%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %>
       </h2>
     </div>
@@ -60,13 +60,13 @@
   <div class="row">
     <div class="span2">
       <%= button_to("Start Run",
-                    start_deployment_run_path(@deployment, :format => :js),
+                    start_testament_run_path(@testament, :format => :js),
                     :id => "start",
                     :remote => true,
                     :disabled => (@job && @job.processing_status != "Stopped")) %>
     </div>
     <div class="span3">
-      <%= button_to( "Stop Run", stop_deployment_run_path(@deployment, :format => :js),
+      <%= button_to( "Stop Run", stop_testament_run_path(@testament, :format => :js),
                      :id => "stop",
                      :remote => true,
                      :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>

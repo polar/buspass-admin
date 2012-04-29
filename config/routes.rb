@@ -39,6 +39,7 @@ BuspassAdmin::Application.routes.draw do
       post :start
       post :stop
       get :partial_status
+      post :deactivate
     end
 
     resource :webmap, :controller => "deployments/webmap" do
@@ -52,9 +53,43 @@ BuspassAdmin::Application.routes.draw do
     end
   end
 
+  resources :testaments do
+    member do
+      get :api
+    end
+
+    resource :run, :controller => "testaments/run" do
+      get :api
+      get :map
+      post :start
+      post :stop
+      get :partial_status
+      post :deactivate
+    end
+
+    resource :webmap, :controller => "testaments/webmap" do
+      member do
+        get :route
+        get :journey
+        get :route_journeys
+        get :routedef
+        get :curloc
+      end
+    end
+  end
+
   resources :masters do
 
-    resources :muni_admins, :controller => "masters/muni_admins"
+    resources :muni_admins, :controller => "masters/muni_admins" do
+      member do
+        post :destroy_confirm
+      end
+    end
+
+    member do
+      get :deployment
+      get :testament
+    end
 
     resource :home, :controller => "masters/home" do
       member do
@@ -100,12 +135,6 @@ BuspassAdmin::Application.routes.draw do
           post :move
           put :moveto
         end
-
-
-
-
-
-
 
         resources :services,         :controller => "masters/municipalities/networks/services"
         resources :routes,           :controller => "masters/municipalities/networks/routes"  do

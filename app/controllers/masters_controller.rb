@@ -1,5 +1,33 @@
 class MastersController < MastersBaseController
 
+  def deployment
+    @master = Master.find(params[:id])
+    if @master
+      @deployment = Deployment.where(:master_id => @master.id).first
+      if @deployment
+        redirect_to deployment_path(@deployment)
+      else
+        render :text => "Municipality's Active Deployment Not Found", :status => 404
+      end
+    else
+      render :text => "Municipality Not Found", :status => 404
+    end
+  end
+
+  def testament
+    @master = Master.find(params[:id])
+    if @master
+      @testament = Testament.where(:master_id => @master.id).first
+      if @testament
+        redirect_to testament_path(@testament)
+      else
+        render :text => "Municipality's Testing Deployment Not Found", :status => 404
+      end
+    else
+      render :text => "Municipality Not Found", :status => 404
+    end
+  end
+
   def index
     if admin_signed_in?
       @masters = case params[:purpose]
@@ -20,6 +48,8 @@ class MastersController < MastersBaseController
     if @master.nil?
       raise "Not found"
     end
+    @deployment = Deployment.where(:master_id => @master.id).first
+    @testament = Testament.where(:master_id => @master.id).first
   end
 
   def new

@@ -1,0 +1,24 @@
+
+
+<%= form_for(@muni_admin, :url => master_muni_admins_path(:master_id => @master.id)) do |f| %>
+    <%= error_messages!(@muni_admin) %>
+
+    <div><%= f.label :email %>
+      <br/>
+      <%= f.email_field :email %>
+      <%= f.label :password, "New Password" %>
+      <%= f.password_field :password %>
+      <%= f.label :password_confirmation, "Confirm Password" %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div>
+      <% for r in @muni_admin.possible_roles do %>
+          <div>
+            <%= f.label "roles_"+r.to_s, r.to_s.humanize %>
+            <%= check_box_tag "muni_admin[roles][]", r, @muni_admin.has_role?(r) %>
+          </div>
+      <% end %>
+    </div>
+    <%= f.hidden_field :master_id, :value => @master.id %>
+    <div><%= f.submit %></div>
+<% end %>

@@ -17,6 +17,8 @@
     <td><%= @master.owner.name if !@master.owner.nil? %></td>
   </tr>
 </table>
+<%= link_to "Active Deployment", deployment_master_path(:master_id => @master.id) if @deployment %>
+<%= link_to "Active Testing Deployment", testament_master_path(:master_id => @master.id) if @testament %>
 <%= link_to "Login to #{@master.name}", master_municipalities_path(:master_id => @master) %> |
 <%= link_to("Edit", edit_master_path(@master)) if admin_can?(:edit, @master) %> |
 <%= link_to "All", masters_path %>
