@@ -4,13 +4,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Busme <%= @master.name %></title>
+  <title>Busme <%= @master ? @master.name : "US" %></title>
   <meta name="description" content="">
   <meta name="author" content="">
   <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
   <%= javascript_include_tag "normal-layout", :debug => true  %>
   <%= csrf_meta_tags %>
-  <%=  master_meta_tags %>
   <%=  yield :head %>
 </head>
 <body class="<%= params[:controller] %>">
@@ -18,9 +17,13 @@
       <header>
         <nav>
           <ul class="hmenu">
-            <%= render 'shared/muni_admin_navigation' %>
+            <% if params[:controller] == "masters" %>
+                <%=  render :partial => "shared/admin_navigation" %>
+              <% else %>
+                <%= render 'shared/muni_admin_navigation' %>
+            <% end %>
           </ul>
-          <div id="application-header">Busme <%= @master.name %></div>
+          <div id="application-header">Busme <%= @master ? @master.name : "US" %></div>
         </nav>
         <%- flash.each do |name, msg| -%>
             <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>

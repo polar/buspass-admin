@@ -14,6 +14,7 @@ class SuperRolePermit < CanTango::RolePermit
   def permit_rules
     can(:read, Network)
     can(:manage, MuniAdmin)
+    can(:manage, User)
   end
 
   module Cached

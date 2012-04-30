@@ -23,7 +23,11 @@
     <header>
       <nav>
         <ul class="hmenu">
-          <%= render 'shared/muni_admin_navigation' %>
+          <% if params[:controller] == "deployments" %>
+            <%= render :partial => "shared/user_navigation" %>
+          <% else %>
+            <%= render :partial => 'shared/muni_admin_navigation' %>
+          <% end %>
         </ul>
         <div id="application-header">Busme <%= @master.name %></div>
       </nav>

@@ -11,7 +11,7 @@ class IntegratedDeviseController < ApplicationController
     def my_layout_function
       @mylayout = "application"
       if @master
-        @mylayout = "masters/application"
+        @mylayout = "masters/normal-layout"
       end
 
       return @mylayout

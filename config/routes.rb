@@ -85,6 +85,11 @@ BuspassAdmin::Application.routes.draw do
         post :destroy_confirm
       end
     end
+    resources :users, :controller => "masters/users" do
+      member do
+        post :destroy_confirm
+      end
+    end
 
     member do
       get :deployment

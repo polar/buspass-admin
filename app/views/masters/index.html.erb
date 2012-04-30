@@ -1,7 +1,4 @@
 <h3>Master Municipalities</h3>
-<% if current_admin %>
-  <p><%= "Welcome #{current_admin.name}" %></p>
-<% end %>
 <% @masters.each do |master| %>
   <p>Municipality: <%= link_to master.name, master_path(master) %></p>
 <% end %>

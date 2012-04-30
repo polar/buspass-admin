@@ -1,4 +1,4 @@
-class Masters::UserController < Masters::MasterBaseController
+class Masters::UsersController < Masters::MasterBaseController
   def index
     @users = User.where(:master_id => @master.id).all
   end
@@ -8,6 +8,27 @@ class Masters::UserController < Masters::MasterBaseController
   def show
     @user = User.where(:master_id => @master.id, :id => params[:id]).first
   end
+
+  def new
+    authorize!(:create, User)
+    @user = User.new()
+  end
+
+  def create
+    authorize!(:create, User)
+    params[:user][:master_id] = @master.id
+
+    params[:user][:role_symbols] = params[:user][:roles].select {|x| user.possible_roles.include?(x)}
+    @user = User.new(params[:user])
+
+    if @user.save
+      redirect_to :index, :master_id => @master.id
+    else
+      render :new
+    end
+
+  end
+
   def update
     @user = User.where(:master_id => @master.id, :id => params[:id]).first
     params[:user][:role_symbols] = params[:user][:roles].select {|x| @user.possible_roles.include?(x)}

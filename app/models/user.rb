@@ -91,8 +91,10 @@ class User
     # User.non-empty
   end
 
+  POSSIBLE_ROLES =  ["customer", "driver"]
+
   def possible_roles
-    return ["customer", "tester", "driver", "super"]
+    return POSSIBLE_ROLES
   end
 
   # TODO: Important. The last role in the list is the only significant one.
