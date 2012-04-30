@@ -24,4 +24,11 @@ class Deployment
     simulate_job ? simulate_job.processing_status : "Unrun"
   end
 
+  def can_start?
+    ! simulate_job || !simulate_job.is_processing?
+  end
+
+  def can_stop?
+    simulate_job && simulate_job.is_processing?
+  end
 end

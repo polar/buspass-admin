@@ -102,6 +102,7 @@ BuspassAdmin::Application.routes.draw do
         get :map
         get :api
         post :deploy
+        post :testit
       end
 
       resource :webmap,            :controller => "masters/municipalities/webmap" do

@@ -1,4 +1,4 @@
 class Masters::Municipalities::Plan::ApplicationController < Masters::Municipalities::MunicipalityBaseController
 
-    layout "masters/application"
+    layout "masters/normal-layout"
 end

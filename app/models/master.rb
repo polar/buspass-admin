@@ -19,6 +19,20 @@ class Master
   before_validation :ensure_slug, :ensure_lonlat
 
   many :municipalities, :autosave => false
+  one :deployment
+  one :testament
+
+  # TODO: TimeZones by location.   http://earthtools.org
+  TIME_ZONE = "America/New_York"
+  TZ = Time.now.in_time_zone(TIME_ZONE).zone
+
+  def time_zone
+    return TIME_ZONE
+  end
+
+  def tz(time)
+    time.in_time_zone(TIME_ZONE)
+  end
 
   def ensure_lonlat
     if self.location != nil

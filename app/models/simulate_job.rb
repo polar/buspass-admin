@@ -12,12 +12,13 @@ class SimulateJob
   key :sim_time, Time
   key :clock_mult, Integer
   key :duration, Integer
+  key :time_zone, String
   belongs_to :delayed_job, :class_name => "Delayed::Job"
 
   key :please_stop, Boolean
 
 
-  attr_accessible :master, :master_id, :municipality, :municipality_id, :deployment, :deployment_id
+  attr_accessible :master, :master_id, :municipality, :municipality_id, :deployment, :deployment_id, :time_zone
 
   class AuditLogger < Logger
     def format_message(severity, timestamp, progname, msg)

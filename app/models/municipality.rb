@@ -25,7 +25,7 @@ class Municipality
     key :masterdb, String
     belongs_to :master
 
-    attr_accessible :display_name, :slug, :location, :hosturl, :name
+    attr_accessible :display_name, :slug, :location, :hosturl, :name, :mode
 
     before_validation :ensure_slug, :ensure_lonlat
     many :networks, :autosave => false

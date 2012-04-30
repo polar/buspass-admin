@@ -11,7 +11,8 @@
 
   <h3><%= @processing_status_label %> Status</h3>
 
-  <table>
+  <table class="table table-striped">
+    <tbody>
     <tr>
       <th>Run Base Time</th>
       <td><div id="sim_time" class="sim_time"><%=  @job.sim_time ?
@@ -39,6 +40,8 @@
     <td><div id="completed_at" class="completed_at"><%= @job.processing_completed_at ?
                                                                 @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
                                                                 ""  if @job %></div></td>
+
+    </tbody>
   </table>
 
   <h3><%= @processing_status_label %> Log</h3>

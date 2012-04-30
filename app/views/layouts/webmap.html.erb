@@ -6,66 +6,41 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Webmap for Busme</title>
     <script type='text/javascript'>
-debug = true;
-         console.log("Staring");
+        debug = true;
+        console.log("Staring Load");
    </script>
-    <%= javascript_include_tag :application %>
-    <script type='text/javascript'>
-         console.log("Staring2");
-   </script>
-    <%= stylesheet_link_tag "OpenLayers-2.11/theme/default/style.css" %>
-    <script type='text/javascript'>
-         console.log("Staring3");
-   </script>
-    <%= stylesheet_link_tag "application.css" %>
-    <%= stylesheet_link_tag "jquery.jscrollpane.css" %>
-    <%= stylesheet_link_tag "layout-default-latest.css" %>
-    <%= stylesheet_link_tag "style.css" %>
-    <script type='text/javascript'>
-         console.log("Staring4");
-   </script>
-    <%= javascript_include_tag "OpenLayers-2.11/lib/OpenLayers.js" %>
-    <script type='text/javascript'>
-         console.log("Staring5");
-   </script>
-    <%= javascript_include_tag "BusPassAPI.js" %>
-    <script type='text/javascript'>
-         console.log("Staring6");
-   </script>
-    <%= javascript_include_tag "jquery.json-2.3.js" %>
-    <%= javascript_include_tag "BusPass.js" %>
-    <%= javascript_include_tag "jqClock.js" %>
-    <%= javascript_include_tag "date.js" %>
-    <%= javascript_include_tag "GeoLocationController.js" %>
-    <%= javascript_include_tag "LocationController.js" %>
-    <%= javascript_include_tag "RoutesController.js" %>
-    <%= javascript_include_tag "ActivePlanController.js" %>
-    <%= javascript_include_tag "SelectAllFeature.js" %>
-    <%= javascript_include_tag "RoutesMapController.js" %>
-    <%= javascript_include_tag "LocationMapViewController.js" %>
-    <%= javascript_include_tag "ListViewController.js" %>
-    <%= javascript_include_tag "JourneyBasket.js" %>
-    <%= javascript_include_tag "JourneyStore.js" %>
-    <%= javascript_include_tag "RunStatusView.js" %>
-    <script type='text/javascript'>
-         console.log("Staring7");
-   </script>
-    <%= javascript_include_tag "Route.js" %>
-    <script type='text/javascript'>
-         console.log("Staring8");
-   </script>
-    <%= javascript_include_tag "jquery.tools.min.js" %>
-    <%= javascript_include_tag "jquery.jscrollpane.min.js" %>
-    <%= javascript_include_tag "jquery.mousewheel.js" %>
-    <%= javascript_include_tag "jquery.layout-latest.js" %>
-    <%= stylesheet_link_tag "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" %>
+    <%= stylesheet_link_tag "webmap" %>
+    <%= stylesheet_link_tag params[:controller] %>
+    <%= javascript_include_tag "webmap" %>
     <%= javascript_include_tag params[:controller] %>
     <script type="text/javascript">
-console.log("STARTING 333");
+        console.log("Ending Load");
     </script>
     <%= yield :head %>
   </head>
-  <body>
-   <%= yield %>
+  <body class="<%= params[:controller] %>">
+  <div class="ui-layout-north">
+    <header>
+      <nav>
+        <ul class="hmenu">
+          <%= render 'shared/muni_admin_navigation' %>
+        </ul>
+        <div id="application-header">Busme <%= @master.name %></div>
+      </nav>
+      <%- flash.each do |name, msg| -%>
+          <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+      <%- end -%>
+    </header>
+  </div>
+  <div class="ui-layout-center">
+    <div id="container" class="container">
+      <div id="main" role="main">
+        <%= yield %>
+      </div>
+      <footer>
+      </footer>
+    </div> <!--! end of #container -->
+  </div>
+  <div class="ui-layout-south">South</div>
   </body>
 </html>

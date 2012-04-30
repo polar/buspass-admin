@@ -331,7 +331,7 @@ BusPass.ListViewController.prototype = {
         var div =
             "<div class='item row" + visibility + type + "' data-role='" + route.getType() + "' data-routeid='"+ route.getId() + "'>" +
                 "<div class='span1 route-code' data-role='route-code'>" +
-                "<div class='span1 route-icon'/>" +
+                "<div class='route-icon'/>" +
                 route.getCode() +
                 "</div>"+
                 "<div class='span3 route-name' data-role='route-name'>" +

@@ -6,7 +6,7 @@ class DeploymentsBaseController < ApplicationController
     authenticate_muni_admin!
   end
 
-  def authorize!(action, obj) {
+  def authorize!(action, obj)
       raise CanCan::PermissionDenied if muni_admin_cannot?(action, obj)
   end
 

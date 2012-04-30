@@ -63,7 +63,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     if (@municipality.nil?)
       throw "Not Found"
     end
-    authorize!(:create, @municipality)
+    authorize!(:edit, @municipality)
 
     @municipality.update_attributes(params[:municipality])
     @municipality.master = @master
@@ -84,6 +84,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
         if error
           render :edit
         else
+          flash[:notice] = "Deployment has been successfully updated."
           redirect_to master_municipality_path(@municipality, :master_id => @master)
         end
       }
@@ -141,17 +142,36 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
       @deployment = Deployment.new(:master => @master)
     end
     @deployment.municipality = @municipality
-    previous = @municipality.mode
-    @municipality.mode = "Deployed"
     if @municipality.save
       if @deployment.save
         redirect_to map_deployment_run_path(@deployment)
       else
-        @municipality.mode = previous
         @municipality.save
       end
     end
   end
+  
+  def testit
+    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
+    if (@municipality.nil?)
+      throw "Not Found"
+    end
+    authorize!(:deploy, @master)
+    authorize!(:deploy, @municipality)
+    @testament = Testament.where(:master_id => @master.id).first
+    if (@testament == nil)
+      @testament = Testament.new(:master => @master)
+    end
+    @testament.municipality = @municipality
+    if @municipality.save
+      if @testament.save
+        redirect_to map_testament_run_path(@testament)
+      else
+        @municipality.save
+      end
+    end
+  end
+
   def api
     @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
     if (@municipality.nil?)

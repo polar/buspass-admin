@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busme <%= @master.name %></title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
+  <%= javascript_include_tag "normal-layout", :debug => true  %>
+  <%= csrf_meta_tags %>
+  <%=  master_meta_tags %>
+  <%=  yield :head %>
+</head>
+<body class="<%= params[:controller] %>">
+    <div class="ui-layout-north">
+      <header>
+        <nav>
+          <ul class="hmenu">
+            <%= render 'shared/muni_admin_navigation' %>
+          </ul>
+          <div id="application-header">Busme <%= @master.name %></div>
+        </nav>
+        <%- flash.each do |name, msg| -%>
+            <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+        <%- end -%>
+      </header>
+    </div>
+    <div class="ui-layout-center">
+      <div id="container" class="container">
+          <div id="main" role="main">
+            <%= yield %>
+          </div>
+          <footer>
+          </footer>
+      </div> <!--! end of #container -->
+    </div>
+    <div class="ui-layout-south">South</div>
+</body>
+</html>

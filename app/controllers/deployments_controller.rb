@@ -1,9 +1,9 @@
 class DeploymentsController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:index, :show, :destroy ]
+  before_filter :authenticate_user!, :except => [:index, :show, :destroy, :api ]
   before_filter :authetnicate_muni_admin!, :only => [ :destroy ]
 
-  def authorize!(action, obj) {
+  def authorize!(action, obj)
     raise CanCan::PermissionDenied if muni_admin_cannot?(action, obj)
   end
 

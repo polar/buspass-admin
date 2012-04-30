@@ -37,7 +37,7 @@ class Deployments::RunController < DeploymentsBaseController
     # mult is 1, which is time multiplier
     # empty the status.
     # duration of -1 means run forever
-    @date = Time.now
+    @date = Time.now.in_time_zone(@master.time_zone)
     @time = @date
 
     @mult = 1
@@ -61,9 +61,12 @@ class Deployments::RunController < DeploymentsBaseController
         return
       else
         @job.reinitialize()
+        # User may have changed the time zone on the Master.
+        @job.time_zone = @master.time_zone
       end
     else
       @job = SimulateJob.new(options)
+      @job.time_zone = @master.time_zone
     end
     @job.save!
     if @mult == 1
@@ -117,13 +120,13 @@ class Deployments::RunController < DeploymentsBaseController
         resp[:clock_mult] = @job.clock_mult
       end
       if (@job.sim_time)
-        resp[:sim_time] = @job.sim_time.strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:sim_time] = @job.sim_time.in_time_zone(@job.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
       if (@job.processing_completed_at)
-        resp[:completed_at] = @job.processing_completed_at.strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:completed_at] = @job.processing_completed_at.in_time_zone(@job.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
       if (@job.processing_started_at)
-        resp[:started_at] = @job.processing_started_at.strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:started_at] = @job.processing_started_at.in_time_zone(@job.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
     end
 
