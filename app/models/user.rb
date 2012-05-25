@@ -3,7 +3,7 @@ class User
 
   # tango_user
 
-  plugin MongoMapper::Devise
+#  plugin MongoMapper::Devise
 
   class << self
     Devise::Models.config(self, :email_regexp, :password_length)
@@ -51,6 +51,8 @@ class User
   ## Token authenticatable
   # key :authentication_token, String
 
+  ## Invitable
+  # key :invitation_token, String
 
   key :name, String
   # Array of String

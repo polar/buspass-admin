@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.3'
 group :assets do
   gem 'sass-rails',   '~> 3.2.4'
   gem 'coffee-rails', '~> 3.2.2'
@@ -17,8 +17,7 @@ gem "launchy", ">= 2.0.5", :group => :test
 gem "bson_ext", ">= 1.3.1"
 gem "mongo_mapper"
 gem "devise", ">= 2.0.0"
-gem 'devise-mongo_mapper',
-  :git    => 'git://github.com/activeprospect/devise-mongo_mapper.git'
+gem 'devise-mongo_mapper', :path => "/home/polar/src/devise-mongo_mapper"
 # Stringex is for String.to_url
 gem 'stringex'
 gem 'cantango'
@@ -33,7 +32,15 @@ gem "delayed_job"
 gem "delayed_job_mongo_mapper", :git => "git://github.com/polar/delayed_job_mongo_mapper.git"
 gem "daemons"
 gem "workless"
+gem "comfortable_mexican_sofa",  :path => "/home/polar/src/comfortable-mexican-sofa" # :git => "git://github.com/polar/comfortable-mexican-sofa.git", :branch => "mongo_mapper"
 #gem "mm-optimistic_locking"
 #gem "validates_timeliness"
 gem 'cantango_editor', :git => "git://github.com/stanislaw/cantango_editor.git"
 
+
+
+group :development do
+  gem 'linecache19', '0.5.13'
+  gem 'ruby-debug-base19x', '0.11.30.pre10'
+  gem 'ruby-debug-ide'
+end

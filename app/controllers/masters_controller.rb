@@ -152,6 +152,15 @@ class MastersController < MastersBaseController
       @municipality.hosturl = "http://#{@municipality.slug}.busme.us/#{@municipality.slug}" # hopeful
 
       @municipality.save!
+
+      # TODO: Copy over site templates.
+      @site = Cms::Site.new
+      @site.master = @master
+      @site.identifier = @master.slug + "-admin"
+      @site.label = @master.name + " Administration Pages"
+      @site.hostname = @master.slug + ".busme.us"
+      @site.save!
+
       redirect_to master_path(@master)
   rescue Exception => boom
     @master.delete if @master

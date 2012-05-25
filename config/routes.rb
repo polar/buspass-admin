@@ -4,6 +4,8 @@ BuspassAdmin::Application.routes.draw do
 
   mount CantangoEditor::Engine => "/cantango_editor"
 
+  mount ComfortableMexicanSofa::Engine => "/masters/:master_id/pages"
+
   devise_for :admins,
              :controllers => {
                  :registrations => "mydevise/registrations",

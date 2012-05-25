@@ -37,7 +37,19 @@ class Masters::MasterBaseController < ApplicationController
         VehicleJourney.set_database_name(@database)
 
 =end
-        @master  = Master.find(params[:master_id])
+      @master  = Master.find(params[:master_id])
+      @site = Cms::Site.find_by_id(params[:site_id])
+      if @site && @master != @site.master
+        @master = @site.master if @site.master
+      end
+      if @master && @site.nil?
+        sites = Cms::Site.where(:master_id => @master.id).all
+        if sites.empty?
+        else
+          @site = sites.first
+        end
+
+      end
         if @master.nil?
             raise "Master Not Found"
         end

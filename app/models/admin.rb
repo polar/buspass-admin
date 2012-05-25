@@ -3,7 +3,7 @@ class Admin
 
     tango_user
 
-  plugin MongoMapper::Devise
+#  plugin MongoMapper::Devise
 
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -44,11 +44,21 @@ class Admin
 
   ## Token authenticatable
   # key :authentication_token, String
+
+  ## Invitable
+  # key :invitation_token, String
+
   key :name, String
   validates_presence_of :name
   validates_uniqueness_of :email, :case_sensitive => false
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   attr_accessible :encrypted_password
+
+  # Some how devise picks up the master_id and thinks its an "enforce"d authentication key.
+  # That should be the case for muni_admin, or user, but not admin.
+  def self.authentication_keys
+    return [:email]
+  end
 
     key :role_symbols, Array, :default => []
 
