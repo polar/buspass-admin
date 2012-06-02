@@ -1,0 +1,5 @@
+<h1><%= t('.title') %></h1>
+
+<%= comfy_form_for @site, :as => :site, :url => cms_admin_site_path(@site) do |form| %>
+  <%= render :partial => 'form', :object => form %>
+<% end %>

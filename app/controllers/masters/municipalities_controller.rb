@@ -1,4 +1,5 @@
 class Masters::MunicipalitiesController < Masters::MasterBaseController
+  include PageUtils
 
   def index
     @municipalities = Municipality.where(:master_id => @master.id).all
@@ -45,13 +46,16 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     error = ! @municipality.save
     if error
       flash[:error] = "Could not create deployment"
+    else
+      create_municipality_admin_pages(@master.site, @municipality)
     end
+
     respond_to do |format|
       format.html {
         if error
           render :new
         else
-          redirect_to master_municipalities_path
+          redirect_to master_municipalities_path(@master)
         end
 
       }

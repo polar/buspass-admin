@@ -22,6 +22,10 @@ class Network
   many :routes, :dependent => :destroy
   many :services, :dependent => :destroy
 
+  # CMS Integration
+  one :site, :class_name => "Cms::Site"
+  one :page, :class_name => "Cms::Page", :dependent => :destroy
+
   # This field is where the zipfile gets uploaded. We need to
   # move it to a more permanent place..The Controller will
   # move this to file.

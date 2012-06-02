@@ -1,4 +1,5 @@
 class MastersController < MastersBaseController
+  include PageUtils
 
   def deployment
     @master = Master.find(params[:id])
@@ -128,6 +129,9 @@ class MastersController < MastersBaseController
       @muni_admin.save!
       # This is the owner of the Master in the Muni realm.
       master.muni_owner = @muni_admin
+
+      master.ensure_slug
+      master.host = "#{master.slug}.busme.us"
       master.save!
 
 
@@ -153,21 +157,17 @@ class MastersController < MastersBaseController
 
       @municipality.save!
 
-      # TODO: Copy over site templates.
-      @site = Cms::Site.new
-      @site.master = @master
-      @site.identifier = @master.slug + "-admin"
-      @site.label = @master.name + " Administration Pages"
-      @site.hostname = @master.slug + ".busme.us"
-      @site.save!
+      create_master_admin_site(@master)
+      create_deployment_page(@master, @municipality)
 
-      redirect_to master_path(@master)
+        redirect_to master_path(@master)
   rescue Exception => boom
     @master.delete if @master
     @municipality.delete if @municipality
     @muni_admin.delete if @muni_admin
     raise boom
   end
+
 
   def update
     @master = Master.find(params[:id])

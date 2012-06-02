@@ -40,7 +40,7 @@ gem 'cantango_editor', :git => "git://github.com/stanislaw/cantango_editor.git"
 
 
 group :development do
-  gem 'linecache19', '0.5.13'
+  gem 'linecache19', "0.5.13"
   gem 'ruby-debug-base19x', '0.11.30.pre10'
   gem 'ruby-debug-ide'
 end

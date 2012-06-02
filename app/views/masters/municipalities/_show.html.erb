@@ -1,0 +1,96 @@
+<%
+# locals
+#    master_id
+#    municipality_id
+#
+   raise "Bad Master" if @master != Master.find(master_id)
+   @municipality = Municipality.find(municipality_id)
+   raise "Bad Municipality" if @master != @municipality.master
+
+%>
+<h2><%= link_to @master.name, master_path(@master)  %></h2>
+
+<h3>Deployment</h3>
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+  <tr>
+    <th>Name</th>
+    <td><%= @municipality.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@municipality.location) %></td>
+  </tr>
+  <tr>
+    <th>Note</th>
+    <td><%= @municipality.mode %></td>
+  </tr>
+  <tr>
+    <th>Owner</th>
+    <td><%= @municipality.owner.name %></td>
+  </tr>
+  </tbody>
+</table>
+
+<p>
+<% if muni_admin_can?(:edit, @municipality) %>
+    <%= link_to("Edit Info", edit_master_municipality_path(@master, @municipality), :class=>"btn") %>
+<% end %>
+<% if muni_admin_can? :edit, @municipality %>
+    <%= link_to("Add New Network", new_master_municipality_network_path(@master, @municipality), :class=>"btn") %>
+<% end %>
+  <% if muni_admin_can? :read, @municipality %>
+      <%= link_to("Map", map_master_municipality_path(@master, @municipality), :class=>"btn") %>
+  <% end %>
+  <% if muni_admin_can? :edit, @municipality %>
+      <%= link_to("Simulate", map_master_municipality_simulate_path(@master, @municipality), :class=>"btn") %>
+  <% end %>
+</p>
+
+<p>
+  <%=  button_to "Check Activate Status", check_master_municipality_path(@master, @municipality), :class=>"btn", :method => :get, :remote => true, :id => "check" %>
+</p>
+<div id="status"></div>
+<div id="deploy_button" style="display: none">
+  <%= button_to "Select as Active", deploy_master_municipality_path(@master, @municipality), :class=>"btn" %>
+  <%= button_to "Select as Testing", testit_master_municipality_path(@master, @municipality), :class=>"btn" %>
+</div>
+<%= link_to "Deployments", master_municipalities_path %>
+<h3>Networks</h3>
+
+<% if @municipality.networks.count > 0 %>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Routes</th>
+        <th>Services</th>
+        <th>Journeys</th>
+        <th>Route Codes</th>
+        <th colspan="5">Operations</th>
+      </tr>
+
+      </thead>
+      <tbody>
+      <% for n in @municipality.networks do %>
+          <% n.master = @municipality.master; n.save! %>
+          <tr>
+            <td><%= link_to "#{n.name}", master_municipality_network_path(@master, @municipality, n) %></td>
+            <td><%= n.description %></td>
+            <td><%= n.routes.count %></td>
+            <td><%= n.services.count %></td>
+            <td><%= n.vehicle_journey_count %></td>
+            <td><%= n.route_codes.join(", ") %></td>
+            <td><%= link_to("Explore", master_municipality_network_path(@master, @municipality, n), :class=>"btn") if muni_admin_can?(:edit, n)%></td>
+            <td><%= link_to("Edit", edit_master_municipality_network_path(@master, @municipality, n), :class=>"btn") if muni_admin_can?(:edit, n) %></td>
+            <td><%= link_to("Plan", master_municipality_network_plan_path(@master, @municipality, n), :class=>"btn") if muni_admin_can?(:edit, n) %></td>
+            <td><%= button_to "Copy to Deployment", move_master_municipality_network_path(@master, @municipality, n), :class=>"btn" %></td>
+            <td><%= button_to("Delete", master_municipality_network_path(@master, @municipality, n), :class=>"btn", :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, n) %></td>
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+ <% end %>

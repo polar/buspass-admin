@@ -1,12 +1,14 @@
-<h2>Edit Deployment</h2>
-
-<%= form_for(@municipality, :url => master_municipality_path(:master_id => @master.id)) do |f| %>
-    <%= error_messages!(@municipality) %>
-
-      <%= f.label :name, "Internal Name" %>
-      <%= f.text_field :name %>
-      <%= f.label :mode, "Note" %>
-      <%= f.text_area :mode %>
-
-    <div><%= f.submit "Update", :class=>"btn"%></div>
-<% end %>
+<%=
+    begin
+      site       = @master.admin_site
+      page       = site.pages.find_by_full_path("/deployments/#{@municipality.slug}/edit")
+      context = {
+              :master => @master,
+              :municipality => @municipality
+      }
+      render :inline => page.content_in_context(context), :status => 200, :content_type => 'text/html'
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

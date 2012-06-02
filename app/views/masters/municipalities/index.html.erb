@@ -1,71 +1,10 @@
-<h3><%= @master.name %></h3>
-<% if current_muni_admin %>
-    <p><%= "Welcome #{current_muni_admin.name} in your roles of " %>
-      <% for r in current_muni_admin.roles_list %>
-         <%= r.to_s.humanize %>
-      <% end %>
-    </p>
-<% end %>
-<h3>Active Deployments</h3>
-<table class="table table-bordered">
-  <thead>
-  <tr>
-    <th></th>
-    <th>Deployment</th>
-    <th>Owner</th>
-    <th>Status</th>
-    <th colspan="3">Operations</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <th>Active Deployment</th>
-    <% if @master.deployment %>
-        <td><%= @master.deployment.municipality.name %></td>
-        <td><%= @master.deployment.municipality.owner.name %></td>
-        <td><%= @master.deployment.status %></td>
-        <td><%=  button_to "Start Run", start_deployment_run_path(@master.deployment), :class=>"btn", :disabled => !@master.deployment.can_start? %></td>
-        <td><%=  button_to "Stop Run", stop_deployment_run_path(@master.deployment), :class=>"btn", :disabled => !@master.deployment.can_stop?  %></td>
-        <td><%=  button_to "Deactivate", deactivate_deployment_run_path(@master.deployment), :class=>"btn" %></td>
-    <% else %>
-        <td colspan="6">None Active</td>
-    <% end %>
-  </tr>
-  <tr>
-    <th>Testing Deployment</th>
-    <% if @master.testament %>
-        <td><%= @master.testament.municipality.name %></td>
-        <td><%= @master.testament.municipality.owner.name %></td>
-        <td><%= @master.testament.status %></td>
-        <td><%=  button_to "Start Test", start_testament_run_path(@master.testament), :class=>"btn", :disabled => !@master.testament.can_start? %></td>
-        <td><%=  button_to "Stop Test", stop_testament_run_path(@master.testament), :class=>"btn", :disabled => !@master.testament.can_stop?  %></td>
-        <td><%=  button_to "Deactivate", deactivate_testament_run_path(@master.testament), :class=>"btn" %></td>
-    <% else %>
-        <td colspan="6">None Active</td>
-    <% end %>
-  </tr>
-  </tbody>
-</table>
-<h3>All Deployments</h3>
-<table class="table table-striped">
-  <tr>
-    <th>Deployment</th>
-    <th>Owner</th>
-    <th>Networks</th>
-    <th colspan="3">Operations</th>
-  </tr>
-<% @municipalities.each do |muni| %>
-    <tr>
-      <td><%= link_to muni.name, master_municipality_path(muni, :master_id => @master) %></td>
-      <td><%= muni.owner.name %></td>
-      <td><%= muni.networks.count %></td>
-      <td><%= link_to("Edit", edit_master_municipality_path(muni, :master_id => @master.id), :class=>"btn") if muni_admin_can?(:edit, muni) %></td>
-      <td><%= link_to("Plan", master_municipality_path(muni, :master_id => @master.id), :class=>"btn") if muni_admin_can?(:edit, muni) %></td>
-      <td><%= button_to("Delete", master_municipality_path(muni, :master_id => @master.id), :class=>"btn", :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, muni) %></td>
-    </tr>
-<% end %>
-</table>
-<p>
-<% if muni_admin_can?(:create, Municipality) %>
-    <%= link_to "New Deployment", new_master_municipality_path, :class=>"btn" %>
-<% end %>
+<%=
+    begin
+      site       = @master.admin_site
+      page       = site.pages.find_by_full_path("/deployments")
+      render :inline => page.content, :status => 200, :content_type => 'text/html'
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

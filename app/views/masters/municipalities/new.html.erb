@@ -1,12 +1,13 @@
-<h2>New Deployment</h2>
-
-<%= form_for(@municipality, :url => master_municipalities_path) do |f| %>
-    <%= error_messages!(@municipality) %>
-
-    <div><%= f.label :name, "Internal Name" %><br />
-      <%= f.text_field :name %></div>
-    <div><%= f.label :mode, "Note" %><br />
-      <%= f.text_area :mode %></div>
-
-    <div><%= f.submit "Create" %></div>
-<% end %>
+<%=
+    begin
+      site       = @master.site
+      page       = site.pages.find_by_full_path("/new-deployment")
+      context = {
+              :master => @master
+      }
+      render :inline => page.content_in_context(context), :status => 200, :content_type => 'text/html'
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

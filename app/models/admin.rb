@@ -1,5 +1,6 @@
 class Admin
     include MongoMapper::Document
+    plugin MongoMapper::Plugins::IdentityMap
 
     tango_user
 

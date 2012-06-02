@@ -8,6 +8,7 @@ class Master
 
   key :name, String, :required => true
   key :location, Array
+  key :host, String
   key :hosturl, String
   key :owner, Admin
   key :muni_owner, MuniAdmin
@@ -18,9 +19,12 @@ class Master
 
   before_validation :ensure_slug, :ensure_lonlat
 
-  many :municipalities, :autosave => false
-  one :deployment
-  one :testament
+  many :municipalities, :autosave => false, :dependent => :destroy
+  one :deployment, :dependent => :destroy
+  one :testament, :dependent => :destroy
+
+  # CMS Integration
+  one :admin_site, :class_name => "Cms::Site", :dependent => :destroy
 
   # TODO: TimeZones by location.   http://earthtools.org
   TIME_ZONE = "America/New_York"

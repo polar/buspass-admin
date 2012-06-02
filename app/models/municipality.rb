@@ -33,6 +33,9 @@ class Municipality
     one :deployment
     one :testament
 
+    one :site, :class_name => "Cms::Site", :dependent => :destroy
+    one :page, :class_name => "Cms::Page", :dependent => :destroy
+
     def route_codes
       networks.reduce([]) { |v,n| v + (n.routes.map {|x| x.code})}
     end

@@ -1,0 +1,21 @@
+<%
+   # locals
+   #    master_id
+   #    municipality_id
+   #
+   raise "Bad Master" if @master != Master.find(master_id)
+   @municipality = Municipality.find(municipality_id)
+   raise "Bad Municipality" if @master != @municipality.master
+
+%><h2>New Deployment</h2>
+
+<%= form_for(@municipality, :url => master_municipalities_path(@master)) do |f| %>
+    <%= error_messages!(@municipality) %>
+
+    <div><%= f.label :name, "Internal Name" %><br />
+      <%= f.text_field :name %></div>
+    <div><%= f.label :mode, "Note" %><br />
+      <%= f.text_area :mode %></div>
+
+    <div><%= f.submit "Create" %></div>
+<% end %>

@@ -1,11 +1,5 @@
 BuspassAdmin::Application.routes.draw do
 
-  root :to => "masters#index"
-
-  mount CantangoEditor::Engine => "/cantango_editor"
-
-  mount ComfortableMexicanSofa::Engine => "/masters/:master_id/pages"
-
   devise_for :admins,
              :controllers => {
                  :registrations => "mydevise/registrations",
@@ -323,4 +317,11 @@ BuspassAdmin::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+  mount CantangoEditor::Engine => "/cantango_editor"
+
+  mount ComfortableMexicanSofa::Engine => "/masters/:master_id/pages", :as => :cms
+
+  match "/busme-admin" => "masters#index"
+  match "/cms-admin" => "cms_admin/sites#index"
+  match "(:cms_path)(.:format)" => "cms_content#render_html"
 end
