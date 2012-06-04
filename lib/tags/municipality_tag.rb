@@ -1,29 +1,33 @@
-class MunicipalityTag
+require "tags/tag"
+
+class MunicipalityTag  <Tag
   include ComfortableMexicanSofa::Tag
 
   def self.regex_tag_signature(identifier = nil)
     identifier ||= /[\w\/\-]+/
     # Need to make sure that the identifier is match[1] using (?:xxx) to avoid capture.
-    /\{\{\s*cms:bus:(?:municipality|deployment)\s*\}\}/
+    /\{\{\s*cms:bus:deployment(?::(#{identifier}))?\s*\}\}/
   end
 
   def content
-    if /deployments\/#{page.slug}$/ =~ page.full_path
-      master = page.master
-      municipality = page.municipality
-      slug = municipality.slug
-      locals = {
-          :master_id => master.id,
-          :municipality_id => municipality.id,
-      }
-      "<%= render :partial => 'masters/municipalities/show', :locals => #{locals.inspect} %>"
-    else
-      "<%= render :text => 'Deployment for page at #{page.full_path} not found.' %>"
+    setup
+    case identifier
+      when "name"
+        @municipality.name
+      when "slug"
+        @municipality.slug
+      when "location"
+        @municipality.location
+      when "owner"
+        @municipality.owner.name
+      when "page"
+        "<%= render :partial => 'masters/municipalities/show' %>"
+      when nil
+        "<%= render :partial => 'masters/municipalities/show' %>"
+      when ""
+        "<%= render :partial => 'masters/municipalities/show' %>"
+      else
+        "<%= render :partial => 'masters/municipalities/#{identifier}' %>"
     end
   end
-
-  def render
-    content
-  end
-
 end

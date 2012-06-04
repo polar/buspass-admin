@@ -4,11 +4,21 @@ class CmsAdmin::BaseController  < CmsBaseController
                 :set_locale,
                 #:load_fixtures,
                 :except => :jump
+  before_filter :setup
 
   layout 'cms_admin'
 
   if ComfortableMexicanSofa.config.admin_cache_sweeper.present?
     cache_sweeper *ComfortableMexicanSofa.config.admin_cache_sweeper
+  end
+
+  def setup
+    @master = Master.find(params[:master_id]) if params[:master_id]
+    @municipality = Municipality.find(params[:municipality_id]) if params[:municipality_id]
+    @network = Network.find(params[:network_id]) if params[:network_id]
+    @route = Route.find(params[:route_id]) if params[:route_id]
+    @service = Route.find(params[:service_id]) if params[:service_id]
+    @vehicle_journey = Route.find(params[:vehicle_journey_id]) if params[:vehicle_journey_id]
   end
 
   def jump

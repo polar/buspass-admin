@@ -323,5 +323,5 @@ BuspassAdmin::Application.routes.draw do
 
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"
-  match "(:cms_path)(.:format)" => "cms_content#render_html"
+ # match "(:cms_path)(.:format)" => "cms_content#render_html"
 end

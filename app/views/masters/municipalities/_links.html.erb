@@ -1,0 +1,13 @@
+
+<% if muni_admin_can?(:edit, @municipality) %>
+    <%= link_to("Edit Info", edit_master_municipality_path(@master, @municipality), :class=>"btn") %>
+<% end %>
+<% if muni_admin_can? :edit, @municipality %>
+    <%= link_to("Add New Network", new_master_municipality_network_path(@master, @municipality), :class=>"btn") %>
+<% end %>
+<% if muni_admin_can? :read, @municipality %>
+    <%= link_to("Map", map_master_municipality_path(@master, @municipality), :class=>"btn") %>
+<% end %>
+<% if muni_admin_can? :edit, @municipality %>
+    <%= link_to("Simulate", map_master_municipality_simulate_path(@master, @municipality), :class=>"btn") %>
+<% end %>

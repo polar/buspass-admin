@@ -1,0 +1,8 @@
+<h2><%= link_to "Network #{@network.name}", master_municipality_network_path(@master, @municipality, @network) %></h2>
+<%= render :partial => "form_edit" %>
+<%= render :partial => "table_content" %>
+<%= render :partial => "table_processing" %>
+
+<P>
+  <%= render :partial => "links" %>
+</P>

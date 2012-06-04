@@ -1,0 +1,22 @@
+
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+  <tr>
+    <th>Name</th>
+    <td><%= @municipality.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@municipality.location) %></td>
+  </tr>
+  <tr>
+    <th>Note</th>
+    <td><%= @municipality.mode %></td>
+  </tr>
+  <tr>
+    <th>Owner</th>
+    <td><%= @municipality.owner.name %></td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,9 @@
+<%=  form_for @network, :url => master_municipality_network_path(@master, @municipality, @network) do |f| %>
+    <%=  f.label :name %><br />
+    <%=  f.text_field :name %>   <br />
+    <%=  f.label :description %>    <br />
+    <%=  f.text_area :description %>   <br />
+    <p>
+      <%=  f.submit %>
+    </p>
+<% end %>

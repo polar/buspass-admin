@@ -1,5 +1,6 @@
 class MastersController < MastersBaseController
   include PageUtils
+  layout "empty"
 
   def deployment
     @master = Master.find(params[:id])
@@ -42,6 +43,7 @@ class MastersController < MastersBaseController
     else
       @masters = Master.all
     end
+    @site = ensure_main_admin_site()
   end
 
   def show
@@ -146,8 +148,7 @@ class MastersController < MastersBaseController
       @municipality.display_name        = local_master.name
       @municipality.location            = local_master.location
       @municipality.owner               = @muni_admin
-      # The municipality database will be unique to its instance, but we can stuff
-                                                                                         # the first one in the local masterdb.
+      # The municipality database will be unique to its instance, but we can stuff the first one in the local masterdb.
       @municipality.dbname              = local_masterdb
       @municipality.masterdb            = local_masterdb
       @municipality.master = local_master
@@ -235,4 +236,42 @@ class MastersController < MastersBaseController
     end
   end
 
+  protected
+
+  def ensure_main_admin_site
+    site = Cms::Site.find_by_identifier("busme-main")
+
+    if site.nil?
+      site = Cms::Site.create!(
+          :path       => "admin",
+          :identifier => "busme-main",
+          :label      => "Main Administration Pages",
+          :hostname   => "busme.us"
+      )
+
+      layout = site.layouts.create!(
+          :identifier => "default",
+          :app_layout => "application",
+          :content    => "{{ cms:page:content }}")
+
+      root = site.pages.create!(
+          :slug              => "main",
+          :label             => "Master Municipalities",
+          :layout            => layout,
+          :blocks_attributes => [{
+                                     :identifier => "content",
+                                     :content    => "{{ cms:bus:masters }}"
+                                 }])
+      newp = site.pages.create!(
+          :slug              => "new",
+          :label             => "New Master Municipality",
+          :layout            => layout,
+          :parent            => root,
+          :blocks_attributes => [{
+                                     :identifier => "content",
+                                     :content    => "{{ cms:bus:master:new }}"
+                                 }])
+    end
+    return site
+  end
 end

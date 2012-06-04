@@ -1,11 +1,8 @@
 <%=
     begin
-      site       = @master.site
+      site       = @master.admin_site
       page       = site.pages.find_by_full_path("/new-deployment")
-      context = {
-              :master => @master
-      }
-      render :inline => page.content_in_context(context), :status => 200, :content_type => 'text/html'
+      page.render(self, :status => 200, :content_type => 'text/html')
     rescue Exception => boom
       logger.detailed_error(boom)
       render :text => I18n.t('cms.content.page_not_found'), :status => 404

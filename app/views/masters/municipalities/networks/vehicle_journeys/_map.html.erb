@@ -1,0 +1,168 @@
+
+    <script type="text/javascript">
+        var basket;
+        var view;
+
+        function pathVisible(visibility) {
+             var routes = basket.getJourneys();
+             for(var i = 0; i < routes.length; i++ ) {
+                 mapView.setVisibility(routes[i], visibility);
+             }
+             mapView.redraw();
+        }
+    </script>
+
+<script>
+$(function() {
+    $("body").layout({ applyDefaultStyles: true });
+    // initialize scrollable with mousewheel support
+    $("#routesView").scrollable({ vertical: true, mousewheel: true, keyboard : true, easing: "swing" });
+    var scroll = $("#routesView").data("scrollable")
+    api = new BusPassAPI( { loginUrl : '<%= api_master_municipality_network_vehicle_journey_path(@vehicle_journey, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %>' });
+    view = new BusPass.ActivePlanController( {
+        scope : this,
+        busAPI : api,
+        onRouteSelected : function( route ) {
+            scroll.addItem($("<div class='item' style='color:red'>Route Selected: " + route.getCode() + " " +route.getName() + "</div>"));
+        },
+        onRouteUnselected : function( route ) {
+            scroll.addItem($("<div class='item' style='color:blue'>Route Unselected: " + route.getCode() + " " +route.getName() + "</div>"));
+        },
+        onRouteHighlighted : function( route ) {
+            scroll.addItem($("<div class='item' style='color:green'>Route Highlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+        },
+        onRouteUnhighlighted : function( route ) {
+            scroll.addItem($("<div class='item' style='color:black'>Route Unhighlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+        },
+    });
+    view.mapView($("#map")[0]);
+    view.listView($("#routesView .items"));
+    basket = new BusPass.JourneyBasket();
+    basket.busAPI = api;
+    basket.journeyStore = new BusPass.JourneyStore();
+    basket.onJourneyAddedListener =  {
+        onJourneyAdded : function (basket, r) {
+            console.log("Route Added! " + r.getName() + " : " + r.getId());
+            view.addRoute(r);
+        }
+    };
+
+    basket.onJourneyRemovedListener = {
+        onJourneyRemoved : function (basket, r) {
+            view.removeRoute(r);
+        }
+    };
+
+    basket.onBasketUpdatedListener = {
+        onBasketUpdated : function (basket) {
+            console.log("Basket Updated");
+        }
+    };
+
+    basket.onIOErrorListener = {
+        onIOError : function(basket, ioe) {
+            alert("Basket IO Error: " + ioe.message);
+        }
+    };
+
+    basket.progressListener = {
+        onSyncStart : function () {
+            console.log("Basket: SyncStart");
+        },
+        onSyncEnd : function (nRoutes) {
+            console.log("Basket: SyncEnd");
+        },
+        onRouteStart : function (iRoute) {
+            console.log("Basket: StartRoute " + iRoute);
+        },
+        onRouteEnd : function (iRoute) {
+            console.log("Basket: EndRoute " + iRoute);
+        },
+        onDone : function () {
+            console.log("Basket: Done.");
+        },
+    };
+    api.login(function() {
+        basket.onCreate();
+        basket.onStart();
+        basket.onResume();
+    });
+});
+</script>
+
+<DIV class="ui-layout-north">North</DIV>
+<DIV class="ui-layout-center">
+    <div class="row">
+      <div class="span16">
+        <h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
+        <h3><%= link_to "Route #{@vehicle_journey.route.name}",
+                        master_municipality_network_route_path(@vehicle_journey.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
+        <h3><%= link_to "Vehicle Journey #{@vehicle_journey.name}",
+                        master_municipality_network_vehicle_journey_path(@vehicle_journey, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
+      </div>
+    </div>
+    <div class="row">
+        <DIV class="span10">
+          <h3>Webmap</h3>
+        </DIV>
+        <DIV class="span6">
+            <h3>Routes</h3>
+        </DIV>
+    </div>
+    <div class="row">
+        <DIV class="span10">
+            <div id="map" class="smallmap">
+            </div>
+        </DIV>
+        <DIV class="span6">
+            <div class="row">
+                <div class="span4">
+                </div>
+                <div class="span2">
+                    <a class="prev">&laquo; Up</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6">
+                    <div id="routesView" class="scrollable vertical">
+                        <div class="items">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                </div>
+                <div class="span2">
+                    <a class="next">Down &raquo;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="span16">
+        <h4>Timing Links on this Vehicle Journey</h4>
+        <table>
+          <tr>
+            <th>Position</th>
+            <th>Departs</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Arrives</th>
+          </tr>
+          <% for tl in @vehicle_journey.journey_pattern_timing_links do %>
+              <tr>
+                <!--- TODO: Internatialize Time -->
+                <td><%=  tl.position  %></td>
+                <td><%=  @vehicle_journey.time_start(tl.position).strftime("%H:%M") %></td>
+                <td><%=  tl.from.common_name  %></td>
+                <td><%=  tl.to.common_name  %></td>
+                <td><%=  @vehicle_journey.time_end(tl.position).strftime("%H:%M") %></td>
+              </tr>
+          <% end %>
+        </table>
+
+      </div>
+    </div>
+</DIV>
+<DIV class="ui-layout-south">South</DIV>

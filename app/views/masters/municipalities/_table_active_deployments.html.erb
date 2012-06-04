@@ -1,0 +1,40 @@
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Deployment</th>
+    <th>Owner</th>
+    <th>Status</th>
+    <th colspan="3">Operations</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <th>Active Deployment</th>
+    <% if @master.deployment %>
+        <td><%= @master.deployment.municipality.name %></td>
+        <td><%= @master.deployment.municipality.owner.name %></td>
+        <td><%= @master.deployment.status %></td>
+        <td><%=  button_to "Start Run", start_deployment_run_path(@master.deployment), :class=>"btn", :disabled => !@master.deployment.can_start? %></td>
+        <td><%=  button_to "Stop Run", stop_deployment_run_path(@master.deployment), :class=>"btn", :disabled => !@master.deployment.can_stop?  %></td>
+        <td><%=  button_to "Deactivate", deactivate_deployment_run_path(@master.deployment), :class=>"btn" %></td>
+    <% else %>
+        <td colspan="6">None Active</td>
+    <% end %>
+  </tr>
+  <tr>
+    <th>Testing Deployment</th>
+    <% if @master.testament %>
+        <td><%= @master.testament.municipality.name %></td>
+        <td><%= @master.testament.municipality.owner.name %></td>
+        <td><%= @master.testament.status %></td>
+        <td><%=  button_to "Start Test", start_testament_run_path(@master.testament), :class=>"btn", :disabled => !@master.testament.can_start? %></td>
+        <td><%=  button_to "Stop Test", stop_testament_run_path(@master.testament), :class=>"btn", :disabled => !@master.testament.can_stop?  %></td>
+        <td><%=  button_to "Deactivate", deactivate_testament_run_path(@master.testament), :class=>"btn" %></td>
+    <% else %>
+        <td colspan="6">None Active</td>
+    <% end %>
+  </tr>
+  </tbody>
+</table>

@@ -47,7 +47,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     if error
       flash[:error] = "Could not create deployment"
     else
-      create_municipality_admin_pages(@master.site, @municipality)
+      create_deployment_page(@master, @municipality)
     end
 
     respond_to do |format|

@@ -86,7 +86,7 @@
 <DIV class="ui-layout-center">
   <div class="row">
     <div class="span16">
-      <h2><%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %></h2>
+      <h2><%= link_to @municipality.name, master_municipality_path(@master, @municipality) %></h2>
     </div>
   </div>
   <div class="row">
@@ -137,8 +137,8 @@
         </tr>
         <% for route in @routes do %>
             <tr>
-              <td><%=  link_to route.code, master_municipality_network_route_path(route, :network_id => route.network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-              <td><%=  link_to route.network.name, master_municipality_network_path(route.network, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
+              <td><%=  link_to route.code, master_municipality_network_route_path(@master, @municipality, @network, route)  %></td>
+              <td><%=  link_to route.network.name, master_municipality_network_path(@master, @municipality, route.network)  %></td>
             </tr>
         <% end %>
       </table>

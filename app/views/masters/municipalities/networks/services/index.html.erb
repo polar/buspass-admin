@@ -1,21 +1,10 @@
-<h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
-<h2>Services</h2>
-<table>
-  <tr>
-    <th>Route</th>
-    <th>Name</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    <th>Vehicle Journeys</th>
-  </tr>
-  <% for s in @services do %>
-      <tr>
-        <td><%=  link_to s.route.code, master_municipality_network_route_path(s.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-        <td><%=  link_to s.name, master_municipality_network_route_path(s.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-        <!--- TODO: Internatialize Time -->
-        <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
-        <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
-        <td><%=  s.vehicle_journeys.count %></td>
-      </tr>
-  <% end %>
-</table>
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/deployments/#{@municipality.slug}/networks/#{@network.slug}/services")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

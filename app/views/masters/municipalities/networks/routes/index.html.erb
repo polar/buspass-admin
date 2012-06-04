@@ -1,20 +1,10 @@
-<h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
-<H2>Routes</H2>
-<table>
-  <tr>
-    <th>Code</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Services</th>
-    <th>Vehicle Journeys</th>
-  </tr>
-  <% for r in @routes do %>
-    <tr>
-      <td><%=  link_to r.code, master_municipality_network_route_path(r, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
-      <td><%=  link_to r.name, master_municipality_network_route_path(r, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
-      <td><%=  r.description %></td>
-      <td><%=  r.services.count %></td>
-      <td><%=  r.vehicle_journey_count %></td>
-    </tr>
-  <% end %>
-</table>
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/deployments/#{@municipality.slug}/networks/#{@network.slug}/routes")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

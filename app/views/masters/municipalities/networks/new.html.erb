@@ -1,14 +1,10 @@
-<h2>Creating a New Network</h2>
-
-<%= form_for @network, :url => master_municipality_networks_path(:master_id => @master.id, :municipality_id => @municipality.id) do |f| %>
-    <%= render "shared/masters/error_messages", :target => @network %>
-    <p>
-      <%= f.label :name, "Name" %>
-      <%= f.text_field :name %>
-    </p>
-    <p>
-      <%= f.label :description, "Description" %>
-      <%= f.text_field :description %>
-    </p>
-    <p><%= f.submit %></p>
-<% end %>
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/deployments/#{@municipality.slug}/new-network")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

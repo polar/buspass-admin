@@ -1,0 +1,15 @@
+
+<table>
+  <tr>
+    <th><%= link_to "Services", master_municipality_network_services_path(@master, @municipality, @network) %></th>
+    <td><%= @network.services.count %></td>
+  </tr>
+  <tr>
+    <th><%= link_to "Routes", master_municipality_network_routes_path(@master, @municipality, @network) %></th>
+    <td><%=  @network.routes.count %></td>
+  </tr>
+  <tr>
+    <th><%= link_to "Journeys", master_municipality_network_vehicle_journeys_path(@master, @municipality, @network) %></th>
+    <td><%=  @network.vehicle_journey_count %></td>
+  </tr>
+</table>

@@ -1,6 +1,10 @@
-<h3>Master Municipalities</h3>
-<% @masters.each do |master| %>
-  <p>Municipality: <%= link_to master.name, master_path(master) %></p>
-<% end %>
-
-<%= link_to "New", new_master_path %>
+<%=
+    begin
+      site = @site
+      page = site.pages.find_by_full_path("/")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

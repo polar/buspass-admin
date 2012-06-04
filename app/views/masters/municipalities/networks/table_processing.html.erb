@@ -1,0 +1,13 @@
+
+<% if @network.processing_lock %>
+    <table>
+      <tr>
+        <th>Processor</th>
+        <td><%=  @network.processing_lock.name %></td>
+      </tr>
+      <tr>
+        <th>Progress</th>
+        <td><%= (@network.processing_progress * 100).floor %></td>
+      </tr>
+    </table>
+<% end %>

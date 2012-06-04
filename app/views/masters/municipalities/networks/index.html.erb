@@ -1,28 +1,10 @@
-<h2>Networks</h2>
-
-<h2>Deployment <%= @municipality.name %></h2>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Mode</th>
-    <th>Routes</th>
-    <th>Services</th>
-    <th>Journeys</th>
-    <th>Navigation</th>
-  </tr>
-  <% for n in @networks do %>
-    <tr>
-      <td><%= link_to n.name, master_municipality_network_plan_path(n, :master_id => @master.id, :municipality_id => @municipality) %></td>
-      <td><%= n.description %></td>
-      <td><%= n.mode %></td>
-      <td><%= n.route_count %></td>
-      <td><%= n.service_count %></td>
-      <td><%= n.vehicle_journey_count %></td>
-      <td><%= link_to("Edit", edit_master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality)) if muni_admin_can?(:edit, n)%></td>
-      <td><%= link_to("Explore", master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality)) if muni_admin_can?(:edit, n)%></td>
-      <td><%= link_to("Plan", master_municipality_network_plan_path(n, :master_id => @master.id, :municipality_id => @municipality)) if muni_admin_can?(:edit, n) %></td>
-      <td><%= button_to("Delete", master_municipality_network_path(n, :master_id => @master.id, :municipality_id => @municipality), :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, n) %></td>
-    </tr>
-  <% end %>
-</table>
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/deployments/#{@municipality.slug}/networks")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

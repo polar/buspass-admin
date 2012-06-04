@@ -11,7 +11,7 @@ class Masters::MasterBaseController < ApplicationController
       raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
     end
 
-    layout "masters/normal-layout"
+    layout "empty"
 
     def set_master
 =begin

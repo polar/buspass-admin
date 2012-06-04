@@ -1,44 +1,10 @@
-<h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
-<h3><%= link_to "Service #{@service.name}",
-                master_municipality_network_service_path(@service, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
-<table>
-  <tr>
-    <th>Route</th>
-    <th>Name</th>
-    <th>Start Date</th>
-    <th>End Date</th>
-    <th>Vehicle Journeys</th>
-  </tr>
-  <% for s in [@service] do %>
-      <tr>
-        <td><%=  link_to s.route.code, master_municipality_network_route_path(s.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-        <td><%=  link_to s.name, master_municipality_network_route_path(s.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-        <!--- TODO: Internatialize Time -->
-        <td><%= s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
-        <td><%= s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
-        <td><%= s.vehicle_journeys.count %></td>
-      </tr>
-  <% end %>
-</table>
-<h4>Vehicle Journeys on this Service and Route</h4>
-<table>
-  <tr>
-    <th>Route</th>
-    <th>Display Name</th>
-    <th>Direction</th>
-    <th>Departure Time</th>
-    <th>End Time</th>
-    <th>Links</th>
-  </tr>
-  <% for vj in @journeys do %>
-      <tr>
-        <td><%= link_to vj.route.code, master_municipality_network_route_path(vj.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)   %></td>
-        <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(vj, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-        <td><%= @service.direction  %></td>
-        <!--- TODO: Internatialize Time -->
-        <td><%= vj.time_start.strftime("%H:%M") %></td>
-        <td><%= vj.time_end.strftime("%H:%M") %></td>
-        <td><%= vj.journey_pattern_timing_links.count %></td>
-      </tr>
-  <% end %>
-</table>
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/deployments/#{@municipality.slug}/networks/#{@network.slug}/services/#{@service.slug}")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

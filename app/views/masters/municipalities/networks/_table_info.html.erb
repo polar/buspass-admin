@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <td><%= link_to "#{@network.name}", master_municipality_network_path(@master, @municipality, @network) %></td>
+  </tr>
+  <tr>
+    <th>Mode</th>
+    <td><%=  @network.mode %></td>
+  </tr>
+  <tr>
+    <th>Description</th>
+    <td><%=  @network.description %></td>
+  </tr>
+</table>

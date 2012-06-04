@@ -1,52 +1,10 @@
-<h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
-<h3>Vehicle Journeys</h3>
-
-<% if @routes.empty? %>
-    There are not yet any Routes and Vehicle Journeys for this Network.
-<% end %>
-<% for r in @routes %>
-<h3><%= link_to "Route #{r.name}",
-                master_municipality_network_route_path(r, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
-    <% for s in r.services %>
-        <h3><%= link_to "Service #{s.name}", master_municipality_network_service_path(s, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
-        <table>
-          <tr>
-            <th>Route</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Vehicle Journeys</th>
-          </tr>
-          <tr>
-            <td><%=  link_to r.code, master_municipality_network_route_path(r, :master_id => @master.id, :municipality_id => @municipality.id, :network_id => @network.id)  %></td>
-            <!--- TODO: Internatialize Time -->
-            <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
-            <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
-            <td><%=  s.vehicle_journeys.count %></td>
-          </tr>
-        </table>
-            <h4>Vehicle Journeys on this Service and Route</h4>
-        <table>
-          <tr>
-            <th>Route</th>
-            <th>Display Name</th>
-            <th>Direction</th>
-            <th>Departs</th>
-            <th>Ends</th>
-            <th>Links</th>
-          </tr>
-          <% for vj in s.vehicle_journeys do %>
-              <tr>
-                <td><%=  link_to r.code, master_municipality_network_route_path(r, :master_id => @master.id, :municipality_id => @municipality.id, :network_id => @network.id)  %></td>
-                <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(vj, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)  %></td>
-                <td><%=  vj.service.direction  %></td>
-                <!--- TODO: Internatialize Time -->
-                <td><%=  vj.time_start.strftime("%H:%M") %></td>
-                <td><%=  vj.time_end.strftime("%H:%M") %></td>
-                <td><%=  vj.journey_pattern_timing_links.count %></td>
-              </tr>
-          <% end %>
-        </table>
-      <% end %>
-    </table>
-
-<% end %>
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/deployments/#{@municipality.slug}/networks/#{@network.slug}/journeys")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>
