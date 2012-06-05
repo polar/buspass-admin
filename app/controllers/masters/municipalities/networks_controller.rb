@@ -1,4 +1,6 @@
 class Masters::Municipalities::NetworksController < Masters::Municipalities::MunicipalityBaseController
+  include PageUtils
+
   def index
     @networks = Network.where(:municipality_id => @municipality.id).all
   end
@@ -34,6 +36,8 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
       flash[:error] = "Cannot create network."
       render :new
     else
+      create_deployment_network_page(@master, @municipality, @network)
+
       flash[:notice] = "Network #{@network.name} has been created."
       redirect_to master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
     end

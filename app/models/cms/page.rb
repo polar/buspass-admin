@@ -1,6 +1,8 @@
 class Cms::Page <
     "Cms::Orm::#{ComfortableMexicanSofa.config.backend.to_s.classify}::Page".constantize
 
+  key :is_protected, Boolean, :default => false
+
   # Context for pages
   belongs_to :master
   belongs_to :municipality
@@ -9,6 +11,7 @@ class Cms::Page <
   belongs_to :service
   belongs_to :vehicle_journey
 
+  attr_accessible :is_protected
   attr_accessible :master, :master_id
   attr_accessible :municipality, :municipality_id
   attr_accessible :network, :network_id

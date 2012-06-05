@@ -1,0 +1,16 @@
+<% block_tags = @page.tags(true).select{ |t| t.is_cms_block? }.uniq_by{|t| t.identifier} %>
+
+<div id='form_blocks'>
+  <% if block_tags.empty? %>
+    <div class='no_tags'>
+      <%= link_to @page.layout.label, edit_cms_admin_site_layout_path(@site, @page.layout) %>
+      <%= t('.no_tags').html_safe %>
+    </div>
+  <% else %>
+    <%= fields_for :blocks, nil, :builder => ComfortableMexicanSofa::FormBuilder do |cms_blocks| %>
+      <% block_tags.each_with_index do |tag, index| %>
+        <%= cms_blocks.send(tag.class.to_s.demodulize.underscore, tag, index) rescue nil %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

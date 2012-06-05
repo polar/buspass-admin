@@ -30,6 +30,7 @@ module PageUtils
           :slug              => site.identifier,
           :label             => "Master Municipalities",
           :layout            => layout,
+          :is_protected      => true,
           :blocks_attributes => [{
                                      :identifier => "content",
                                      :content    => "{{ cms:bus:masters }}"
@@ -39,6 +40,7 @@ module PageUtils
           :label             => "New Master Municipality",
           :layout            => layout,
           :parent            => root,
+          :is_protected      => true,
           :blocks_attributes => [{
                                      :identifier => "content",
                                      :content    => "{{ cms:bus:master:new }}"
@@ -73,6 +75,7 @@ module PageUtils
         :label             => "#{master.name} Information",
         :layout            => layout,
         :master            => master,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:master }}"
@@ -119,6 +122,7 @@ module PageUtils
         :master            => site.master,
         :target_page       => page.target_page,
         :is_published      => page.is_published,
+        :is_protected      => page.is_protected,
         :blocks_attributes => page.blocks_attributes
     )
     if recursive
@@ -163,6 +167,7 @@ module PageUtils
         :label             => "Deployment Template",
         :layout            => layout,
         :parent            => root,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment }}"
@@ -173,6 +178,7 @@ module PageUtils
         :label             => "New Network Template",
         :layout            => layout,
         :parent            => deployment_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:networks:new }}"
@@ -183,6 +189,7 @@ module PageUtils
         :label             => "Networks Template",
         :layout            => layout,
         :parent            => deployment_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:networks }}"
@@ -193,6 +200,7 @@ module PageUtils
         :label             => "Network Template",
         :layout            => layout,
         :parent            => networks_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network }}"
@@ -203,6 +211,7 @@ module PageUtils
         :label             => "Edit Network Template",
         :layout            => layout,
         :parent            => network_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:edit }}"
@@ -213,6 +222,7 @@ module PageUtils
         :label             => "Move Network Template",
         :layout            => layout,
         :parent            => network_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:move }}"
@@ -223,6 +233,7 @@ module PageUtils
         :label             => "Network Routes Template",
         :layout            => layout,
         :parent            => network_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:routes }}"
@@ -233,6 +244,7 @@ module PageUtils
         :label             => "Network Route Template",
         :layout            => layout,
         :parent            => routes_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:route }}"
@@ -243,6 +255,7 @@ module PageUtils
         :label             => "Network Route Map Template",
         :layout            => layout,
         :parent            => route_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:route:map }}"
@@ -253,6 +266,7 @@ module PageUtils
         :label             => "Network Services Template",
         :layout            => layout,
         :parent            => network_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:services }}"
@@ -263,6 +277,7 @@ module PageUtils
         :label             => "Network Service Template",
         :layout            => layout,
         :parent            => services_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:service }}"
@@ -273,6 +288,7 @@ module PageUtils
         :label             => "Network Journeys Template",
         :layout            => layout,
         :parent            => network_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:journeys }}"
@@ -283,6 +299,7 @@ module PageUtils
         :label             => "Network Journey Template",
         :layout            => layout,
         :parent            => journeys_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:journey }}"
@@ -293,6 +310,7 @@ module PageUtils
         :label             => "Network Journey Map Template",
         :layout            => layout,
         :parent            => journey_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:journey:map }}"
@@ -303,6 +321,7 @@ module PageUtils
         :label             => "Network Plan Template",
         :layout            => layout,
         :parent            => network_template,
+        :is_protected      => true,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:plan }}"
@@ -336,6 +355,7 @@ module PageUtils
         :label             => "Edit Information",
         :layout            => layout,
         :parent            => parent_page,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -360,6 +380,7 @@ module PageUtils
         :label             => "New Deployment",
         :layout            => layout,
         :parent            => parent_page,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -384,6 +405,7 @@ module PageUtils
         :label             => "Deployments",
         :layout            => layout,
         :parent            => parent_page,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -408,6 +430,7 @@ module PageUtils
         :label             => "Active Deployment",
         :layout            => layout,
         :parent            => parent_page,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -432,6 +455,7 @@ module PageUtils
         :label             => "Active Testament",
         :layout            => layout,
         :parent            => parent_page,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -467,6 +491,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
 
     create_deployment_edit_page(site, muni)
@@ -507,6 +532,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -540,6 +566,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -573,6 +600,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -606,6 +634,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -639,12 +668,15 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
 
   # Called from Controller creating a network.
   def create_deployment_network_page(master, muni, network, layout = nil, parent_page = nil)
+
+    site = master.admin_site
 
     if parent_page.nil?
       create_deployment_networks_page(site, muni)
@@ -658,7 +690,7 @@ module PageUtils
                              :content    => "{{ cms:bus:deployment:network }}"
                          }]
 
-    template_page = site.pages.find_by_full_path("/deployment-template/networks-template")
+    template_page = site.pages.find_by_full_path("/deployment-template/networks-template/network-template")
 
     if template_page
       blocks_attributes = template_page.blocks_attributes
@@ -676,23 +708,23 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
 
     create_deployment_network_edit_page(site, muni, network)
     create_deployment_network_move_page(site, muni, network)
     create_deployment_network_plan_page(site, muni, network)
-    create_deployment_network_plan_upload_page(stie, muni, network)
+    create_deployment_network_plan_upload_page(site, muni, network)
     create_deployment_network_routes_page(site, muni, network)
     create_deployment_network_services_page(site, muni, network)
     create_deployment_network_journeys_page(site, muni, network)
-    create_deployment_network_journeys_map_page(site, muni, network)
     return page
   end
 
   def create_deployment_network_edit_page(site, muni, network, layout = nil, parent_page = nil)
 
     if parent_page.nil?
-      create_deployment_network_page(site, muni, network)
+      create_deployment_network_page(site.master, muni, network)
       return if site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/edit")
     end
 
@@ -718,6 +750,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -725,7 +758,7 @@ module PageUtils
   def create_deployment_network_move_page(site, muni, network, layout = nil, parent_page = nil)
 
     if parent_page.nil?
-      create_deployment_network_page(site, muni, network)
+      create_deployment_network_page(site.master, muni, network)
       return if site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/move")
     end
 
@@ -751,6 +784,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -759,7 +793,7 @@ module PageUtils
   def create_deployment_network_plan_page(site, muni, network, layout = nil, parent_page = nil)
 
     if parent_page.nil?
-      create_deployment_network_page(site, muni, network)
+      create_deployment_network_page(site.master, muni, network)
       return if site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/plan")
     end
 
@@ -787,6 +821,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -822,6 +857,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -829,7 +865,7 @@ module PageUtils
   def create_deployment_network_routes_page(site, muni, network, layout = nil, parent_page = nil)
 
     if parent_page.nil?
-      create_deployment_network_page(site, muni, network)
+      create_deployment_network_page(site.master, muni, network)
       return if site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/routes")
     end
 
@@ -857,6 +893,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -892,6 +929,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :route             => route,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -927,6 +965,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :route             => route,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -935,7 +974,7 @@ module PageUtils
   def create_deployment_network_services_page(site, muni, network, layout = nil, parent_page = nil)
 
     if parent_page.nil?
-      create_deployment_network_page(site, muni, network)
+      create_deployment_network_page(site.master, muni, network)
       return if site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/services")
     end
 
@@ -962,6 +1001,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -997,6 +1037,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :service           => service,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -1004,7 +1045,7 @@ module PageUtils
   def create_deployment_network_journeys_page(site, muni, network, layout = nil, parent_page = nil)
 
     if parent_page.nil?
-      create_deployment_network_page(site, muni, network)
+      create_deployment_network_page(site.master, muni, network)
       return if site.pages.find_by_full_path("deployments/#{muni.slug}/networks/#{network.slug}/journeys")
     end
 
@@ -1031,6 +1072,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -1067,6 +1109,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :vehicle_journey   => journey,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end
@@ -1102,6 +1145,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :vehicle_journey   => journey,
+        :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
   end

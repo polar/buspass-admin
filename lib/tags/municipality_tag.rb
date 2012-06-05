@@ -20,6 +20,9 @@ class MunicipalityTag  <Tag
         @municipality.location
       when "owner"
         @municipality.owner.name
+      # Unfortunately, the identifier catches the NetworkTag depending on when the tags' regexes are scanned
+      when "network"
+        "<%= render :partial => 'masters/municipalities/networks/show' %>"
       when "page"
         "<%= render :partial => 'masters/municipalities/show' %>"
       when nil
