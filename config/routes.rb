@@ -320,6 +320,10 @@ BuspassAdmin::Application.routes.draw do
   mount CantangoEditor::Engine => "/cantango_editor"
 
   mount ComfortableMexicanSofa::Engine => "/masters/:master_id/pages", :as => :cms
+  resource :main, :controller => "main" do
+    post :import
+    post :export
+  end
 
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"
