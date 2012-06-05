@@ -13,7 +13,7 @@ class Municipality
     key :name, String
     key :mode, String
     key :status, String
-    key :slug, String, :required => true, :unique => true
+    key :slug, String, :required => true, :unique => { :scope => :master_id }
     key :location, Array
     key :hosturl, String
     belongs_to :owner, :class_name => "MuniAdmin"

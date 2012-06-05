@@ -25,6 +25,7 @@ class Service
 
   key :direction, String
   key :day_class, String
+  key :slug,      String, :required => true, :unique => { :scope => [ :master_id, :municipality_id, :network_id] }
 
   timestamps!
 
@@ -44,6 +45,7 @@ class Service
 =end
 
   before_validation :day_class_sync
+  before_validation :ensure_slug
 
   def day_class_sync
     self.setOperatingDays(day_class)
@@ -221,4 +223,20 @@ class Service
   end
 
 =end
+
+  SLUG_TRIES = 10
+
+  def ensure_slug
+    if self.slug == nil
+      self.slug = self.name.to_url()
+      tries     = 0
+      while tries < SLUG_TRIES && Municipality.find(:slug => self.slug) != nil
+        self.slug = name.to_url() + "-" + (Random.rand*1000).floor
+      end
+      if tries == SLUG_TRIES
+        self.slug = self.id.to_s
+      end
+    end
+    return true
+  end
 end

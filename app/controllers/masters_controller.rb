@@ -236,42 +236,4 @@ class MastersController < MastersBaseController
     end
   end
 
-  protected
-
-  def ensure_main_admin_site
-    site = Cms::Site.find_by_identifier("busme-main")
-
-    if site.nil?
-      site = Cms::Site.create!(
-          :path       => "admin",
-          :identifier => "busme-main",
-          :label      => "Main Administration Pages",
-          :hostname   => "busme.us"
-      )
-
-      layout = site.layouts.create!(
-          :identifier => "default",
-          :app_layout => "application",
-          :content    => "{{ cms:page:content }}")
-
-      root = site.pages.create!(
-          :slug              => "main",
-          :label             => "Master Municipalities",
-          :layout            => layout,
-          :blocks_attributes => [{
-                                     :identifier => "content",
-                                     :content    => "{{ cms:bus:masters }}"
-                                 }])
-      newp = site.pages.create!(
-          :slug              => "new",
-          :label             => "New Master Municipality",
-          :layout            => layout,
-          :parent            => root,
-          :blocks_attributes => [{
-                                     :identifier => "content",
-                                     :content    => "{{ cms:bus:master:new }}"
-                                 }])
-    end
-    return site
-  end
 end

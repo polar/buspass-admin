@@ -7,6 +7,7 @@ class Network
   key :description, String
   key :mode,        String # :planning, :testing, :retired, :actives
   key :file_path,   String
+  key :slug,        String, :required => true, :unique => { :scope => [ :master_id, :municipality_id] }
 
   key :processing_lock,     MuniAdmin, :default => nil
   key :processing_progress, Float, :default => 0.0
@@ -34,6 +35,8 @@ class Network
   timestamps!
 
   ensure_index(:name, :unique => false)
+
+  before_validation :ensure_slug
 
   validates_uniqueness_of :name, :scope => [ :master_id, :municipality_id ]
 
@@ -107,5 +110,21 @@ class Network
 
   def delete_routes
     routes.each { |x| x.destroy }
+  end
+
+  SLUG_TRIES = 10
+
+  def ensure_slug
+    if self.slug == nil
+      self.slug = self.name.to_url()
+      tries     = 0
+      while tries < SLUG_TRIES && Municipality.find(:slug => self.slug) != nil
+        self.slug = name.to_url() + "-" + (Random.rand*1000).floor
+      end
+      if tries == SLUG_TRIES
+        self.slug = self.id.to_s
+      end
+    end
+    return true
   end
 end

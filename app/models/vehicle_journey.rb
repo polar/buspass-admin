@@ -14,6 +14,7 @@ class VehicleJourney
   key :departure_time, Integer # in minutes from midnight
   key :display_name, String
   key :persistentid, String
+  key :slug,         String, :required => true, :unique => { :scope => [ :master_id, :municipality_id, :network_id] }
 
   # Embedded
   one :journey_pattern, :autosave => true
@@ -28,6 +29,8 @@ class VehicleJourney
                   :journey_pattern, :journey_pattern_id, :master, :master_id,
                   :municipality, :municipality_id, :network, :network_id,
                   :service, :service_id
+
+  before_validation :ensure_slug
 
   # Network is unique to Master and Municipality
   #validates_uniqueness_of :name, :scope => [:network_id, :master_id, :municipality_id]
@@ -199,6 +202,23 @@ class VehicleJourney
       # We are early (negative)
       return ((time - eta)/1.minute).to_i
     end
+  end
+
+
+  SLUG_TRIES = 10
+
+  def ensure_slug
+    if self.slug == nil
+      self.slug = self.name.to_url()
+      tries     = 0
+      while tries < SLUG_TRIES && Municipality.find(:slug => self.slug) != nil
+        self.slug = name.to_url() + "-" + (Random.rand*1000).floor
+      end
+      if tries == SLUG_TRIES
+        self.slug = self.id.to_s
+      end
+    end
+    return true
   end
 
   ##

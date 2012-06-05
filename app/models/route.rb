@@ -16,6 +16,7 @@ class Route
   key :display_name,  String
   key :persistentid,  String
   key :version_cache, Integer
+  key :slug,           String, :required => true, :unique => { :scope => [ :master_id, :municipality_id, :network_id] }
 
   timestamps!
 
@@ -24,6 +25,8 @@ class Route
 
   #ensure_index(:network)
   ensure_index(:name, :unique => false) # cannot be unique because of the scope, :unique => true)
+
+  before_validation :ensure_slug
 
   #
   # Route has many JourneyPatterns by way of its Services.
@@ -124,4 +127,19 @@ class Route
     return r
   end
 
+  SLUG_TRIES = 10
+
+  def ensure_slug
+    if self.slug == nil
+      self.slug = self.name.to_url()
+      tries     = 0
+      while tries < SLUG_TRIES && Municipality.find(:slug => self.slug) != nil
+        self.slug = name.to_url() + "-" + (Random.rand*1000).floor
+      end
+      if tries == SLUG_TRIES
+        self.slug = self.id.to_s
+      end
+    end
+    return true
+  end
 end

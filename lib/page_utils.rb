@@ -1,5 +1,58 @@
 module PageUtils
 
+  def ensure_main_admin_site
+    site = Cms::Site.find_by_identifier("busme-main")
+
+    if site.nil?
+      site = Cms::Site.create!(
+          :path       => "busme-main",
+          :identifier => "busme-main",
+          :label      => "Main Administration Pages",
+          :hostname   => "busme.us"
+      )
+
+      layout = site.layouts.create!(
+          :identifier => "default",
+          :app_layout => "application",
+          :content    => "{{ cms:page:content }}")
+
+      normal = site.layouts.create!(
+          :identifier => "normal-layout",
+          :app_layout => "masters/normal-layout",
+          :content    => "{{ cms:page:content }}")
+
+      map_layout = site.layouts.create!(
+          :identifier => "map-layout",
+          :app_layout => "masters/map-layout",
+          :content    => "{{ cms:page:content }}")
+
+      root = site.pages.create!(
+          :slug              => site.identifier,
+          :label             => "Master Municipalities",
+          :layout            => layout,
+          :blocks_attributes => [{
+                                     :identifier => "content",
+                                     :content    => "{{ cms:bus:masters }}"
+                                 }])
+      newp = site.pages.create!(
+          :slug              => "new",
+          :label             => "New Master Municipality",
+          :layout            => layout,
+          :parent            => root,
+          :blocks_attributes => [{
+                                     :identifier => "content",
+                                     :content    => "{{ cms:bus:master:new }}"
+                                 }])
+      seed_main_admin_templates(site, normal, root)
+      create_edit_info_page(site)
+      create_new_deployment_page(site)
+      create_active_deployment_page(site)
+      create_active_testament_page(site)
+      create_deployments_page(site)
+    end
+    return site
+  end
+
   # Called from Controller creating Master.
   def create_master_admin_site(master)
 
@@ -11,15 +64,9 @@ module PageUtils
         :master     => master
     )
 
-    layout = site.layouts.create!(
-        :identifier => "default",
-        :app_layout => "masters/normal-layout",
-        :content    => "{{ cms:page:content }}")
+    seed_master_admin_layouts(site)
 
-    map_layout = site.layouts.create!(
-        :identifier => "map-layout",
-        :app_layout => "masters/map-layout",
-        :content    => "{{ cms:page:content }}")
+    layout = site.layouts.find_by_identifier("normal-layout")
 
     root = site.pages.create!(
         :slug              => "main",
@@ -31,12 +78,7 @@ module PageUtils
                                    :content    => "{{ cms:bus:master }}"
                                }])
 
-    create_master_admin_templates(master, site, layout, root)
-    create_edit_info_page(site)
-    create_new_deployment_page(site)
-    create_active_deployment_page(site)
-    create_active_testament_page(site)
-    create_deployments_page(site)
+    seed_master_admin_pages_snippets(site)
     return site
   rescue => boom
     Rails.logger.detailed_error(boom)
@@ -44,14 +86,83 @@ module PageUtils
     raise boom
   end
 
-  def create_master_admin_templates(master, site, layout, root)
+  def seed_main_admin_templates(site, layout, root)
+    create_admin_templates(site, layout, root)
+  end
+
+  def seed_master_admin_layouts(site)
+    from_site = Cms::Site.find_by_identifier("busme-main")
+    from_site.layouts.roots.each do |layout|
+      copy_layout(site, nil, layout)
+    end
+  end
+
+  def seed_master_admin_pages_snippets(site)
+    from_site = Cms::Site.find_by_identifier("busme-main")
+    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployment-template"))
+    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/edit"))
+    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/new-deployment"))
+    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/active-deployment"))
+    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/active-testament"))
+    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployments"), false)
+    from_site.snippets.order(:position).each do |snippet|
+      copy_snippet(site, snippet)
+    end
+  end
+
+  def copy_page(site, parent, page, recursive = true)
+    newp = site.pages.create!(
+        :slug              => page.slug,
+        :label             => page.label,
+        :layout            => page.layout ? site.layouts.find_by_identifier(page.layout.identifier) : nil,
+        :parent            => parent,
+        :master            => site.master,
+        :target_page       => page.target_page,
+        :is_published      => page.is_published,
+        :blocks_attributes => page.blocks_attributes
+    )
+    if recursive
+      page.children.order(:position).each do |ch|
+        copy_page(site, newp, ch)
+      end
+    end
+  end
+
+  def copy_layout(site, parent, layout, recursive = true)
+    newl = site.layouts.create!(
+        :identifier        => layout.identifier,
+        :label             => layout.label,
+        :app_layout        => layout.app_layout,
+        :parent            => parent,
+        :master            => site.master,
+        :content           => layout.content,
+        :css               => layout.css,
+        :js                => layout.js
+    )
+    if recursive
+      layout.children.order(:position).each do |ch|
+        copy_layout(site, newl, ch)
+      end
+    end
+
+  end
+
+  def copy_snippet(site, snippet)
+    news = site.snippets.create!(
+        :label => snippet.label,
+        :identifier => snippet.identifier,
+        :is_shared => snippet.is_shared,
+        :content => snippet.content
+    )
+  end
+
+  def create_admin_templates(site, layout, root)
 
     deployment_template = site.pages.create!(
         :slug              => "deployment-template",
-        :label             => "#{master.name} Deployment Template",
+        :label             => "Deployment Template",
         :layout            => layout,
         :parent            => root,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment }}"
@@ -59,10 +170,9 @@ module PageUtils
 
     new_network_template = site.pages.create!(
         :slug              => "new-network-template",
-        :label             => "#{master.name} New Network Template",
+        :label             => "New Network Template",
         :layout            => layout,
         :parent            => deployment_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:networks:new }}"
@@ -70,10 +180,9 @@ module PageUtils
 
     networks_template = site.pages.create!(
         :slug              => "networks-template",
-        :label             => "#{master.name} Networks Template",
+        :label             => "Networks Template",
         :layout            => layout,
         :parent            => deployment_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:networks }}"
@@ -81,10 +190,9 @@ module PageUtils
 
     network_template = site.pages.create!(
         :slug              => "network-template",
-        :label             => "#{master.name} Network Template",
+        :label             => "Network Template",
         :layout            => layout,
         :parent            => networks_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network }}"
@@ -92,10 +200,9 @@ module PageUtils
 
     edit_network_template = site.pages.create!(
         :slug              => "edit-template",
-        :label             => "#{master.name} Edit Network Template",
+        :label             => "Edit Network Template",
         :layout            => layout,
         :parent            => network_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:edit }}"
@@ -103,10 +210,9 @@ module PageUtils
 
     move_network_template = site.pages.create!(
         :slug              => "move-template",
-        :label             => "#{master.name} Move Network Template",
+        :label             => "Move Network Template",
         :layout            => layout,
         :parent            => network_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:move }}"
@@ -114,10 +220,9 @@ module PageUtils
 
     routes_template = site.pages.create!(
         :slug              => "routes-template",
-        :label             => "#{master.name} Network Routes Template",
+        :label             => "Network Routes Template",
         :layout            => layout,
         :parent            => network_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:routes }}"
@@ -125,10 +230,9 @@ module PageUtils
 
     route_template = site.pages.create!(
         :slug              => "route-template",
-        :label             => "#{master.name} Network Route Template",
+        :label             => "Network Route Template",
         :layout            => layout,
         :parent            => routes_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:route }}"
@@ -136,10 +240,9 @@ module PageUtils
 
     map_route_template = site.pages.create!(
         :slug              => "map-template",
-        :label             => "#{master.name} Network Route Map Template",
+        :label             => "Network Route Map Template",
         :layout            => layout,
         :parent            => route_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:route:map }}"
@@ -147,10 +250,9 @@ module PageUtils
 
     services_template = site.pages.create!(
         :slug              => "services-template",
-        :label             => "#{master.name} Network Services Template",
+        :label             => "Network Services Template",
         :layout            => layout,
         :parent            => network_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:services }}"
@@ -158,10 +260,9 @@ module PageUtils
 
     service_template = site.pages.create!(
         :slug              => "service-template",
-        :label             => "#{master.name} Network Service Template",
+        :label             => "Network Service Template",
         :layout            => layout,
         :parent            => services_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:service }}"
@@ -169,10 +270,9 @@ module PageUtils
 
     journeys_template = site.pages.create!(
         :slug              => "journeys-template",
-        :label             => "#{master.name} Network Journeys Template",
+        :label             => "Network Journeys Template",
         :layout            => layout,
         :parent            => network_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:journeys }}"
@@ -180,10 +280,9 @@ module PageUtils
 
     journey_template = site.pages.create!(
         :slug              => "journey-template",
-        :label             => "#{master.name} Network Journey Template",
+        :label             => "Network Journey Template",
         :layout            => layout,
         :parent            => journeys_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:journey }}"
@@ -191,10 +290,9 @@ module PageUtils
 
     map_journey_template = site.pages.create!(
         :slug              => "map-template",
-        :label             => "#{master.name} Network Journeys Map Template",
+        :label             => "Network Journey Map Template",
         :layout            => layout,
         :parent            => journey_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:journey:map }}"
@@ -202,10 +300,9 @@ module PageUtils
 
     plan_network_template = site.pages.create!(
         :slug              => "plan-template",
-        :label             => "#{master.name} Network Plan Template",
+        :label             => "Network Plan Template",
         :layout            => layout,
         :parent            => network_template,
-        :master            => master,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:deployment:network:plan }}"
@@ -232,11 +329,11 @@ module PageUtils
                          }]
 
     parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     deps = site.pages.create!(
         :slug              => "edit",
-        :label             => "#{master.name} Edit Information",
+        :label             => "Edit Information",
         :layout            => layout,
         :parent            => parent_page,
         :blocks_attributes => blocks_attributes)
@@ -256,11 +353,11 @@ module PageUtils
                          }]
 
     parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     deps = site.pages.create!(
         :slug              => "new-deployment",
-        :label             => "#{master.name} New Deployment",
+        :label             => "New Deployment",
         :layout            => layout,
         :parent            => parent_page,
         :blocks_attributes => blocks_attributes)
@@ -280,14 +377,13 @@ module PageUtils
                          }]
 
     parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     deps = site.pages.create!(
         :slug              => "deployments",
-        :label             => "#{master.name} Deployments",
+        :label             => "Deployments",
         :layout            => layout,
         :parent            => parent_page,
-        :master            => master,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -301,18 +397,17 @@ module PageUtils
 
     blocks_attributes = [{
                              :identifier => "content",
-                             :content    => "{{ cms:bus:deployment }}"
+                             :content    => "{{ cms:bus:active-deployment }}"
                          }]
 
     parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     deps = site.pages.create!(
         :slug              => "active-deployment",
-        :label             => "#{master.name} Active Deployment",
+        :label             => "Active Deployment",
         :layout            => layout,
         :parent            => parent_page,
-        :master            => master,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -330,14 +425,13 @@ module PageUtils
                          }]
 
     parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     deps = site.pages.create!(
         :slug              => "active-testament",
-        :label             => "#{master.name} Active Testament",
+        :label             => "Active Testament",
         :layout            => layout,
         :parent            => parent_page,
-        :master            => master,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -364,7 +458,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "#{muni.slug}",
@@ -404,7 +498,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "edit",
@@ -503,7 +597,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "networks",
@@ -536,7 +630,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "new-network",
@@ -572,7 +666,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "#{network.slug}",
@@ -615,7 +709,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "edit",
@@ -648,7 +742,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "move",
@@ -683,7 +777,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "plan",
@@ -718,7 +812,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/plan")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "upload",
@@ -753,7 +847,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "routes",
@@ -787,7 +881,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/routes")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => route.slug,
@@ -858,7 +952,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "services",
@@ -892,7 +986,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/services")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => service.slug,
@@ -927,7 +1021,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => "journeys",
@@ -962,7 +1056,7 @@ module PageUtils
     end
 
     parent_page ||= site.pages.find_by_full_path("/deployments/#{muni.slug}/networks/#{network.slug}/journeys")
-    layout      ||= site.layouts.find_by_identifier("default")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
 
     page = site.pages.create!(
         :slug              => journey.slug,
