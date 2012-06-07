@@ -131,7 +131,6 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     authorize!(:read, @municipality)
     @routes = @municipality.routes
     @routes = @routes.sort { |s1, s2| codeOrd(s1.code, s2.code) }
-    render :layout => "webmap"
   end
 
   def deploy

@@ -11,7 +11,7 @@ class DeploymentsBaseController < ApplicationController
   end
 
   def initialize_deployment
-    @deployment = Deployment.find(params[:deployment_id])
+    @deployment = Deployment.first
     # TODO: Find by slug
     if @deployment == nil
       raise "No Deployment Found"

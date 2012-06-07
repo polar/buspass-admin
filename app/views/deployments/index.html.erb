@@ -1,9 +1,0 @@
-<h1>Busme US</h1>
-<h3>Municipalities</h3>
-<table>
-  <% for d in @deployments do %>
-  <tr>
-    <td><%=  link_to d.municipality.master.name, deployment_path(d) %></td>
-  </tr>
-  <% end %>
-</table>

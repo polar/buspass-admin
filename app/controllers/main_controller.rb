@@ -1,4 +1,5 @@
 class MainController < ApplicationController
+  layout "empty"
 
   def show
     @site = Cms::Site.find_by_identifier("busme-main")

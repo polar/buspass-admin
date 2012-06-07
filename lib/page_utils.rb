@@ -63,7 +63,7 @@ module PageUtils
         :identifier => "#{master.slug}-admin",
         :label      => "#{master.name} Administration Pages",
         :hostname   => "#{master.slug}.busme.us",
-        :master     => master
+        :master     => master,
     )
 
     seed_master_admin_layouts(site)
@@ -76,6 +76,7 @@ module PageUtils
         :layout            => layout,
         :master            => master,
         :is_protected      => true,
+        :master_path       => "/masters/#{master.id}",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:master }}"
@@ -89,25 +90,70 @@ module PageUtils
     raise boom
   end
 
+  # Called from Controller creating Master.
+  def create_master_main_site(master)
+
+    site = master.main_site = Cms::Site.create!(
+        :path       => "",
+        :identifier => "#{master.slug}-main",
+        :label      => "#{master.name} Active Deployment Pages",
+        :hostname   => "#{master.slug}.busme.us",
+        :master     => master,
+    )
+
+    seed_master_admin_layouts(site)
+
+    layout = site.layouts.find_by_identifier("normal-layout")
+
+    blocks_attributes =  [{
+                              :identifier => "content",
+                              :content    => "{{ cms:bus:active-deployment }}"
+                          }]
+    from_site = Cms::Site.find_by_identifier("busme-main")
+    if from_site && page = from_site.pages.find_by_full_path("active-deployment-template")
+      blocks_attributes = page.blocks_attributes
+    end
+
+    # The master_path for this should be good for any deployment.
+    root = site.pages.create!(
+        :slug              => "main",
+        :label             => "#{master.name} Active Deployment",
+        :layout            => layout,
+        :master            => master,
+        :is_protected      => true,
+        :master_path       => "/masters/#{master.id}/active",
+        :blocks_attributes => blocks_attributes)
+
+    return site
+  rescue => boom
+    Rails.logger.detailed_error(boom)
+    site.destroy if site && site.persisted?
+    raise boom
+  end
+
   def seed_main_admin_templates(site, layout, root)
     create_admin_templates(site, layout, root)
   end
 
   def seed_master_admin_layouts(site)
     from_site = Cms::Site.find_by_identifier("busme-main")
-    from_site.layouts.roots.each do |layout|
+    from_site.layouts.roots.all.each do |layout|
       copy_layout(site, nil, layout)
     end
   end
 
   def seed_master_admin_pages_snippets(site)
     from_site = Cms::Site.find_by_identifier("busme-main")
-    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployment-template"))
-    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/edit"))
-    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/new-deployment"))
-    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/active-deployment"))
-    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/active-testament"))
-    copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployments"), false)
+    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployment-template"))
+    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/edit"))
+    page.master_path = "/masters/#{site.master.id}/edit"
+    page.save!
+    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/new-deployment"))
+    page.master_path = "/masters/#{site.master.id}/new"
+    page.save!
+    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployments"), false)
+    page.master_path = "/masters/#{site.master.id}/municipalities"
+    page.save!
     from_site.snippets.order(:position).each do |snippet|
       copy_snippet(site, snippet)
     end
@@ -130,6 +176,7 @@ module PageUtils
         copy_page(site, newp, ch)
       end
     end
+    return newp
   end
 
   def copy_layout(site, parent, layout, recursive = true)
@@ -161,6 +208,16 @@ module PageUtils
   end
 
   def create_admin_templates(site, layout, root)
+    active_deployment_template = site.pages.create!(
+        :slug              => "active-deployment-template",
+        :label             => "Active Deployment Template",
+        :layout            => layout,
+        :parent            => root,
+        :is_protected      => true,
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:active-deployment }}"
+                               }])
 
     deployment_template = site.pages.create!(
         :slug              => "deployment-template",
@@ -356,6 +413,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master_path       => "/masters/#{site.master.id}/edit",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -381,6 +439,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master_path       => "/masters/#{site.master.id}/new",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -406,6 +465,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master_path       => "/masters/#{site.master.id}",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -431,6 +491,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master_path       => "/masters/#{site.master.id}/active_deployment",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -456,6 +517,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master_path       => "/masters/#{site.master.id}/testament",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -491,6 +553,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
 
@@ -532,6 +595,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/edit",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -566,6 +630,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/map",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -600,6 +665,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/simulate",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -634,6 +700,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -668,6 +735,7 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/new",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -708,6 +776,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
 
@@ -750,6 +819,8 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :network           => network,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/edit",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -784,6 +855,8 @@ module PageUtils
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
+        :network           => network,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/move",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -821,6 +894,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/plan",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -857,6 +931,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/plan/upload",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -893,6 +968,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/routes",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -929,6 +1005,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :route             => route,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/routes/#{route.id}",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -965,6 +1042,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :route             => route,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/routes/#{route.id}/map",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -1001,6 +1079,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/services",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -1037,6 +1116,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :service           => service,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/services/#{service.id}",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -1072,6 +1152,7 @@ module PageUtils
         :master            => site.master,
         :municipality      => muni,
         :network           => network,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/vehicle_journeys",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -1109,6 +1190,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :vehicle_journey   => journey,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/vehicle_journeys/#{journey.id}",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -1145,6 +1227,7 @@ module PageUtils
         :municipality      => muni,
         :network           => network,
         :vehicle_journey   => journey,
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/#{network.id}/vehicle_journeys/#{journey.id}/map",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page

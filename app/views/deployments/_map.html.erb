@@ -1,0 +1,23 @@
+<head>
+  <script type="text/javascript">
+      var activePlanView;
+      $(function () {
+          $("body").layout({ applyDefaultStyles:true });
+
+          activePlanView = new BusPass.ActivePlanBasketController();
+
+          activePlanView.activePlanView("#activePlanView", {
+              loginUrl : '<%= @loginUrl %>'
+          });
+
+          $("#deployment-clock").clock({format : 24});
+
+          // Start the show!
+          activePlanView.onCreate();
+          activePlanView.onStart();
+          activePlanView.onResume();
+      });
+  </script>
+</head>
+
+<%=  render :partial => "shared/webmap_active_plan" %>

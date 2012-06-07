@@ -10,10 +10,10 @@ class Deployment
 
   before_validation :set_master
 
-  one :simulate_job
+  one :simulate_job, :dependent => :destroy
 
   def set_master
-    master = municipality.master
+    master ||= municipality.master
   end
 
   def master_consistent

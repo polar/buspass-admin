@@ -24,7 +24,22 @@ class Master
   one :testament, :dependent => :destroy
 
   # CMS Integration
-  one :admin_site, :class_name => "Cms::Site", :dependent => :destroy
+  # Arrg! MongoMappe requires that this be a many association because of the "belongs_to" in site.
+  many :sites, :class_name => "Cms::Site", :dependent => :destroy
+  def admin_site
+    sites.find_by_identifier("#{slug}-admin")
+  end
+  def main_site
+    sites.find_by_identifier("#{slug}-main")
+  end
+  def admin_site=(site)
+    sites << site
+  end
+  def main_site=(site)
+    sites << site
+  end
+  #one :admin_site, :class_name => "Cms::Site", :dependent => :destroy
+  #one :main_site, :class_name => "Cms::Site", :dependent => :destroy
 
   # TODO: TimeZones by location.   http://earthtools.org
   TIME_ZONE = "America/New_York"

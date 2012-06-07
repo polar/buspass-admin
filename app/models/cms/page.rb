@@ -2,6 +2,8 @@ class Cms::Page <
     "Cms::Orm::#{ComfortableMexicanSofa.config.backend.to_s.classify}::Page".constantize
 
   key :is_protected, Boolean, :default => false
+  key :controller, String
+  key :master_path, String
 
   # Context for pages
   belongs_to :master
@@ -18,6 +20,7 @@ class Cms::Page <
   attr_accessible :route, :route_id
   attr_accessible :service, :service_id
   attr_accessible :vehicle_journey, :vehicle_journey_id
+  attr_accessible :master_path
 
   def master!
     return self.master if self.master

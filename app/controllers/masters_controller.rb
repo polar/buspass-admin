@@ -159,6 +159,7 @@ class MastersController < MastersBaseController
       @municipality.save!
 
       create_master_admin_site(@master)
+      create_master_main_site(@master)
       create_deployment_page(@master, @municipality)
 
         redirect_to master_path(@master)

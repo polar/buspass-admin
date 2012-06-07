@@ -1,5 +1,5 @@
 <%= link_to span_tag(t('.new_link')), new_cms_admin_site_path, :class => 'big button' %>
-<h1><%= @master.name %> <%= t('.title') %></h1>
+<h1><%= @master.name if @master %> <%= t('.title') %></h1>
 
 <ul class='list'>
   <% @sites.each do |site| %>

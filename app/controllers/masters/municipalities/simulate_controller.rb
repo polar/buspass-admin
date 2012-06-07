@@ -14,7 +14,6 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
     end
     @mult = @job && @job.clock_mult || 1
     @duration = @job && @job.duration || 30
-    render :layout => "webmap"
   end
 
   def status

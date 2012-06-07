@@ -1,10 +1,10 @@
 class CmsAdmin::BaseController  < CmsBaseController
 
+  before_filter :setup
   before_filter :load_admin_site,
                 :set_locale,
                 #:load_fixtures,
                 :except => :jump
-  before_filter :setup
 
   layout 'cms_admin'
 
@@ -19,6 +19,7 @@ class CmsAdmin::BaseController  < CmsBaseController
     @route = Route.find(params[:route_id]) if params[:route_id]
     @service = Route.find(params[:service_id]) if params[:service_id]
     @vehicle_journey = Route.find(params[:vehicle_journey_id]) if params[:vehicle_journey_id]
+    @site = Cms::Site.find(params[:site_id]) if params[:site_id]
   end
 
   def jump

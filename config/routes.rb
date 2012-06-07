@@ -24,7 +24,7 @@ BuspassAdmin::Application.routes.draw do
   resources :muni_admins, :controller => "masters/muni_admins"
   resources :users, :controller => "deployments/users"
 
-  resources :deployments do
+  resources :deployments, :only => :show do
     member do
       get :api
     end
@@ -49,7 +49,7 @@ BuspassAdmin::Application.routes.draw do
     end
   end
 
-  resources :testaments do
+  resources :testaments, :only => :show do
     member do
       get :api
     end
@@ -75,6 +75,12 @@ BuspassAdmin::Application.routes.draw do
   end
 
   resources :masters do
+
+    resource "active", :only => [:show], :controller => "masters/active" do
+      member do
+        get :api
+      end
+    end
 
     resources :muni_admins, :controller => "masters/muni_admins" do
       member do
@@ -204,62 +210,6 @@ BuspassAdmin::Application.routes.draw do
 
     end
   end
-      scope "plan" do
-        resource :home,
-                 :controller => "masters/plan/home",
-                 :only => [:edit, :show, :update],
-                 :as => "plan_home"
-
-        resources :networks,
-                  :controller => "masters/plan/networks",
-                  :as => "plan_networks" do
-          resources :services,
-                    :controller => "masters/plan/services",
-                    :as => "services"
-        end
-
-        scope ":network" do
-          resource :networkplan,
-                    :controller => "masters/plan/plan",
-                    :as => "plan_networkplan",
-                    :except => [:index] do
-            member do
-              get :display
-              get :upload
-              get :partial_status
-              get :file
-            end
-          end
-
-          resources :routes,
-                    :controller => "masters/plan/routes",
-                    :as => "plan_routes"
-
-          resources :services,
-                    :controller => "masters/plan/services",
-                    :as => "plan_services"
-
-          scope ":route" do
-            resources :services,
-                      :controller => "masters/plan/routeservices",
-                      :as => "plan_routeservices"
-          end
-        end
-      end
-
-      scope "ops" do
-          resource :home,
-                   :controller => "masters/ops/home",
-                   :only => [:edit, :show, :update],
-                   :as => "ops_home"
-      end
-
-      scope "cust" do
-          resource :home,
-                   :controller => "masters/ops/home",
-                   :only => [:edit, :show, :update],
-                   :as => "cust_home"
-      end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -317,9 +267,8 @@ BuspassAdmin::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-  mount CantangoEditor::Engine => "/cantango_editor"
+  # mount CantangoEditor::Engine => "/cantango_editor"
 
-  mount ComfortableMexicanSofa::Engine => "/masters/:master_id/pages", :as => :cms
   resource :main, :controller => "main" do
     post :import
     post :export
@@ -327,5 +276,6 @@ BuspassAdmin::Application.routes.draw do
 
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"
- # match "(:cms_path)(.:format)" => "cms_content#render_html"
+  mount ComfortableMexicanSofa::Engine => "/cms-admin", :as => :cms
+  match "/(*cms_path)" => "cms_content#render_html"
 end
