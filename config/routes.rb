@@ -277,5 +277,6 @@ BuspassAdmin::Application.routes.draw do
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"
   mount ComfortableMexicanSofa::Engine => "/cms-admin", :as => :cms
+  match "/(*cms_path)/sitemap" => "cms_content#render_sitemap"
   match "/(*cms_path)" => "cms_content#render_html"
 end

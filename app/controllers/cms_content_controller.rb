@@ -15,8 +15,8 @@ class CmsContentController < CmsBaseController
   end
 
   def render_sitemap
-    load_cms_layout
-    render
+    @cms_layout = @cms_site.layouts.find_by_identifier!("default")
+    render :content_type => "text/xml"
   end
 
   def render_css
@@ -81,5 +81,11 @@ protected
     end
   end
 
+  def load_cms_layout
+    @cms_layout = @cms_site.layouts.find_by_identifier!(params[:identifier])
+    raise  ComfortableMexicanSofa.ModelNotFound if @cms_layout.nil?
+  rescue ComfortableMexicanSofa.ModelNotFound
+    render :nothing => true, :status => 404
+  end
 
 end
