@@ -21,7 +21,7 @@
     <%= f.submit "Update Administrator Account", :class => "btn" %>
 <% end %>
 
-<%= button_to "Cancel",  master_muni_admins_path(:master_id => @master.id), :class => "btn", :method => :get %>
+<%= link_to "Cancel",  master_muni_admins_path(:master_id => @master.id), :class => "btn", :method => :get %>
 <p>
 <%= link_to "Administrative Users", master_muni_admins_path(:master_id => @master.id) %>
 </p>

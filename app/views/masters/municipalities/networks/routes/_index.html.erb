@@ -1,20 +1,3 @@
 <h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
 <H2>Routes</H2>
-<table>
-  <tr>
-    <th>Code</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Services</th>
-    <th>Vehicle Journeys</th>
-  </tr>
-  <% for r in @routes do %>
-    <tr>
-      <td><%=  link_to r.code, master_municipality_network_route_path(r, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
-      <td><%=  link_to r.name, master_municipality_network_route_path(r, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></td>
-      <td><%=  r.description %></td>
-      <td><%=  r.services.count %></td>
-      <td><%=  r.vehicle_journey_count %></td>
-    </tr>
-  <% end %>
-</table>
+<%= render :partial => "table_routes" %>

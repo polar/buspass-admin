@@ -28,7 +28,7 @@ class Municipality
     attr_accessible :display_name, :slug, :location, :hosturl, :name, :mode
 
     before_validation :ensure_slug, :ensure_lonlat
-    many :networks, :autosave => false
+    many :networks, :autosave => false, :dependent => :destroy
 
     one :deployment
     one :testament

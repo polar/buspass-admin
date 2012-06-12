@@ -38,6 +38,8 @@ class NetworkTag < Tag
       when "journey"
         "<%= render :partial => 'masters/municipalities/networks/vehicle_journeys/show' %>"
 
+      when "plan"
+        "<%= render :partial => 'masters/municipalities/networks/plan/show' %>"
       when "page"
         "<%= render :partial => 'masters/municipalities/networks/show' %>"
       when nil

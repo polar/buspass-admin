@@ -47,6 +47,8 @@ module PageUtils
                                  }])
       seed_main_admin_templates(site, normal, root)
       create_edit_info_page(site)
+      create_active_deployment_page(site)
+      create_active_testament_page(site)
       create_new_deployment_page(site)
       create_active_deployment_page(site)
       create_active_testament_page(site)
@@ -117,7 +119,7 @@ module PageUtils
     # The master_path for this should be good for any deployment.
     root = site.pages.create!(
         :slug              => "main",
-        :label             => "#{master.name} Active Deployment",
+        :label             => "#{master.name}",
         :layout            => layout,
         :master            => master,
         :is_protected      => true,
@@ -149,7 +151,7 @@ module PageUtils
     page.master_path = "/masters/#{site.master.id}/edit"
     page.save!
     page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/new-deployment"))
-    page.master_path = "/masters/#{site.master.id}/new"
+    page.master_path = "/masters/#{site.master.id}/municipalities/new"
     page.save!
     page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployments"), false)
     page.master_path = "/masters/#{site.master.id}/municipalities"
@@ -439,9 +441,62 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
-        :master_path       => "/masters/#{site.master.id}/new",
+        :master_path       => "/masters/#{site.master.id}/municipalities/new",
         :blocks_attributes => blocks_attributes)
   end
+
+  def create_active_deployment_page(site, layout = nil, parent_page = nil)
+
+    if parent_page.nil?
+      return if site.pages.find_by_full_path("/active-deployment")
+    end
+
+    master = site.master
+
+    blocks_attributes = [{
+                             :identifier => "content",
+                             :content    => "{{ cms:bus:deployments:active }}"
+                         }]
+
+    parent_page ||= site.pages.find_by_full_path("/")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
+
+    deps = site.pages.create!(
+        :slug              => "active-deployment",
+        :label             => "Active Deployment",
+        :layout            => layout,
+        :parent            => parent_page,
+        :is_protected      => true,
+        :master_path       => "/masters/#{site.master.id}/active",
+        :blocks_attributes => blocks_attributes)
+  end
+
+  def create_active_testament_page(site, layout = nil, parent_page = nil)
+
+    if parent_page.nil?
+      return if site.pages.find_by_full_path("/active-testament")
+    end
+
+    master = site.master
+
+    blocks_attributes = [{
+                             :identifier => "content",
+                             :content    => "{{ cms:bus:deployments:test }}"
+                         }]
+
+    parent_page ||= site.pages.find_by_full_path("/")
+    layout      ||= site.layouts.find_by_identifier("normal-layout")
+
+    deps = site.pages.create!(
+        :slug              => "active-testament",
+        :label             => "Active Testament",
+        :layout            => layout,
+        :parent            => parent_page,
+        :is_protected      => true,
+        :master_path       => "/masters/#{site.master.id}/testament",
+        :blocks_attributes => blocks_attributes)
+  end
+
 
   def create_deployments_page(site, layout = nil, parent_page = nil)
 
@@ -548,7 +603,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "#{muni.slug}",
-        :label             => "Deployment #{muni.name} Page",
+        :label             => "#{muni.name}",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -590,7 +645,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "edit",
-        :label             => "Deployment #{muni.name} Edit Page",
+        :label             => "Edit",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -625,7 +680,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "map",
-        :label             => "Deployment #{muni.name} Map Page",
+        :label             => "Map",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -660,12 +715,12 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "simulate",
-        :label             => "Deployment #{muni.name} Simulate Page",
+        :label             => "Simulate",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
-        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/simulate",
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/simulate/map",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -695,7 +750,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "networks",
-        :label             => "#{muni.name} Networks Page",
+        :label             => "Networks",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -730,12 +785,12 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "new-network",
-        :label             => "#{muni.name} New Network Page",
+        :label             => "New Network",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,
-        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/new",
+        :master_path       => "/masters/#{site.master.id}/municipalities/#{muni.id}/networks/new",
         :is_protected      => true,
         :blocks_attributes => blocks_attributes)
     return page
@@ -770,7 +825,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "#{network.slug}",
-        :label             => "#{muni.name} Network #{network.name} Page",
+        :label             => "#{network.name}",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -814,7 +869,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "edit",
-        :label             => "#{muni.name} Edit Network Page",
+        :label             => "Edit",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -850,7 +905,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "move",
-        :label             => "#{muni.name} Move Network Page",
+        :label             => "Move",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -888,7 +943,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "plan",
-        :label             => "#{muni.name} Network #{network.name} Plan Page",
+        :label             => "Plan",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -925,7 +980,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "upload",
-        :label             => "#{muni.name} Network #{network.name} Upload Plan Page",
+        :label             => "Upload",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -962,7 +1017,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "routes",
-        :label             => "#{muni.name} Network #{network.name} Routes Page",
+        :label             => "Routes",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -998,7 +1053,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => route.slug,
-        :label             => "#{muni.name} Network #{network.name} Route #{route.name} Page",
+        :label             => "#{route.name}",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -1035,7 +1090,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "map",
-        :label             => "#{muni.name} Network #{network.name} Route #{route.name} Map Page",
+        :label             => "#{route.name} Map",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -1073,7 +1128,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "services",
-        :label             => "#{muni.name} Network #{network.name} Services Page",
+        :label             => "Services",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -1109,7 +1164,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => service.slug,
-        :label             => "#{muni.name} Network #{network.name} Service #{service.name} Page",
+        :label             => "#{service.name}",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -1146,7 +1201,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "journeys",
-        :label             => "#{muni.name} Network #{network.name} Journeys Page",
+        :label             => "Journeys",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -1183,7 +1238,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => journey.slug,
-        :label             => "#{muni.name} Network #{network.name} Journey #{journey.name} Page",
+        :label             => "#{journey.name}",
         :layout            => layout,
         :parent            => parent_page,
         :master            => site.master,
@@ -1220,8 +1275,7 @@ module PageUtils
 
     page = site.pages.create!(
         :slug              => "map",
-        :label             => "#{muni.name} Network #{network.name} Journey #{journey.name} Map Page",
-        :layout            => layout,
+        :label             => "Map",
         :parent            => parent_page,
         :master            => site.master,
         :municipality      => muni,

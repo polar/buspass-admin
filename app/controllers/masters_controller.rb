@@ -58,6 +58,8 @@ class MastersController < MastersBaseController
   def new
     authorize!(:create, Master)
     @master = Master.new
+    @site = Cms::Site.find_by_identifier("busme-main")
+    render
     # submits to create
   end
 
@@ -158,9 +160,18 @@ class MastersController < MastersBaseController
 
       @municipality.save!
 
+      @network = Network.new
+      @network.master = @master
+      @network.municipality = @municipality
+      @network.name = @municipality.name
+      @network.ensure_slug
+      @network.save!
+
+
       create_master_admin_site(@master)
       create_master_main_site(@master)
       create_deployment_page(@master, @municipality)
+    create_deployment_network_page(@master, @municipality, @network)
 
         redirect_to master_path(@master)
   rescue Exception => boom

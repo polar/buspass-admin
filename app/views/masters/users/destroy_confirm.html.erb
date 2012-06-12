@@ -29,5 +29,5 @@ You, <%= current_muni_admin.email %>, will be come the owner of the following:
   <% end %>
 </table>
 <p>
-  <%= button_to "Delete Administrative User", master_muni_admin_path(@muni_admin, :master_id => @master.id), :method => :delete %>
+  <%= link_to "Delete Administrative User", master_muni_admin_path(@muni_admin, :master_id => @master.id), :class => "btn", :method => :delete %>
 </p>

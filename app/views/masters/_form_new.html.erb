@@ -7,5 +7,5 @@
     <div><%= f.label :location, "Location (Lon,Lat)" %><br />
       <%= f.text_field :location , :value => to_location_str(@master.location) %></div>
 
-    <div><%= f.submit "Create" %></div>
+    <div><%= f.submit "Create", :class => "btn"  %></div>
 <% end %>

@@ -1,0 +1,61 @@
+<% if @network.processing_lock %>
+    <script type="text/javascript">
+        $(function() {
+            var polling = true;
+            function poll() {
+                var log = $('#processing_log')[0].children.length;
+                var err = $('#processing_err')[0].children.length;
+                $.ajax({
+                    type: "GET",
+                    url: "<%= partial_status_master_municipality_network_plan_path(@master, @municipality, @network) %>" +
+                            "?err="+err+"&log="+log,
+                    dataType: "json",
+                    success: function(data) {
+                        $.each(data['logs'], function(i, item) {
+                            $('#processing_log').append('<div>'+item+'</div>');
+                        });
+                        $.each(data['errors'], function(i, item) {
+                            $('#processing_err').append('<div>'+item+'</div>');
+                        });
+                        if (data['completed_at']) {
+                            $('#completed_at').html(data['completed_at']);
+                            $('#processing_statusP').hide();
+                            $('#processing_statusC1').show();
+                            $('#processing_statusC2').show();
+                            $('#processing_statusC3').show();
+                            polling = false;
+                        }
+                        if (data['process_file']) {
+                            $('#process_file').html("<a href='"+data['process_file']+"'>Download</a>");
+
+                        }
+                        if (data['services_count']) {
+                            $('#services_count').html(""+data['services_count']);
+                        }
+                        if (data['routes_count']) {
+                            $('#routes_count').html(data[""+'routes_count']);
+                        }
+                        if (data['vj_count']) {
+                            $('#vj_count').html(""+data['vj_count']);
+                        }
+                        if (data['progress']) {
+                            $('#progress').html(""+(Math.floor(data['progress']*100))+"%");
+                        }
+                        if (data['started_at']) {
+                            $('#started_at').html(data['started_at']);
+                        }
+                    }
+                });
+                if (polling) {
+                    setTimeout(poll,5000);
+                }
+            }
+            setTimeout(poll,0);
+        });
+    </script>
+<% end %>
+<div id="processing_log">
+  <% for i in @network.processing_log %>
+      <div><%= i %></div>
+  <% end %>
+</div>

@@ -2,6 +2,9 @@ class SimulateJob
   include MongoMapper::Document
 
   belongs_to :deployment # if this isn't nil, it is for a deployment.
+  belongs_to :testament # if this isn't nil, it is for a testament.
+
+  # If one of the above is assigned, the master and municipality should be nil.
   belongs_to :master
   belongs_to :municipality
 
@@ -13,6 +16,7 @@ class SimulateJob
   key :clock_mult, Integer
   key :duration, Integer
   key :time_zone, String
+
   belongs_to :delayed_job, :class_name => "Delayed::Job"
 
   key :please_stop, Boolean

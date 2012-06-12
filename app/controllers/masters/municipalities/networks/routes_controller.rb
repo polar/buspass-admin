@@ -15,6 +15,8 @@ class Masters::Municipalities::Networks::RoutesController  <
       error  = "not owned by network"
       @route = nil
     end
+    @services = @route.services
+
   end
 
   def map
@@ -36,10 +38,10 @@ class Masters::Municipalities::Networks::RoutesController  <
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,
-        "getRoutePath" => route_master_municipality_network_route_webmap_path(:route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
-        "getRouteJourneyIds" => route_journeys_master_municipality_network_route_webmap_path(:route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
-        "getRouteDefinition" => routedef_master_municipality_network_route_webmap_path(:route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
-        "getJourneyLocation" => curloc_master_municipality_network_route_webmap_path(:route_id => @route.id, :service_id => @service.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)
+        "getRoutePath" => route_master_municipality_network_route_webmap_path(@master, @municipality, @network, @route, :service_id => @service.id),
+        "getRouteJourneyIds" => route_journeys_master_municipality_network_route_webmap_path(@master, @municipality, @network, @route, :service_id => @service.id),
+        "getRouteDefinition" => routedef_master_municipality_network_route_webmap_path(@master, @municipality, @network, @route, :service_id => @service.id),
+        "getJourneyLocation" => curloc_master_municipality_network_route_webmap_path(@master, @municipality, @network, @route, :service_id => @service.id)
     }
 
     respond_to do |format|

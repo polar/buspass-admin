@@ -1,0 +1,10 @@
+<% if @routes.empty? %>
+    <p>
+      There are not yet any Routes and Vehicle Journeys established for this Network. You must first plan the network.
+    </p>
+    <p>
+      <%= link_to "Plan Network", master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn" %>
+    </p>
+<% else %>
+  <%= render :partial => "table_journeys" %>
+<% end %>

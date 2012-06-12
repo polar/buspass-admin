@@ -1,5 +1,6 @@
 //= require application
-//= require OpenLayers-2.11/lib/OpenLayers
+//= require bootstrap
+//= require jquery.treeview
 //= require jquery.jscrollpane.min
 //= require jquery.mousewheel
 //= require jquery.tools.min
@@ -7,7 +8,7 @@
 //= require jquery.json-2.3
 //= require jqClock
 //= require date
-//= require bootstrap
+//= require OpenLayers-2.11/OpenLayers
 //= require BusPassAPI
 //= require BusPass
 //= require GeoLocationController

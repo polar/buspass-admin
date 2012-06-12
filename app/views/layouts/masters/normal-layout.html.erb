@@ -11,6 +11,15 @@
   <%= javascript_include_tag "normal-layout", :debug => true  %>
   <%= csrf_meta_tags %>
   <%=  yield :head %>
+  <script type="text/javascript">
+    $(function() {
+      $("#admin_site_nav").treeview({
+          animated: "fast",
+          persist: "location",
+          unique: true
+      });
+    });
+  </script>
 </head>
 <body class="<%= params[:controller] %>">
     <div class="ui-layout-north">
@@ -30,6 +39,11 @@
         <%- end -%>
       </header>
     </div>
+    <% if @master && @master.admin_site %>
+        <div class="ui-layout-west">
+          <%= render(:partial => "masters/admin_nav").html_safe %>
+        </div>
+    <% end %>
     <div class="ui-layout-center">
       <%= yield %>
     </div>

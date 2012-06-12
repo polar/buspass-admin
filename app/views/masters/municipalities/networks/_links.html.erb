@@ -1,6 +1,9 @@
 
-<%= link_to "Networks",  master_municipality_networks_path(@master, @municipality) %>
-<% if muni_admin_can? :edit, @network %>
-    <%=  link_to "Plan Network", master_municipality_network_plan_path(@master, @municipality, @network) %>
+<% if muni_admin_can?(:edit, Municipality)  %>
+    <p>
+     <% if muni_admin_can?(:edit, @network) %>
+        <%= link_to "Plan Network", master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn" %>
+     <% end %>
+     <%= link_to "Copy to Deployment", move_master_municipality_network_path(@master, @municipality, @network), :class => "btn" %>
+    </p>
 <% end %>
-<%= button_to "Copy to Deployment", move_master_municipality_network_path(@master, @municipality, @network) %>

@@ -1,0 +1,21 @@
+<h2>Planning for <%= link_to @network.name, master_municipality_network_path(@master, @municipality, @network) %></h2>
+<P>
+  <%=  render :partial => "table_counts" %>
+</P>
+
+<h2>Processing Status</h2>
+<p>
+  <%=  render :partial => "table_status" %>
+</p>
+<p>
+  <%=  render :partial => "button_upload" %>
+</p>
+
+<h3>Processing Log</h3>
+<p>
+  <%= render :partial => "processing_log" %>
+</p>
+<h3>Errors</h3>
+<p>
+  <%= render :partial => "processing_errors" %>
+</p>

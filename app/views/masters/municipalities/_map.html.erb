@@ -82,57 +82,53 @@
     });
 </script>
 
-<DIV class="ui-layout-north">North</DIV>
-<DIV class="ui-layout-center">
-  <div class="row">
-    <div class="span16">
-      <h2><%= link_to @municipality.name, master_municipality_path(@master, @municipality) %></h2>
-    </div>
-  </div>
-  <div class="row">
-    <DIV class="span10">
-      <h3>Webmap</h3>
-    </DIV>
-    <DIV class="span6">
-      <h3>Routes</h3>
-    </DIV>
-  </div>
-  <div class="row">
-    <DIV class="span10">
-      <div id="map" class="smallmap">
-      </div>
-    </DIV>
-    <DIV class="span6">
-      <div class="row">
-        <div class="span4">
-        </div>
-        <div class="span2">
-          <a class="prev">&laquo; Up</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="span6">
-          <div id="routesView" class="scrollable vertical">
-            <div class="items">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="span4">
-        </div>
-        <div class="span2">
-          <a class="next">Down &raquo;</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="span16">
-      <h4>Routes on this Municipality Deployment</h4>
-      <% render :partial => "table_routes" %>
-
-    </div>
+<div class="row">
+<div class="span16">
+  <h2><%= link_to @municipality.name, master_municipality_path(@master, @municipality) %></h2>
+</div>
+</div>
+<div class="row">
+<DIV class="span10">
+  <h3>Webmap</h3>
+</DIV>
+<DIV class="span6">
+  <h3>Routes</h3>
+</DIV>
+</div>
+<div class="row">
+<DIV class="span10">
+  <div id="map" class="smallmap">
   </div>
 </DIV>
-<DIV class="ui-layout-south">South</DIV>
+<DIV class="span6">
+  <div class="row">
+    <div class="span4">
+    </div>
+    <div class="span2">
+      <a class="prev">&laquo; Up</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span6">
+      <div id="routesView" class="scrollable vertical">
+        <div class="items">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span4">
+    </div>
+    <div class="span2">
+      <a class="next">Down &raquo;</a>
+    </div>
+  </div>
+</div>
+</div>
+<div class="row">
+<div class="span16">
+  <h4>Routes on this Municipality Deployment</h4>
+  <% render :partial => "table_routes" %>
+
+</div>
+</div>

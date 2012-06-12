@@ -1,16 +1,10 @@
-<h2>Network <%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
-<h2>Upload File</h2>
-<%= form_for @network,
-             # Cannot use :network here, it's already taken'
-             :as => @network_param_name,
-             :url => master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id),
-             :method => "put",
-             :html => {:multipart => true} do |f| %>
-  <p>
-    <% error_messages!(@network) %>
-    <%= f.label :upload_file, "Zip File" %>
-    <%= f.file_field :upload_file %>
-    <%= f.hidden_field :upload_file_cache %>
-  </p>
-  <p><%=  f.submit %></p>
-<% end %>
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/deployments/#{@municipality.slug}/networks/#{@network.slug}/plan/upload")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue Exception => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

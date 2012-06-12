@@ -1,0 +1,25 @@
+
+<table>
+  <thead>
+  <tr>
+    <th>Route</th>
+    <th>Display Name</th>
+    <th>Direction</th>
+    <th>Departs</th>
+    <th>Ends</th>
+    <th>Links</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><%=  link_to @vehicle_journey.route.code, master_municipality_network_route_path(@master, @municipality, @network, @vehicle_journey.route)  %></td>
+    <td><%=  link_to @vehicle_journey.display_name, master_municipality_network_vehicle_journey_path(@master, @municipality, @network, @vehicle_journey)  %></td>
+    <td><%=  @vehicle_journey.service.direction  %></td>
+    <!--- TODO: Internatialize Time -->
+    <td><%=  @vehicle_journey.time_start.strftime("%H:%M") %></td>
+    <td><%=  @vehicle_journey.time_end.strftime("%H:%M") %></td>
+    <td><%=  @vehicle_journey.journey_pattern_timing_links.count %></td>
+    <td><%=  link_to "Map", map_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, @vehicle_journey) %></td>
+  </tr>
+  </tbody>
+</table>

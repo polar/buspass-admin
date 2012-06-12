@@ -14,6 +14,7 @@ class Masters::Municipalities::Networks::VehicleJourneysController <
     if @vehicle_journey.network != @network
       raise "wrong network"
     end
+    @service = @vehicle_journey.service
   end
 
   def map
@@ -21,6 +22,7 @@ class Masters::Municipalities::Networks::VehicleJourneysController <
     if @vehicle_journey.network != @network
       raise "wrong network"
     end
+    @service = @vehicle_journey.service
     render :layout => "webmap"
   end
 
@@ -32,10 +34,10 @@ class Masters::Municipalities::Networks::VehicleJourneysController <
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,
-        "getRoutePath" => route_master_municipality_network_vehicle_journey_webmap_path(:vehicle_journey_id => @vehicle_journey.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
-        "getRouteJourneyIds" => route_journeys_master_municipality_network_vehicle_journey_webmap_path(:vehicle_journey_id => @vehicle_journey.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
-        "getRouteDefinition" => routedef_master_municipality_network_vehicle_journey_webmap_path(:vehicle_journey_id => @vehicle_journey.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id),
-        "getJourneyLocation" => curloc_master_municipality_network_vehicle_journey_webmap_path(:vehicle_journey_id => @vehicle_journey.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id)
+        "getRoutePath" => route_master_municipality_network_vehicle_journey_webmap_path(@master, @municipality, @network, @vehicle_journey),
+        "getRouteJourneyIds" => route_journeys_master_municipality_network_vehicle_journey_webmap_path(@master, @municipality, @network, @vehicle_journey),
+        "getRouteDefinition" => routedef_master_municipality_network_vehicle_journey_webmap_path(@master, @municipality, @network, @vehicle_journey),
+        "getJourneyLocation" => curloc_master_municipality_network_vehicle_journey_webmap_path(@master, @municipality, @network, @vehicle_journey)
     }
 
     respond_to do |format|

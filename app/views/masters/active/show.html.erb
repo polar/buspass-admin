@@ -1,7 +1,7 @@
 <%=
     begin
       site = @master.main_site
-      page = site.pages.find_by_full_path("/")
+      page = site.pages.find_by_full_path("/active-deployment")
       page.render(self, :status => 200, :content_type => 'text/html')
     rescue => boom
       render :text => I18n.t('cms.content.page_not_found'), :status => 404

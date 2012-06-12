@@ -14,10 +14,10 @@
       <td><%= u.email %></td>
       <td><%= u.role_symbols.inspect %></td>
       <td><%= link_to( "Edit", edit_master_user_path(u, :master_id => @master.id), :class=>"btn") if muni_admin_can?(:edit, u) %></td>
-      <td><%= button_to( "Delete", destroy_confirm_master_user_path(u, :master_id => @master.id), :class=>"btn") if muni_admin_can?(:delete, u) %></td>
+      <td><%= link_to( "Delete", destroy_confirm_master_user_path(u, :master_id => @master.id), :class=>"btn", :method => :post) if muni_admin_can?(:delete, u) %></td>
     </tr>
   <% end %>
 
   </tbody>
 </table>
-<%= link_to("Create New User", new_master_user_path(:master_id => @master.id)) if muni_admin_can?(:create, MuniAdmin) %>
+<%= link_to("Create New User", new_master_user_path(:master_id => @master.id), :class => "btn") if muni_admin_can?(:create, MuniAdmin) %>

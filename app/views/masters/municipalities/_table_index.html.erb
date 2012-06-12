@@ -16,7 +16,7 @@
         <td><%= muni.networks.count %></td>
         <td><%= link_to("Edit", edit_master_municipality_path(@master, muni), :class=>"btn") if muni_admin_can?(:edit, muni) %></td>
         <td><%= link_to("Plan", master_municipality_path(@master, muni), :class=>"btn") if muni_admin_can?(:edit, muni) %></td>
-        <td><%= button_to("Delete", master_municipality_path(@master, muni), :class=>"btn", :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, muni) %></td>
+        <td><%= link_to("Delete", master_municipality_path(@master, muni), :class=>"btn", :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, muni) %></td>
       </tr>
   <% end %>
   </tbody>

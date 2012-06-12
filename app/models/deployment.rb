@@ -13,11 +13,11 @@ class Deployment
   one :simulate_job, :dependent => :destroy
 
   def set_master
-    master ||= municipality.master
+    master ||= municipality.master if municipality
   end
 
   def master_consistent
-    master == municipality.master
+    master == municipality.master   if municipality
   end
 
   def status
