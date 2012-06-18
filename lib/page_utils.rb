@@ -144,18 +144,32 @@ module PageUtils
     end
   end
 
+  # Site must have master assigned.
   def seed_master_admin_pages_snippets(site)
     from_site = Cms::Site.find_by_identifier("busme-main")
+
     page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployment-template"))
+
     page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/edit"))
     page.master_path = "/masters/#{site.master.id}/edit"
     page.save!
+
     page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/new-deployment"))
     page.master_path = "/masters/#{site.master.id}/municipalities/new"
     page.save!
+
+    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/active-deployment"))
+    page.master_path = "/masters/#{site.master.id}/active"
+    page.save!
+
+    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/active-testament"))
+    page.master_path = "/masters/#{site.master.id}/testament"
+    page.save!
+
     page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployments"), false)
     page.master_path = "/masters/#{site.master.id}/municipalities"
     page.save!
+
     from_site.snippets.order(:position).each do |snippet|
       copy_snippet(site, snippet)
     end
@@ -197,7 +211,6 @@ module PageUtils
         copy_layout(site, newl, ch)
       end
     end
-
   end
 
   def copy_snippet(site, snippet)
@@ -415,7 +428,6 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
-        :master_path       => "/masters/#{site.master.id}/edit",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -441,7 +453,6 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
-        :master_path       => "/masters/#{site.master.id}/municipalities/new",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -459,7 +470,7 @@ module PageUtils
                          }]
 
     parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("normal-layout")
+    layout      ||= site.layouts.find_by_identifier("map-layout")
 
     deps = site.pages.create!(
         :slug              => "active-deployment",
@@ -467,7 +478,6 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
-        :master_path       => "/masters/#{site.master.id}/active",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -485,7 +495,7 @@ module PageUtils
                          }]
 
     parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("normal-layout")
+    layout      ||= site.layouts.find_by_identifier("map-layout")
 
     deps = site.pages.create!(
         :slug              => "active-testament",
@@ -493,7 +503,6 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
-        :master_path       => "/masters/#{site.master.id}/testament",
         :blocks_attributes => blocks_attributes)
   end
 
@@ -521,58 +530,6 @@ module PageUtils
         :parent            => parent_page,
         :is_protected      => true,
         :master_path       => "/masters/#{site.master.id}",
-        :blocks_attributes => blocks_attributes)
-  end
-
-  def create_active_deployment_page(site, layout = nil, parent_page = nil)
-
-    if parent_page.nil?
-      return if site.pages.find_by_full_path("/active-deployment")
-    end
-
-    master = site.master
-
-    blocks_attributes = [{
-                             :identifier => "content",
-                             :content    => "{{ cms:bus:active-deployment }}"
-                         }]
-
-    parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("normal-layout")
-
-    deps = site.pages.create!(
-        :slug              => "active-deployment",
-        :label             => "Active Deployment",
-        :layout            => layout,
-        :parent            => parent_page,
-        :is_protected      => true,
-        :master_path       => "/masters/#{site.master.id}/active_deployment",
-        :blocks_attributes => blocks_attributes)
-  end
-
-  def create_active_testament_page(site, layout = nil, parent_page = nil)
-
-    if parent_page.nil?
-      return if site.pages.find_by_full_path("/active-testament")
-    end
-
-    master = site.master
-
-    blocks_attributes = [{
-                             :identifier => "content",
-                             :content    => "{{ cms:bus:active-testament }}"
-                         }]
-
-    parent_page ||= site.pages.find_by_full_path("/")
-    layout      ||= site.layouts.find_by_identifier("normal-layout")
-
-    deps = site.pages.create!(
-        :slug              => "active-testament",
-        :label             => "Active Testament",
-        :layout            => layout,
-        :parent            => parent_page,
-        :is_protected      => true,
-        :master_path       => "/masters/#{site.master.id}/testament",
         :blocks_attributes => blocks_attributes)
   end
 

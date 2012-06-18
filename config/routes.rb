@@ -1,12 +1,14 @@
 BuspassAdmin::Application.routes.draw do
 
-  devise_for :admins,
+  #root :to => "/"
+  devise_for :customers,
              :controllers => {
                  :registrations => "mydevise/registrations",
                  :sessions      => "mydevise/sessions"
              }
 
-  resources :admins
+  resources :customers
+  resources :passwords
 
   devise_for :muni_admins,
              :controllers => {
@@ -79,6 +81,19 @@ BuspassAdmin::Application.routes.draw do
     resource "active", :only => [:show], :controller => "masters/active" do
       member do
         get :api
+        post :start
+        post :stop
+        get :partial_status
+        post :deactivate
+      end
+    end
+    resource "testament", :only => [:show], :controller => "masters/testament" do
+      member do
+        get :api
+        post :start
+        post :stop
+        get :partial_status
+        post :deactivate
       end
     end
 
@@ -267,16 +282,18 @@ BuspassAdmin::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-  # mount CantangoEditor::Engine => "/cantango_editor"
+  mount CantangoEditor::Engine => "/cantango_editor"
 
   resource :main, :controller => "main" do
     post :import
     post :export
   end
 
+  # Root is only for the Cantango Editor at this point, which we probably will not use.
+  root :to => "masters/active#sshow"
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"
-  mount ComfortableMexicanSofa::Engine => "/cms-admin", :as => :cms
+  mount ComfortableMexicanSofa::Engine => "/", :as => :cms
   match "/(*cms_path)/sitemap" => "cms_content#render_sitemap"
   match "/(*cms_path)" => "cms_content#render_html"
 end

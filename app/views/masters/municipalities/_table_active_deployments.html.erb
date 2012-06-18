@@ -16,9 +16,9 @@
         <td><%= @master.deployment.municipality.name %></td>
         <td><%= @master.deployment.municipality.owner.name %></td>
         <td><%= @master.deployment.status %></td>
-        <td><%= link_to "Start Run", start_deployment_run_path(@master.deployment), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.deployment.can_start? %></td>
-        <td><%= link_to "Stop Run", stop_deployment_run_path(@master.deployment), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.deployment.can_stop?  %></td>
-        <td><%= link_to "Deactivate", deactivate_deployment_run_path(@master.deployment), :method => :post, :class=>"btn" %></td>
+        <td><%= button_to "Start Run", start_master_active_path(@master), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.deployment.can_start? %></td>
+        <td><%= button_to "Stop Run", stop_master_active_path(@master), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.deployment.can_stop?  %></td>
+        <td><%= button_to "Deactivate", deactivate_master_active_path(@master), :method => :post, :class=>"btn" %></td>
     <% else %>
         <td colspan="6">None Active</td>
     <% end %>

@@ -2,22 +2,27 @@ class Masters::ActiveController < Masters::MasterBaseController
   before_filter :get_context
 
   def show
-    options = {:master_id => @master.id, :municipality_id => @municipality.id}
-    @job = SimulateJob.first(options)
-    #authorize!(:deploy, @municipality)
-    @date = Time.now
-    @time = @date
-    if params[:date]
-      @date = Time.parse(params[:date])
+    if @deployment
+      options = {:master_id => @master.id, :municipality_id => @municipality.id}
+      @job = SimulateJob.first(options)
+      #authorize!(:deploy, @municipality)
+      @date = Time.now
+      @time = @date
+      if params[:date]
+        @date = Time.parse(params[:date])
+      end
+      if params[:time]
+        @time = Time.parse(params[:time])
+      end
+      @mult = @job && @job.clock_mult || 1
+      @duration = @job && @job.duration || 30
+      @processing_status_label = "Run"
+      @updateUrl = partial_status_master_active_path(@master, :format => :json)
+      @loginUrl = api_deployment_path(@deployment, :format => :json)
+    else
+      flash[:error] = "You have not selected a deployment to be active"
+      redirect_to master_municipalities_path(@master)
     end
-    if params[:time]
-      @time = Time.parse(params[:time])
-    end
-    @mult = @job && @job.clock_mult || 1
-    @duration = @job && @job.duration || 30
-    @processing_status_label = "Run"
-    @updateUrl = partial_status_master_active_path(@master, :format => :json)
-    @loginUrl = api_deployment_path(@deployment, :format => :json)
   end
 
   def status
@@ -141,7 +146,7 @@ class Masters::ActiveController < Masters::MasterBaseController
     options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     # We automatically kill any job if we remove the SimulateJob
-    @job.destroy
+    @job.destroy if @job
     @deployment.destroy
     flash[:notice] = "#{@master.name} Deployment #{@municipality.name} has been deactivated."
     redirect_to master_municipalities_path(@master)

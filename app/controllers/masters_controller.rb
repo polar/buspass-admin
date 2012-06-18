@@ -31,7 +31,7 @@ class MastersController < MastersBaseController
   end
 
   def index
-    if admin_signed_in?
+    if customer_signed_in?
       @masters = case params[:purpose]
         when "edit" then
           Master.editable_by(current_admin)
@@ -171,9 +171,9 @@ class MastersController < MastersBaseController
       create_master_admin_site(@master)
       create_master_main_site(@master)
       create_deployment_page(@master, @municipality)
-    create_deployment_network_page(@master, @municipality, @network)
+      create_deployment_network_page(@master, @municipality, @network)
 
-        redirect_to master_path(@master)
+      redirect_to master_path(@master)
   rescue Exception => boom
     @master.delete if @master
     @municipality.delete if @municipality

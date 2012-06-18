@@ -10,7 +10,7 @@ class Master
   key :location, Array
   key :host, String
   key :hosturl, String
-  key :owner, Admin
+  key :owner, Customer
   key :muni_owner, MuniAdmin
   key :dbname, String #, :unique => true, :allow_nil => true
   key :slug, String

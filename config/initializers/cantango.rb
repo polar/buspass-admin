@@ -9,6 +9,6 @@ CanTango.config do |config|
   #config.models.exclude :admin, :muni_admin
   #config.enable_helpers :rest
   config.users.register :muni_admin, MuniAdmin
-  config.users.register :admin, Admin
+  config.users.register :busme_masters, Customer
     config.guest.user = Guest.new
 end

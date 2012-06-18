@@ -11,13 +11,13 @@ describe MasterMunicipalitiesController do
       MongoMapper.database = @database_base
       # Database Cleaner should be taking care of this?
       Municipality.delete_all
-      Admin.delete_all
+      Customer.delete_all
       MongoMapper.database = @database_name
       Municipality.delete_all
       Muni::MuniAdmin.delete_all
       MongoMapper.database = @database_base
 
-      @admin = Admin.new(:email => "polar@test.com", :name => "Test User",
+      @admin = Customer.new(:email => "polar@test.com", :name => "Test User",
                          :password => "123345678", :password_confirmation => "123345678")
       @admin.save!
       @guest = Guest.new
@@ -25,7 +25,7 @@ describe MasterMunicipalitiesController do
     end
 
     it "creates the Municipality and its database and Super User" do
-      sign_in :admin, @admin
+      sign_in :busme_masters, @admin
       post 'create', :municipality => { :name => "T1", :location => "0.0,0.0" }
       response.should be_redirect
       assert MongoMapper.database.name === @database_name
@@ -58,14 +58,14 @@ describe MasterMunicipalitiesController do
       MongoMapper.database = @database_base
       # Database Cleaner should be taking care of this?
       Municipality.delete_all
-      Admin.delete_all
+      Customer.delete_all
 
       @muni = Municipality.new(:name => "T1", :location => [0.0,0.0])
       @muni.owner = @admin1
-      @admin1 = Admin.new(:email => "test1@test.com", :name => "Test User",
+      @admin1 = Customer.new(:email => "test1@test.com", :name => "Test User",
                          :password => "123345678", :password_confirmation => "123345678")
       @admin1.save!
-      @admin2 = Admin.new(:email => "test2@test.com", :name => "Test User",
+      @admin2 = Customer.new(:email => "test2@test.com", :name => "Test User",
                          :password => "123345678", :password_confirmation => "123345678")
       @admin2.save!
 
@@ -89,7 +89,7 @@ describe MasterMunicipalitiesController do
     end
 
     it "should allow admin index for read" do
-      sign_in :admin, @admin1
+      sign_in :busme_masters, @admin1
       get "index", :purpose => "read"
       response.should be_success
       assert_not_nil assigns[:munis]
@@ -99,7 +99,7 @@ describe MasterMunicipalitiesController do
     end
 
     it "should allow admin limited index for edit" do
-      sign_in :admin, @admin1
+      sign_in :busme_masters, @admin1
       get "index", :purpose => "edit"
       response.should be_success
       assert_not_nil assigns[:munis]
@@ -109,24 +109,24 @@ describe MasterMunicipalitiesController do
     end
 
     it "should allow edit" do
-      sign_in :admin, @admin1
+      sign_in :busme_masters, @admin1
       get "edit", :id => @muni1
       response.should be_success
     end
 
     it "wrong admin should deny edit" do
-      sign_in :admin, @admin2
+      sign_in :busme_masters, @admin2
       lambda { get "edit", :id => @muni1 }.should raise_error(CanCan::AccessDenied)
     end
 
     it "should accept user for udpate"   do
-      sign_in :admin, @admin1
+      sign_in :busme_masters, @admin1
       put "update", :id => @muni1, :municipality => {:name => "T2", :location => "-76.0,43.3"}
       response.should redirect_to(municipality_path(@muni1))
     end
 
     it "should deny update wrong admin" do
-      sign_in :admin, @admin2
+      sign_in :busme_masters, @admin2
       lambda { get "update", :id => @muni1 }.should raise_error(CanCan::AccessDenied)
     end
 

@@ -1,8 +1,10 @@
-class Admin
+class Customer
     include MongoMapper::Document
     plugin MongoMapper::Plugins::IdentityMap
 
     tango_user
+
+    ROLE_SYMBOLS = [:admin, :super ]
 
 #  plugin MongoMapper::Devise
 
@@ -50,10 +52,23 @@ class Admin
   # key :invitation_token, String
 
   key :name, String
+
+  many :masters, :foreign_key => "owner"
+
   validates_presence_of :name
   validates_uniqueness_of :email, :case_sensitive => false
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   attr_accessible :encrypted_password
+
+  def self.search(search)
+    if search
+      words = search.split(" ")
+      search = "("+words.join(")|(")+")"
+      where(:name => /#{search}/)
+    else
+      where()
+    end
+  end
 
   # Some how devise picks up the master_id and thinks its an "enforce"d authentication key.
   # That should be the case for muni_admin, or user, but not admin.
@@ -62,6 +77,7 @@ class Admin
   end
 
     key :role_symbols, Array, :default => []
+  attr_accessible :role_symbols
 
     def add_roles(roles)
       if !roles.is_a? Array
@@ -93,7 +109,7 @@ class Admin
     end
 
     def has_role?(role)
-      roles.include?(role.to_s)
+      roles_list.include?(role.to_s)
     end
 
 end

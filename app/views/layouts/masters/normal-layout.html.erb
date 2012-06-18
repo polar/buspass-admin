@@ -27,7 +27,7 @@
         <nav>
           <ul class="hmenu">
             <% if params[:controller] == "masters" %>
-                <%=  render :partial => "shared/admin_navigation" %>
+                <%=  render :partial => "shared/customer_navigation" %>
               <% else %>
                 <%= render 'shared/muni_admin_navigation' %>
             <% end %>

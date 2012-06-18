@@ -18,6 +18,8 @@
   </script>
   <%= stylesheet_link_tag "webmap" %>
   <%= javascript_include_tag "webmap" %>
+  <%= stylesheet_link_tag "#{controller_path}" %>
+  <%= javascript_include_tag "#{controller_path}" %>
   <%= yield :head %>
 </head>
 <body class="<%= params[:controller] %>">

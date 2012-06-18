@@ -9,6 +9,8 @@
     <meta name="author" content="">
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag    params[:controller], :media => "all" %>
+    <%= javascript_include_tag params[:controller] %>
     <%= csrf_meta_tags %>
   </head>
   <body class="<%= params[:controller] %>">
@@ -16,7 +18,7 @@
       <header>
         <nav>
           <ul class="hmenu">
-            <%= render 'shared/admin_navigation' %>
+            <%= render 'shared/customer_navigation' %>
           </ul>
         </nav>
         <%- flash.each do |name, msg| -%>

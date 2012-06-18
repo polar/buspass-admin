@@ -19,6 +19,10 @@ class MasterTag  < Tag
         @master.timezone
       when "owner"
         @master.owner.name
+      when "active"
+        "<%= render :partial => 'masters/active/show' %>"
+      when "testament"
+        "<%= render :partial => 'masters/testament/show' %>"
       when "page"
         "<%= render :partial => 'masters/show' %>"
       when nil

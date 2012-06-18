@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   layout "application"
 
+  def app_name
+    "Busme"
+  end
+
   def base_database
       @database            = "#Busme-#{Rails.env}"
 

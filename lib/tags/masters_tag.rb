@@ -11,7 +11,16 @@ class MastersTag   < Tag
 
   def content
     setup
-    "<%= render :partial => 'masters/index' %>"
+    case identifier
+      when "page"
+        "<%= render :partial => 'masters/index' %>"
+      when nil
+        "<%= render :partial => 'masters/index' %>"
+      when ""
+        "<%= render :partial => 'masters/index' %>"
+      else
+        "<%= render :partial => 'masters/#{identifier}' %>"
+    end
   end
 
 end

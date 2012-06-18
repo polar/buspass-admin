@@ -1,6 +1,6 @@
 require 'factory_girl'
 
-Factory.define :admin do |u|
+Factory.define :busme_masters do |u|
     u.name 'Test User'
     u.email 'user@test.com'
     u.password 'please'

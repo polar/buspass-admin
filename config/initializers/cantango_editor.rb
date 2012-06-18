@@ -8,7 +8,7 @@ CantangoEditor.configure do |config|
   # If you do not enumerate all permission_types here -
   # those that are unmentioned here will just appear empty, having no permission_groups.
   # default: { :roles => [:admin, :user] }.
-  config.permission_groups_available = { :roles => [:admin, :user], :user_types => [:admin, :muni_admin, :muni_user] }
+  config.permission_groups_available = { :roles => [:busme_masters, :user], :user_types => [:busme_masters, :muni_admin, :muni_user] }
 
   # default: all Models extracted from ActiveRecord's tables list
   config.models_available = [Municipality]

@@ -1,0 +1,12 @@
+<h1>Customers</h1>
+<%= form_tag customers_path, :method => 'get', :id => "customers_search", :class => "form-search" do %>
+    <p>
+      <%= text_field_tag :search, params[:search], :class => "search-query" %>
+      <%= submit_tag "Search", :name => nil, :class => "btn" %>
+      <div id="customer_params">
+        <%= render :partial => "search_params" %>
+      </div>
+    </p>
+<% end %>
+
+<div id="customers"><%= render :partial => "customers" %></div>
