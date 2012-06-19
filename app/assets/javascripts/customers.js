@@ -1,7 +1,7 @@
 //=require_self
 
 $(function () {
-    $("#customers header a, #customers .pagination a").live("click", function () {
+    $("#customers .header a, #customers .pagination a").live("click", function () {
         $.getScript(this.href);
         return false;
     });
@@ -15,10 +15,13 @@ $(function () {
         }
     });
     $("#customers .password-link").live("click", function () {
-        console.log("GETTING PASSWORD for "+this.getAttribute("data-id"));
        $.getScript(this.href);
        var selector ="#password-modal-"+this.getAttribute("data-id");
        $(selector).modal("show");
        return false;
     });
+    $(".modal").live('show', function () {
+            $(".modal .error_explanation").html("");
+        }
+    );
 });
