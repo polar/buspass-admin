@@ -9,8 +9,16 @@ $(function () {
         $.get($("#customers_search").attr("action"), $("#customers_search").serialize(), null, "script");
         return false;
     });
-    $("#customers input[type=checkbox]").live("click", function () {
-        console.log($(this).parents('form'))
-        $(this).parents('form').submit();
+    $("#customers .role_checkbox").live("click", function () {
+        if (!this.disabled) {
+            $(this).parents('form').submit();
+        }
+    });
+    $("#customers .password-link").live("click", function () {
+        console.log("GETTING PASSWORD for "+this.getAttribute("data-id"));
+       $.getScript(this.href);
+       var selector ="#password-modal-"+this.getAttribute("data-id");
+       $(selector).modal("show");
+       return false;
     });
 });

@@ -34,9 +34,9 @@ class MastersController < MastersBaseController
     if customer_signed_in?
       @masters = case params[:purpose]
         when "edit" then
-          Master.editable_by(current_admin)
+          Master.editable_by(current_customer)
         when "read" then
-          Master.readable_by(current_admin)
+          Master.readable_by(current_customer)
         else
           Master.all()
       end
@@ -70,7 +70,7 @@ class MastersController < MastersBaseController
   end
 
   def create
-    puts ("ADMIN #{current_admin}")
+    puts ("ADMIN #{current_customer}")
     authorize!(:create, Master)
 
     location = params[:master][:location]
@@ -80,7 +80,7 @@ class MastersController < MastersBaseController
 
     local_master = nil
       @master       = Master.new(params[:master])
-      @master.owner = current_admin
+      @master.owner = current_customer
 
       # TODO: These dbnames really should be GUIDs, but for Development.
       if Rails.env == "development"
@@ -125,7 +125,7 @@ class MastersController < MastersBaseController
 
       #MuniAdmin.set_database_name(local_masterdb)
 
-      @muni_admin = MuniAdmin.new(current_admin.attributes.slice("encrypted_password", "email", "name"))
+      @muni_admin = MuniAdmin.new(current_customer.attributes.slice("encrypted_password", "email", "name"))
       @muni_admin.master = local_master
       @muni_admin.disable_empty_password_validation() # Keeps from arguing for a non-empty password.
       @muni_admin.add_roles([:super, :planner, :operator])
@@ -194,7 +194,7 @@ class MastersController < MastersBaseController
     if @master == nil
       flash[:error] = "Master Municipality #{params[:id]} doesn't exist"
       error         = true
-    elsif @master.owner != current_admin
+    elsif @master.owner != current_customer
       @master.errors.add_to_base("You do not have permission to update this object")
       flash[:error] = "You do not have permission to update this object"
       error         = true
@@ -230,7 +230,7 @@ class MastersController < MastersBaseController
     if @master == nil
       flash[:error] = "Municipality #{params[:id]} doesn't exist"
       error         = true
-    elsif @master.owner != current_admin
+    elsif @master.owner != current_customer
       @master.errors.add_to_base("You do not have permission to delete this object")
       error = true
     else

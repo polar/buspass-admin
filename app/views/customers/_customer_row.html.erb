@@ -5,11 +5,29 @@
       <div class="span2"><%= link_to customer.email, edit_customer_path(customer) %></div>
       <% for role in @roles do %>
           <div class="span1">
-            <%= check_box_tag "customer[role_symbols][]", role, customer.has_role?(role) %>
+            <%= check_box_tag "customer[role_symbols][]", role, customer.has_role?(role),
+                              :disabled => current_customer == customer || customer_cannot?(:edit, customer),
+                              :class => "role_checkbox" %>
           </div>
       <% end %>
-      <div class="span3"><%= customer.masters.map {|m| link_to m.name, master_path(m) }.join(" ") %></div>
-      <div class="span1"><%= link_to "Reset Password", edit_password_path(customer), :class => "btn" %></div>
-      <div class="span1"><%= button_to 'Destroy', customer, :confirm => 'Are you sure?', :remote => true, :method => :delete, :class => "btn" %></div>
+      <div class="span3"><%= customer.masters.map {|m| link_to m.name, master_path(m) }.join(" ").html_safe %></div>
+      <% if customer_can? :manage, customer %>
+        <div class="span1"><%= link_to "Password", edit_password_path(customer),
+                                       "data-partial" => "passwords/modal",
+                                       "data-id" => customer.id,
+                                       "data-type" => "Customer",
+                                       :class => "password-link btn btn-mini" %></div>
+      <% else %>
+        <div class="span1">&nbsp;</div>
+      <% end %>
+      <% if customer.masters.empty? && customer_can?(:delete, customer) %>
+        <div class="span1"><%= link_to 'Destroy', customer,
+                                       :confirm => 'Are you sure?',
+                                       :remote => true,
+                                       :method => :delete,
+                                       :class => "btn btn-mini" %></div>
+      <% else %>
+        <div class="span1">&nbsp;</div>
+      <% end %>
     </div>
 <% end %>

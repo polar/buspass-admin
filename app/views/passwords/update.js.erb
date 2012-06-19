@@ -1,0 +1,16 @@
+<% if flash[:notice] %>
+    clearFlash();
+    setFlash("notice","<%= escape_javascript(render :text => flash[:notice]) %>");
+    $("#password-modal-<%= resource.id %>").modal("hide");
+    $("#password-modal-<%= resource.id %> .error_explanation").html("");
+<% else %>
+    clearFlash();
+    setFlash("error","<%= escape_javascript(render :text => flash[:error]) %>");
+    $("#password-modal-<%= resource.id %> .error_explanation").html(
+        "<%= escape_javascript(render(:partial => "passwords/error" ,
+                                      :locals => { :resource => resource }).html_safe) %>");
+    $("#password-modal-<%= resource.id %> .error_explanation").show("fast");
+    setTimeout(function() {
+      $("#password-modal-<%= resource.id %> .error_explanation").hide("slow");
+    }, 5000);
+<% end %>

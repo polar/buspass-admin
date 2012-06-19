@@ -1,0 +1,12 @@
+<div class="modal hide fade" id="password-modal-<%= resource.id %>">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Change Password for <%= "#{resource.name} #{resource.email}" %></h3>
+  </div>
+  <div class="modal-body">
+    <%= render :partial => "passwords/form", :locals => { :modal => true, :resource => resource, :resource_name => resource_name } %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+  </div>
+</div>

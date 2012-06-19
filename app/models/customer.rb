@@ -53,7 +53,7 @@ class Customer
 
   key :name, String
 
-  many :masters, :foreign_key => "owner"
+  many :masters, :foreign_key => :owner_id
 
   validates_presence_of :name
   validates_uniqueness_of :email, :case_sensitive => false
@@ -111,6 +111,5 @@ class Customer
     def has_role?(role)
       roles_list.include?(role.to_s)
     end
-
 end
 

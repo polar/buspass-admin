@@ -10,7 +10,6 @@ class Master
   key :location, Array
   key :host, String
   key :hosturl, String
-  key :owner, Customer
   key :muni_owner, MuniAdmin
   key :dbname, String #, :unique => true, :allow_nil => true
   key :slug, String
@@ -18,6 +17,8 @@ class Master
   attr_accessible :name, :slug, :location, :owner, :dbname, :hosturl, :email, :muni_owner
 
   before_validation :ensure_slug, :ensure_lonlat
+
+  belongs_to :owner, :class_name => "Customer"
 
   many :municipalities, :autosave => false, :dependent => :destroy
   one :deployment, :dependent => :destroy

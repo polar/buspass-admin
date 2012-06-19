@@ -1,4 +1,4 @@
-class AdminPermit < CanTango::UserPermit
+class AdminRolePermit < CanTango::RolePermit
   def initialize(ability)
     super
   end
@@ -6,17 +6,14 @@ class AdminPermit < CanTango::UserPermit
   protected
 
   def dynamic_rules
-    can([:edit, :delete], Master) do |muni|
-      muni.owner === user
+    can(:edit, Customer) do |cust|
+      cust != user
     end
   end
 
   def permit_rules
+    can(:manage, Customer)
     can(:create, Master)
-    can(:read, Master)
-    can(:create, Municipality)
-    can(:read, Municipality)
-    can(:read, Network)
   end
 
   module Cached

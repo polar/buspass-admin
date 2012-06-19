@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+  layout "main-layout"
   helper_method :sort_column, :sort_direction
 
   # GET /customers

@@ -8,6 +8,10 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+*= require style
+*= require jquery.jscrollpane
+*= require bootstrap
+*= require jquery.treeview
 *= require_self
 */
 
@@ -19,7 +23,7 @@ header nav ul {
 header nav ul li {
   display: inline;
 }
-#flash_notice, #flash_alert {
+#flash_notice, #flash_alert, #flash_error {
   padding: 5px 8px;
   margin: 10px 0;
 }
@@ -27,7 +31,7 @@ header nav ul li {
   background-color: #CFC;
   border: solid 1px #6C6;
 }
-#flash_alert {
+#flash_alert, #flash_error {
   background-color: #FCC;
   border: solid 1px #C66;
 }

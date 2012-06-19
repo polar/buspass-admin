@@ -1,0 +1,17 @@
+<%= form_for(resource,
+             :as => resource_name,
+             :url => modal ? password_path(resource, :format => :js) : password_path(resource),
+             :remote => modal,
+             :class => "well",
+             :html => { :method => :put }) do |f| %>
+    <div class="error_explanation"></div>
+    <%= f.hidden_field :reset_password_token %>
+
+    <p><%= f.label :password, "New password" %><br />
+      <%= f.password_field :password %></p>
+
+    <p><%= f.label :password_confirmation, "Confirm new password" %><br />
+      <%= f.password_field :password_confirmation %></p>
+
+    <p><%= f.submit "Change my password", :class => "btn" %></p>
+<% end %>
