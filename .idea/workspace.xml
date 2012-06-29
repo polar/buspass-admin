@@ -5,8 +5,8 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SiteMap.dia" afterPath="$PROJECT_DIR$/SiteMap.dia" />
+    <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="Progress">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CustomerLogin.dia" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
@@ -1591,7 +1591,11 @@
       <created>1340971783748</created>
       <updated>1340971783748</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Progress">
+      <created>1340971853096</created>
+      <updated>1340971853096</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
