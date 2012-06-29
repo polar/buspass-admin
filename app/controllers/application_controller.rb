@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include PageUtils
 
   protect_from_forgery
   before_filter :base_database
@@ -11,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   def base_database
       @database            = "#Busme-#{Rails.env}"
+
+      PageUtils.ensure_sites_pages_site
+      PageUtils.ensure_master_admin_site_template
+      PageUtils.ensure_master_main_site_template
 
       @master = Master.find_by_host(request.host)
       #MongoMapper.database = @database

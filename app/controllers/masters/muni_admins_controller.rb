@@ -13,7 +13,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
 
       respond_to do |format|
         format.html # index.html.erb
-        format.json { render json: @muni_admins }
+        format.json { render :json => @muni_admins }
         format.js # render index.js.erb
       end
     end
@@ -28,7 +28,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
       authorize!(:read, @muni_admin)
 
       respond_to do |format|
-        format.json { render json: @muni_admin }
+        format.json { render :json => @muni_admin }
       end
     end
 
@@ -39,7 +39,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
 
       respond_to do |format|
         format.html # new.html.erb
-        format.json { render json: @muni_admin }
+        format.json { render :json => @muni_admin }
       end
     end
 
@@ -50,11 +50,11 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
 
       respond_to do |format|
         if @muni_admin.save
-          format.html { redirect_to @muni_admin, notice: 'Admin was successfully created.' }
-          format.json { render json: @muni_admin, status: :created, location: @muni_admin }
+          format.html { redirect_to @muni_admin, :notice => 'Admin was successfully created.' }
+          format.json { render :json => @muni_admin, :status => :created, :location => @muni_admin }
         else
-          format.html { render action: "new" }
-          format.json { render json: @muni_admin.errors, status: :unprocessable_entity }
+          format.html { render :action => "new" }
+          format.json { render :json => @muni_admin.errors, :status => :unprocessable_entity }
         end
       end
     end
@@ -76,12 +76,12 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
 
       respond_to do |format|
         if @muni_admin.update_attributes(params[:muni_admin])
-          format.html { redirect_to master_muni_admins_path(@master), notice: 'Admin was successfully updated.' }
+          format.html { redirect_to master_muni_admins_path(@master), :notice => 'Admin was successfully updated.' }
           format.json { head :no_content }
           format.js # update.js.erb
         else
-          format.html { render action: "edit" }
-          format.json { render json: @muni_admin.errors, status: :unprocessable_entity }
+          format.html { render :action => "edit" }
+          format.json { render :json => @muni_admin.errors, :status => :unprocessable_entity }
           format.js # update.js.erb
         end
       end

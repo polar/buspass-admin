@@ -9,8 +9,8 @@ class CmsContentController < CmsBaseController
   
   def render_html(status = 200)
     load_cms_page
-    if @cms_page.master_path
-      redirect_to @cms_page.master_path
+    if @cms_page.redirect_path
+      redirect_to @cms_page.redirect_path
     end
   end
 
@@ -32,8 +32,8 @@ class CmsContentController < CmsBaseController
 protected
   
   def load_cms_site
-    @cms_site ||= if params[:site_id]
-      Cms::Site.find_by_id(params[:site_id])
+    @cms_site ||= if params[:cms_site_id]
+      Cms::Site.find_by_id(params[:cms_site_id])
     else
       host = request.host.downcase
       path = request.fullpath

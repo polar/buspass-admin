@@ -4,6 +4,7 @@ class Cms::Page <
   key :is_protected, Boolean, :default => false
   key :controller, String
   key :master_path, String
+  key :controller_path, String
 
   # Context for pages
   belongs_to :master
@@ -45,5 +46,17 @@ class Cms::Page <
   def vehicle_journey!
     return self.vehicle_journey if self.vehicle_journey
     self.parent.vehicle_journey if self.parent
+  end
+
+  def redirect_path
+    path = self.controller_path
+    if path
+      path = path.gsub(":master_id", obj.id) if obj = master!
+      path = path.gsub(":municipality_id", obj.id) if obj = municipality!
+      path = path.gsub(":network_id", obj.id) if obj = network!
+      path = path.gsub(":route_id", obj.id) if obj = route!
+      path = path.gsub(":service_id", obj.id) if obj = service!
+      path = path.gsub(":vehicle_journey_id", obj.id) if obj = vehicle_journey!
+    end
   end
 end
