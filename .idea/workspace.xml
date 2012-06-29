@@ -6,90 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.generators" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/buspass.admin.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SiteMap.dia" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/muni_admins.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/muni_admins.css.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/muni_admins_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/helpers/muni_admins_helper.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/layouts/cms_admin/_left.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/layouts/sites-layout.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/main/_main_nav.html.builder" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/_muni_admin_row.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/_muni_admins.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/_password_modal.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/_search_params.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/destroy.js.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/index.js.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/update.js.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/muni/muni_admins/index.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.builder" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_form_edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_form_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_index.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_link_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_links.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_main_nav.html.builder" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_show.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_sites_nav.html.builder" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_table_index.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/_table_info.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/index.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sites/show.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/initializers/will_paginate.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/master_deployment_template_pages.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/sites_pages.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/site_tag.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/destroy_confirm.html.erb" afterPath="$PROJECT_DIR$/app/views/muni/muni_admins/destroy_confirm.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/muni/muni_admins/edit.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/new.html.erb" afterPath="$PROJECT_DIR$/app/views/muni/muni_admins/new.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/show.html.erb" afterPath="$PROJECT_DIR$/app/views/muni/muni_admins/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/customers.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/customers.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/cms_admin/base_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/cms_admin/base_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/cms_admin/sites_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/cms_admin/sites_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/cms_content_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/cms_content_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/customers_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/customers_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/mydevise/registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/mydevise/registrations_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/mydevise/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/mydevise/sessions_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/passwords_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/passwords_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/muni_admin.rb" afterPath="$PROJECT_DIR$/app/models/muni_admin.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/municipality.rb" afterPath="$PROJECT_DIR$/app/models/municipality.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/network.rb" afterPath="$PROJECT_DIR$/app/models/network.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/cms_admin/pages/_index_branch.html.erb" afterPath="$PROJECT_DIR$/app/views/cms_admin/pages/_index_branch.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/cms_admin/sites/index.html.erb" afterPath="$PROJECT_DIR$/app/views/cms_admin/sites/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/cms_content/render_html.html.erb" afterPath="$PROJECT_DIR$/app/views/cms_content/render_html.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/_customer_row.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/_customer_row.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/_customers.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/_customers.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_admin_nav.html.builder" afterPath="$PROJECT_DIR$/app/views/masters/_admin_nav.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_networks.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_table_networks.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/passwords/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/passwords/_form.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/page_utils.rb" afterPath="$PROJECT_DIR$/lib/page_utils.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SiteMap.dia" afterPath="$PROJECT_DIR$/SiteMap.dia" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress">
@@ -1669,7 +1587,11 @@
       <created>1340971649262</created>
       <updated>1340971649262</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Progress">
+      <created>1340971783748</created>
+      <updated>1340971783748</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
