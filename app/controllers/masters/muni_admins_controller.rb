@@ -1,66 +1,90 @@
 class Masters::MuniAdminsController < Masters::MasterBaseController
+  layout "masters/normal-layout"
+  helper_method :sort_column, :sort_direction
+
     def index
       authorize!(:read, MuniAdmin)
-      @muni_admins = MuniAdmin.where(:master_id => @master.id).all
+
+      @roles = MuniAdmin::ROLE_SYMBOLS
+      @muni_admins = MuniAdmin.where(:master_id => @master.id)
+                                .search(params[:search])
+                                .order(sort_column => sort_direction)
+                                .paginate(:page => params[:page], :per_page => 4)
+
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @muni_admins }
+        format.js # render index.js.erb
+      end
     end
 
     def edit
-      @muni_admin = MuniAdmin.where(:master_id => @master.id, :id => params[:id]).first
+      @muni_admin = MuniAdmin.find(params[:id])
       authorize!(:edit, @muni_admin)
     end
 
     def show
-      @muni_admin = MuniAdmin.where(:master_id => @master.id, :id => params[:id]).first
+      @muni_admin = MuniAdmin.find(params[:id])
       authorize!(:read, @muni_admin)
-      @municipalities = Municipality.where(:master_id => @master.id, :owner_id => @muni_admin.id).all
+
+      respond_to do |format|
+        format.json { render json: @muni_admin }
+      end
     end
 
     def new
       authorize!(:create, MuniAdmin)
       @muni_admin = MuniAdmin.new()
+      @muni_admin.master = @master
+
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @muni_admin }
+      end
     end
 
     def create
       authorize!(:create, MuniAdmin)
-      params[:muni_admin][:master_id] = @master.id
-
-      params[:muni_admin][:role_symbols] = params[:muni_admin][:roles].select {|x| @muni_admin.possible_roles.include?(x)}
       @muni_admin = MuniAdmin.new(params[:muni_admin])
+      @muni_admin.master = @master
 
-      if @muni_admin.save
-        redirect_to :index, :master_id => @master.id
-      else
-        render :new
+      respond_to do |format|
+        if @muni_admin.save
+          format.html { redirect_to @muni_admin, notice: 'Admin was successfully created.' }
+          format.json { render json: @muni_admin, status: :created, location: @muni_admin }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @muni_admin.errors, status: :unprocessable_entity }
+        end
       end
-
     end
 
     def update
       attrs = params[:muni_admin]
       @muni_admin = MuniAdmin.find(params[:id])
-      if !@muni_admin
+      if !@muni_admin || @muni_admin.master != @master
         raise "Not Found"
       end
       authorize!(:edit, @muni_admin)
 
-      if attrs[:password].empty?
-        attrs.reject! {|k| [:password, :password_confirmation].include?(k) }
-        @muni_admin.disable_empty_password_validation
+      @roles = MuniAdmin::ROLE_SYMBOLS
+
+      if current_muni_admin == @muni_admin
+        # We don't want you to alter your own roles.
+        params[:muni_admin][:role_symbols] = @muni_admin.role_symbols
       end
 
-      attrs[:role_symbols] = attrs[:roles].select {|x| @muni_admin.possible_roles.include?(x)}
-      if @muni_admin == current_muni_admin && !attrs[:role_symbols].include?("super")
-        @muni_admin.errors[:base] << "You have the role of Super. You cannot remove that role from yourself."
-        error = true;
+      respond_to do |format|
+        if @muni_admin.update_attributes(params[:muni_admin])
+          format.html { redirect_to master_muni_admins_path(@master), notice: 'Admin was successfully updated.' }
+          format.json { head :no_content }
+          format.js # update.js.erb
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @muni_admin.errors, status: :unprocessable_entity }
+          format.js # update.js.erb
+        end
       end
-      error = error || !@muni_admin.update_attributes(params[:muni_admin])
-      if error
-        render :edit
-      else
-        @muni_admin.save
-        redirect_to master_muni_admin_path(@muni_admin, :master_id => @master)
-      end
-
     end
 
     def destroy_confirm
@@ -69,9 +93,9 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
       if @muni_admin
         @masters = Master.where(:owner_id => @muni_admin.id).all
         @municipalities = Municipality.where(:owner_id => @muni_admin.id).all
-        if @masters.empty? && @municipalities.empty?
+        if @muni_admin.municipalities.empty?
           @muni_admin.destroy
-          redirect_to master_muni_admin_path(:master_id => @master.id)
+          redirect_to master_muni_admins_path(@master)
         else
         end
       else
@@ -82,14 +106,22 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     def destroy
       @muni_admin = MuniAdmin.find(params[:id])
       authorize!(:delete, @muni_admin)
-      if @muni_admin
-        @masters = Master.where(:owner_id => @muni_admin.id).all
-        @municipalities = Municipality.where(:owner_id => @muni_admin.id).all
+      @muni_admin.destroy
 
-        @masters.each {|x| x.owner = current_muni_admin; x.save }
-        @municipalities.each {|x| x.owner = current_muni_admin; x.save }
-        @muni_admin.destroy
+      respond_to do |format|
+        format.html { redirect_to master_muni_admins_path(@master) }
+        format.json { head :no_content }
+        format.js # destroy.htm.erb
       end
-      redirect_to master_muni_admin_path(:master_id => @master.id)
+    end
+
+    private
+
+    def sort_column
+      MuniAdmin.keys.keys.include?(params[:sort]) ? params[:sort] : "name"
+    end
+
+    def sort_direction
+      [1, -1].include?(params[:direction].to_i) ? params[:direction].to_i : -1
     end
 end

@@ -1,6 +1,6 @@
 <% 
   page        ||= index_branch 
-  has_children  = page.children.present?
+  has_children  = page.children.all.present?
   has_siblings  = page.siblings.present?
   branch_open   = (session[:cms_page_tree] || []).member?(page.id.to_s) || page.root?
   category_view = params[:category].present?

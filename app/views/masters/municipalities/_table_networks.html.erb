@@ -25,7 +25,7 @@
             <td><%= link_to("Explore", master_municipality_network_path(@master, @municipality, n), :class=>"btn") if muni_admin_can?(:edit, n)%></td>
             <td><%= link_to("Edit", edit_master_municipality_network_path(@master, @municipality, n), :class=>"btn") if muni_admin_can?(:edit, n) %></td>
             <td><%= link_to("Plan", master_municipality_network_plan_path(@master, @municipality, n), :class=>"btn") if muni_admin_can?(:edit, n) %></td>
-            <td><%= link_to "Copy to Deployment", move_master_municipality_network_path(@master, @municipality, n), :method => :post, :class=>"btn" %></td>
+            <td><%= link_to "Copy to Deployment", move_master_municipality_network_path(@master, @municipality, n), :class=>"btn" %></td>
             <td><%= link_to("Delete", master_municipality_network_path(@master, @municipality, n), :class=>"btn", :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, n) %></td>
           </tr>
       <% end %>

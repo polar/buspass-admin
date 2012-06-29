@@ -13,7 +13,8 @@ class CmsAdmin::BaseController  < CmsBaseController
   end
 
   def setup
-    @master = Master.find(params[:master_id]) if params[:master_id]
+    @master = Master.find_by_slug(params[:master_id]) if params[:master_id]
+    @master ||= Master.find(params[:master_id]) if params[:master_id]
     @municipality = Municipality.find(params[:municipality_id]) if params[:municipality_id]
     @network = Network.find(params[:network_id]) if params[:network_id]
     @route = Route.find(params[:route_id]) if params[:route_id]

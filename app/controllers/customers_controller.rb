@@ -2,11 +2,9 @@ class CustomersController < ApplicationController
   layout "main-layout"
   helper_method :sort_column, :sort_direction
 
-  # GET /customers
-  # GET /customers.json
   def index
     @roles = Customer::ROLE_SYMBOLS
-    @customers = Customer.search(params[:search]).order(sort_column => sort_direction).paginate(:page => params[:page], :per_page => 10)
+    @customers = Customer.search(params[:search]).order(sort_column => sort_direction).paginate(:page => params[:page], :per_page => 4)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +13,6 @@ class CustomersController < ApplicationController
     end
   end
 
-  # GET /customers/1
-  # GET /customers/1.json
   def show
     @customer = Customer.find(params[:id])
 
@@ -26,8 +22,6 @@ class CustomersController < ApplicationController
     end
   end
 
-  # GET /customers/new
-  # GET /customers/new.json
   def new
     @customer = Customer.new
 
@@ -37,13 +31,10 @@ class CustomersController < ApplicationController
     end
   end
 
-  # GET /customers/1/edit
   def edit
     @customer = Customer.find(params[:id])
   end
 
-  # POST /customers
-  # POST /customers.json
   def create
     @customer = Customer.new(params[:customer])
 
@@ -58,8 +49,6 @@ class CustomersController < ApplicationController
     end
   end
 
-  # PUT /customers/1
-  # PUT /customers/1.json
   def update
     @roles = Customer::ROLE_SYMBOLS
     @customer = Customer.find(params[:id])
@@ -82,8 +71,6 @@ class CustomersController < ApplicationController
     end
   end
 
-  # DELETE /customers/1
-  # DELETE /customers/1.json
   def destroy
     @customer = Customer.find(params[:id])
     @customer.destroy

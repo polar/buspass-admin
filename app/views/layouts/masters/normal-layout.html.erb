@@ -9,6 +9,8 @@
   <meta name="author" content="">
   <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
   <%= javascript_include_tag "normal-layout", :debug => true  %>
+  <%= stylesheet_link_tag    params[:controller], :media => "all" %>
+  <%= javascript_include_tag params[:controller] %>
   <%= csrf_meta_tags %>
   <%=  yield :head %>
   <script type="text/javascript">
@@ -26,11 +28,7 @@
       <header>
         <nav>
           <ul class="hmenu">
-            <% if params[:controller] == "masters" %>
-                <%=  render :partial => "shared/customer_navigation" %>
-              <% else %>
-                <%= render 'shared/muni_admin_navigation' %>
-            <% end %>
+            <%= render 'shared/muni_admin_navigation' %>
           </ul>
           <div id="application-header">Busme <%= @master ? @master.name : "US" %></div>
         </nav>
@@ -47,6 +45,16 @@
     <div class="ui-layout-center">
       <%= yield %>
     </div>
+    <%
+       # Twitter Bootstrap and Layout Center do not play well together
+       # Twitter needs modals within "container" class outside of the "ui-layout-center". %>
+    <div id="container"  class="container">
+      <%= yield :modals %>
+      <div id="modals" >
+      </div>
+    </div>
+    <div class="ui-layout-south">South</div>
+    <div id="modals"></div>
     <div class="ui-layout-south">South</div>
 </body>
 </html>

@@ -7,7 +7,9 @@ class Network
   key :description, String
   key :mode,        String # :planning, :testing, :retired, :actives
   key :file_path,   String
-  key :slug,        String, :required => true, :unique => { :scope => [ :master_id, :municipality_id] }
+  key :slug,        String, :required => true
+
+  validates_uniqueness_of :slug, :scope => [ :master_id, :municipality_id]
 
   key :processing_lock,     MuniAdmin, :default => nil
   key :processing_progress, Float, :default => 0.0

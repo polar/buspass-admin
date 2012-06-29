@@ -38,6 +38,7 @@ gem "comfortable_mexican_sofa",  :path => "/home/polar/src/comfortable-mexican-s
 gem 'cantango_editor', :git => "git://github.com/stanislaw/cantango_editor.git"
 gem 'meta_search', '>=1.1.0.pre'
 gem "will_paginate"
+gem 'will_paginate-bootstrap'
 
 group :development do
   gem 'linecache19', "0.5.13"

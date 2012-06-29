@@ -1,0 +1,10 @@
+<table>
+  <tbody>
+      <% @masters.each do |master| %>
+          <tr>
+            <td>Municipality:</td>
+            <td><%= link_to master.name, site_path(master) %></td>
+          </tr>
+      <% end %>
+  </tbody>
+</table>

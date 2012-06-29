@@ -13,7 +13,7 @@ class Municipality
     key :name, String
     key :mode, String
     key :status, String
-    key :slug, String, :required => true, :unique => { :scope => :master_id }
+    key :slug, String, :required => true #, :unique => { :scope => [:master_id] }
     key :location, Array
     key :hosturl, String
     belongs_to :owner, :class_name => "MuniAdmin"
@@ -28,6 +28,7 @@ class Municipality
     attr_accessible :display_name, :slug, :location, :hosturl, :name, :mode
 
     before_validation :ensure_slug, :ensure_lonlat
+    validates_uniqueness_of :slug, :scope => [:master_id]
     many :networks, :autosave => false, :dependent => :destroy
 
     one :deployment
@@ -72,7 +73,7 @@ class Municipality
         if self.slug == nil
             self.slug = self.name.to_url()
             tries     = 0
-            while tries < SLUG_TRIES && Municipality.find(:slug => self.slug) != nil
+            while tries < SLUG_TRIES && Municipality.where(:master_id => master.id, :slug => self.slug).first != nil
                 self.slug = name.to_url() + "-" + (Random.rand*1000).floor
             end
             if tries == SLUG_TRIES

@@ -58,6 +58,11 @@ class MuniAdmin
 
     key :name, String
     # Array of String
+
+    many :municipalities, :foreign_key => "owner_id"
+
+    ROLE_SYMBOLS = [:operator, :planner, :super ]
+
     key :role_symbols, Array, :default => []
 
     validates_presence_of :name
@@ -95,6 +100,16 @@ class MuniAdmin
         super
         # This little hack allows us to assign encrypted_password while making a new
         # User.non-empty
+    end
+
+    def self.search(search)
+      if search
+        words = search.split(" ")
+        search = "("+words.join(")|(")+")"
+        where(:name => /#{search}/)
+      else
+        where()
+      end
     end
 
     def possible_roles

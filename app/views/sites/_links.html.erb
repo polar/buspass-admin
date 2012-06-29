@@ -1,0 +1,11 @@
+
+<% if customer_can?(:edit, @master)  %>
+    <p>
+      <%= link_to("Edit Information", edit_master_path(@master), :class => "btn") %>
+    </p>
+<% end %>
+<% if customer_can?(:index, Master)  %>
+<p>
+  <%= link_to "All Municipalities", sites_path(), :class => "btn" %>
+</p>
+<% end %>

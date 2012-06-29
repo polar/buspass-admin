@@ -1,5 +1,5 @@
 class CmsContentController < CmsBaseController
-
+  layout "empty"
   helper ComfortableMexicanSofa.config.preview_helpers
 
   # Authentication module must have #authenticate method
@@ -63,7 +63,7 @@ protected
       I18n.locale = @cms_site.locale
     else
       I18n.locale = I18n.default_locale
-      raise ActionController::RoutingError.new('Site Not Found')
+      @cms_site = Cms::Site.find_site("localhost", "/busme-front")
     end
   end
   

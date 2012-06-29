@@ -4,13 +4,22 @@ class PasswordsController < ApplicationController
 
   attr_accessor :resource
   attr_accessor :resource_name
-
+  attr_accessor :resources_path
 
   def load_resource
     self.resource = Customer.find(params[:id])
-    self.resource ||= MuniAdmin.find(params[:id])
-    self.resource ||= User.find(params[:id])
-    self.resource_name = resource.class.name.underscore
+    self.resource_name = "customer"
+    self.resources_path = customers_path
+    if !self.resource
+       self.resource = MuniAdmin.find(params[:id])
+       self.resource_name = "muni_admin"
+       self.resources_path = master_muni_admins_path(self.resource.master)
+    end
+    if !self.resource
+      self.resource = User.find(params[:id])
+      self.resource_name = "user"
+      self.resources_path = master_users_path(self.resource.master)
+    end
   end
 
   def edit
@@ -27,7 +36,7 @@ class PasswordsController < ApplicationController
     if resource.update_attributes(params[resource_name])
       flash[:notice] = "Password Updated."
       respond_to do |format|
-        format.html { redirect_to customers_path }
+        format.html { redirect_to self.resources_path }
         format.js # update.js.erb
       end
     else
@@ -45,7 +54,7 @@ class PasswordsController < ApplicationController
 
     if resource.update_without_password(params[resource_name])
       flash[:notice] = "Password Updated."
-      redirect_to customers_path
+      redirect_to self.resources_path
     else
       flash[:notice] = "Password not updated."
       render :edit

@@ -26,6 +26,8 @@ BuspassAdmin::Application.routes.draw do
   resources :muni_admins, :controller => "masters/muni_admins"
   resources :users, :controller => "deployments/users"
 
+  resources :sites
+
   resources :deployments, :only => :show do
     member do
       get :api
@@ -289,10 +291,12 @@ BuspassAdmin::Application.routes.draw do
     post :export
   end
 
-  # Root is only for the Cantango Editor at this point, which we probably will not use.
-  root :to => "masters/active#sshow"
+  root :to =>  "cms_content#render_html", :constraints => { :host => "busme.us" }
+  root :to =>  "cms_content#render_html", :constraints => { :host => "localhost" }
+  root :to => "masters/active#show"
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"
+  match "/:master_id/cms-admin" => "cms_admin/sites#index"
   mount ComfortableMexicanSofa::Engine => "/", :as => :cms
   match "/(*cms_path)/sitemap" => "cms_content#render_sitemap"
   match "/(*cms_path)" => "cms_content#render_html"

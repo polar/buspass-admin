@@ -1,0 +1,27 @@
+
+<div  class="pretty">
+  <div class="row-fluid header">
+    <div class="span2 header"><%= sortable "name", "Name" %></div>
+    <div class="span2 header"><%= sortable "email" %></div>
+    <div class="span<%=@roles.length%> header"><%= "Roles" %></div>
+    <div class="span2 header">Deployments</div>
+    <div class="span3 header"><%= "Operations" %></div>
+  </div>
+  <div class="row-fluid header">
+    <div class="span2 header">&nbsp;</div>
+    <div class="span2 header">&nbsp;</div>
+    <% for role in @roles do %>
+        <div class="span1 header"><%= role.to_s.titleize %></div>
+    <% end %>
+  </div>
+
+  <% odd = true %>
+  <% @muni_admins.each do |muni_admin| %>
+     <%= render :partial => "muni_admin_row", :locals => { :muni_admin => muni_admin, :alt => (odd = !odd) } %>
+  <% end %>
+</div>
+<%= will_paginate @muni_admins, :renderer => BootstrapPagination::Rails %>
+
+<% @muni_admins.each do |muni_admin| %>
+    <%= render "password_modal", :muni_admin => muni_admin %>
+<% end %>

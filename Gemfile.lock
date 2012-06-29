@@ -299,6 +299,8 @@ GEM
     warden (1.1.1)
       rack (>= 1.0)
     will_paginate (3.0.3)
+    will_paginate-bootstrap (0.2.1)
+      will_paginate (>= 3.0.3)
     workless (1.0.1)
       delayed_job (>= 2.0.7)
       heroku
@@ -347,5 +349,6 @@ DEPENDENCIES
   stringex
   uglifier (>= 1.2.3)
   will_paginate
+  will_paginate-bootstrap
   workless
   zipruby

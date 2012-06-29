@@ -17,10 +17,10 @@
 
   <% odd = true %>
   <% @customers.each do |customer| %>
-     <%= render :partial => "customer_row", :locals => { :customer => customer, :odd => (odd = !odd) } %>
+     <%= render :partial => "customer_row", :locals => { :customer => customer, :alt => (odd = !odd) } %>
   <% end %>
 </div>
-<%= will_paginate @customers %>
+<%= will_paginate @customers, :renderer => BootstrapPagination::Rails %>
 
 <% @customers.each do |customer| %>
     <%= render "password_modal", :customer => customer %>

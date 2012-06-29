@@ -14,7 +14,12 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   end
 
   def new
-    render
+    if @master
+      flash[:error] = "Cannot create new site"
+      redirect_to cms_admin_sites_path(:master_id => @master.id)
+    else
+      render
+    end
   end
 
   def edit

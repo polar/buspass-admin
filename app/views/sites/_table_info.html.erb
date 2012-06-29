@@ -1,0 +1,21 @@
+
+<table class="table table-bordered">
+  <tbody>
+  <tr>
+    <th>Name</th>
+    <td><%= @master.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@master.location) %></td>
+  </tr>
+  <tr>
+    <th>Time Zone</th>
+    <td><%= @master.time_zone %></td>
+  </tr>
+  <tr>
+    <th>Owner</th>
+    <td><%= @master.owner.name if !@master.owner.nil? %></td>
+  </tr>
+  </tbody>
+</table>

@@ -1,6 +1,6 @@
 
 <%= form_for customer, :remote => true do |form| %>
-    <div <%= "class= 'row-fluid #{odd ? "odd" : ""}'" %> >
+    <div <%= "class= 'row-fluid #{alt ? "alt" : ""}'" %> >
       <div class="span2"><%= link_to customer.name, edit_customer_path(customer) %></div>
       <div class="span2"><%= link_to customer.email, edit_customer_path(customer) %></div>
       <% for role in @roles do %>

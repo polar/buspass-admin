@@ -1,54 +1,52 @@
 module PageUtils
 
-  def ensure_main_admin_site
-    site = Cms::Site.find_by_identifier("busme-main")
+  #
+  # This method creates the main template site. This is the site
+  # that will be copied to for the Administration Pages of a new Master.
+  #
+  def ensure_admin_site_template
+    site = Cms::Site.find_by_identifier("busme-admin-template")
 
     if site.nil?
       site = Cms::Site.create!(
-          :path       => "busme-main",
-          :identifier => "busme-main",
-          :label      => "Main Administration Pages",
+          :path       => "busme-admin-template",
+          :identifier => "busme-admin-template",
+          :label      => "Master Administration Pages Template",
           :hostname   => "busme.us"
       )
 
       layout = site.layouts.create!(
           :identifier => "default",
           :app_layout => "application",
-          :content    => "{{ cms:page:content }}")
+          :content    => "{{ cms:page:content:rich_text }}")
 
-      normal = site.layouts.create!(
-          :identifier => "normal-layout",
+      normal_layout = site.layouts.create!(
+          :identifier => "master-normal-layout",
           :app_layout => "masters/normal-layout",
-          :content    => "{{ cms:page:content }}")
+          :content    => "{{ cms:page:content:rich_text }}")
 
       map_layout = site.layouts.create!(
-          :identifier => "map-layout",
+          :identifier => "master-map-layout",
           :app_layout => "masters/map-layout",
-          :content    => "{{ cms:page:content }}")
+          :content    => "{{ cms:page:content:rich_text }}")
 
       root = site.pages.create!(
-          :slug              => site.identifier,
-          :label             => "Master Municipalities",
-          :layout            => layout,
+          :slug              => "top",
+          :label             => "Front Administration Page",
+          :layout            => normal_layout,
           :is_protected      => true,
           :blocks_attributes => [{
                                      :identifier => "content",
-                                     :content    => "{{ cms:bus:masters }}"
-                                 }])
-      newp = site.pages.create!(
-          :slug              => "new",
-          :label             => "New Master Municipality",
-          :layout            => layout,
-          :parent            => root,
-          :is_protected      => true,
-          :blocks_attributes => [{
-                                     :identifier => "content",
-                                     :content    => "{{ cms:bus:master:new }}"
-                                 }])
-      seed_main_admin_templates(site, normal, root)
+                                     :content    => "Welcome to Busme Site Administration for your municipality. Please follow links on left."
+                                 },
+                                 {
+                                     :identifier => "left",
+                                     :content    => "{{ cms:bus:navigation:main }}"
+                                 }
+                                 ])
+
+      seed_main_admin_templates(site, normal_layout, map_layout, root)
       create_edit_info_page(site)
-      create_active_deployment_page(site)
-      create_active_testament_page(site)
       create_new_deployment_page(site)
       create_active_deployment_page(site)
       create_active_testament_page(site)
@@ -57,8 +55,58 @@ module PageUtils
     return site
   end
 
-  # Called from Controller creating Master.
+  #
+  # This method creates the master's main site template. This is the site
+  # that will be copied to for the Main Pages of a new Master. It gets done
+  # once. If you change and save as fixtures, it should be reloaded from there.
+  #
+  def ensure_main_site_template
+    site = Cms::Site.find_by_identifier("busme-main-template")
+
+    if site.nil?
+      site = Cms::Site.create!(
+          :path       => "busme-main-template",
+          :identifier => "busme-main-template",
+          :label      => "Master Main Pages Template",
+          :hostname   => "busme.us"
+      )
+
+      layout = site.layouts.create!(
+          :identifier => "default",
+          :app_layout => "application",
+          :content    => "{{ cms:page:content:rich_text }}")
+
+      normal_layout = site.layouts.create!(
+          :identifier => "master-normal-layout",
+          :app_layout => "masters/normal-layout",
+          :content    => "{{ cms:page:content:rich_text }}")
+
+      map_layout = site.layouts.create!(
+          :identifier => "master-map-layout",
+          :app_layout => "masters/map-layout",
+          :content    => "{{ cms:page:content:rich_text }}")
+
+      root = site.pages.create!(
+          :slug              => "front-page",
+          :label             => "Front Main Page",
+          :layout            => map_layout,
+          :is_protected      => true,
+          :blocks_attributes => [{
+                                     :identifier => "content",
+                                     :content    => "{{ cms:bus:active-deployment }}"
+                                 }])
+    end
+    return site
+  end
+
+  #
+  # This method is called from the Controller that creates the Master.
+  # It creates the master's administration pages, by copying the "busme-template" site
+  # elements and configuring them appropriately.
+  #
   def create_master_admin_site(master)
+
+    from_site = Cms::Site.find_by_identifier("busme-admin-template")
 
     site = master.admin_site = Cms::Site.create!(
         :path       => "admin",
@@ -68,7 +116,7 @@ module PageUtils
         :master     => master,
     )
 
-    seed_master_admin_layouts(site)
+    copy_layouts(site, from_site)
 
     layout = site.layouts.find_by_identifier("normal-layout")
 
@@ -84,7 +132,7 @@ module PageUtils
                                    :content    => "{{ cms:bus:master }}"
                                }])
 
-    seed_master_admin_pages_snippets(site)
+    seed_master_admin_pages_snippets(site, from_site)
     return site
   rescue => boom
     Rails.logger.detailed_error(boom)
@@ -95,6 +143,8 @@ module PageUtils
   # Called from Controller creating Master.
   def create_master_main_site(master)
 
+    from_site = Cms::Site.find_by_identifier("busme-main-template")
+
     site = master.main_site = Cms::Site.create!(
         :path       => "",
         :identifier => "#{master.slug}-main",
@@ -103,29 +153,9 @@ module PageUtils
         :master     => master,
     )
 
-    seed_master_admin_layouts(site)
+    copy_layouts(site, from_site)
 
-    layout = site.layouts.find_by_identifier("normal-layout")
-
-    blocks_attributes =  [{
-                              :identifier => "content",
-                              :content    => "{{ cms:bus:active-deployment }}"
-                          }]
-    from_site = Cms::Site.find_by_identifier("busme-main")
-    if from_site && page = from_site.pages.find_by_full_path("active-deployment-template")
-      blocks_attributes = page.blocks_attributes
-    end
-
-    # The master_path for this should be good for any deployment.
-    root = site.pages.create!(
-        :slug              => "main",
-        :label             => "#{master.name}",
-        :layout            => layout,
-        :master            => master,
-        :is_protected      => true,
-        :master_path       => "/masters/#{master.id}/active",
-        :blocks_attributes => blocks_attributes)
-
+    seed_master_main_pages_snippets(site, from_site)
     return site
   rescue => boom
     Rails.logger.detailed_error(boom)
@@ -133,100 +163,71 @@ module PageUtils
     raise boom
   end
 
-  def seed_main_admin_templates(site, layout, root)
-    create_admin_templates(site, layout, root)
-  end
+  # Site must have master assigned.
+  def seed_master_admin_pages_snippets(site, from_site)
 
-  def seed_master_admin_layouts(site)
-    from_site = Cms::Site.find_by_identifier("busme-main")
-    from_site.layouts.roots.all.each do |layout|
-      copy_layout(site, nil, layout)
+    master = site.master
+    root   = site.pages.root
+
+    # The master_path attribute tells cms_content/render_html to redirect through
+    # the specified controller, which will then render the content of the page after
+    # setting Controller/View instance variables.
+
+    from_site.pages.order(:position).all each do |page|
+      new_page = copy_page(site, root, page)
+      new_page.master = master
+      case page.fullpath
+        when "/deployment-template"
+          # master_paths not needed.
+          # They will be assigned on deployment creation when copied.
+        when "/edit"
+          new_page.master_path = "/masters/#{master.id}/edit"
+        when "/new-deployment"
+          new_page.master_path = "/masters/#{master.id}/municipalities/new"
+        when "/active-deployment"
+          new_page.master_path = "/masters/#{master.id}/active"
+        when "/active-testament"
+          new_page.master_path = "/masters/#{master.id}/testament"
+        when "/deployments"
+          new_page.master_path = "/masters/#{master.id}/municipalities"
+      end
+      new_page.save!
+    end
+
+    from_site.snippets.order(:position).all.each do |snippet|
+      new_snippet = copy_snippet(site, snippet)
+      new_snippet.master = site.master
+      new_snippet.save!
     end
   end
 
   # Site must have master assigned.
-  def seed_master_admin_pages_snippets(site)
-    from_site = Cms::Site.find_by_identifier("busme-main")
+  def seed_master_main_pages_snippets(site, from_site)
+    master = site.master
+    root   = site.pages.root
 
-    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployment-template"))
-
-    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/edit"))
-    page.master_path = "/masters/#{site.master.id}/edit"
-    page.save!
-
-    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/new-deployment"))
-    page.master_path = "/masters/#{site.master.id}/municipalities/new"
-    page.save!
-
-    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/active-deployment"))
-    page.master_path = "/masters/#{site.master.id}/active"
-    page.save!
-
-    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/active-testament"))
-    page.master_path = "/masters/#{site.master.id}/testament"
-    page.save!
-
-    page = copy_page(site, site.pages.root, from_site.pages.find_by_full_path("/deployments"), false)
-    page.master_path = "/masters/#{site.master.id}/municipalities"
-    page.save!
-
-    from_site.snippets.order(:position).each do |snippet|
-      copy_snippet(site, snippet)
-    end
-  end
-
-  def copy_page(site, parent, page, recursive = true)
-    newp = site.pages.create!(
-        :slug              => page.slug,
-        :label             => page.label,
-        :layout            => page.layout ? site.layouts.find_by_identifier(page.layout.identifier) : nil,
-        :parent            => parent,
-        :master            => site.master,
-        :target_page       => page.target_page,
-        :is_published      => page.is_published,
-        :is_protected      => page.is_protected,
-        :blocks_attributes => page.blocks_attributes
-    )
-    if recursive
-      page.children.order(:position).each do |ch|
-        copy_page(site, newp, ch)
+    from_site.pages.order(:position).all each do |page|
+      new_page = copy_page(site, root, page)
+      new_page.master = master
+      case new_page.fullpath
+        when "/active-deployment"
+          new_page.master_path = "/masters/#{master.id}/active"
       end
+      new_page.save!
     end
-    return newp
-  end
 
-  def copy_layout(site, parent, layout, recursive = true)
-    newl = site.layouts.create!(
-        :identifier        => layout.identifier,
-        :label             => layout.label,
-        :app_layout        => layout.app_layout,
-        :parent            => parent,
-        :master            => site.master,
-        :content           => layout.content,
-        :css               => layout.css,
-        :js                => layout.js
-    )
-    if recursive
-      layout.children.order(:position).each do |ch|
-        copy_layout(site, newl, ch)
-      end
+    from_site.snippets.order(:position).all.each do |snippet|
+      new_snippet = copy_snippet(site, snippet)
+      new_snippet.master = site.master
+      new_snippet.save!
     end
   end
 
-  def copy_snippet(site, snippet)
-    news = site.snippets.create!(
-        :label => snippet.label,
-        :identifier => snippet.identifier,
-        :is_shared => snippet.is_shared,
-        :content => snippet.content
-    )
-  end
-
-  def create_admin_templates(site, layout, root)
+  def create_admin_templates(site, normal_layout, map_layout, root)
     active_deployment_template = site.pages.create!(
         :slug              => "active-deployment-template",
         :label             => "Active Deployment Template",
-        :layout            => layout,
+        :layout            => map_layout,
         :parent            => root,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -237,7 +238,7 @@ module PageUtils
     deployment_template = site.pages.create!(
         :slug              => "deployment-template",
         :label             => "Deployment Template",
-        :layout            => layout,
+        :layout            => map_layout,
         :parent            => root,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -248,7 +249,7 @@ module PageUtils
     new_network_template = site.pages.create!(
         :slug              => "new-network-template",
         :label             => "New Network Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => deployment_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -259,7 +260,7 @@ module PageUtils
     networks_template = site.pages.create!(
         :slug              => "networks-template",
         :label             => "Networks Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => deployment_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -270,7 +271,7 @@ module PageUtils
     network_template = site.pages.create!(
         :slug              => "network-template",
         :label             => "Network Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => networks_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -281,7 +282,7 @@ module PageUtils
     edit_network_template = site.pages.create!(
         :slug              => "edit-template",
         :label             => "Edit Network Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => network_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -292,7 +293,7 @@ module PageUtils
     move_network_template = site.pages.create!(
         :slug              => "move-template",
         :label             => "Move Network Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => network_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -303,7 +304,7 @@ module PageUtils
     routes_template = site.pages.create!(
         :slug              => "routes-template",
         :label             => "Network Routes Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => network_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -314,7 +315,7 @@ module PageUtils
     route_template = site.pages.create!(
         :slug              => "route-template",
         :label             => "Network Route Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => routes_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -325,7 +326,7 @@ module PageUtils
     map_route_template = site.pages.create!(
         :slug              => "map-template",
         :label             => "Network Route Map Template",
-        :layout            => layout,
+        :layout            => map_layout,
         :parent            => route_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -336,7 +337,7 @@ module PageUtils
     services_template = site.pages.create!(
         :slug              => "services-template",
         :label             => "Network Services Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => network_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -347,7 +348,7 @@ module PageUtils
     service_template = site.pages.create!(
         :slug              => "service-template",
         :label             => "Network Service Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => services_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -358,7 +359,7 @@ module PageUtils
     journeys_template = site.pages.create!(
         :slug              => "journeys-template",
         :label             => "Network Journeys Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => network_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -369,7 +370,7 @@ module PageUtils
     journey_template = site.pages.create!(
         :slug              => "journey-template",
         :label             => "Network Journey Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => journeys_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -380,7 +381,7 @@ module PageUtils
     map_journey_template = site.pages.create!(
         :slug              => "map-template",
         :label             => "Network Journey Map Template",
-        :layout            => layout,
+        :layout            => map_layout,
         :parent            => journey_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -391,7 +392,7 @@ module PageUtils
     plan_network_template = site.pages.create!(
         :slug              => "plan-template",
         :label             => "Network Plan Template",
-        :layout            => layout,
+        :layout            => normal_layout,
         :parent            => network_template,
         :is_protected      => true,
         :blocks_attributes => [{
@@ -428,6 +429,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master            => master,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -453,6 +455,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master            => master,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -478,6 +481,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master            => master,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -503,6 +507,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master            => master,
         :blocks_attributes => blocks_attributes)
   end
 
@@ -529,6 +534,7 @@ module PageUtils
         :layout            => layout,
         :parent            => parent_page,
         :is_protected      => true,
+        :master            => master,
         :master_path       => "/masters/#{site.master.id}",
         :blocks_attributes => blocks_attributes)
   end
@@ -1244,4 +1250,57 @@ module PageUtils
     return page
   end
 
+
+  def copy_page(site, parent, page, recursive = true)
+    newp = site.pages.create!(
+        :slug              => page.slug,
+        :label             => page.label,
+        :layout            => page.layout ? site.layouts.find_by_identifier(page.layout.identifier) : nil,
+        :parent            => parent,
+        :master            => site.master,
+        :target_page       => page.target_page,
+        :is_published      => page.is_published,
+        :is_protected      => page.is_protected,
+        :blocks_attributes => page.blocks_attributes
+    )
+    if recursive
+      page.children.order(:position).all.each do |ch|
+        copy_page(site, newp, ch)
+      end
+    end
+    return newp
+  end
+
+  def copy_layouts(to_site, from_site)
+    from_site.layouts.roots.all.each do |layout|
+      copy_layout(to_site, nil, layout)
+    end
+  end
+
+  def copy_layout(site, parent, layout, recursive = true)
+    newl = site.layouts.create!(
+        :identifier        => layout.identifier,
+        :label             => layout.label,
+        :app_layout        => layout.app_layout,
+        :parent            => parent,
+        :master            => site.master,
+        :content           => layout.content,
+        :css               => layout.css,
+        :js                => layout.js
+    )
+    if recursive
+      layout.children.order(:position).all.each do |ch|
+        copy_layout(site, newl, ch)
+      end
+    end
+  end
+
+  def copy_snippet(site, snippet)
+    news = site.snippets.create!(
+        :label => snippet.label,
+        :identifier => snippet.identifier,
+        :is_shared => snippet.is_shared,
+        :content => snippet.content
+    )
+  end
 end

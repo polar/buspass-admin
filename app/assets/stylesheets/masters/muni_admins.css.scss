@@ -1,0 +1,33 @@
+// Place all the styles related to the Customers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+//=require bootstrap
+//=require_self
+
+.pretty div .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.pretty div .asc {
+  background-image: url(/assets/up_arrow.gif);
+}
+
+.pretty div .desc {
+  background-image: url(/assets/down_arrow.gif);
+}
+
+.row-fluid.header {
+  font-size:  110%;
+  font-weight:  bold;
+  background-color: #eeeeee;
+}
+
+.row-fluid.alt {
+  background-color : #f9f9f9;
+}
+
+form.edit_muni_admin {
+  margin: 0px;
+}
