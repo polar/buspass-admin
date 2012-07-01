@@ -1,4 +1,5 @@
 class Tag
+
   def setup
     @master ||= page.master!
     @municipality ||= page.municipality!
@@ -12,4 +13,5 @@ class Tag
     setup
     ""
   end
+
 end

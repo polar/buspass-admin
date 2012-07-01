@@ -13,5 +13,10 @@ class ServicesTag < Tag
     setup
     "<%= render :partial => 'masters/municipalities/networks/services/index' %>"
   end
+  # This renders the tag without sanitizing the ERB for our
+  # purposes. Only applies to our tags.
+  def render
+    content
+  end
 
 end

@@ -32,43 +32,41 @@ class CmsContentController < CmsBaseController
 protected
   
   def load_cms_site
+    @cms_path = params[:cms_path]
     @cms_site ||= if params[:cms_site_id]
       Cms::Site.find_by_id(params[:cms_site_id])
     else
       host = request.host.downcase
-      path = request.fullpath
+      path = @cms_path
       # http://syracuse.busme.us/path
       # http://busme.us/syracuse/path
       if (host == "busme.us" || host == "localhost")
+        # http://busme.us/syracuse/path
         match = "#{path}/".squeeze("/").match(/^\/([\w\-]+)(\/.*)?\//)
         if match
           master_slug = match[1]
           host = master_slug + ".busme.us"
           path = match[2]
-          if params[:cms_path].present?
-            params[:cms_path].gsub!(/^#{master_slug}/, '')
-            params[:cms_path].to_s.gsub!(/^\//, '')
+          @cms_site = Cms::Site.find_site(host, path)
+          if @cms_site
+            @cms_path.gsub!(/^#{master_slug}/, '')
+            @cms_path.to_s.gsub!(/^\//, '')
           end
         end
+      else
+        # http://syracuse.busme.us/path
+        @cms_site = Cms::Site.find_site(host, path)
       end
 
-      @cms_site = Cms::Site.find_site(host, path)
     end
-    
-    if @cms_site
-      if params[:cms_path].present?
-        params[:cms_path].gsub!(/^#{@cms_site.path}/, '')
-        params[:cms_path].to_s.gsub!(/^\//, '')
-      end
-      I18n.locale = @cms_site.locale
-    else
-      I18n.locale = I18n.default_locale
-      @cms_site = Cms::Site.find_site("localhost", "/busme-front")
-    end
+
+    @cms_site = Cms::Site.find_by_identifier("busme-main")
+    I18n.locale = @cms_site.locale
+    return @cms_site
   end
   
   def load_cms_page
-    @cms_page = @cms_site.pages.published.find_by_full_path!("/#{params[:cms_path]}")
+    @cms_page = @cms_site.pages.published.find_by_full_path!("/#{@cms_path}")
     raise ComfortableMexicanSofa.ModelNotFound if @cms_page.nil?
 
     return redirect_to(@cms_page.target_page.url) if @cms_page.target_page

@@ -20,5 +20,10 @@ class ActiveTestamentTag < Tag
         "<%= render :partial => 'masters/test/#{identifier}' %>"
     end
   end
+  # This renders the tag without sanitizing the ERB for our
+  # purposes. Only applies to our tags.
+  def render
+    content
+  end
 
 end

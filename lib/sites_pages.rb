@@ -23,7 +23,7 @@ module PageUtils
     normal_layout = site.layouts.create!(
         :identifier => "normal-layout",
         :app_layout => "sites/normal-layout",
-        :content    => "<% content_for :left do %>\n\t{{ cms:bus:page:left:text }}\n<% end %>\n{{ cms:page:content:rich_text }}")
+        :content    => "{{ cms:bus:page:left:text }}\n{{ cms:page:content:rich_text }}")
 
     root = site.pages.create!(
         :slug              => "busme-main-root",
@@ -60,7 +60,7 @@ module PageUtils
         :layout            => normal_layout,
         :parent            => root,
         :is_protected      => true,
-        :controller_path   => "/mydevise/registrations",
+        :controller_path   => "/customers/sign_up",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:customers:sign_up }}"
@@ -76,7 +76,7 @@ module PageUtils
         :layout            => normal_layout,
         :parent            => root,
         :is_protected      => true,
-        :controller_path   => "/mydevise/sessions/new",
+        :controller_path   => "/customers/sign_in",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:customers:sign_in }}"

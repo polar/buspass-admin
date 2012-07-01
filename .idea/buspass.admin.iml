@@ -42,7 +42,7 @@
     <orderEntry type="library" scope="PROVIDED" name="coffee-script (v2.2.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-script-source (v1.3.3, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="columnize (v0.3.6, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="comfortable_mexican_sofa (v1.6.18, /home/polar/src/comfortable-mexican-sofa) [path][gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="comfortable_mexican_sofa (v1.7.0.pre1, /home/polar/src/comfortable-mexican-sofa) [path][gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cucumber (v1.2.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cucumber-rails (v1.3.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="daemons (v1.1.8, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />

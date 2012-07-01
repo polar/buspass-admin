@@ -50,4 +50,9 @@ class NetworkTag < Tag
         "<%= render :partial => 'masters/municipalities/networks/#{identifier}' %>"
     end
   end
+  # This renders the tag without sanitizing the ERB for our
+  # purposes. Only applies to our tags.
+  def render
+    content
+  end
 end

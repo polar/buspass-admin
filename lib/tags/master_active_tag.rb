@@ -29,4 +29,9 @@ class MasterActiveTag  < Tag
         "<%= render :partial => 'masters/active/#{identifier}' %>"
     end
   end
+  # This renders the tag without sanitizing the ERB for our
+  # purposes. Only applies to our tags.
+  def render
+    content
+  end
 end

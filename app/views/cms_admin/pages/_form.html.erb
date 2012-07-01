@@ -26,6 +26,7 @@
   <% if (options = Cms::Page.options_for_select(@site, @page, nil, 0, false)).present? %>
     <%= form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options %>
   <% end %>
+  <%= form.text_field :controller_path, { :id => 'controller_path' } %>
   <%= cms_hook :page_form, :object => form %>
   <%= render :partial => 'cms_admin/categories/form', :object => form %>
 </div>

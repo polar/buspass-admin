@@ -5,32 +5,39 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="Progress">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/INSTALL" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_sites_items.html.builder" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/initializers/debug_fix.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/master_main_template_pages.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/master_deployment_template_pages.rb" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/layouts/sites-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/sites/normal-layout.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.generators" afterPath="$PROJECT_DIR$/.idea/.generators" />
+    <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/layout_tag.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/navigation_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.rakeTasks" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/buspass.admin.iml" afterPath="$PROJECT_DIR$/.idea/buspass.admin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SiteMap.dia" afterPath="$PROJECT_DIR$/SiteMap.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.rvmrc" afterPath="$PROJECT_DIR$/.rvmrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/cms_content_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/cms_content_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/cms/page.rb" afterPath="$PROJECT_DIR$/app/models/cms/page.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/sites/_sites_nav.html.builder" afterPath="$PROJECT_DIR$/app/views/sites/_sites_nav.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/require_files_in_lib.rb" afterPath="$PROJECT_DIR$/config/initializers/require_files_in_lib.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/page_utils.rb" afterPath="$PROJECT_DIR$/lib/page_utils.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/cms_admin/pages/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/cms_admin/pages/_form.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_sites_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_sites_items.html.builder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb" afterPath="$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/sites_pages.rb" afterPath="$PROJECT_DIR$/lib/sites_pages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/active_deployment_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/active_deployment_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/journey_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/journey_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/journeys_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/journeys_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/main_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/main_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/master_active_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/master_active_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/master_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/master_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/master_testament_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/master_testament_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/masters_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/masters_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/municipalities_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/municipalities_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/municipality_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/municipality_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/network_plan_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/network_plan_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/network_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/network_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/networks_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/networks_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/page_link_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/page_link_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/route_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/route_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/routes_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/routes_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/service_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/service_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/services_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/services_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/site_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/site_tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/tag.rb" afterPath="$PROJECT_DIR$/lib/tags/tag.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -62,91 +69,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="master_admin_template_pages.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/master_admin_template_pages.rb">
+      <file leaf-file-name="networks_tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/tags/networks_tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="72" selection-start="1249" selection-end="1249" vertical-scroll-proportion="0.0">
+            <state line="25" column="5" selection-start="703" selection-end="703" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sites_pages.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/sites_pages.rb">
+      <file leaf-file-name="page_link_tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/tags/page_link_tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="26" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0">
+            <state line="48" column="5" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_main_nav.html.builder" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/sites/_main_nav.html.builder">
+      <file leaf-file-name="route_tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/tags/route_tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="32" column="5" selection-start="988" selection-end="988" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_sites_items.html.builder" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/navigation/_sites_items.html.builder">
+      <file leaf-file-name="routes_tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/tags/routes_tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="58" selection-start="321" selection-end="321" vertical-scroll-proportion="0.6017192">
+            <state line="19" column="5" selection-start="571" selection-end="571" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_sites_nav.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb">
+      <file leaf-file-name="service_tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/tags/service_tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="16" selection-start="78" selection-end="78" vertical-scroll-proportion="-1.25">
+            <state line="32" column="5" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="normal-layout.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/layouts/sites/normal-layout.html.erb">
+      <file leaf-file-name="services_tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/tags/services_tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="25" selection-start="1202" selection-end="1202" vertical-scroll-proportion="-0.625">
+            <state line="19" column="5" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cms_content_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/cms_content_controller.rb">
+      <file leaf-file-name="site_tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/tags/site_tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="0" selection-start="1052" selection-end="1052" vertical-scroll-proportion="0.0">
+            <state line="35" column="5" selection-start="843" selection-end="843" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_sites_nav.html.builder" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/sites/_sites_nav.html.builder">
+      <file leaf-file-name="tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/tags/tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="48" selection-start="217" selection-end="217" vertical-scroll-proportion="0.0">
+            <state line="13" column="22" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="site.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../comfortable-mexican-sofa/lib/comfortable_mexican_sofa/backend/mongo_mapper/models/site.rb">
+      <file leaf-file-name="tag.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../comfortable-mexican-sofa/lib/comfortable_mexican_sofa/tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="149" column="0" selection-start="4526" selection-end="4526" vertical-scroll-proportion="0.0">
+            <state line="32" column="0" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <file leaf-file-name="layout_tag.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/tags/layout_tag.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="25" column="23" selection-start="610" selection-end="610" vertical-scroll-proportion="0.7712766">
               <folding />
             </state>
           </provider>
@@ -169,28 +176,26 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/lib/admin_pages.rb" />
-        <option value="$PROJECT_DIR$/lib/page_utils.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" />
-        <option value="$PROJECT_DIR$/app/models/cms/page.rb" />
-        <option value="$PROJECT_DIR$/config/initializers/require_files_in_lib.rb" />
-        <option value="$PROJECT_DIR$/config/initializers/ensure_templates.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-        <option value="$PROJECT_DIR$/config/initializers/debug_fix.rb" />
-        <option value="$PROJECT_DIR$/lib/master_main_template_pages.rb" />
-        <option value="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/cms_content_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/sites/_sites_nav.html.builder" />
-        <option value="$PROJECT_DIR$/lib/sites_pages.rb" />
-        <option value="$PROJECT_DIR$/app/views/layouts/sites/normal-layout.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/navigation/_sites_nav.html" />
-        <option value="$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb" />
+        <option value="$PROJECT_DIR$/lib/tags/master_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/master_testament_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/masters_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/municipalities_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/municipality_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/navigation_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/network_plan_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/network_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/networks_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/page_link_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/route_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/routes_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/service_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/services_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/site_tag.rb" />
+        <option value="$PROJECT_DIR$/lib/tags/layout_tag.rb" />
       </list>
     </option>
   </component>
@@ -203,9 +208,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
-    <option name="y" value="-4" />
+    <option name="y" value="-1" />
     <option name="width" value="1026" />
-    <option name="height" value="773" />
+    <option name="height" value="770" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -277,7 +282,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="comfortable_mexican_sofa (v1.6.18, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
+              <option name="myItemId" value="comfortable_mexican_sofa (v1.7.0.pre1, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -291,35 +296,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="comfortable_mexican_sofa (v1.6.18, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="comfortable_mexican_sofa (v1.6.18, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
+              <option name="myItemId" value="comfortable_mexican_sofa (v1.7.0.pre1, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="comfortable_mexican_sofa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -331,7 +314,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="comfortable_mexican_sofa (v1.6.18, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
+              <option name="myItemId" value="comfortable_mexican_sofa (v1.7.0.pre1, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -342,10 +325,6 @@
               <option name="myItemId" value="comfortable_mexican_sofa" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -357,7 +336,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="comfortable_mexican_sofa (v1.6.18, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
+              <option name="myItemId" value="comfortable_mexican_sofa (v1.7.0.pre1, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -372,14 +351,6 @@
               <option name="myItemId" value="backend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mongo_mapper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -391,7 +362,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="comfortable_mexican_sofa (v1.6.18, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
+              <option name="myItemId" value="comfortable_mexican_sofa (v1.7.0.pre1, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -421,7 +392,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="comfortable_mexican_sofa (v1.6.18, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
+              <option name="myItemId" value="comfortable_mexican_sofa (v1.7.0.pre1, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -450,6 +421,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tags" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -498,8 +487,22 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -517,58 +520,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="sites" />
+              <option name="myItemId" value="cms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="navigation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -583,20 +540,30 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="256" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="265" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="260" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="RakeTaksPopup.undocumentedIncluded" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="269" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="812" />
+    <property name="RakeTaksPopup.undocumentedIncluded" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="808" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="812" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="269" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="265" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -615,11 +582,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/tags" />
       <recent name="$PROJECT_DIR$/app/views/navigation" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/app/views/layouts/cms_admin" />
       <recent name="$PROJECT_DIR$/app/views/layouts" />
-      <recent name="$PROJECT_DIR$/app/views/sites" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/views/layouts/sites" />
@@ -886,6 +853,15 @@
         <option name="RakeTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <method>
+        <option name="RakeTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="CucumberRunConfigurationType" factoryName="Cucumber">
       <predefined_log_file id="RUBY_CUCUMBER" enabled="true" />
       <module name="" />
@@ -917,15 +893,6 @@
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="CUCUMBER_RUNNER_PATH" VALUE="" />
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_RUNNER" VALUE="false" />
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="SETTINGS_VERSION" VALUE="2" />
-      <method>
-        <option name="RakeTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
-      <JSRemoteDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSRemoteDebuggerConfigurationSettings>
       <method>
         <option name="RakeTask" enabled="false" />
       </method>
@@ -1282,7 +1249,11 @@
       <created>1340971853096</created>
       <updated>1340971853096</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Progress">
+      <created>1341009280793</created>
+      <updated>1341009280794</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -1306,16 +1277,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-4" width="1026" height="773" extended-state="6" />
+    <frame x="-1" y="-1" width="1026" height="770" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24767801" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842582" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32352942" sideWeight="0.46813726" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29610655" sideWeight="0.6718266" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3545082" sideWeight="0.6718266" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32817337" sideWeight="0.36577868" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.6270492" order="10" side_tool="true" content_ui="tabs" />
@@ -1324,6 +1293,8 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32352942" sideWeight="0.46813726" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24767801" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1389,114 +1360,114 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/mongo_mapper-0.11.1/lib/mongo_mapper.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/masters_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="28" column="5" selection-start="778" selection-end="778" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/railties-3.2.3/lib/rails.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/municipalities_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="25" column="5" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/initializers/debug_fix.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/municipality_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="143" selection-end="143" vertical-scroll-proportion="0.0">
+        <state line="41" column="5" selection-start="1337" selection-end="1337" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/navigation_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="349" selection-end="349" vertical-scroll-proportion="0.0">
+        <state line="19" column="5" selection-start="542" selection-end="542" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../comfortable-mexican-sofa/lib/comfortable_mexican_sofa/backend/mongo_mapper/models/page.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/network_plan_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="41" column="5" selection-start="1281" selection-end="1281" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/master_main_template_pages.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/network_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="55" selection-start="1197" selection-end="1197" vertical-scroll-proportion="0.0">
+        <state line="56" column="5" selection-start="2037" selection-end="2037" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/master_admin_template_pages.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/networks_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="72" selection-start="1249" selection-end="1249" vertical-scroll-proportion="0.0">
+        <state line="25" column="5" selection-start="703" selection-end="703" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/page_link_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="48" column="5" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../comfortable-mexican-sofa/lib/comfortable_mexican_sofa/backend/mongo_mapper/models/site.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/route_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="0" selection-start="4526" selection-end="4526" vertical-scroll-proportion="0.0">
+        <state line="32" column="5" selection-start="988" selection-end="988" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/cms_content_controller.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/routes_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="1052" selection-end="1052" vertical-scroll-proportion="0.0">
+        <state line="19" column="5" selection-start="571" selection-end="571" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/sites/_sites_nav.html.builder">
+    <entry file="file://$PROJECT_DIR$/lib/tags/service_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="48" selection-start="217" selection-end="217" vertical-scroll-proportion="0.0">
+        <state line="32" column="5" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/sites/normal-layout.html.erb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/services_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="25" selection-start="1202" selection-end="1202" vertical-scroll-proportion="-0.625">
+        <state line="19" column="5" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sites_pages.rb">
+    <entry file="file://$PROJECT_DIR$/lib/tags/site_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="26" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0">
+        <state line="35" column="5" selection-start="843" selection-end="843" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/sites/_main_nav.html.builder">
+    <entry file="file://$PROJECT_DIR$/lib/tags/tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="13" column="22" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb">
+    <entry file="file://$PROJECT_DIR$/../comfortable-mexican-sofa/lib/comfortable_mexican_sofa/tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="16" selection-start="78" selection-end="78" vertical-scroll-proportion="-1.25">
+        <state line="32" column="0" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/navigation/_sites_items.html.builder">
+    <entry file="file://$PROJECT_DIR$/lib/tags/layout_tag.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="58" selection-start="321" selection-end="321" vertical-scroll-proportion="0.6017192">
+        <state line="25" column="23" selection-start="610" selection-end="610" vertical-scroll-proportion="0.7712766">
           <folding />
         </state>
       </provider>

@@ -42,4 +42,9 @@ class PageLinkTag < Tag
     setup
     "<%= link_to '#{self.link_text}', '#{self.link_path}' %>"
   end
+  # This renders the tag without sanitizing the ERB for our
+  # purposes. Only applies to our tags.
+  def render
+    content
+  end
 end
