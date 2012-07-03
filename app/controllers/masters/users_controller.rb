@@ -1,6 +1,11 @@
 class Masters::UsersController < Masters::MasterBaseController
+  layout "masters/normal-layout"
   def index
     @users = User.where(:master_id => @master.id).all
+  end
+  def admin
+    @users = User.where(:master_id => @master.id).all
+    render :action => :index
   end
   def edit
     @user = User.where(:master_id => @master.id, :id => params[:id]).first

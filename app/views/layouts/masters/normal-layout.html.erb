@@ -9,19 +9,17 @@
   <meta name="author" content="">
   <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
   <%= javascript_include_tag "normal-layout", :debug => true  %>
-  <%= stylesheet_link_tag    params[:controller], :media => "all" %>
-  <%= javascript_include_tag params[:controller] %>
+  <%= stylesheet_link_tag "#{controller_path}" %>
+  <%= javascript_include_tag "#{controller_path}" %>
   <%= csrf_meta_tags %>
-  <%=  yield :head %>
   <script type="text/javascript">
-    $(function() {
-      $("#admin_site_nav").treeview({
-          animated: "fast",
-          persist: "location",
-          unique: true
-      });
-    });
+      $(function() {
+          <%- flash.each do |name, msg| -%>
+          <%= "setFlash('#{name}', '#{msg}');"  %>
+          <%- end -%>
+      }) ;
   </script>
+  <%=  yield :head %>
 </head>
 <body class="<%= params[:controller] %>">
     <div class="ui-layout-north">
@@ -32,18 +30,18 @@
           </ul>
           <div id="application-header">Busme <%= @master ? @master.name : "US" %></div>
         </nav>
-        <%- flash.each do |name, msg| -%>
-            <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-        <%- end -%>
+        <div id="notices">
+        </div>
       </header>
     </div>
-    <% if @master && @master.admin_site %>
-        <div class="ui-layout-west">
-          <%= render(:partial => "masters/admin_nav").html_safe %>
-        </div>
-    <% end %>
+    <div class="ui-layout-west">
+      <%= yield :left %>
+    </div>
     <div class="ui-layout-center">
       <%= yield %>
+    </div>
+    <div class="ui-layout-south">
+      <%= yield :bottom %>
     </div>
     <%
        # Twitter Bootstrap and Layout Center do not play well together
@@ -53,8 +51,5 @@
       <div id="modals" >
       </div>
     </div>
-    <div class="ui-layout-south">South</div>
-    <div id="modals"></div>
-    <div class="ui-layout-south">South</div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 @site ||= @cms_site
-@prefix = request.host == "busme.us" || request.host == "localhost" ? "sites/" : ""
+@prefix = request.host == "busme.us" || request.host == "localhost" ? "websites/" : ""
 
 def do_page(page, xml)
   if page.is_published

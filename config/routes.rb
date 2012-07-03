@@ -24,9 +24,12 @@ BuspassAdmin::Application.routes.draw do
 
   # For some bullshit with devise
   resources :muni_admins, :controller => "masters/muni_admins"
-  resources :users, :controller => "deployments/users"
 
-  resources :sites
+  resources :websites do
+    collection do
+      get :my_index
+    end
+  end
 
   resources :deployments, :only => :show do
     member do
@@ -105,6 +108,9 @@ BuspassAdmin::Application.routes.draw do
       end
     end
     resources :users, :controller => "masters/users" do
+      collection do
+        get :admin
+      end
       member do
         post :destroy_confirm
       end

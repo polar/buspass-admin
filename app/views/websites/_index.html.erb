@@ -1,0 +1,4 @@
+<h3>Master Municipalities</h3>
+<%= render :partial => "websites/table_index" %>
+
+<%= render :partial => "websites/link_new" if customer_can?(:create, Master) %>

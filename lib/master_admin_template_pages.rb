@@ -10,30 +10,47 @@ module PageUtils
         :label => "Master Administration Pages Template",
         :hostname => "busme.us"
     )
+    layout_content = "<!--
+The layout puts left block of page goes into left side of the layout regardless of where it appears here
+-->
+{{ cms:layout:left }}
+
+<!--
+The page content block shows up here.
+You can put what ever you want above or below it.
+-->
+{{ cms:page:content:rich_text }}
+
+<!--
+The Layout bottom puts the bottom block of a page into the bottom
+of the layout regardless of where it appears here.
+-->
+{{ cms:layout:bottom }}"
 
     layout = site.layouts.create!(
         :identifier => "default",
         :app_layout => "application",
-        :content => "<% content_for :left do %>\n\t{{ cms:bus:page:left:text }}\n<% end %>\n{{ cms:page:content:rich_text }}")
+        :content => layout_content)
 
     normal_layout = site.layouts.create!(
         :identifier => "normal-layout",
         :app_layout => "masters/normal-layout",
-        :content => "<% content_for :left do %>\n\t{{ cms:bus:page:left:text }}\n<% end %>\n{{ cms:page:content:rich_text }}")
+        :content => layout_content)
 
     map_layout = site.layouts.create!(
         :identifier => "map-layout",
         :app_layout => "masters/map-layout",
-        :content => "<% content_for :left do %>\n\t{{ cms:bus:page:left:text }}\n<% end %>\n{{ cms:page:content:rich_text }}")
+        :content => layout_content)
 
     root = site.pages.create!(
-        :slug  => "busme-admin-template-root", # Must be changed on copy
-        :label => "Welcome",
-        :layout => layout,
+        :slug  => "admin-root", # Must be changed on copy
+        :label => "Administration",
+        :layout => normal_layout,
         :is_protected => true,
+        :controller_path => "/masters/:master_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "Welcome "
+                                   :content => "<h1>Welcome to Administration Pages</h1>{{ cms:bus:master }}"
                                },
                                {
                                    :identifier => "left",
@@ -43,7 +60,7 @@ module PageUtils
     help = site.pages.create!(
         :slug => "help",
         :label => "Help",
-        :layout => layout,
+        :layout => normal_layout,
         :is_protected => true,
         :blocks_attributes => [{
                                    :identifier => "content",
@@ -57,7 +74,7 @@ module PageUtils
     edit = site.pages.create!(
         :slug => "edit",
         :label => "Edit",
-        :layout => layout,
+        :layout => normal_layout,
         :is_protected => true,
         :controller_path => "/masters/:master_id/edit",
         :blocks_attributes => [{
@@ -72,7 +89,7 @@ module PageUtils
     new_deployment = site.pages.create!(
         :slug => "new-deployment",
         :label => "New Deployment",
-        :layout => layout,
+        :layout => normal_layout,
         :is_protected => true,
         :controller_path => "/masters/:master_id/municipalities/new",
         :blocks_attributes => [{
@@ -87,7 +104,7 @@ module PageUtils
     active_deployment = site.pages.create!(
         :slug => "active-deployment",
         :label => "Active Deployment",
-        :layout => layout,
+        :layout => normal_layout,
         :is_protected => true,
         :controller_path => "/masters/:master_id/active",
         :blocks_attributes => [{
@@ -102,7 +119,7 @@ module PageUtils
     active_testament = site.pages.create!(
         :slug => "active-testament",
         :label => "Active Testament",
-        :layout => layout,
+        :layout => normal_layout,
         :is_protected => true,
         :controller_path => "/masters/:master_id/testament",
         :blocks_attributes => [{
@@ -116,7 +133,7 @@ module PageUtils
     deployments = site.pages.create!(
         :slug => "deployments",
         :label => "Deployments",
-        :layout => layout,
+        :layout => normal_layout,
         :is_protected => true,
         :controller_path => "/masters/:master_id/municipalities",
         :blocks_attributes => [{
@@ -132,7 +149,7 @@ module PageUtils
     muni_admins = site.pages.create!(
         :slug => "muni_admins",
         :label => "Adminstrators",
-        :layout => layout,
+        :layout => normal_layout,
         :parent => root,
         :is_protected => true,
         :controller_path => "/masters/:master_id/muni_admins",
@@ -148,7 +165,7 @@ module PageUtils
     muni_admin_help = site.pages.create!(
         :slug => "help",
         :label => "Help",
-        :layout => layout,
+        :layout => normal_layout,
         :parent => muni_admins,
         :is_protected => false,
         :blocks_attributes => [{
@@ -163,10 +180,10 @@ module PageUtils
     signup = site.pages.create!(
         :slug => "sign-up",
         :label => "Sign up",
-        :layout => layout,
+        :layout => normal_layout,
         :parent => muni_admins,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/mydevise/registrations",
+        :controller_path => "/masters/:master_id/muni_admins/sign-up",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:muni_admins:sign_up }}"
@@ -179,10 +196,10 @@ module PageUtils
     signin = site.pages.create!(
         :slug => "sign-in",
         :label => "Sign in",
-        :layout => layout,
+        :layout => normal_layout,
         :parent => muni_admins,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/mydevise/sessions/new",
+        :controller_path => "/masters/:master_id/muni_admins/sign_in",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:muni_admins:sign_in }}"
@@ -195,10 +212,10 @@ module PageUtils
     users = site.pages.create!(
         :slug => "users",
         :label => "Users",
-        :layout => layout,
+        :layout => normal_layout,
         :parent => root,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/users",
+        :controller_path => "/masters/:master_id/users/admin",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:users:admin }}"
@@ -483,7 +500,7 @@ module PageUtils
     upload = site.pages.create!(
         :slug => "upload",
         :label => "Upload",
-        :layout => layout,
+        :layout => normal_layout,
         :parent => plan_network_template,
         :is_protected => true,
         :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/plan/upload",

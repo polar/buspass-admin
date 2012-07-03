@@ -24,26 +24,39 @@ class Cms::Page <
   attr_accessible :master_path
   attr_accessible :controller_path
 
+  def website
+    return master
+  end
+
+  def website_id
+    return master_id
+  end
+
   def master!
     return self.master if self.master
     self.parent.master if self.parent
   end
+
   def municipality!
     return self.municipality if self.municipality
     self.parent.municipality if self.parent
   end
+
   def network!
     return self.network if self.network
     self.parent.network if self.parent
   end
+
   def route!
     return self.route if self.route
     self.parent.route if self.parent
   end
+
   def service!
     return self.service if self.service
     self.parent.service if self.parent
   end
+
   def vehicle_journey!
     return self.vehicle_journey if self.vehicle_journey
     self.parent.vehicle_journey if self.parent
@@ -51,7 +64,9 @@ class Cms::Page <
 
   def redirect_path
     path = self.controller_path
+    obj = nil
     if path
+      path = path.gsub(":website_id", obj) if (obj = website_id)
       path = path.gsub(":master_id", obj.id) if (obj = master!)
       path = path.gsub(":municipality_id", obj.id) if (obj = municipality!)
       path = path.gsub(":network_id", obj.id) if (obj = network!)
@@ -60,5 +75,19 @@ class Cms::Page <
       path = path.gsub(":vehicle_journey_id", obj.id) if (obj = vehicle_journey!)
     end
     return path.blank? ? nil : path
+  end
+
+  def export_attributes
+    {
+        :is_protected    => is_protected,
+        :controller_path => controller_path,
+        :master_path     => master_path
+    }
+  end
+
+  def import_attributes(attributes)
+    self.is_protected    = attributes[:is_protected] || false
+    self.controller_path = attributes[:controller_path]
+    self.master_path     = attributes[:master_path]
   end
 end

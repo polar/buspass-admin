@@ -15,6 +15,8 @@ class LayoutTag    < Tag
     case identifier
       when "left"
         "<% content_for :left do %>{{ cms:page:left:text }}<% end %>"
+      when "bottom"
+        "<% content_for :bottom do %>{{ cms:page:bottom:rich_text }}<% end %>"
       else
         ""
     end

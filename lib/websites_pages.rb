@@ -1,7 +1,4 @@
 module PageUtils
-
-  puts "Defining ensure_sites_pages_site"
-
   def self.ensure_sites_pages_site
 
     site = Cms::Site.find_by_identifier("busme-main")
@@ -18,14 +15,30 @@ module PageUtils
     layout = site.layouts.create!(
         :identifier => "default",
         :app_layout => "application",
-        :content    => "{{ cms:page:content:rich_text }}")
+        :content    => "{{ cms:layout:left }}\n{{ cms:page:content:rich_text }}\n{{ cms:layout:bottom }}")
 
     normal_layout = site.layouts.create!(
         :identifier => "normal-layout",
-        :app_layout => "sites/normal-layout",
-        :content    => "{{ cms:bus:page:left:text }}\n{{ cms:page:content:rich_text }}")
+        :app_layout => "websites/normal-layout",
+        :content    =>
+            "<!--
+The layout puts left block of page goes into left side of the layout regardless of where it appears here
+-->
+{{ cms:layout:left }}
 
-    root = site.pages.create!(
+<!--
+The page content block shows up here.
+You can put what ever you want above or below it.
+-->
+{{ cms:page:content:rich_text }}
+
+<!--
+The Layout bottom puts the bottom block of a page into the bottom
+of the layout regardless of where it appears here.
+-->
+{{ cms:layout:bottom }}")
+
+    root          = site.pages.create!(
         :slug              => "busme-main-root",
         :label             => "Welcome",
         :layout            => normal_layout,
@@ -36,7 +49,7 @@ module PageUtils
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
     help = site.pages.create!(
@@ -51,7 +64,7 @@ module PageUtils
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
     signup = site.pages.create!(
@@ -67,7 +80,7 @@ module PageUtils
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
     signin = site.pages.create!(
@@ -83,73 +96,73 @@ module PageUtils
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
 
     index = site.pages.create!(
-        :slug              => "all-sites",
+        :slug              => "all-websites",
         :label             => "All Sites",
         :layout            => normal_layout,
         :parent            => root,
         :is_protected      => true,
-        :controller_path   => "/sites/index",
+        :controller_path   => "/websites",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:sites:index }}"
+                                   :content    => "{{ cms:bus:websites:index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
     myindex = site.pages.create!(
-        :slug              => "my-sites",
+        :slug              => "my-websites",
         :label             => "My Sites",
         :layout            => normal_layout,
         :parent            => root,
         :is_protected      => true,
-        :controller_path   => "/sites/my_index",
+        :controller_path   => "/websites/my_index",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:sites:my_index }}"
+                                   :content    => "{{ cms:bus:websites:my_index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
     new_site      = site.pages.create!(
-        :slug              => "new-site",
-        :label             => "New Municipality Site",
+        :slug              => "new-website",
+        :label             => "New Site",
         :layout            => normal_layout,
         :parent            => root,
         :is_protected      => true,
-        :controller_path   => "/sites/new",
+        :controller_path   => "/websites/new",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:sites:new }}"
+                                   :content    => "{{ cms:bus:websites:new }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
     # This page will not be considered in the navigation because the slug ends in template.
     site_template = site.pages.create!(
-        :slug              => "site-template",
+        :slug              => "website-template",
         :label             => "Will be replaced",
         :layout            => normal_layout,
         :parent            => root,
         :is_protected      => true,
-        :controller_path   => "/sites/:site_id/show",
+        :controller_path   => "/websites/:site_id/show",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:sites:show }}"
+                                   :content    => "{{ cms:bus:websites:show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
     site_edit_template = site.pages.create!(
@@ -158,30 +171,30 @@ module PageUtils
         :layout            => normal_layout,
         :parent            => site_template,
         :is_protected      => true,
-        :controller_path   => "/sites/:site_id/edit",
+        :controller_path   => "/websites/:site_id/edit",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:sites:edit }}"
+                                   :content    => "{{ cms:bus:websites:edit }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
     admin = site.pages.create!(
-        :slug              => "site-admin",
+        :slug              => "websites-admin",
         :label             => "Sites Admin",
         :layout            => normal_layout,
         :parent            => root,
         :is_protected      => true,
-        :controller_path   => "/sites/admin",
+        :controller_path   => "/websites/admin",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:sites:admin }}"
+                                   :content    => "{{ cms:bus:websites:admin }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:sites_nav }}"
+                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
     return site
   end

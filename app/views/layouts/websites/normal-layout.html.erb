@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Busme US" %></title>
+  <title>Busme US</title>
   <meta name="description" content="">
   <meta name="author" content="">
   <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
   <%= javascript_include_tag "normal-layout", :debug => true  %>
-  <%= stylesheet_link_tag    params[:controller], :media => "all" %>
-  <%= javascript_include_tag params[:controller] %>
+  <%= stylesheet_link_tag "#{controller_path}" %>
+  <%= javascript_include_tag "#{controller_path}" %>
   <%= csrf_meta_tags %>
   <%=  yield :head %>
   <script type="text/javascript">
@@ -42,7 +42,8 @@
     </div>
     <%
     # Twitter Bootstrap and Layout Center do not play well together
-    # Twitter needs modals within "container" class outside of the "ui-layout-center". %>
+    # Twitter needs modals within "container" class outside of the "ui-layout-center".
+    %>
     <div id="container"  class="container">
       <%= yield :modals %>
       <div id="modals" >

@@ -1,0 +1,18 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Website</th>
+      <th>Administration</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @masters.each do |master| %>
+          <tr>
+            <td><%= link_to master.name, website_path(master) %></td>
+            <td><%= link_to "#{master.hosturl}", master_active_path(master) %></td>
+            <td><%= link_to "#{master.hosturl}/admin", master_path(master) %></td>
+          </tr>
+      <% end %>
+  </tbody>
+</table>

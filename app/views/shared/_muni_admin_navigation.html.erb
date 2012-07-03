@@ -6,22 +6,22 @@
                   :method=>'delete',
                   :class => "logout") %>
     <% else %>
-      <%= link_to('Login',
+      <%= link_to('Admin Login',
                   new_muni_admin_session_path(:master_id => @master.id),
                   :class => "login")  %>
     <% end %>
 
     <% if muni_admin_signed_in? %>
-      <%= link_to('Edit account',
+      <%= link_to('Edit Admin Account',
                   edit_muni_admin_registration_path(:master_id => @master.id),
                   :class => "edit_account") %>
     <% else %>
-      <%= link_to('Sign up',
+      <%= link_to('Sign up as Admin',
                   new_muni_admin_registration_path(:master_id => @master.id),
                   :class => "sign_up")  %>
     <% end %>
 
-    <%= link_to(current_muni_admin.name,
+    <%= link_to( "Admin #{current_muni_admin.name}",
                 edit_muni_admin_registration_path(:master_id => @master.id),
                 :class => "name") if current_muni_admin %>
 

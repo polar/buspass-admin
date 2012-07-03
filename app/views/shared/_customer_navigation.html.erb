@@ -4,13 +4,13 @@
       <%= link_to('Logout', destroy_customer_session_path, :method=>'delete',
                   :class => "logout") %>
   <% else %>
-      <%= link_to('Login', new_customer_session_path, :class => "login")  %>
+      <%= link_to('Customer Login', new_customer_session_path, :class => "login")  %>
   <% end %>
   <% if customer_signed_in? %>
-      <%= link_to('Edit account', edit_customer_registration_path, :class => "edit_account") %>
+      <%= link_to('Edit Customer Account', edit_customer_registration_path, :class => "edit_account") %>
   <% else %>
       <%= link_to('Sign up', new_customer_registration_path, :class => "sign_up")  %>
   <% end %>
 
-  <%= link_to( current_customer.name, edit_customer_registration_path, :class => "name") if current_customer %>
+  <%= link_to( "Customer #{current_customer.name}", edit_customer_registration_path, :class => "name") if current_customer %>
 </div>

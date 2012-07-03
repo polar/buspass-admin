@@ -4,7 +4,7 @@
 //= require jquery_ujs
 //= require jshashtable-2.1
 //= require bootstrap
-//= require jquery.treeview
+//= require sitemapstyler
 //= require_self
 
 function setFlash(type, msg) {

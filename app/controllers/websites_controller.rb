@@ -1,4 +1,8 @@
-class SitesController < ApplicationController
+##
+# Controller for Toplevel Master Municipality Websites.
+# A "Website" is synonymous with the Master and CMS::Site combination.
+#
+class WebsitesController < ApplicationController
   include PageUtils
   layout "empty"
 
@@ -22,21 +26,29 @@ class SitesController < ApplicationController
     @site = get_front_site()
   end
 
+  def my_index
+    authenticate_customer!
+    @masters = Master.owned_by(current_customer).all
+    @site = get_front_site()
+  end
+
   def show
+    authenticate_customer!
     @master = Master.find(params[:id])
     authorize_customer!(:read, Master)
-    @site = Cms::Site.find_site("localhost", "/busme-front")
+    @site = Cms::Site.find_by_identifier("busme-main")
   end
 
   def new
+    authenticate_customer!
     authorize_customer!(:create, Master)
     @master = Master.new
     @site = get_front_site()
-    render
     # submits to create
   end
 
   def edit
+    authenticate_customer!
     @master = Master.find(params[:id])
     @site = get_front_site()
     authorize_customer!(:edit, @master)
@@ -67,6 +79,7 @@ class SitesController < ApplicationController
 
       # Currently not used until we start shifting masters to their own databases.
       @master.dbname = dbname
+      @master.hosturl = "http://#{@master.slug}.busme.us/"
       @master.save!
 
       master = @master
@@ -125,7 +138,6 @@ class SitesController < ApplicationController
       @municipality.master = local_master
 
       @municipality.ensure_slug()
-      @municipality.hosturl = "http://#{@municipality.slug}.busme.us/" # hopeful
 
       @municipality.save!
 
@@ -138,13 +150,13 @@ class SitesController < ApplicationController
       @network.save!
 
     # Creating the modifiable administrator pages.
-      create_master_admin_site(@master)
-      create_master_main_site(@master)
-      create_deployment_page(@master, @municipality)
-      create_deployment_network_page(@master, @municipality, @network)
+      @admin_site = create_master_admin_site(@master)
+      @main_site = create_master_main_site(@master)
+      create_master_deployment_page(@master, @municipality)
+      create_master_deployment_network_page(@master, @municipality, @network)
 
     if current_customer.has_role?(:admin) || current_customer.has_role?(:super)
-      redirect_to sites_path
+      redirect_to websites_path
     else
       sign_out(current_customer)
       sign_in(@muni_admin)
@@ -152,9 +164,11 @@ class SitesController < ApplicationController
     end
 
   rescue Exception => boom
-    @master.delete if @master
-    @municipality.delete if @municipality
-    @muni_admin.delete if @muni_admin
+    @admin_site.destroy if @admin_site
+    @main_site.destroy if @main_site
+    @master.destroy if @master
+    @municipality.destroy if @municipality
+    @muni_admin.destroy if @muni_admin
     raise boom
   end
 
@@ -230,6 +244,6 @@ class SitesController < ApplicationController
   private
 
   def get_front_site
-    Cms::Site.find_site("localhost", "/busme-front")
+    Cms::Site.find_by_identifier("busme-main")
   end
 end

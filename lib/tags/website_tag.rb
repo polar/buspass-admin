@@ -1,11 +1,11 @@
 require "tags/tag"
 
-class SiteTag  < Tag
+class WebsiteTag < Tag
   include ComfortableMexicanSofa::Tag
 
   def self.regex_tag_signature(identifier = nil)
     identifier ||= /[\w\/\-]+/
-    /\{\{\s*cms:bus:site(?::(#{identifier}))?\s*\}\}/
+    /\{\{\s*cms:bus:website(?::(#{identifier}))?\s*\}\}/
   end
 
   def content
@@ -20,13 +20,13 @@ class SiteTag  < Tag
       when "owner"
         @master.owner.name
       when "page"
-        "<%= render :partial => 'sites/show' %>"
+        "<%= render :partial => 'websites/show' %>"
       when nil
-        "<%= render :partial => 'sites/show' %>"
+        "<%= render :partial => 'websites/show' %>"
       when ""
-        "<%= render :partial => 'sites/show' %>"
+        "<%= render :partial => 'websites/show' %>"
       else
-        "<%= render :partial => 'sites/#{identifier}' %>"
+        "<%= render :partial => 'websites/#{identifier}' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

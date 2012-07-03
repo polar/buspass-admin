@@ -9,17 +9,10 @@
   <meta name="author" content="">
   <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
   <%= javascript_include_tag "normal-layout", :debug => true  %>
-  <%= stylesheet_link_tag    params[:controller], :media => "all" %>
-  <%= javascript_include_tag params[:controller] %>
+  <%= stylesheet_link_tag "#{controller_path}" %>
+  <%= javascript_include_tag "#{controller_path}" %>
   <%= csrf_meta_tags %>
   <%=  yield :head %>
-  <script type="text/javascript">
-    $(function() {
-        <%- flash.each do |name, msg| -%>
-        <%= "setFlash('#{name}', '#{msg}');"  %>
-        <%- end -%>
-    }) ;
-  </script>
 </head>
 <body class="<%= params[:controller] %>">
     <div class="ui-layout-north">
@@ -30,25 +23,27 @@
           </ul>
           <div id="application-header">Busme US</div>
         </nav>
-        <div id="notices">
-        </div>
+        <%- flash.each do |name, msg| -%>
+            <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+        <%- end -%>
       </header>
     </div>
     <div class="ui-layout-west">
-      <%= render(:partial => "main/main_nav").html_safe %>
+      <%= yield :left %>
     </div>
     <div class="ui-layout-center">
-        <%= yield %>
+      <%= yield %>
+    </div>
+    <div class="ui-layout-south">
+      <%= yield :bottom %>
     </div>
     <%
-    # Twitter Bootstrap and Layout Center do not play well together
-    # Twitter needs modals within "container" class outside of the "ui-layout-center". %>
+       # Twitter Bootstrap and Layout Center do not play well together
+       # Twitter needs modals within "container" class outside of the "ui-layout-center". %>
     <div id="container"  class="container">
       <%= yield :modals %>
       <div id="modals" >
       </div>
     </div>
-    <div class="ui-layout-south">South</div>
-    <div id="modals"></div>
 </body>
 </html>

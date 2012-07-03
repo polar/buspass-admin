@@ -2,7 +2,7 @@
 //= require application
 //= require bootstrap
 //= require jquery.layout-latest
-//= require jquery.treeview
+//= require sitemapstyler
 //= require_self
 
 $(function () {

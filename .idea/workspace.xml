@@ -6,38 +6,85 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/layout_tag.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/navigation_tag.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_admin_items.html.builder" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_admin_nav.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_deployment_nav.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_websites_nav.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/websites/_edit.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/websites/_index.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/websites/_my_index.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/websites/_new.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/websites/_show.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/websites/index.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/websites_tag.rb" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/_admin_nav.html.builder" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/_master_meta_tags.html.erb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/sites/_edit.html.erb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/sites/_index.html.erb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/sites/_main_nav.html.builder" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/sites/_new.html.erb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/sites/_show.html.erb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/sites/_sites_nav.html.builder" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/sites_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/layouts/sites/normal-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/_main_nav.html.builder" afterPath="$PROJECT_DIR$/app/views/websites/_main_nav.html.builder" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/navigation/_sites_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_websites_items.html.builder" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/_form_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_form_edit.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/_form_new.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_form_new.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/_link_new.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_link_new.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_links.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/_table_index.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_table_index.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/_table_info.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_table_info.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/edit.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/index.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/my_index.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/new.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/new.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/sites/show.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/show.html.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/sites_pages.rb" afterPath="$PROJECT_DIR$/lib/websites_pages.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/lib/tags/site_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/website_tag.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.rakeTasks" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/buspass.admin.iml" afterPath="$PROJECT_DIR$/.idea/buspass.admin.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/cms_content_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/cms_content_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/application.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/application.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.css.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/users_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/users_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/mydevise/registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/mydevise/registrations_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/mydevise/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/mydevise/sessions_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/cms/page.rb" afterPath="$PROJECT_DIR$/app/models/cms/page.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/cms_admin/pages/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/cms_admin/pages/_form.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_sites_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_sites_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb" afterPath="$PROJECT_DIR$/app/views/navigation/_sites_nav.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/sites_pages.rb" afterPath="$PROJECT_DIR$/lib/sites_pages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/active_deployment_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/active_deployment_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/journey_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/journey_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/journeys_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/journeys_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/main_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/main_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/master_active_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/master_active_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/master_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/master_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/master_testament_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/master_testament_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/masters_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/masters_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/municipalities_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/municipalities_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/municipality_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/municipality_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/network_plan_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/network_plan_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/network_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/network_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/networks_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/networks_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/page_link_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/page_link_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/route_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/route_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/routes_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/routes_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/service_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/service_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/services_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/services_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/site_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/site_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/tag.rb" afterPath="$PROJECT_DIR$/lib/tags/tag.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/master.rb" afterPath="$PROJECT_DIR$/app/models/master.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/main/_main_nav.html.builder" afterPath="$PROJECT_DIR$/app/views/main/_main_nav.html.builder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_links.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/edit.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/move.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/move.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/map.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/map.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.builder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_customer_navigation.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_customer_navigation.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_muni_admin_navigation.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_muni_admin_navigation.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/wrap_parameters.rb" afterPath="$PROJECT_DIR$/config/initializers/wrap_parameters.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_main_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_main_template_pages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/page_utils.rb" afterPath="$PROJECT_DIR$/lib/page_utils.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/layout_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/layout_tag.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -69,91 +116,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="networks_tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tags/networks_tag.rb">
+      <file leaf-file-name="_deployment_items.html.builder" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="5" selection-start="703" selection-end="703" vertical-scroll-proportion="0.0">
+            <state line="19" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="page_link_tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tags/page_link_tag.rb">
+      <file leaf-file-name="masters_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="5" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.0">
+            <state line="49" column="16" selection-start="1366" selection-end="1366" vertical-scroll-proportion="8.611111">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="route_tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tags/route_tag.rb">
+      <file leaf-file-name="_links.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/_links.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="5" selection-start="988" selection-end="988" vertical-scroll-proportion="0.0">
+            <state line="18" column="9" selection-start="526" selection-end="526" vertical-scroll-proportion="-11.25">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes_tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tags/routes_tag.rb">
+      <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="5" selection-start="571" selection-end="571" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service_tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tags/service_tag.rb">
+      <file leaf-file-name="_show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/_show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="5" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="services_tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tags/services_tag.rb">
+      <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/users/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="5" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="site_tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tags/site_tag.rb">
+      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/routes.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="5" selection-start="843" selection-end="843" vertical-scroll-proportion="0.0">
+            <state line="111" column="18" selection-start="2521" selection-end="2521" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tags/tag.rb">
+      <file leaf-file-name="users_controller.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/users_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="22" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0">
+            <state line="1" column="31" selection-start="94" selection-end="94" vertical-scroll-proportion="0.042134833">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tag.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../comfortable-mexican-sofa/lib/comfortable_mexican_sofa/tag.rb">
+      <file leaf-file-name="masters_base_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters_base_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0">
+            <state line="9" column="27" selection-start="164" selection-end="265" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout_tag.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/tags/layout_tag.rb">
+      <file leaf-file-name="websites_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/websites_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="23" selection-start="610" selection-end="610" vertical-scroll-proportion="0.7712766">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -176,26 +223,28 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/lib/tags/master_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/master_testament_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/masters_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/municipalities_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/municipality_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/navigation_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/network_plan_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/network_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/networks_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/page_link_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/route_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/routes_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/service_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/services_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/site_tag.rb" />
-        <option value="$PROJECT_DIR$/lib/tags/layout_tag.rb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_websites_items.html.builder" />
+        <option value="$PROJECT_DIR$/lib/websites_pages.rb" />
+        <option value="$PROJECT_DIR$/app/views/shared/_customer_navigation.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/shared/_muni_admin_navigation.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_deployment_nav.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/sitemapstyler.js" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" />
+        <option value="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/_links.html.erb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/users_controller.rb" />
       </list>
     </option>
   </component>
@@ -378,7 +427,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mongo_mapper" />
+              <option name="myItemId" value="active_record" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="comfortable_mexican_sofa (v1.7.0.pre1, /home/polar/src/comfortable-mexican-sofa) [path][gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="comfortable_mexican_sofa" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="active_record" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -420,38 +503,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tags" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -466,11 +517,59 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="initializers" />
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="users" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -502,7 +601,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -520,11 +619,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cms" />
+              <option name="myItemId" value="masters" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -582,21 +681,21 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/tags" />
       <recent name="$PROJECT_DIR$/app/views/navigation" />
+      <recent name="$PROJECT_DIR$/app/views/websites" />
+      <recent name="$PROJECT_DIR$/lib/tags" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/app/views/layouts/cms_admin" />
-      <recent name="$PROJECT_DIR$/app/views/layouts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/views/navigation" />
       <recent name="$PROJECT_DIR$/app/views/layouts/sites" />
       <recent name="$PROJECT_DIR$/app/views/layouts" />
       <recent name="$PROJECT_DIR$/app/views" />
       <recent name="$PROJECT_DIR$/app/assets/stylesheets/masters" />
-      <recent name="$PROJECT_DIR$/app/assets/javascripts/masters" />
     </key>
   </component>
-  <component name="RunManager" selected="Rails.Development">
+  <component name="RunManager" selected="Rake.routes">
     <configuration default="false" name="Default" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console" temporary="true">
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
@@ -1253,7 +1352,11 @@
       <created>1341009280793</created>
       <updated>1341009280794</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Progress">
+      <created>1341173196547</created>
+      <updated>1341173196547</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -1278,13 +1381,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-1" width="1026" height="770" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24767801" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842582" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32352942" sideWeight="0.46813726" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3545082" sideWeight="0.6718266" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2612705" sideWeight="0.6718266" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32817337" sideWeight="0.36577868" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.6270492" order="10" side_tool="true" content_ui="tabs" />
@@ -1293,8 +1398,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32352942" sideWeight="0.46813726" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24767801" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1360,114 +1463,116 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/tags/masters_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_admin_nav.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="5" selection-start="778" selection-end="778" vertical-scroll-proportion="0.0">
+        <state line="0" column="39" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/municipalities_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/sitemapstyler.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="5" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/municipality_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_deployment_nav.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="5" selection-start="1337" selection-end="1337" vertical-scroll-proportion="0.0">
+        <state line="0" column="45" selection-start="45" selection-end="45" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/navigation_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/sitemapstyler.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="5" selection-start="542" selection-end="542" vertical-scroll-proportion="0.0">
+        <state line="22" column="17" selection-start="703" selection-end="703" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="8" selection-start="1219" selection-end="1219" vertical-scroll-proportion="-6.4583335">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/network_plan_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="5" selection-start="1281" selection-end="1281" vertical-scroll-proportion="0.0">
+        <state line="33" column="8" selection-start="1169" selection-end="1169" vertical-scroll-proportion="-8.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/network_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="5" selection-start="2037" selection-end="2037" vertical-scroll-proportion="0.0">
+        <state line="19" column="0" selection-start="436" selection-end="436" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/networks_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/websites_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="5" selection-start="703" selection-end="703" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/page_link_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters_base_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="5" selection-start="1133" selection-end="1133" vertical-scroll-proportion="0.0">
+        <state line="9" column="27" selection-start="164" selection-end="265" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/route_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="5" selection-start="988" selection-end="988" vertical-scroll-proportion="0.0">
+        <state line="49" column="16" selection-start="1366" selection-end="1366" vertical-scroll-proportion="8.611111">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/routes_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/_links.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="5" selection-start="571" selection-end="571" vertical-scroll-proportion="0.0">
+        <state line="18" column="9" selection-start="526" selection-end="526" vertical-scroll-proportion="-11.25">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/service_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="5" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/services_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/_show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="5" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/site_tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/users/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="5" selection-start="843" selection-end="843" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/tag.rb">
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="22" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0">
+        <state line="111" column="18" selection-start="2521" selection-end="2521" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../comfortable-mexican-sofa/lib/comfortable_mexican_sofa/tag.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/users_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/layout_tag.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="23" selection-start="610" selection-end="610" vertical-scroll-proportion="0.7712766">
+        <state line="1" column="31" selection-start="94" selection-end="94" vertical-scroll-proportion="0.042134833">
           <folding />
         </state>
       </provider>

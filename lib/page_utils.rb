@@ -28,49 +28,20 @@ module PageUtils
 
   # Site must have master assigned.
   def seed_master_admin_pages_snippets(site, from_site)
+    master    = site.master
+    from_root = from_site.pages.root
 
-    master = site.master
-    root   = site.pages.root
+    new_root        = copy_page(site, nil, from_root, true)
+    new_root.label  = "#{master.name} Information"
+    new_root.master = master
 
-    # The master_path attribute tells cms_content/render_html to redirect through
-    # the specified controller, which will then render the content of the page after
-    # setting Controller/View instance variables.
-
-    from_site.pages.order(:position).all each do |page|
-      new_page = copy_page(site, root, page)
-      new_page.master = master
-      case page.fullpath
-        when "/"
-          new_page.master_path = "/masters/#{master.id}"
-          new_page.label = "#{master.name} Information"
-        when "sign-up"
-          new_page.master_path = "/masters/mydevise/registrations"
-        when "sign-in"
-          new_page.paster_path = "/masters/mydevise/sessions/new"
-        when "/deployment-template"
-          # master_paths not needed.
-          # They will be assigned on deployment creation when copied.
-        when "/edit"
-          new_page.master_path = "/masters/#{master.id}/edit"
-        when "/new-deployment"
-          new_page.master_path = "/masters/#{master.id}/municipalities/new"
-        when "/active-deployment"
-          new_page.master_path = "/masters/#{master.id}/active"
-        when "/active-testament"
-          new_page.master_path = "/masters/#{master.id}/testament"
-        when "/deployments"
-          new_page.master_path = "/masters/#{master.id}/municipalities"
-        when "/muni_admins"
-          new_page.master_path = "/masters/#{master.id}/muni_admins"
-        when "/users"
-          new_page.master_path = "/masters/#{master.id}/users"
-      end
-      new_page.save!
-    end
+    new_root.save!
 
     from_site.snippets.order(:position).all.each do |snippet|
       new_snippet = copy_snippet(site, snippet)
+
       new_snippet.master = site.master
+
       new_snippet.save!
     end
   end
@@ -100,23 +71,12 @@ module PageUtils
   # Site must have master assigned.
   def seed_master_main_pages_snippets(site, from_site)
     master = site.master
-    root   = site.pages.root
+    from_root = from_site.pages.root
 
-    from_site.pages.order(:position).all each do |page|
-      new_page = copy_page(site, root, page)
-      new_page.master = master
-      case new_page.fullpath
-        when "/"
-          new_page.master_path = "/masters/#{master.id}/main"
-        when "/sign-up"
-          new_page.master_path = "/masters/mydevise/registrations"
-        when "/sign-in"
-          new_page.paster_path = "/masters/mydevise/sessions/new"
-        when "/downloads"
-          new_page.master_path = "/masters/#{master.id}/downloads"
-      end
-      new_page.save!
-    end
+    new_root        = copy_page(site, nil, from_root, true)
+    new_root.label  = "#{master.name} Front Page"
+    new_root.master = master
+    new_root.save!
 
     from_site.snippets.order(:position).all.each do |snippet|
       new_snippet = copy_snippet(site, snippet)
@@ -125,32 +85,57 @@ module PageUtils
     end
   end
 
-  # Called from Controller creating a Master.
-  def create_master_deployment_network_page(master, muni, network)
+  def create_master_deployment_page(master, muni)
+    site = Cms::Site.find_by_identifier("#{master.slug}-admin")
 
-    from_site = Cms::Site.find_by_identifier("#{master.slug}-admin")
+    parent_page = site.pages.find_by_full_path("/deployments")
+    template    = site.pages.find_by_full_path("/deployment-template")
 
-    page = from_site.pages.find_by_fullpath("/deployments/#{muni.slug}/networks")
+    new_page              = copy_page(site, parent_page, template, false)
+    new_page.slug         = "#{muni.slug}"
+    new_page.label        = "#{muni.name}"
+    new_page.master       = master
+    new_page.municipality = muni
+    new_page.save!
 
-    seed_master_deployment_network_pages(site, page, network)
-    return site
+    # Customer may have added other pages to the template.
+    # We'll copy those.
+    non_descend = ["simulate", "edit", "new-network", "networks"]
+    template.children.order(:position).all.each do |child|
+      page = copy_page(site, new_page, child, !non_descend.include?(child.slug))
+      page.master = master
+      page.municipality = muni
+      page.save!
+    end
+    return new_page
   rescue => boom
     Rails.logger.detailed_error(boom)
-    site.destroy if site && site.persisted?
+    new_page.destroy if new_page && new_page.persisted?
     raise boom
   end
+  # Called from Controller creating a Master. We only copy the
+  # network-template. All pages lower than the network level, i.e.
+  # routes, services, and journeys will be gotten via the Master's
+  # deployment-template directly.
+  def create_master_deployment_network_page(master, muni, network)
 
-  def seed_master_deployment_network_pages(site, parent_page, master, muni, network, page)
-    new_page = copy_page(site, parent_page, page, false)
-    new_page.master = master
+    site = Cms::Site.find_by_identifier("#{master.slug}-admin")
+
+    parent_page = site.pages.find_by_full_path("/deployments/#{muni.slug}/networks")
+    template    = site.pages.find_by_full_path("/deployment-template/networks/network-template")
+
+    new_page              = copy_page(site, parent_page, template)
+    new_page.slug         = "#{network.slug}"
+    new_page.label        = "#{network.name}"
+    new_page.master       = master
     new_page.municipality = muni
     new_page.network      = network
-
-    page.children.all.each do |child|
-      seed_master_deployment_network_pages(site, new_page, master, muni, network, child)
-    end
-
+    new_page.save!
     return new_page
+  rescue => boom
+    Rails.logger.detailed_error(boom)
+    new_page.destroy if new_page && new_page.persisted?
+    raise boom
   end
 
   def copy_page(site, parent, page, recursive = true)
@@ -163,11 +148,12 @@ module PageUtils
         :target_page       => page.target_page,
         :is_published      => page.is_published,
         :is_protected      => page.is_protected,
+        :controller_path   => page.controller_path,
         :blocks_attributes => page.blocks_attributes
     )
     if recursive
       page.children.order(:position).all.each do |ch|
-        copy_page(site, newp, ch)
+        copy_page(site, newp, ch, true)
       end
     end
     return newp

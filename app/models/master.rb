@@ -24,6 +24,10 @@ class Master
   one :deployment, :dependent => :destroy
   one :testament, :dependent => :destroy
 
+  def self.owned_by(customer)
+    where(:owner_id => customer.id)
+  end
+
   # CMS Integration
   # Arrg! MongoMappe requires that this be a many association because of the "belongs_to" in site.
   many :sites, :class_name => "Cms::Site", :dependent => :destroy

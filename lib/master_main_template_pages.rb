@@ -11,29 +11,47 @@ module PageUtils
         :hostname   => "busme.us"
     )
 
+    layout_content = "<!--
+The layout puts left block of page goes into left side of the layout regardless of where it appears here
+-->
+{{ cms:layout:left }}
+
+<!--
+The page content block shows up here.
+You can put what ever you want above or below it.
+-->
+{{ cms:page:content:rich_text }}
+
+<!--
+The Layout bottom puts the bottom block of a page into the bottom
+of the layout regardless of where it appears here.
+-->
+{{ cms:layout:bottom }}"
+
     layout = site.layouts.create!(
         :identifier => "default",
         :app_layout => "application",
-        :content    => "<% content_for :left do %>\n\t{{ cms:bus:page:left:text }}\n<% end %>\n{{ cms:page:content:rich_text }}")
+        :content => layout_content)
 
     normal_layout = site.layouts.create!(
         :identifier => "normal-layout",
         :app_layout => "masters/normal-layout",
-        :content    => "<% content_for :left do %>\n\t{{ cms:bus:page:left:text }}\n<% end %>\n{{ cms:page:content:rich_text }}")
+        :content => layout_content)
 
     map_layout = site.layouts.create!(
         :identifier => "map-layout",
         :app_layout => "masters/map-layout",
-        :content    => "<% content_for :left do %>\n\t{{ cms:bus:page:left:text }}\n<% end %>\n{{ cms:page:content:rich_text }}")
+        :content => layout_content)
 
     root = site.pages.create!(
         :slug              => "busme-main-template-root", # Must be changed on copy
         :label             => "Welcome",
         :layout            => map_layout,
         :is_protected      => true,
+        :controller_path   => "/masters/:master_id/active",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:deployments:main }}"
+                                   :content    => "{{ cms:bus:deployments:active }}"
                                },
                                {
                                    :identifier => "left",
@@ -47,11 +65,11 @@ module PageUtils
         :is_protected      => false,
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "Help for your Master Plan"
+                                   :content    => "Help for General Users"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content    => "{{ cms:bus:navigation:main_nav }}"
                                }])
 
     user_sign_up = site.pages.create!(
@@ -60,10 +78,10 @@ module PageUtils
         :layout            => normal_layout,
         :is_protected      => true,
         :parent            => root,
-        :controller_path   => "/masters/:master_id/main/mydevise/registrations",
+        :controller_path   => "/masters/:master_id/users/sign_up",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:users:sign-up }}"
+                                   :content    => "{{ cms:bus:users:sign_up }}"
                                },
                                {
                                    :identifier => "left",
@@ -76,10 +94,10 @@ module PageUtils
         :layout            => normal_layout,
         :is_protected      => true,
         :parent            => root,
-        :controller_path   => "/masters/:master_id/main/mydevise/sessions/new",
+        :controller_path   => "/masters/:master_id/users/sign_in",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:users:sign-in }}"
+                                   :content    => "{{ cms:bus:users:sign_in }}"
                                },
                                {
                                    :identifier => "left",
@@ -92,7 +110,7 @@ module PageUtils
         :layout            => normal_layout,
         :is_protected      => true,
         :parent            => root,
-        :controller_path   => "/masters/:master_id/main/downloads",
+        :controller_path   => "/masters/:master_id/downloads",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:downloads }}"
