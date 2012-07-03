@@ -1,0 +1,20 @@
+<h3>Showing User for <%= @master.name %></h3>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <td><%=  @user.name %></td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td><%=  @user.email %></td>
+  </tr>
+  <tr>
+    <th>Roles</th>
+    <td>
+      <% for r in @user.roles_list %>
+          <%= r.to_s.humanize %>
+      <% end %>
+    </td>
+  </tr>
+</table>

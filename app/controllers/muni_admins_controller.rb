@@ -1,6 +1,9 @@
-class MuniAdminController < Masters::MasterBaseController
-  layout "main-layout"
+class MuniAdminController < ApplicationController
   helper_method :sort_column, :sort_direction
+
+  def authorize_muni_admin!(action, obj)
+    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
+  end
 
   def index
     @roles = muni_admin::ROLE_SYMBOLS
@@ -11,6 +14,18 @@ class MuniAdminController < Masters::MasterBaseController
       format.html # index.html.erb
       format.json { render json: @muni_admins }
       format.js # render index.js.erb
+    end
+  end
+
+  def admin
+    @roles = muni_admin::ROLE_SYMBOLS
+    params[:search] = params[:search].merge({ :master_id => @master.id })
+    @muni_admins = muni_admin.search(params[:search]).order(sort_column => sort_direction).paginate(:page => params[:page], :per_page => 4)
+
+    respond_to do |format|
+      format.html # admin.html.erb
+      format.json { render json: @muni_admins }
+      format.js # render admin.js.erb
     end
   end
 

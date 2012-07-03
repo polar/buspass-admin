@@ -1,5 +1,4 @@
 class PasswordsController < ApplicationController
-  before_filter :authenticate_customer!
   helper_method :resource, :resource_name
 
   attr_accessor :resource
@@ -13,12 +12,12 @@ class PasswordsController < ApplicationController
     if !self.resource
        self.resource = MuniAdmin.find(params[:id])
        self.resource_name = "muni_admin"
-       self.resources_path = master_muni_admins_path(self.resource.master)
+       self.resources_path = master_muni_admins_path(self.resource.master)  if self.resource
     end
     if !self.resource
       self.resource = User.find(params[:id])
       self.resource_name = "user"
-      self.resources_path = master_users_path(self.resource.master)
+      self.resources_path = master_users_path(self.resource.master) if self.resource
     end
   end
 

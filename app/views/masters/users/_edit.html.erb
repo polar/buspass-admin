@@ -1,0 +1,45 @@
+<h3>Edit User for <%= @master.name %></h3>
+<%= form_for(@user, :url => master_user_path(@master), :method => :put) do |f| %>
+    <%= error_messages!(@user) %>
+
+
+    <div>
+      <%= f.label :email %>
+      <br />
+      <%= f.email_field :email %>
+      <br />
+      <%= f.label :name, "Name" %>
+      <br />
+      <%= f.text_field :name %>
+      <br />
+      <%= f.label :password, "New Password (leave empty to leave unchanged)" %>
+      <br />
+      <%= f.password_field :password %>
+      <br />
+      <%= f.label :password_confirmation, "Confirm Password" %>
+      <br />
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div>
+      <%= f.label :possible_roles, "Select Roles for this user" %>
+      <br />
+      <% for r in @user.possible_roles do %>
+          <div>
+            <%= check_box_tag "user[roles][]", r, @user.has_role?(r) %>
+            <%= f.label "roles_"+r.to_s, r.to_s.humanize %>
+          </div>
+      <% end %>
+    </div>
+    <%= f.hidden_field :master_id, :value => @master.id %>
+    <br />
+    <%= f.label :nothing, "Email User about account change?" %>
+    <br />
+    <%= check_box_tag "email_user", "1" %>
+    <br />
+    <%= f.submit "Update User Account" %>
+<% end %>
+
+<%= link_to "Cancel",  master_user_path(@master), :class => "btn", :method => :get %>
+<p>
+<%= link_to "Users", master_user_path(@master) %>
+</p>

@@ -94,10 +94,10 @@ class User
     # User.non-empty
   end
 
-  POSSIBLE_ROLES =  ["customer", "driver"]
+  ROLE_SYMBOLS =  ["customer", "driver"]
 
   def possible_roles
-    return POSSIBLE_ROLES
+    return ROLE_SYMBOLS
   end
 
   # TODO: Important. The last role in the list is the only significant one.
@@ -133,6 +133,18 @@ class User
 
   def has_role?(role)
     self.role_symbols.include?(role.to_s)
+  end
+
+  def self.search(search)
+    if search
+      # TODO: Security Risk? Words may contain characters? Need escape?
+      words = search.split(" ")
+      search = "("+words.join(")|(")+")"
+      regexp = /#{search}/
+      where(:name => regexp)
+    else
+      where()
+    end
   end
 
   ##

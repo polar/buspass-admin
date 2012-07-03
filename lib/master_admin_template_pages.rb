@@ -159,7 +159,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:muni_admins_nav }}"
+                                   :content => "{{ cms:bus:navigation:admin_nav }}"
                                }])
 
     muni_admin_help = site.pages.create!(
@@ -174,7 +174,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:muni_admins_nav }}"
+                                   :content => "{{ cms:bus:navigation:admin_nav }}"
                                }])
 
     signup = site.pages.create!(
@@ -183,14 +183,14 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => muni_admins,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/muni_admins/sign-up",
+        :controller_path => "/muni_admins/masters/:master_id/sign_up",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:muni_admins:sign_up }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:muni_admins_nav }}"
+                                   :content => "{{ cms:bus:navigation:admin_nav }}"
                                }])
 
     signin = site.pages.create!(
@@ -199,14 +199,14 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => muni_admins,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/muni_admins/sign_in",
+        :controller_path => "/muni_admins/masters/:master_id/sign_in",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:muni_admins:sign_in }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:muni_admins_nav }}"
+                                   :content => "{{ cms:bus:navigation:admin_nav }}"
                                }])
 
     users = site.pages.create!(
@@ -222,7 +222,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:muni_admin_nav }}"
+                                   :content => "{{ cms:bus:navigation:admin_nav }}"
                                }])
 
     deployment_template = site.pages.create!(
@@ -382,7 +382,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:routes_nav }}"
+                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
                                }])
 
     map_route_template = site.pages.create!(
@@ -398,7 +398,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:routes_nav }}"
+                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
                                }])
 
     services_template = site.pages.create!(
@@ -430,7 +430,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:services_nav }}"
+                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
                                }])
 
     journeys_template = site.pages.create!(
@@ -462,7 +462,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:journeys_nav }}"
+                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
                                }])
 
     map_journey_template = site.pages.create!(
@@ -478,7 +478,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:journeys_nav }}"
+                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
                                }])
 
     plan_network_template = site.pages.create!(

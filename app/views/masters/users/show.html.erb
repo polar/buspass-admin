@@ -1,30 +1,10 @@
-<h3>Showing User for <%= @master.name %></h3>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <td><%=  @muni_admin.name %></td>
-  </tr>
-  <tr>
-    <th>Email</th>
-    <td><%=  @muni_admin.email %></td>
-  </tr>
-  <tr>
-    <th>Roles</th>
-    <td>
-      <% for r in @muni_admin.roles_list %>
-          <%= r.to_s.humanize %>
-      <% end %>
-    </td>
-  </tr>
-</table>
-<h3>Owns</h3>
-<table>
-  <% for m in @municipalities do %>
-      <tr>
-        <td>
-          <%= link_to  m.name, master_municipality_path(m, :master_id => @master.id) %>
-        </td>
-      </tr>
-  <% end %>
-</table>
+<%=
+    begin
+      site = @site
+      page = site.pages.find_by_full_path("/users/show")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

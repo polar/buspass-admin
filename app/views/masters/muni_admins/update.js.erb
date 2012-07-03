@@ -1,1 +1,1 @@
-$("#<%= "edit_muni_admin_#{@muni_admin.id}" %>").html("<%= escape_javascript(render("muni_admin_row", :muni_admin => @muni_admin)) %>");
+$("#<%= "edit_muni_admin_#{@muni_admin.id}" %>").html("<%= escape_javascript(render("masters/muni_admins/muni_admin_row", :muni_admin => @muni_admin, :alt => alt)) %>");

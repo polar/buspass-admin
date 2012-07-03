@@ -1,6 +1,6 @@
 
 
-<%= form_for(@muni_admin, :url => master_muni_admins_path(:master_id => @master.id)) do |f| %>
+<%= form_for(@muni_admin, :url => master_muni_admins_path(@master)) do |f| %>
     <%= error_messages!(@muni_admin) %>
 
     <div><%= f.label :email %>

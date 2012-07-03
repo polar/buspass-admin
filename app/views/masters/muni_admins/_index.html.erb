@@ -1,0 +1,13 @@
+<h1>Admins</h1>
+<p></p>
+<%= form_tag master_muni_admins_path(@master), :method => 'get', :id => "muni_admins_search", :class => "form-search" do %>
+    <p>
+      <%= text_field_tag :search, params[:search], :class => "search-query" %>
+      <%= submit_tag "Search", :name => nil, :class => "btn" %>
+    <div id="muni_admin_params">
+      <%= render :partial => "masters/muni_admins/search_params" %>
+    </div>
+    </p>
+<% end %>
+
+<div id="muni_admins"><%= render :partial => "masters/muni_admins/muni_admins" %></div>

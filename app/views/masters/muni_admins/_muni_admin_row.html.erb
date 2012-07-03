@@ -1,5 +1,6 @@
 
-<%= form_for muni_admin, :remote => true do |form| %>
+<%= form_for muni_admin, :url => master_muni_admin_path(@master, muni_admin), :remote => true do |form| %>
+    <%= hidden_field_tag "alt", alt %>
     <div <%= "class= 'row-fluid #{alt ? "alt" : ""}'" %> >
       <div class="span2"><%= link_to muni_admin.name, edit_master_muni_admin_path(@master, muni_admin) %></div>
       <div class="span2"><%= link_to muni_admin.email, edit_master_muni_admin_path(@master, muni_admin) %></div>

@@ -10,21 +10,6 @@ BuspassAdmin::Application.routes.draw do
   resources :customers
   resources :passwords
 
-  devise_for :muni_admins,
-             :controllers => {
-                :registrations => "masters/mydevise/registrations",
-                :sessions      => "masters/mydevise/sessions"
-             }
-
-  devise_for :users,
-             :controllers => {
-                 :registrations => "deployments/mydevise/registrations",
-                 :sessions      => "deployments/mydevise/sessions"
-             }
-
-  # For some bullshit with devise
-  resources :muni_admins, :controller => "masters/muni_admins"
-
   resources :websites do
     collection do
       get :my_index
@@ -101,6 +86,19 @@ BuspassAdmin::Application.routes.draw do
         post :deactivate
       end
     end
+
+    devise_for :muni_admins,
+               :controllers => {
+                   :registrations => "masters/mydevise/registrations",
+                   :sessions      => "masters/mydevise/sessions"
+               }
+
+    devise_for :users,
+               :controllers => {
+                   :registrations => "deployments/mydevise/registrations",
+                   :sessions      => "deployments/mydevise/sessions"
+               }
+
 
     resources :muni_admins, :controller => "masters/muni_admins" do
       member do
