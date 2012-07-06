@@ -7,6 +7,18 @@ BuspassAdmin::Application.routes.draw do
                  :sessions      => "mydevise/sessions"
              }
 
+  devise_for :muni_admins,
+             :controllers => {
+                 :registrations => "masters/mydevise/registrations",
+                 :sessions      => "masters/mydevise/sessions"
+             }
+
+  devise_for :users,
+             :controllers => {
+                 :registrations => "deployments/mydevise/registrations",
+                 :sessions      => "deployments/mydevise/sessions"
+             }
+
   resources :customers
   resources :passwords
 
@@ -77,8 +89,10 @@ BuspassAdmin::Application.routes.draw do
         post :deactivate
       end
     end
+
     resource "testament", :only => [:show], :controller => "masters/testament" do
       member do
+        get :map
         get :api
         post :start
         post :stop
@@ -87,24 +101,12 @@ BuspassAdmin::Application.routes.draw do
       end
     end
 
-    devise_for :muni_admins,
-               :controllers => {
-                   :registrations => "masters/mydevise/registrations",
-                   :sessions      => "masters/mydevise/sessions"
-               }
-
-    devise_for :users,
-               :controllers => {
-                   :registrations => "deployments/mydevise/registrations",
-                   :sessions      => "deployments/mydevise/sessions"
-               }
-
-
     resources :muni_admins, :controller => "masters/muni_admins" do
       member do
         post :destroy_confirm
       end
     end
+
     resources :users, :controller => "masters/users" do
       collection do
         get :admin
@@ -142,6 +144,7 @@ BuspassAdmin::Application.routes.draw do
           get :curloc
         end
       end
+
       resource :simulate, :controller => "masters/municipalities/simulate" do
         get :api
         get :map
@@ -166,11 +169,13 @@ BuspassAdmin::Application.routes.draw do
         end
 
         resources :services,         :controller => "masters/municipalities/networks/services"
+
         resources :routes,           :controller => "masters/municipalities/networks/routes"  do
           member do
             get :map
             get :api
           end
+
           resource :webmap,          :controller => "masters/municipalities/networks/routes/webmap" do
             member do
               get :route
@@ -181,11 +186,13 @@ BuspassAdmin::Application.routes.draw do
             end
           end
         end
+
         resources :vehicle_journeys, :controller => "masters/municipalities/networks/vehicle_journeys" do
           member do
             get :map
             get :api
           end
+
           resource :webmap,          :controller => "masters/municipalities/networks/vehicle_journeys/webmap" do
             member do
               get :route
@@ -195,6 +202,7 @@ BuspassAdmin::Application.routes.draw do
             end
           end
         end
+
         resource :plan,              :controller => "masters/municipalities/networks/plan" do
           member do
             get :display
@@ -203,6 +211,7 @@ BuspassAdmin::Application.routes.draw do
             get :file
           end
         end
+
         resource :webmap,            :controller => "masters/municipalities/networks/webmap" do
           member do
             get :api
@@ -214,6 +223,7 @@ BuspassAdmin::Application.routes.draw do
         end
 
       end
+
       resource :plan do
         resource :home,
                  :controller => "masters/municipalities/networks/plan/home",

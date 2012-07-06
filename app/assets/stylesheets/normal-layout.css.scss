@@ -6,13 +6,46 @@
 *= require sitemapstyler
 *= require_self
 */
+
+// Overriding Bootstrap for the x close button to show up within the message at the
+// right side
+.alert .close {
+  position: relative;
+  top: -2px;
+  right: 0px;
+  line-height: 18px;
+}
+
 header nav ul {
   list-style: none;
   margin: 0 0 2em;
   padding: 0;
 }
+
 header nav ul li {
   display: inline;
+}
+
+#flash_notice, #flash_alert, #flash_error, #flash_inert {
+  padding: 5px 8px;
+  margin: 10px 1px;
+}
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+#flash_alert, #flash_error {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+#flash_inert {
+}
+
+#notices {
+  margin-top: 5px;
 }
 
 #application-header {
@@ -25,6 +58,7 @@ header nav ul li {
 .edit_municipality input[type=text], textarea {
   width : 30em;
 }
+
 .edit_municipality textarea  {
   height : 5em;
 }

@@ -234,7 +234,7 @@
       <%= submit_tag("Start Simulation", :id => "start", :class => "btn", :disabled => (@job && @job.processing_status != "Stopped")) %>
   <% end %>
   <div class="span3">
-    <%= link_to("Stop Simulation", stop_master_municipality_simulate_path(@municipality, :master_id => @master.id), :method => :post, :class => "btn", :id => "stop", :remote => true, :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
+    <%= button_to("Stop Simulation", stop_master_municipality_simulate_path(@municipality, :master_id => @master.id), :method => :post, :class => "btn", :id => "stop", :remote => true, :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
   </div>
 </div>
 <div class="row">

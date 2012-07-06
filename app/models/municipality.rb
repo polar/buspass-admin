@@ -74,7 +74,7 @@ class Municipality
             self.slug = self.name.to_url()
             tries     = 0
             while tries < SLUG_TRIES && Municipality.where(:master_id => master.id, :slug => self.slug).first != nil
-                self.slug = name.to_url() + "-" + (Random.rand*1000).floor
+                self.slug = "#{name.to_url()}-#{(Random.rand*1000).floor}"
             end
             if tries == SLUG_TRIES
                 self.slug = self.id.to_s

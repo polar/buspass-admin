@@ -1,13 +1,12 @@
 
 @site = Cms::Site.find_by_identifier("busme-main")
-@prefix = ""
 exclude_links = []
 exclude_matches = [/\-template$/]
 
 def do_page(page, xml)
   if page.is_published
     xml.li {
-      xml.a page.label, :href =>  page.controller_path ? page.redirect_path : page.full_path
+      xml.a page.label, :href =>  page.controller_path ? page.redirect_path :  "/#{@site.path}/#{page.full_path}".squeeze("/")
     }
     xml.ul do
       page.children.order(:position).all.each do |chpage|
@@ -20,7 +19,7 @@ end
 xml.ul(:id => "sitemap") {
   page = @site.pages.root
   xml.li {
-    xml.a page.label, :href =>  page.controller_path ? page.redirect_path : page.full_path
+    xml.a page.label, :href =>  page.controller_path ? page.redirect_path :  "/#{@site.path}/#{page.full_path}".squeeze("/")
   }
 
   page.children.order(:position).all.each do |page|

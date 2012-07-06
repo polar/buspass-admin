@@ -36,11 +36,13 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
       flash[:error] = "Cannot create network."
       render :new
     else
-      create_deployment_network_page(@master, @municipality, @network)
+      create_master_deployment_network_page(@master, @municipality, @network)
 
       flash[:notice] = "Network #{@network.name} has been created."
-      redirect_to master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
+      redirect_to master_municipality_network_path(@master, @municipality, @network)
     end
+  rescue Exception => boom
+    @network.destroy if @network
   end
 
   def update
@@ -57,7 +59,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
       render :edit
     else
       flash[:notice] = "Network #{@network.name} has been updated."
-      redirect_to master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
+      redirect_to master_municipality_network_path(@master, @municipality, @network)
     end
   end
 
@@ -105,7 +107,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     @new_network = nil
     begin
       @new_network = @network.copy!(@dest_municipality)
-      redirect_to master_municipality_path(@dest_municipality, :master_id => @master.id)
+      redirect_to master_municipality_path(@master, @dest_municipality)
     rescue
       flash[:error] = "Cannot copy network to selected deployment because of conflict with route codes or names"
       render :show
@@ -116,6 +118,6 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     @network = Network.where(:master_id => @master.id, :municipality_id => @municipality.id, :id => params[:id]).first
     authorize!(:delete, @network)
     @network.destroy()
-    redirect_to master_municipality_path(@municipality, :master_id => @master.id)
+    redirect_to master_municipality_path(@master, @municipality)
   end
 end

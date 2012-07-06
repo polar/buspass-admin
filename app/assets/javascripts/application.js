@@ -29,5 +29,5 @@ function setFlash(type, msg) {
     }
 }
 function clearFlash() {
-    $("#notices").html("");
+    $("#notices").html("<div id='flash_inert' class='alert'>&nbsp;</div>");
 }

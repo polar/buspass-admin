@@ -20,7 +20,7 @@ class Masters::ActiveController < Masters::MasterBaseController
       @updateUrl = partial_status_master_active_path(@master, :format => :json)
       @loginUrl = api_deployment_path(@deployment, :format => :json)
     else
-      flash[:error] = "You have not selected a deployment to be active"
+      flash[:notice] = "You have not selected a deployment to be active. Redirected to Deployments page."
       redirect_to master_municipalities_path(@master)
     end
   end

@@ -13,10 +13,15 @@
   <%= javascript_include_tag "#{controller_path}" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
+      // This displays the flash messages.
       $(function() {
           <%- flash.each do |name, msg| -%>
           <%= "setFlash('#{name}', '#{msg}');"  %>
           <%- end -%>
+          // Set the click on the buttons to clear the flash message
+          $("#notices .alert").on("click", ".close", function() {
+              clearFlash();
+          })
       }) ;
   </script>
   <%=  yield :head %>
@@ -25,13 +30,16 @@
     <div class="ui-layout-north">
       <header>
         <nav>
-          <ul class="hmenu">
-            <%= render 'shared/muni_admin_navigation' %>
-          </ul>
-          <div id="application-header">Busme <%= @master ? @master.name : "US" %></div>
+          <%= render 'shared/muni_admin_navigation' %>
         </nav>
-        <div id="notices">
-        </div>
+          <div id="notices">
+            <!-- We need this because it is used to calculate the height
+              -- of the flash window to set the North Layout to the size
+              -- when an actual flash message does appear after the DOM is set..
+              -->
+            <div id='flash_inert' class='alert'>&nbsp;</div>
+          </div>
+          <div id="application-header">Busme <%= @master ? @master.name : "US" %></div>
       </header>
     </div>
     <div class="ui-layout-west">

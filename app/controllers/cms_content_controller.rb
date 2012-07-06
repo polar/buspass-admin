@@ -9,6 +9,7 @@ class CmsContentController < CmsBaseController
   
   def render_html(status = 200)
     load_cms_page
+    @master = @cms_site.master
     if @cms_page.redirect_path
       redirect_to @cms_page.redirect_path
     end
@@ -33,16 +34,15 @@ protected
   
   def load_cms_site
     @cms_path = params[:cms_path]
-    @cms_site ||= if params[:cms_site_id]
-      Cms::Site.find_by_id(params[:cms_site_id])
-    else
+    @cms_site ||= Cms::Site.find_by_id(params[:cms_site_id]) if params[:cms_site_id]
+    if !@cms_site
       host = request.host.downcase
       path = @cms_path
       # http://syracuse.busme.us/path
       # http://busme.us/syracuse/path
       if (host == "busme.us" || host == "localhost")
         # http://busme.us/syracuse/path
-        match = "#{path}/".squeeze("/").match(/^\/([\w\-]+)(\/.*)?\//)
+        match = "/#{path}/".squeeze("/").match(/^\/([\w\-]+)(\/.*)?\//)
         if match
           master_slug = match[1]
           host = master_slug + ".busme.us"
@@ -50,17 +50,21 @@ protected
           @cms_site = Cms::Site.find_site(host, path)
           if @cms_site
             @cms_path.gsub!(/^#{master_slug}/, '')
+            @cms_path.gsub!(/^\/#{@cms_site.path}/, '')
             @cms_path.to_s.gsub!(/^\//, '')
           end
         end
       else
         # http://syracuse.busme.us/path
         @cms_site = Cms::Site.find_site(host, path)
+        if @cms_site
+          @cms_path.gsub!(/^\/#{@cms_site.path}/, '')
+          @cms_path.to_s.gsub!(/^\//, '')
+        end
       end
-
     end
 
-    @cms_site = Cms::Site.find_by_identifier("busme-main")
+    @cms_site ||= Cms::Site.find_by_identifier("busme-main")
     I18n.locale = @cms_site.locale
     return @cms_site
   end

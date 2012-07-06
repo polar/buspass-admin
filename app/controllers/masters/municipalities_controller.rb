@@ -47,7 +47,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     if error
       flash[:error] = "Could not create deployment"
     else
-      create_deployment_page(@master, @municipality)
+      create_master_deployment_page(@master, @municipality)
     end
 
     respond_to do |format|
@@ -60,6 +60,8 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
 
       }
     end
+  rescue Exception => boom
+    @municipality.destroy if @municipality
   end
 
   def update
@@ -168,7 +170,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     @testament.municipality = @municipality
     if @municipality.save
       if @testament.save
-        redirect_to map_testament_run_path(@testament)
+        redirect_to master_testament_path(@master, :testament_id => @testament.id)
       else
         @municipality.save
       end

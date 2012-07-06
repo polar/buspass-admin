@@ -1,5 +1,10 @@
 class Masters::Municipalities::SimulateController < Masters::Municipalities::MunicipalityBaseController
 
+  def show
+    map
+    render :map
+  end
+
   def map
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
@@ -98,9 +103,25 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
     # TODO: Simultaneous solution needed
     if @job && @job.processing_status == "Running"
       @job.set_processing_status!("StopRequested")
-      render :text => "The simulation for #{@municipality.name} will stop shortly."
+      @status = "The simulation for #{@municipality.name} will stop shortly."
     else
-      render :text => "There is no simulation for #{@municipality.name} to stop."
+      @status = "There is no simulation for #{@municipality.name} to stop."
+    end
+    respond_to do |format|
+      format.js { render :text => @status }
+      format.html {
+        @date = Time.now
+        @time = @date
+        if params[:date]
+          @date = Time.parse(params[:date])
+        end
+        if params[:time]
+          @time = Time.parse(params[:time])
+        end
+        @mult = @job && @job.clock_mult || 1
+        @duration = @job && @job.duration || 30
+        render :map
+      }
     end
   end
 

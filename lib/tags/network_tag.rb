@@ -25,6 +25,8 @@ class NetworkTag < Tag
 
       # Unfortunately, the identifier catches the RoutesTag, ServiceTag, and JourneyTag
       # depending on when the tags' regexes are scanned
+      when "simulate"
+        "<%= render :partial => 'masters/municipalities/networks/simulate/map' %>"
       when "routes"
         "<%= render :partial => 'masters/municipalities/networks/routes/index' %>"
       when "route"

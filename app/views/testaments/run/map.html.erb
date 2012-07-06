@@ -1,83 +1,11 @@
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/active-testament")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>
 
-<head>
-  <style type="text/css" id="page-css">
-    #processing_log
-    {
-        width: 100%;
-        height: 300px;
-        overflow: auto;
-    }
-  </style>
-  <script type="text/javascript">
-      var runStatusView;
-      $(function () {
-          $("body").layout({ applyDefaultStyles:true });
-          runStatusView = new BusPass.RunStatusView();
-          runStatusView.statusView("#processing_status", {
-              // The route helpers don't seem to be available here.
-              // updateUrl : "< %= partial_status_testament_run_path(@testament, :format => :json) %>"
-              updateUrl : "<%= @updateUrl %>",
-              'onUpdateStatus' : onUpdateStatus
-          });
-
-          activePlanView = new BusPass.ActivePlanBasketController();
-
-          activePlanView.activePlanView("#activePlanView", {
-              // The route helpers don't seem to be available here.
-              loginUrl : '<%= @loginUrl %>'
-          });
-
-          // When the form is submitted we clear the status.
-          $("#start").parents("form").submit(function(ev) {
-              console.log("Submit start");
-              runStatusView.clearAll();
-          });
-
-          // Start the show!
-          activePlanView.onCreate();
-          activePlanView.onStart();
-          activePlanView.onResume();
-      });
-  </script>
-</head>
-
-<DIV class="ui-layout-north">
-  <%= render :partial => "shared/muni_admin_navigation" %>
-</DIV>
-
-<DIV class="ui-layout-center">
-  <div class="row">
-    <div class="span16">
-      <h2><%= link_to "#{@master.name}", master_path(@master) %>
-        Testing Deployment
-        <%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %>
-      </h2>
-    </div>
-  </div>
-
-  <%=  render :partial => "shared/webmap_active_plan" %>
-
-  <div class="row">
-    <div class="span2">
-      <%= button_to("Start Run",
-                    start_testament_run_path(@testament, :format => :js),
-                    :id => "start",
-                    :remote => true,
-                    :disabled => (@job && @job.processing_status != "Stopped")) %>
-    </div>
-    <div class="span3">
-      <%= button_to( "Stop Run", stop_testament_run_path(@testament, :format => :js),
-                     :id => "stop",
-                     :remote => true,
-                     :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span16">
-      <%=  render :partial => "shared/processing_status" %>
-    </div>
-  </div>
-</DIV>
-
-<DIV class="ui-layout-south">South</DIV>

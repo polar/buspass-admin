@@ -23,6 +23,8 @@ class MunicipalityTag  <Tag
       # Unfortunately, the identifier catches the NetworkTag depending on when the tags' regexes are scanned
       when "network"
         "<%= render :partial => 'masters/municipalities/networks/show' %>"
+      when "networks"
+        "<%= render :partial => 'masters/municipalities/networks/index' %>"
       when "simulate"
         "<%= render :partial => 'masters/municipalities/simulate/map' %>"
       when "page"

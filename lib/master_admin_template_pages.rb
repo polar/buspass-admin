@@ -302,7 +302,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     edit_network_template = site.pages.create!(
@@ -318,7 +318,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     move_network_template = site.pages.create!(
@@ -334,23 +334,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
-                               }])
-
-    network_simulate =  site.pages.create!(
-        :slug => "simulate",
-        :label => "Simulate",
-        :layout => map_layout,
-        :parent => network_template,
-        :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/simulate",
-        :blocks_attributes => [{
-                                   :identifier => "content",
-                                   :content => "{{ cms:bus:network:simulate }}"
-                               },
-                               {
-                                   :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     routes_template = site.pages.create!(
@@ -366,7 +350,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     route_template = site.pages.create!(
@@ -382,7 +366,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     map_route_template = site.pages.create!(
@@ -398,7 +382,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     services_template = site.pages.create!(
@@ -414,7 +398,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     service_template = site.pages.create!(
@@ -430,7 +414,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     journeys_template = site.pages.create!(
@@ -446,7 +430,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     journey_template = site.pages.create!(
@@ -462,7 +446,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     map_journey_template = site.pages.create!(
@@ -478,7 +462,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     plan_network_template = site.pages.create!(
@@ -494,7 +478,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     upload = site.pages.create!(
@@ -510,7 +494,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
     return site
