@@ -6,7 +6,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   end
 
   def new
-    authorize!(:create, Network)
+    authorize_muni_admin!(:create, Network)
     @network = Network.new
   end
 
@@ -15,7 +15,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     if @network.nil?
       raise "Network not found"
     end
-    authorize!(:read, @network)
+    authorize_muni_admin!(:read, @network)
   end
 
   def edit
@@ -23,11 +23,11 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     if @network.nil?
       raise "Network not found"
     end
-    authorize!(:edit, @network)
+    authorize_muni_admin!(:edit, @network)
   end
 
   def create
-    authorize!(:create, Network)
+    authorize_muni_admin!(:create, Network)
     @network = Network.new(params[:network])
     @network.municipality = @municipality
     @network.master = @master
@@ -50,7 +50,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     if @network.nil?
       raise "Network not found"
     end
-    authorize!(:edit, @network)
+    authorize_muni_admin!(:edit, @network)
     atts = params[:network].select {|k,v| ["name", "description"].include?(k)}
     @network.update_attributes(atts)
     error = ! @network.save
@@ -69,7 +69,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     if @network.nil?
       raise "Network not found"
     end
-    authorize!(:read, @network)
+    authorize_muni_admin!(:read, @network)
 
     @municipalities = Municipality.where(:master_id => @master.id).all
     route_codes = []
@@ -91,8 +91,8 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     if @dest_municipality.nil?
       raise "Destination Municipality not found"
     end
-    authorize!(:read, @network)
-    authorize!(:edit, @dest_municipality)
+    authorize_muni_admin!(:read, @network)
+    authorize_muni_admin!(:edit, @dest_municipality)
 
     # We have to check that no routes are in the destination.
     route_codes = []
@@ -116,7 +116,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def destroy
     @network = Network.where(:master_id => @master.id, :municipality_id => @municipality.id, :id => params[:id]).first
-    authorize!(:delete, @network)
+    authorize_muni_admin!(:delete, @network)
     @network.destroy()
     redirect_to master_municipality_path(@master, @municipality)
   end

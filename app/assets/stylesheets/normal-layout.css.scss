@@ -7,6 +7,8 @@
 *= require_self
 */
 
+@import "bootstrap";
+
 // Overriding Bootstrap for the x close button to show up within the message at the
 // right side
 .alert .close {
@@ -71,4 +73,14 @@ form.button_to {
 // Matches a[href] from style.css
 input.btn[type=submit] {
   color: #436976;
+}
+
+// We need @import "boostrap" so we can use this Sass @extend directives
+// This class is needed because client_side_validations needs a single class
+// name to deal with handing error messages and styling. Typically we would
+// use just class="control-group error", but that won't work, unless we put
+// a fix in the rails.client_side_validations javascript.
+.control-group-error {
+  @extend .control-group;
+  @extend .error;
 }

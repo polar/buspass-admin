@@ -3,11 +3,11 @@ require "delayed_job"
 class Masters::Municipalities::Networks::PlanController < Masters::Municipalities::Networks::NetworkBaseController
 
   def show
-    authorize!(:edit, @network)
+    authorize_muni_admin!(:edit, @network)
   end
 
   def upload
-    authorize!(:edit, @network)
+    authorize_muni_admin!(:edit, @network)
 
     @network_param_name = :plan
 
@@ -27,7 +27,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
   # This action gets called by a javascript updater on the show page.
   #
   def partial_status
-    authorize!(:read, @network)
+    authorize_muni_admin!(:read, @network)
 
     @last_log = params[:log].to_i
     @last_err = params[:err].to_i
@@ -60,7 +60,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
   end
 
   def update
-    authorize!(:edit, @network)
+    authorize_muni_admin!(:edit, @network)
 
     if (@network.processing_lock)
       raise "there a job processing."

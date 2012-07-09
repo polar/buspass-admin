@@ -3,7 +3,7 @@
   <thead></thead>
   <tbody>
   <tr>
-    <th>Name</th>
+    <th>Deployment</th>
     <td><%= @municipality.name %></td>
   </tr>
   <tr>
@@ -12,11 +12,15 @@
   </tr>
   <tr>
     <th>Note</th>
-    <td><%= @municipality.mode %></td>
+    <td><%= @municipality.note %></td>
   </tr>
   <tr>
     <th>Owner</th>
     <td><%= @municipality.owner.name %></td>
+  </tr>
+  <tr>
+    <th>Route Codes</th>
+    <td><%= @municipality.route_codes.join(" ") %></td>
   </tr>
   </tbody>
 </table>

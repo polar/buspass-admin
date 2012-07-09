@@ -11,31 +11,45 @@ class Municipality
 
     key :display_name, String, :required => true
     key :name, String
-    key :mode, String
+    key :note, String
     key :status, String
     key :slug, String, :required => true #, :unique => { :scope => [:master_id] }
-    key :location, Array
-    key :hosturl, String
-    belongs_to :owner, :class_name => "MuniAdmin"
+    key :longitude
+    key :latitude
 
     # The database we are stored in. Self referential
     key :dbname, String
 
     # The database we need to look up the master_municipality in.
     key :masterdb, String
+
     belongs_to :master
+    belongs_to :owner, :class_name => "MuniAdmin"
 
-    attr_accessible :display_name, :slug, :location, :hosturl, :name, :mode
-
-    before_validation :ensure_slug, :ensure_lonlat
-    validates_uniqueness_of :slug, :scope => [:master_id]
+    one :deployment, :dependent => :delete
+    one :testament, :dependent => :delete
     many :networks, :autosave => false, :dependent => :destroy
 
-    one :deployment
-    one :testament
-
+    # CMS Integration
     one :site, :class_name => "Cms::Site", :dependent => :destroy
     one :page, :class_name => "Cms::Page", :dependent => :destroy
+
+    attr_accessible :display_name, :slug, :name, :note, :status
+
+    before_validation :ensure_slug
+
+    validates_uniqueness_of :name, :scope => [:master_id]
+    validates_uniqueness_of :slug, :scope => [:master_id]
+    validates_numericality_of :longitude, :greater_than_or_equal_to => -180.0, :less_than_or_equal_to => 180.0
+    validates_numericality_of :latitude, :greater_than_or_equal_to => -90.0, :less_than_or_equal_to => 90.0
+
+    def self.owned_by(muni_admin)
+      where(:owner_id => muni_admin.id)
+    end
+
+    def location
+      [ self.longitude, self.latitude ]
+    end
 
     def route_codes
       networks.reduce([]) { |v,n| v + (n.routes.map {|x| x.code})}
@@ -45,42 +59,8 @@ class Municipality
       networks.reduce([]) { |v,n| v + n.routes }
     end
 
-    def ensure_lonlat
-        if self.location != nil
-            if self.location.is_a? String
-                self.location = self.location.split(",")
-            end
-            if self.location.is_a? Array
-                self.location = self.location.map { |x| x.to_f }
-            end
-            if self.location.length != 2
-              self.errors.add("location", "needs two elements")
-              return
-            end
-            if self.location[0] < -180 || 180 < self.location[0]
-                self.errors.add("location", "longitude value error")
-            end
-            if self.location[1] < -90 || 90 < self.location[1]
-                self.errors.add("location", "latitude value error")
-            end
-        end
-    end
-
-
-    SLUG_TRIES = 10
-
     def ensure_slug
-        if self.slug == nil
-            self.slug = self.name.to_url()
-            tries     = 0
-            while tries < SLUG_TRIES && Municipality.where(:master_id => master.id, :slug => self.slug).first != nil
-                self.slug = "#{name.to_url()}-#{(Random.rand*1000).floor}"
-            end
-            if tries == SLUG_TRIES
-                self.slug = self.id.to_s
-            end
-        end
-        return true
+        self.slug = self.name.to_url()
     end
 
     #

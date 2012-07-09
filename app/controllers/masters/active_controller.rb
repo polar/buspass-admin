@@ -141,7 +141,7 @@ class Masters::ActiveController < Masters::MasterBaseController
   end
 
   def deactivate
-    authorize!(:delete, @deployment)
+    authorize_muni_admin!(:delete, @deployment)
 
     options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
@@ -153,7 +153,7 @@ class Masters::ActiveController < Masters::MasterBaseController
   end
 
   def api
-    authorize!(:edit, @municipality)
+    authorize_muni_admin!(:edit, @municipality)
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,

@@ -1,11 +1,17 @@
-<%= form_for(@master) do |f| %>
-  <%= error_messages!(@master) %>
+<%= form_for(@master, :url => master_path(@master), :validate => true) do |f| %>
+    <%= error_messages!(@master) %>
 
-  <div><%= f.label :name, "Name" %><br />
-  <%= f.text_field :name %></div>
+    <div><%= f.label :name, "Name" %>
+      <%= f.text_field :name %></div>
 
-  <div><%= f.label :location, "Location (Lon,Lat)" %><br />
-  <%= f.text_field :location, :value => to_location_str(@master.location) %></div>
+    <div><%= f.label :longitude, "Longitude (-180 to 180)" %>
+      <%= f.text_field :longitude %></div>
 
-  <div><%= f.submit "Submit", :class => "btn" %></div>
+    <div><%= f.label :latitude, "Latitude (-90 to 90)" %>
+      <%= f.text_field :latitude %></div>
+
+    <div><%= f.label :timezone, "Time Zone" %>
+      <%=  f.time_zone_select_with_client_side_validations :timezone %></div>
+
+    <div><%= f.submit "Update", :class => "btn"  %></div>
 <% end %>

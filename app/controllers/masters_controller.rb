@@ -51,27 +51,43 @@ class MastersController < ApplicationController
     # submits to update
   end
 
+  MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone]
+
   def update
     authenticate_muni_admin!
     @master = Master.find(params[:id])
     authorize_muni_admin!(:edit, @master)
 
-    location = params[:master][:location]
-    if location != nil
-      params[:master][:location] = view_context.from_location_str(location)
-    end
+    # Security Integrity Check.
+    master_attributes = params[:master].slice(*MASTER_ALLOWABLE_UPDATE_ATTRIBUTES)
+
     error = false
     if @master == nil
       flash[:error] = "Master Municipality #{params[:id]} doesn't exist"
       error         = true
-    elsif @master.owner != current_customer
-      @master.errors.add_to_base("You do not have permission to update this object")
-      flash[:error] = "You do not have permission to update this object"
-      error         = true
     else
-      @master.update_attributes(params[:master])
-      error = !@master.save
-      if !error
+      slug_was = @master.slug
+      success = @master.update_attributes(master_attributes)
+      if success
+        if slug_was != @master.slug
+          @master.admin_site.update_attributes(
+              :identifier => "#{@master.slug}-admin",
+              :label      => "#{@master.name} Administration Pages",
+              :hostname   => "#{@master.slug}.busme.us"
+          )
+          @master.admin_site.pages.root.update_attributes(
+              :label => "#{@master.name} Information"
+          )
+          @master.main_site.update_attributes(
+              :identifier => "#{@master.slug}-main",
+              :label      => "#{@master.name} Active Deployment Pages",
+              :hostname   => "#{@master.slug}.busme.us"
+          )
+          @master.main_site.pages.root.update_attributes(
+              :label => "#{@master.name} Main Page"
+          )
+        end
+
         flash[:notice] = "You have successfully updated your municipality."
       else
         flash[:error] = "You couldn't update your municipality."

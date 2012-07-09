@@ -6,6 +6,10 @@ class SuperRolePermit < CanTango::RolePermit
   protected
 
   def dynamic_rules
+    # User is MuniAdmin
+    can(:edit, Master) do |master|
+      master == user.master
+    end
     cannot(:delete, MuniAdmin) do |muni_admin|
        muni_admin === user
     end

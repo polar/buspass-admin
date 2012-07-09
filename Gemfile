@@ -39,6 +39,7 @@ gem 'cantango_editor', :git => "git://github.com/stanislaw/cantango_editor.git"
 gem 'meta_search', '>=1.1.0.pre'
 gem "will_paginate"
 gem 'will_paginate-bootstrap'
+gem "client_side_validations" #, :git => "https://github.com/bcardarella/client_side_validations.git"
 
 group :development do
   gem 'linecache19', "0.5.13"

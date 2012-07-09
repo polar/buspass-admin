@@ -37,6 +37,7 @@
     <orderEntry type="library" scope="PROVIDED" name="carrierwave (v0.6.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="childprocess (v0.3.3, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="clbustos-rtf (v0.5.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="client_side_validations (v3.1.4, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cocaine (v0.2.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-rails (v3.2.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-script (v2.2.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />

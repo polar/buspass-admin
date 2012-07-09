@@ -241,6 +241,22 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:navigation:deployment_nav }}"
                                }])
 
+    deployment_edit =  site.pages.create!(
+        :slug => "edit",
+        :label => "Edit",
+        :layout => normal_layout,
+        :parent => deployment_template,
+        :is_protected => true,
+        :controller_path => "/masters/:master_id/municipalities/:municipality_id/edit",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:deployment:edit }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                               }])
+
     deployment_simulate =  site.pages.create!(
         :slug => "simulate",
         :label => "Simulate",

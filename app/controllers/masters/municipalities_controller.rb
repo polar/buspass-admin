@@ -2,107 +2,96 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   include PageUtils
 
   def index
+    authenticate_muni_admin!
     @municipalities = Municipality.where(:master_id => @master.id).all
   end
 
   def show
+    authenticate_muni_admin!
     @municipality = Municipality.find(params[:id])
   end
 
   def new
-    authorize!(:create, Municipality)
-
+    authenticate_muni_admin!
+    authorize_muni_admin!(:create, Municipality)
     @municipality = Municipality.new
-    @municipality.mode = :plan
-    @municipality.display_name = @master.name
-    @municipality.location = @master.location
-    @municipality.master = @master
   end
 
   def edit
+    authenticate_muni_admin!
     @municipality = Municipality.find(params[:id])
-    authorize!(:create, @municipality)
+    authorize_muni_admin!(:create, @municipality)
   end
 
+  MUNICIPALITY_UPDATE_ALLOWED_ATTRIBUTES = [ :name, :note ]
+
   def create
-    authorize!(:create, Municipality)
+    authorize_muni_admin!(:create, Municipality)
 
-    @municipality = Municipality.new(params[:municipality])
-    @municipality.mode = :plan
-    @municipality.owner  = current_muni_admin
+    muni_attributes = params[:municipality].slice(*MUNICIPALITY_UPDATE_ALLOWED_ATTRIBUTES)
 
-    # The municipality database will be unique to its instance, but we can stuff
-    # the first one in the local masterdb.
-    #@municipality.dbname              = @master.dbname + "#{@deployment.name}"
-    #@municipality.masterdb            = @master.database.name
-    @municipality.master = @master
-
+    @municipality              = Municipality.new(muni_attributes)
+    @municipality.owner        = current_muni_admin
+    @municipality.master       = @master
     @municipality.display_name = @master.name
-    @municipality.location = @master.location
+    @municipality.longitude    = @master.longitude
+    @municipality.latitude     = @master.latitude
 
-    @municipality.ensure_slug()
-    # TODO: Fix URL
-    @municipality.hosturl = "http://#{@municipality.slug}.busme.us/#{@municipality.slug}" # hopeful
-    error = ! @municipality.save
-    if error
-      flash[:error] = "Could not create deployment"
-    else
-      create_master_deployment_page(@master, @municipality)
-    end
+    @municipality.save!
+
+    create_master_deployment_page(@master, @municipality)
 
     respond_to do |format|
       format.html {
-        if error
-          render :new
-        else
-          redirect_to master_municipalities_path(@master)
-        end
-
+        flash[:notice] = "Your new deployment has been successfully created."
+        redirect_to master_municipalities_path(@master)
       }
     end
   rescue Exception => boom
     @municipality.destroy if @municipality
+    flash[:error] = "Could not create your new deployment."
+    render :new
   end
 
   def update
     @municipality = Municipality.find(params[:id])
-    if (@municipality.nil?)
-      throw "Not Found"
+    authorize_muni_admin!(:edit, @municipality)
+
+    # This could possibly be the wrong controller.
+    if @municipality.master != @master
+      raise "Cannot alter deployment from different Master."
     end
-    authorize!(:edit, @municipality)
 
-    @municipality.update_attributes(params[:municipality])
-    @municipality.master = @master
-    @municipality.owner  = current_muni_admin
+    muni_attributes = params[:municipality].slice(*MUNICIPALITY_UPDATE_ALLOWED_ATTRIBUTES)
 
+    slug_was = @municipality.slug
+
+    @municipality.update_attributes(muni_attributes)
     @municipality.display_name = @master.name
-    @municipality.location = @master.location
+    @municipality.latitude = @master.latitude
+    @municipality.longitude = @master.longitude
+    @municipality.save!
 
-    @municipality.ensure_slug()
-    # TODO: Fix URL
-    @municipality.hosturl = "http://#{@municipality.slug}.busme.us/#{@municipality.slug}" # hopeful
-    error = ! @municipality.save
-    if error
-      flash[:error] = "Could not update deployment"
+    if slug_was != @municipality.slug
+      page       = @municipality.page
+      page.label = @municipality.name
+      page.slug  = @municipality.slug
+      page.save!
     end
     respond_to do |format|
       format.html {
-        if error
-          render :edit
-        else
-          flash[:notice] = "Deployment has been successfully updated."
-          redirect_to master_municipality_path(@municipality, :master_id => @master)
-        end
+        flash[:notice] = "Deployment has been successfully updated."
+        redirect_to master_municipality_path(@master, @municipality)
       }
     end
+  rescue Exception => boom
+    flash[:error] = "Could not update deployment"
+    render :action => :edit
   end
 
   def check
     @municipality = Municipality.find(params[:id])
-    if (@municipality.nil?)
-      throw "Not Found"
-    end
-    authorize!(:read, @municipality)
+    authorize_muni_admin!(:read, @municipality)
     @status = @municipality.deployment_check
 
     # Hide or Show the deploy button. Only show on a municipality that can be deployed.
@@ -116,32 +105,23 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   end
 
   def destroy
-    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
-    if (@municipality.nil?)
-      throw "Not Found"
-    end
-    authorize!(:delete, @municipality)
-    @municipality.delete
-    redirect_to master_municipalities_path(:master_id => @master.id)
+    @municipality = Municipality.find(params[:id])
+    authorize_muni_admin!(:delete, @municipality)
+    @municipality.destroy
+    redirect_to master_municipalities_path(@master)
   end
 
   def map
-    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
-    if (@municipality.nil?)
-      throw "Not Found"
-    end
-    authorize!(:read, @municipality)
+    @municipality = Municipality.find(params[:id])
+    authorize_muni_admin!(:read, @municipality)
     @routes = @municipality.routes
     @routes = @routes.sort { |s1, s2| codeOrd(s1.code, s2.code) }
   end
 
   def deploy
-    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
-    if (@municipality.nil?)
-      throw "Not Found"
-    end
-    authorize!(:deploy, @master)
-    authorize!(:deploy, @municipality)
+    @municipality = Municipality.find(params[:id])
+    authorize_muni_admin!(:deploy, @master)
+    authorize_muni_admin!(:deploy, @municipality)
     @deployment = Deployment.where(:master_id => @master.id).first
     if (@deployment == nil)
       @deployment = Deployment.new(:master => @master)
@@ -157,12 +137,9 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   end
   
   def testit
-    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
-    if (@municipality.nil?)
-      throw "Not Found"
-    end
-    authorize!(:deploy, @master)
-    authorize!(:deploy, @municipality)
+    @municipality = Municipality.find(params[:id])
+    authorize_muni_admin!(:deploy, @master)
+    authorize_muni_admin!(:deploy, @municipality)
     @testament = Testament.where(:master_id => @master.id).first
     if (@testament == nil)
       @testament = Testament.new(:master => @master)
@@ -178,18 +155,15 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   end
 
   def api
-    @municipality = Municipality.where(:master_id => @master.id, :id => params[:id]).first
-    if (@municipality.nil?)
-      throw "Not Found"
-    end
-    authorize!(:read, @municipality)
+    @municipality = Municipality.find(params[:id])
+    authorize_muni_admin!(:read, @municipality)
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,
-        "getRoutePath" => route_master_municipality_webmap_path(@municipality, :master_id => @master.id),
-        "getRouteJourneyIds" => route_journeys_master_municipality_webmap_path(@municipality, :master_id => @master.id),
-        "getRouteDefinition" => routedef_master_municipality_webmap_path(@municipality, :master_id => @master.id),
-        "getJourneyLocation" => curloc_master_municipality_webmap_path(@municipality, :master_id => @master.id)
+        "getRoutePath" => route_master_municipality_webmap_path(@master, @municipality),
+        "getRouteJourneyIds" => route_journeys_master_municipality_webmap_path(@master, @municipality),
+        "getRouteDefinition" => routedef_master_municipality_webmap_path(@master, @municipality),
+        "getJourneyLocation" => curloc_master_municipality_webmap_path(@master, @municipality)
     }
 
     respond_to do |format|

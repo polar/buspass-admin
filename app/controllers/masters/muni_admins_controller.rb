@@ -2,7 +2,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   helper_method :sort_column, :sort_direction
 
   def index
-    authorize!(:read, MuniAdmin)
+    authorize_muni_admin!(:read, MuniAdmin)
 
     @roles       = MuniAdmin::ROLE_SYMBOLS
     @muni_admins = MuniAdmin.where(:master_id => @master.id)
@@ -18,7 +18,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def admin
-    authorize!(:read, MuniAdmin)
+    authorize_muni_admin!(:read, MuniAdmin)
 
     @roles       = MuniAdmin::ROLE_SYMBOLS
     @muni_admins = MuniAdmin.where(:master_id => @master.id)
@@ -35,12 +35,12 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
 
   def edit
     @muni_admin = MuniAdmin.find(params[:id])
-    authorize!(:edit, @muni_admin)
+    authorize_muni_admin!(:edit, @muni_admin)
   end
 
   def show
     @muni_admin = MuniAdmin.find(params[:id])
-    authorize!(:read, @muni_admin)
+    authorize_muni_admin!(:read, @muni_admin)
 
     respond_to do |format|
       format.json { render :json => @muni_admin }
@@ -48,7 +48,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def new
-    authorize!(:create, MuniAdmin)
+    authorize_muni_admin!(:create, MuniAdmin)
     @muni_admin        = MuniAdmin.new()
     @muni_admin.master = @master
 
@@ -59,7 +59,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def create
-    authorize!(:create, MuniAdmin)
+    authorize_muni_admin!(:create, MuniAdmin)
 
     # Security, don't let anything other than these keys get assigned.
     # We don't want some bogon changing the master_id, etc.
@@ -85,7 +85,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     if !@muni_admin || @muni_admin.master != @master
       raise "Not Found"
     end
-    authorize!(:edit, @muni_admin)
+    authorize_muni_admin!(:edit, @muni_admin)
 
     @roles = MuniAdmin::ROLE_SYMBOLS
 
@@ -113,7 +113,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
 
   def destroy_confirm
     @muni_admin = MuniAdmin.find(params[:id])
-    authorize!(:delete, @muni_admin)
+    authorize_muni_admin!(:delete, @muni_admin)
     if @muni_admin
       @masters        = Master.where(:owner_id => @muni_admin.id).all
       @municipalities = Municipality.where(:owner_id => @muni_admin.id).all
@@ -129,7 +129,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
 
   def destroy
     @muni_admin = MuniAdmin.find(params[:id])
-    authorize!(:delete, @muni_admin)
+    authorize_muni_admin!(:delete, @muni_admin)
     @muni_admin.destroy
 
     respond_to do |format|

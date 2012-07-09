@@ -1,11 +1,12 @@
 
-<%= form_for(@municipality, :url => master_municipalities_path(@master)) do |f| %>
+<%= form_for(@municipality, :url => master_municipalities_path(@master), :validate => true) do |f| %>
     <%= error_messages!(@municipality) %>
 
-    <div><%= f.label :name, "Internal Name" %><br />
+    <div><%= f.label :name, "Internal Name" %>
       <%= f.text_field :name %></div>
-    <div><%= f.label :mode, "Note" %><br />
-      <%= f.text_area :mode %></div>
+
+    <div><%= f.label :note, "Note" %>
+      <%= f.text_area :note %></div>
 
     <div><%= f.submit "Create", :class => "btn"  %></div>
 <% end %>

@@ -141,7 +141,7 @@ class Masters::TestamentController < Masters::MasterBaseController
   end
 
   def deactivate
-    authorize!(:delete, @testament)
+    authorize_muni_admin!(:delete, @testament)
 
     options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
@@ -153,7 +153,7 @@ class Masters::TestamentController < Masters::MasterBaseController
   end
 
   def api
-    authorize!(:edit, @municipality)
+    authorize_muni_admin!(:edit, @municipality)
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,

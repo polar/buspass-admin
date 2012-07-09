@@ -8,7 +8,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   def map
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
-    authorize!(:read, @municipality)
+    authorize_muni_admin!(:read, @municipality)
     @date = Time.now
     @time = @date
     if params[:date]
@@ -22,7 +22,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   end
 
   def status
-    authorize!(:read, @municipality)
+    authorize_muni_admin!(:read, @municipality)
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     if @job.nil?
@@ -31,7 +31,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   end
 
   def start
-    authorize!(:edit, @municipality)
+    authorize_muni_admin!(:edit, @municipality)
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @date = Time.now
     @time = @date
@@ -97,7 +97,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   end
 
   def stop
-    authorize!(:edit, @municipality)
+    authorize_muni_admin!(:edit, @municipality)
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
@@ -129,7 +129,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   # This action gets called by a javascript updater on the show page.
   #
   def partial_status
-    authorize!(:read, @municipality)
+    authorize_muni_admin!(:read, @municipality)
 
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
@@ -164,7 +164,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   end
 
   def api
-    authorize!(:read, @municipality)
+    authorize_muni_admin!(:read, @municipality)
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,

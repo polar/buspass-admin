@@ -23,9 +23,13 @@
           </ul>
           <div id="application-header">Busme US</div>
         </nav>
-        <%- flash.each do |name, msg| -%>
-            <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-        <%- end -%>
+        <div id="notices">
+          <!-- We need this because it is used to calculate the height
+          -- of the flash window to set the North Layout to the size
+          -- when an actual flash message does appear after the DOM is set..
+          -->
+          <div id='flash_inert' class='alert'>&nbsp;</div>
+        </div>
       </header>
     </div>
     <div class="ui-layout-west">

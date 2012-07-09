@@ -8,9 +8,6 @@ class PlannerRolePermit < CanTango::RolePermit
   def dynamic_rules
     # user is a MuniAdmin
 
-    can([:edit, :delete], Master) do |master|
-      master.muni_owner === user && user.master === master
-    end
     can([:edit, :delete], Municipality) do |muni|
       muni.owner === user && user.master === muni.master
     end

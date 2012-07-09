@@ -55,105 +55,89 @@ class WebsitesController < ApplicationController
     # submits to update
   end
 
+  MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone]
+
   def create
     authorize_customer!(:create, Master)
+
     @site = get_front_site()
 
-    location = params[:master][:location]
-    if location != nil
-      params[:master][:location] = view_context.from_location_str(location)
+    # Security Integrity Check, ignoring any unwanted inserted attributes
+    master_attributes = params[:master].slice(*MASTER_ALLOWABLE_UPDATE_ATTRIBUTES)
+
+    local_master  = nil
+    @master       = Master.new(master_attributes)
+    @master.owner = current_customer
+
+    # TODO: These dbnames really should be GUIDs, but for Development.
+    if Rails.env == "development"
+      @master.ensure_slug()
+      dbname = "#Busme-#{Rails.env}-#{@master.slug}"
+    else
+      # We use the id of the MasterMunicipality for a unique name.
+      dbname = "#Busme-#{Rails.env}-#{@master.id.to_s}"
     end
 
-    local_master = nil
-      @master       = Master.new(params[:master])
-      @master.owner = current_customer
+    # Currently not used until we start shifting masters to their own databases.
+    @master.dbname = dbname
+    @master.save!
 
-      # TODO: These dbnames really should be GUIDs, but for Development.
-      if Rails.env == "development"
-        @master.ensure_slug()
-        dbname = "#Busme-#{Rails.env}-#{@master.slug}"
-      else
-        # We use the id of the MasterMunicipality for a unique name.
-        dbname = "#Busme-#{Rails.env}-#{@master.id.to_s}"
-      end
+    # Creating the modifiable administrator pages for the Master.
+    @admin_site = create_master_admin_site(@master)
+    @main_site  = create_master_main_site(@master)
 
-      # Currently not used until we start shifting masters to their own databases.
-      @master.dbname = dbname
-      @master.hosturl = "http://#{@master.slug}.busme.us/"
-      @master.save!
+    logger.info("Creating New Municipality Database #{dbname} for Master #{@master.name}")
 
-      master = @master
-
-      logger.info("Creating New Municipality Database #{dbname} for Master #{@master.name}")
-
-      # Save everything to the new database, which is the local masterdb.
-      local_masterdb       = dbname
+    master         = @master
+                                   # Save everything to the new database, which is the local masterdb.
+    local_masterdb = dbname
 
 =begin
       # We need to save again, but in the new database, as a place holder and default information.
       # We will have to save customer(s)) as well.
-      #MongoMapper.database = local_masterdb
-      #Master.set_database_name(local_masterdb)
+      Master.set_database_name(local_masterdb)
 
-      local_master        = Master.new(params[:master])
+      local_master        = Master.new(master_attributes)
       local_master.owner  = nil # This has no relevance since it may be in a different site.
       local_master.dbname = local_masterdb
-      @error              = !local_master.save
-
-      if @error
-        flash[:error] = "Could not create the Master DB for Municipality"
-        @master.delete
-        raise "cannot create the masters DB for the municipality."
-      end
+      local_master.save!
 
       # Master Municipality and MuniAdmins are in the "masters" database
       # for the whole masters Municipality. This DB will contain the
       # MuniAdmin, the GoogleUriViewPath cache, and the Municipalities in
 =end
-    @site = Cms::Site.find_by_identifier("busme-main")
-      local_master = master       # their various modes and deployments.
+    local_master          = master # their various modes and deployments.
 
-      #MuniAdmin.set_database_name(local_masterdb)
+    #MuniAdmin.set_database_name(local_masterdb)
 
-      @muni_admin = MuniAdmin.new(current_customer.attributes.slice("encrypted_password", "email", "name"))
-      @muni_admin.master = local_master
-      @muni_admin.disable_empty_password_validation() # Keeps from arguing for a non-empty password.
-      @muni_admin.add_roles([:super, :planner, :operator])
+    muni_admin_attributes = current_customer.attributes.slice("encrypted_password", "email", "name")
+    @muni_admin           = MuniAdmin.new(muni_admin_attributes)
+    @muni_admin.master    = local_master
+    @muni_admin.disable_empty_password_validation() # Keeps from arguing for a non-empty password.
+    @muni_admin.add_roles([:super, :planner, :operator])
+    @muni_admin.save!
 
-      @muni_admin.save!
-      # This is the owner of the Master in the Muni realm.
-      master.muni_owner = @muni_admin
+    # Creating the first Deployment, which is a courtesy.
+    @municipality              = Municipality.new()
+    @municipality.name         = "Deployment 1"
+    @municipality.display_name = "Deployment 1"
+    @municipality.latitude     = local_master.latitude
+    @municipality.longitude    = local_master.longitude
+    @municipality.owner        = @muni_admin
+    @municipality.master       = local_master
+    @municipality.save!
+    create_master_deployment_page(@master, @municipality)
 
-      master.ensure_slug
-      master.host = "#{master.slug}.busme.us"
-      master.save!
+    # Creating the first Network in the first Deployment, which is a courtesy.
+    @network              = Network.new
+    @network.master       = @master
+    @network.municipality = @municipality
+    @network.name         = "Network 1"
+    @network.ensure_slug
+    @network.save!
+    create_master_deployment_network_page(@master, @municipality, @network)
 
-      # Creating the first Deployment, which is a courtesy.
-      @municipality                     = Municipality.new()
-      @municipality.name                = "Deployment 1"
-      @municipality.display_name        = "Deployment 1"
-      @municipality.location            = local_master.location
-      @municipality.owner               = @muni_admin
-
-      @municipality.master = local_master
-
-      @municipality.ensure_slug()
-
-      @municipality.save!
-
-      # Creating the first Network in the first Deployment, which is a courtesy.
-      @network = Network.new
-      @network.master = @master
-      @network.municipality = @municipality
-      @network.name = "Network 1"
-      @network.ensure_slug
-      @network.save!
-
-    # Creating the modifiable administrator pages.
-      @admin_site = create_master_admin_site(@master)
-      @main_site = create_master_main_site(@master)
-      create_master_deployment_page(@master, @municipality)
-      create_master_deployment_network_page(@master, @municipality, @network)
+    flash[:notice] = "Site #{master.name} created with default deployment and default network"
 
     if current_customer.has_role?(:admin) || current_customer.has_role?(:super)
       redirect_to websites_path
@@ -169,31 +153,50 @@ class WebsitesController < ApplicationController
     @master.destroy if @master
     @municipality.destroy if @municipality
     @muni_admin.destroy if @muni_admin
-    raise boom
-  end
 
+    flash[:error] = "Could not create the site for your municipality."
+    render :action => :new
+  end
 
   def update
     @master = Master.find(params[:id])
     @site = get_front_site()
+
     authorize_customer!(:edit, @master)
 
-    location = params[:master][:location]
-    if location != nil
-      params[:master][:location] = view_context.from_location_str(location)
-    end
+    # Security Integrity Check, ignoring any unwanted inserted attributes
+    master_attributes = params[:master].slice(*MASTER_ALLOWABLE_UPDATE_ATTRIBUTES)
+
     error = false
     if @master == nil
       flash[:error] = "Master Municipality #{params[:id]} doesn't exist"
       error         = true
-    elsif @master.owner != current_customer
-      @master.errors.add_to_base("You do not have permission to update this object")
+    elsif customer_cannot?(:edit, @master)
       flash[:error] = "You do not have permission to update this object"
       error         = true
     else
-      @master.update_attributes(params[:master])
-      error = !@master.save
-      if !error
+      slug_was = @master.slug
+      success = @master.update_attributes(master_attributes)
+      if success
+        if slug_was != @master.slug
+          @master.admin_site.update_attributes(
+              :identifier => "#{@master.slug}-admin",
+              :label      => "#{@master.name} Administration Pages",
+              :hostname   => "#{@master.slug}.busme.us"
+          )
+          @master.admin_site.pages.root.update_attributes(
+              :label => "#{@master.name} Information"
+          )
+          @master.main_site.update_attributes(
+              :identifier => "#{@master.slug}-main",
+              :label      => "#{@master.name} Active Deployment Pages",
+              :hostname   => "#{@master.slug}.busme.us"
+          )
+          @master.main_site.pages.root.update_attributes(
+              :label => "#{@master.name} Main Page"
+          )
+        end
+
         flash[:notice] = "You have successfully updated your municipality."
       else
         flash[:error] = "You couldn't update your municipality."
@@ -204,7 +207,7 @@ class WebsitesController < ApplicationController
         if error
           render :edit
         else
-          redirect_to sites_path
+          redirect_to websites_path
         end
       }
       format.all do
@@ -218,20 +221,21 @@ class WebsitesController < ApplicationController
   def delete
     @master = Master.find(params[:id])
     @site = get_front_site()
+
     authorize_customer!(:delete, @master)
 
     if @master == nil
       flash[:error] = "Municipality #{params[:id]} doesn't exist"
       error         = true
-    elsif @master.owner != current_customer
-      @master.errors.add_to_base("You do not have permission to delete this object")
+    elsif customer_cannot?(:delete, @master)
+      flash[:error] = "You do not have permission to delete the #{@master.name} Municipality."
       error = true
     else
-      @master.delete()
+      @master.destroy()
     end
     respond_to do |format|
       format.html {
-        redirect_to sites_path
+        redirect_to websites_path
       }
       format.all do
         method = "to_#{request_format}"

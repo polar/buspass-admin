@@ -1,25 +1,25 @@
 class Masters::Municipalities::Plan::NetworksController < Masters::Municipalities::Plan::ApplicationController
 
   def index
-    authorize!(:read, @master)
-    authorize!(:read, @municipality)
-    authorize!(:read, Network)
+    authorize_muni_admin!(:read, @master)
+    authorize_muni_admin!(:read, @municipality)
+    authorize_muni_admin!(:read, Network)
     @networks = Network.all
   end
 
   def show
     @network = Network.find(params[:id])
-    authorize!(:read, @network)
+    authorize_muni_admin!(:read, @network)
   end
 
   def new
-    authorize!(:create, Network)
+    authorize_muni_admin!(:create, Network)
     @network = Network.new
     @network = municipality = @muni
   end
 
   def edit
-    authorize!(:edit, Network)
+    authorize_muni_admin!(:edit, Network)
     @network = Network.find(params[:id])
     if @network.municipality != @muni
       raise "Wrong Municipality"
@@ -27,7 +27,7 @@ class Masters::Municipalities::Plan::NetworksController < Masters::Municipalitie
   end
 
   def create
-    authorize!(:create, Network)
+    authorize_muni_admin!(:create, Network)
     @network = Network.new(params[:network])
     @network.mode = :planning
     @network.municipality = @muni
@@ -47,7 +47,7 @@ class Masters::Municipalities::Plan::NetworksController < Masters::Municipalitie
 
   def update
     @network = Network.find(params[:id])
-    authorize!(:edit, @network)
+    authorize_muni_admin!(:edit, @network)
     if @network.municipality != @muni
       raise "Wrong Municipality"
     end
@@ -55,7 +55,7 @@ class Masters::Municipalities::Plan::NetworksController < Masters::Municipalitie
 
   def destroy
     @network = Network.find(params[:id])
-    authorize!(:delete, @network)
+    authorize_muni_admin!(:delete, @network)
     if @network.municipality != @muni
       raise "Wrong Municipality"
     end

@@ -2,7 +2,7 @@ class Masters::UsersController < Masters::MasterBaseController
   helper_method :sort_column, :sort_direction
 
   def index
-    authorize!(:read, User)
+    authorize_muni_admin!(:read, User)
 
     @roles = User::ROLE_SYMBOLS
     @users = User.where(:master_id => @master.id)
@@ -18,7 +18,7 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def admin
-    authorize!(:read, User)
+    authorize_muni_admin!(:read, User)
 
     @roles = User::ROLE_SYMBOLS
     @users = User.where(:master_id => @master.id)
@@ -35,12 +35,12 @@ class Masters::UsersController < Masters::MasterBaseController
 
   def edit
     @user = User.find(params[:id])
-    authorize!(:edit, @user)
+    authorize_muni_admin!(:edit, @user)
   end
 
   def show
     @user = User.find(params[:id])
-    authorize!(:read, @user)
+    authorize_muni_admin!(:read, @user)
 
     respond_to do |format|
       format.json { render :json => @user }
@@ -48,7 +48,7 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def new
-    authorize!(:create, User)
+    authorize_muni_admin!(:create, User)
     @user = User.new()
     @user.master = @master
 
@@ -59,7 +59,7 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def create
-    authorize!(:create, User)
+    authorize_muni_admin!(:create, User)
     # Security, don't let anything other than these keys get assigned.
     # We don't want some bogon changing the master_id, etc.
     params[:user].slice!(:password, :password_confirmation, :email, :name, :role_symbols)
@@ -84,7 +84,7 @@ class Masters::UsersController < Masters::MasterBaseController
     if !@user || @user.master != @master
       raise "Not Found"
     end
-    authorize!(:edit, @user)
+    authorize_muni_admin!(:edit, @user)
 
     @roles = User::ROLE_SYMBOLS
 
@@ -108,7 +108,7 @@ class Masters::UsersController < Masters::MasterBaseController
 
   def destroy_confirm
     @user = User.find(params[:id])
-    authorize!(:delete, @user)
+    authorize_muni_admin!(:delete, @user)
     if @user
       @user.destroy
       redirect_to master_users_path(@master)
@@ -119,7 +119,7 @@ class Masters::UsersController < Masters::MasterBaseController
 
   def destroy
     @user = User.find(params[:id])
-    authorize!(:delete, @user)
+    authorize_muni_admin!(:delete, @user)
     @user.destroy
 
     respond_to do |format|

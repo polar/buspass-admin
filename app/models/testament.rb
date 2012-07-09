@@ -12,11 +12,11 @@ class Testament
   before_validation :set_master
 
   def set_master
-    master = municipality.master
+    master = municipality.master if municipality
   end
 
   def master_consistent
-    master == municipality.master
+    master == municipality.master if municipality
   end
 
 
