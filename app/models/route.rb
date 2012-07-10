@@ -16,7 +16,7 @@ class Route
   key :display_name,  String
   key :persistentid,  String
   key :version_cache, Integer
-  key :slug,           String, :required => true, :unique => { :scope => [ :master_id, :municipality_id, :network_id] }
+  key :slug,           String
 
   timestamps!
 
@@ -25,8 +25,31 @@ class Route
 
   #ensure_index(:network)
   ensure_index(:name, :unique => false) # cannot be unique because of the scope, :unique => true)
+  ensure_index(:persistentid, :unique => false)
 
   before_validation :ensure_slug
+
+  validates_presence_of :name
+  validates_uniqueness_of :name, :scope => [:master_id, :municipality_id, :network_id]
+  validates_presence_of :code
+  validates_uniqueness_of :code, :scope => [:master_id, :municipality_id, :network_id]
+  validates_presence_of :slug
+  validates_uniqueness_of :slug, :scope => [:master_id, :municipality_id, :network_id]
+
+  ##
+  # For sorting Route Codes. Most significant is last 2 digits, then the first.
+  #
+  def self.codeOrd(code1, code2)
+    code1 = code1.to_i
+    base1 = code1 % 100
+    code2 = code2.to_i
+    base2 = code2 % 100
+    if (base1 == base2)
+      code1/100 <=> code2/100
+    else
+      base1 <=> base2
+    end
+  end
 
   #
   # Route has many JourneyPatterns by way of its Services.
@@ -56,10 +79,6 @@ class Route
     ret.save!(:safe => true)
     ret
   end
-
-  # The Route's persistenid is its code
-  #validates_uniqueness_of :name, :scope => :network_id
-  validates_uniqueness_of :code, :scope => [:network_id, :master_id, :municipality_id]
 
   # A version of a route depends on the modification of its
   # Journey Patterns. If we modified a single journey pattern

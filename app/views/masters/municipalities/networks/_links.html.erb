@@ -1,9 +1,9 @@
 
-<% if muni_admin_can?(:edit, Municipality)  %>
+<% if muni_admin_can?(:edit, @municipality)  %>
     <p>
      <% if muni_admin_can?(:edit, @network) %>
         <%= link_to "Plan Network", master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn" %>
      <% end %>
-     <%= link_to "Copy to Deployment", move_master_municipality_network_path(@master, @municipality, @network), :class => "btn" %>
+     <%= link_to "Copy to Deployment", copy_master_municipality_network_path(@master, @municipality, @network), :class => "btn" %>
     </p>
 <% end %>

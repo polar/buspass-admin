@@ -21,6 +21,10 @@ def do_page(page, xml)
 end
 
 xml.ul(:id => "sitemap") {
+  page = @site.pages.find_by_full_path("/")
+  xml.li() {
+    xml.a "#{@master.name} Top", :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+  }
   page = @site.pages.find_by_full_path("/deployments/#{@municipality.slug}")
   xml.li() {
     xml.a "#{@municipality.name}", :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")

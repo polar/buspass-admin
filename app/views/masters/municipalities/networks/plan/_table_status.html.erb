@@ -1,4 +1,6 @@
-<table>
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
   <tr id="processing_statusP" style="display: <%= @network.processing_lock ? '': 'none' %> ">
     <th>Processor Admin</th>
     <td><%= @network.processing_lock.name if @network.processing_lock %></td>
@@ -7,21 +9,22 @@
     <th>Start Time</th>
     <td><div id="started_at"><%=  @network.processing_completed_at ?
                                           @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
-                                          "Pending" %></div></td>
+                                          @network.processing_lock ? "Pending" : "Never"  %></div></td>
   </tr>
   <tr>
     <th>Progress</th>
     <td><div id="progress"><%= (@network.processing_progress * 100).floor %>%</div></td>
   </tr>
   <tr  id="processing_statusC1" style='display: <%= @network.processing_lock ? 'none': ''%>'>
-    <th>PComplete Time</th>
+    <th>Complete Time</th>
     <td><div id="completed_at"><%= @network.processing_completed_at ?
                                            @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
                                            "" %></div></td>
   </tr>
   <tr  id="processing_statusC2" style='display: <%= @network.processing_lock ? 'none': ''%>'>
-    <th>PResult File</th>
+    <th>Result File</th>
     <td><div id="process_file"><%= @network.file_path ?
                                            link_to("Download", file_master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn"): "" %></div></td>
   </tr>
+  </tbody>
 </table>

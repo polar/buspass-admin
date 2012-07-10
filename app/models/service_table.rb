@@ -3,6 +3,7 @@ require "csv"
 require "open-uri"
 require "hpricot"
 class ServiceTable
+  include PageUtils
 
   class Progress < Struct.new(:network)
     def error(s)
@@ -153,8 +154,8 @@ class ServiceTable
         :persistentid    => pid,
         :journey_pattern => journey_pattern)
     vehicle_journey.save!
-    create_deployment_network_journey_page(network.master.admin_site, network.municipality, network, vehicle_journey)
-    create_deployment_network_journey_map_page(network.master.admin_site, network.municipality, network, vehicle_journey)
+    #create_deployment_network_journey_page(network.master.admin_site, network.municipality, network, vehicle_journey)
+    #create_deployment_network_journey_map_page(network.master.admin_site, network.municipality, network, vehicle_journey)
     return vehicle_journey
   end
 
@@ -279,13 +280,13 @@ class ServiceTable
       #puts "Finding Route and Service"
       # Route is persistent by the number
       route = Route.find_or_create_by_number(network, route_number)
-      create_deployment_network_route_page(network.master.admin_site, network.municipality, network, route)
-      create_deployment_network_route_map_page(network.master.admin_site, network.municipality, network, route)
+      #create_deployment_network_route_page(network.master.admin_site, network.municipality, network, route)
+      #create_deployment_network_route_map_page(network.master.admin_site, network.municipality, network, route)
 
       # Service is persistent by all of the following arguments.
       service = Service.find_or_create_by_route(route,
                                                 direction, day_class, start_date, end_date)
-      create_deployment_network_service_page(network.master.admin_site, network.municipality, network, service)
+      #create_deployment_network_service_page(network.master.admin_site, network.municipality, network, service)
 
       #puts "Done Route and Service"
       if out == nil

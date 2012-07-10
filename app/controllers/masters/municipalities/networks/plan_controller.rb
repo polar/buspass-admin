@@ -12,7 +12,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
     @network_param_name = :plan
 
     if (@network.processing_lock)
-      redirect_to master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
+      redirect_to master_municipality_network_plan_path(@master, @municipality, @network)
     end
   end
 
@@ -37,6 +37,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
     @logs   = @network.processing_log.drop(@last_log).take(@limit)
 
     resp                  = { :errors => @errors, :logs => @logs }
+    resp[:route_codes]    = render_to_string(:partial => "route_codes")
     resp[:services_count] = @network.services.count
     resp[:routes_count]   = @network.routes.count
     resp[:vj_count]       = @network.vehicle_journey_count
@@ -63,7 +64,15 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
     authorize_muni_admin!(:edit, @network)
 
     if (@network.processing_lock)
-      raise "there a job processing."
+      # This may have to be reset, because of rake jobs:clear
+      jobs = Delayed::Job.all.each do |job|
+        if job.payload_object && job.payload_object.is_a?(CompileServiceTableJob) && job.payload_object.network_id == @network.id
+          flash[:error] = "There is already a job processing."
+          redirect_to master_municipality_network_plan_path(@master, @municipality, @network)
+          return
+        end
+      end
+      @network.processing_lock = nil
     end
 
     if @network.upload_file && @network.upload_file.url && File.exists?(@network.upload_file.url)
@@ -71,35 +80,32 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
       @network.upload_file = nil
     end
 
-    @network.update_attributes!(params[:plan])
     @network.upload_file = params[:plan][:upload_file]
-
     # Save automatically reads the uploaded file and stores it
     @network.save!
 
     @network.file_path = nil;
 
     if @network.upload_file && @network.upload_file.url
-      # TODO: We should *move* this file somewhere.
+      # TODO: We should *move* this file somewhere?
       @network.file_path = File.expand_path(File.join(Rails.root, File.join("public", @network.upload_file.url)))
     end
 
     if @network.file_path && File.exists?(@network.file_path)
 
       @network.delete_routes()
-
+      @network.processing_token        = rand.to_s
       @network.processing_lock         = current_muni_admin
       @network.processing_log          = []
       @network.processing_errors       = []
       @network.processing_completed_at = nil
       @network.processing_progress     = 0.0
-
       @network.save!
 
-      Delayed::Job.enqueue(:payload_object => CompileServiceTableJob.new(@network.id))
+      Delayed::Job.enqueue(:payload_object => CompileServiceTableJob.new(@network.id, @network.processing_token))
 
       flash[:notice] = "Your job is currently scheduled for processing."
-      redirect_to master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
+      redirect_to master_municipality_network_plan_path(@master, @municipality, @network)
     else
       flash[:error] = "Your file was unspecified or not uploaded. Please retry with new file name."
       @network_param_name = :plan

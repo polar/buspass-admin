@@ -337,16 +337,16 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
-    move_network_template = site.pages.create!(
-        :slug => "move",
-        :label => "Move",
+    copy_network_template = site.pages.create!(
+        :slug => "copy",
+        :label => "Copy",
         :layout => normal_layout,
         :parent => network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/move",
+        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/copy",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:move }}"
+                                   :content => "{{ cms:bus:deployment:network:copy }}"
                                },
                                {
                                    :identifier => "left",

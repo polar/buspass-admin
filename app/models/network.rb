@@ -7,11 +7,12 @@ class Network
   key :description, String
   key :mode,        String # :planning, :testing, :retired, :actives
   key :file_path,   String
-  key :slug,        String, :required => true
+  key :slug,        String
 
-  validates_uniqueness_of :slug, :scope => [ :master_id, :municipality_id]
+  timestamps!
 
   key :processing_lock,     MuniAdmin, :default => nil
+  key :processing_token,    String
   key :processing_progress, Float, :default => 0.0
   key :processing_errors,   Array
   key :processing_log,      Array
@@ -19,11 +20,21 @@ class Network
   key :processing_started_at,   Time
   key :processing_completed_at, Time
 
+  belongs_to :copy_lock, :class_name => "Network"
+
+  key :copy_progress, Float, :default => 0.0
+  key :copy_errors,   Array
+  key :copy_log,      Array
+
+  key :copy_started_at,   Time
+  key :copy_completed_at, Time
+
   belongs_to  :municipality
   belongs_to  :master
 
-  many :routes, :dependent => :destroy
-  many :services, :dependent => :destroy
+  # We need :autosave off for copy!
+  many :routes, :dependent => :destroy, :autosave => false
+  many :services, :dependent => :destroy, :autosave => false
 
   # CMS Integration
   one :site, :class_name => "Cms::Site"
@@ -34,25 +45,110 @@ class Network
   # move this to file.
   mount_uploader :upload_file, NetworkFileUploader
 
-  timestamps!
-
   ensure_index(:name, :unique => false)
+  def self.create_indexes
+    self.ensure_index(:name, :unique => false)
+  end
 
   before_validation :ensure_slug
 
+  validates_presence_of :name
   validates_uniqueness_of :name, :scope => [ :master_id, :municipality_id ]
+  validates_uniqueness_of :slug, :scope => [ :master_id, :municipality_id ]
 
-  def self.create_indexes
-    self.ensure_index(:name, :unique => true)
+  attr_accessible :name, :mode, :description
+  attr_accessible :municipality, :municipality_id, :master, :master_id
+
+  def self.create_copy(fromnet, municipality)
+    network = Network.new()
+    network.municipality = municipality
+    network.master = municipality.master
+    network.description = fromnet.description
+    network.copy_lock = fromnet
+
+    # The only validity concern we have is the uniqueness of the name
+    # in the new municipality.
+    i = 1
+    name = network.name
+    while i < 1000 && !network.valid? do
+      network.name = "#{name}-#{i}"
+      i += 1
+    end
+
+    if (i == 1000)
+      raise "Could not create network. Too many networks named '#{name}'."
+    end
+
+    network.save!(:safe => true)
+
+    return network
   end
 
-  attr_accessible :name, :mode, :description, :municipality
-
+  def self.copy_content(fromnet, tonet)
+    copy_started_at = Time.now
+    copy_routes = {}
+    copy_services = []
+    copy_vehicle_journeys = []
+    # We base progress on vehicle journeys
+    total_journey_count = fromnet.vehicle_journey_count
+    copy_journey_count = 0
+    begin
+      for s in fromnet.services
+        tonet.copy_log << "Copying Service #{s.name}"
+        if copy_routes[s.route.code] == nil
+          copy_routes[s.route.code] = s.route.copy!(fromnet)
+          tonet.copy_log << "Copying Route #{s.route.name}"
+        end
+        tonet.save
+        route = copy_routes[s.route.code]
+        service = s.copy!(route, fromnet)
+        copy_services << service
+        for vj in s.vehicle_journeys
+          tonet.copy_log << "Copying Journey #{vj.name}"
+          vehicle_journey = vj.copy!(service, fromnet)
+          copy_journey_count += 1
+          tonet.copy_progress = copy_journey_count.to_f / total_journey_count.to_f
+          tonet.save
+          copy_vehicle_journeys << vehicle_journey
+        end
+      end
+    rescue Exception => boom
+      copy_errors << "#{boom}"
+      copy_routes.values.each {|x| x.delete() }
+      copy_services.each {|x| x.delete() }
+      copy_vehicle_journeys.each {|x| x.delete() }
+      tonet.delete
+      tonet = nil
+      raise "Cannot create network #{boom}"
+    ensure
+      if tonet
+        tonet.copy_lock = nil
+        tonet.copy_completed_at = Time.now
+        tonet.save
+      end
+    end
+  end
+  #
+  # Copies the network into the municipality, changing the name if
+  # needed.
+  #
   def copy!(municipality)
     network = Network.new(self.attributes)
     network.municipality = municipality
     network.master = municipality.master
-    # May have to change name.
+    # The only validity concern we have is the uniqueness of the name
+    # in the new municipality.
+    i = 1
+    name = network.name
+    while i < 1000 && !network.valid? do
+      network.name = "#{name}-#{i}"
+      i += 1
+    end
+
+    if (i == 1000)
+      raise "Could not create network. Too many networks named '#{name}'."
+    end
+
     if network.save(:safe => true)
       routes = {}
       services = []
@@ -63,9 +159,9 @@ class Network
             routes[s.route.code] = s.route.copy!(network)
           end
           route = routes[s.route.code]
-          puts "Copy Service #{s.id} to route #{route.id} and network #{network.id}"
+          #puts "Copy Service #{s.id} to route #{route.id} and network #{network.id}"
           service = s.copy!(route, network)
-          puts "Cone Service #{service.id} "
+          #puts "Cloned to Service #{service.id} "
           services << service
           for vj in s.vehicle_journeys
             vehicle_journey = vj.copy!(service, network)
@@ -82,7 +178,7 @@ class Network
         raise "Cannot create network #{boom}"
       end
     else
-      raise "Cannot create network"
+      raise "Cannot create network #{network.errors.message}"
     end
   end
 
@@ -114,19 +210,7 @@ class Network
     routes.each { |x| x.destroy }
   end
 
-  SLUG_TRIES = 10
-
   def ensure_slug
-    if self.slug == nil
-      self.slug = self.name.to_url()
-      tries     = 0
-      while tries < SLUG_TRIES && Municipality.find(:slug => self.slug) != nil
-        self.slug = name.to_url() + "-" + (Random.rand*1000).floor
-      end
-      if tries == SLUG_TRIES
-        self.slug = self.id.to_s
-      end
-    end
-    return true
+    self.slug = self.name.to_url()
   end
 end

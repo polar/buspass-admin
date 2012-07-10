@@ -1,0 +1,19 @@
+// Place all the styles related to the Customers controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+//=require bootstrap
+//=require_self
+
+
+.edit_network input[type=text], textarea {
+  width : 30em;
+}
+.edit_network textarea  {
+  height : 5em;
+}
+.new_network input[type=text], textarea {
+  width : 30em;
+}
+.new_network textarea  {
+  height : 5em;
+}

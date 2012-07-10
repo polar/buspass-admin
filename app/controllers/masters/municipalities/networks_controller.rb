@@ -11,10 +11,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   end
 
   def show
-    @network = Network.where(:master_id => @master.id, :municipality_id => @municipality.id, :id => params[:id]).first
-    if @network.nil?
-      raise "Network not found"
-    end
+    @network = Network.find(params[:id])
     authorize_muni_admin!(:read, @network)
   end
 
@@ -64,29 +61,37 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   end
 
 
-  def move
-    @network = Network.where(:master_id => @master.id, :municipality_id => @municipality.id, :id => params[:id]).first
+  def copy
+    @network = Network.find(params[:id])
     if @network.nil?
       raise "Network not found"
     end
     authorize_muni_admin!(:read, @network)
 
-    @municipalities = Municipality.where(:master_id => @master.id).all
-    route_codes = []
+    @municipalities   = Municipality.where(:master_id => @master.id).all
+    route_codes       = []
     @disabled_options = @municipalities.map do |muni|
       route_codes += muni.route_codes
-      muni.id if muni.route_codes.length > 0 && (route_codes - @network.route_codes).length != route_codes.length
+      if muni.route_codes.length > 0 &&
+          (route_codes - @network.route_codes).length != route_codes.length &&
+          muni_admin_can?(:edit, muni)
+        muni.id
+      else
+        nil
+      end
     end
+    # The copy button is disabled if all options are disabled
+    @disabled = @disabled_options.reduce(true) { |t,v| t && v }
 
   end
 
-  def moveto
-    @network = Network.where(:master_id => @master.id, :municipality_id => @municipality.id, :id => params[:id]).first
+  def copyto
+    @network = Network.find(params[:id])
     if @network.nil?
       raise "Network not found"
     end
     if params[:network] && params[:network][:municipality]
-      @dest_municipality = Municipality.where(:master_id => @master.id, :id => params[:network][:municipality]).first
+      @dest_municipality = Municipality.find(params[:network][:municipality])
       end
     if @dest_municipality.nil?
       raise "Destination Municipality not found"
@@ -101,16 +106,50 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     end
     nrcodes = @network.route_codes
     if route_codes.length > 0 && nrcodes.length > 0 && (route_codes-nrcodes).length < route_codes.length
-      raise "Cannot move the network to the destination due to conflicting routes"
+      raise "Cannot copy the network to the destination due to conflicting routes"
     end
 
     @new_network = nil
     begin
-      @new_network = @network.copy!(@dest_municipality)
-      redirect_to master_municipality_path(@master, @dest_municipality)
-    rescue
-      flash[:error] = "Cannot copy network to selected deployment because of conflict with route codes or names"
+      @new_network = Network.create_copy(@network, @dest_municipality)
+
+      Delayed::Job.enqueue(:payload_object => CopyNetworkJob.new(@network.id, @new_network.id))
+
+      create_master_deployment_network_page(@master, @dest_municipality, @new_network)
+      flash[:notice] = "Network is being copied."
       render :show
+    rescue Exception => boom
+      flash[:error] = "Cannot copy network to selected deployment: #{boom}"
+      render :show
+    end
+  end
+  #
+  # This action gets called by a javascript updater on the show page.
+  #
+  def partial_status
+    authorize_muni_admin!(:read, @network)
+
+    @last_log = params[:log].to_i
+    @last_err = params[:err].to_i
+    @limit    = (params[:limit] || 10000000).to_i # makes take(@limit) work if no limit.
+
+    @errors = @network.copy_errors.drop(@last_err).take(@limit)
+    @logs   = @network.copy_log.drop(@last_log).take(@limit)
+
+    resp = { :errors => @errors, :logs => @logs }
+
+    if (@network.copy_completed_at)
+      resp[:completed_at] = @network.copy_completed_at.strftime("%m-%d-%Y %H:%M %Z")
+    end
+    if (@network.copy_started_at)
+      resp[:started_at] = @network.copy_started_at.strftime("%m-%d-%Y %H:%M %Z")
+    end
+    if (@network.copy_progress)
+      resp[:progress] = @network.copy_progress
+    end
+
+    respond_to do |format|
+      format.json { render :json => resp.to_json }
     end
   end
 

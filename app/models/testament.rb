@@ -19,7 +19,6 @@ class Testament
     master == municipality.master if municipality
   end
 
-
   def status
     simulate_job ? simulate_job.processing_status : "Unrun"
   end

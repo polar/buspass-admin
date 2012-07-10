@@ -1,13 +1,10 @@
 
-<%= form_for @network, :url => master_municipality_networks_path(@master, @municipality) do |f| %>
+<%= form_for @network, :url => master_municipality_networks_path(@master, @municipality), :validate => true do |f| %>
     <%= render "shared/masters/error_messages", :target => @network %>
-    <p>
+      <%= f.hidden_field :master_id, :value => @master.id %>
       <%= f.label :name, "Name" %>
       <%= f.text_field :name %>
-    </p>
-    <p>
       <%= f.label :description, "Description" %>
-      <%= f.text_field :description %>
-    </p>
-    <p><%= f.submit :class => "btn"  %></p>
+      <%= f.text_area :description %>
+    <div><%= f.submit :class => "btn"  %></div>
 <% end %>

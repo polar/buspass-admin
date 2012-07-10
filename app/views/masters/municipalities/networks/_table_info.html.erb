@@ -1,14 +1,45 @@
-<table>
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
   <tr>
-    <th>Name</th>
-    <td><%= link_to "#{@network.name}", master_municipality_network_path(@master, @municipality, @network) %></td>
+    <th>Network</th>
+    <td><%= link_to "#{@network.name}", master_municipality_network_path(@master, @network.municipality, @network) %></td>
   </tr>
+
   <tr>
-    <th>Mode</th>
-    <td><%=  @network.mode %></td>
+    <th>Deployment</th>
+    <td><%= link_to @network.municipality.name, master_municipality_path(@master, @network.municipality) %></td>
   </tr>
+
   <tr>
     <th>Description</th>
     <td><%=  @network.description %></td>
   </tr>
+
+  <tr>
+    <th>Route Codes</th>
+    <% # TODO: Put links to Routes for codes %>
+    <td>
+      <% for route in @network.routes.sort {|r1,r2| Route.codeOrd(r1.code, r2.code)} do %>
+        <%= link_to route.code, master_municipality_network_route_path(@master, @municipality, @network, route) %>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <th><%= link_to "Services", master_municipality_network_services_path(@master, @municipality, @network) %></th>
+    <td><%= @network.services.count %></td>
+  </tr>
+
+  <tr>
+    <th><%= link_to "Routes", master_municipality_network_routes_path(@master, @municipality, @network) %></th>
+    <td><%=  @network.routes.count %></td>
+  </tr>
+
+  <tr>
+    <th><%= link_to "Journeys", master_municipality_network_vehicle_journeys_path(@master, @municipality, @network) %></th>
+    <td><%=  @network.vehicle_journey_count %></td>
+  </tr>
+
+  </tbody>
 </table>

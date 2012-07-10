@@ -1,7 +1,0 @@
-
-<%=  form_for( @network, :url => moveto_master_municipality_network_path(@master, @municipality, @network)) do |f| %>
-
-    Move <%= link_to(@network.name, master_municipality_network_path(@master, @municipality, @network)) %> to
-    <%= f.collection_select(:municipality, @municipalities, :id, :name, {:disabled => @disabled_options}, {:class => "btn"}) %>
-    <%= f.submit "Copy", :class => "btn", :disabled => @disabled_options.reduce(false) {|t,v| t || v } %>
-<% end %>

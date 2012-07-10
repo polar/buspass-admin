@@ -164,8 +164,8 @@ BuspassAdmin::Application.routes.draw do
 
       resources :networks, :controller => "masters/municipalities/networks" do
         member do
-          get :move
-          put :moveto
+          get :copy
+          put :copyto
         end
 
         resources :services,         :controller => "masters/municipalities/networks/services"

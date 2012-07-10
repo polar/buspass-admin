@@ -1,5 +1,7 @@
-<div id="processing_statusC3" style='display: <%= @network.processing_lock ? 'none': ''%>'>
-  <p>
-    <%= link_to "Upload New Definition", upload_master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn" %>
-  </p>
-</div>
+<% if muni_admin_can? :edit, @network %>
+    <div id="processing_statusC3" style='display: <%= @network.processing_lock ? 'none': ''%>'>
+      <p>
+        <%= link_to "Upload New Definition", upload_master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn" %>
+      </p>
+    </div>
+<% end %>

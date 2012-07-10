@@ -1,0 +1,4 @@
+
+<% for route in @network.routes.sort {|r1,r2| Route.codeOrd(r1.code, r2.code)} do %>
+    <%= link_to route.code, master_municipality_network_route_path(@master, @municipality, @network, route) %>
+<% end %>

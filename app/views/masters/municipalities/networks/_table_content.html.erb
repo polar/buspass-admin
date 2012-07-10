@@ -1,5 +1,7 @@
 
-<table>
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
   <tr>
     <th><%= link_to "Services", master_municipality_network_services_path(@master, @municipality, @network) %></th>
     <td><%= @network.services.count %></td>
@@ -12,4 +14,5 @@
     <th><%= link_to "Journeys", master_municipality_network_vehicle_journeys_path(@master, @municipality, @network) %></th>
     <td><%=  @network.vehicle_journey_count %></td>
   </tr>
+  </tbody>
 </table>

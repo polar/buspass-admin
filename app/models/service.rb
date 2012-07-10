@@ -25,13 +25,13 @@ class Service
 
   key :direction, String
   key :day_class, String
-  key :slug,      String, :required => true, :unique => { :scope => [ :master_id, :municipality_id, :network_id] }
+  key :slug,      String
 
   timestamps!
 
   ensure_index(:name, :unique => false)
 
-  attr_accessible :name, :operating_period_end_date, :operating_period_start_date, :direction, :day_class,
+  attr_accessible :name, :operating_period_end_date, :operating_period_start_date, :direction, :day_class, :slug,
                   :route, :route_id,
                   :network, :network_id,
                   :master, :master_id,
@@ -80,8 +80,8 @@ class Service
   #  Route {code} {Weekday|Daily|Saturday|Sunday|Weekend} {Inbound|Outbound} Service <StartDate> to <EndDate>
   #
   # Network is unique to Master and Municipality.
-  #validates_uniqueness_of :name, :scope => [:network_id, :master_id, :municipality_id]
-  validates_uniqueness_of :name, :scope => [:network_id]
+  validates_uniqueness_of :name, :scope => [:network_id, :master_id, :municipality_id]
+  validates_uniqueness_of :slug, :scope => [:network_id, :master_id, :municipality_id]
 
   validates_presence_of :network
   validates_presence_of :master
@@ -117,45 +117,61 @@ class Service
   end
 
   def setOperatingDays(designator)
-    self.day_class= designator
+    self.day_class = designator
 
-    self.monday = false
-    self.tuesday = false
+    self.monday    = false
+    self.tuesday   = false
     self.wednesday = false
-    self.thursday = false
-    self.friday = false
-    self.saturday = false
-    self.sunday = false
+    self.thursday  = false
+    self.friday    = false
+    self.saturday  = false
+    self.sunday    = false
 
-    case designator
-      when "Weekday"
-        self.monday = true
-        self.tuesday = true
-        self.wednesday = true
-        self.thursday = true
-        self.friday = true
-      when "Daily"
-        self.monday = true
-        self.tuesday = true
-        self.wednesday = true
-        self.thursday = true
-        self.friday = true
-        self.saturday = true
-        self.sunday = true
-      when "Saturday"
-        self.saturday = true
-      when "Sunday"
-        self.sunday = true
-      when "Weekend"
-        self.saturday = true
-        self.sunday = true
-      when "Friday"
-        self.friday = true
-      when "Mon-Thurs"
-        self.monday = true
-        self.tuesday = true
-        self.wednesday = true
-        self.thursday = true
+    items = designator.split(",").collect { |s| s.strip.downcase }
+    items.each do |item|
+      case item
+        when "monday", "m", "mon"
+          self.monday = true
+        when "tuesday", "t", "tu" "tue"
+          self.tuesday = true
+        when "wednesday", "w", "wWed"
+          self.wednesday = true
+        when "thursday", "th", "thu"
+          self.thursday = true
+        when "friday", "f", "fri"
+          self.friday = true
+        when "saturday", "s", "sat"
+          self.saturday = true
+        when "sunday", "su", 'sun'
+          self.sunday = true
+        when "weekday"
+          self.monday    = true
+          self.tuesday   = true
+          self.wednesday = true
+          self.thursday  = true
+          self.friday    = true
+        when "daily", "d"
+          self.monday    = true
+          self.tuesday   = true
+          self.wednesday = true
+          self.thursday  = true
+          self.friday    = true
+          self.saturday  = true
+          self.sunday    = true
+        when "weekend"
+          self.saturday = true
+          self.sunday   = true
+        when "mon-thurs"
+          self.monday    = true
+          self.tuesday   = true
+          self.wednesday = true
+          self.thursday  = true
+        when "mwf"
+          self.monday    = true
+          self.wednesday = true
+          self.friday    = true
+        else # skip it.
+      end
     end
   end
 
@@ -224,19 +240,7 @@ class Service
 
 =end
 
-  SLUG_TRIES = 10
-
   def ensure_slug
-    if self.slug == nil
-      self.slug = self.name.to_url()
-      tries     = 0
-      while tries < SLUG_TRIES && Municipality.find(:slug => self.slug) != nil
-        self.slug = name.to_url() + "-" + (Random.rand*1000).floor
-      end
-      if tries == SLUG_TRIES
-        self.slug = self.id.to_s
-      end
-    end
-    return true
+    self.slug = self.name.to_url()
   end
 end

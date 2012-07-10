@@ -4,7 +4,7 @@ class SimulateJob
   belongs_to :deployment # if this isn't nil, it is for a deployment.
   belongs_to :testament # if this isn't nil, it is for a testament.
 
-  # If one of the above is assigned, the master and municipality should be nil.
+  # If one of the above is assigned, both the master and municipality should be nil.
   belongs_to :master
   belongs_to :municipality
 

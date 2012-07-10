@@ -8,7 +8,7 @@ require 'carrierwave/orm/mongomapper'
 # This class represents a serializable object that gets passed to
 # Delayed Job.
 #
-class CompileServiceTableJob < Struct.new(:network_id)
+class CompileServiceTableJob < Struct.new(:network_id, :token)
 
   def logger
     Rails.logger
@@ -21,15 +21,15 @@ class CompileServiceTableJob < Struct.new(:network_id)
   end
 
   def perform
-    say "Network.id #{network_id}"
-    # Since we were deserialized network is only an instantiation of Network
-    # with its id. We need to retrieve it from the DB.
+    say "Network.id #{network_id} token #{token}"
     net = Network.find(network_id)
-    say "Network.file #{net.file_path}"
+    say "Network.file #{net.file_path} Network.token #{net.processing_token}"
 
-    if !net.file_path || !File.exists?(net.file_path)
-      net.processing_errors << "Failed to get zip file"
-      raise "No file.: #{net.inspect}"
+    if net.processing_token != token
+      # This job is currently being processed by some other entity.
+      # Don't touch, just leave
+      dont_touch = true
+      return
     end
 
     # Start processing anew
@@ -37,6 +37,11 @@ class CompileServiceTableJob < Struct.new(:network_id)
     net.processing_errors = []
     net.processing_log = []
     net.save
+
+    if !net.file_path || !File.exists?(net.file_path)
+      net.processing_errors << "Failed to get zip file"
+      raise "No file at '#{net.file_path}'"
+    end
 
     dir = Dir.mktmpdir()
 
@@ -68,10 +73,14 @@ class CompileServiceTableJob < Struct.new(:network_id)
     end
 
   ensure
-    say "Ending Job"
-    net.processing_lock = nil
-    net.processing_completed_at = Time.now
-    net.save
+    unless dont_touch
+      say "Ending Job"
+      net.processing_lock = nil
+      net.processing_completed_at = Time.now
+      net.save
+    else
+      say "Ignoring Job, One is currently running"
+    end
   end
 
   private
