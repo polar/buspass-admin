@@ -6,34 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_file_download_link.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_poll.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_services.htm.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_services.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_links.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/routes_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/routes_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/webmap_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_button_upload.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_button_upload.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_processing_errors.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_processing_errors.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_processing_log.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_processing_log.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_table_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_table_status.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_routes.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_routes.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_journeys.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_service.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_service.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_services.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_services.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_service.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_service.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_timing_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_timing_links.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_vehicle_journey.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_vehicle_journey.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -65,19 +41,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="vehicle_journeys_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="vehicle_journeys_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="39" selection-start="683" selection-end="683" vertical-scroll-proportion="0.53097343">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_show.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_show.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="127" selection-start="411" selection-end="411" vertical-scroll-proportion="-2.8387096">
+            <state line="24" column="39" selection-start="683" selection-end="683" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -92,10 +59,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_map.html.erb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="_map.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="4" column="26" selection-start="220" selection-end="220" vertical-scroll-proportion="-1.0952381">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_links.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_links.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="0" selection-start="624" selection-end="624" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_map_script.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="34" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -146,15 +131,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_table_vehicle_journey.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_vehicle_journey.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="33" selection-start="34" selection-end="34" vertical-scroll-proportion="3.125">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -176,9 +152,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_routes.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_show.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_index.html.erb" />
         <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_services.html.erb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_show.html.erb" />
@@ -192,6 +165,9 @@
         <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/webmap_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/routes_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_links.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb" />
       </list>
     </option>
   </component>
@@ -1647,7 +1623,11 @@
       <created>1342027990383</created>
       <updated>1342027990383</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Progress">
+      <created>1342040639713</created>
+      <updated>1342040639713</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1672,7 +1652,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-1" width="1026" height="770" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24767801" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
@@ -1680,7 +1660,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32352942" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30942622" sideWeight="0.6764706" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30942622" sideWeight="0.6764706" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32352942" sideWeight="0.36270493" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.63012296" order="10" side_tool="true" content_ui="tabs" />
@@ -1754,20 +1734,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/services/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/services_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="0" selection-start="395" selection-end="395" vertical-scroll-proportion="-3.75">
@@ -1817,13 +1783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_timing_links.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="24" selection-start="713" selection-end="713" vertical-scroll-proportion="-10.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="32" selection-start="935" selection-end="935" vertical-scroll-proportion="-11.041667">
@@ -1834,13 +1793,6 @@
     <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_service.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="31" selection-start="551" selection-end="551" vertical-scroll-proportion="-8.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1861,7 +1813,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="39" selection-start="683" selection-end="683" vertical-scroll-proportion="0.53097343">
+        <state line="24" column="39" selection-start="683" selection-end="683" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="34" selection-start="412" selection-end="412" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_timing_links.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="24" selection-start="713" selection-end="713" vertical-scroll-proportion="-10.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_links.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="624" selection-end="624" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="26" selection-start="220" selection-end="220" vertical-scroll-proportion="-1.0952381">
           <folding />
         </state>
       </provider>
