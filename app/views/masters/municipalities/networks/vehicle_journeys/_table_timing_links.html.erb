@@ -1,19 +1,21 @@
-<table>
+<table class="table table-striped">
   <tr>
     <th>Position</th>
     <th>Departs</th>
     <th>From</th>
     <th>To</th>
     <th>Arrives</th>
+    <th>Duration</th>
   </tr>
   <% for tl in @vehicle_journey.journey_pattern_timing_links do %>
       <tr>
         <!--- TODO: Internatialize Time -->
         <td><%=  tl.position  %></td>
         <td><%=  @vehicle_journey.time_start(tl.position).strftime("%H:%M") %></td>
-        <td><%=  tl.from.common_name  %></td>
-        <td><%=  tl.to.common_name  %></td>
+        <td><%=  tl.from.common_name  %><br /> <%= tl.from.location.coordinates['LonLat'] %></td>
+        <td><%=  tl.to.common_name  %><br /> <%= tl.to.location.coordinates['LonLat'] %></td>
         <td><%=  @vehicle_journey.time_end(tl.position).strftime("%H:%M") %></td>
+        <td><%=  tl.time %></td>
       </tr>
   <% end %>
 </table>

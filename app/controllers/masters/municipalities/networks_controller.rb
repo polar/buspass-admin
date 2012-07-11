@@ -3,6 +3,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def index
     @networks = Network.where(:municipality_id => @municipality.id).all
+    @networks.reject! { |n| n.is_locked? }
   end
 
   def new
@@ -12,12 +13,22 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def show
     @network = Network.find(params[:id])
-    authorize_muni_admin!(:read, @network)
+    if @network && !@network.is_locked?
+      authorize_muni_admin!(:read, @network)
+    else
+      flash[:error] = "Network is currently locked. Must wait to finish processing."
+      redirect_to(:back)
+    end
   end
 
   def edit
     @network = Network.find(params[:id])
-    authorize_muni_admin!(:edit, @network)
+    if @network && !@network.is_locked?
+      authorize_muni_admin!(:edit, @network)
+    else
+      flash[:error] = "Network is currently locked. Must wait to finish processing."
+      redirect_to(:back)
+    end
   end
 
   NETWORK_UPDATE_ALLOW_ATTRIBUTES = [:name, :description]
@@ -48,20 +59,21 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def update
     @network = Network.find(params[:id])
-    if @network.nil?
-      raise "Argument Error: Network not found"
-    end
-    authorize_muni_admin!(:edit, @network)
+    if @network && !@network.is_locked?
+      authorize_muni_admin!(:edit, @network)
 
-    atts = params[:network].select {|k,v| ["name", "description"].include?(k)}
-    @network.update_attributes(atts)
-    error = ! @network.save
-    if error
-      flash[:error] = "Cannot create network."
-      render :action => :edit
+      atts = params[:network].select {|k,v| ["name", "description"].include?(k)}
+      @network.update_attributes(atts)
+      error = ! @network.save
+      if error
+        flash[:error] = "Cannot create network."
+        render :action => :edit
+      else
+        flash[:notice] = "Network #{@network.name} has been updated."
+        redirect_to master_municipality_network_path(@master, @municipality, @network)
+      end
     else
-      flash[:notice] = "Network #{@network.name} has been updated."
-      redirect_to master_municipality_network_path(@master, @municipality, @network)
+      raise "Argument Error: Network not found or locked."
     end
   rescue Exception => boom
     flash[:error] = "Cannot update network: #{boom}"
@@ -70,28 +82,34 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def copy
     @network = Network.find(params[:id])
-    authorize_muni_admin!(:read, @network)
 
-    @municipalities   = Municipality.where(:master_id => @master.id).all
-    @network_copies   = @network.active_copies.all
-    copy_dests        = @network_copies.map { |n| n.municipality }
-    route_codes       = []
-    @disabled_options = @municipalities.map do |muni|
-      if copy_dests.include?(muni)
-        muni.id
-      else
-        route_codes += muni.route_codes
-        if muni.route_codes.length > 0 &&
-            (route_codes - @network.route_codes).length != route_codes.length &&
-            muni_admin_can?(:edit, muni)
+    if @network && !@network.is_locked?
+      authorize_muni_admin!(:read, @network)
+
+      @municipalities   = Municipality.where(:master_id => @master.id).all
+      @network_copies   = @network.active_copies.all
+      copy_dests        = @network_copies.map { |n| n.municipality }
+      route_codes       = []
+      @disabled_options = @municipalities.map do |muni|
+        if copy_dests.include?(muni)
           muni.id
         else
-          nil
+          route_codes += muni.route_codes
+          if muni.route_codes.length > 0 &&
+              (route_codes - @network.route_codes).length != route_codes.length &&
+              muni_admin_can?(:edit, muni)
+            muni.id
+          else
+            nil
+          end
         end
       end
+      # The copy button is disabled if all options are disabled
+      @disabled = @disabled_options.reduce(true) { |t, v| t && v }
+    else
+      flash[:error] = "Network is not found or locked."
+      redirect_to(:back)
     end
-    # The copy button is disabled if all options are disabled
-    @disabled = @disabled_options.reduce(true) { |t, v| t && v }
   end
 
   def copyto
@@ -102,30 +120,36 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     if dest_municipality.nil?
       raise "Destination Municipality not found"
     end
-    authorize_muni_admin!(:read, @network)
-    authorize_muni_admin!(:edit, dest_municipality)
 
-    @network_copies = @network.active_copies
-    # We have to check that no routes are in the destination.
-    route_codes = []
-    for n in dest_municipality.networks
-      route_codes += n.route_codes
-    end
-    nrcodes = @network.route_codes
-    if route_codes.length > 0 && nrcodes.length > 0 && (route_codes-nrcodes).length < route_codes.length
-      raise "Cannot copy the network to the destination due to conflicting routes"
-    end
+    if @network && !@network.is_locked?
+      authorize_muni_admin!(:read, @network)
+      authorize_muni_admin!(:edit, dest_municipality)
 
-    begin
-      network_copy = Network.create_copy(@network, dest_municipality)
+      @network_copies = @network.active_copies
+      # We have to check that no routes are in the destination.
+      route_codes = []
+      for n in dest_municipality.networks
+        route_codes += n.route_codes
+      end
+      nrcodes = @network.route_codes
+      if route_codes.length > 0 && nrcodes.length > 0 && (route_codes-nrcodes).length < route_codes.length
+        raise "Cannot copy the network to the destination due to conflicting routes"
+      end
 
-      Delayed::Job.enqueue(:payload_object => CopyNetworkJob.new(@network.id, network_copy.id))
+      begin
+        network_copy = Network.create_copy(@network, dest_municipality)
 
-      flash[:notice] = "Network is being copied."
-      redirect_to :action => :copy
-    rescue Exception => boom
-      flash[:error] = "Cannot copy network to selected deployment: #{boom}"
-      redirect_to :action => :copy
+        Delayed::Job.enqueue(:payload_object => CopyNetworkJob.new(@network.id, network_copy.id))
+
+        flash[:notice] = "Network is being copied."
+        redirect_to :action => :copy
+      rescue Exception => boom
+        flash[:error] = "Cannot copy network to selected deployment: #{boom}"
+        redirect_to :action => :copy
+      end
+    else
+      flash[:error] = "Network is not found or locked."
+      redirect_to(:back)
     end
   rescue Exception => boom
     flash[:error] = "Cannot copy network to selected deployment: #{boom}"
@@ -167,14 +191,15 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def destroy
     @network = Network.find(params[:id])
-    if @network
+    if @network && !@network.is_locked?
       authorize_muni_admin!(:delete, @network)
       name = @network.name
       @network.destroy()
       flash[:notice] = "Network #{name} deleted."
+      redirect_to master_municipality_path(@master, @municipality)
     else
+      flash[:error] = "Network is not found or is locked."
+      redirect_to(:back)
     end
-
-    redirect_to master_municipality_path(@master, @municipality)
   end
 end

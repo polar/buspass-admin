@@ -224,22 +224,6 @@ BuspassAdmin::Application.routes.draw do
         end
 
       end
-
-      resource :plan do
-        resource :home,
-                 :controller => "masters/municipalities/networks/plan/home",
-                 :only => [:edit, :show, :update],
-                 :as => "home"
-
-        resources :networks,
-                  :controller => "masters/municipalities/plan/networks",
-                  :as => "networks" do
-          resources :services,
-                    :controller => "masters/municipalities/plan/services",
-                    :as => "services"
-        end
-      end
-
     end
   end
 

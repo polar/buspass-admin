@@ -1,5 +1,5 @@
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Route</th>
     <th>Display Name</th>
@@ -10,8 +10,8 @@
   </tr>
   <% for vj in @journeys do %>
       <tr>
-        <td><%= link_to vj.route.code, master_municipality_network_route_path(@master, @municpality, @network. vj.route)   %></td>
-        <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(@master, @municpality, @network. vj)  %></td>
+        <td><%= link_to vj.route.code, master_municipality_network_route_path(@master, @municipality, @network, vj.route)   %></td>
+        <td><%= link_to vj.display_name, master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj)  %></td>
         <td><%= @service.direction  %></td>
         <!--- TODO: Internatialize Time -->
         <td><%= vj.time_start.strftime("%H:%M") %></td>

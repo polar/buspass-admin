@@ -26,7 +26,6 @@ class Masters::Municipalities::Networks::RoutesController  <
       error  = "not owned by network"
       @route = nil
     end
-    render :layout => "webmap"
   end
 
   def api

@@ -2,8 +2,7 @@
 <h3><%= link_to "Route #{@vehicle_journey.route.name}",
                 master_municipality_network_route_path(@master, @municipality, @network, @vehicle_journey.route) %></h3>
 
-<%  @service = @vehicle_journey.service %>
-<h3><%= link_to "Service #{s.name}", master_municipality_network_service_path(@master, @municipality, @network, s) %></h3>
+<h3><%= link_to "Service #{@service.name}", master_municipality_network_service_path(@master, @municipality, @network, @service) %></h3>
 <%= render :partial => "table_service" %>
 <%= render :partial => "table_vehicle_journey" %>
 

@@ -1,5 +1,5 @@
 
-<% if @ervices.count == 0 %>
+<% if @services.count == 0 %>
     <p>
       There are no routes established for this network yet. You must plan the network.
       <%=  link_to "Plan", master_municipality_network_plan_path(@master, @municipality, @network) %>
@@ -8,7 +8,7 @@
 
   <% for s in @services do %>
     <h3><%= link_to "Service #{s.name}", master_municipality_network_service_path(@master, @municipality, @network, s)  %></h3>
-    <table>
+    <table class="table table-striped">
       <tr>
         <th>Route</th>
         <th>Start Date</th>
@@ -25,7 +25,7 @@
       </tr>
     </table>
     <h4>Vehicle Journeys on this Service and Route</h4>
-    <table>
+    <table class="table table-striped">
       <tr>
         <th>Route</th>
         <th>Display Name</th>

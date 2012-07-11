@@ -3,15 +3,21 @@ require "delayed_job"
 class Masters::Municipalities::Networks::PlanController < Masters::Municipalities::Networks::NetworkBaseController
 
   def show
-    authorize_muni_admin!(:edit, @network)
+    if @network && !@network.copy_lock
+      authorize_muni_admin!(:edit, @network)
+    else
+      flash[:error] = "Network is being created by copy and is locked."
+      redirect_to(:back)
+    end
   end
 
   def upload
-    authorize_muni_admin!(:edit, @network)
+    if @network && !@network.is_locked?
+      authorize_muni_admin!(:edit, @network)
 
-    @network_param_name = :plan
-
-    if (@network.processing_lock)
+      @network_param_name = :plan
+    else
+      flash[:error] = "Network is currently locked. Must wait for processing to finish."
       redirect_to master_municipality_network_plan_path(@master, @municipality, @network)
     end
   end
@@ -33,8 +39,8 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
     @last_err = params[:err].to_i
     @limit    = (params[:limit] || 10000000).to_i # makes take(@limit) work if no limit.
 
-    @errors = @network.processing_errors.drop(@last_err).take(@limit)
-    @logs   = @network.processing_log.drop(@last_log).take(@limit)
+    @errors = @network.processing_errors.drop(@last_err).take(@limit) if @last_err
+    @logs   = @network.processing_log.drop(@last_log).take(@limit) if @last_log
 
     resp                  = { :errors => @errors, :logs => @logs }
     resp[:route_codes]    = render_to_string(:partial => "route_codes")
@@ -49,7 +55,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
       resp[:started_at] = @network.processing_started_at.strftime("%m-%d-%Y %H:%M %Z")
     end
     if (@network.file_path)
-      resp[:process_file] = file_master_municipality_network_plan_path(@network, :master_id => @master.id, :municipality_id => @municipality.id)
+      resp[:process_file] = render_to_string(:partial => "file_download_link")
     end
     if (@network.processing_progress)
       resp[:progress] = @network.processing_progress

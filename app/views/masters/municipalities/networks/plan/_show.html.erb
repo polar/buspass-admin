@@ -1,14 +1,13 @@
+
+<%=  render :partial => "masters/municipalities/networks/plan/poll" %>
+
+
 <h2>Network Planning</h2>
-
-  <%=  render :partial => "masters/municipalities/networks/plan/table_counts" %>
-
+<%=  render :partial => "masters/municipalities/networks/plan/table_counts" %>
 
 <h2>Processing Status</h2>
-  <%=  render :partial => "masters/municipalities/networks/plan/table_status" %>
-  <%=  render :partial => "masters/municipalities/networks/plan/button_upload" %>
+<%=  render :partial => "masters/municipalities/networks/plan/table_status" %>
+<%=  render :partial => "masters/municipalities/networks/plan/button_upload" %>
 
-<h3>Processing Log</h3>
-  <%= render :partial => "masters/municipalities/networks/plan/processing_log" %>
-
-<h3>Errors</h3>
-  <%= render :partial => "masters/municipalities/networks/plan/processing_errors" %>
+<%= render :partial => "masters/municipalities/networks/plan/processing_log" %>
+<%= render :partial => "masters/municipalities/networks/plan/processing_errors" %>

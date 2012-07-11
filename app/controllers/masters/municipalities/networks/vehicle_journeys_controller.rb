@@ -23,7 +23,6 @@ class Masters::Municipalities::Networks::VehicleJourneysController <
       raise "wrong network"
     end
     @service = @vehicle_journey.service
-    render :layout => "webmap"
   end
 
   def api

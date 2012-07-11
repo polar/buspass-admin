@@ -3,6 +3,7 @@
 # for the purpose of display.
 #
 class Masters::Municipalities::Networks::VehicleJourneys::WebmapController < Masters::Municipalities::Networks::NetworkBaseController
+  layout "empty"
 
   def route
     @vehicle_journey = VehicleJourney.find(params[:vehicle_journey_id])
