@@ -74,7 +74,7 @@ class Municipality
       route_codes = []
       for n in networks do
         route_codes += n.route_codes
-        if n.has_errors?
+        if n.has_processing_errors?
           status << "Network ''#{n.name}'' has errors."
         end
       end

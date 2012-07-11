@@ -1,0 +1,69 @@
+/**
+ * Update script for the copy status.
+ * Each copy process has a "_status" and a "_log" table row.
+ * If the "_log" row is visible, we ask partial_status for the log lines
+ * beyond what we have.
+ * The "_log" row's visibility is toggled with a click on the "_status" or
+ * the "_log" row.
+ */
+<script type="text/javascript">
+function poll_status(id, url) {
+    var log_arg = "";
+    if ($(id+"_log").is(":visible")) {
+        var log = $(id+'_log .copy_log')[0].children.length;
+        log_arg = "?log="+log;
+    }
+    $.ajax({
+        type: "GET",
+        url: url + log_arg,
+        dataType: "json",
+        success: function(data) {
+            if (data['logs']) {
+                $.each(data['logs'], function(i, item) {
+                    $(id+'_log .copy_log').append('<div>'+item+'</div>');
+                });
+            }
+            if (data['completed_at']) {
+                $(id+'_status .completed_at').html(data['completed_at']);
+            }
+            if (data['progress']) {
+                $(id+'_status .copy_progress').html(""+(Math.floor(data['progress']*100))+"%");
+            }
+            if (data['started_at']) {
+                $(id+'_status .started_at').html(data['started_at']);
+            }
+        }
+    });
+}
+
+$(function() {
+    function poll() {
+        var polling = false;
+        var id;
+    <% for network in @network_copies %>
+        // Do not poll for status if it has a completed status.
+        id = <%= "'#network_#{network.id}'" %>;
+        if ($(id+"_status .completed_at").html().trim() == "") {
+            poll_status(id, '<%= partial_status_master_municipality_network_path(@master, network.municipality, network) %>');
+            polling = true;
+        }
+    <% end %>
+        // If all rows are completed, then stop polling.
+        if (polling) {
+            setTimeout(poll,5000);
+        }
+    }
+    setTimeout(poll,0);
+
+    var id;
+  <% for network in @network_copies %>
+    id = <%= "'#network_#{network.id}'" %>;
+    $(id+"_status").live("click", function() {
+        $(id+"_log").toggle();
+    });
+    $(id+"_log").live("click", function() {
+        $(id+"_log").toggle();
+    });
+  <% end %>
+});
+</script>

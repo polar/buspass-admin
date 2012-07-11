@@ -36,7 +36,7 @@ class Network
   many :routes, :dependent => :destroy, :autosave => false
   many :services, :dependent => :destroy, :autosave => false
 
-  one  :copy_to, :class_name => "Network", :foreign_key => :copy_lock_id
+  many :active_copies, :class_name => "Network", :foreign_key => :copy_lock_id
 
   # CMS Integration
   one :site, :class_name => "Cms::Site"
@@ -83,9 +83,6 @@ class Network
     end
 
     network.save!(:safe => true)
-
-    fromnet.reload
-    result = fromnet.copy_to == network
 
     return network
   end
@@ -188,7 +185,11 @@ class Network
     end
   end
 
-  def has_errors?
+  def is_locked?
+    processing_lock || copy_lock
+  end
+
+  def has_processing_errors?
     !processing_errors.empty?
   end
 

@@ -6,6 +6,7 @@
 # This will copy the contents of a network to a new network.
 #
 class CopyNetworkJob < Struct.new(:from_network_id, :to_network_id)
+  include PageUtils
 
   def logger
     Rails.logger

@@ -1,47 +1,6 @@
-<% if @network_copy && @network_copy.copy_lock %>
-    <script type="text/javascript">
-        $(function() {
-            var polling = true;
-            function poll() {
-                var log = $('#copy_log')[0].children.length;
-                var err = $('#copy_err')[0].children.length;
-                $.ajax({
-                    type: "GET",
-                    url: "<%= partial_status_master_municipality_network_path(@master, @municipality, @network) %>" +
-                            "?err="+err+"&log="+log,
-                    dataType: "json",
-                    success: function(data) {
-                        $.each(data['logs'], function(i, item) {
-                            $('#copy_log').append('<div>'+item+'</div>');
-                        });
-                        $.each(data['errors'], function(i, item) {
-                            $('#copy_err').append('<div>'+item+'</div>');
-                        });
-                        if (data['completed_at']) {
-                            $('#completed_at').html(data['completed_at']);
-                            $('#copy_statusP').hide();
-                            $('#copy_statusC1').show();
-                            polling = false;
-                        }
-                        if (data['progress']) {
-                            $('#progress').html(""+(Math.floor(data['progress']*100))+"%");
-                        }
-                        if (data['started_at']) {
-                            $('#started_at').html(data['started_at']);
-                        }
-                    }
-                });
-                if (polling) {
-                    setTimeout(poll,5000);
-                }
-            }
-            setTimeout(poll,0);
-        });
-    </script>
-<% end %>
-<div id="copy_log">
-  <% if @network_copy %>
-      <% for i in @network_copy.copy_log %>
+<div id=<%= "'network_#{network.id}">
+  <% if @network_copies %>
+      <% for i in @network_copies %>
         <div><%= i %></div>
       <% end %>
   <% end %>
