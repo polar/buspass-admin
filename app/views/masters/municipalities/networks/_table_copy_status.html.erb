@@ -1,0 +1,25 @@
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+  <tr id="copy_statusP" style="display: <%= @network.copy_lock ? '': 'none' %> ">
+    <th>Copying</th>
+    <td><%= @network.copy_lock.name if @network.copy_lock %></td>
+  </tr>
+  <tr>
+    <th>Start Time</th>
+    <td><div id="started_at"><%=  @network.copy_completed_at ?
+                                          @network.copy_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                          @network.copy_lock ? "Pending" : "Never"  %></div></td>
+  </tr>
+  <tr>
+    <th>Progress</th>
+    <td><div id="progress"><%= (@network.copy_progress * 100).floor %>%</div></td>
+  </tr>
+  <tr  id="copy_statusC1" style='display: <%= @network.copy_lock ? 'none': ''%>'>
+    <th>Complete Time</th>
+    <td><div id="completed_at"><%= @network.copy_completed_at ?
+                                           @network.copy_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                           "" %></div></td>
+  </tr>
+  </tbody>
+</table>

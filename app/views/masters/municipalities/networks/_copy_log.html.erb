@@ -1,4 +1,4 @@
-<% if @network.copy_lock %>
+<% if @network_copy && @network_copy.copy_lock %>
     <script type="text/javascript">
         $(function() {
             var polling = true;
@@ -21,8 +21,6 @@
                             $('#completed_at').html(data['completed_at']);
                             $('#copy_statusP').hide();
                             $('#copy_statusC1').show();
-                            $('#copy_statusC2').show();
-                            $('#copy_statusC3').show();
                             polling = false;
                         }
                         if (data['progress']) {
@@ -42,7 +40,9 @@
     </script>
 <% end %>
 <div id="copy_log">
-  <% for i in @network.copy_log %>
-      <div><%= i %></div>
+  <% if @network_copy %>
+      <% for i in @network_copy.copy_log %>
+        <div><%= i %></div>
+      <% end %>
   <% end %>
 </div>

@@ -166,6 +166,7 @@ BuspassAdmin::Application.routes.draw do
         member do
           get :copy
           put :copyto
+          get :partial_status
         end
 
         resources :services,         :controller => "masters/municipalities/networks/services"

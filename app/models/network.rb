@@ -36,6 +36,8 @@ class Network
   many :routes, :dependent => :destroy, :autosave => false
   many :services, :dependent => :destroy, :autosave => false
 
+  one  :copy_to, :class_name => "Network", :foreign_key => :copy_lock_id
+
   # CMS Integration
   one :site, :class_name => "Cms::Site"
   one :page, :class_name => "Cms::Page", :dependent => :destroy
@@ -65,6 +67,7 @@ class Network
     network.master = municipality.master
     network.description = fromnet.description
     network.copy_lock = fromnet
+    network.name = fromnet.name
 
     # The only validity concern we have is the uniqueness of the name
     # in the new municipality.
@@ -81,11 +84,14 @@ class Network
 
     network.save!(:safe => true)
 
+    fromnet.reload
+    result = fromnet.copy_to == network
+
     return network
   end
 
   def self.copy_content(fromnet, tonet)
-    copy_started_at = Time.now
+    tonet.copy_started_at = Time.now
     copy_routes = {}
     copy_services = []
     copy_vehicle_journeys = []
@@ -96,16 +102,16 @@ class Network
       for s in fromnet.services
         tonet.copy_log << "Copying Service #{s.name}"
         if copy_routes[s.route.code] == nil
-          copy_routes[s.route.code] = s.route.copy!(fromnet)
+          copy_routes[s.route.code] = s.route.copy!(tonet)
           tonet.copy_log << "Copying Route #{s.route.name}"
         end
         tonet.save
         route = copy_routes[s.route.code]
-        service = s.copy!(route, fromnet)
+        service = s.copy!(route, tonet)
         copy_services << service
         for vj in s.vehicle_journeys
           tonet.copy_log << "Copying Journey #{vj.name}"
-          vehicle_journey = vj.copy!(service, fromnet)
+          vehicle_journey = vj.copy!(service, tonet)
           copy_journey_count += 1
           tonet.copy_progress = copy_journey_count.to_f / total_journey_count.to_f
           tonet.save
@@ -113,7 +119,7 @@ class Network
         end
       end
     rescue Exception => boom
-      copy_errors << "#{boom}"
+      tonet.copy_errors << "#{boom}"
       copy_routes.values.each {|x| x.delete() }
       copy_services.each {|x| x.delete() }
       copy_vehicle_journeys.each {|x| x.delete() }

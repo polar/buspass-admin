@@ -5,3 +5,12 @@ Your network will be renamed by adding an integer if it there is an existing net
 with the same name in the destination deployment.
 </p>
 <%=  render :partial => "masters/municipalities/networks/form_copy" %>
+<hr />
+<% if @network_copy %>
+    <h3>Copy Status</h3>
+    <%=  render :partial => "masters/municipalities/networks/table_copy_status" %>
+    <h3>Copy Log</h3>
+    <%= render :partial => "masters/municipalities/networks/copy_log" %>
+    <h3>Copy Errors</h3>
+    <%= render :partial => "masters/municipalities/networks/copy_errors" %>
+<% end %>

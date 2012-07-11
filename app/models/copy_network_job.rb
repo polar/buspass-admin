@@ -33,7 +33,7 @@ class CopyNetworkJob < Struct.new(:from_network_id, :to_network_id)
     end
 
     begin
-      tonet.Network.copy_content(net, tonet)
+      Network.copy_content(net, tonet)
       create_master_deployment_network_page(tonet.master, tonet.municipality, tonet)
     rescue Exception => boom
       say "Cannot copy network to selected deployment: #{boom}"
