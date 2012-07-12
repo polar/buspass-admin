@@ -1,5 +1,4 @@
 /*
-*= require style
 *= require jquery.jscrollpane
 *= require bootstrap
 *= require layout-default-latest
@@ -83,4 +82,12 @@ input.btn[type=submit] {
 .control-group-error {
   @extend .control-group;
   @extend .error;
+}
+
+.smallmap {
+  height: 30em;
+}
+
+.listview {
+  height: 30em;
 }

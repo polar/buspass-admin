@@ -1,10 +1,4 @@
-//= require application
-//= require bootstrap
-//= require jquery.treeview
-//= require jquery.jscrollpane.min
-//= require jquery.mousewheel
-//= require jquery.tools.min
-//= require jquery.layout-latest
+
 //= require jquery.json-2.3
 //= require jqClock
 //= require date

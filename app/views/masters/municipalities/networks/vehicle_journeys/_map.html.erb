@@ -1,43 +1,31 @@
 <%= render :partial => "masters/municipalities/networks/vehicle_journeys/map_script" %>
 <%= render :partial => "masters/municipalities/networks/vehicle_journeys/links" %>
 
-    <div class="row">
-        <DIV class="span10">
-          <h3>Webmap</h3>
-        </DIV>
-        <DIV class="span6">
+    <div class="row-fluid">
+        <div class="span7">
+          <h3>Map</h3>
+        </div>
+        <div class="span4">
             <h3>Routes</h3>
-        </DIV>
+        </div>
     </div>
-    <div class="row">
-        <DIV class="span10">
+    <div class="row-fluid">
+        <div class="span7">
             <div id="map" class="smallmap">
             </div>
-        </DIV>
-        <DIV class="span6">
-            <div class="row">
-                <div class="span4">
-                </div>
-                <div class="span2">
-                    <a class="prev">&laquo; Up</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <div id="routesView" class="scrollable vertical">
-                        <div class="items">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span4">
-                </div>
-                <div class="span2">
-                    <a class="next">Down &raquo;</a>
+        </div>
+        <div class="span4">
+            <div id="routesView">
+                <div class="items listview">
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span7">
+        <div id='routes_log listview'>
+        </div>
+      </div>
     </div>
 
 <%= render :partial => "masters/municipalities/networks/vehicle_journeys/table_timing_links" %>

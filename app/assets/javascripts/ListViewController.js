@@ -329,16 +329,16 @@ BusPass.ListViewController.prototype = {
         var visibility = route.isNameVisible() ? "" : " route-invisible";
         var type = " rtype-" + route.getType();
         var div =
-            "<div class='item row" + visibility + type + "' data-role='" + route.getType() + "' data-routeid='"+ route.getId() + "'>" +
+            "<div class='item row-fluid" + visibility + type + "' data-role='" + route.getType() + "' data-routeid='"+ route.getId() + "'>" +
                 "<div class='span1 route-code' data-role='route-code'>" +
                 "<div class='route-icon'/>" +
                 route.getCode() +
                 "</div>"+
-                "<div class='span3 route-name' data-role='route-name'>" +
+                "<div class='span7 route-name' data-role='route-name'>" +
                     route.getDisplayName() +
                 "</div>" +
                 "<div class='span1 route-times'>" +
-                   "<div class='row'>" +
+                   "<div class='row-fluid'>" +
                     "<div class='span1 route-time .pull-left'>" +
                       (route.isJourney() ?
                         route.getStartTime() : "") +
