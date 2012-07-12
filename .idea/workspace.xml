@@ -7,8 +7,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/webmap.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/webmap.css.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -43,16 +43,16 @@
       <file leaf-file-name="_map.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="33" selection-start="656" selection-end="656" vertical-scroll-proportion="-8.125">
+            <state line="25" column="46" selection-start="757" selection-end="757" vertical-scroll-proportion="-10.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_map_script.html.erb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="_map_script.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="71" selection-start="716" selection-end="716" vertical-scroll-proportion="0.51428574">
+            <state line="20" column="71" selection-start="716" selection-end="716" vertical-scroll-proportion="-6.75">
               <folding />
             </state>
           </provider>
@@ -67,10 +67,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webmap.css.scss" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="webmap.css.scss" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/webmap.css.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="26" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0">
+            <state line="3" column="16" selection-start="94" selection-end="94" vertical-scroll-proportion="0.1278409">
               <folding />
             </state>
           </provider>
@@ -160,10 +160,10 @@
         <option value="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" />
-        <option value="$PROJECT_DIR$/app/assets/stylesheets/webmap.css.scss" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/ListViewController.js" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb" />
         <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/stylesheets/webmap.css.scss" />
       </list>
     </option>
   </component>
@@ -1761,7 +1761,11 @@
       <created>1342129344914</created>
       <updated>1342129344915</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Progress">
+      <created>1342130983423</created>
+      <updated>1342130983423</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1948,13 +1952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/webmap.css.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="26" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ListViewController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="58" selection-start="2029" selection-end="2048" vertical-scroll-proportion="0.0">
@@ -1962,16 +1959,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="33" selection-start="656" selection-end="656" vertical-scroll-proportion="-8.125">
+        <state line="20" column="71" selection-start="716" selection-end="716" vertical-scroll-proportion="-6.75">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="71" selection-start="716" selection-end="716" vertical-scroll-proportion="0.51428574">
+        <state line="25" column="46" selection-start="757" selection-end="757" vertical-scroll-proportion="-10.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/webmap.css.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="16" selection-start="94" selection-end="94" vertical-scroll-proportion="0.1278409">
           <folding />
         </state>
       </provider>

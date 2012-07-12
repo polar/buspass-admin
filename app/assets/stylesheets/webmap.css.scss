@@ -1,4 +1,9 @@
 /*
  *= require OpenLayers-2.11/theme/default/style
  *= require activePlanView
+ *= require_self
  */
+
+#routes_log {
+  height: 5em;
+}
