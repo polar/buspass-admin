@@ -5,5 +5,7 @@
         <%= link_to "Plan Network", master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn" %>
      <% end %>
      <%= link_to "Copy to Deployment", copy_master_municipality_network_path(@master, @municipality, @network), :class => "btn" %>
+
+     <%= link_to "Map", map_master_municipality_network_path(@master, @municipality, @network), :class => "btn" %>
     </p>
 <% end %>

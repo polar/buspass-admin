@@ -511,7 +511,7 @@ BusPass.RoutesMapController = OpenLayers.Class({
         var ctrl = this;
 
         var layer = new OpenLayers.Layer.Vector("Routes", {
-            // We want to bring hightlights up to the top. We need zIndexing
+            // We want to bring highlights up to the top. We need zIndexing
             // which works by a graphicZIndex style option.
             rendererOptions: {
                 zIndexing : true

@@ -167,6 +167,8 @@ BuspassAdmin::Application.routes.draw do
           get :copy
           put :copyto
           get :partial_status
+          get :map
+          get :api
         end
 
         resources :services,         :controller => "masters/municipalities/networks/services"
@@ -215,7 +217,6 @@ BuspassAdmin::Application.routes.draw do
 
         resource :webmap,            :controller => "masters/municipalities/networks/webmap" do
           member do
-            get :api
             get :route
             get :route_journeys
             get :routedef

@@ -10,7 +10,8 @@ class Masters::Municipalities::Networks::RoutesController  <
   end
 
   def show
-    @route = Route.find(params[:id])
+    @route = Route.find(params[:route_id])
+    @route ||= Route.find(params[:id])
     if @route.network != @network
       error  = "not owned by network"
       @route = nil
@@ -20,7 +21,8 @@ class Masters::Municipalities::Networks::RoutesController  <
   end
 
   def map
-    @route = Route.find(params[:id])
+    @route = Route.find(params[:route_id])
+    @route ||= Route.find(params[:id])
     @service = Service.find(params[:service_id])
     if @route.network != @network
       error  = "not owned by network"
@@ -29,7 +31,8 @@ class Masters::Municipalities::Networks::RoutesController  <
   end
 
   def api
-    @route = Route.find(params[:id])
+    @route = Route.find(params[:route_id])
+    @route ||= Route.find(params[:id])
     @service = Service.find(params[:service_id])
     if @route.network != @network
       raise "wrong network"

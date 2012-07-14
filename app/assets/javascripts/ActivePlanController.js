@@ -4,6 +4,11 @@ BusPass.ActivePlanController = function(options) {
     this._stateStack = [];
     this._stateStack.push(new BusPass.ActivePlanController.VisualState());
 
+    if (this.disableRouteClick) {
+        this._onMapRouteSelect = function () {};
+        this._onListRouteClicked = function () {};
+    }
+
     this._mapViewC = new BusPass.LocationMapViewController({
         scope : this,
         onRouteSelected : this._onMapRouteSelect,
@@ -146,7 +151,6 @@ BusPass.ActivePlanController.prototype = {
             this.onStateChanged(oldState, newState, "FORWARD");
         }
     },
-
 
     _onLocationReceived : function (route, locationData) {
         this._mapViewC.setLocation(route, locationData.lonlat, locationData.direction);

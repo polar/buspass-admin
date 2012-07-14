@@ -1,6 +1,6 @@
 require "tags/tag"
 
-class RouteTag < Tag
+class ServiceTag < Tag
   include ComfortableMexicanSofa::Tag
 
   def self.regex_tag_signature(identifier = nil)

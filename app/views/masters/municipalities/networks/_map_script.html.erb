@@ -9,7 +9,7 @@
             // The API presents a journey pattern link as a route, with its route
             // code being its position in the journey pattern.
             api = new BusPassAPI( {
-                loginUrl : '<%= api_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, @vehicle_journey) %>'
+                loginUrl : '<%= api_master_municipality_network_path(@master, @municipality, @network) %>'
             });
             // We disable the Route Click so we never go further than the SHOW_MAP
             // visibility state. We don't have a "Back" button on this

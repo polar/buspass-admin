@@ -10,7 +10,7 @@
   <% for tl in @vehicle_journey.journey_pattern_timing_links do %>
       <tr>
         <!--- TODO: Internatialize Time -->
-        <td><%=  tl.position  %></td>
+        <td><%=  tl.position+1  %></td>
         <td><%=  @vehicle_journey.time_start(tl.position).strftime("%H:%M") %></td>
         <td><%=  tl.from.common_name  %><br /> <%= tl.from.location.coordinates['LonLat'] %></td>
         <td><%=  tl.to.common_name  %><br /> <%= tl.to.location.coordinates['LonLat'] %></td>

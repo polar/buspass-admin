@@ -202,4 +202,35 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
       redirect_to(:back)
     end
   end
+
+  def map
+    @network = Network.find(params[:network_id])
+    @network || Network.find(params[:id])
+    @routes = @network.routes
+    @services = @network.services
+    @journeys = @network.vehicle_journeys
+  end
+
+  def map
+    @network = Network.find(params[:network_id])
+    @network ||= Network.find(params[:id])
+    @routes = @network.routes.all.sort { |r1,r2| Route.codeOrd(r1.code,r2.code) }
+  end
+
+  def api
+    @network = Network.find(params[:network_id])
+    @network ||= Network.find(params[:id])
+    @api = {
+        :majorVersion => 1,
+        :minorVersion => 0,
+        "getRoutePath" => route_master_municipality_network_webmap_path(@master, @municipality, @network),
+        "getRouteJourneyIds" => route_journeys_master_municipality_network_webmap_path(@master, @municipality, @network),
+        "getRouteDefinition" => routedef_master_municipality_network_webmap_path(@master, @municipality, @network),
+        "getJourneyLocation" => curloc_master_municipality_network_webmap_path(@master, @municipality, @network)
+    }
+
+    respond_to do |format|
+      format.json { render :json => @api }
+    end
+  end
 end

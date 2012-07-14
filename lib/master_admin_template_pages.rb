@@ -257,6 +257,22 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:navigation:deployment_nav }}"
                                }])
 
+    deployment_edit =  site.pages.create!(
+        :slug => "map",
+        :label => "Map",
+        :layout => map_layout,
+        :parent => deployment_template,
+        :is_protected => true,
+        :controller_path => "/masters/:master_id/municipalities/:municipality_id/map",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:deployment:map }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                               }])
+
     deployment_simulate =  site.pages.create!(
         :slug => "simulate",
         :label => "Simulate",
@@ -337,16 +353,16 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:navigation:network_nav }}"
                                }])
 
-    copy_network_template = site.pages.create!(
-        :slug => "copy",
-        :label => "Copy",
-        :layout => normal_layout,
+    map_network_template = site.pages.create!(
+        :slug => "map",
+        :label => "Map",
+        :layout => map_layout,
         :parent => network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/copy",
+        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:copy }}"
+                                   :content => "{{ cms:bus:deployment:network:map }}"
                                },
                                {
                                    :identifier => "left",

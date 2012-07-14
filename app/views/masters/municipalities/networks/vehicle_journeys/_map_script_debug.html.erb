@@ -1,0 +1,98 @@
+<% content_for :head do %>
+
+    <script type="text/javascript">
+        var basket;
+        var view;
+
+        function pathVisible(visibility) {
+            var routes = basket.getJourneys();
+            for(var i = 0; i < routes.length; i++ ) {
+                mapView.setVisibility(routes[i], visibility);
+            }
+            mapView.redraw();
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            $("body").layout({ applyDefaultStyles: true });
+            // initialize scrollable with mousewheel support
+            $("#routes_log").jScrollPane({showArrows : true, autoReinitialise: true});
+            var scroll = $("#routes_log").data('jsp').getContentPane();
+            api = new BusPassAPI( {
+                loginUrl : '<%= api_master_municipality_network_vehicle_journey_path(@vehicle_journey, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %>'
+            });
+            view = new BusPass.ActivePlanController( {
+                scope : this,
+                busAPI : api,
+                disableRouteClick : true,
+                onRouteSelected : function( route ) {
+                    $(scroll).append($("<div class='item' style='color:red'>Route Selected: " + route.getCode() + " " +route.getName() + "</div>"));
+                },
+                onRouteUnselected : function( route ) {
+                    $(scroll).append($("<div class='item' style='color:blue'>Route Unselected: " + route.getCode() + " " +route.getName() + "</div>"));
+                },
+                onRouteHighlighted : function( route ) {
+                    $(scroll).append($("<div class='item' style='color:green'>Route Highlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+                },
+                onRouteUnhighlighted : function( route ) {
+                    $(scroll).append($("<div class='item' style='color:black'>Route Unhighlighted: " + route.getCode() + " " +route.getName() + "</div>"));
+                },
+            });
+            view.mapView($("#map")[0]);
+            view.listView($("#routesView .items"));
+            basket = new BusPass.JourneyBasket();
+            basket.busAPI = api;
+            basket.journeyStore = new BusPass.JourneyStore();
+            basket.onJourneyAddedListener =  {
+                onJourneyAdded : function (basket, r) {
+                    console.log("Route Added! " + r.getName() + " : " + r.getId());
+                    scroll.append("<div>Route Added! " + r.getName()+"</div>");
+                    view.addRoute(r);
+                }
+            };
+
+            basket.onJourneyRemovedListener = {
+                onJourneyRemoved : function (basket, r) {
+                    view.removeRoute(r);
+                }
+            };
+
+            basket.onBasketUpdatedListener = {
+                onBasketUpdated : function (basket) {
+                    scroll.append("<div>Basket Updated</div>");
+                    console.log("Basket Updated");
+                }
+            };
+
+            basket.onIOErrorListener = {
+                onIOError : function(basket, ioe) {
+                    alert("Basket IO Error: " + ioe.message);
+                }
+            };
+
+            basket.progressListener = {
+                onSyncStart : function () {
+                    console.log("Basket: SyncStart");
+                },
+                onSyncEnd : function (nRoutes) {
+                    console.log("Basket: SyncEnd");
+                },
+                onRouteStart : function (iRoute) {
+                    console.log("Basket: StartRoute " + iRoute);
+                },
+                onRouteEnd : function (iRoute) {
+                    console.log("Basket: EndRoute " + iRoute);
+                },
+                onDone : function () {
+                    console.log("Basket: Done.");
+                },
+            };
+            api.login(function() {
+                basket.onCreate();
+                basket.onStart();
+                basket.onResume();
+            });
+        });
+    </script>
+<% end %>

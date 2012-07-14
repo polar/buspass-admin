@@ -2,6 +2,7 @@ require "carrierwave/orm/mongomapper"
 
 class Network
   include MongoMapper::Document
+  include LocationBoxing
 
   key :name,        String
   key :description, String
@@ -219,5 +220,18 @@ class Network
 
   def ensure_slug
     self.slug = self.name.to_url()
+  end
+
+  def version
+    routes.reduce(0) {|t,v| [t,v.version].max}
+  end
+
+  # Returns the location bounding box
+  def theBox
+    journey_patterns = routes.reduce([]) {|t,v| t + v.journey_patterns}
+    if (journey_patterns.size == 0)
+      return [[0.0,0.0],[0.0,0.0]]
+    end
+    return journey_patterns.reduce(journey_patterns.first.theBox) {|v,jp| combineBoxes(v,jp.theBox)}
   end
 end

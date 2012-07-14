@@ -154,6 +154,11 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     end
   end
 
+  def map
+    @municipality = Municipality.find(params[:id])
+    @networks = @municipality.networks
+  end
+
   def api
     @municipality = Municipality.find(params[:id])
     authorize_muni_admin!(:read, @municipality)

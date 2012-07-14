@@ -28,7 +28,7 @@ class Masters::Municipalities::Networks::VehicleJourneys::WebmapController < Mas
     end
   end
 
-  # We are going return one types, Each timing link is considered a route.
+  # Each timing link is considered a route.
   def route_journeys
     @vehicle_journey = VehicleJourney.find(params[:vehicle_journey_id])
 
@@ -37,7 +37,7 @@ class Masters::Municipalities::Networks::VehicleJourneys::WebmapController < Mas
     specs += @vehicle_journey.journey_pattern.journey_pattern_timing_links.map {|x| getTimingLinkSpec(x)}
 
     respond_to do |format|
-      format.html { render :nothing, :status => 403 } #forbidden
+      format.html { render :nothing => true, :status => 403 } #forbidden
       format.json { render :json => specs }
     end
   end
