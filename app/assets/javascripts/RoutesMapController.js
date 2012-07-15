@@ -143,7 +143,30 @@ BusPass.RoutesMapController = OpenLayers.Class({
             strokeWidth: 5,
             strokeOpacity: 0.5,
             graphicZIndex: 100,
-            cursor: "pointer"
+            cursor: "pointer"}, {
+            rules : [
+                new OpenLayers.Rule({
+                    context : function (feature) { return feature; },
+                    filter : new OpenLayers.Filter({
+                        evaluate: function (feature) {
+                            console.log("defaultIntent.isPathVisible: " + feature.__route.isPathVisible());
+                            return !feature.__route.isPathVisible();
+                        }
+                    }),
+                    symbolizer: {
+                        display: "none"
+                    }
+                }),
+                new OpenLayers.Rule({
+                    context : function (feature) { return feature; },
+                    filter : new OpenLayers.Filter({
+                        evaluate : function (feature) { return true; }
+                    }),
+                    symbolizer: {
+
+                    }
+                })
+            ]
         }),
 
         select : new OpenLayers.Style({
@@ -151,7 +174,30 @@ BusPass.RoutesMapController = OpenLayers.Class({
             strokeWidth: 5,
             strokeOpacity: 1.0,
             graphicZIndex: 101,
-            cursor: "pointer"
+            cursor: "pointer" }, {
+            rules : [
+                new OpenLayers.Rule({
+                    context : function (feature) { return feature; },
+                    filter : new OpenLayers.Filter({
+                        evaluate: function (feature) {
+                            console.log("selectIntent.isPathVisible: " + feature.__route.isPathVisible());
+                            return !feature.__route.isPathVisible();
+                        }
+                    }),
+                    symbolizer: {
+                        display: "none"
+                    }
+                }),
+                new OpenLayers.Rule({
+                    context : function (feature) { return feature; },
+                    filter : new OpenLayers.Filter({
+                        evaluate : function (feature) { return true; }
+                    }),
+                    symbolizer: {
+
+                    }
+                })
+            ]
         }),
 
         highlight : new OpenLayers.Style({
@@ -448,9 +494,10 @@ BusPass.RoutesMapController = OpenLayers.Class({
     },
 
     setVisibility : function (route, state) {
-        // We set an attribute on the route so that the drawing intent
-        // filter Rule will pick it up.
-        route.setPathVisible(state);
+        if (route.isPathVisible() != state) {
+            route.setPathVisible(state);
+           // this._selectCtrl.redraw(route.__mapFeature);
+        }
     },
 
 

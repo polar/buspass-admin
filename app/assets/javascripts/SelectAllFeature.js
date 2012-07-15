@@ -488,7 +488,7 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
     },
 
     getAllSelectedFeatures : function () {
-        // we'll want an option to supress notification here
+        // we'll want an option to suppress notification here
         var layers = this.layers || [this.layer];
         var layer, feature;
         var selected = [];
@@ -544,6 +544,14 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
     redrawNormal : function (feature) {
         feature.layer.drawFeature(feature, feature.style || feature.layer.style ||
             "default");
+    },
+
+    /**
+     * Method: redraw
+     * This method sets the style on the feature to its current to trigger a redraw.
+     */
+    redraw : function (feature) {
+        feature.layer.drawFeature(feature, feature.renderIntent || "default");
     },
 
     /**
@@ -624,7 +632,9 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
             layer = feature.layer;
             // Some calls give this.highlighted to this call, so we delay removal.
             removed.push(feature);
-            if (OpenLayers.Util.indexOf(layer.selectedFeatures, feature) != -1) {
+
+            // TODO: Why would this feature not have a layer?
+            if (layer && OpenLayers.Util.indexOf(layer.selectedFeatures, feature) != -1) {
                 this.redrawSelected(feature);
             } else {
                 this.redrawNormal(feature);
@@ -673,9 +683,12 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
         for (i = 0; i < features.length; i++) {
             feature = features[i];
             layer = feature.layer;
-            layer.selectedFeatures.push(feature);
-            feature.__selected = true;
-            this.redrawSelected(feature);
+            // TODO: Why would this feature not have a layer?
+            if (layer) {
+                layer.selectedFeatures.push(feature);
+                feature.__selected = true;
+                this.redrawSelected(feature);
+            }
         }
     },
 
@@ -707,7 +720,8 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
             feature = features[i];
             layer = feature.layer;
             var cont = this.onBeforeSelectFeature.call(this.scope, features);
-            if (cont !== false) {
+            // TODO: Why would this feature not have a layer?
+            if (cont !== false && layer) {
                 cont = layer.events.triggerEvent("beforefeatureselected", {
                     feature: feature
                 });
@@ -750,24 +764,30 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
             feature = features[i];
             layer = feature.layer;
             // Store feature style for restoration later
-            this.redrawNormal(feature);
-            unselected.push(feature);
+            if (layer) {
+                this.redrawNormal(feature);
+                unselected.push(feature);
+            }
         }
         var triggered = [];
         for (i = 0; i < unselected.length; i++) {
             feature = unselected[i];
             layer = feature.layer;
-            OpenLayers.Util.removeItem(layer.selectedFeatures, feature);
-            feature.__selected = false;
-            if (feature.__selectedTriggered) {
-                triggered.push(feature);
+            if (layer) {
+                OpenLayers.Util.removeItem(layer.selectedFeatures, feature);
+                feature.__selected = false;
+                if (feature.__selectedTriggered) {
+                    triggered.push(feature);
+                }
             }
         }
         for (i = 0; i < triggered.length; i++) {
             feature = triggered[i];
             layer = feature.layer;
-            feature.__selectedTriggered = false;
-            layer.events.triggerEvent("featureunselected", {feature: feature});
+            if (layer) {
+                feature.__selectedTriggered = false;
+                layer.events.triggerEvent("featureunselected", {feature: feature});
+            }
         }
         if (triggered.length > 0) {
             this.onUnselected.call(this.scope, triggered);

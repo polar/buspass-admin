@@ -62,7 +62,9 @@ BusPass.ListViewController.prototype = {
         this._element = element;
         $(this._element).jScrollPane({ showArrows : true, autoReinitialise : true });
         this._scrollApi = this._element.data('jsp');
-        this._contentPane = this._scrollApi.getContentPane();
+        this._contentPane =  this._scrollApi.getContentPane();
+        this._contentPane.html("<table><tbody></tbody></table>");
+        this._itemsPane = this._contentPane.find("tbody");
     },
 
     /**
@@ -71,7 +73,7 @@ BusPass.ListViewController.prototype = {
      */
     addRoute : function(route) {
         this._routes.push(route);
-        $(this._contentPane).append(this._constructRouteElement(route));
+        $(this._itemsPane).append(this._constructRouteElement(route));
         this._sortRouteElements();
     },
 
@@ -251,9 +253,9 @@ BusPass.ListViewController.prototype = {
      */
     _redisplayRoutes : function() {
         var ctrl = this;
-        $(ctrl._contentPane).html("");
+        $(ctrl._itemsPane).html("");
         $.each(ctrl._routes, function(i,x) {
-            $(ctrl._contentPane).append(ctrl._constructRouteElement(x)); });
+            $(ctrl._itemsPane).append(ctrl._constructRouteElement(x)); });
     },
 
     /**
@@ -329,27 +331,25 @@ BusPass.ListViewController.prototype = {
         var visibility = route.isNameVisible() ? "" : " route-invisible";
         var type = " rtype-" + route.getType();
         var div =
-            "<div class='item row-fluid" + visibility + type + "' data-role='" + route.getType() + "' data-routeid='"+ route.getId() + "'>" +
-                "<div class='span1 route-code' data-role='route-code'>" +
-                "<div class='route-icon'/>" +
+            "<tr class='item" + visibility + type + "' data-role='" + route.getType() + "' data-routeid='"+ route.getId() + "'>" +
+
+                "<td class='route-code' data-role='route-code'>" + "<div class='route-icon'/>" +
                 route.getCode() +
-                "</div>"+
-                "<div class='span7 route-name' data-role='route-name'>" +
+                "</td>"+
+                "<td class='route-name' data-role='route-name'>" +
                     route.getDisplayName() +
-                "</div>" +
-                "<div class='span1 route-times'>" +
-                   "<div class='row-fluid'>" +
-                    "<div class='span1 route-time .pull-left'>" +
+                "</td>" +
+                "<td class='route-times'>" +
+                    "<div class='route-time'>" +
                       (route.isJourney() ?
                         route.getStartTime() : "") +
                     "</div>" +
-                    "<div class='span1 route-time .pull-right'>" +
+                    "<div class='route-time'>" +
                       (route.isJourney() ?
                         route.getEndTime() : "") +
                     "</div>" +
-                  "</div>" +
-                "</div>" +
-            "</div>";
+                "</td>" +
+            "</tr>";
         // Returns array [<div>]
         div = $(div);
         // Element sorting key is the route..
@@ -374,13 +374,13 @@ BusPass.ListViewController.prototype = {
 
     _sortRouteElements : function() {
         var ctrl = this;
-        var children = $(ctrl._element).children(".items .item");
+        var children = $(ctrl._itemsPane).children(".item");
         // TODO: We can just insert at the right place.
         children.detach().sort(
             function(a,b) {
                 return ctrl._compareRouteElements(a,b);
             });
-        $(ctrl._contentPane).append(children);
+        $(ctrl._itemsPane).append(children);
     },
 
     _triggerCallback : function(cb, route) {

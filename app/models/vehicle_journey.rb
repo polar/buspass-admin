@@ -416,7 +416,7 @@ class VehicleJourney
     while (distance < target_distance) do
       ans = figure_location(distance, tm_last, tm_now, tm_start)
       if (ans != nil)
-        logger.info "Journey '#{self.name}' answer #{ans.inspect}"
+        logger.info "Journey '#{self.name}' answer #{ans[:coord]}"
         if journey_location == nil
           create_journey_location(:service => service, :route => service.route)
         else

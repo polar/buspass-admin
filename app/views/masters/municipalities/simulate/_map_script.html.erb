@@ -1,0 +1,144 @@
+<% content_for :head do %>
+
+    <script type="text/javascript">
+        var basket;
+        var view;
+        var processlog;
+
+        $(function() {
+            $('#processing_log .items').jScrollPane();
+            processlog = $('#processing_log .items').data('jsp').getContentPane();
+            // Clear log on Start Simulation
+            $("#start").click(function(ev) {
+                processlog.html("");
+                this.disabled=true;
+                $('#start_status').html("");
+                $('#completed_at').html("");
+                $('#started_at').html("");
+                $('#sim_time').html("");
+                $("#status").html("Submitting");
+                $("#sim_clock").html("");
+                clock_set = false;
+            });
+            $("#stop").click(function(ev) {
+                this.disabled=true;
+                $('#start_status').html("");
+                $("#status").html("StopRequested")
+            });
+            var polling = true;
+            var clock_set = false;
+            function poll() {
+                var log = processlog[0].children.length;
+                $.ajax({
+                    type: "GET",
+                    url: "<%= partial_status_master_municipality_simulate_path(@master, @municipality) %>" +
+                            "?log="+log,
+                    dataType: "json",
+                    success: function(data) {
+                        if (data != null) {
+                            if (data['logs']) {
+                                $.each(data['logs'], function(i, item) {
+                                    processlog.append('<div class="item">'+item+'</div>');
+                                });
+                            }
+                            if (data['completed_at']) {
+                                $('#completed_at').html(data['completed_at']);
+                            }
+                            if (data['started_at']) {
+                                $('#started_at').html(data['started_at']);
+                            }
+                            var mult = 1;
+                            if (data['clock_mult']) {
+                                mult = data['clock_mult'] + 0;
+                                $('#clock_mult').html(data['clock_mult']);
+                                if (mult > 1) {
+                                    basket.setPollTime(10/mult);
+                                    view.overrideLocationPollTime(30/mult);
+                                }
+                            }
+                            if (data['sim_time']) {
+                                $('#sim_time').html(data['sim_time']);
+                                if (!clock_set && data['status'] != "Stopped") {
+                                    if (data['sim_time'] && data['started_at']) {
+                                        var sim_time = Date.parse(data['sim_time']).getTime();
+                                        var time_start = Date.parse(data['started_at']).getTime();
+                                        sim_time += (Date.now() - time_start) * mult;
+                                        $("#sim_clock").clock({format: "24", timestamp: sim_time, 'mult': mult});
+                                        $("#sim_clock").show();
+                                        clock_set = true;
+                                    }
+                                }
+                            }
+                            if (data['status']) {
+                                $('#status').html(data['status']);
+                                $("#start")[0].disabled = data['status'] != "Stopped";
+                                $("#stop")[0].disabled = data['status'] == "Stopped" || data['status'] == "StopRequested" || data['status'] == "Stopping";
+                                if (data['status'] == "Stopped") {
+                                    $("#sim_clock").clock("destroy");
+                                    $("#sim_clock").hide();
+                                    clock_set = false;
+                                }
+                            }
+                        } else {
+                            processlog.html("");
+                            processlog.append('<div class="item">No simulation has ran.</div>');
+                            $('#completed_at').html("");
+                            $('#started_at').html("");
+                            $('#sim_time').html("");
+                            $('#status').html("");
+                            $('#start')[0].disabled=false;
+                            $('#stop')[0].disabled=true;
+                        }
+                    }
+                });
+                if (polling) {
+                    setTimeout(poll,5000);
+                }
+            }
+            setTimeout(poll,0);
+        });
+
+    $(function() {
+        $("body").layout({ applyDefaultStyles: true });
+        // The API presents a journey pattern link as a route, with its route
+        // code being its position in the journey pattern.
+        api = new BusPassAPI( {
+            loginUrl : '<%= api_master_municipality_simulate_path(@master, @municipality) %>'
+        });
+        // We disable the Route Click so we never go further than the SHOW_MAP
+        // visibility state. We don't have a "Back" button on this
+        // map interface. Makes no sense for just displaying the journey pattern.
+        view = new BusPass.ActivePlanController( {
+            scope : this,
+            busAPI : api
+        });
+        view.mapView($("#map")[0]);
+        view.listView($("#routesView"));
+
+        // We still have to interface with the basket
+        // TODO: We can shut off basket update polling?
+        basket = new BusPass.JourneyBasket();
+        basket.busAPI = api;
+        basket.journeyStore = new BusPass.JourneyStore();
+        basket.onJourneyAddedListener =  {
+            onJourneyAdded : function (basket, r) {
+                view.addRoute(r);
+            }
+        };
+
+        basket.onJourneyRemovedListener = {
+            onJourneyRemoved : function (basket, r) {
+                view.removeRoute(r);
+            }
+        };
+
+        api.login(function() {
+            basket.onCreate();
+            basket.onStart();
+            basket.onResume();
+            $("#back").click(function() { view.back(); })
+        });
+    });
+
+    </script>
+<% end %>

@@ -357,6 +357,9 @@ BusPass.ActivePlanController.prototype = {
                         this._mapViewC.setVisibility(display, true);
                         this._mapViewC.setTracking(display,true);
                     }
+                } else {
+                    this._listViewC.setVisibility(display, false);
+                    this._mapViewC.setVisibility(display, false);
                 }
                 break;
         }

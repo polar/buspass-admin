@@ -6,9 +6,10 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   end
 
   def map
+    authenticate_muni_admin!
+    authorize_muni_admin!(:edit, @municipality)
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
-    authorize_muni_admin!(:read, @municipality)
     @date = Time.now
     @time = @date
     if params[:date]
@@ -22,7 +23,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   end
 
   def status
-    authorize_muni_admin!(:read, @municipality)
+    authorize_muni_admin!(:edit, @municipality)
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     if @job.nil?
@@ -129,7 +130,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   # This action gets called by a javascript updater on the show page.
   #
   def partial_status
-    authorize_muni_admin!(:read, @municipality)
+    authorize_muni_admin!(:edit, @municipality)
 
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
@@ -164,14 +165,14 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
   end
 
   def api
-    authorize_muni_admin!(:read, @municipality)
+    authorize_muni_admin!(:edit, @municipality)
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,
-        "getRoutePath" => route_master_municipality_simulate_webmap_path(@municipality, :master_id => @master.id),
-        "getRouteJourneyIds" => route_journeys_master_municipality_simulate_webmap_path(@municipality, :master_id => @master.id),
-        "getRouteDefinition" => routedef_master_municipality_simulate_webmap_path(@municipality, :master_id => @master.id),
-        "getJourneyLocation" => curloc_master_municipality_simulate_webmap_path(@municipality, :master_id => @master.id)
+        "getRoutePath" => route_master_municipality_simulate_webmap_path(@master, @municipality),
+        "getRouteJourneyIds" => route_journeys_master_municipality_simulate_webmap_path(@master, @municipality),
+        "getRouteDefinition" => routedef_master_municipality_simulate_webmap_path(@master, @municipality),
+        "getJourneyLocation" => curloc_master_municipality_simulate_webmap_path(@master, @municipality)
     }
 
     respond_to do |format|

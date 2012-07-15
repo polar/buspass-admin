@@ -11,20 +11,66 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
             graphicOpacity : 1,
             pointRadius : 12,
             graphicZIndex: 1000,
-            externalGraphic : "/assets/busarrow.png",
+            externalGraphic : "/assets/busarrow.png" }, {
+            rules : [
+                new OpenLayers.Rule({
+                    context : function (feature) { return feature; },
+                    filter : new OpenLayers.Filter({
+                        evaluate: function (feature) {
+                            console.log("Marker.defaultIntent.isPathVisible: " + feature.__route.isPathVisible());
+                            return !feature.__route.isPathVisible();
+                        }
+                    }),
+                    symbolizer: {
+                        display: "none"
+                    }
+                }),
+                new OpenLayers.Rule({
+                    context : function (feature) { return feature; },
+                    filter : new OpenLayers.Filter({
+                        evaluate : function (feature) { return true; }
+                    }),
+                    symbolizer: {
+
+                    }
+                })
+            ]
         }),
         'highlight': new OpenLayers.Style({
             graphicOpacity : 0.9,
             pointRadius : 12,
             graphicZIndex: 1000,
-            externalGraphic : "/assets/busarrow_highlight.png",
+            externalGraphic : "/assets/busarrow_highlight.png"
         }),
         'select': new OpenLayers.Style({
             graphicOpacity : 0.7,
             pointRadius : 12,
             graphicZIndex: 1000,
-            externalGraphic : "/assets/busarrow.png",
-        }),
+            externalGraphic : "/assets/busarrow.png" }, {
+            rules : [
+                new OpenLayers.Rule({
+                    context : function (feature) { return feature; },
+                    filter : new OpenLayers.Filter({
+                        evaluate: function (feature) {
+                            console.log("Marker.selectIntent.isPathVisible: " + feature.__route.isPathVisible());
+                            return !feature.__route.isPathVisible();
+                        }
+                    }),
+                    symbolizer: {
+                        display: "none"
+                    }
+                }),
+                new OpenLayers.Rule({
+                    context : function (feature) { return feature; },
+                    filter : new OpenLayers.Filter({
+                        evaluate : function (feature) { return true; }
+                    }),
+                    symbolizer: {
+
+                    }
+                })
+            ]
+        })
     }),
 
 

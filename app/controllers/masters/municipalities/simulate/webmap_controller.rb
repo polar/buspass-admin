@@ -7,7 +7,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
   def route
     @object ||= Route.find(params[:ref])
 
-    data = getRouteGeoJSON(@object)
+    data = getGeoJSON(@object)
     respond_to do |format|
       format.json { render :json => data }
     end
@@ -16,7 +16,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
   def journey
     @object ||= VehicleJourney.find(params[:ref])
 
-    data = getRouteGeoJSON(@object)
+    data = getGeoJSON(@object)
     respond_to do |format|
       format.json { render :json => data }
     end
@@ -61,7 +61,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     specs += @routes.map { |x| getRouteSpec(x) }
 
     respond_to do |format|
-      format.html { render :nothing, :status => 403 } #forbidden
+      format.html { render :nothing => true, :status => 403 } #forbidden
       format.json { render :json => specs }
     end
   end
@@ -74,7 +74,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     end
 
     respond_to do |format|
-      format.html { render :nothing, :status => 403 } #forbidden
+      format.html { render :nothing => true, :status => 403 } #forbidden
       format.json {
         render :json => getJourneyLocationJSON(@vehicle_journey, @journey_location)
       }
@@ -112,9 +112,6 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     return data
   end
 
-  def getRouteSpecText(route)
-    "#{route.name.tr(",", "_")},#{route.id.to_s},R,#{route.version}"
-  end
 
   def getJourneySpec(journey, route)
     data         = { }
@@ -125,11 +122,6 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     data["version"] = route.version
     return data
   end
-
-  def getJourneySpecText(journey, route)
-    "#{journey.display_name.tr(",", "_")},#{journey.id.to_s},V,#{route.id.to_s},#{route.version}"
-  end
-
 
   def getDefinitionJSON(route_journey)
     if (route_journey.is_a? Route)
@@ -149,7 +141,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     data[:_name]       = "#{route.display_name}"
     data[:_code]       = "#{route.code}"
     data[:_version]    = "#{route.version}"
-    data[:_geoJSONUrl] = route_master_municipality_webmap_path(:ref => route.id, :master_id => @master.id, :municipality_id => @municipality.id, :format => "json")
+    data[:_geoJSONUrl] = route_master_municipality_simulate_webmap_path(@master, @municipality, :ref => route.id, :format => "json")
     data[:_nw_lon]     = "#{box[0][0]}"
     data[:_nw_lat]     = "#{box[0][1]}"
     data[:_se_lon]     = "#{box[1][0]}"
@@ -165,7 +157,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     data[:_name]                = "#{journey.display_name}"
     data[:_code]                = "#{journey.service.route.code}"
     data[:_version]             = "#{journey.service.route.version}"
-    data[:_geoJSONUrl]          = journey_master_municipality_webmap_path(:ref => journey.id, :master_id => @master.id, :municipality_id => @municipality.id, :format => "json")
+    data[:_geoJSONUrl]          = journey_master_municipality_simulate_webmap_path(@master, @municipality, :ref => journey.id, :format => "json")
     data[:_startOffset]         = "#{journey.start_time}"
     data[:_duration]            = "#{journey.duration}"
                                                                  # TODO: TimeZone for Locality.
@@ -181,7 +173,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
 
 
 # works for VehicleJourney or Route
-  def getRouteDefinitionCoords(route)
+  def getDefinitionCoords(route)
     if (route.is_a? VehicleJourney)
       patterns = [route.journey_pattern]
     else
@@ -213,8 +205,8 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     return data
   end
 
-  def getRouteGeoJSON(route)
-    cs         = getRouteDefinitionCoords(route)
+  def getGeoJSON(route)
+    cs         = getDefinitionCoords(route)
     geometries = cs.map { |x| makeGeoJSONGeometry(x) }
     data       = {
         "type"       => "Feature",
