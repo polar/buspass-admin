@@ -2,16 +2,19 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   include PageUtils
 
   def index
+    authenticate_muni_admin!
     @networks = Network.where(:municipality_id => @municipality.id).all
     @networks.reject! { |n| n.is_locked? }
   end
 
   def new
+    authenticate_muni_admin!
     authorize_muni_admin!(:create, Network)
     @network = Network.new
   end
 
   def show
+    authenticate_muni_admin!
     @network = Network.find(params[:id])
     if @network && !@network.is_locked?
       authorize_muni_admin!(:read, @network)
@@ -22,6 +25,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   end
 
   def edit
+    authenticate_muni_admin!
     @network = Network.find(params[:id])
     if @network && !@network.is_locked?
       authorize_muni_admin!(:edit, @network)
@@ -81,6 +85,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   end
 
   def copy
+    authenticate_muni_admin!
     @network = Network.find(params[:id])
 
     if @network && !@network.is_locked?
@@ -190,6 +195,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   end
 
   def destroy
+    authenticate_muni_admin!
     @network = Network.find(params[:id])
     if @network && !@network.is_locked?
       authorize_muni_admin!(:delete, @network)
@@ -204,20 +210,15 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   end
 
   def map
-    @network = Network.find(params[:network_id])
-    @network || Network.find(params[:id])
-    @routes = @network.routes
-    @services = @network.services
-    @journeys = @network.vehicle_journeys
-  end
-
-  def map
+    authenticate_muni_admin!
+    authorize_muni_admin!(:read, @network)
     @network = Network.find(params[:network_id])
     @network ||= Network.find(params[:id])
     @routes = @network.routes.all.sort { |r1,r2| Route.codeOrd(r1.code,r2.code) }
   end
 
   def api
+    authorize_muni_admin!(:read, @network)
     @network = Network.find(params[:network_id])
     @network ||= Network.find(params[:id])
     @api = {

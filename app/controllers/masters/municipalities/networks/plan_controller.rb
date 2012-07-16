@@ -54,7 +54,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
     if (@network.processing_started_at)
       resp[:started_at] = @network.processing_started_at.strftime("%m-%d-%Y %H:%M %Z")
     end
-    if (@network.file_path)
+    if (@network.processing_completed_at) && (@network.file_path)
       resp[:process_file] = render_to_string(:partial => "file_download_link")
     end
     if (@network.processing_progress)

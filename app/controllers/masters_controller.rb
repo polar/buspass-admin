@@ -35,18 +35,19 @@ class MastersController < ApplicationController
   end
 
   def show
-    authenticate_muni_admin!
     @master = Master.find(params[:id])
-    if @master.nil?
-      raise "Not found"
-    end
+    # The DeviseFailureApp needs :master_id
+    params[:master_id] = @master.id if @master
+    authenticate_muni_admin!
     @deployment = Deployment.where(:master_id => @master.id).first
     @testament = Testament.where(:master_id => @master.id).first
   end
 
   def edit
-    authenticate_muni_admin!
     @master = Master.find(params[:id])
+    # The DeviseFailureApp needs :master_id
+    params[:master_id] = @master.id if @master
+    authenticate_muni_admin!
     authorize_muni_admin!(:edit, @master)
     # submits to update
   end
@@ -54,8 +55,9 @@ class MastersController < ApplicationController
   MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone]
 
   def update
-    authenticate_muni_admin!
     @master = Master.find(params[:id])
+    # The DeviseFailureApp needs :master_id
+    params[:master_id] = @master.id if @master
     authorize_muni_admin!(:edit, @master)
 
     # Security Integrity Check.

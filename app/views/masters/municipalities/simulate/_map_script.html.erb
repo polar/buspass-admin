@@ -19,6 +19,7 @@
                 $("#status").html("Submitting");
                 $("#sim_clock").html("");
                 clock_set = false;
+                return false; // keep processing submit
             });
             $("#stop").click(function(ev) {
                 this.disabled=true;

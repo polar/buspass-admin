@@ -62,6 +62,10 @@ class Master
     "http://#{self.slug}.busme.us/"
   end
 
+  def siteurl
+    "http://busme.us/#{self.slug}."
+  end
+
   # TODO: TimeZones by location.   http://earthtools.org
   TIME_ZONE = "America/New_York"
   TZ = Time.now.in_time_zone(TIME_ZONE).zone
