@@ -313,7 +313,7 @@ BusPass.ActivePlanController.prototype = {
                     } else {
                         // Only show Paths of Active Routes with current locations.
                         this._listViewC.setVisibility(display, false); // Don't show the bus name
-                        this._mapViewC.setVisibility(display, false);
+                        this._mapViewC.setVisibility(display, display.isActiveJourney());
                     }
                 } else {
                     this._listViewC.setVisibility(display, false);

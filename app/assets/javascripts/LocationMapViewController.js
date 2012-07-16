@@ -17,7 +17,7 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
                     context : function (feature) { return feature; },
                     filter : new OpenLayers.Filter({
                         evaluate: function (feature) {
-                            console.log("Marker.defaultIntent.isPathVisible: " + feature.__route.isPathVisible());
+                            console.log("Marker.defaultIntent.isPathVisible: " + feature.__route.name + " " + feature.__route.isPathVisible());
                             return !feature.__route.isPathVisible();
                         }
                     }),
@@ -323,6 +323,18 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
     redraw : function () {
         this._routeVectors.redraw();
         this._locationMarkers.redraw();
+    },
+
+    /**
+     * Method: moveToLocation
+     * THis method pans the map to the location, if this journey has
+     * a current location marker.
+     * @param route
+     */
+    moveToLocation : function(route) {
+        if (route.__marker) {
+            this.map.panTo(route.__marker.__lonlat);
+        }
     },
 
     _constructLocationLayer : function () {
