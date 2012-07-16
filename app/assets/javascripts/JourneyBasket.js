@@ -459,7 +459,8 @@ BusPass.JourneyBasket.prototype = {
 
     onStop : function() {
         console.log("JourneyBasket: onStop  prevState " + this._state + " updateInProgress " + this._updateInProgress);
-        state = "STOP";
+        this._state = "STOP";
+        this._please_stop = true;
     },
 
     onRestart : function () {

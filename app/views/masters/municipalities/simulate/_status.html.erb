@@ -1,6 +1,7 @@
 
 <div class="row">
-  <%= form_tag start_master_municipality_simulate_path(@master, @municipality), :remote => true, :class => "span4" do %>
+  <div class="span4">
+  <%= form_tag start_master_municipality_simulate_path(@master, @municipality), :remote => true do %>
       <%= label_tag(:date, "Date[YYYY-MM-DD]:") %>
       <%= text_field_tag(:date, @date.strftime("%Y-%m-%d")) %>
       <%= label_tag(:time, "Time[HH:MM ZZZ]:") %>
@@ -11,6 +12,7 @@
       <%= text_field_tag(:duration, @duration) %><br />
       <%= submit_tag("Start Simulation", :id => "start", :class => "btn", :disabled => (@job && @job.processing_status != "Stopped")) %>
   <% end %>
+  </div>
   <div class="span4">
     <div id="sim_clock">
     </div>

@@ -125,7 +125,7 @@ BusPass.ListViewController.prototype = {
      */
     setHasActiveJourneys : function(route, state) {
         if (state) {
-            if (route.isNameVisible()) {
+            if (route.hasActiveJourneys()) {
                 route.__element.className = this._addClass(route.__element.className, "route-hasactivejourneys");
             } else {
                 route.__element.className = this._removeClass(route.__element.className, "route-hasactivejourneys");
@@ -181,12 +181,17 @@ BusPass.ListViewController.prototype = {
 
     redraw : function () {
         for (var i=0; i < this._routes.length; i++) {
-           var route = this._routes[i];
-           if (route.isNameVisible()) {
-               route.__element.className = this._removeClass(route.__element.className, "route-invisible");
-           } else {
-               route.__element.className = this._addClass(route.__element.className, "route-invisible");
-           }
+          var route = this._routes[i];
+          if (route.hasActiveJourneys()) {
+            route.__element.className = this._addClass(route.__element.className, "route-hasactivejourneys");
+          } else {
+            route.__element.className = this._removeClass(route.__element.className, "route-hasactivejourneys");
+          }
+          if (route.isNameVisible()) {
+            route.__element.className = this._removeClass(route.__element.className, "route-invisible");
+          } else {
+            route.__element.className = this._addClass(route.__element.className, "route-invisible");
+          }
         }
     },
 

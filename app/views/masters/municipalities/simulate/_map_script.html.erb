@@ -19,12 +19,16 @@
                 $("#status").html("Submitting");
                 $("#sim_clock").html("");
                 clock_set = false;
-                return false; // keep processing submit
+                return true; // keep processing submit
             });
             $("#stop").click(function(ev) {
                 this.disabled=true;
                 $('#start_status').html("");
-                $("#status").html("StopRequested")
+                $("#status").html("StopRequested");
+                // Stop Location Updating since it will not get answered anymore.
+                view.onStop();
+                basket.onStop();
+                return true; // keep processing submit
             });
             var polling = true;
             var clock_set = false;
@@ -78,6 +82,9 @@
                                     $("#sim_clock").clock("destroy");
                                     $("#sim_clock").hide();
                                     clock_set = false;
+                                    polling = false;
+                                    view.onStop();
+                                    basket.onStop();
                                 }
                             }
                         } else {
@@ -96,7 +103,6 @@
                     setTimeout(poll,5000);
                 }
             }
-            setTimeout(poll,0);
         });
 
     $(function() {
@@ -137,8 +143,27 @@
             basket.onCreate();
             basket.onStart();
             basket.onResume();
-            $("#back").click(function() { view.back(); })
+            $("#back").click(function() {
+                view.back();
+                if (view.getOnlyActive()) {
+                    $("#only_active_button")[0].checked = true;
+                } else {
+                    $("#all_routes_button")[0].checked = true;
+                }
+            });
+            $("#all_routes_button")[0].checked = true;
+            $("#only_active_button").click(function() {
+                if (this.checked) {
+                    view.setOnlyActive(true);
+                }
+            });
+            $("#all_routes_button").click(function() {
+                if (this.checked) {
+                    view.setOnlyActive(false);
+                }
+            });
         });
+        setTimeout(poll,0);
     });
 
     </script>

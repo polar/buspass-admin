@@ -160,7 +160,7 @@ class Masters::Municipalities::Simulate::WebmapController < Masters::Municipalit
     data[:_geoJSONUrl]          = journey_master_municipality_simulate_webmap_path(@master, @municipality, :ref => journey.id, :format => "json")
     data[:_startOffset]         = "#{journey.start_time}"
     data[:_duration]            = "#{journey.duration}"
-                                                                 # TODO: TimeZone for Locality.
+    # TODO: TimeZone for Locality.
     data[:_startTime]           = (Time.parse("0:00") + journey.start_time.minutes).strftime("%H:%M %P")
     data[:_endTime]             = (Time.parse("0:00") + journey.start_time.minutes + journey.duration.minutes).strftime("%H:%M %P")
     data[:_locationRefreshRate] = "10"
