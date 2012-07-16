@@ -6,23 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TODO" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/testament/_mapview.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/simulate_job.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/testament/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/testament/_map.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/testament/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/testament/_show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/testament/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/testament/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -1136,7 +1120,11 @@
       <created>1342464701232</created>
       <updated>1342464701232</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Progress">
+      <created>1342481282750</created>
+      <updated>1342481282750</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1161,7 +1149,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-1" width="1026" height="770" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24745762" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
@@ -1170,7 +1158,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32352942" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22643442" sideWeight="0.68111455" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31888545" sideWeight="0.36270493" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31888545" sideWeight="0.36270493" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.63012296" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32352942" sideWeight="0.46017158" order="1" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
