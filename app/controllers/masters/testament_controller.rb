@@ -1,7 +1,8 @@
 class Masters::TestamentController < Masters::MasterBaseController
-  before_filter :get_context
 
   def show
+    get_context
+
     if @testament
       options = {:master_id => @master.id, :municipality_id => @municipality.id}
       @job = SimulateJob.first(options)
@@ -19,6 +20,9 @@ class Masters::TestamentController < Masters::MasterBaseController
       @processing_status_label = "Run"
       @updateUrl = partial_status_master_testament_path(@master, :format => :json)
       @loginUrl = api_testament_path(@testament, :format => :json)
+      @startUrl = start_master_testament_path(@master, :format => :js)
+      @stopUrl = stop_master_testament_path(@master, :format => :js)
+      @partialStatusUrl = partial_status_master_testament_path(@master, :format => :json)
     else
       flash[:error] = "You have not selected a Deployment for testing."
       redirect_to master_municipalities_path(@master)
@@ -26,8 +30,9 @@ class Masters::TestamentController < Masters::MasterBaseController
   end
 
   def status
+    get_context
     #authorize!(:read, @municipality)
-    options = {:master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id}
     @job = SimulateJob.first(options)
     if @job.nil?
       flash[:error] = "There is no simulation running for #{@municipality.name}."
@@ -35,8 +40,9 @@ class Masters::TestamentController < Masters::MasterBaseController
   end
 
   def start
+    get_context
     #authorize!(:deploy, @municipality)
-    options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id}
     # Start the "run"
     # Date and time is now
     # mult is 1, which is time multiplier
@@ -90,8 +96,9 @@ class Masters::TestamentController < Masters::MasterBaseController
   end
 
   def stop
+    get_context
     #authorize!(:deploy, @municipality)
-    options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
     if @job && @job.processing_status == "Running"
@@ -106,9 +113,10 @@ class Masters::TestamentController < Masters::MasterBaseController
   # This action gets called by a javascript updater on the show page.
   #
   def partial_status
+    get_context
     #authorize!(:read, @municipality)
 
-    options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id}
     @job = SimulateJob.first(options)
     if @job
       @last_log = params[:log].to_i
@@ -141,9 +149,10 @@ class Masters::TestamentController < Masters::MasterBaseController
   end
 
   def deactivate
+    get_context
     authorize_muni_admin!(:delete, @testament)
 
-    options = {:testament_id => @testament.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:testament_id => @testament.id}
     @job = SimulateJob.first(options)
     # We automatically kill any job if we remove the SimulateJob
     @job.destroy
@@ -153,6 +162,7 @@ class Masters::TestamentController < Masters::MasterBaseController
   end
 
   def api
+    get_context
     authorize_muni_admin!(:edit, @municipality)
     @api = {
         :majorVersion => 1,

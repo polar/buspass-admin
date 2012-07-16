@@ -25,7 +25,7 @@ class MastersController < ApplicationController
     if @master
       @testament = Testament.where(:master_id => @master.id).first
       if @testament
-        redirect_to testament_path(@testament)
+        redirect_to master_testament_path(@master, @testament)
       else
         render :text => "Municipality's Testing Deployment Not Found", :status => 404
       end

@@ -22,7 +22,11 @@ class SimulateJob
   key :please_stop, Boolean
 
 
-  attr_accessible :master, :master_id, :municipality, :municipality_id, :deployment, :deployment_id, :time_zone
+  attr_accessible :master, :master_id
+  attr_accessible :municipality, :municipality_id
+  attr_accessible :deployment, :deployment_id
+  attr_accessible :testament, :testament_id
+  attr_accessible :time_zone
 
   class AuditLogger < Logger
     def format_message(severity, timestamp, progname, msg)
@@ -36,9 +40,20 @@ class SimulateJob
     self.reinitialize()
   end
 
+  def name
+    name1 = self.master.name if self.master
+    name1 ||= self.testament.master.name if self.testament
+    name1 ||= self.deployment.master.name if self.deployment
+    name2 = self.municipality.name if self.municipality
+    name2 ||= self.testament.municipality.name if self.testament
+    name2 ||= self.deployment.municipality.name if self.deployment
+    "#{name1} - #{name2}"
+  end
+
   def reinitialize()
     self.processing_status       = "Starting"
-    self.processing_log          = ["Simulation #{master.name} - #{municipality.name} has been initialized."]
+    # TODO: Change 'Simulation' for actual runs or testaments
+    self.processing_log          = ["Simulation #{name} has been initialized."]
     self.processing_started_at   = nil
     self.processing_completed_at = nil
     self.please_stop             = false

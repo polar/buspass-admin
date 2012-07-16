@@ -1,61 +1,11 @@
+<%= render :partial => "masters/testament/map_script" %>
 
-<head>
-  <style type="text/css" id="page-css">
-    #processing_log
-    {
-        width: 100%;
-        height: 300px;
-        overflow: auto;
-    }
-  </style>
-  <script type="text/javascript">
-      var runStatusView;
-      $(function () {
-          $("body").layout({ applyDefaultStyles:true });
-          runStatusView = new BusPass.RunStatusView();
-          runStatusView.statusView("#processing_status", {
-              // The route helpers don't seem to be available here.
-              // updateUrl : "< %= partial_status_deployment_run_path(@deployment, :format => :json) %>"
-              updateUrl : "<%= @updateUrl %>",
-              'onUpdateStatus' : onUpdateStatus
-          });
-
-          activePlanView = new BusPass.ActivePlanBasketController();
-
-          activePlanView.activePlanView("#activePlanView", {
-              // The route helpers don't seem to be available here.
-              loginUrl : '<%= @loginUrl %>'
-          });
-
-          // When the form is submitted we clear the status.
-          $("#start").parents("form").submit(function(ev) {
-              console.log("Submit start");
-              runStatusView.clearAll();
-          });
-
-          // Start the show!
-          activePlanView.onCreate();
-          activePlanView.onStart();
-          activePlanView.onResume();
-      });
-  </script>
-</head>
-
-  <div class="row">
-    <div class="span16">
-      <h2><%= link_to "#{@master.name}", master_path(@master) %>
-        Active Deployment
-        <%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %>
-      </h2>
-    </div>
-  </div>
-
-  <%=  render :partial => "shared/webmap_active_plan" %>
+<%= render :partial => "masters/testament/mapview" %>
 
   <div id="deploy-ui-buttons" class="row">
     <div class="span2">
       <%= button_to("Start Run",
-                    start_deployment_run_path(@deployment, :format => :js),
+                    start_master_testament_path(@master, :format => :js),
                     :id => "start",
                     :class => "btn",
                     :method => :post,
@@ -63,7 +13,7 @@
                     :disabled => (@job && @job.processing_status != "Stopped")) %>
     </div>
     <div class="span3">
-      <%= button_to( "Stop Run", stop_deployment_run_path(@deployment, :format => :js),
+      <%= button_to( "Stop Run", stop_master_testament_path(@master, :format => :js),
                      :id => "stop",
                      :class => "btn",
                      :method => :post,

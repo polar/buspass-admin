@@ -257,7 +257,7 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:navigation:deployment_nav }}"
                                }])
 
-    deployment_edit =  site.pages.create!(
+    deployment_map =  site.pages.create!(
         :slug => "map",
         :label => "Map",
         :layout => map_layout,

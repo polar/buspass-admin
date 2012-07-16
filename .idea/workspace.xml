@@ -6,14 +6,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TODO" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/testament/_mapview.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ListViewController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ListViewController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/simulate/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/simulate/webmap_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/simulate_job.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_status.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/testament/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/testament/_map.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/testament/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/testament/_show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/testament/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/testament/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -45,35 +54,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="_map_script.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="2" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_map.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_map.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="33" selection-start="315" selection-end="320" vertical-scroll-proportion="-3.125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActivePlanBasketController.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="48" selection-start="248" selection-end="248" vertical-scroll-proportion="0.49723756">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ActivePlanController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="396" column="33" selection-start="16031" selection-end="16031" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_mapview.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="66" selection-start="411" selection-end="411" vertical-scroll-proportion="-6.75">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_map_script.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="13" selection-start="5215" selection-end="5215" vertical-scroll-proportion="-3.125">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JourneyBasketController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasketController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -81,30 +90,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JourneyBasket.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js">
+      <file leaf-file-name="testament_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/testament_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="462" column="33" selection-start="16460" selection-end="16460" vertical-scroll-proportion="-0.7982456">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="webmap_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/simulate/webmap_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="0" selection-start="1147" selection-end="1147" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="implicit_render.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/actionpack-3.2.3/lib/action_controller/metal/implicit_render.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="0" selection-start="101" selection-end="101" vertical-scroll-proportion="0.0">
+            <state line="64" column="28" selection-start="2028" selection-end="2028" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -113,25 +102,43 @@
       <file leaf-file-name="simulate_job.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="54" column="61" selection-start="1680" selection-end="1680" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vehicle_journey.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
+      <file leaf-file-name="_mapview.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="13" column="33" selection-start="265" selection-end="283" vertical-scroll-proportion="-6.25">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActivePlanBasketController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
+      <file leaf-file-name="_mapview.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_mapview.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="178" column="4" selection-start="6086" selection-end="6086" vertical-scroll-proportion="0.0">
+            <state line="14" column="42" selection-start="410" selection-end="410" vertical-scroll-proportion="-8.75">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_show.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="63" selection-start="110" selection-end="110" vertical-scroll-proportion="-2.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_clock.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_clock.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -158,22 +165,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/websites/_table_index.html.erb" />
-        <option value="$PROJECT_DIR$/app/models/devise_failure_app.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
-        <option value="/mnt/jager/home/polar/src/buspass.admin/app/controllers/masters_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_file_download_link.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_poll.html.erb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks_controller.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/ListViewController.js" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_status.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/simulate/webmap_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" />
+        <option value="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/municipalities_controller.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/testament/show.html.erb" />
+        <option value="$PROJECT_DIR$/lib/tags/active_testament_tag.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/testament/_show.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" />
+        <option value="$PROJECT_DIR$/app/views/masters/testament/_map.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/testament/_mapview.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
+        <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
       </list>
     </option>
   </component>
@@ -342,7 +349,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="municipalities" />
+              <option name="myItemId" value="testament" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -357,76 +364,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="municipalities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulate" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -464,11 +401,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/views/masters/testament" />
       <recent name="$PROJECT_DIR$/app/views/masters/municipalities/simulate" />
       <recent name="$PROJECT_DIR$/app/views/masters/municipalities" />
       <recent name="$PROJECT_DIR$/app/views/masters/municipalities/networks" />
       <recent name="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys" />
-      <recent name="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities" />
@@ -1195,7 +1132,11 @@
       <created>1342456120442</created>
       <updated>1342456120442</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Progress">
+      <created>1342464701232</created>
+      <updated>1342464701232</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1299,66 +1240,38 @@
     <MESSAGE value="Progress" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/models/simulate_job.rb</url>
+          <line>43</line>
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/simulate_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/shared/_webmap_active_plan.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="0" selection-start="924" selection-end="924" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="11.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js">
+    <entry file="file://$PROJECT_DIR$/app/views/shared/_processing_status.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="63" selection-start="4021" selection-end="4021" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="23.416666">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/LocationWebWorker.js">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="180" column="31" selection-start="7176" selection-end="7952" vertical-scroll-proportion="-9.375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/GeoLocationController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ListViewController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="194" column="26" selection-start="6557" selection-end="6557" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/LocationController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="7" selection-start="4611" selection-end="4611" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="396" column="33" selection-start="16031" selection-end="16031" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="66" selection-start="411" selection-end="411" vertical-scroll-proportion="-6.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/webmap_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -1367,52 +1280,85 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="478" column="48" selection-start="15803" selection-end="15803" vertical-scroll-proportion="-40.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/simulate_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="115" column="59" selection-start="3189" selection-end="3189" vertical-scroll-proportion="-51.964287">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="33" selection-start="265" selection-end="283" vertical-scroll-proportion="-6.25">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_mapview.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="42" selection-start="410" selection-end="410" vertical-scroll-proportion="-8.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="63" selection-start="110" selection-end="110" vertical-scroll-proportion="-2.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_clock.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/actionpack-3.2.3/lib/action_controller/metal/implicit_render.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="101" selection-end="101" vertical-scroll-proportion="0.0">
+        <state line="4" column="2" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/simulate/webmap_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_map.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="0" selection-start="1147" selection-end="1147" vertical-scroll-proportion="0.0">
+        <state line="8" column="33" selection-start="315" selection-end="320" vertical-scroll-proportion="-3.125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/testament_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="28" selection-start="2028" selection-end="2028" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="61" selection-start="1680" selection-end="1680" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="178" column="4" selection-start="6086" selection-end="6086" vertical-scroll-proportion="0.0">
+        <state line="12" column="48" selection-start="248" selection-end="248" vertical-scroll-proportion="0.49723756">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="13" selection-start="5215" selection-end="5215" vertical-scroll-proportion="-3.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasketController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="462" column="33" selection-start="16460" selection-end="16460" vertical-scroll-proportion="-0.7982456">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

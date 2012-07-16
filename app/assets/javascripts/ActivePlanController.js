@@ -393,8 +393,28 @@ BusPass.ActivePlanController.prototype = {
         }
     },
 
+    onCreate : function() {
+        this._locationC.onCreate();
+    },
+
+    onStart : function () {
+        this._locationC.onStart();
+    },
+
+    onResume : function () {
+        this._locationC.onResume();
+    },
+
+    onPause : function () {
+        this._locationC.onPause();
+    },
+
     onStop : function() {
         this._locationC.onStop();
+    },
+
+    onRestart : function() {
+        this._locationC.onRestart();
     }
 
 };

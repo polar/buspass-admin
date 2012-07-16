@@ -22,6 +22,7 @@ BusPass.ActivePlanBasketController = function(options) {
 };
 
 BusPass.ActivePlanBasketController.prototype = {
+    debug : false,
 
     /**
      * This is the login URL for the BusPass API.
@@ -50,6 +51,20 @@ BusPass.ActivePlanBasketController.prototype = {
     activePlanBackButton : "#activePlanBackButton",
 
     /**
+     * The element that contains the Radio Button for Only Buses.
+     * @param jq
+     * @param options
+     */
+    activePlanOnlyBusesButton : "#activePlanOnlyBusesButton",
+
+    /**
+     * The element that contains the Radio Button for All Routes option.
+     * @param jq
+     * @param options
+     */
+    activePlanAllRoutesButton : "#activePlanAllRoutesButton",
+
+    /**
      * This function initializes the ActivePlanBasketController short of starting it. It is meant to have
      * several visual UI components.
      *   .activePlanRoutesView        The specialized list view for routes.
@@ -66,18 +81,28 @@ BusPass.ActivePlanBasketController.prototype = {
         options = $.extend({}, options);
         $.extend(this, options);
 
-        if (!options['activePlanRoutesView']) { this.activePlanRoutesView = $(jq).find(".activePlanRoutesView"); }
-        if (!options['activePlanMapView']) { this.activePlanMapView = $(jq).find(".activePlanMapView"); }
-        if (!options['activePlanBackButton']) { this.activePlanBackButton = $(jq).find(".activePlanBackButton"); }
-
-
         if (this.activePlanRoutesView) { this.activePlanRoutesView = $(this.activePlanRoutesView); }
         if (this.activePlanMapView) { this.activePlanMapView = $(this.activePlanMapView); }
         if (this.activePlanBackButton) { this.activePlanBackButton = $(this.activePlanBackButton); }
+        if (this.activePlanOnlyBusesButton) { this.activePlanOnlyBusesButton = $(this.activePlanOnlyBusesButton); }
+        if (this.activePlanAllRoutesButton) { this.activePlanAllRoutesButton = $(this.activePlanAllRoutesButton); }
 
         if (options['loginUrl']) {
             this.initialize();
         }
+        var ctrl = this;
+
+        this.activePlanAllRoutesButton[0].checked = true;
+        this.activePlanOnlyBusesButton.click(function() {
+            if (this.checked) {
+                ctrl.activePlanController.setOnlyActive(true);
+            }
+        });
+        this.activePlanAllRoutesButton.click(function() {
+            if (this.checked) {
+                ctrl.activePlanController.setOnlyActive(false);
+            }
+        });
     },
 
     /**
@@ -85,6 +110,11 @@ BusPass.ActivePlanBasketController.prototype = {
      */
     onBackClickFunction : function () {
         this.activePlanController.back();
+        if (this.activePlanController.getOnlyActive()) {
+            this.activePlanOnlyBusesButton[0].checked = true;
+        } else {
+            this.activePlanAllRoutesButton[0].checked = true;
+        }
     },
 
     /**
@@ -110,7 +140,7 @@ BusPass.ActivePlanBasketController.prototype = {
             busAPI: this.api
         });
 
-        this.activePlanController.mapView(this.activePlanMapView);
+        this.activePlanController.mapView($(this.activePlanMapView));
         this.activePlanController.listView(this.activePlanRoutesView);
 
         this.basket = new BusPass.JourneyBasket();
@@ -147,7 +177,7 @@ BusPass.ActivePlanBasketController.prototype = {
         };
 
         // Add a progress listener for debugging
-        if (debug) {
+        if (this.debug) {
             this.basket.progressListener = {
                 onSyncStart:function () {
                     console.log("Basket: SyncStart");

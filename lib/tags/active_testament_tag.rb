@@ -13,11 +13,11 @@ class ActiveTestamentTag < Tag
     setup
     case identifier
       when nil
-        "<%= render :partial => 'masters/test/show' %>"
+        "<%= render :partial => 'masters/testament/show' %>"
       when "page"
-        "<%= render :partial => 'masters/test/show' %>"
+        "<%= render :partial => 'masters/testament/show' %>"
       else
-        "<%= render :partial => 'masters/test/#{identifier}' %>"
+        "<%= render :partial => 'masters/testament/#{identifier}' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

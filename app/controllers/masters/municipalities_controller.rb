@@ -137,6 +137,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   end
   
   def testit
+    authenticate_muni_admin!
     @municipality = Municipality.find(params[:id])
     authorize_muni_admin!(:deploy, @master)
     authorize_muni_admin!(:deploy, @municipality)
@@ -145,12 +146,11 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
       @testament = Testament.new(:master => @master)
     end
     @testament.municipality = @municipality
-    if @municipality.save
-      if @testament.save
-        redirect_to master_testament_path(@master, :testament_id => @testament.id)
-      else
-        @municipality.save
-      end
+    if @testament.save
+        redirect_to master_testament_path(@master, @testament)
+    else
+        flash[:error] = "Could not test deployment".
+        redirect_to master_municipality_path(@master, @municipality)
     end
   end
 

@@ -163,10 +163,12 @@ BusPass.RunStatusView.prototype = {
         console.log("Update: data " + data);
         if (data != null) {
             var ctrl = this;
-            $.each(data['logs'], function(i, item) {
-                console.log("Adding " + item);
-                ctrl.logScrollPane.append('<div class="item">'+item+'</div>');
-            });
+            if(data["logs"]) {
+                $.each(data['logs'], function(i, item) {
+                    console.log("Adding " + item);
+                    ctrl.logScrollPane.append('<div class="item">'+item+'</div>');
+                });
+            }
             if (data['completed_at'] && this.completed_at) {
                 this.completed_at.html(data['completed_at']);
             }
