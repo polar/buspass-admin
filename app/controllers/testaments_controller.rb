@@ -8,15 +8,22 @@ class TestamentsController < ApplicationController
   end
 
   def show
+    authenticate_muni_admin!
     @testament = Testament.find(params[:id])
-    @municipality = @testaments.municipality
+
+    authorize_muni_admin!(:read, @testament)
+
+    @municipality = @testament.municipality
     @master = @municipality.master
     @loginUrl = api_testament_path(@testament)
-    render :layout => "webmap"
   end
 
   def api
+    authenticate_muni_admin!
     @testament = Testament.find(params[:id])
+
+    authorize_muni_admin!(:read, @testament)
+
     @municipality = @testament.municipality
     @master = @municipality.master
     @api = {
@@ -31,5 +38,11 @@ class TestamentsController < ApplicationController
     respond_to do |format|
       format.json { render :json => @api }
     end
+  end
+
+  protected
+
+  def authorize_muni_admin!(action, obj)
+    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
   end
 end

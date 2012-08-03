@@ -1,10 +1,8 @@
-class Deployments::WebmapController < DeploymentsBaseController
-  layout "webmap"
-
-  def index
-  end
+class Activements::WebmapController < ApplicationController
 
   def route
+    get_context
+
     @object ||=
         Route.where(:persistentid => params[:ref],
                     :master_id => @master.id,
@@ -16,6 +14,8 @@ class Deployments::WebmapController < DeploymentsBaseController
   end
 
   def journey
+    get_context
+
     @object ||=
         VehicleJourney.where(:persistentid => params[:ref],
                              :master_id => @master.id,
@@ -28,6 +28,8 @@ class Deployments::WebmapController < DeploymentsBaseController
   end
 
   def routedef
+    get_context
+
     @object   = params[:type] == "V" &&
                  VehicleJourney.where(:persistentid => params[:ref],
                                       :master_id => @master.id,
@@ -44,6 +46,8 @@ class Deployments::WebmapController < DeploymentsBaseController
 
 # We are going return two types, Routes and Active VehicleJourneys.
   def route_journeys
+    get_context
+
     @routes = Route.where(:master_id => @master.id, :municipality_id => @municipality.id).all
     rs      = []
     if params[:routes] != nil
@@ -70,6 +74,8 @@ class Deployments::WebmapController < DeploymentsBaseController
   end
 
   def curloc
+    get_context
+
     # TODO: searching by :municipality_id should be sufficient.
       @vehicle_journey = VehicleJourney.where(:persistentid => params[:ref],
                                               :master_id => @master.id,
@@ -175,7 +181,7 @@ class Deployments::WebmapController < DeploymentsBaseController
    data[:_name]="#{route.display_name}"
    data[:_code]="#{route.code}"
    data[:_version]="#{route.version}"
-   data[:_geoJSONUrl]= route_deployment_webmap_path(:ref => route.persistentid, :format => :json)
+   data[:_geoJSONUrl]= route_activement_webmap_path(:ref => route.persistentid, :format => :json)
    data[:_nw_lon]="#{box[0][0]}"
    data[:_nw_lat]="#{box[0][1]}"
    data[:_se_lon]="#{box[1][0]}"
@@ -191,7 +197,7 @@ class Deployments::WebmapController < DeploymentsBaseController
    data[:_name]="#{journey.display_name}"
    data[:_code]="#{journey.service.route.code}"
    data[:_version]="#{journey.service.route.version}"
-   data[:_geoJSONUrl]= journey_deployment_webmap_path(:ref => journey.persistentid, :format => :json)
+   data[:_geoJSONUrl]= journey_activement_webmap_path(:ref => journey.persistentid, :format => :json)
    data[:_startOffset] = "#{journey.start_time}"
    data[:_duration] ="#{journey.duration}"
    # TODO: TimeZone for Locality.
@@ -279,4 +285,13 @@ class Deployments::WebmapController < DeploymentsBaseController
       return data
   end
 
+  def get_context
+    @activement = Activement.find(params[:activement_id] || params[:id])
+    # TODO: Find by slug
+    if @activement == nil
+      raise "No Active Deployment Found"
+    end
+    @master       = @activement.master
+    @municipality = @activement.municipality
+  end
 end

@@ -9,7 +9,7 @@ class OperatorRolePermit < CanTango::RolePermit
     can(:read, Network)
     can(:deploy, Master)
     can(:deploy, Municipality)
-    can(:delete, Deployment)
+    can(:delete, Activement)
   end
 
   module Cached

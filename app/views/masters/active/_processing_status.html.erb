@@ -1,0 +1,65 @@
+<%
+   # This part holds the processing status log display.
+   #
+   # Requires @processing_status_label and @job controller variables.
+   #
+   # TODO: Internatioanalize Date and Time, and use local TimeZone
+   #
+%>
+    <div id="processing_status">
+      <div id="start_status"></div>
+
+      <h3><%= @processing_status_label %> Status</h3>
+
+      <table class="table table-striped">
+        <tbody>
+        <tr>
+          <th>Run Base Time</th>
+          <td>
+            <div id="sim_time" class="sim_time"><%= @job.sim_time ?
+                                                            @job.sim_time.strftime("%m-%d-%Y %H:%M %Z") :
+                                                            "Pending" if @job %></div>
+          </td>
+        </tr>
+        <% if @job && @job.clock_mult && @job.clock_mult != 1 %>
+            <tr>
+              <th>Clock Multiplier</th>
+              <td>
+                <div id="clock_mult" class="clock_mult"><%= @job.clock_mult %></div>
+              </td>
+            </tr>
+        <% end %>
+        <tr>
+          <th>Process Start Time</th>
+          <td>
+            <div id="started_at" class="started_at"><%= @job.processing_completed_at ?
+                                                                @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z") :
+                                                                "Pending" if @job %></div>
+          </td>
+        </tr>
+        <tr>
+          <th>Process Status</th>
+          <td>
+            <div id="status" class="status"><%= @job.processing_status if @job %></div>
+          </td>
+        </tr>
+        <tr>
+        <th>Process Complete Time</th>
+        <td>
+          <div id="completed_at" class="completed_at"><%= @job.processing_completed_at ?
+                                                                  @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z") :
+                                                                  "" if @job %></div>
+        </td>
+
+        </tbody>
+      </table>
+
+      <h3><%= @processing_status_label %> Log</h3>
+
+      <div id="processing_log" class="logview">
+        <% for i in @job.processing_log %>
+            <div class="item"><%= i %></div>
+        <% end if @job %>
+      </div>
+
+    </div>

@@ -1,8 +1,10 @@
-class Masters::ActiveController < Masters::MasterBaseController
-  before_filter :get_context
+class Masters::ActiveController < ApplicationController
+  layout "empty"
 
   def show
-    if @deployment
+    get_context
+
+    if @activement
       options = {:master_id => @master.id, :municipality_id => @municipality.id}
       @job = SimulateJob.first(options)
       #authorize!(:deploy, @municipality)
@@ -18,7 +20,7 @@ class Masters::ActiveController < Masters::MasterBaseController
       @duration = @job && @job.duration || 30
       @processing_status_label = "Run"
       @updateUrl = partial_status_master_active_path(@master, :format => :json)
-      @loginUrl = api_deployment_path(@deployment, :format => :json)
+      @loginUrl = api_activement_path(@activement, :format => :json)
     else
       flash[:notice] = "You have not selected a deployment to be active. Redirected to Deployments page."
       redirect_to master_municipalities_path(@master)
@@ -26,7 +28,10 @@ class Masters::ActiveController < Masters::MasterBaseController
   end
 
   def status
+    get_context
+
     #authorize!(:read, @municipality)
+
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
     if @job.nil?
@@ -35,8 +40,10 @@ class Masters::ActiveController < Masters::MasterBaseController
   end
 
   def start
+    get_context
+
     #authorize!(:deploy, @municipality)
-    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:activement_id => @activement.id}
     # Start the "run"
     # Date and time is now
     # mult is 1, which is time multiplier
@@ -50,14 +57,10 @@ class Masters::ActiveController < Masters::MasterBaseController
     @duration = -1
     begin
       @clock = Time.parse(@date.strftime("%Y-%m-%d") + " " + @time.strftime("%H:%M %Z"))
-      @status = "WTF?"
     rescue Exception => boom
       @status = "Cannot parse time"
       return
-    ensure
-      @status = "GODMAN"
     end
-
 
     @job = SimulateJob.first(options)
     if @job
@@ -90,15 +93,21 @@ class Masters::ActiveController < Masters::MasterBaseController
   end
 
   def stop
+    get_context
+
     #authorize!(:deploy, @municipality)
-    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:activement_id => @activement.id}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
-    if @job && @job.processing_status == "Running"
-      @job.set_processing_status!("StopRequested")
-      render :text => "The run of #{@master.name}'s '#{@municipality.name} will stop shortly."
+    if @job
+      if @job.processing_status == "Running"
+        @job.set_processing_status!("StopRequested")
+        @status =  "The run of #{@master.name}'s '#{@municipality.name} will stop shortly."
+      else
+        @status = "The run of #{@master.name}'s '#{@municipality.name} is stopping."
+      end
     else
-      render :text => "There is no run for #{@master.name}'s '#{@municipality.name}  to stop."
+      @status =  "There is no run for #{@master.name}'s '#{@municipality.name}  to stop."
     end
   end
 
@@ -106,9 +115,11 @@ class Masters::ActiveController < Masters::MasterBaseController
   # This action gets called by a javascript updater on the show page.
   #
   def partial_status
+    get_context
+
     #authorize!(:read, @municipality)
 
-    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    options = {:activement_id => @activement.id}
     @job = SimulateJob.first(options)
     if @job
       @last_log = params[:log].to_i
@@ -118,9 +129,21 @@ class Masters::ActiveController < Masters::MasterBaseController
 
       resp                  = { :logs => @logs }
 
+      resp[:start] = true
+      resp[:stop] = false
+
       if (@job.processing_status)
         resp[:status] = @job.processing_status
+        if (@job.processing_status != "Stopped")
+          resp[:start] = false
+          resp[:stop] = true
+        end
+        if (@job.processing_status == "StopRequested")
+          resp[:start] = false
+          resp[:stop] = false
+        end
       end
+
       if (@job.clock_mult)
         resp[:clock_mult] = @job.clock_mult
       end
@@ -133,6 +156,10 @@ class Masters::ActiveController < Masters::MasterBaseController
       if (@job.processing_started_at)
         resp[:started_at] = @job.processing_started_at.in_time_zone(@job.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
+    else
+      resp = {}
+      resp[:start] = true
+      resp[:stop] = false
     end
 
     respond_to do |format|
@@ -141,26 +168,30 @@ class Masters::ActiveController < Masters::MasterBaseController
   end
 
   def deactivate
-    authorize_muni_admin!(:delete, @deployment)
+    get_context
 
-    options = {:deployment_id => @deployment.id, :master_id => @master.id, :municipality_id => @municipality.id}
+    authorize_muni_admin!(:delete, @activement)
+
+    options = {:activement_id => @activement.id}
     @job = SimulateJob.first(options)
     # We automatically kill any job if we remove the SimulateJob
     @job.destroy if @job
-    @deployment.destroy
+    @activement.destroy
     flash[:notice] = "#{@master.name} Deployment #{@municipality.name} has been deactivated."
     redirect_to master_municipalities_path(@master)
   end
 
   def api
+    get_context
+
     authorize_muni_admin!(:edit, @municipality)
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,
-        "getRoutePath" => route_deployment_webmap_path(@deploymentd),
-        "getRouteJourneyIds" => route_journeys_deployment_webmap_path(@deployment),
-        "getRouteDefinition" => routedef_deployment_webmap_path(@deployment),
-        "getJourneyLocation" => curloc_deployment_webmap_path(@deployment)
+        "getRoutePath" => route_activement_webmap_path(@activement),
+        "getRouteJourneyIds" => route_journeys_activement_webmap_path(@activement),
+        "getRouteDefinition" => routedef_activement_webmap_path(@activement),
+        "getJourneyLocation" => curloc_activement_webmap_path(@activement)
     }
 
     respond_to do |format|
@@ -171,11 +202,16 @@ class Masters::ActiveController < Masters::MasterBaseController
   protected
 
   def get_context
-    @deployment = Deployment.find(params[:id])
-    @deployment ||= Deployment.find(params[:deployment_id])
-    @master = @deployment.master if @deployment
+    @activement = Activement.find(params[:id])
+    @activement ||= Activement.find(params[:activement_id])
+    @master = @activement.master if @activement
     @master ||= Master.find(params[:master_id])
-    @deployment ||= Deployment.where(:master_id => params[:master_id]).first
-    @municipality = @deployment.municipality if @deployment
+    @activement ||= Activement.where(:master_id => params[:master_id]).first
+    @municipality = @activement.municipality if @activement
   end
+
+  def authorize_muni_admin!(action, obj)
+    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
+  end
+
 end

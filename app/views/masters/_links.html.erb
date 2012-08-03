@@ -7,9 +7,9 @@
 <p>
   <%= link_to "Deployments", master_municipalities_path(@master), :class => "btn" %>
 </p>
-<% if @master.deployment %>
+<% if @master.activement %>
     <p>
-      <%= link_to "Manage Active Deployment", deployment_path(@master.deployment) %>
+      <%= link_to "Manage Active Deployment", activement_path(@master.activement) %>
     </p>
 <% end %>
 <% if @master.testament %>

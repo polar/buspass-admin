@@ -92,7 +92,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   def check
     @municipality = Municipality.find(params[:id])
     authorize_muni_admin!(:read, @municipality)
-    @status = @municipality.deployment_check
+    @status = @municipality.activement_check
 
     # Hide or Show the deploy button. Only show on a municipality that can be deployed.
     @show_deploy_button = false
@@ -122,14 +122,14 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     @municipality = Municipality.find(params[:id])
     authorize_muni_admin!(:deploy, @master)
     authorize_muni_admin!(:deploy, @municipality)
-    @deployment = Deployment.where(:master_id => @master.id).first
-    if (@deployment == nil)
-      @deployment = Deployment.new(:master => @master)
+    @activement = Activement.where(:master_id => @master.id).first
+    if (@activement == nil)
+      @activement = Activement.new(:master => @master)
     end
-    @deployment.municipality = @municipality
+    @activement.municipality = @municipality
     if @municipality.save
-      if @deployment.save
-        redirect_to map_deployment_run_path(@deployment)
+      if @activement.save
+        redirect_to map_activement_run_path(@activement)
       else
         @municipality.save
       end

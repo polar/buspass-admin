@@ -1,0 +1,20 @@
+<div id="deploy-ui-buttons" class="row">
+  <div class="span2">
+    <%= button_to("Start Run",
+                  start_master_active_path(@master, :format => :js),
+                  :id => "start",
+                  :class => "btn",
+                  :method => :post,
+                  :remote => true,
+                  :disabled => (@job && @job.processing_status != "Stopped")) %>
+  </div>
+  <div class="span3">
+    <%= button_to( "Stop Run",
+                   stop_master_active_path(@master, :format => :js),
+                   :id => "stop",
+                   :class => "btn",
+                   :method => :post,
+                   :remote => true,
+                   :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
+  </div>
+</div>

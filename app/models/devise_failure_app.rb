@@ -15,8 +15,8 @@ class DeviseFailureApp < Devise::FailureApp
 
     # If we are on a deployment, get the master from it.
     if (opts[:master_id] == nil)
-      deployment = Deployment.find(params[:deployment_id])
-      opts[:master_id] ||= deployment.master.id if deployment
+      activement = Activement.find(params[:activement_id])
+      opts[:master_id] ||= activement.master.id if activement
     end
 
     context = send(Devise.available_router_name)

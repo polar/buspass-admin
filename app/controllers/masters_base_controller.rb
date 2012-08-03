@@ -1,6 +1,6 @@
 class MastersBaseController < ApplicationController
 
-  before_filter :authenticate_customer!, :except => [:index, :show, :deployment, :testament]
+  before_filter :authenticate_customer!, :except => [:index, :show, :activement, :testament]
 
   layout "empty"
 

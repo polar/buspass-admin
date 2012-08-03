@@ -1,0 +1,5 @@
+$("#start_status").html("<%= escape_javascript( render :text => @status ) %>");
+setTimeout(function() {
+    $("#start_status").html("");
+}, 8000);
+$("#stop").prop("disabled", <%= !@job.nil? ? "true" : "false" %>);

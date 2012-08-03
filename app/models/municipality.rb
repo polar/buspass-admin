@@ -26,7 +26,7 @@ class Municipality
     belongs_to :master
     belongs_to :owner, :class_name => "MuniAdmin"
 
-    one :deployment, :dependent => :delete
+    one :activement, :dependent => :delete
     one :testament, :dependent => :delete
     many :networks, :autosave => false, :dependent => :destroy
 
@@ -69,7 +69,7 @@ class Municipality
     # it returns  an empty array of strings. Otherwise, it contains a list of strings
     # denoting the errors encountered.
     #
-    def deployment_check
+    def activement_check
       status = []
       route_codes = []
       for n in networks do

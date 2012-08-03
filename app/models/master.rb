@@ -17,7 +17,7 @@ class Master
 
   belongs_to :owner, :class_name => "Customer"
   many :municipalities, :autosave => false, :dependent => :destroy
-  one :deployment, :dependent => :destroy
+  one :activement, :dependent => :destroy
   one :testament, :dependent => :destroy
 
   attr_accessible :name, :slug, :owner, :dbname

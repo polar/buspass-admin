@@ -6,12 +6,12 @@ class MastersController < ApplicationController
     raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
   end
 
-  def deployment
+  def activement
     @master = Master.find(params[:id])
     if @master
-      @deployment = Deployment.where(:master_id => @master.id).first
-      if @deployment
-        redirect_to deployment_path(@deployment)
+      @activement = Activement.where(:master_id => @master.id).first
+      if @activement
+        redirect_to activement_path(@activement)
       else
         render :text => "Municipality's Active Deployment Not Found", :status => 404
       end
@@ -39,7 +39,7 @@ class MastersController < ApplicationController
     # The DeviseFailureApp needs :master_id
     params[:master_id] = @master.id if @master
     authenticate_muni_admin!
-    @deployment = Deployment.where(:master_id => @master.id).first
+    @activement = Activement.where(:master_id => @master.id).first
     @testament = Testament.where(:master_id => @master.id).first
   end
 

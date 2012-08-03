@@ -12,13 +12,13 @@ class MasterActiveTag  < Tag
     setup
     case identifier
       when "name"
-        @master.deployment.name if @master.deployment
+        @master.activement.name if @master.activement
       when "slug"
-        @master.deployment.slug if @master.deployment
+        @master.activement.slug if @master.activement
       when "timezone"
-        @master.deployment.timezone if @master.deployment
+        @master.activement.timezone if @master.activement
       when "owner"
-        @master.deployment.owner.name if @master.deployment
+        @master.activement.owner.name if @master.activement
       when "page"
         "<%= render :partial => 'masters/active/show' %>"
       when nil

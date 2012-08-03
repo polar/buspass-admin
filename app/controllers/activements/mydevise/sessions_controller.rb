@@ -57,7 +57,7 @@ class Deployments::Mydevise::SessionsController < Devise::SessionsController
       raise "No Municipality Specified"
     end
     #plan_home_path(:master_id => @master)
-    ret= deployments_path(:master_id => @master)
+    ret= activements_path(:master_id => @master)
     ret
   end
 
@@ -67,7 +67,7 @@ class Deployments::Mydevise::SessionsController < Devise::SessionsController
     if @master.nil?
       raise "No Municipality Specified"
     end
-    deployments_path(:master_id => @master)
+    activements_path(:master_id => @master)
   end
 
   private

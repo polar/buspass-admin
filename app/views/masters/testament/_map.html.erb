@@ -1,29 +1,5 @@
 <%= render :partial => "masters/testament/map_script" %>
 
 <%= render :partial => "masters/testament/mapview" %>
-
-  <div id="deploy-ui-buttons" class="row">
-    <div class="span2">
-      <%= button_to("Start Run",
-                    start_master_testament_path(@master, :format => :js),
-                    :id => "start",
-                    :class => "btn",
-                    :method => :post,
-                    :remote => true,
-                    :disabled => (@job && @job.processing_status != "Stopped")) %>
-    </div>
-    <div class="span3">
-      <%= button_to( "Stop Run", stop_master_testament_path(@master, :format => :js),
-                     :id => "stop",
-                     :class => "btn",
-                     :method => :post,
-                     :remote => true,
-                     :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span16">
-      <%=  render :partial => "shared/processing_status" %>
-    </div>
-  </div>
+<%= render :partial => "masters/testament/run_buttons" %>
+<%= render :partial => "masters/testament/processing_status" %>

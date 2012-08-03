@@ -1,4 +1,4 @@
-class Deployment
+class Activement
   include MongoMapper::Document
 
   belongs_to :master

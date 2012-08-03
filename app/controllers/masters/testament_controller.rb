@@ -1,4 +1,5 @@
-class Masters::TestamentController < Masters::MasterBaseController
+class Masters::TestamentController < ApplicationController
+  layout "empty"
 
   def show
     get_context
@@ -56,14 +57,10 @@ class Masters::TestamentController < Masters::MasterBaseController
     @duration = -1
     begin
       @clock = Time.parse(@date.strftime("%Y-%m-%d") + " " + @time.strftime("%H:%M %Z"))
-      @status = "WTF?"
     rescue Exception => boom
       @status = "Cannot parse time"
       return
-    ensure
-      @status = "GODMAN"
     end
-
 
     @job = SimulateJob.first(options)
     if @job
@@ -97,15 +94,20 @@ class Masters::TestamentController < Masters::MasterBaseController
 
   def stop
     get_context
+
     #authorize!(:deploy, @municipality)
     options = {:testament_id => @testament.id}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
-    if @job && @job.processing_status == "Running"
-      @job.set_processing_status!("StopRequested")
-      render :text => "The run of #{@master.name}'s '#{@municipality.name} will stop shortly."
+    if @job
+      if @job.processing_status == "Running"
+        @job.set_processing_status!("StopRequested")
+        @status =  "The run of #{@master.name}'s '#{@municipality.name} will stop shortly."
+      else
+        @status = "The run of #{@master.name}'s '#{@municipality.name} is stopping."
+      end
     else
-      render :text => "There is no run for #{@master.name}'s '#{@municipality.name}  to stop."
+      @status =  "There is no run for #{@master.name}'s '#{@municipality.name}  to stop."
     end
   end
 
@@ -126,9 +128,21 @@ class Masters::TestamentController < Masters::MasterBaseController
 
       resp                  = { :logs => @logs }
 
+      resp[:start] = true
+      resp[:stop] = false
+
       if (@job.processing_status)
         resp[:status] = @job.processing_status
+        if (@job.processing_status != "Stopped")
+          resp[:start] = false
+          resp[:stop] = true
+        end
+        if (@job.processing_status == "StopRequested")
+          resp[:start] = false
+          resp[:stop] = false
+        end
       end
+
       if (@job.clock_mult)
         resp[:clock_mult] = @job.clock_mult
       end
@@ -141,6 +155,10 @@ class Masters::TestamentController < Masters::MasterBaseController
       if (@job.processing_started_at)
         resp[:started_at] = @job.processing_started_at.in_time_zone(@job.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
+    else
+      resp = {}
+      resp[:start] = true
+      resp[:stop] = false
     end
 
     respond_to do |format|
@@ -188,4 +206,9 @@ class Masters::TestamentController < Masters::MasterBaseController
     @testament ||= Testament.where(:master_id => params[:master_id]).first
     @municipality = @testament.municipality if @testament
   end
+
+  def authorize_muni_admin!(action, obj)
+    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
+  end
+
 end

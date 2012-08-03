@@ -15,8 +15,8 @@ BuspassAdmin::Application.routes.draw do
 
   devise_for :users,
              :controllers => {
-                 :registrations => "deployments/mydevise/registrations",
-                 :sessions      => "deployments/mydevise/sessions"
+                 :registrations => "activements/mydevise/registrations",
+                 :sessions      => "activements/mydevise/sessions"
              }
 
   resources :customers
@@ -28,12 +28,12 @@ BuspassAdmin::Application.routes.draw do
     end
   end
 
-  resources :deployments, :only => :show do
+  resources :activements, :only => :show do
     member do
       get :api
     end
 
-    resource :run, :controller => "deployments/run" do
+    resource :run, :controller => "activements/run" do
       get :api
       get :map
       post :start
@@ -42,7 +42,7 @@ BuspassAdmin::Application.routes.draw do
       post :deactivate
     end
 
-    resource :webmap, :controller => "deployments/webmap" do
+    resource :webmap, :controller => "activements/webmap" do
       member do
         get :route
         get :journey
@@ -117,7 +117,7 @@ BuspassAdmin::Application.routes.draw do
     end
 
     member do
-      get :deployment
+      get :activement
       get :testament
     end
 

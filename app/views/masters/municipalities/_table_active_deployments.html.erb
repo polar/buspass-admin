@@ -12,12 +12,12 @@
   <tbody>
   <tr>
     <th>Active Deployment</th>
-    <% if @master.deployment %>
-        <td><%= @master.deployment.municipality.name %></td>
-        <td><%= @master.deployment.municipality.owner.name %></td>
-        <td><%= @master.deployment.status %></td>
-        <td><%= button_to "Start Run", start_master_active_path(@master), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.deployment.can_start? %></td>
-        <td><%= button_to "Stop Run", stop_master_active_path(@master), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.deployment.can_stop?  %></td>
+    <% if @master.activement %>
+        <td><%= @master.activement.municipality.name %></td>
+        <td><%= @master.activement.municipality.owner.name %></td>
+        <td><%= @master.activement.status %></td>
+        <td><%= button_to "Start Run", start_master_active_path(@master), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.activement.can_start? %></td>
+        <td><%= button_to "Stop Run", stop_master_active_path(@master), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.activement.can_stop?  %></td>
         <td><%= button_to "Deactivate", deactivate_master_active_path(@master), :method => :post, :class=>"btn" %></td>
     <% else %>
         <td colspan="6">None Active</td>

@@ -106,13 +106,6 @@ BusPass.RunStatusView.prototype = {
         this._element = jq;
         $.extend(this, options);
 
-        if (!options['log']) { this.log = $(jq).find(".log"); }
-        if (!options['completed_at']) { this.completed_at = $(jq).find(".completed_at"); }
-        if (!options['started_at']) { this.started_at = $(jq).find(".started_at"); }
-        if (!options['clock_mult']) { this.clock_mult = $(jq).find(".clock_mult"); }
-        if (!options['sim_time']) { this.sim_time = $(jq).find(".sim_time"); }
-        if (!options['status']) { this.status = $(jq).find(".status"); }
-
         if (this.log) { this.log = $(this.log); }
         if (this.completed_at) { this.completed_at = $(this.completed_at); }
         if (this.started_at) { this.started_at = $(this.started_at); }

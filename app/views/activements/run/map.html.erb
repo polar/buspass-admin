@@ -14,8 +14,6 @@
           $("body").layout({ applyDefaultStyles:true });
           runStatusView = new BusPass.RunStatusView();
           runStatusView.statusView("#processing_status", {
-              // The route helpers don't seem to be available here.
-              // updateUrl : "< %= partial_status_deployment_run_path(@deployment, :format => :json) %>"
               updateUrl : "<%= @updateUrl %>",
               'onUpdateStatus' : onUpdateStatus
           });
@@ -55,7 +53,7 @@
   <div id="deploy-ui-buttons" class="row">
     <div class="span2">
       <%= button_to("Start Run",
-                    start_deployment_run_path(@deployment, :format => :js),
+                    start_activement_run_path(@activement, :format => :js),
                     :id => "start",
                     :class => "btn",
                     :method => :post,
@@ -63,7 +61,7 @@
                     :disabled => (@job && @job.processing_status != "Stopped")) %>
     </div>
     <div class="span3">
-      <%= button_to( "Stop Run", stop_deployment_run_path(@deployment, :format => :js),
+      <%= button_to( "Stop Run", stop_activement_run_path(@activement, :format => :js),
                      :id => "stop",
                      :class => "btn",
                      :method => :post,
