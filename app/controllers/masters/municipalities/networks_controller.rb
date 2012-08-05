@@ -40,14 +40,14 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   def create
     authorize_muni_admin!(:create, Network)
 
-    network_attributes = params[:network].merge(*NETWORK_UPDATE_ALLOW_ATTRIBUTES)
+    network_attributes = params[:network].slice(*NETWORK_UPDATE_ALLOW_ATTRIBUTES)
 
     @network = Network.new(network_attributes)
     @network.municipality = @municipality
     @network.master = @master
     error = ! @network.save
     if error
-      flash[:error] = "Cannot create network."
+      flash[:error] = "Cannot create network. #{@network.errors.message}"
       render :action => :new
     else
       create_master_deployment_network_page(@master, @municipality, @network)
@@ -58,6 +58,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   rescue Exception => boom
     @network.destroy if @network
     flash[:error] = "Cannot create network."
+    logger.detailed_error(boom)
     redirect_to new_master_municipality_network_path(@master, @municipality)
   end
 
@@ -144,7 +145,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
       begin
         network_copy = Network.create_copy(@network, dest_municipality)
 
-        Delayed::Job.enqueue(:payload_object => CopyNetworkJob.new(@network.id, network_copy.id))
+        Delayed::Job.enqueue(:queue => @master.slug, :payload_object => CopyNetworkJob.new(@network.id, network_copy.id))
 
         flash[:notice] = "Network is being copied."
         redirect_to :action => :copy
@@ -211,15 +212,16 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def map
     authenticate_muni_admin!
+    @network = Network.find(params[:network_id] || params[:id])
     authorize_muni_admin!(:read, @network)
-    @network = Network.find(params[:network_id])
     @network ||= Network.find(params[:id])
     @routes = @network.routes.all.sort { |r1,r2| Route.codeOrd(r1.code,r2.code) }
   end
 
   def api
-    authorize_muni_admin!(:read, @network)
+    authenticate_muni_admin!
     @network = Network.find(params[:network_id])
+    authorize_muni_admin!(:read, @network)
     @network ||= Network.find(params[:id])
     @api = {
         :majorVersion => 1,

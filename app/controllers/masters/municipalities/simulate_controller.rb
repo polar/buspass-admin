@@ -91,7 +91,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
       @find_interval = 60 / @mult
       @time_interval = 10 / @mult
     end
-    job = VehicleJourney.delay.simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
+    job = VehicleJourney.delay(:queue => @master.slug).simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
     @job.delayed_job = job
     @job.save!
     @status = "Simulation for #{@municipality.name} has been started."

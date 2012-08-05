@@ -18,6 +18,8 @@ class Network
   key :processing_errors,   Array
   key :processing_log,      Array
 
+  belongs_to :processing_job, :class_name => "Delayed::Job"
+
   key :processing_started_at,   Time
   key :processing_completed_at, Time
 
@@ -187,7 +189,7 @@ class Network
   end
 
   def is_locked?
-    processing_lock || copy_lock
+    (processing_lock && processing_job) || copy_lock
   end
 
   def has_processing_errors?

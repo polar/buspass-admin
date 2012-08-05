@@ -34,32 +34,32 @@ class Cms::Page <
 
   def master!
     return self.master if self.master
-    self.parent.master if self.parent
+    self.parent.master! if self.parent
   end
 
   def municipality!
     return self.municipality if self.municipality
-    self.parent.municipality if self.parent
+    self.parent.municipality! if self.parent
   end
 
   def network!
     return self.network if self.network
-    self.parent.network if self.parent
+    self.parent.network! if self.parent
   end
 
   def route!
     return self.route if self.route
-    self.parent.route if self.parent
+    self.parent.route! if self.parent
   end
 
   def service!
     return self.service if self.service
-    self.parent.service if self.parent
+    self.parent.service! if self.parent
   end
 
   def vehicle_journey!
     return self.vehicle_journey if self.vehicle_journey
-    self.parent.vehicle_journey if self.parent
+    self.parent.vehicle_journey! if self.parent
   end
 
   def redirect_path

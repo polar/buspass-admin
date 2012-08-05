@@ -86,7 +86,7 @@ class Masters::TestamentController < ApplicationController
     end
 
     # Schedule the job with delayed_job
-    job = VehicleJourney.delay.simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
+    job = VehicleJourney.delay(:queue => @master.slug).simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
     @job.delayed_job = job
     @job.save!
     @status = "Run of #{@master.name}'s #{@municipality.name} has been started."

@@ -50,7 +50,12 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
 
     if (@network.processing_completed_at)
       resp[:completed_at] = @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z")
+    else
+      if @network.processing_lock.nil?  || @network.processing_job.nil?
+        resp[:completed_at] = "Aborted"
+      end
     end
+
     if (@network.processing_started_at)
       resp[:started_at] = @network.processing_started_at.strftime("%m-%d-%Y %H:%M %Z")
     end
@@ -90,7 +95,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
     # Save automatically reads the uploaded file and stores it
     @network.save!
 
-    @network.file_path = nil;
+    @network.file_path = nil
 
     if @network.upload_file && @network.upload_file.url
       # TODO: We should *move* this file somewhere?
@@ -108,7 +113,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
       @network.processing_progress     = 0.0
       @network.save!
 
-      Delayed::Job.enqueue(:payload_object => CompileServiceTableJob.new(@network.id, @network.processing_token))
+      Delayed::Job.enqueue(:queue => @master.slug, :payload_object => CompileServiceTableJob.new(@network.id, @network.processing_token))
 
       flash[:notice] = "Your job is currently scheduled for processing."
       redirect_to master_municipality_network_plan_path(@master, @municipality, @network)

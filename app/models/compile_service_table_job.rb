@@ -20,6 +20,12 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
     logger.add level, "#{Time.now.strftime('%FT%T%z')}: #{text}" if logger
   end
 
+  def enqueue(job)
+    say "Network.id #{network_id} token #{token}"
+    net = Network.find(network_id)
+    net.processing_job = job
+  end
+
   def perform
     say "Network.id #{network_id} token #{token}"
     net = Network.find(network_id)
@@ -76,6 +82,7 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
     unless dont_touch
       say "Ending Job"
       net.processing_lock = nil
+      net.processing_job = nil
       net.processing_completed_at = Time.now
       net.save
     else

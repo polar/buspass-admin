@@ -21,7 +21,6 @@ Delayed::Job.set_database_name("#Busme-#{Rails.env}")
 # Workless 1.0.1 Gem
 #    We use a local scaler to handle upscaling workers
 #
-# We use MongoMapper so, we need this for the scaler.
-Delayed::Backend::MongoMapper::Job.send(:include, Delayed::Workless::Scaler) if defined?(Delayed::Backend::MongoMapper::Job)
-Delayed::Job.scaler = :local
+# We use MongoMapper so, we need this for the autoscaler.
+Delayed::Backend::MongoMapper::Job.send(:include, MasterScaler) if defined?(Delayed::Backend::MongoMapper::Job)
 
