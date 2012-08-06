@@ -59,22 +59,29 @@
                 }
             }
             setTimeout(poll,0);
+            $("#processing_log_click").hide();
+            $("#processing_err_click").hide();
             <% if !@network.processing_lock %>
-            $("#processing_log").hide();
+            $("#processing_log").hide(); $("#processing_log_click").show();
             $("#processing_errors").hide();
+            $("#processing_err_click").show();
             <% end %>
 
             $("#processing_log_label").live("click", function() {
                 $('#processing_log').toggle();
+                $("#processing_log_click").toggle();
             });
             $('#processing_log').live("click", function() {
                 $('#processing_log').toggle();
+                $("#processing_log_click").toggle();
             });
             $("#processing_err_label").live("click", function() {
                 $('#processing_err').toggle();
+                $("#processing_err_click").toggle();
             });
             $('#processing_err').live("click", function() {
                 $('#processing_err').toggle();
+                $("#processing_err_click").toggle();
             });
         });
     </script>

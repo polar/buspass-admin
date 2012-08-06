@@ -216,6 +216,11 @@ class Network
      routes.map {|r| r.services.count }.reduce(0) {|v,x| v + x}
   end
 
+  def service_dates
+    dates = services.map {|s| [s.operating_period_start_date, s.operating_period_end_date]}
+    dates.reduce {|v,s| [ [v[0],s[0]].min, [v[1],s[0]].max ]}
+  end
+
   def delete_routes
     routes.each { |x| x.destroy }
   end

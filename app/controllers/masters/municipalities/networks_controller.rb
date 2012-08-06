@@ -30,7 +30,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     if @network && !@network.is_locked?
       authorize_muni_admin!(:edit, @network)
     else
-      flash[:error] = "Network is currently locked. Must wait to finish processing."
+      flash[:error] = "Network is currently being processed. Must wait for processing to finish."
       redirect_to(:back)
     end
   end
@@ -89,31 +89,36 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
     authenticate_muni_admin!
     @network = Network.find(params[:id])
 
-    if @network && !@network.is_locked?
-      authorize_muni_admin!(:read, @network)
+    if @network
+      if !@network.is_locked?
+        authorize_muni_admin!(:read, @network)
 
-      @municipalities   = Municipality.where(:master_id => @master.id).all
-      @network_copies   = @network.active_copies.all
-      copy_dests        = @network_copies.map { |n| n.municipality }
-      route_codes       = []
-      @disabled_options = @municipalities.map do |muni|
-        if copy_dests.include?(muni)
-          muni.id
-        else
-          route_codes += muni.route_codes
-          if muni.route_codes.length > 0 &&
-              (route_codes - @network.route_codes).length != route_codes.length &&
-              muni_admin_can?(:edit, muni)
+        @municipalities   = Municipality.where(:master_id => @master.id).all
+        @network_copies   = @network.active_copies.all
+        copy_dests        = @network_copies.map { |n| n.municipality }
+        route_codes       = []
+        @disabled_options = @municipalities.map do |muni|
+          if copy_dests.include?(muni)
             muni.id
           else
-            nil
+            route_codes += muni.route_codes
+            if muni.route_codes.length > 0 &&
+                (route_codes - @network.route_codes).length != route_codes.length &&
+                muni_admin_can?(:edit, muni)
+              muni.id
+            else
+              nil
+            end
           end
         end
+        # The copy button is disabled if all options are disabled
+        @disabled = @disabled_options.reduce(true) { |t, v| t && v }
+      else
+        flash[:error] = "Network is currently being processed. Must wait for processing to finish."
+        redirect_to(:back)
       end
-      # The copy button is disabled if all options are disabled
-      @disabled = @disabled_options.reduce(true) { |t, v| t && v }
     else
-      flash[:error] = "Network is not found or locked."
+      flash[:error] = "Network is not found."
       redirect_to(:back)
     end
   end
@@ -124,37 +129,43 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
       dest_municipality = Municipality.find(params[:network][:municipality])
     end
     if dest_municipality.nil?
-      raise "Destination Municipality not found"
+      raise "Destination Deployment is not found"
     end
 
-    if @network && !@network.is_locked?
-      authorize_muni_admin!(:read, @network)
-      authorize_muni_admin!(:edit, dest_municipality)
+    if @network
+      if !@network.is_locked?
+        authorize_muni_admin!(:read, @network)
+        authorize_muni_admin!(:edit, dest_municipality)
 
-      @network_copies = @network.active_copies
-      # We have to check that no routes are in the destination.
-      route_codes = []
-      for n in dest_municipality.networks
-        route_codes += n.route_codes
+        @network_copies = @network.active_copies
+        # We have to check that no routes are in the destination.
+        route_codes = []
+        for n in dest_municipality.networks
+          route_codes += n.route_codes
+        end
+        nrcodes = @network.route_codes
+        if route_codes.length > 0 && nrcodes.length > 0 && (route_codes-nrcodes).length < route_codes.length
+          raise "Cannot copy the network to the destination due to conflicting routes"
+        end
+
+        begin
+          network_copy = Network.create_copy(@network, dest_municipality)
+
+          Delayed::Job.enqueue(:queue => @master.slug, :payload_object => CopyNetworkJob.new(@network.id, network_copy.id))
+
+          flash[:notice] = "Network is being copied."
+          redirect_to :action => :copy
+        rescue Exception => boom
+          flash[:error] = "Cannot copy network to selected deployment: #{boom}"
+          redirect_to :action => :copy
+        end
+      else
+        flash[:error] = "Network is currently being processed. Must wait for processing to finish."
+        redirect_to(:back)
       end
-      nrcodes = @network.route_codes
-      if route_codes.length > 0 && nrcodes.length > 0 && (route_codes-nrcodes).length < route_codes.length
-        raise "Cannot copy the network to the destination due to conflicting routes"
-      end
 
-      begin
-        network_copy = Network.create_copy(@network, dest_municipality)
-
-        Delayed::Job.enqueue(:queue => @master.slug, :payload_object => CopyNetworkJob.new(@network.id, network_copy.id))
-
-        flash[:notice] = "Network is being copied."
-        redirect_to :action => :copy
-      rescue Exception => boom
-        flash[:error] = "Cannot copy network to selected deployment: #{boom}"
-        redirect_to :action => :copy
-      end
     else
-      flash[:error] = "Network is not found or locked."
+      flash[:error] = "Network is not found."
       redirect_to(:back)
     end
   rescue Exception => boom
@@ -198,14 +209,20 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   def destroy
     authenticate_muni_admin!
     @network = Network.find(params[:id])
-    if @network && !@network.is_locked?
-      authorize_muni_admin!(:delete, @network)
-      name = @network.name
-      @network.destroy()
-      flash[:notice] = "Network #{name} deleted."
-      redirect_to master_municipality_path(@master, @municipality)
+    if @network
+      if !@network.is_locked?
+        authorize_muni_admin!(:delete, @network)
+        name = @network.name
+        @network.destroy()
+        flash[:notice] = "Network #{name} deleted."
+        redirect_to master_municipality_path(@master, @municipality)
+      else
+        flash[:error] = "Network is currently being processed. Must wait for processing to finish."
+        redirect_to(:back)
+      end
+
     else
-      flash[:error] = "Network is not found or is locked."
+      flash[:error] = "Network is not found."
       redirect_to(:back)
     end
   end
@@ -220,7 +237,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def api
     authenticate_muni_admin!
-    @network = Network.find(params[:network_id])
+    @network = Network.find(params[:network_id] || params[:id])
     authorize_muni_admin!(:read, @network)
     @network ||= Network.find(params[:id])
     @api = {

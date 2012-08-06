@@ -11,6 +11,7 @@ class Master
   key :latitude
   key :slug, String
   key :timezone, String
+  key :max_workers, Integer, :default => 3
 
   # This will be used if we shard the Master off to its own Database.
   key :dbname, String #, :unique => true, :allow_nil => true

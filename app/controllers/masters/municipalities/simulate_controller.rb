@@ -140,7 +140,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
 
       @logs   = @job.processing_log.drop(@last_log).take(@limit)
 
-      resp                  = { :logs => @logs }
+      resp                  = { :logs => @logs, :last_log => @last_log }
 
       if (@job.processing_status)
         resp[:status] = @job.processing_status

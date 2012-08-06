@@ -18,11 +18,17 @@
 
   <tr>
     <th>Route Codes</th>
-    <% # TODO: Put links to Routes for codes %>
     <td>
       <% for route in @network.routes.sort {|r1,r2| Route.codeOrd(r1.code, r2.code)} do %>
         <%= link_to route.code, master_municipality_network_route_path(@master, @municipality, @network, route) %>
       <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Combined Service Period</th>
+    <td>
+      <%= dates = @network.service_dates; "#{dates[0].strftime("%m-%d-%Y")} to #{dates[1].strftime("%m-%d-%Y")}"; %>
     </td>
   </tr>
 

@@ -157,6 +157,11 @@ BusPass.RunStatusView.prototype = {
         if (data != null) {
             var ctrl = this;
             if(data["logs"]) {
+                var drop = 0;
+                if (data['last_log']) {
+                    drop = ctrl.logScrollPane.children().size() - data['last_log'];
+                    data['logs'].splice(0,drop);
+                }
                 $.each(data['logs'], function(i, item) {
                     console.log("Adding " + item);
                     ctrl.logScrollPane.append('<div class="item">'+item+'</div>');

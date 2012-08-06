@@ -127,7 +127,7 @@ class Masters::ActiveController < ApplicationController
 
       @logs   = @job.processing_log.drop(@last_log).take(@limit)
 
-      resp                  = { :logs => @logs }
+      resp                  = { :logs => @logs, :last_log => @last_log }
 
       resp[:start] = true
       resp[:stop] = false

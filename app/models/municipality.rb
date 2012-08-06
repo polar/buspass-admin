@@ -59,6 +59,11 @@ class Municipality
       networks.reduce([]) { |v,n| v + n.routes }
     end
 
+    def service_dates
+      dates = networks.reduce([]) {|v,n| v + [n.service_dates]}
+      dates.reduce {|v,d| [ [v[0],d[0]].min, [v[1],d[1]].max ]}
+    end
+
     def ensure_slug
         self.slug = self.name.to_url()
     end

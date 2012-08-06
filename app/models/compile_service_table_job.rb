@@ -24,6 +24,7 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
     say "Network.id #{network_id} token #{token}"
     net = Network.find(network_id)
     net.processing_job = job
+    net.save
   end
 
   def perform

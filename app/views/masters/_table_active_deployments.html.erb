@@ -1,0 +1,40 @@
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Deployment</th>
+    <th>Owner</th>
+    <th>Status</th>
+    <th colspan="3">Operations</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <th><%=  link_to "Active Deployment", master_active_path(@master) %></th>
+    <% if @master.activement %>
+        <td><%= @master.activement.municipality.name %></td>
+        <td><%= @master.activement.municipality.owner.name %></td>
+        <td><%= @master.activement.status %></td>
+        <td><%= button_to "Start Run", start_master_active_path(@master), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.activement.can_start? %></td>
+        <td><%= button_to "Stop Run", stop_master_active_path(@master), :method => :post, :class=>"btn", :remote => true, :disabled => !@master.activement.can_stop?  %></td>
+        <td><%= button_to "Deactivate", deactivate_master_active_path(@master), :method => :post, :class=>"btn" %></td>
+    <% else %>
+        <td colspan="6">None Active</td>
+    <% end %>
+  </tr>
+  <tr>
+    <th> <%= link_to "Testing Deployment", master_testament_path(@master) %></th>
+    <% if @master.testament %>
+        <td><%= @master.testament.municipality.name %></td>
+        <td><%= @master.testament.municipality.owner.name %></td>
+        <td><%= @master.testament.status %></td>
+        <td><%= link_to "Start Test", start_testament_run_path(@master.testament), :method => :post, :class=>"btn", :disabled => !@master.testament.can_start? %></td>
+        <td><%= link_to "Stop Test", stop_testament_run_path(@master.testament), :method => :post, :class=>"btn", :disabled => !@master.testament.can_stop?  %></td>
+        <td><%= link_to "Deactivate", deactivate_testament_run_path(@master.testament), :method => :post, :class=>"btn" %></td>
+    <% else %>
+        <td colspan="6">None Active</td>
+    <% end %>
+  </tr>
+  </tbody>
+</table>

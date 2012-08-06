@@ -6,16 +6,23 @@ end
 def exclude_matches
   [/\-template$/]
 end
-
+def excluded?(page)
+  exclude_links.include?(page.slug) || exclude_matches.reduce(false) {|v,m| v || page.slug.match(m)}
+end
+def subpages(page)
+  page.children.order(:position).all.reduce([]) {|v,p| !excluded?(p) && p.is_published ? v + [p] : v}
+end
 def do_page(page, xml)
   if page.is_published
     xml.li {
       xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
-    xml.ul do
-      page.children.order(:position).all.each do |chpage|
-        do_page(chpage, xml) if !exclude_links.include?(chpage.slug) && !exclude_matches.reduce(false) {|v,m| v || chpage.slug.match(m)}
+      subpages(page).tap do |pages|
+        xml.ul do
+          pages.each do |chpage|
+            do_page(chpage, xml)
+          end
+        end if pages.size > 0
       end
-    end if page.children_count > 0
     }
   end
 end
