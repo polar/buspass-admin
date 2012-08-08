@@ -1,3 +1,4 @@
+=begin
 # Your_app's root/config/initializers/cantango_editor.rb
 CantangoEditor.configure do |config|
 
@@ -17,3 +18,4 @@ CantangoEditor.configure do |config|
   # default: [:create, :read, :update, :delete, :manage]
   config.actions_available = config.actions_default | [:write, :assign_roles]
 end
+=end
