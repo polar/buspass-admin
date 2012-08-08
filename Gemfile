@@ -72,7 +72,6 @@ gem "comfortable_mexican_sofa",  :git => "git://github.com/polar/comfortable-mex
 
 # Not really sure if the following gems are needed.
 
-#gem 'cantango_editor', :git => "git://github.com/stanislaw/cantango_editor.git"
 gem 'meta_search', '>=1.1.0.pre'
 #gem "mm-optimistic_locking"
 #gem "validates_timeliness"
