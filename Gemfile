@@ -28,7 +28,8 @@ gem "mongo_mapper"
 # The following gems handle users and the login registration process
 
 gem "devise", ">= 2.0.0"
-gem 'devise-mongo_mapper', :path => "/home/polar/src/devise-mongo_mapper"
+#gem 'devise-mongo_mapper', :path => "/home/polar/src/devise-mongo_mapper"
+gem 'devise-mongo_mapper', :git => "git://github.com/polar/devise-mongo_mapper"
 
 # The following gem supplies with String.to_url
 
@@ -58,14 +59,16 @@ gem "clbustos-rtf" #, "~> 0.4.2"
 # The following gems are required for handling background
 # processing.
 
-gem "delayed_job", :path => "/home/polar/src/delayed_job"
+#gem "delayed_job", :path => "/home/polar/src/delayed_job"
+gem "delayed_job", :git => "git://github.com/polar/delayed_job"
 gem "delayed_job_mongo_mapper", :git => "git://github.com/polar/delayed_job_mongo_mapper.git"
 gem "daemons"
 gem "rush"
 
 # The following gem is the particular Content Management System we are using
 
-gem "comfortable_mexican_sofa",  :path => "/home/polar/src/comfortable-mexican-sofa" # :git => "git://github.com/polar/comfortable-mexican-sofa.git", :branch => "mongo_mapper"
+#gem "comfortable_mexican_sofa",  :path => "/home/polar/src/comfortable-mexican-sofa"
+gem "comfortable_mexican_sofa",  :git => "git://github.com/polar/comfortable-mexican-sofa.git", :branch => "mongo_mapper"
 
 # Not really sure if the following gems are needed.
 
@@ -106,3 +109,9 @@ group :development do
   gem 'ruby-debug-base19x', '0.11.30.pre10'
   gem 'ruby-debug-ide'
 end
+
+#
+# Deployment Gems
+#
+
+gem 'capistrano'
