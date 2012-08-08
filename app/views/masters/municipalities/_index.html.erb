@@ -7,7 +7,9 @@
     </p>
 <% end %>
 <h3>Active Deployments</h3>
-<%= render :partial => "masters/municipalities/table_active_deployments" %>
+<div id="active_deployments">
+  <%= render :partial => "masters/municipalities/table_active_deployments" %>
+</div>
 <h3>All Deployments</h3>
 <%= render :partial => "masters/municipalities/table_index" %>
 <p>

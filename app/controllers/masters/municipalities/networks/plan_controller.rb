@@ -3,26 +3,37 @@ require "delayed_job"
 class Masters::Municipalities::Networks::PlanController < Masters::Municipalities::Networks::NetworkBaseController
 
   def show
+    authenticate_muni_admin!
+
     if @network && !@network.copy_lock
-      authorize_muni_admin!(:edit, @network)
+      authorize_muni_admin!(:read, @network)
     else
-      flash[:error] = "Network is being created by copy and is locked."
+      flash[:error] = "Network is being created by copy and you must wait for it to finish."
       redirect_to(:back)
     end
   end
 
   def upload
+    authenticate_muni_admin!
+
+    if @network.municipality.is_active?
+      flash[:error] = "Network is part of a deployment that is active. You cannot change it until that deployment is deactivated."
+      redirect_to(:back)
+      return
+    end
+
     if @network && !@network.is_locked?
       authorize_muni_admin!(:edit, @network)
-
       @network_param_name = :plan
     else
-      flash[:error] = "Network is currently locked. Must wait for processing to finish."
+      flash[:error] = "Network is currently being processed. Must wait for processing to finish."
       redirect_to master_municipality_network_plan_path(@master, @municipality, @network)
     end
   end
 
   def file
+    authorize_muni_admin(:read, @network)
+
     send_file(@network.file_path,
               :type        => 'application/zip',
               :filename    => File.basename(@network.file_path),
@@ -42,7 +53,8 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
     @errors = @network.processing_errors.drop(@last_err).take(@limit) if @last_err
     @logs   = @network.processing_log.drop(@last_log).take(@limit) if @last_log
 
-    resp                  = { :errors => @errors, :logs => @logs }
+    resp                  = { :errors => @errors, :logs => @logs, :last_log => @last_log, :last_err => @last_err }
+
     resp[:route_codes]    = render_to_string(:partial => "route_codes")
     resp[:services_count] = @network.services.count
     resp[:routes_count]   = @network.routes.count
@@ -113,7 +125,8 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
       @network.processing_progress     = 0.0
       @network.save!
 
-      Delayed::Job.enqueue(:queue => @master.slug, :payload_object => CompileServiceTableJob.new(@network.id, @network.processing_token))
+      Delayed::Job.enqueue(:queue => @master.slug,
+                           :payload_object => CompileServiceTableJob.new(@network.id, @network.processing_token))
 
       flash[:notice] = "Your job is currently scheduled for processing."
       redirect_to master_municipality_network_plan_path(@master, @municipality, @network)

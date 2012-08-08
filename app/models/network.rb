@@ -3,6 +3,7 @@ require "carrierwave/orm/mongomapper"
 class Network
   include MongoMapper::Document
   include LocationBoxing
+  plugin MongoMapper::Plugins::IdentityMap
 
   key :name,        String
   key :description, String

@@ -12,6 +12,10 @@ class Activement
 
   one :simulate_job, :dependent => :destroy
 
+  def is_processing?
+    simulate_job && simulate_job.delayed_job
+  end
+
   def set_master
     master ||= municipality.master if municipality
   end

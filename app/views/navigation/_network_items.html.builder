@@ -17,7 +17,8 @@ def do_page(page, xml)
     xml.li {
       xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
       subpages(page).tap do |pages|
-        xml.ul do
+        # The IdentityMap doesn't seem to be always working for Network. ugg.
+        xml.ul(:class => (@network && page.network! && page.network!.id == @network.id ? "expanded" : "")) do
           pages.each do |chpage|
             do_page(chpage, xml)
           end
@@ -39,10 +40,12 @@ xml.ul(:id => "sitemap") {
   page = @site.pages.find_by_full_path("/deployments/#{@municipality.slug}/networks")
   xml.li() {
     xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
-    xml.ul(:class => "expanded") {
-      page.children.order(:position).all.each do |page|
-        do_page(page, xml) if !exclude_links.include?(page.slug) && !exclude_matches.reduce(false) {|v,m| v || page.slug.match(m)}
-      end
-    }
+    subpages(page).tap do |pages|
+      xml.ul(:class => "expanded") do
+        pages.each do |chpage|
+          do_page(chpage, xml)
+        end
+      end if pages.size > 0
+    end
   }
 }

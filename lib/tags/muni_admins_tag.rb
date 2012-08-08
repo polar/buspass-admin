@@ -11,6 +11,10 @@ class MuniAdminsTag < Tag
   def content
     setup
     case identifier
+      when "registrations"
+        "<%= render :partial => 'masters/muni_admins_devise/registrations/new' %>"
+      when "sessions"
+        "<%= render :partial => 'masters/muni_admins_devise/sessions/new' %>"
       when "page"
         "<%= render :partial => 'masters/muni_admins/index' %>"
       when nil

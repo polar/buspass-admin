@@ -6,7 +6,7 @@ class Masters::ActiveController < ApplicationController
 
     if @activement
       options = {:master_id => @master.id, :municipality_id => @municipality.id}
-      @job = SimulateJob.first(options)
+      @job = SimulateJob.first(:activement_id => @activement.id)
       #authorize!(:deploy, @municipality)
       @date = Time.now
       @time = @date
@@ -169,15 +169,18 @@ class Masters::ActiveController < ApplicationController
 
   def deactivate
     get_context
+    authenticate_muni_admin!
 
-    authorize_muni_admin!(:delete, @activement)
-
-    options = {:activement_id => @activement.id}
-    @job = SimulateJob.first(options)
-    # We automatically kill any job if we remove the SimulateJob
-    @job.destroy if @job
-    @activement.destroy
-    flash[:notice] = "#{@master.name} Deployment #{@municipality.name} has been deactivated."
+    if muni_admin_can?(:delete, @activement)
+      options = {:activement_id => @activement.id}
+      @job = SimulateJob.first(options)
+      # We automatically kill any job if we remove the SimulateJob
+      @job.destroy if @job
+      @activement.destroy
+      flash[:notice] = "#{@master.name} Deployment #{@municipality.name} has been deactivated."
+    else
+      flash[:error] = "You are not allowed to deactivate #{@master.name} Deployment #{@municipality.name}"
+    end
     redirect_to master_municipalities_path(@master)
   end
 

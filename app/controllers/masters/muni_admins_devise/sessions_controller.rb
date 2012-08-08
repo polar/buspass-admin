@@ -1,4 +1,4 @@
-class Masters::Mydevise::SessionsController < Devise::SessionsController
+class Masters::MuniAdminsDevise::SessionsController < Devise::SessionsController
   #noinspection RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable,RubyUnusedLocalVariable
 
   def auth_options

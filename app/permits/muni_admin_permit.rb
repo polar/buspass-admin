@@ -5,8 +5,14 @@ class MuniAdminPermit < CanTango::UserPermit
 
   protected
 
+  def dynamic_rules
+    cannot(:delete, MuniAdmin) do |muni_admin|
+      user == muni_admin
+    end
+    can(:read, MuniAdmin)
+  end
+
   def permit_rules
-    can(:read, Network)
   end
 
   module Cached

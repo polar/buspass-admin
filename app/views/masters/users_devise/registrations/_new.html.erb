@@ -1,0 +1,26 @@
+<h2>Sign up for Municipality <%= @master.name %></h2>
+
+<%= form_for(resource, :as => resource_name, :url => muni_admin_registration_path(:master_id => @master.id)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <div><%= f.label :name %>
+      <br/>
+      <%= f.text_field :name %></div>
+
+    <div><%= f.label :email %>
+      <br/>
+      <%= f.email_field :email %></div>
+
+    <div><%= f.label :password %>
+      <br/>
+      <%= f.password_field :password %></div>
+
+    <div><%= f.label :password_confirmation %>
+      <br/>
+      <%= f.password_field :password_confirmation %></div>
+
+    <%= f.hidden_field :master_id, :value => @master.id %>
+    <div><%= f.submit "Sign up" %></div>
+<% end %>
+
+<%= render "masters/muni_admins_devise/links" %>

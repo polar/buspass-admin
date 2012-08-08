@@ -183,10 +183,10 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => muni_admins,
         :is_protected => true,
-        :controller_path => "/muni_admins/masters/:master_id/sign_up",
+        :controller_path => "/muni_admins/sign_up?master_id=:master_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:muni_admins:sign_up }}"
+                                   :content => "{{ cms:bus:muni_admins:registrations:new }}"
                                },
                                {
                                    :identifier => "left",
@@ -199,10 +199,10 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => muni_admins,
         :is_protected => true,
-        :controller_path => "/muni_admins/masters/:master_id/sign_in",
+        :controller_path => "/muni_admins/sign_in?master_id=:master_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:muni_admins:sign_in }}"
+                                   :content => "{{ cms:bus:muni_admins:sessions:new }}"
                                },
                                {
                                    :identifier => "left",

@@ -9,6 +9,16 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
   def show
     authenticate_muni_admin!
     @municipality = Municipality.find(params[:id])
+    @show_actions = !@municipality.is_active? && muni_admin_can?(:edit, @municipality)
+    @status = []
+    if @municipality.is_active?
+      if @municipality.activement
+        @status = ["Deployment is active"]
+      else
+        @status = ["Deployment is active in testing."]
+      end
+
+    end
   end
 
   def new
@@ -98,7 +108,7 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
     @show_deploy_button = false
     if @status.empty?
       @status << "This plan is consistent and can be deployed."
-      @show_deploy_button = muni_admin_can?(:deploy, @master)
+      @show_deploy_button = muni_admin_can?(:deploy, @municipality)
     else
       @status = ["This plan may not be deployed because of the following:"] + @status
     end
@@ -120,18 +130,30 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
 
   def deploy
     @municipality = Municipality.find(params[:id])
-    authorize_muni_admin!(:deploy, @master)
     authorize_muni_admin!(:deploy, @municipality)
+    @status = []
+    if @municipality.is_active?
+      flash[:error] = "The deployment is already active."
+      @status << "Deployment is active."
+      render :show
+      return
+    end
+
     @activement = Activement.where(:master_id => @master.id).first
     if (@activement == nil)
       @activement = Activement.new(:master => @master)
     end
-    @activement.municipality = @municipality
-    if @municipality.save
+    if @activement.is_processing?
+      flash[:error] = "You must stop the active deployment first."
+      redirect_to master_active_path(@master)
+    else
+      @activement.municipality = @municipality
       if @activement.save
-        redirect_to map_activement_run_path(@activement)
+        flash[:notice] = "Deployment successfully submitted for activation. You need to explicitly start it."
+        redirect_to master_active_path(@master)
       else
-        @municipality.save
+        flash[:error] = "Could not activate deployment"
+        render :show
       end
     end
   end
@@ -175,4 +197,5 @@ class Masters::MunicipalitiesController < Masters::MasterBaseController
       format.json { render :json => @api }
     end
   end
+
 end

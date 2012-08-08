@@ -60,7 +60,7 @@ BusPass.ListViewController.prototype = {
 
     listView : function(element) {
         this._element = element;
-        $(this._element).jScrollPane({ showArrows : true, autoReinitialise : true });
+        $(this._element).jScrollPane({ autoReinitialise : true, showArrows: true, horizontalGutter: 10  });
         this._scrollApi = this._element.data('jsp');
         this._contentPane =  this._scrollApi.getContentPane();
         this._contentPane.html("<table><tbody></tbody></table>");

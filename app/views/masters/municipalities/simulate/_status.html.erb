@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row-fluid">
   <div class="span4">
   <%= form_tag start_master_municipality_simulate_path(@master, @municipality), :remote => true do %>
       <%= label_tag(:date, "Date[YYYY-MM-DD]:") %>
@@ -10,17 +10,17 @@
       <%= text_field_tag(:mult, @mult) %>
       <%= label_tag(:duration, "Duration[mins]:") %>
       <%= text_field_tag(:duration, @duration) %><br />
-      <%= submit_tag("Start Simulation", :id => "start", :class => "btn", :disabled => (@job && @job.processing_status != "Stopped")) %>
+      <%= submit_tag("Start Simulation", :id => "start", :class => "btn", :disabled => @disable_start) %>
   <% end %>
   </div>
   <div class="span4">
     <div id="sim_clock">
     </div>
     <br />
-    <%= button_to("Stop Simulation", stop_master_municipality_simulate_path(@municipality, :master_id => @master.id), :method => :post, :class => "btn", :id => "stop", :remote => true, :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
+    <%= button_to("Stop Simulation", stop_master_municipality_simulate_path(@master, @municipality), :method => :post, :class => "btn", :id => "stop", :remote => true, :disabled => @disable_stop) %>
   </div>
 </div>
-<div class="row">
+<div class="row-fluid">
   <div class="span16">
     <div id="start_status">
 
@@ -69,7 +69,7 @@
     <div id="processing_log">
       <div class="items logview">
         <% for i in @job.processing_log %>
-            <div class="item"><%= i %></div>
+            <div class="item"><%= h(i) %></div>
         <% end if @job %>
       </div>
     </div>

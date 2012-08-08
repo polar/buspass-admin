@@ -26,7 +26,7 @@
         <div class="span1">&nbsp;</div>
       <% end %>
       <% if muni_admin_can?(:delete, muni_admin) %>
-        <div class="span1"><%= link_to 'Destroy', muni_admin,
+        <div class="span1"><%= button_to 'Destroy', master_muni_admin_path(@master, muni_admin),
                                        :confirm => 'Are you sure?',
                                        :remote => true,
                                        :method => :delete,

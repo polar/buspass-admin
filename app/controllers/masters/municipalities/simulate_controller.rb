@@ -2,7 +2,6 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
 
   def show
     map
-    render :map
   end
 
   def map
@@ -10,7 +9,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
     authorize_muni_admin!(:edit, @municipality)
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
     @job = SimulateJob.first(options)
-    @date = Time.now
+    @date = Time.now.in_time_zone(@master.time_zone)
     @time = @date
     if params[:date]
       @date = Time.parse(params[:date])
@@ -20,6 +19,18 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
     end
     @mult = @job && @job.clock_mult || 1
     @duration = @job && @job.duration || 30
+
+    @loginUrl = api_master_municipality_simulate_path(@master, @municipality)
+    @updateUrl = partial_status_master_municipality_simulate_path(@master, @municipality)
+
+    if @municipality.is_active?
+      flash[:error] = "You cannot simulate this deployment. It is set up as active."
+      redirect_to master_municipalities_path(@master)
+    else
+      @disable_start = @job && @job.is_processing
+      @disable_stop  = @job.nil? || @job.is_processing?
+    end
+
   end
 
   def status
@@ -33,8 +44,13 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
 
   def start
     authorize_muni_admin!(:edit, @municipality)
+    if (@municipality.is_active?)
+      @status = "You cannot simulate a deployment that is set up as active."
+      return
+    end
+
     options = {:master_id => @master.id, :municipality_id => @municipality.id}
-    @date = Time.now
+    @date = Time.now.in_time_zone(@master.time_zone)
     @time = @date
     @status = ""
     if params[:date]
@@ -91,7 +107,9 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
       @find_interval = 60 / @mult
       @time_interval = 10 / @mult
     end
-    job = VehicleJourney.delay(:queue => @master.slug).simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
+    job = Delayed::Job.enqueue(:queue => @master.slug,
+                               :payload_object => VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
+                                                                                @clock, @mult, @duration, options))
     @job.delayed_job = job
     @job.save!
     @status = "Simulation for #{@municipality.name} has been started."
@@ -111,7 +129,7 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
     respond_to do |format|
       format.js { render :text => @status }
       format.html {
-        @date = Time.now
+        @date = Time.now.in_time_zone(@master.time_zone)
         @time = @date
         if params[:date]
           @date = Time.parse(params[:date])
@@ -142,6 +160,28 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
 
       resp                  = { :logs => @logs, :last_log => @last_log }
 
+      resp[:start] = true
+      resp[:stop] = false
+
+      if @municipality.is_active?
+        # This message doesn't display anywhere yet.
+        resp[:message] = "Deployment is currently active and cannot be simulated."
+        resp[:start] = false
+        resp[:stop] = false
+      else
+        if (@job.is_processing?)
+          resp[:status] = @job.processing_status
+          if (@job.processing_status != "Stopped")
+            resp[:start] = false
+            resp[:stop] = true
+          end
+          if (@job.processing_status == "StopRequested")
+            resp[:start] = false
+            resp[:stop] = false
+          end
+        end
+      end
+
       if (@job.processing_status)
         resp[:status] = @job.processing_status
       end
@@ -149,13 +189,13 @@ class Masters::Municipalities::SimulateController < Masters::Municipalities::Mun
         resp[:clock_mult] = @job.clock_mult
       end
       if (@job.sim_time)
-        resp[:sim_time] = @job.sim_time.strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:sim_time] = @job.sim_time.in_time_zone(@master.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
       if (@job.processing_completed_at)
-        resp[:completed_at] = @job.processing_completed_at.strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:completed_at] = @job.processing_completed_at.in_time_zone(@master.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
       if (@job.processing_started_at)
-        resp[:started_at] = @job.processing_started_at.strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:started_at] = @job.processing_started_at.in_time_zone(@master.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
     end
 

@@ -113,7 +113,7 @@ BusPass.RunStatusView.prototype = {
         if (this.sim_time) { this.sim_time = $(this.sim_time); }
         if (this.status) { this.status = $(this.status); }
 
-        this.log.jScrollPane({ autoReinitialise : true });
+        this.log.jScrollPane({ autoReinitialise : true, showArrows: true, horizontalGutter: 10  });
         this.logScrollPane = this.log.data('jsp').getContentPane();
 
         if (this.updateUrl != "") {
@@ -158,12 +158,11 @@ BusPass.RunStatusView.prototype = {
             var ctrl = this;
             if(data["logs"]) {
                 var drop = 0;
-                if (data['last_log']) {
+                if (data['last_log'] != undefined) {
                     drop = ctrl.logScrollPane.children().size() - data['last_log'];
                     data['logs'].splice(0,drop);
                 }
                 $.each(data['logs'], function(i, item) {
-                    console.log("Adding " + item);
                     ctrl.logScrollPane.append('<div class="item">'+item+'</div>');
                 });
             }

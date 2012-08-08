@@ -168,14 +168,18 @@ class Masters::TestamentController < ApplicationController
 
   def deactivate
     get_context
-    authorize_muni_admin!(:delete, @testament)
 
-    options = {:testament_id => @testament.id}
-    @job = SimulateJob.first(options)
-    # We automatically kill any job if we remove the SimulateJob
-    @job.destroy
-    @testament.destroy
-    flash[:notice] = "#{@master.name} Testament #{@municipality.name} has been deactivated."
+    if muni_admin_can?(:delete, @testament)
+      options = {:testament_id => @testament.id}
+      @job = SimulateJob.first(options)
+      # We automatically kill any job if we remove the SimulateJob
+      @job.destroy
+      @testament.destroy
+      flash[:notice] = "#{@master.name} Testament #{@municipality.name} has been deactivated."
+    else
+      flash[:error] = "You are not allowed to deactivate #{@master.name} Testament #{@municipality.name}"
+    end
+
     redirect_to master_municipalities_path(@master)
   end
 

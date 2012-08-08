@@ -43,6 +43,15 @@ class Municipality
     validates_numericality_of :longitude, :greater_than_or_equal_to => -180.0, :less_than_or_equal_to => 180.0
     validates_numericality_of :latitude, :greater_than_or_equal_to => -90.0, :less_than_or_equal_to => 90.0
 
+    def is_active?
+      activement || testament
+    end
+
+    def is_processing?
+      job = SimulateJob.first(:master_id => master.id, :municipality_id => municipality.id)
+      job && job.is_processing?
+    end
+
     def self.owned_by(muni_admin)
       where(:owner_id => muni_admin.id)
     end

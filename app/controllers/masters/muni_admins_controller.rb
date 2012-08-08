@@ -2,6 +2,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   helper_method :sort_column, :sort_direction
 
   def index
+    authenticate_muni_admin!
     authorize_muni_admin!(:read, MuniAdmin)
 
     @roles       = MuniAdmin::ROLE_SYMBOLS
@@ -115,12 +116,17 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     @muni_admin = MuniAdmin.find(params[:id])
     authorize_muni_admin!(:delete, @muni_admin)
     if @muni_admin
-      @masters        = Master.where(:owner_id => @muni_admin.id).all
       @municipalities = Municipality.where(:owner_id => @muni_admin.id).all
       if @muni_admin.municipalities.empty?
         @muni_admin.destroy
         redirect_to master_muni_admins_path(@master)
       else
+        @municipalities.each do |municipality|
+          municipality.owner = current_muni_admin
+          municipality.save
+        end
+        @muni_admin.reload
+        @muni_admin.destroy
       end
     else
       redirect_to master_muni_admin_path(:master_id => @master.id)
@@ -128,9 +134,28 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def destroy
+    authenticate_muni_admin!
     @muni_admin = MuniAdmin.find(params[:id])
     authorize_muni_admin!(:delete, @muni_admin)
-    @muni_admin.destroy
+
+    if (current_muni_admin == @muni_admin)
+      raise "Cannot delete self"
+    end
+
+    if @muni_admin
+      @municipalities = Municipality.where(:owner_id => @muni_admin.id).all
+      if @muni_admin.municipalities.empty?
+        @muni_admin.destroy
+        redirect_to master_muni_admins_path(@master)
+      else
+        @municipalities.each do |municipality|
+          municipality.owner = current_muni_admin
+          municipality.save
+        end
+        @muni_admin.reload
+        @muni_admin.destroy
+      end
+    end
 
     respond_to do |format|
       format.html { redirect_to master_muni_admins_path(@master) }

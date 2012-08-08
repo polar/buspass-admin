@@ -7,18 +7,51 @@ class SuperRolePermit < CanTango::RolePermit
 
   def dynamic_rules
     # User is MuniAdmin
-    can(:edit, Master) do |master|
-      master == user.master
+
+    can([:read, :edit], Master) do |master|
+      user.master == master
     end
-    cannot(:delete, MuniAdmin) do |muni_admin|
-       muni_admin === user
+    can([:delete], Activement) do |activement|
+      user.master == activement.master
+    end
+    can([:delete], Testament) do |testament|
+      user.master == testament.master
+    end
+    can([:read], Municipality) do |municipality|
+      master == municipality.master
+    end
+    can([:edit, :delete, :deploy], Municipality) do |municipality|
+      !municipality.is_active? && user.master == municipality.master
+    end
+    can([:read], Network) do |network|
+      user.master == network.master
+    end
+    can([:edit, :delete], Network) do |network|
+      !network.municipality.is_active? && user.master == network.master
+    end
+    can([:edit, :delete], Testament) do |testament|
+      user.master == testament.master
+    end
+    can([:edit, :delete], Activement) do |activement|
+      user.master == activement.master
+    end
+    cannot([:delete], MuniAdmin) do |muni_admin|
+      muni_admin === user
+    end
+    can([:read, :edit, :delete], MuniAdmin) do |muni_admin|
+      user.master == muni_admin.master
+    end
+    can([:read, :edit, :delete], User) do |user1|
+      user.master == user1.master
     end
   end
 
   def permit_rules
-    can(:read, Network)
-    can(:manage, MuniAdmin)
-    can(:manage, User)
+    can(:create, Network)
+    can(:create, Municipality)
+    can(:create, MuniAdmin)
+    can(:read,   MuniAdmin)
+    can(:create, User)
   end
 
   module Cached

@@ -2,6 +2,6 @@
 <%=  form_tag(copyto_master_municipality_network_path(@master, @municipality, @network), :method => "put") do %>
 
     Copy <%= link_to(@network.name, master_municipality_network_path(@master, @municipality, @network)) %> to
-    <%= collection_select(:network, :municipality, @municipalities, :id, :name, {:prompt => true, :disabled => @disabled_options}, {:class => "btn"}) %>
+    <%= collection_select(:dest_network, :municipality, @municipalities, :id, :name, {:prompt => @prompt, :disabled => @disabled_options}, {:class => "btn"}) %>
     <%= submit_tag "Copy", :class => "btn", :disabled => @disabled %>
 <% end %>

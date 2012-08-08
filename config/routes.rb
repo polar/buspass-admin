@@ -9,14 +9,14 @@ BuspassAdmin::Application.routes.draw do
 
   devise_for :muni_admins,
              :controllers => {
-                 :registrations => "masters/mydevise/registrations",
-                 :sessions      => "masters/mydevise/sessions"
+                 :registrations => "masters/muni_admins_devise/registrations",
+                 :sessions      => "masters/muni_admins_devise/sessions"
              }
 
   devise_for :users,
              :controllers => {
-                 :registrations => "activements/mydevise/registrations",
-                 :sessions      => "activements/mydevise/sessions"
+                 :registrations => "masters/users_devise/registrations",
+                 :sessions      => "masters/users_devise/sessions"
              }
 
   resources :customers

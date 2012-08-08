@@ -1,4 +1,5 @@
 <% for r in @routes %>
+    <hr />
     <h3><%= link_to "Route #{r.name}",
                     master_municipality_network_route_path(@master, @municipality, @network, r) %></h3>
     <% for s in r.services %>
@@ -21,7 +22,7 @@
           </tr>
         </table>
         <h4>Vehicle Journeys on this Service and Route</h4>
-        <table>
+        <table class="table table-striped">
           <tr>
             <th>Route</th>
             <th>Display Name</th>
@@ -43,6 +44,4 @@
           <% end %>
         </table>
     <% end %>
-    </table>
-
 <% end %>

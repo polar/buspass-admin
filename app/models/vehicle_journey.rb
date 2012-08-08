@@ -243,6 +243,11 @@ class VehicleJourney
     vj = VehicleJourney.where(options).first
     vj ||= VehicleJourney.new(options)
   end
+
+  def self.html_escape(s)
+    s.to_s.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
+  end
+
   ############################################################################
   # Simulations
   ############################################################################
@@ -254,11 +259,8 @@ class VehicleJourney
     @please_stop_simulating = true
   end
 
-  TIME_ZONE = "America/New_York"
-  TZ = Time.now.in_time_zone(TIME_ZONE).zone
-
   def time_zone
-    return TZ
+    return master.time_zone
   end
 
   def base_time
@@ -266,7 +268,7 @@ class VehicleJourney
   end
 
   def tz(time)
-    time.in_time_zone(TIME_ZONE)
+    time.in_time_zone(time_zone)
   end
 
   class AuditLogger < Logger
@@ -395,7 +397,7 @@ class VehicleJourney
 
   def simulate(interval, logger = VehicleJourney.logger, clock = Time)
     tm_start = base_time + departure_time.minutes
-    logger.info("Starting Simulation of #{self.name} start #{tm_start} at #{tz(clock.now)}")
+    logger.info("Start Journey #{self.name} start #{tm_start} at #{tz(clock.now)}")
 
     # Since we are working with time intervals, we get our current time base.
     tm_base = clock.now
@@ -409,14 +411,14 @@ class VehicleJourney
       tm_start = tm_start + 24.hours
     end
     target_distance = journey_pattern.path_distance
-    logger.info("Simulation of #{self.name} start #{tm_start} for #{departure_time} after #{base_time} path_distance #{target_distance}")
+    #logger.info("#{self.name} start #{tm_start} for #{departure_time} after #{base_time} path_distance #{target_distance}")
     distance = 0.0
     tm_last = tm_base
     tm_now = tm_base
     while (distance < target_distance) do
       ans = figure_location(distance, tm_last, tm_now, tm_start)
       if (ans != nil)
-        logger.info "Journey '#{self.name}' answer #{ans[:coord]}"
+        #logger.info "Journey '#{self.name}' answer #{ans[:coord]}"
         if journey_location == nil
           create_journey_location(:service => service, :route => service.route)
         else
@@ -435,24 +437,24 @@ class VehicleJourney
 
         journey_location.save!
         distance = ans[:distance]
-        logger.info "VehicleJourney '#{self.name}' recording location #{journey_location.id} of #{ans.inspect}  at #{tz(tm_now)} time #{tm_now}"
+        logger.info "Journey '#{self.name}' location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M %Z")}"
       end
       tm_last = tm_now
       sleep interval
       tm_now = clock.now
-      logger.info("VehicleJourney '#{self.name}' tick #{tm_now} tm_start #{tm_start}")
+      #logger.info("VehicleJourney '#{self.name}' tick #{tm_now} tm_start #{tm_start}")
       if @please_stop_simulating
-        logger.info "Stopping the Simulation of #{self.name}"
+        logger.info "Stopping #{self.name}"
         break
       end
       if @please_stop_simulating
         logger.info "Break didn't work: #{name}"
       end
     end
-    logger.info "Ending VehicleJourney '#{self.name}' at #{distance} at #{tm_now}"
+    logger.info "Ending Journey '#{self.name}' at #{distance} at #{tm_now}"
   rescue Exception => boom
-    logger.info "Ending VehicleJourney '#{self.name}' because of #{boom}"
-    logger.info boom.backtrace
+    logger.info "Ending Journey '#{self.name}' because of #{html_escape(boom)}"
+    #logger.info boom.backtrace
   ensure
     if journey_location != nil
       journey_location.destroy
@@ -482,7 +484,7 @@ class VehicleJourney
       @time_interval = t
       @logger = logger
       @clock = clk
-      logger.info "Initializing Journey #{journey.name}"
+      #logger.info "Initializing Journey #{journey.name}"
     end
 
     def run
@@ -492,7 +494,7 @@ class VehicleJourney
           journey.simulate(time_interval, logger, clock)
           logger.info "Journey ended normally #{journey.name}"
         rescue Exception => boom
-          logger.info "Stopping Journey #{journey.name} on #{boom}"
+          logger.info "Stopping Journey #{journey.name} on #{VehicleJourney.html_escape(boom)}"
         ensure
           logger.info "Removing Journey #{journey.name}"
           runners.delete(journey.id)
@@ -508,11 +510,9 @@ class VehicleJourney
   # simulation of all running journeys.
   def self.simulate_all(find_interval, time_interval, time = Time.now, mult = 1, duration = -1, options = {})
     clock = BaseTime.new(time, mult)
-    logger.info "Staring simulation for #{options.inspect}"
     job = SimulateJob.first(options)
-    logger.info "Got Job #{job.inspect}"
+    logger.info "Starting for #{job.name}"
     logger = job
-    logger.info "Starting Simulation for #{options.inspect}."
     logical_start_time = clock.now
     begin
       job.sim_time = time
@@ -525,7 +525,7 @@ class VehicleJourney
       while (x = SimulateJob.first(options)) && !x.please_stop && (duration < 0 || (clock.now - logical_start_time) <= duration.minutes) do
         date = time = clock.now
         journeys = VehicleJourney.find_by_date_time(date, time, options)
-        logger.info "Found #{journeys.length} journeys at #{date.strftime("%m-%d-%Y")} #{time.strftime("%H:%M %Z")}"
+        logger.info "Found #{journeys.length} journeys at #{date.in_time_zone(job.master.time_zone).strftime("%m-%d-%Y")} #{time.in_time_zone(job.master.time_zone).strftime("%H:%M %Z")}"
         # Create Journey Runners for new Journeys.
         for j in journeys do
           if !runners.keys.include?(j.id)
@@ -536,16 +536,16 @@ class VehicleJourney
       end
     rescue Exception => boom
       job.set_processing_status!("Stopping")
-      logger.info "Simulation Ending because #{boom}"
-      logger.info boom.backtrace.join("\n")
+      logger.info "Ending because #{html_escape(boom)}"
+      #logger.info boom.backtrace.join("\n")
     ensure
       job.set_processing_status!("Stopping")
-      logger.info "Stopping Simulation for #{options.inspect} with #{runners.keys.size} Runners"
+      logger.info "Stopping for #{job.name} with #{runners.keys.size} Runners"
       keys = runners.keys.clone
       for k in keys do
         runner = runners[k]
         if runner != nil
-          logger.info "Killing #{runner.journey.id} #{runner.journey.id} thread = #{runner.journey.id}"
+          #logger.info "Killing #{runner.journey.id} #{runner.journey.id} thread = #{runner.journey.id}"
           if runner.journey != nil
             runner.journey.stop_simulating
           end

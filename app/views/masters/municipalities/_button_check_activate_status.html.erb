@@ -1,1 +1,1 @@
-<%=  link_to "Check Activate Status", check_master_municipality_path(@master, @municipality), :class=>"btn", :method => :get, :remote => true, :id => "check" %>
+<%= link_to("Check Activate Status", check_master_municipality_path(@master, @municipality), :class=>"btn", :method => :get, :remote => true, :id => "check") if muni_admin_can?(:deploy, @municipality) %>

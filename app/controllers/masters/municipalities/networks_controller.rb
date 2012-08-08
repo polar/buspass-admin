@@ -27,6 +27,11 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
   def edit
     authenticate_muni_admin!
     @network = Network.find(params[:id])
+    if @network.municipality.is_active?
+      flash[:error] = "Cannot edit Network. Network is currently active or in testing."
+      render :show
+      return
+    end
     if @network && !@network.is_locked?
       authorize_muni_admin!(:edit, @network)
     else
@@ -98,7 +103,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
         copy_dests        = @network_copies.map { |n| n.municipality }
         route_codes       = []
         @disabled_options = @municipalities.map do |muni|
-          if copy_dests.include?(muni)
+          if copy_dests.include?(muni) || muni.is_active? || @network.municipality == muni
             muni.id
           else
             route_codes += muni.route_codes
@@ -111,8 +116,12 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
             end
           end
         end
+        @prompt = "Select Deployment"
         # The copy button is disabled if all options are disabled
         @disabled = @disabled_options.reduce(true) { |t, v| t && v }
+        if @disabled
+          @prompt = "No eligible deployments"
+        end
       else
         flash[:error] = "Network is currently being processed. Must wait for processing to finish."
         redirect_to(:back)
@@ -125,11 +134,17 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
   def copyto
     @network = Network.find(params[:id])
-    if params[:network] && params[:network][:municipality]
-      dest_municipality = Municipality.find(params[:network][:municipality])
+    if params[:dest_network] && params[:dest_network][:municipality]
+      dest_municipality = Municipality.find(params[:dest_network][:municipality])
     end
     if dest_municipality.nil?
       raise "Destination Deployment is not found"
+    end
+
+    if dest_municipality.is_active?
+      flash[:error] = "Cannot copy to an active deployment."
+      redirect_to(:back)
+      return
     end
 
     if @network

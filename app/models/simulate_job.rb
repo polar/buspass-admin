@@ -53,14 +53,15 @@ class SimulateJob
   def reinitialize()
     self.processing_status       = "Starting"
     # TODO: Change 'Simulation' for actual runs or testaments
-    self.processing_log          = ["Simulation #{name} has been initialized."]
+    self.processing_log          = ["#{name} has been initialized."]
     self.processing_started_at   = nil
     self.processing_completed_at = nil
     self.please_stop             = false
+    self.delayed_job             = nil
   end
 
   def is_processing?
-    return ! ["Stopped"].include?(processing_status)
+    return delayed_job != nil && !["Stopped"].include?(processing_status)
   end
 
   def set_processing_status(status)
