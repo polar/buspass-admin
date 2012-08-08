@@ -6,8 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.generators" afterPath="$PROJECT_DIR$/.idea/.generators" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/cantango_editor.rb" afterPath="$PROJECT_DIR$/config/initializers/cantango_editor.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -39,33 +40,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="invocation.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/capistrano-2.12.0/lib/capistrano/configuration/actions/invocation.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="196" column="39" selection-start="9647" selection-end="9647" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="connections.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/capistrano-2.12.0/lib/capistrano/configuration/connections.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="command.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/capistrano-2.12.0/lib/capistrano/command.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="assets.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/capistrano-2.12.0/lib/capistrano/recipes/deploy/assets.rb">
           <provider selected="true" editor-type-id="text-editor">
@@ -111,10 +85,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cantango_editor.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="cantango_editor.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/initializers/cantango_editor.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="14" selection-start="0" selection-end="946" vertical-scroll-proportion="0.31400967">
+            <state line="2" column="0" selection-start="64" selection-end="64" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="286" column="2" selection-start="7139" selection-end="7139" vertical-scroll-proportion="0.45583597">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rails" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/script/rails">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cantango.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/initializers/cantango.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -153,7 +154,6 @@
         <option value="$PROJECT_DIR$/lib/tags/muni_admin_sessions_tag.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/users_devise/registrations_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/users_devise/sessions_controller.rb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/new.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb" />
@@ -163,6 +163,7 @@
         <option value="$PROJECT_DIR$/config/deploy.rb" />
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/config/initializers/cantango_editor.rb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
       </list>
     </option>
   </component>
@@ -233,6 +234,10 @@
               <option name="myItemId" value="buspass.admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -255,24 +260,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="initializers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1503,7 +1490,11 @@
       <created>1344461792789</created>
       <updated>1344461792793</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Progress">
+      <created>1344461887388</created>
+      <updated>1344461887388</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1620,27 +1611,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/capistrano-2.12.0/lib/capistrano/configuration/callbacks.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/capistrano-2.12.0/lib/capistrano/configuration/actions/inspect.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/capistrano-2.12.0/lib/capistrano.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/capistrano-2.12.0/lib/capistrano/ssh.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -1725,9 +1695,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/script/rails">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/initializers/cantango.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config/initializers/cantango_editor.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="14" selection-start="0" selection-end="946" vertical-scroll-proportion="0.31400967">
+        <state line="2" column="0" selection-start="64" selection-end="64" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="286" column="2" selection-start="7139" selection-end="7139" vertical-scroll-proportion="0.45583597">
           <folding />
         </state>
       </provider>

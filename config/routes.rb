@@ -284,7 +284,7 @@ BuspassAdmin::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-  mount CantangoEditor::Engine => "/cantango_editor"
+ # mount CantangoEditor::Engine => "/cantango_editor"
 
   resource :main, :controller => "main" do
     post :import
