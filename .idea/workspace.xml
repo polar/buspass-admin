@@ -6,104 +6,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/ui-icons_222222_256x240.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/ui-icons_888888_256x240.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/ui-icons_cd0a0a_256x240.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/stylesheets/jquery.jscrollpane.lozenge.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/masters/users_devise/registrations_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/masters/users_devise/sessions_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/_links.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/confirmations/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/mailer/confirmation_instructions.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/mailer/reset_password_instructions.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/mailer/unlock_instructions.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/passwords/edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/passwords/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/unlocks/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/show.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/_links.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/confirmations/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/mailer/confirmation_instructions.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/mailer/reset_password_instructions.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/mailer/unlock_instructions.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/passwords/edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/passwords/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/registrations/_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/registrations/edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/registrations/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/sessions/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/unlocks/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/muni_admin_registrations_tag.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/muni_admin_sessions_tag.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/users_registrations_tag.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tags/users_sessions_tag.rb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/controllers/masters/mydevise/registrations_controller.rb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/_links.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/confirmations/new.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/mailer/confirmation_instructions.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/mailer/reset_password_instructions.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/mailer/unlock_instructions.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/passwords/edit.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/passwords/new.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/registrations/edit.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/registrations/new.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/sessions/new.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/unlocks/new.html.erb" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/mydevise/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/mydevise/registrations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/_new.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/_edit.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ListViewController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ListViewController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/simulate_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/simulate_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/activement.rb" afterPath="$PROJECT_DIR$/app/models/activement.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/municipality.rb" afterPath="$PROJECT_DIR$/app/models/municipality.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/network.rb" afterPath="$PROJECT_DIR$/app/models/network.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/simulate_job.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/muni_admin_permit.rb" afterPath="$PROJECT_DIR$/app/permits/muni_admin_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/operator_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/operator_role_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/planner_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/planner_role_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/super_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/super_role_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/activements/mydevise/confirmations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/activements/mydevise/confirmations/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/activements/mydevise/passwords/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/activements/mydevise/passwords/edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/activements/mydevise/passwords/new.html.erb" afterPath="$PROJECT_DIR$/app/views/activements/mydevise/passwords/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/activements/mydevise/registrations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/activements/mydevise/registrations/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/activements/mydevise/sessions/new.html.erb" afterPath="$PROJECT_DIR$/app/views/activements/mydevise/sessions/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/_muni_admin_row.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/_muni_admin_row.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_button_check_activate_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_button_check_activate_status.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_status_activate.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_status_activate.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_active_deployments.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_table_active_deployments.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_table_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_networks.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/_table_networks.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_form_copy.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_form_copy.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_links.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_map_script.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_status.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/edit.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/muni_admins_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/muni_admins_tag.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -138,34 +46,70 @@
       <file leaf-file-name="registrations_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="22" selection-start="986" selection-end="986" vertical-scroll-proportion="0.0">
+            <state line="13" column="2" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="devise_failure_app.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/models/devise_failure_app.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="0" selection-start="741" selection-end="741" vertical-scroll-proportion="0.6">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="redirecting.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/actionpack-3.2.3/lib/action_controller/metal/redirecting.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="0" selection-start="3599" selection-end="3599" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_new.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/_new.html.erb">
+      <file leaf-file-name="_edit.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/_edit.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/edit.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="60" selection-start="106" selection-end="106" vertical-scroll-proportion="-1.875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="master_admin_template_pages.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/master_admin_template_pages.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="207" column="90" selection-start="8314" selection-end="8314" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="abstract_renderer.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/actionpack-3.2.3/lib/action_view/renderer/abstract_renderer.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="0" selection-start="1051" selection-end="1051" vertical-scroll-proportion="1.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="new.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/new.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="320" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sessions_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="2" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="devise_failure_app.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/devise_failure_app.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="0" selection-start="741" selection-end="741" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -183,43 +127,7 @@
       <file leaf-file-name="new.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/new.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="63" selection-start="109" selection-end="109" vertical-scroll-proportion="-1.875">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="integrated_devise_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/integrated_devise_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="645" selection-end="645" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="devise_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/devise-2.1.2/app/controllers/devise_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="6" selection-start="3382" selection-end="3382" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/routes.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="44" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="registrations_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/users_devise/registrations_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -243,22 +151,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/permits/super_role_permit.rb" />
         <option value="$PROJECT_DIR$/app/permits/muni_admin_permit.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/mydevise/registrations_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/mydevise/registrations/new.html.erb" />
-        <option value="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
         <option value="$PROJECT_DIR$/lib/tags/muni_admins_tag.rb" />
         <option value="$PROJECT_DIR$/lib/tags/users_registrations_tag.rb" />
         <option value="$PROJECT_DIR$/lib/tags/users_sessions_tag.rb" />
         <option value="$PROJECT_DIR$/lib/tags/muni_admin_registrations_tag.rb" />
         <option value="$PROJECT_DIR$/lib/tags/muni_admin_sessions_tag.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/users_devise/registrations_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/users_devise/sessions_controller.rb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/new.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/edit.html.erb" />
+        <option value="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
       </list>
     </option>
   </component>
@@ -1035,11 +943,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations" />
       <recent name="$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions" />
       <recent name="$PROJECT_DIR$/app/controllers/masters" />
       <recent name="$PROJECT_DIR$/app/views/masters" />
       <recent name="$PROJECT_DIR$/app/views/masters/muni_admins_devise" />
-      <recent name="$PROJECT_DIR$/lib/tags" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib" />
@@ -1803,7 +1711,11 @@
       <created>1344293508236</created>
       <updated>1344293508237</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Progress">
+      <created>1344388798477</created>
+      <updated>1344388798477</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1830,13 +1742,14 @@
     <frame x="-8" y="-1" width="1296" height="1033" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13192904" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32815966" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3226164" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28525123" sideWeight="0.67184037" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27552673" sideWeight="0.6873614" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31263858" sideWeight="0.36061588" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31263858" sideWeight="0.36061588" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3181818" sideWeight="0.6337115" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32372504" sideWeight="0.46017158" order="1" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
@@ -1845,7 +1758,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1920,48 +1832,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/tags/users_sessions_tag.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="62" selection-start="801" selection-end="801" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/muni_admin_registrations_tag.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="59" selection-start="874" selection-end="874" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tags/muni_admin_sessions_tag.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="59" selection-start="839" selection-end="839" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/users_devise/mailer/reset_password_instructions.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="28" selection-start="536" selection-end="536" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/users_devise/sessions_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="20" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/routes.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="44" selection-start="275" selection-end="275" vertical-scroll-proportion="0.0">
@@ -1990,13 +1860,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="22" selection-start="986" selection-end="986" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/actionpack-3.2.3/lib/action_controller/metal/redirecting.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="63" column="0" selection-start="3599" selection-end="3599" vertical-scroll-proportion="0.0">
@@ -2011,6 +1874,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/devise_failure_app.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="741" selection-end="741" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/_new.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -2020,14 +1890,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/new.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="63" selection-start="109" selection-end="109" vertical-scroll-proportion="-1.875">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/devise_failure_app.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="741" selection-end="741" vertical-scroll-proportion="0.6">
+        <state line="3" column="2" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="2" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/_edit.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/new.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="320" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/edit.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="60" selection-start="106" selection-end="106" vertical-scroll-proportion="-1.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/master_admin_template_pages.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="207" column="90" selection-start="8314" selection-end="8314" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/actionpack-3.2.3/lib/action_view/renderer/abstract_renderer.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="0" selection-start="1051" selection-end="1051" vertical-scroll-proportion="1.0">
           <folding />
         </state>
       </provider>

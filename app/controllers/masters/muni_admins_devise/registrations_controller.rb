@@ -1,4 +1,5 @@
 class Masters::MuniAdminsDevise::RegistrationsController <  Devise::RegistrationsController
+  layout "empty"
 
   def after_sign_in_path_for(resource)
     setup_municipality
@@ -10,6 +11,7 @@ class Masters::MuniAdminsDevise::RegistrationsController <  Devise::Registration
     ret= master_municipalities_path(@master)
     ret
   end
+
   def after_sign_up_path_for(resource)
     setup_municipality
     # Resource should be a MuniAdmin

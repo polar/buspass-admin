@@ -193,6 +193,23 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:navigation:admin_nav }}"
                                }])
 
+
+    muni_admin_edit = site.pages.create!(
+        :slug => "edit",
+        :label => "Edit Account",
+        :layout => normal_layout,
+        :parent => muni_admins,
+        :is_protected => true,
+        :controller_path => "/muni_admins/edit?master_id=:master_id",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:muni_admins:registrations:edit }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                               }])
+
     signin = site.pages.create!(
         :slug => "sign-in",
         :label => "Sign in",
