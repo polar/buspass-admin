@@ -370,7 +370,7 @@ class ServiceTable
             jptl.google_uri = constructGoogleMapURI(jptl.from.location, jptl.to.location)
             vpc = GoogleUriViewPath.getViewPathCoordinates(jptl.google_uri)
             if ! vpc
-              progress.error "Path Error for #{jptl.from.location.common_name} to #{jptl.to.location.common_name} for #{jpt.google_uri}"
+              progress.error "Path Error for #{jptl.from.common_name} to #{jptl.to.common_name} for #{jpt.google_uri}"
             end
             jptl.view_path_coordinates = vpc
 
