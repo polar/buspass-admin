@@ -15,7 +15,8 @@ Delayed::Worker.max_attempts=1
 # We really should get this from MongoMapper default, but
 # not sure if it's initialized yet. We initialize to the
 # same DB.
-Delayed::Job.set_database_name("#Busme-#{Rails.env}")
+# We disable this on heroku, and not sure we need it.
+#Delayed::Job.set_database_name("#Busme-#{Rails.env}")
 
 #
 # Workless 1.0.1 Gem
