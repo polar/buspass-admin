@@ -8,6 +8,8 @@ group :assets do
   gem 'uglifier', '>= 1.2.3'
 end
 
+gem 'compass-rails'
+
 # I'm not sure if this gem is needed with Rails 3.2.3
 
 gem 'jquery-rails'

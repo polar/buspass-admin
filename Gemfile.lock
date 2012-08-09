@@ -94,6 +94,7 @@ GEM
       activesupport (>= 3.2.0)
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
+    chunky_png (1.2.6)
     clbustos-rtf (0.5.0)
     client_side_validations (3.1.4)
     cocaine (0.2.1)
@@ -105,6 +106,12 @@ GEM
       execjs
     coffee-script-source (1.3.3)
     columnize (0.3.6)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     cucumber (1.2.1)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.3)
@@ -138,6 +145,7 @@ GEM
     fastthread (1.0.7)
     fattr (2.2.1)
     ffi (1.1.4)
+    fssm (0.2.9)
     gherkin (2.11.1)
       json (>= 1.4.6)
     hashie (1.2.0)
@@ -329,6 +337,7 @@ DEPENDENCIES
   client_side_validations
   coffee-rails (~> 3.2.2)
   comfortable_mexican_sofa!
+  compass-rails
   cucumber-rails (>= 1.2.1)
   daemons
   database_cleaner (>= 0.7.1)

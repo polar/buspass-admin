@@ -36,6 +36,7 @@
     <orderEntry type="library" scope="PROVIDED" name="capybara (v1.1.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="carrierwave (v0.6.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="childprocess (v0.3.5, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="chunky_png (v1.2.6, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="clbustos-rtf (v0.5.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="client_side_validations (v3.1.4, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cocaine (v0.2.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
@@ -44,8 +45,11 @@
     <orderEntry type="library" scope="PROVIDED" name="coffee-script-source (v1.3.3, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="columnize (v0.3.6, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="comfortable_mexican_sofa (v1.7.0.pre1@177036, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="compass (v0.12.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="compass-rails (v1.0.3, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cucumber (v1.2.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cucumber-rails (v1.3.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="daemon_controller (v1.0.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="daemons (v1.1.8, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="database_cleaner (v0.8.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="delayed_job (v3.0.3@c5d005, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
@@ -61,8 +65,10 @@
     <orderEntry type="library" scope="PROVIDED" name="factory_girl (v4.0.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_girl_rails (v4.0.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fastercsv (v1.5.5, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="fastthread (v1.0.7, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fattr (v2.2.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.1.4, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="fssm (v0.2.9, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gherkin (v2.11.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashie (v1.2.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="highline (v1.6.13, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
@@ -91,6 +97,7 @@
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.5.5, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.4.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="paperclip (v3.1.4, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="passenger (v3.0.15, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="plucky (v0.5.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="polyamorous (v0.5.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="polyglot (v0.3.3, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
@@ -117,6 +124,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rubyvis (v0.2.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyzip (v0.9.9, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rush (v0.6.8, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rvm (v1.11.3.5, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sass (v3.1.20, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sass-rails (v3.2.5, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v2.25.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
