@@ -6,7 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/mongo_mapper.rb" afterPath="$PROJECT_DIR$/config/initializers/mongo_mapper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -101,10 +102,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mongo_mapper.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="mongo_mapper.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/initializers/mongo_mapper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="55" selection-start="479" selection-end="479" vertical-scroll-proportion="0.30364373">
+            <state line="15" column="55" selection-start="479" selection-end="479" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gemfile" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Gemfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="1134" selection-start="1102" selection-end="1102" vertical-scroll-proportion="0.9587912">
               <folding />
             </state>
           </provider>
@@ -112,15 +122,6 @@
       </file>
       <file leaf-file-name="development.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/environments/development.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layout-default-latest.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/layout-default-latest.css">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -151,7 +152,6 @@
         <option value="$PROJECT_DIR$/app/controllers/activements/mydevise/registrations_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/activements/mydevise/sessions_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/webmap.html.erb" />
-        <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/config/deploy.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
@@ -162,6 +162,7 @@
         <option value="$PROJECT_DIR$/config/environments/production.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb" />
         <option value="$PROJECT_DIR$/config/initializers/mongo_mapper.rb" />
+        <option value="$PROJECT_DIR$/Gemfile" />
       </list>
     </option>
   </component>
@@ -1895,13 +1896,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/empty.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/jquery.jscrollpane.lozenge.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -2005,7 +1999,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/initializers/mongo_mapper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="55" selection-start="479" selection-end="479" vertical-scroll-proportion="0.30364373">
+        <state line="15" column="55" selection-start="479" selection-end="479" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="1134" selection-start="1102" selection-end="1102" vertical-scroll-proportion="0.9587912">
           <folding />
         </state>
       </provider>

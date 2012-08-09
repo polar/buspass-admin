@@ -48,7 +48,7 @@ gem "mm-carrierwave"   # Using the MongoMapper ORM
 
 # The following gems are required for handling zip files.
 
-gem "libarchive"  # requires apt-get install libarchive-dev
+gem "libarchive-static"
 gem "zipruby"
 
 # The following gems are required for stats processing in the

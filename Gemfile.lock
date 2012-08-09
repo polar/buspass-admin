@@ -161,7 +161,7 @@ GEM
     json (1.7.4)
     launchy (2.1.2)
       addressable (~> 2.3)
-    libarchive (0.1.2)
+    libarchive-static (1.0.3)
     libwebsocket (0.1.5)
       addressable
     linecache19 (0.5.13)
@@ -355,7 +355,7 @@ DEPENDENCIES
   hpricot
   jquery-rails
   launchy (>= 2.0.5)
-  libarchive
+  libarchive-static
   linecache19 (= 0.5.13)
   meta_search (>= 1.1.0.pre)
   mm-carrierwave
