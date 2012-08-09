@@ -29,3 +29,5 @@ after "deploy:restart", "deploy:cleanup"
 #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 #   end
 # end
+
+set :rvm_ruby_string, 'ruby-1.9.3-p125@rails3.2'
