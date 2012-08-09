@@ -6,7 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/google_uri_view_path.rb" afterPath="$PROJECT_DIR$/app/models/google_uri_view_path.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_table.rb" afterPath="$PROJECT_DIR$/app/models/service_table.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
@@ -60,7 +60,7 @@
       <file leaf-file-name="service_table.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="373" column="17" selection-start="13504" selection-end="13504" vertical-scroll-proportion="0.4057971">
+            <state line="374" column="76" selection-start="13602" selection-end="13602" vertical-scroll-proportion="0.38625592">
               <folding />
             </state>
           </provider>
@@ -69,7 +69,7 @@
       <file leaf-file-name="google_uri_view_path.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/google_uri_view_path.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="61" selection-start="1273" selection-end="1273" vertical-scroll-proportion="-13.607142">
+            <state line="32" column="57" selection-start="819" selection-end="868" vertical-scroll-proportion="-6.642857">
               <folding />
             </state>
           </provider>
@@ -1731,7 +1731,11 @@
       <created>1344533871350</created>
       <updated>1344533871350</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="Progress">
+      <created>1344550185118</created>
+      <updated>1344550185118</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1758,7 +1762,7 @@
     <frame x="0" y="24" width="1280" height="1000" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1286031" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32815966" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1948,14 +1952,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/google_uri_view_path.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="61" selection-start="1273" selection-end="1273" vertical-scroll-proportion="-13.607142">
+        <state line="32" column="57" selection-start="819" selection-end="868" vertical-scroll-proportion="-6.642857">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="373" column="17" selection-start="13504" selection-end="13504" vertical-scroll-proportion="0.4057971">
+        <state line="374" column="76" selection-start="13602" selection-end="13602" vertical-scroll-proportion="0.38625592">
           <folding />
         </state>
       </provider>
