@@ -114,6 +114,7 @@ GEM
       capybara (>= 1.1.2)
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
+    daemon_controller (1.0.0)
     daemons (1.1.8)
     database_cleaner (0.8.0)
     devise (2.1.2)
@@ -134,6 +135,7 @@ GEM
       factory_girl (~> 4.0.0)
       railties (>= 3.0.0)
     fastercsv (1.5.5)
+    fastthread (1.0.7)
     fattr (2.2.1)
     ffi (1.1.4)
     gherkin (2.11.1)
@@ -192,6 +194,11 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
+    passenger (3.0.15)
+      daemon_controller (>= 1.0.0)
+      fastthread (>= 1.0.1)
+      rack
+      rake (>= 0.8.1)
     plucky (0.5.1)
       mongo (~> 1.5)
     polyamorous (0.5.0)
@@ -253,6 +260,7 @@ GEM
     rubyzip (0.9.9)
     rush (0.6.8)
       session
+    rvm (1.11.3.5)
     sass (3.1.20)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -338,11 +346,13 @@ DEPENDENCIES
   meta_search (>= 1.1.0.pre)
   mm-carrierwave
   mongo_mapper
+  passenger
   rails (= 3.2.7)
   rspec-rails (>= 2.8.1)
   ruby-debug-base19x (= 0.11.30.pre10)
   ruby-debug-ide
   rush
+  rvm
   sass-rails (~> 3.2.4)
   statistics2
   statsample
