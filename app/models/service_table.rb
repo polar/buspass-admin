@@ -371,7 +371,7 @@ class ServiceTable
             vpc = GoogleUriViewPath.getViewPathCoordinates(jptl.google_uri)
             if ! vpc
               progress.error "Path Error for #{jptl.from.common_name} to #{jptl.to.common_name} for #{jptl.google_uri}"
-              if jptl.google_uri.starts_with("http:")
+              if jptl.google_uri.start_with?("http:")
                 progress.error "Uri returns #{open("#{uri}&output=kml").to_s}"
               end
             end
