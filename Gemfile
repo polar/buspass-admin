@@ -118,3 +118,5 @@ end
 gem 'capistrano'
 gem 'passenger'
 gem 'rvm'
+
+gem 'thin'
