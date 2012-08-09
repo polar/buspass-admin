@@ -5,13 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>Webmap for Busme</title>
-  <%
-     # Bootstrap is not included in normal-layout because it has an import
-     # of bootstrap, which the asset compiler doesn't deal with well.
-     # If bootstrap is contained in application.css by sprockets, it gets
-     # rid of bootstrap.css all together then the @import "bootstrap" is left
-     # hanging.
-  <%= stylesheet_link_tag "bootstrap", :media => "all", :debug => true %>
   <%= stylesheet_link_tag "normal-layout", :media => "all", :debug => true %>
   <%= javascript_include_tag "normal-layout", :debug => true %>
   <%= stylesheet_link_tag "webmap" %>

@@ -6,13 +6,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/layouts/webmap.html.erb" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/buspass.admin.iml" afterPath="$PROJECT_DIR$/.idea/buspass.admin.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/deploy.rb" afterPath="$PROJECT_DIR$/config/deploy.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -47,7 +45,7 @@
       <file leaf-file-name="main-layout.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/main-layout.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="4" selection-start="257" selection-end="257" vertical-scroll-proportion="-4.375">
+            <state line="8" column="33" selection-start="325" selection-end="325" vertical-scroll-proportion="-5.0">
               <folding />
             </state>
           </provider>
@@ -80,10 +78,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="normal-layout.css.scss" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="normal-layout.css.scss" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="58" selection-start="191" selection-end="191" vertical-scroll-proportion="0.20242915">
+            <state line="10" column="58" selection-start="191" selection-end="191" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -98,13 +96,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="empty.html.erb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/layouts/empty.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="map-layout.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="47" selection-start="914" selection-end="914" vertical-scroll-proportion="-10.625">
-              <folding>
-                <marker date="1344520198000" expanded="true" signature="211:530" placeholder="&lt;%...%&gt;" />
-              </folding>
+            <state line="6" column="33" selection-start="301" selection-end="301" vertical-scroll-proportion="-3.75">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,18 +117,7 @@
       <file leaf-file-name="normal-layout.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="4" selection-start="223" selection-end="223" vertical-scroll-proportion="-4.375">
-              <folding>
-                <marker date="1344520198000" expanded="true" signature="18:223" placeholder="&lt;%...%&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_left.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/layouts/cms_admin/_left.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="8" column="33" selection-start="291" selection-end="291" vertical-scroll-proportion="-5.0">
               <folding />
             </state>
           </provider>
@@ -132,10 +126,8 @@
       <file leaf-file-name="normal-layout.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="4" selection-start="257" selection-end="257" vertical-scroll-proportion="-4.375">
-              <folding>
-                <marker date="1344520198000" expanded="true" signature="18:257" placeholder="&lt;%...%&gt;" />
-              </folding>
+            <state line="8" column="33" selection-start="325" selection-end="325" vertical-scroll-proportion="-5.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -167,13 +159,13 @@
         <option value="$PROJECT_DIR$/app/controllers/activements/mydevise/registrations_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/activements/mydevise/sessions_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/webmap.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" />
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/config/deploy.rb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" />
+        <option value="$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" />
       </list>
     </option>
   </component>
@@ -1984,7 +1976,11 @@
       <created>1344519690154</created>
       <updated>1344519690154</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Progress">
+      <created>1344522077713</created>
+      <updated>1344522077713</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2009,7 +2005,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1280" height="1000" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1286031" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
@@ -2017,7 +2013,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3226164" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28525123" sideWeight="0.67184037" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20178282" sideWeight="0.8713969" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20178282" sideWeight="0.8713969" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.77260274" sideWeight="0.36061588" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3181818" sideWeight="0.6337115" order="10" side_tool="true" content_ui="tabs" />
@@ -2101,13 +2097,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/activements/mydevise/sessions_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="44" selection-start="121" selection-end="121" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/testaments/webmap_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -2143,51 +2132,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="4" selection-start="257" selection-end="257" vertical-scroll-proportion="-4.375">
-          <folding>
-            <marker date="1344520198000" expanded="true" signature="18:257" placeholder="&lt;%...%&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="4" selection-start="223" selection-end="223" vertical-scroll-proportion="-4.375">
-          <folding>
-            <marker date="1344520198000" expanded="true" signature="18:223" placeholder="&lt;%...%&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layouts/cms_admin/_left.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="47" selection-start="914" selection-end="914" vertical-scroll-proportion="-10.625">
           <folding>
-            <marker date="1344520198000" expanded="true" signature="211:530" placeholder="&lt;%...%&gt;" />
+            <marker date="1340978966000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1340978966000" expanded="true" signature="-1:-1" placeholder="if ... end" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/main-layout.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="4" selection-start="257" selection-end="257" vertical-scroll-proportion="-4.375">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2214,7 +2165,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="58" selection-start="191" selection-end="191" vertical-scroll-proportion="0.20242915">
+        <state line="10" column="58" selection-start="191" selection-end="191" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="33" selection-start="291" selection-end="291" vertical-scroll-proportion="-5.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="33" selection-start="325" selection-end="325" vertical-scroll-proportion="-5.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="33" selection-start="301" selection-end="301" vertical-scroll-proportion="-3.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/main-layout.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="33" selection-start="325" selection-end="325" vertical-scroll-proportion="-5.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/empty.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
