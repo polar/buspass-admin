@@ -60,7 +60,7 @@
       <file leaf-file-name="service_table.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="377" column="63" selection-start="13695" selection-end="13695" vertical-scroll-proportion="6.700237">
+            <state line="374" column="105" selection-start="13631" selection-end="13631" vertical-scroll-proportion="0.5687204">
               <folding />
             </state>
           </provider>
@@ -161,8 +161,8 @@
         <option value="$PROJECT_DIR$/config/initializers/mongo_mapper.rb" />
         <option value="$PROJECT_DIR$/config/initializers/delayed_job.rb" />
         <option value="$PROJECT_DIR$/app/models/google_uri_view_path.rb" />
-        <option value="$PROJECT_DIR$/app/models/service_table.rb" />
         <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
+        <option value="$PROJECT_DIR$/app/models/service_table.rb" />
       </list>
     </option>
   </component>
@@ -1743,7 +1743,11 @@
       <created>1344551175806</created>
       <updated>1344551175806</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="Progress">
+      <created>1344551535189</created>
+      <updated>1344551535189</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1951,13 +1955,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/google_uri_view_path.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="22" selection-start="56" selection-end="77" vertical-scroll-proportion="-1.6071428">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="34" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0">
@@ -1965,9 +1962,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/google_uri_view_path.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="22" selection-start="56" selection-end="77" vertical-scroll-proportion="-1.6071428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="377" column="63" selection-start="13695" selection-end="13695" vertical-scroll-proportion="6.700237">
+        <state line="374" column="105" selection-start="13631" selection-end="13631" vertical-scroll-proportion="0.5687204">
           <folding />
         </state>
       </provider>
