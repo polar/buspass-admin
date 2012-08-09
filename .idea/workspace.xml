@@ -7,7 +7,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/deploy.rb" afterPath="$PROJECT_DIR$/config/deploy.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
@@ -70,7 +69,7 @@
       <file leaf-file-name="deploy.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/deploy.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="29" selection-end="29" vertical-scroll-proportion="0.019736841">
+            <state line="30" column="41" selection-start="1032" selection-end="1032" vertical-scroll-proportion="0.59210527">
               <folding />
             </state>
           </provider>
@@ -1529,7 +1528,11 @@
       <created>1344473591383</created>
       <updated>1344473591383</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Progress">
+      <created>1344473701634</created>
+      <updated>1344473701634</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1753,7 +1756,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/deploy.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="29" selection-end="29" vertical-scroll-proportion="0.019736841">
+        <state line="30" column="41" selection-start="1032" selection-end="1032" vertical-scroll-proportion="0.59210527">
           <folding />
         </state>
       </provider>
