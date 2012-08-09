@@ -32,7 +32,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
   end
 
   def file
-    authorize_muni_admin(:read, @network)
+    authorize_muni_admin!(:read, @network)
 
     send_file(@network.file_path,
               :type        => 'application/zip',
