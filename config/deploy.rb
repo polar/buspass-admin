@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "rvm/capistrano"
 
 set :application, "Busme"
 set :repository,  "https://github.com/polar/buspass-admin.git"
