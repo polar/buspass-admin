@@ -1,4 +1,4 @@
-class Deployments::Mydevise::RegistrationsController < Devise::RegistrationsController
+class Activements::Mydevise::RegistrationsController < Devise::RegistrationsController
 
   def index
 
