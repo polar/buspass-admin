@@ -3,6 +3,8 @@ require "bundler/capistrano"
 set :application, "Busme"
 set :repository,  "https://github.com/polar/buspass-admin.git"
 
+set :use_sudo, false
+
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
