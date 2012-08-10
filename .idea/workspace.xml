@@ -69,7 +69,16 @@
       <file leaf-file-name="google_uri_view_path.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/google_uri_view_path.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="63" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.57759625">
+            <state line="41" column="37" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.5075846">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="route-map-tool.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/webmap/route-map-tool.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -111,15 +120,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="categorization.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/bundler/gems/comfortable-mexican-sofa-17703629a3bf/lib/comfortable_mexican_sofa/backend/mongo_mapper/models/categorization.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="active_record.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/bundler/gems/comfortable-mexican-sofa-17703629a3bf/lib/comfortable_mexican_sofa/backend/active_record.rb">
           <provider selected="true" editor-type-id="text-editor">
@@ -147,7 +147,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/layouts/webmap.html.erb" />
         <option value="$PROJECT_DIR$/config/deploy.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/websites/normal-layout.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
@@ -162,6 +161,7 @@
         <option value="$PROJECT_DIR$/config/initializers/delayed_job.rb" />
         <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
         <option value="$PROJECT_DIR$/app/models/service_table.rb" />
+        <option value="$PROJECT_DIR$/app/views/webmap/route-map-tool.html" />
         <option value="$PROJECT_DIR$/app/models/google_uri_view_path.rb" />
       </list>
     </option>
@@ -729,7 +729,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -746,6 +750,14 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webmap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -758,10 +770,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1304,15 +1312,15 @@
       <method />
     </configuration>
     <list size="9">
-      <item index="0" class="java.lang.String" itemvalue="RSpec.Network should have one routes" />
-      <item index="1" class="java.lang.String" itemvalue="Rake.routes" />
-      <item index="2" class="java.lang.String" itemvalue="IRB console.IRB console" />
-      <item index="3" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
-      <item index="4" class="java.lang.String" itemvalue="Capistrano.deploy:setup" />
-      <item index="5" class="java.lang.String" itemvalue="Rails.Production" />
-      <item index="6" class="java.lang.String" itemvalue="Rails.Development" />
-      <item index="7" class="java.lang.String" itemvalue="Rake.testament" />
-      <item index="8" class="java.lang.String" itemvalue="Rake.spec" />
+      <item index="0" class="java.lang.String" itemvalue="Rails.Production" />
+      <item index="1" class="java.lang.String" itemvalue="Rails.Development" />
+      <item index="2" class="java.lang.String" itemvalue="Rake.testament" />
+      <item index="3" class="java.lang.String" itemvalue="Rake.spec" />
+      <item index="4" class="java.lang.String" itemvalue="RSpec.Network should have one routes" />
+      <item index="5" class="java.lang.String" itemvalue="Rake.routes" />
+      <item index="6" class="java.lang.String" itemvalue="IRB console.IRB console" />
+      <item index="7" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
+      <item index="8" class="java.lang.String" itemvalue="Capistrano.deploy:setup" />
     </list>
     <recent_temporary>
       <list size="5">
@@ -1756,7 +1764,11 @@
       <created>1344608095367</created>
       <updated>1344608095367</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="Progress">
+      <created>1344609229508</created>
+      <updated>1344609229508</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1873,11 +1885,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="94" selection-start="1891" selection-end="1891" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="25" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.0" />
@@ -1966,9 +1973,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/webmap/route-map-tool.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/google_uri_view_path.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="63" selection-start="1362" selection-end="1362" vertical-scroll-proportion="0.57759625">
+        <state line="41" column="37" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.5075846">
           <folding />
         </state>
       </provider>
