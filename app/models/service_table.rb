@@ -67,9 +67,12 @@ class ServiceTable
     return x
   end
 
+
   def self.constructGoogleMapURI(from,to)
     #locations are stored lon,lat, but google wants them lat,lonlat
-    uri = "http://maps.google.com/maps?f=d&source=s_d&saddr=#{from.coordinates["LonLat"].reverse.join(',')}&daddr=#{to.coordinates["LonLat"].reverse.join(',')}"
+    # Google disbanded &output=kml
+    # uri = "http://maps.google.com/maps?f=d&source=s_d&saddr=#{from.coordinates["LonLat"].reverse.join(',')}&daddr=#{to.coordinates["LonLat"].reverse.join(',')}"
+    uri = "http://www.yournavigation.org/api/1.0/gosmore.php?format=kml&flat=#{from.coordinates["LonLat"][1]}&flon=#{from.coordinates["LonLat"][0]}&tlat=#{to.coordinates["LonLat"][1]}&tlon=#{to.coordinates["LonLat"][0]}7&v=motorcar&fast=1&layer=mapnik&"
     return uri
   end
 

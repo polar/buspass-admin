@@ -30,7 +30,7 @@ class GoogleUriViewPath
       cache = GoogleUriViewPath.find_or_create(uri)
       if cache.view_path_coordinates == nil || cache.view_path_coordinates == {}
         #puts "no cache item, getting from Internet"
-        doc = open("#{uri}&output=kml") {|f| Hpricot(f) }
+        doc = open(uri) {|f| Hpricot(f) }
         if doc
           coord_html = doc.at("geometrycollection/linestring/coordinates")
           if coord_html
