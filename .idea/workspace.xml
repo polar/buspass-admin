@@ -6,361 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.htaccess" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/prop-base/gosmore.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/.htaccess.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/CONTRIBUTORS.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/COPYRIGHT.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/about.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/gosmore.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/help.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/index.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/killall.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/proxy.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/reset.css.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/simple.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/transport.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/yournavigation.css.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/.svn/text-base/yournavigation.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/CONTRIBUTORS" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/COPYRIGHT" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/about.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/1.0/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/1.0/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/1.0/.svn/text-base/gosmore.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/1.0/.svn/text-base/saveas.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/1.0/gosmore.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/1.0/saveas.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/.svn/text-base/gosmore.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/.svn/text-base/kit.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/.svn/text-base/saveas.php.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/.svn/text-base/yours.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/.svn/text-base/index.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/files/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/files/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/files/.svn/text-base/YourNavigation-js.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/files/YourNavigation-js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/.svn/text-base/Classes.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/.svn/text-base/Functions.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/.svn/text-base/General.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/.svn/text-base/Properties.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/Classes.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/Functions.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/General.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/index/Properties.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/javascript/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/javascript/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/javascript/.svn/text-base/main.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/javascript/.svn/text-base/searchdata.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/javascript/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/javascript/searchdata.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/ClassesS.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/ClassesY.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/FunctionsA.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/FunctionsC.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/FunctionsD.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/FunctionsE.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/FunctionsL.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/FunctionsN.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/FunctionsR.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/FunctionsW.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralA.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralC.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralD.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralE.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralF.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralL.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralN.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralP.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralR.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralS.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralT.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralW.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/GeneralY.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/NoResults.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/PropertiesF.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/PropertiesP.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/.svn/text-base/PropertiesT.html.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/ClassesS.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/ClassesY.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/FunctionsA.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/FunctionsC.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/FunctionsD.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/FunctionsE.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/FunctionsL.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/FunctionsN.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/FunctionsR.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/FunctionsW.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralA.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralC.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralD.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralE.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralF.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralL.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralN.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralP.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralR.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralS.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralT.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralW.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/GeneralY.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/NoResults.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/PropertiesF.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/PropertiesP.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/search/PropertiesT.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/styles/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/styles/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/styles/.svn/text-base/main.css.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/docs/styles/main.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/gosmore.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/kit.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/saveas.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/api/dev/yours.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/gosmore.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/help.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/prop-base/ajax-loader.gif.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/prop-base/blank.gif.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/prop-base/del.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/prop-base/ok.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/prop-base/yours_left.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/prop-base/yours_pixel.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/prop-base/yours_right.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/prop-base/yours_text.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/text-base/ajax-loader.gif.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/text-base/blank.gif.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/text-base/del.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/text-base/ok.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/text-base/yours_left.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/text-base/yours_pixel.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/text-base/yours_right.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/.svn/text-base/yours_text.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/ajax-loader.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/blank.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/del.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/ok.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/yours_left.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/yours_pixel.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/yours_right.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/images/yours_text.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/index.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/.svn/prop-base/jquery-ui.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/.svn/prop-base/jquery.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/.svn/text-base/jquery-1.6.1.min.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/.svn/text-base/jquery-ui-1.8.custom.min.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/.svn/text-base/jquery-ui.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/.svn/text-base/jquery.js.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/jquery-1.6.1.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/jquery-ui-1.8.custom.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/jquery-ui.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/jquery/jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/killall.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/all-wcprops" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/entries" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/blank.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/blue.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/drupal.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/gray.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/green.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/lblue.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter1.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter10.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter2.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter3.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter4.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter5.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter6.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter7.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter8.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/letter9.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker-green.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker-red.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker_friday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker_monday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker_saturday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker_sunday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker_thursday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker_tuesday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/marker_wednesday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number0.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number1.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number10.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number11.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number12.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number13.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number14.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number15.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number16.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number17.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number18.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number19.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number2.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number20.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number21.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number22.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number23.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number24.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number25.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number26.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number3.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number4.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number5.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number6.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number7.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number8.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/number9.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/orange.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/pink.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/purple.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/route-start.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/route-stop.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/white.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/prop-base/yellow.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/blank.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/blue.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/drupal.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/gray.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/green.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/lblue.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter1.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter10.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter2.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter3.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter4.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter5.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter6.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter7.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter8.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/letter9.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker-green.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker-red.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker_friday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker_monday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker_saturday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker_sunday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker_thursday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker_tuesday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/marker_wednesday.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number0.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number1.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number10.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number11.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number12.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number13.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number14.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number15.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number16.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number17.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number18.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number19.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number2.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number20.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number21.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number22.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number23.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number24.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number25.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number26.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number3.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number4.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number5.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number6.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number7.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number8.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/number9.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/orange.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/pink.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/purple.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/route-start.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/route-stop.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/white.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/.svn/text-base/yellow.png.svn-base" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/blank.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/blue.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/drupal.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/gray.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/green.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/lblue.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter10.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter7.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter8.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/letter9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker-green.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker-red.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker_friday.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker_monday.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker_saturday.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker_sunday.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker_thursday.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker_tuesday.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/marker_wednesday.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number0.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number10.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number11.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number12.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number13.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number14.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number15.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number16.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number17.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number18.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number19.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number20.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number21.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number22.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number23.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number24.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number25.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number26.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number7.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number8.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/number9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/orange.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/pink.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/purple.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/route-start.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/route-stop.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/white.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/markers/yellow.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/proxy.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/reset.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/simple.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/transport.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/yournavigation.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/yours/yournavigation.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -430,13 +78,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pathfinder.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="pathfinder.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/tools/pathfinder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="447" column="82" selection-start="13817" selection-end="13817" vertical-scroll-proportion="0.39746836">
+            <state line="447" column="82" selection-start="13817" selection-end="13817" vertical-scroll-proportion="-237.85715">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_deployment_items.html.builder" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="7" selection-start="1076" selection-end="1471" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_network_items.html.builder" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/navigation/_network_items.html.builder">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="2" selection-start="1244" selection-end="1244" vertical-scroll-proportion="0.6418093">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -480,8 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/masters/tools/_index.html.erb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/tools_controller.rb" />
         <option value="$PROJECT_DIR$/lib/tags/tools_tag.rb" />
         <option value="$PROJECT_DIR$/lib/tags/masters_tag.rb" />
@@ -496,6 +160,8 @@
         <option value="$PROJECT_DIR$/app/views/masters/tools/pathfinder/_script.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/pathfinder.css.scss" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/masters/tools/pathfinder.js" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" />
       </list>
     </option>
   </component>
@@ -1116,63 +782,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pathfinder" />
+              <option name="myItemId" value="navigation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1415,6 +1025,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2387,7 +2019,11 @@
       <created>1344641683537</created>
       <updated>1344641683537</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="Progress">
+      <created>1344641907700</created>
+      <updated>1344641907700</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2412,7 +2048,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="74" y="24" width="1154" height="1000" extended-state="4" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1286031" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
@@ -2420,7 +2056,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3219178" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28525123" sideWeight="0.67184037" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2323689" sideWeight="0.6894977" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2323689" sideWeight="0.6894977" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3105023" sideWeight="0.36061588" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3181818" sideWeight="0.6337115" order="10" side_tool="true" content_ui="tabs" />
@@ -2585,10 +2221,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/tools/pathfinder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="447" column="82" selection-start="13817" selection-end="13817" vertical-scroll-proportion="0.39746836">
+        <state line="447" column="82" selection-start="13817" selection-end="13817" vertical-scroll-proportion="-237.85715">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="7" selection-start="1076" selection-end="1471" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_network_items.html.builder">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="2" selection-start="1244" selection-end="1244" vertical-scroll-proportion="0.6418093">
+          <folding />
         </state>
       </provider>
     </entry>

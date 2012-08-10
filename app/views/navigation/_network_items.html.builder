@@ -33,6 +33,19 @@ xml.ul(:id => "sitemap") {
   xml.li() {
     xml.a "#{@master.name} Top", :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
   }
+  page = @site.pages.find_by_full_path("/tools")
+  if page
+    xml.li() {
+      xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+      subpages(page).tap do |pages|
+        xml.ul() do
+          pages.each do |chpage|
+            do_page(chpage, xml)
+          end
+        end if pages.size > 0
+      end
+    }
+  end
   page = @site.pages.find_by_full_path("/deployments/#{@municipality.slug}")
   xml.li() {
     xml.a "#{@municipality.name}", :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
