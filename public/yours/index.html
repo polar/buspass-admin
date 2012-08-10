@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="en" xml:lang="en">
+    <head>
+        <title>YourNavigation - Worldwide routing on OpenStreetMap data</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <link rel="stylesheet" href="reset.css"/>
+        <link rel="stylesheet" href="yournavigation.css"/>
+        <script type="text/javascript" src="jquery/jquery.js"></script>
+        <script type="text/javascript" src="jquery/jquery-ui.js"></script>
+        <script type="text/javascript" src="/assets/OpenLayers-2.11/OpenLayers.js" ></script>
+        <script type="text/javascript" src="/assets/OpenLayers-2.11/OpenStreetMap.js"></script>
+        <script type="text/javascript" src="api/dev/yours.js"></script>
+        <script type="text/javascript" src="yournavigation.js"></script>
+
+        <script type="text/javascript">
+			$(function() {
+				// Initialise the map
+				init();
+				// Make the navigation tabs
+				//$("#nav_header").tabs();
+				// Make the via points sortable
+				$("#route_via").sortable({
+					update: waypointReorderCallback
+				});
+			});
+        </script>
+    </head>
+    <body class="indexbody">
+		<div id="main">
+			<div id="outer">
+				<div id="navigation">
+					<div id="fragment-route">
+						<form id="route" name="route" action="#" onsubmit="return false;">
+							<ul id="route_via" class="route_via">
+							</ul>
+							<ul>
+								<li>
+									<div>
+										<img src="markers/yellow.png" alt="marker to" height="30" style="vertical-align:middle;"/>
+										<input type="button" name="add waypoint" onclick="elementClick(this);" value="Add Waypoint" tabindex="4"/>
+									</div>
+								</li>
+							</ul>
+						</form>
+						<form id="calculate" action="#">
+							<div id="route_action">
+								<input type="button" name="calculate" onclick="elementClick(this);" value="Find route" tabindex="3"/>
+								<input type="button" name="clear" onclick="elementClick(this);" value="Clear" tabindex="5"/>
+								<input type="button" name="reverse" onclick="elementClick(this);" value="Reverse" tabindex="7"/>
+							</div>
+						</form>
+						<div id="status">
+						</div>
+
+                        <div id="copybox">
+                            <input id="copybox_field" type="text"/>
+                        </div>
+
+					</div>
+				</div>
+				<div id="extra">
+
+				</div>
+			</div>
+
+			<div id="content"><div id="map"></div></div>
+		</div>
+    </body>
+</html>

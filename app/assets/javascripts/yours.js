@@ -1,21 +1,17 @@
 /* Copyright (c) 2009, L. IJsselstein and others
   Yournavigation.org All rights reserved.
  */
+//
+//if (document.location.pathname.charAt(document.location.pathname.length-1) == "/") {
+//	var apiUrl = document.location.protocol + "//" + document.location.hostname + document.location.pathname + "transport.php?url=http://www.yournavigation.org/api/dev/";
+//} else {
+//	var apiUrl = document.location.protocol + "//" + document.location.hostname + document.location.pathname + "/transport.php?url=http://www.yournavigation.org/api/dev/";
+//}
 
-var path = "";
-var pathBits = document.location.pathname.split("/");
-for (i = 0; i < pathBits.length; i++) {
-	var bit = pathBits[i];
-	if (bit.length > 0) {
-		if (bit.indexOf(".") == -1) {
-			path = path + bit + "/";
-		}
-	}
-}
-var apiUrl = document.location.protocol+"//"+document.location.host+"/"+path+"api/dev/";
+var apiUrl = "/transport.php?url=http://www.yournavigation.org/api/dev/"
 
 var namefinderUrl = "transport.php?url=http://gazetteer.openstreetmap.org/namefinder/search.xml&";
-var nominatimUrl = "transport.php?url=http://nominatim.openstreetmap.org/";
+var nominatimUrl = "http://nominatim.openstreetmap.org/";
 var reverseNamefinderUrl = "transport.php?url=http://dev.openstreetmap.nl/~rullzer/rev_namefinder/&";
 
 /*
@@ -87,7 +83,7 @@ var Url = {
         string = string.replace(/\r\n/g,"\n");
         var utftext = "";
 
-        for (n = 0; n < string.length; n++) {
+        for (var n = 0; n < string.length; n++) {
 
             var c = string.charCodeAt(n);
 
@@ -226,7 +222,7 @@ Yours.NominatimLookup = function(lookupMethod, value, wp, map, callback) {
 	switch (lookupMethod) {
 	case Yours.lookupMethod.nameToCoord:
 		parameters = "q=" + Url.encode(value) + "&format=xml";
-		$.get(nominatimUrl + "search/&"+ parameters, {}, 
+		$.get(nominatimUrl + "search/?"+ parameters, {}, 
 			function(xml) {
 				var result = Yours.Nominatim(xml, wp, map);
 				if (result == 'OK') {
@@ -243,7 +239,7 @@ Yours.NominatimLookup = function(lookupMethod, value, wp, map, callback) {
 			point = wp.lonlat.clone();
 			newPoint = point.transform(map.projection, map.displayProjection);
 			parameters = "lon=" + newPoint.lon + "&lat=" + newPoint.lat;
-			$.get(nominatimUrl + "reverse/&" + parameters, {}, 
+			$.get(nominatimUrl + "reverse/?" + parameters, {}, 
 				function(xml) {
 					var result = Yours.Nominatim(xml, wp, map);
 					if (result == 'OK') {
@@ -286,19 +282,16 @@ Yours.Export = function(route) {
 		first= true;
 		var data = "";
 		for (seg = 0; seg < route.Segments.length; seg++) {
-			feature = route.Segments[seg].feature[0];
-			if (feature.geometry != undefined) {
-				var components = feature.geometry.components;
-				for (wp = 0; wp < components.length; wp++) {
-					if (first) {
-						first = false;
-					} else {
-						data += ',';
-					}
-					point = components[wp].clone();
-					newPoint = point.transform(route.map.projection, route.map.displayProjection);
-					data += newPoint.x.toFixed(6) + ' ' + newPoint.y.toFixed(6);
+			var components = route.Segments[seg].feature[0].geometry.components;
+			for (wp = 0; wp < components.length; wp++) {
+				if (first) {
+					first = false;
+				} else {
+					data += ',';
 				}
+				point = components[wp].clone();
+				newPoint = point.transform(route.map.projection, route.map.displayProjection);
+				data += newPoint.x.toFixed(6) + ' ' + newPoint.y.toFixed(6);
 			}
 		}
 		
@@ -546,7 +539,6 @@ Yours.Route = function(map, customRouteCallback, customWaypointCallback) {
 
 	this.completeRoute = false;
 	this.autoroute = true;
-	this.instructions = 1;
 
 	// Used during rendering to store the state
 	this.rendering = 0;
@@ -785,6 +777,12 @@ Yours.Route = function(map, customRouteCallback, customWaypointCallback) {
 				break;
 			case "selected":
 				wp = this.Selected;
+				// Move selection to next waypoint if that one has no position yet
+				if (this.Waypoints[this.Selected.position + 1] != undefined && this.Waypoints[this.Selected.position + 1].lonlat == undefined) {
+					this.selectWaypoint(this.Selected.position + 1);
+				} else {
+					this.selectWaypoint();
+				}
 				break;
 			default:
 				wp = this.Waypoints[id];
@@ -911,7 +909,6 @@ Yours.Route = function(map, customRouteCallback, customWaypointCallback) {
 		this.Segments = [];
 		this.Markers.destroyFeatures();
 		this.distance = 0;
-		this.traveltime = 0;
 		this.reset();
 	};
 		
@@ -921,10 +918,12 @@ Yours.Route = function(map, customRouteCallback, customWaypointCallback) {
 	 */
 	this.draw = function() {
 		// Clear a previous route result
-		this.Layer.destroyFeatures();
+		for (var i = 0; i < this.Segments.length; i++) {
+			this.Segments[i].destroy();
+		}
 		this.Segments = [];
 		
-		// Determine the numer of segments.
+		// Determine the number of segments.
 		this.callback(Yours.status.starting, "");
 		var numsegs = this.Waypoints.length - 1;
 		this.rendering = numsegs;
@@ -935,7 +934,7 @@ Yours.Route = function(map, customRouteCallback, customWaypointCallback) {
 			if (this.Waypoints[i].lonlat === undefined || this.Waypoints[i + 1].lonlat === undefined) {
 				if (this.renderQuiet) {
 					// Finish silently
-					this.rendering--;
+					this._segmentFinished(this.Segments[i]);
 				} else {
 					// Finish with error
 					this._segmentError(this.Segments[i], 'No begin or end point specified!');
@@ -984,18 +983,14 @@ Yours.Route = function(map, customRouteCallback, customWaypointCallback) {
 	this._segmentFinished = function(segment) {
 		this.rendering--;
 		if (this.rendering == 0) {
-			this.description = "";
 			this.distance = 0;
-			this.traveltime = 0;
 			this.nodes = 0;
 			this.completeRoute = true;
 			for (i = 0; i < this.Segments.length; i++) {
 				if (this.Segments[i].distance === undefined) {
 					this.completeRoute = false;
 				} else {
-					this.description += this.Segments[i].description;
 					this.distance += this.Segments[i].distance;
-					this.traveltime += this.Segments[i].traveltime;
 					this.nodes += this.Segments[i].nodes;
 				}
 			}
@@ -1013,7 +1008,6 @@ Yours.Route = function(map, customRouteCallback, customWaypointCallback) {
 	this.Waypoints = [];
 	this.Segments = [];
 	this.distance = parseFloat(0);
-	this.traveltime = 0;
 	this.nodes = 0;
 	this.reset(map);
 };
@@ -1042,13 +1036,13 @@ Yours.Waypoint = function(ParentRoute)
 	this.markerUrl = function() {
 		switch (this.type) {
 			case 'via':
-				return 'markers/number' + this.position + '.png';
+				return '/assets/yours/markers/number' + this.position + '.png';
 			case 'from':
-				return 'markers/route-start.png';
+				return '/assets/yours/markers/route-start.png';
 			case 'to':
-				return 'markers/route-stop.png';
+				return '/assets/yours/markers/route-stop.png';
 			default:
-				return 'markers/marker-yellow.png';
+				return '/assets/yours/markers/marker-yellow.png';
 		}
 	}
 
@@ -1133,15 +1127,12 @@ Yours.Segment = function(ParentRoute) {
 	 *   distance - the total length of this segment
 	 *   feature - the feature representing this segment
 	 */
-	this.create = function(distance, traveltime, feature) {
+	this.create = function(distance, feature) {
 		this.distance = distance;
-		this.traveltime = traveltime;
 		this.feature = feature;
-		if (this.feature[0] !== undefined && this.feature[0].geometry !== null) {
-			this.nodes = this.feature[0].geometry.components.length;
-			if (this.route.Layer !== undefined) {
-				this.route.Layer.addFeatures(this.feature);
-			}
+		this.nodes = this.feature[0].geometry.components.length;
+		if (this.route.Layer !== undefined) {
+			this.route.Layer.addFeatures(this.feature);
 		}
 	};
 
@@ -1157,11 +1148,6 @@ Yours.Segment = function(ParentRoute) {
 			// Check to make sure that kml is returned.
 			switch (xml.childNodes[0].nodeName) {
 				case "kml":
-					this.description = xml.getElementsByTagName('description')[0].textContent;
-					if(this.description === 0 || this.description === undefined) {
-						this.route._segmentError(this, 'Segment has no length, or kml has no distance attribute');
-					}
-					var traveltime = parseInt(xml.getElementsByTagName('traveltime')[0].textContent);
 					var distance = xml.getElementsByTagName('distance')[0].textContent;
 					if(distance === 0 || distance === undefined) {
 						this.route._segmentError(this, 'Segment has no length, or kml has no distance attribute');
@@ -1172,10 +1158,10 @@ Yours.Segment = function(ParentRoute) {
 						var kml = new OpenLayers.Format.KML(options);
 						var distance = parseFloat(distance);
 						var feature = kml.read(xml);
-						this.create(distance, traveltime, feature);
+						this.create(distance, this.cloneFeature(feature));
 						this.route._segmentFinished(this);
 						// Add to cache
-						routeCache[this.search] = {distance: distance, traveltime: traveltime, feature: feature};
+						routeCache[this.search] = {distance: distance, feature: feature};
 					}
 					break;
 				case "error":
@@ -1207,25 +1193,37 @@ Yours.Segment = function(ParentRoute) {
 			'&tlon=' + tlonlat.lon;
 		this.search += '&v=' + this.route.parameters.type +
 			'&fast=' + this.route.parameters.fast +
-			'&layer=' + this.route.parameters.layer +
-			'&instructions=' + this.route.instructions;
-			
+			'&layer=' + this.route.parameters.layer;
 		this.permalink = location.protocol + '//' + location.host + location.pathname + "?" + this.search;
 		if (routeCache[this.search] === undefined) {
 			// Not in cache, request from server
-			//var url = apiUrl + 'gosmore.php?' + this.search;
 			var url = apiUrl + 'route.php?' + this.search;
-			var self = this;
-			$.get(url, {}, function(xml) {
+			this.request = $.get(url, {}, function(xml) {
+				self.request = undefined;
 				self.parseKML(xml);
-			}, "xml");
+			}, "xml").error(function(jqXHR, textStatus, errorThrown) {
+				self.route._segmentError(self, textStatus + ": " + errorThrown);
+			});
 		} else {
 			// In cache, retreive from there
 			var s = routeCache[this.search];
-			this.create(s.distance, s.traveltime, s.feature);
+			this.create(s.distance, this.cloneFeature(s.feature));
 			this.route._segmentFinished(this);
 		}
 	};
+	
+	/*
+	 * Function cloneFeature
+	 *
+	 * Create a clone of a feature
+	 */
+	this.cloneFeature = function(feature) {
+		var featureClone = [];
+		for (var i = 0; i < feature.length; i++) {
+			featureClone[i] = feature[i].clone();
+		}
+		return featureClone;
+	}
 
 	/*
 		Function: profile
@@ -1309,6 +1307,20 @@ Yours.Segment = function(ParentRoute) {
 		} else {
 			len = this.feature.geometry.getLength();
 			return len;
+		}
+	};
+
+	/*
+	 * Function: destroy
+	 * Remove Segment from the Vector Layer and destroy it's location information
+	 */
+	this.destroy = function() {
+		if (this.request !== undefined) {
+			this.request.abort();
+		}
+		if (this.feature !== undefined) {
+			this.route.Layer.removeFeatures(this.feature);
+			this.feature = undefined;
 		}
 	};
 };

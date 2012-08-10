@@ -1,5 +1,8 @@
 /* Copyright (c) 2009, L. IJsselstein and others
   Yournavigation.org All rights reserved.
+
+ *= require OpenLayers-2.11/OpenStreetMap
+ *= require yours
  */
 
 var myFirstMap;
@@ -442,6 +445,9 @@ function writeToCopyBox(route) {
         first= true;
         var data = "";
         for (seg = 0; seg < route.Segments.length; seg++) {
+            if (!route.Segments[seg].feature || route.Segments[seg].feature.length < 1) {
+                return;
+            }
             var components = route.Segments[seg].feature[0].geometry.components;
             for (wp = 0; wp < components.length; wp++) {
                 if (first) {

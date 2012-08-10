@@ -1,0 +1,40 @@
+<%= render :partial => "masters/tools/pathfinder/script" %>
+
+<h1>Pathfinder Tool</h1>
+<div id="outer">
+  <div id="navigation">
+    <div id="fragment-route">
+      <form id="route" name="route" action="#" onsubmit="return false;">
+        <ul id="route_via" class="route_via">
+        </ul>
+        <ul>
+          <li>
+            <div>
+              <img src="/assets/yours/markers/yellow.png" alt="marker to" height="30" style="vertical-align:middle;"/>
+              <input type="button" name="add waypoint" onclick="elementClick(this);" value="Add Waypoint" tabindex="4" class="btn"/>
+            </div>
+          </li>
+        </ul>
+      </form>
+      <form id="calculate" action="#">
+        <div id="route_action">
+          <input type="button" name="calculate" onclick="elementClick(this);" value="Find route" tabindex="3" class="btn"/>
+          <input type="button" name="clear" onclick="elementClick(this);" value="Clear" tabindex="5" class="btn"/>
+          <input type="button" name="reverse" onclick="elementClick(this);" value="Reverse" tabindex="7" class="btn"/>
+        </div>
+      </form>
+      <div id="status">
+      </div>
+
+      <div id="copybox">
+        <input id="copybox_field" type="text"/>
+      </div>
+
+    </div>
+  </div>
+  <div id="extra">
+
+  </div>
+</div>
+
+<div id="content"><div id="map"></div></div>

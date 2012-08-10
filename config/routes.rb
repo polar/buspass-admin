@@ -121,6 +121,10 @@ BuspassAdmin::Application.routes.draw do
       get :testament
     end
 
+    resource :tools, :controller => "masters/tools" do
+      resource :pathfinder, :controller => "masters/tools/pathfinder", :only => [:show]
+    end
+
     resource :home, :controller => "masters/home" do
       member do
       end
@@ -293,6 +297,7 @@ BuspassAdmin::Application.routes.draw do
   root :to =>  "cms_content#render_html", :constraints => { :host => "busme.us" }
   root :to =>  "cms_content#render_html", :constraints => { :host => "localhost" }
   root :to => "masters/active#show"
+  match "/transport.php" => "transport#transport"
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"
   match "/:master_id/cms-admin" => "cms_admin/sites#index"

@@ -1,12 +1,15 @@
 /* Copyright (c) 2009, L. IJsselstein and others
   Yournavigation.org All rights reserved.
  */
+//
+//if (document.location.pathname.charAt(document.location.pathname.length-1) == "/") {
+//	var apiUrl = document.location.protocol + "//" + document.location.hostname + document.location.pathname + "transport.php?url=http://www.yournavigation.org/api/dev/";
+//} else {
+//	var apiUrl = document.location.protocol + "//" + document.location.hostname + document.location.pathname + "/transport.php?url=http://www.yournavigation.org/api/dev/";
+//}
 
-if (document.location.pathname.charAt(document.location.pathname.length-1) == "/") {
-	var apiUrl = document.location.protocol + "//" + document.location.hostname + document.location.pathname + "api/dev/";
-} else {
-	var apiUrl = document.location.protocol + "//" + document.location.hostname + document.location.pathname + "/api/dev/";
-}
+var apiUrl = "/transport.php?url=http://www.yournavigation.org/api/dev/"
+
 var namefinderUrl = "transport.php?url=http://gazetteer.openstreetmap.org/namefinder/search.xml&";
 var nominatimUrl = "http://nominatim.openstreetmap.org/";
 var reverseNamefinderUrl = "transport.php?url=http://dev.openstreetmap.nl/~rullzer/rev_namefinder/&";
@@ -1033,13 +1036,13 @@ Yours.Waypoint = function(ParentRoute)
 	this.markerUrl = function() {
 		switch (this.type) {
 			case 'via':
-				return 'markers/number' + this.position + '.png';
+				return '/assets/yours/markers/number' + this.position + '.png';
 			case 'from':
-				return 'markers/route-start.png';
+				return '/assets/yours/markers/route-start.png';
 			case 'to':
-				return 'markers/route-stop.png';
+				return '/assets/yours/markers/route-stop.png';
 			default:
-				return 'markers/marker-yellow.png';
+				return '/assets/yours/markers/marker-yellow.png';
 		}
 	}
 

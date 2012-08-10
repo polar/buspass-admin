@@ -71,6 +71,37 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:navigation:admin_nav }}"
                                }])
 
+    tools = site.pages.create!(
+        :slug => "tools",
+        :label => "Tools",
+        :layout => map_layout,
+        :is_protected => true,
+        :controller_path => "/masters/:master_id/tools",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:masters:tools }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                               }])
+
+    pathfinder = site.pages.create!(
+        :slug => "pathfinder",
+        :label => "Path Finder",
+        :parent => tools,
+        :layout => map_layout,
+        :is_protected => true,
+        :controller_path => "/masters/:master_id/tools/pathfinder",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:masters:tools:pathfinder }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                               }])
+
     edit = site.pages.create!(
         :slug => "edit",
         :label => "Edit",

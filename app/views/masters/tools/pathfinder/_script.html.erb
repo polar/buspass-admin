@@ -1,0 +1,18 @@
+<% content_for :head do %>
+
+    <script type="text/javascript">
+        $(function() {
+            // Initialise the map
+            init();
+            var pos = new OpenLayers.LonLat(<%= @master.longitude %>,<%= @master.latitude %>);
+            myFirstMap.setCenter(pos.transform(myFirstMap.displayProjection, myFirstMap.projection), 14);
+            // Make the navigation tabs
+            //$("#nav_header").tabs();
+            // Make the via points sortable
+            $("#route_via").sortable({
+                update: waypointReorderCallback
+            });
+        });
+    </script>
+
+<% end %>
