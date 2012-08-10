@@ -32,14 +32,14 @@ class GoogleUriViewPath
         #puts "no cache item, getting from Internet"
         doc = open(uri) { |f| Hpricot(f) }
         if doc
+          x = [[0,0],[1,1]] # bogus
           if (uri.start_with?("http://google"))
             coord_html = doc.at("geometrycollection/linestring/coordinates")
-            x = coord_html.inner_html.split(",0.000000 ").map { |x| eval "[#{x}]" }
+            x = coord_html && coord_html.inner_html.split(",0.000000 ").map { |x| eval "[#{x}]" }
           elsif (uri.start_with?("http://www.yournavigation.org"))
-            coord_html = doc.at("document/folder/placemark/linestring/coordinates")
-            x = coord_html.inner_html.(" ").map { |x| eval "[#{x}]" }
+            coord_html = doc.at("placemark/linestring/coordinates")
+            x = coord_html && coord_html.inner_html.(" ").map { |x| eval "[#{x}]" }
           else
-            x = [[0,0],[1,1]] # bogus
           end
           ans                         = {"LonLat" => x}
           cache.view_path_coordinates = ans
