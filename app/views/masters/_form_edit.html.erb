@@ -14,7 +14,7 @@
       <%= f.text_field :latitude %></div>
 
     <div><%= f.label :timezone, "Time Zone" %>
-      <%=  f.time_zone_select_with_client_side_validations :timezone %></div>
+      <%=  f.collection_select_with_client_side_validations :timezone, TIMEZONES_LIST, :to_s, :to_s %></div>
 
     <div><%= f.submit "Update", :class => "btn"  %></div>
 <% end %>

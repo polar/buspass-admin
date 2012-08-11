@@ -35,10 +35,17 @@ class GoogleUriViewPath
           x = [[0,0],[1,1]] # bogus
           if (uri.start_with?("http://google"))
             coord_html = doc.at("geometrycollection/linestring/coordinates")
-            x = coord_html && coord_html.inner_html.split(",0.000000 ").map { |x| eval "[#{x}]" }
+            if coord_html
+              x = coord_html.inner_html.split(" ")
+              x = x.map { |x| x.split(",").take(2).map {|f| f.to_f} }
+            end
+
           elsif (uri.start_with?("http://www.yournavigation.org"))
             coord_html = doc.at("placemark/linestring/coordinates")
-            x = coord_html && coord_html.inner_html.(" ").map { |x| eval "[#{x}]" }
+            if coord_html
+              x = coord_html.inner_html.split(" ")
+              x = x.map { |x| x.split(",").take(2).map {|f| f.to_f} }
+            end
           else
           end
           ans                         = {"LonLat" => x}
@@ -52,9 +59,10 @@ class GoogleUriViewPath
       # KML
       doc = Hpricot(uri)
       if doc
-        coord_html = doc.at("placemark/linestring/coordinates")
+        coord_html = doc.at("placemark/linestring/coDelaordinates")
         if coord_html
-          x   = coord_html.inner_html.strip.split(",0 ").map { |x| eval "[#{x}].take(2)" }
+          x = coord_html.inner_html.split(" ")
+          x = x.map { |x| x.split(",").take(2).map {|f| f.to_f} }
           ans = {"LonLat" => x}
         end
       end

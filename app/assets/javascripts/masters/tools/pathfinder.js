@@ -116,8 +116,9 @@ function waypointCreateDOM(waypoint) {
 	wypt_li.addClass("via");
 	wypt_li.append(marker_image);
 	wypt_li.append(' ');
-	wypt_li.append(text);
-	wypt_li.append(' ');
+    // We just let the user see the location for cut/paste
+	//wypt_li.append(text);
+	//wypt_li.append(' ');
     wypt_li.append(location);
     wypt_li.append(' ');
 	wypt_li.append(del_button);
