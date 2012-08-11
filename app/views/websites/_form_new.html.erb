@@ -14,9 +14,7 @@
       <%= f.text_field :latitude %></div>
 
     <div><%= f.label :timezone, "Time Zone" %>
-      <% zones = Timezone::Zone.list
-         zones = zones.map { |z| z[:title]} %>
-      <%=  f.collection_select_with_client_side_validations :timezone, zones, :to_s, :to_s %></div>
+      <%=  f.collection_select_with_client_side_validations :timezone, TIMEZONES_LIST, :to_s, :to_s %></div>
 
     <div><%= f.submit "Create", :class => "btn"  %></div>
 <% end %>
