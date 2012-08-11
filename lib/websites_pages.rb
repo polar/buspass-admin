@@ -38,6 +38,27 @@ of the layout regardless of where it appears here.
 -->
 {{ cms:layout:bottom }}")
 
+    map_layout = site.layouts.create!(
+        :identifier => "map-layout",
+        :app_layout => "websites/map-layout",
+        :content    =>
+            "<!--
+The layout puts left block of page goes into left side of the layout regardless of where it appears here
+-->
+{{ cms:layout:left }}
+
+<!--
+The page content block shows up here.
+You can put what ever you want above or below it.
+-->
+{{ cms:page:content:rich_text }}
+
+<!--
+The Layout bottom puts the bottom block of a page into the bottom
+of the layout regardless of where it appears here.
+-->
+{{ cms:layout:bottom }}")
+
     root          = site.pages.create!(
         :slug              => "busme-main-root",
         :label             => "Welcome",
@@ -135,7 +156,7 @@ of the layout regardless of where it appears here.
     new_site      = site.pages.create!(
         :slug              => "new-website",
         :label             => "New Site",
-        :layout            => normal_layout,
+        :layout            => map_layout,
         :parent            => root,
         :is_protected      => true,
         :controller_path   => "/websites/new",
@@ -168,7 +189,7 @@ of the layout regardless of where it appears here.
     site_edit_template = site.pages.create!(
         :slug              => "edit",
         :label             => "Will be replaced",
-        :layout            => normal_layout,
+        :layout            => map_layout,
         :parent            => site_template,
         :is_protected      => true,
         :controller_path   => "/websites/:site_id/edit",

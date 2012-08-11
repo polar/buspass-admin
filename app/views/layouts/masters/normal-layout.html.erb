@@ -11,6 +11,8 @@
   <%= javascript_include_tag "normal-layout", :debug => true  %>
   <%= stylesheet_link_tag "#{controller_path}" %>
   <%= javascript_include_tag "#{controller_path}" %>
+  <%= stylesheet_link_tag "#{controller_path}/#{params[:action]}" %>
+  <%= javascript_include_tag "#{controller_path}#{params[:action]}" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
       // This displays the flash messages.

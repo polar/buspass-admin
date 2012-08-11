@@ -1,8 +1,11 @@
-<%= form_for(@master, :url => websites_path, :validate => true) do |f| %>
+<%= form_for(@master, :url => masters_path, :validate => true) do |f| %>
     <%= error_messages!(@master) %>
 
     <div><%= f.label :name, "Name" %>
       <%= f.text_field :name %></div>
+
+    <div><%= f.label :slug, "http://busme.us/" %>
+      <%= f.text_field :slug %></div>
 
     <div><%= f.label :longitude, "Longitude (-180 to 180)" %>
       <%= f.text_field :longitude %></div>
@@ -11,7 +14,7 @@
       <%= f.text_field :latitude %></div>
 
     <div><%= f.label :timezone, "Time Zone" %>
-      <%=  f.time_zone_select_with_client_side_validations :timezone %></div>
+      <%=  f.collection_select_with_client_side_validations :timezone, Timezone::Zone.list, :title, :title %></div>
 
     <div><%= f.submit "Create", :class => "btn"  %></div>
 <% end %>

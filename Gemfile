@@ -14,6 +14,8 @@ gem 'compass-rails'
 
 gem 'jquery-rails'
 
+gem "timezone"
+
 # The following gem is required to parse HTML using XPath.
 
 gem 'hpricot'

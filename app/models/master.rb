@@ -28,6 +28,8 @@ class Master
 
   validates_uniqueness_of :name
   validates_uniqueness_of :slug
+  validates_format_of :slug, :with => /[a-z][a-z0-9-]*/, :message => "only lower case letters, numbers, and dashes"
+  validates_length_of :slug, :maximum => 20, :message => "can only be 20 characters long"
   validates_numericality_of :longitude, :greater_than_or_equal_to => -180.0, :less_than_or_equal_to => 180.0
   validates_numericality_of :latitude, :greater_than_or_equal_to => -90.0, :less_than_or_equal_to => 90.0
 
@@ -80,6 +82,6 @@ class Master
   end
 
   def ensure_slug
-    self.slug = self.name.to_url()
+    self.slug = self.name.to_url() if !self.slug
   end
 end

@@ -5,6 +5,7 @@ class TransportController < ApplicationController
   ALLOWED_DOMAINS = ['http://gazetteer.openstreetmap.org/',
                      'http://nominatim.openstreetmap.org/',
                      'http://dev.openstreetmap.nl/',
+                     "http://api.geonames.org",
                      'http://www.yournavigation.org/',
                      'http://yournavigation.org/']
 

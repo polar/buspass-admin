@@ -105,7 +105,7 @@ of the layout regardless of where it appears here.
     edit = site.pages.create!(
         :slug => "edit",
         :label => "Edit",
-        :layout => normal_layout,
+        :layout => map_layout,
         :is_protected => true,
         :controller_path => "/masters/:master_id/edit",
         :blocks_attributes => [{

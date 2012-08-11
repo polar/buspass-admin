@@ -55,7 +55,7 @@ class WebsitesController < ApplicationController
     # submits to update
   end
 
-  MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone]
+  MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone, :slug]
 
   def create
     authorize_customer!(:create, Master)
