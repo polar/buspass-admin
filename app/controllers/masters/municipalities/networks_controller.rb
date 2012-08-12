@@ -201,7 +201,7 @@ class Masters::Municipalities::NetworksController < Masters::Municipalities::Mun
 
       @logs     = @network.copy_log.drop(@last_log).take(@limit) if @last_log
 
-      resp = { :logs => @logs }
+      resp = { :logs => @logs, :last_log => @last_log }
 
       if (@network.copy_completed_at)
         resp[:completed_at] = @network.copy_completed_at.strftime("%m-%d-%Y %H:%M %Z")

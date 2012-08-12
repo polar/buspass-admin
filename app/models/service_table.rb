@@ -374,9 +374,7 @@ class ServiceTable
             vpc = GoogleUriViewPath.getViewPathCoordinates(jptl.google_uri)
             if ! vpc
               progress.error "Path Error for #{jptl.from.common_name} to #{jptl.to.common_name} for #{jptl.google_uri}"
-              if jptl.google_uri.start_with?("http:")
-                progress.error "Uri returns #{open("#{jptl.google_uri}&output=kml") {|f| Hpricot(f).to_s }}"
-              end
+              progress.commit()
             end
             jptl.view_path_coordinates = vpc
 
@@ -407,7 +405,13 @@ class ServiceTable
       # This should update the version of the journey_pattern
       # and thereby the version of the route.
       if (journey_pattern != nil )
-        journey_pattern.check_consistency!
+        error = journey_pattern.check_consistency
+        if error
+          progress.error "Error in file #{table_file}: line #{file_line}: #{error}"
+          progress.commit()
+        end
+        # Even if there is a consistency error, we still include it so that the
+        # user can look at it.
         #service.journey_patterns << journey_pattern
         vehicle_journey.journey_pattern = journey_pattern
         vehicle_journey.display_name = display_name
@@ -416,7 +420,8 @@ class ServiceTable
         vehicle_journey.save!
       end
       rescue Exception => boom
-        progress.error "Error in file #{table_file}: line #{file_line}: #{boom}" + "#{boom.backtrace.select {|s| s.match(/service_table/)}}"
+        progress.error "Error in file #{table_file}: line #{file_line}: #{boom}"  + "#{boom.backtrace.select {|s| s.match(/service_table/)}}"
+        progress.commit()
       end
     end
     if out != nil

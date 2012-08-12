@@ -18,6 +18,14 @@ class CopyNetworkJob < Struct.new(:from_network_id, :to_network_id)
     logger.add level, "#{Time.now.strftime('%FT%T%z')}: #{text}" if logger
   end
 
+
+  def enqueue(job)
+    say "Network.id #{network_id} token #{token}"
+    net = Network.find(network_id)
+    net.copy_job = job
+    net.save
+  end
+
   def perform
     say "Copy from Network.id #{from_network_id} to Network.id #{to_network_id}"
     net = Network.find(from_network_id)
@@ -41,7 +49,9 @@ class CopyNetworkJob < Struct.new(:from_network_id, :to_network_id)
     end
 
   ensure
-      say "Ending Copy Job"
+    net.copy_job = nil
+    net.save
+    say "Ending Copy Job"
   end
 
 end

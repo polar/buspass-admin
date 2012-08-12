@@ -121,10 +121,12 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
       @network.processing_lock         = current_muni_admin
       @network.processing_log          = []
       @network.processing_errors       = []
+      @network.processing_started_at   = nil
       @network.processing_completed_at = nil
       @network.processing_progress     = 0.0
       @network.save!
 
+      # TODO: Will change Queue to ID
       Delayed::Job.enqueue(:queue => @master.slug,
                            :payload_object => CompileServiceTableJob.new(@network.id, @network.processing_token))
 
@@ -134,6 +136,27 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
       flash[:error] = "Your file was unspecified or not uploaded. Please retry with new file name."
       @network_param_name = :plan
       render :upload
+    end
+  end
+
+  def abort
+    authorize_muni_admin!(:edit, @network)
+
+    if (@network.processing_lock)
+      if (muni_admin_cannot?(:abort, @network))
+        flash[:error] = "You are not authorized to abort this processing."
+      else
+        # This may have to be reset, because of rake jobs:clear
+        jobs = Delayed::Job.all.each do |job|
+          if job.payload_object && job.payload_object.is_a?(CompileServiceTableJob) && job.payload_object.network_id == @network.id
+            job.destroy()
+            flash[:notice] = "The job has been aborted."
+          else
+            flash[:error] = "There is already a job processing."
+          end
+        end
+      end
+      redirect_to master_municipality_network_plan_path(@master, @municipality, @network)
     end
   end
 

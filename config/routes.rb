@@ -200,6 +200,10 @@ BuspassAdmin::Application.routes.draw do
             get :api
           end
 
+          resources :journey_pattern_timing_links, :controller => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links" do
+
+          end
+
           resource :webmap,          :controller => "masters/municipalities/networks/vehicle_journeys/webmap" do
             member do
               get :route
@@ -215,6 +219,7 @@ BuspassAdmin::Application.routes.draw do
             get :display
             get :upload
             get :partial_status
+            post :abort
             get :file
           end
         end

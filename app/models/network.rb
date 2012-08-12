@@ -30,6 +30,8 @@ class Network
   key :copy_errors,   Array
   key :copy_log,      Array
 
+  belongs_to :copy_job, :classs_name => "Delayed::Job"
+
   key :copy_started_at,   Time
   key :copy_completed_at, Time
 

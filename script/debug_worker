@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
+require 'delayed/command'
+Delayed::Worker.logger ||= Logger.new(File.join(Rails.root, 'log', 'delayed_job.log'))
+
+worker = Delayed::Worker.new({ :queues => [:syracuse ]})
+worker.name_prefix = "syracuse"
+worker.start

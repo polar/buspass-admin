@@ -26,7 +26,7 @@ class SuperRolePermit < CanTango::RolePermit
     can([:read], Network) do |network|
       user.master == network.master
     end
-    can([:edit, :delete], Network) do |network|
+    can([:edit, :delete, :abort], Network) do |network|
       !network.municipality.is_active? && user.master == network.master
     end
     can([:edit, :delete], Testament) do |testament|

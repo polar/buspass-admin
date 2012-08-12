@@ -9,10 +9,13 @@ class MuniAdminPermit < CanTango::UserPermit
     cannot(:delete, MuniAdmin) do |muni_admin|
       user == muni_admin
     end
-    can(:read, MuniAdmin)
+    can(:abort, Network) do |network|
+      network.processing_lock == user
+    end
   end
 
   def permit_rules
+    can(:read, MuniAdmin)
   end
 
   module Cached

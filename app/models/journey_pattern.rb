@@ -41,6 +41,18 @@ class JourneyPattern
     vehicle_journey.service
   end
 
+  def network
+    vehicle_journey.network
+  end
+
+  def municipality
+    vehicle_journey.municipality
+  end
+
+  def master
+    vehicle_journey.master
+  end
+
   # We always calculate and save the locator box.
 
   # We only make the name unique so that we may update them by
@@ -73,12 +85,23 @@ class JourneyPattern
     self.version_cache = get_version
   end
 
-  # We use Google to get the path, and the end points between validate
+  def jptl_path(jptl)
+    master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(master, municipality, network, vehicle_journey, jptl)
+  end
+
+  # We use YourNavigation.org to get the path, and the end points between validate
   # links may not be exactly the same, but should be close enough.
   # Also, due to round off error in the storage of the coordinates,
   # we calculate distance to make sure the last to first coordinates
   # of the respective links are close enough to each other.
   DIST_FUDGE = 100
+
+  def check_consistency
+    check_consistency!
+    return nil
+  rescue  Exception => boom
+    return  boom.to_s
+  end
 
   def check_consistency!
     last_jptl = journey_pattern_timing_links.first
@@ -87,17 +110,20 @@ class JourneyPattern
 
     #p last_jptl.view_path_coordinates
     for jptl in journey_pattern_timing_links.drop(1) do
+      last_jptl_link = "<a href='#{jptl_path(last_jptl)}'>JPTL #{last_jptl.position+1}</a>"
+      jptl_link = "<a href='#{jptl_path(jptl)}'>JPTL #{jptl.position+1}</a>"
       location = jptl.from.location
-      if DIST_FUDGE < getGeoDistance(last_to_location.coordinates["LonLat"],location.coordinates["LonLat"])
-        str = "#{last_jptl.position}.to:#{last_to_location.inspect} != #{jptl.position}.from:#{location.inspect}"
-        raise "Inconsistent Locations, from '#{last_jptl.name} to '#{jptl.name}'\n#{str}"
-      end
       coord = jptl.view_path_coordinates["LonLat"].first
-      if DIST_FUDGE < getGeoDistance(coord,last_coord)
+      if DIST_FUDGE < getGeoDistance(last_to_location.coordinates["LonLat"],location.coordinates["LonLat"])
+        str = last_to_location.name != location.name ? " have names that are not equal" : ""
+        raise "Inconsistent Locations. End of #{last_jptl_link}: '#{last_to_location.name}' at #{last_to_location.coordinates["LonLat"]} to #{jptl_link}: '#{location.name}' at #{location..coordinates["LonLat"]}#{str}."
+      end
+      dist = getGeoDistance(last_coord, coord)
+      if DIST_FUDGE < dist
         path1str = "#{last_jptl.from.location.coordinates["LonLat"].inspect} - #{last_jptl.view_path_coordinates["LonLat"].inspect} - #{last_jptl.to.location.coordinates["LonLat"].inspect}"
         path2str = "#{jptl.from.location.coordinates["LonLat"].inspect} - #{jptl.view_path_coordinates["LonLat"].inspect} - #{jptl.to.location.coordinates["LonLat"].inspect}"
-        raise "Inconsistent Path, from '#{last_jptl.name} to '#{jptl.name}'\n#{path1str}\n#{path2str}"
-      end
+        raise "Inconsistent Path. Distance is #{dist} feet between last point on #{last_jptl_link} at #{last_coord.inspect} and first point on #{jptl_link} at #{coord.inspect}."
+     end
       last_coord = jptl.view_path_coordinates["LonLat"].last
       last_jptl = jptl
       last_to_location = jptl.to.location

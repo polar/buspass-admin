@@ -1,5 +1,7 @@
 <% content_for :head do %>
     <script type="text/javascript">
+      // TODO: Put this in the assets
+      // TODO: Make controller decide which buttons (abort,download,upload) are shown.
         $(function() {
             var polling = true;
             function poll() {
@@ -25,10 +27,14 @@
                         if (data['completed_at']) {
                             $('#completed_at').html(data['completed_at']);
                             $('#upload_button').show();
+                            $('#abort_button').hide();
                             polling = false;
                         } else {
                             $('#upload_button').hide();
                             $('#download_button').hide();
+                            if (data['started_at']) {
+                                $('#abort_button').show();
+                            }
                         }
                         if (data['process_file']) {
                             $('#process_file').html(data['process_file']);
