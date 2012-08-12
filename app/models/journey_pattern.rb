@@ -86,7 +86,7 @@ class JourneyPattern
   end
 
   def jptl_path(jptl)
-    master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(master, municipality, network, vehicle_journey, jptl)
+    "/masters/#{master.id}/municipalities/#{municipality.id}/networks/#{network.id}/vehicle_journeys/#{vehicle_journey.id}/journey_pattern_timing_links/#{jptl.id}"
   end
 
   # We use YourNavigation.org to get the path, and the end points between validate
@@ -98,7 +98,6 @@ class JourneyPattern
 
   def check_consistency
     check_consistency!
-    return nil
   rescue  Exception => boom
     return  boom.to_s
   end
@@ -128,7 +127,7 @@ class JourneyPattern
       last_jptl = jptl
       last_to_location = jptl.to.location
     end
-    return true
+    return nil
   end
 
 

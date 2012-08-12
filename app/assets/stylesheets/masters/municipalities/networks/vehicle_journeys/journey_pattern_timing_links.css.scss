@@ -1,0 +1,91 @@
+
+#outer{
+  padding-left: 5px;
+  padding-right: 5px;
+  float: left;
+  overflow: auto;
+  overflow-x: hidden;
+  background-color:#EEE;
+  border-bottom: 1px solid #DDD;
+  border-top: 1px solid #DDD;
+}
+
+#content {
+  margin: 0 0 0 320px;
+  width:100%;
+  height:300px;
+  border-top: 1px solid #DDD;
+}
+
+#navigation {
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 290px;
+/*background: #F9FFF0;*/
+  height: 85%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+#map {
+  width:100%;
+  height:100%;
+  min-width:315px;
+  min-height:300px;
+}
+
+.route_via {
+  list-style: none;
+  position: relative;
+  top: 5px;
+}
+.route_plus {
+  position: relative;
+  top: -20px;
+  left: 250px;
+}
+
+#route_via img.marker {
+  cursor: pointer;
+}
+
+#route_via .marker, #route_via .via_image, #route_via .via_del_image {
+  vertical-align: middle;
+}
+
+#route ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#route ul li {
+  margin: 2px 0 6px 0;
+  padding: 0;
+  font-weight: bold;
+  line-height: 30px; /* height of icon */
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+}
+
+#route ul li a {
+  display: block;
+  margin-left: 30px; /* width of icon + whitespace */
+  padding-left: 20px;
+  width: 30px;
+  style-set: "std-button";
+}
+
+#route input.box {
+  display: inline-block;        /* inline with outer text */
+  display-model: inline-inside; /* contains only inlines */
+  width: 225px;
+  style-set: "std-input";    /* all other visual and behavioral styles are
+                                     derived from standard checkbox */
+}
+
+#via_begin { background-image: url(/assets/yours/markers/route1.png); }
+#via_end { background-image: url(/assets/yours/markers/route2.png); }
+#via_a { background-image: url(/assets/yours/markers/letter1.png); }
+#via_b { background-image: url(/assets/yours/markers/letter2.png); }
+#via_c { background-image: url(/assets/yours/markers/letter3.png); }

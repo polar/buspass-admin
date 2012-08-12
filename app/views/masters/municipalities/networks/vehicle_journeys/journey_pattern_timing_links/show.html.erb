@@ -1,0 +1,65 @@
+<%= render :partial => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/script" %>
+
+<h1>Timing Link</h1>
+<div>
+<div id="outer">
+  <div id="navigation">
+    <div id="fragment-route">
+      <form id="route" name="route" action="#" onsubmit="return false;">
+        <ul id="route_via" class="route_via">
+        </ul>
+        <ul>
+          <li>
+            <div>
+              <img src="/assets/yours/markers/yellow.png" alt="marker to" height="30" style="vertical-align:middle;"/>
+              <input type="button" name="add waypoint" onclick="elementClick(this);" value="Add Waypoint" tabindex="4" class="btn"/>
+            </div>
+          </li>
+        </ul>
+      </form>
+      <form id="calculate" action="#">
+        <div id="route_action">
+          <input type="button" name="calculate" onclick="elementClick(this);" value="Find route" tabindex="3" class="btn"/>
+          <input type="button" name="clear" onclick="elementClick(this);" value="Clear" tabindex="5" class="btn"/>
+          <input type="button" name="reverse" onclick="elementClick(this);" value="Reverse" tabindex="7" class="btn"/>
+        </div>
+      </form>
+      <div id="status">
+      </div>
+
+      <div id="copybox">
+        <input id="copybox_field" type="text"/>
+      </div>
+
+    </div>
+  </div>
+  <div id="extra">
+
+  </div>
+</div>
+  <div id="content"><div id="map"></div></div>
+
+</div>
+
+
+<table class="table table-striped">
+  <tr>
+    <th>Position</th>
+    <th>Departs</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Arrives</th>
+    <th>Duration</th>
+  </tr>
+  <% @journey_pattern_timing_link.tap do |tl| %>
+      <tr>
+        <!--- TODO: Internatialize Time -->
+        <td><%=  tl.position+1  %></td>
+        <td><%=  @vehicle_journey.time_start(tl.position).strftime("%H:%M") %></td>
+        <td><%=  tl.from.common_name  %><br /> <%= tl.from.location.coordinates['LonLat'] %></td>
+        <td><%=  tl.to.common_name  %><br /> <%= tl.to.location.coordinates['LonLat'] %></td>
+        <td><%=  @vehicle_journey.time_end(tl.position).strftime("%H:%M") %></td>
+        <td><%=  tl.time %></td>
+      </tr>
+  <% end %>
+</table>

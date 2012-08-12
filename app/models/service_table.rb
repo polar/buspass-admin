@@ -5,6 +5,14 @@ require "hpricot"
 class ServiceTable
   include PageUtils
 
+  class JobAborted < Exception
+
+  end
+
+  class ProcessingError < Exception
+
+  end
+
   class Progress < Struct.new(:network)
     def error(s)
       network.processing_errors << s
@@ -18,6 +26,19 @@ class ServiceTable
       super(*args)
       @prog = []
       @totals = [1.0]
+
+      if network.processing_job
+        # We are running under a Delayed::Job. If it goes away
+        # then we must indicate that we are aborting.
+        @started_with_job = true
+      end
+    end
+
+    def continue!
+      # if we started by a job, then we don't continue if it goes away. effective abort.
+      if @started_with_job && !network.processing_job
+        raise JobAborted.new("Job has been aborted.")
+      end
     end
 
     def progress(glevel,j,n)
@@ -62,7 +83,7 @@ class ServiceTable
   def self.getDesignator(ch)
     x = self.designator[ch]
     if x == nil
-      raise "Bad Day Class Designator"
+      raise ProcessingError.new("Bad Day Class Designator")
     end
     return x
   end
@@ -110,20 +131,20 @@ class ServiceTable
         elsif (timeliteral.index('.') != nil)
           h,m = timeliteral.split('.').map {|n| n.to_i}
         else
-          raise "Time Format Error"
+          raise ProcessingError.new("Time Format Error")
         end
       elsif timeliteral.is_a? Float
         h,m = sprintf("%0.2f",timeliteral).split('.').map {|n| n.to_i}
       else
-        raise "Time Format Error"
+        raise ProcessingError.new("Time Format Error")
       end
       if (m < 0 || m > 59)
-        raise "Time Format Error"
+        raise ProcessingError.new("Time Format Error")
       end
       # works even if hours is negative.  -1.23 means 11:23pm the previous day.
       time = Time.parse("0:00") + h.hours + m.minutes
     rescue
-      raise "Invalid Time Error at 111 '#{timeliteral}' h=#{h} m=#{m}"
+      raise ProcessingError.new("Invalid Time Error at 111 '#{timeliteral}' h=#{h} m=#{m}")
     end
   end
 
@@ -200,6 +221,7 @@ class ServiceTable
     #
     for cols in tab
       progress.progress(0, file_line, line_count)
+      progress.continue!
       file_line += 1
 
       if cols[0] == "Direction"
@@ -250,14 +272,14 @@ class ServiceTable
       end
       if stop_point_names == nil || stop_point_locations == nil || direction == nil
         progress.error "#{table_file}:#{file_line}: Need to have all 'Stop Points', 'Locations', and 'Direction' lines before processing routes. Processing of file stopped."
-        raise "cannot continue with this file; needs start date, end date, and direction."
+        raise ProcessingError.new("cannot continue with this file; needs start date, end date, and direction.")
       else
         # We can individually change these at any time, but we need them all.
         # (sdc || edc || dc) implies ()sdc && edc && dc)
         # ()p implies q) === (!p || q)
         if !(!(stop_points_changed || locations_changed || direction_changed) || (stop_points_changed && locations_changed && direction_changed))
           progress.error "#{table_file}:#{file_line}: Need to change all 'Stop Points', 'Locations', and 'Direction' lines before processing routes. Processing of file stopped."
-          raise "cannot continue with this file; needs start date, end date, and direction."
+          raise ProcessingError.new("cannot continue with this file; needs start date, end date, and direction.")
         end
       end
       # We can individually change these at any time, but we need them all.
@@ -268,11 +290,11 @@ class ServiceTable
       end
       if stop_point_names == nil || stop_point_locations == nil || direction == nil
         progress.error "#{table_file}:#{file_line}: Need to have 'Stop Points' and 'Locations' lines. Processing of file stopped."
-        raise "cannot continue with this file, no stop points or no locations"
+        raise ProcessingError.new("cannot continue with this file, no stop points or no locations")
       end
       if start_date == nil || end_date == nil
         progress.error "#{table_file}:#{file_line}: Need to have 'Start Date' and 'End Date' lines. Processing of file stopped."
-        raise "cannot continue with this file, no stop points or no locations"
+        raise ProcessingError.new("cannot continue with this file, no stop points or no locations")
       end
       begin
       # Otherwise, we start reading JPTLs
@@ -309,6 +331,8 @@ class ServiceTable
 
       # Times start on Column D
       times = cols.drop(3)
+
+      progress.continue!
 
       progress.log("Service #{service.name}")
       progress.log("#{times.inspect}")
@@ -405,23 +429,37 @@ class ServiceTable
       # This should update the version of the journey_pattern
       # and thereby the version of the route.
       if (journey_pattern != nil )
-        error = journey_pattern.check_consistency
+        # Even if there is a consistency error, we still include it so that the
+        # user can look at it.
+        # TODO: We might mark a journey pattern as inconsitent so that it won't run.
+        #service.journey_patterns << journey_pattern
+        vehicle_journey.journey_pattern = journey_pattern
+        vehicle_journey.display_name = display_name
+        vehicle_journey.save!
+        # autosave is false for vehicle_journey
+        service.vehicle_journeys << vehicle_journey
+        vehicle_journey.save!
+        service.save!
+        if (!vehicle_journey.journey_pattern.vehicle_journey)
+          progress.error("journey_pattern.vehicle_journey is null! #{vehicle_journey.id}")
+          progress.commit()
+        end
+
+
+        error = vehicle_journey.journey_pattern.check_consistency
         if error
           progress.error "Error in file #{table_file}: line #{file_line}: #{error}"
           progress.commit()
         end
-        # Even if there is a consistency error, we still include it so that the
-        # user can look at it.
-        #service.journey_patterns << journey_pattern
-        vehicle_journey.journey_pattern = journey_pattern
-        vehicle_journey.display_name = display_name
-        # autosave is false for vehicle_journey
-        service.vehicle_journeys << vehicle_journey
-        vehicle_journey.save!
       end
-      rescue Exception => boom
-        progress.error "Error in file #{table_file}: line #{file_line}: #{boom}"  + "#{boom.backtrace.select {|s| s.match(/service_table/)}}"
+
+      progress.continue!
+
+      rescue ProcessingError => boom
+        progress.error "Error in file #{table_file}: line #{file_line}: #{boom}"  + "#{boom.backtrace.take(5)}}"
         progress.commit()
+      rescue JobAborted => abort
+        raise abort
       end
     end
     if out != nil
@@ -514,11 +552,20 @@ class ServiceTable
       progress.progress(1, ifile, nfiles)
       ifile += 1
       begin
+        progress.continue!
         self.generateJPTLs(network, dir, f, progress)
-      rescue Exception => boom
-        p boom
+      rescue ProcessingError => boom
         progress.error("#{boom}")
         progress.commit()
+      rescue JobAborted => boom2
+        progress.error("Job has been aborted")
+        progress.commit()
+        raise boom2
+      rescue Exception => boom3
+        p boom
+        progress.error("#{boom3}")
+        progress.commit()
+        raise boom3
       end
     end
   end

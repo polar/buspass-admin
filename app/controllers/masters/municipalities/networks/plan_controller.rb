@@ -46,6 +46,12 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
   def partial_status
     authorize_muni_admin!(:read, @network)
 
+    # TODO: Find out why I need to reload  network?
+    # Perhaps its because another process is updating netowrk?
+    # If that is the case, though, then we've got reload problems
+    # everywhere if multiple processes are running parallel each app instance.
+    @network.reload
+
     @last_log = params[:log].to_i
     @last_err = params[:err].to_i
     @limit    = (params[:limit] || 10000000).to_i # makes take(@limit) work if no limit.
