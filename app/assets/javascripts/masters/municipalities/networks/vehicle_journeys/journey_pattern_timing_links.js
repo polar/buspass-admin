@@ -35,6 +35,101 @@ BusPass.PathFinderController = OpenLayers.Class({
 
     onLocationUpdated : function(coordinates) {},
 
+    initializeFromOptions : function () {
+        if (this.defaultRoute) {
+            this.initializeFromDefaultRoute();
+        } else {
+            this.initializeFromWaypoints();
+        }
+    },
+
+    revert : function () {
+        $("#route_via").html("");
+        this.Route.clear();
+        this.initializeFromDefaultRoute();
+    },
+
+    notice : function (message, type) {
+        if (message == "")  {
+            $("#status").html("");
+            return;
+        }
+        switch (type) {
+            case 'warning':
+                message = '<span class="alert alert-warning">' + message + '</span>';
+                break;
+            case 'error':
+                message = '<span class="alert alert-error">' + message + '</span>';
+                break;
+            default:
+                message = '<span class="alert alert-info">' + message + '</span>';
+        }
+        $("#status").html(message);
+    },
+
+    initializeMapCenter : function () {
+        if (!this.Map.getCenter()) {
+            if (this.center) {
+                var pos = new OpenLayers.LonLat(this.center[0], this.center[1]);
+                this.Map.setCenter(pos.transform(this.Map.displayProjection, this.Map.projection), 14);
+            } else {
+                var pos = new OpenLayers.LonLat(-74,34);
+                this.Map.setCenter(pos.transform(this.Map.displayProjection, this.Map.projection), 4);
+            }
+        }
+    },
+
+    initializeRouteStyleMap : function () {
+        var styleMap = new OpenLayers.StyleMap({
+            "default":new OpenLayers.Style({
+                strokeColor: "#00FF00",
+                strokeWidth: 3
+            }),
+            "select":new OpenLayers.Style({
+                strokeColor: "#00FFFF",
+                strokeWidth: 3,
+                cursor:'move'
+            })
+        })
+        return styleMap;
+    },
+
+    initializeMarkerStyleMap : function () {
+        var styleMap = new OpenLayers.StyleMap({
+            "default":new OpenLayers.Style({
+                graphicOpacity:0.75,
+                externalGraphic:'${image}',
+                graphicWidth:20,
+                graphicHeight:34,
+                graphicXOffset:-10,
+                graphicYOffset:-34
+            }),
+            "select":new OpenLayers.Style({
+                graphicOpacity:1,
+                cursor:'move'
+            })
+        })
+        return styleMap;
+    },
+
+    initializeMap : function () {
+        var map = new OpenLayers.Map ("map", {
+            controls: [
+                new OpenLayers.Control.Navigation(),
+                new OpenLayers.Control.PanZoomBar(),
+                new OpenLayers.Control.Attribution()
+            ],
+            layers : [new OpenLayers.Layer.OSM.Mapnik("Mapnik")],
+            maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+            maxResolution: 156543.0399,
+            numZoomLevels: 20,
+            units: 'm',
+            projection: new OpenLayers.Projection("EPSG:900913"),
+            displayProjection: new OpenLayers.Projection("EPSG:4326")
+        });
+        return map;
+    },
+
     Map : null,
 
     Controls : null,
@@ -50,43 +145,18 @@ BusPass.PathFinderController = OpenLayers.Class({
         OpenLayers.Util.extend(this, options);
         var ctrl = this;
 
-        // Map definition based on http://wiki.openstreetmap.org/index.php/OpenLayers_Simple_Example
-        this.Map = new OpenLayers.Map ("map", {
-            controls: [
-                new OpenLayers.Control.Navigation(),
-                new OpenLayers.Control.PanZoomBar(),
-                new OpenLayers.Control.Attribution()
-            ],
-            maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
-            maxResolution: 156543.0399,
-            numZoomLevels: 20,
-            units: 'm',
-            projection: new OpenLayers.Projection("EPSG:900913"),
-            displayProjection: new OpenLayers.Projection("EPSG:4326")
-        } );
-        var layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
+        this.Map = this.initializeMap();
 
-        this.Map.addLayers([layerMapnik]);
-
-        this.RouteLayer = new OpenLayers.Layer.Vector("Route");
-        this.MarkersLayer = new OpenLayers.Layer.Vector("Markers", {
-            styleMap: new OpenLayers.StyleMap({
-                "default": new OpenLayers.Style({
-                    graphicOpacity: 0.75,
-                    externalGraphic: '${image}',
-                    graphicWidth: 20,
-                    graphicHeight: 34,
-                    graphicXOffset: -10,
-                    graphicYOffset: -34
-                }),
-                "select": new OpenLayers.Style({
-                    graphicOpacity: 1,
-                    cursor: 'move'
-                })
-            })
+        this.RouteLayer = new OpenLayers.Layer.Vector("Route", {
+            styleMap: this.initializeRouteStyleMap()
         });
-        this.Map.addLayers([this.RouteLayer, this.MarkersLayer]);
 
+        this.MarkersLayer = new OpenLayers.Layer.Vector("Markers", {
+            styleMap: this.initializeMarkerStyleMap()
+        });
+
+        // Markers go on top, but will be switched if drawing lines, instead of auto-routing.
+        this.Map.addLayers([this.RouteLayer, this.MarkersLayer]);
 
         this.Controls = {
             click: new BusPass.ClickLocationControl({
@@ -141,6 +211,8 @@ BusPass.PathFinderController = OpenLayers.Class({
         this.Map.addControl(this.Controls.modify);
         var control = this.Controls.modify;
 
+        this.initializeMapCenter();
+
         this.RouteLayer.events.on({
             beforefeaturemodified : function (event) {
                 console.log("Feature Being Modifed");
@@ -159,16 +231,6 @@ BusPass.PathFinderController = OpenLayers.Class({
                 console.log("There are vertices: " + ctrl.Controls.modify.vertices.length);
             }
         });
-
-        if (!this.Map.getCenter()) {
-            if (this.center) {
-                var pos = new OpenLayers.LonLat(this.center[0], this.center[1]);
-                this.Map.setCenter(pos.transform(this.Map.displayProjection, this.Map.projection), 14);
-            } else {
-                var pos = new OpenLayers.LonLat(-74,34);
-                this.Map.setCenter(pos.transform(this.Map.displayProjection, this.Map.projection), 4);
-            }
-        }
 
         $("#add_waypoint").click(function() {
             console.log("Add Waypoint Button");
@@ -201,11 +263,7 @@ BusPass.PathFinderController = OpenLayers.Class({
             }
         });
 
-        if (this.defaultRoute) {
-            this.initializeFromDefaultRoute();
-        } else {
-            this.initializeFromWaypoints();
-        }
+        this.initializeFromOptions();
     },
 
     initializeFromDefaultRoute : function () {
@@ -231,27 +289,42 @@ BusPass.PathFinderController = OpenLayers.Class({
     },
 
     initializeFromWaypoints : function () {
-        // Add Two Initial Waypoints that will be "start" and "end"
-        this.addWaypoint(this.Route);
-        this.addWaypoint(this.Route);
-        var start = this.Route.getWaypoint("start");
-        var finish = this.Route.getWaypoint("end");
-        start.Locked = true;
-        finish.Locked = true;
         if (this.startPoint) {
             var pos = new OpenLayers.LonLat(this.startPoint[0], this.startPoint[1]);
             var transformedLonLat = pos.transform(this.Map.displayProjection, this.Map.projection);
-            start.updateLonLat(transformedLonLat);
-            this.triggerOnLocationUpdated(start);
+            var wp = this.Route.newWaypoint(transformedLonLat);
+            this.Route.addWaypoint(wp);
         }
         if (this.endPoint) {
             var pos = new OpenLayers.LonLat(this.endPoint[0], this.endPoint[1]);
             var transformedLonLat = pos.transform(this.Map.displayProjection, this.Map.projection);
-            finish.updateLonLat(transformedLonLat);
-            this.triggerOnLocationUpdated(finish);
+            var wp = this.Route.newWaypoint(transformedLonLat);
+            this.Route.addWaypoint(wp);
         }
+        this.lockEndpoints();
+        this.initializeRouteUI();
         // We don't select any waypoints because we only do when they are added.
-        this.Route.selectWaypoint();}
+        this.Route.selectWaypoint();
+    },
+
+    lockEndpoints : function () {
+        var start = this.Route.getWaypoint("start");
+        var finish = this.Route.getWaypoint("end");
+        if (start) {
+            start.Locked = true;
+        }
+        if (finish) {
+            finish.Locked = true;
+        }
+    },
+
+    initializeRouteUI : function () {
+        $("#route_via").html("");
+        for (var i = 0; i < this.Route.Waypoints.length; i++) {
+            var wp = this.Route.Waypoints[i];
+            this.addWaypointUI(wp);
+        }
+        this.renumberWaypointUI();
     },
 
     setAutoroute : function (autoroute) {
@@ -262,19 +335,19 @@ BusPass.PathFinderController = OpenLayers.Class({
             this.Map.removeLayer(this.RouteLayer);
             this.Map.removeLayer(this.MarkersLayer);
             this.Map.addLayers([this.RouteLayer, this.MarkersLayer]);
-            if (this.LineFeature) {
-                this.RouteLayer.removeFeatures(this.LineFeature);
-                this.Route.initializeWithFeature(this.LineFeature);
-                this.LineFeature = undefined;
-                this.renumberWaypointUI();
+            if (this.LineString) {
+                this.RouteLayer.removeFeatures(this.LineString);
+                this.Route.initializeWithLineString(this.LineString);
+                this.LineString = undefined;
+                this.initializeRouteUI();
                 this.Route.draw();
             }
             $("#add_waypoint").attr("disabled", false);
         } else {
-            var feature = this.Route.createFeature();
+            var lineString = this.Route.createLineString();
             for(var i = 0; i < this.Route.Links.length; i++) {
                 var link = this.Route.Links[i];
-                this.RouteLayer.removeFeatures(link.feature);
+                this.RouteLayer.removeFeatures(link.lineString);
             }
             for (var i = 0; i < this.Route.Waypoints.length; i++) {
                 if (i !=0 && i != this.Route.Waypoints.length-1) {
@@ -282,64 +355,14 @@ BusPass.PathFinderController = OpenLayers.Class({
                 }
             }
             $("#add_waypoint").attr("disabled", "disabled");
-            this.LineFeature = feature;
-            this.RouteLayer.addFeatures(feature);
+            this.LineString = lineString;
+            this.RouteLayer.addFeatures(lineString);
             this.Map.removeLayer(this.RouteLayer);
             this.Map.removeLayer(this.MarkersLayer);
             this.Map.addLayers([this.MarkersLayer, this.RouteLayer]);
             this.Controls.modify.activate();
-            this.Controls.modify.selectFeature(feature);
+            this.Controls.modify.selectFeature(lineString);
         }
-
-    },
-
-    revert : function () {
-        $("#route_via").html("");
-        this.Route.clear();
-        this.initializeFromDefaultRoute();
-    },
-
-    notice:function notice(message, type) {
-        if (message == "")  {
-            $("#status").html("");
-            return;
-         }
-        switch (type) {
-            case 'warning':
-                message = '<span class="alert alert-warning">' + message + '</span>';
-                break;
-            case 'error':
-                message = '<span class="alert alert-error">' + message + '</span>';
-                break;
-            default:
-                message = '<span class="alert alert-info">' + message + '</span>';
-        }
-        $("#status").html(message);
-    },
-
-    writeToCopyBox : function (route) {
-        var data = "";
-        for(var i = 0; i < route.Links.length; i++) {
-            var link = route.Links[i];
-            if (link.feature !== undefined) {
-                for (var j = 0; j < link.points.length; j++) {
-                    var point = link.points[j].clone();
-                    point = point.transform(this.Map.projection, this.Map.displayProjection)
-                    data += " " + point.x.toFixed(6) + "," + point.y.toFixed(6);
-                }
-            } else {
-                return;
-            }
-        }
-        var html = "";
-
-        html += "<kml xmlns='http://earth.google.com/kml/2.0'>";
-        html += "<Document><Folder><Placemark><LineString><coordinates>";
-        html += data;
-        html += "</coordinates></LineString></Placemark></Folder></Document>";
-        html += "</kml>";
-
-        $("#copybox_field").val(html);
 
     },
 
@@ -353,6 +376,12 @@ BusPass.PathFinderController = OpenLayers.Class({
                 this.writeToCopyBox(route);
             }
         }
+    },
+
+    onLocationUpdated : function(waypoint, coordinates) {
+        console.log("onLocationUpdated("+coordinates+")");
+        var wp_li = waypoint.viewElement;
+        $(wp_li).find("input.wp_location").val(coordinates[0].toFixed(6)+","+coordinates[1].toFixed(6));
     },
 
     onWaypointClick : function (lonlat) {
@@ -378,30 +407,59 @@ BusPass.PathFinderController = OpenLayers.Class({
     triggerOnLocationUpdated:function (waypoint) {
         console.log("triggerOnLocationUpdated");
         if (waypoint !== undefined) {
-            var point = new OpenLayers.Geometry.Point(waypoint.lonlat.lon, waypoint.lonlat.lat);
-            var newPoint = point.transform(this.Map.projection, this.Map.displayProjection);
-            var data = newPoint.x.toFixed(6) + ',' + newPoint.y.toFixed(6);
-            var lon = newPoint.x.toFixed(6);
-            var lat = newPoint.y.toFixed(6);
-            this.onLocationUpdated(waypoint, [lon, lat]);
+            var lonlat = waypoint.lonlat.clone();
+            lonlat.transform(this.Map.projection, this.Map.displayProjection);
+            this.onLocationUpdated(waypoint, [lonlat.lon, lonlat.lat]);
         }
     },
 
-    onLocationUpdated : function(waypoint, coordinates) {
-        console.log("onLocationUpdated("+coordinates+")");
-        var wp_li = waypoint.viewElement;
-        $(wp_li).find("input.wp_location").val(coordinates);
+    updateWaypointDeleteButtons : function () {
+        for(var i = 0; i < this.Route.Waypoints.length; i++) {
+            var wp = this.Route.Waypoints[i];
+            if (wp.Locked) {
+                $(wp.viewElement).find("[name='via_del_image']").attr("disabled","disabled").css("visibility", "hidden");
+            } else {
+                $(wp.viewElement).find("[name='via_del_image']").removeAttr("disabled").css("visibility", "visible");
+            }
+        }
     },
 
-    updateWaypointDeleteButtons : function () {
-            // Enable the remove buttons based on the number of waypoints
-            var disable_delete = $("#route_via li").length <= 2;
-            if (disable_delete) {
-                $("#route_via input[name='via_del_image']").attr("disabled", "disabled").css("visibility", "hidden");
+    writeToCopyBox : function (route) {
+        var data = "";
+        for(var i = 0; i < route.Links.length; i++) {
+            var link = route.Links[i];
+            if (link.lineString !== undefined) {
+                for (var j = 0; j < link.points.length; j++) {
+                    var point = link.points[j].clone();
+                    point = point.transform(this.Map.projection, this.Map.displayProjection)
+                    data += " " + point.x.toFixed(6) + "," + point.y.toFixed(6);
+                }
             } else {
-                $("#route_via input[name='via_del_image']").removeAttr("disabled").css("visibility", "visible");
+                return;
             }
-        },
+        }
+        var html = "";
+
+        html += "<kml xmlns='http://earth.google.com/kml/2.0'>";
+        html += "<Document><Folder><Placemark><LineString><coordinates>";
+        html += data;
+        html += "</coordinates></LineString></Placemark></Folder></Document>";
+        html += "</kml>";
+
+        $("#copybox_field").val(html);
+
+    },
+
+    /**
+     * Creates a UI element for the Way point, and adds it
+     * to the list. May have to renumber the UI after done.
+     * @param wp  The Waypoint being added to the UI.
+     */
+    addWaypointUI : function (wp) {
+        var wp_li = this.createWaypointDOMElement(route, wp);
+        var ul = $("#route_via");
+        ul.append(wp_li);
+    },
 
     addWaypoint : function (route) {
         /*
@@ -460,7 +518,7 @@ BusPass.PathFinderController = OpenLayers.Class({
     },
 
     /*
-     * Renumber the UI based on the Waypoints Collection.
+     * Renumber the UI based on the Waypoints Model.
      */
     renumberWaypointUI : function () {
         for(var index = 0; index < this.Route.Waypoints.length; index++) {
@@ -531,6 +589,11 @@ BusPass.PathFinderController = OpenLayers.Class({
         location.attr("type", "text");
         location.attr("name", "via_location");
         location.addClass("wp_location");
+        if (waypoint.lonlat) {
+            var lonlat = waypoint.lonlat.clone();
+            lonlat.transform(this.Map.projection, this.Map.displayProjection);
+            location.val(lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6));
+        }
 
         var del_button = $(document.createElement("input"));
         del_button.attr("type", "image");
@@ -569,5 +632,5 @@ BusPass.PathFinderController = OpenLayers.Class({
         wp_li.waypoint = waypoint;
 
         return wp_li;
-    },
+    }
 });

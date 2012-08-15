@@ -53,13 +53,13 @@ BusPass.Route = OpenLayers.Class({
         return features;
     },
 
-    initializeWithFeature : function (feature) {
+    initializeWithLineString : function (lineString) {
         this.Links = [];
         this.Waypoints = [];
 
         var link = new BusPass.Route.Link({
             route : this,
-            feature : feature
+            lineString : lineString
         });
 
         this.Waypoints = [link.startWaypoint, link.endWaypoint];
@@ -70,17 +70,17 @@ BusPass.Route = OpenLayers.Class({
 
 
     initializeWithKML : function (kml) {
-        var feature =  this.parseKMLToFeatures(kml);
+        var features =  this.parseKMLToFeatures(kml);
         // The lineString should be the first feature.
         // Others are ignored.
-        this.initializeWithFeature(feature[0]);
+        this.initializeWithLineString(features[0]);
     },
 
     getPoints : function () {
         data = [];
         for(var i = 0; i < this.Links.length; i++) {
             var link = this.Links[i];
-            if (link.feature !== undefined) {
+            if (link.lineString !== undefined) {
                 for (var j = 0; j < link.points.length; j++) {
                     var point = link.points[j].clone();
                     data.push(point);
@@ -92,11 +92,20 @@ BusPass.Route = OpenLayers.Class({
         return data;
     },
 
-    createFeature : function () {
+    createLineString : function () {
         var points = this.getPoints();
         var geometry = new OpenLayers.Geometry.LineString(points);
-        var feature = new OpenLayers.Feature.Vector(geometry);
-        return feature;
+        var lineString = new OpenLayers.Feature.Vector(geometry);
+        return lineString;
+    },
+
+    newWaypoint : function(options) {
+        options = OpenLayers.Util.extend({}, options);
+        options = OpenLayers.Util.extend(options, {
+            route : this
+        });
+        var wp = new BusPass.Route.Waypoint(options);
+        return wp;
     },
 
     getWaypoint : function(id) {
@@ -285,7 +294,7 @@ BusPass.Route = OpenLayers.Class({
     updateLinksState : function () {
         for (var i = 0; i < this.Links.length; i++) {
             var link = this.Links[i];
-            if (link.feature === undefined) {
+            if (link.lineString === undefined) {
                 link.launchGetRoute();
             }
         }
@@ -446,11 +455,11 @@ BusPass.Route.Link = OpenLayers.Class({
         if (this.endWaypoint) {
             this.endWaypoint.backLink = this;
         }
-        if (this.feature) {
+        if (this.lineString) {
             if (this.startWaypoint || this.endWaypoint) {
                 alert("bad init of BusPass.Route.Link");
             }
-            this.points = this.feature.geometry.components;
+            this.points = this.lineString.geometry.components;
             this.startWaypoint = new BusPass.Route.Waypoint({
                 route : this.route,
                 lonlat : new OpenLayers.LonLat(this.points[0].x, this.points[0].y),
@@ -496,7 +505,7 @@ BusPass.Route.Link = OpenLayers.Class({
 
     points : [],
 
-    feature : null,
+    lineString : null,
 
     triggerUpdate : function () {
         if (this.onLinkUpdated) {
@@ -515,13 +524,13 @@ BusPass.Route.Link = OpenLayers.Class({
         }
         if (self.startWaypoint.lonlat && self.endWaypoint.lonlat) {
             if (!this.route.autoroute) {
-                var geometry = new OpenLayers.Geometry.LineString(
+                var lineString = new OpenLayers.Geometry.LineString(
                     [self.startWaypoint.lonlat, self.endWaypoint.lonlat]
                 );
                 var vector = new OpenLayers.Feature.Vector(geometry);
-                self.route.RouteLayer.removeFeatures(self.feature);
-                self.feature = feature;
-                self.points = self.feature[0].geometry.components;
+                self.route.RouteLayer.removeFeatures(self.lineString);
+                self.lineString = lineString;
+                self.points = self.lineString[0].geometry.components;
                 if (returnCallback !== undefined) {
                     returnCallback(self);
                 }
@@ -530,11 +539,12 @@ BusPass.Route.Link = OpenLayers.Class({
             self.route.RouteApi.getRoute(self.startWaypoint.lonlat, self.endWaypoint.lonlat,
                 function (xml) {
                     try {
-                        var feature = self.route.parseKMLToFeatures(xml);
-                        if (feature) {
-                            self.route.RouteLayer.removeFeatures(self.feature);
-                            self.feature = feature;
-                            self.points = self.feature[0].geometry.components;
+                        var features = self.route.parseKMLToFeatures(xml);
+                        if (features) {
+                            self.route.RouteLayer.removeFeatures(self.lineString);
+                            // LineString *should* be the first one.
+                            self.lineString = features[0];
+                            self.points = self.lineString.geometry.components;
                         }
                     } catch (err) {
                         console.log("Route Error: bad line string.");
@@ -553,15 +563,15 @@ BusPass.Route.Link = OpenLayers.Class({
     },
 
     draw : function () {
-        if (this.route.RouteLayer !== undefined && this.feature) {
-            this.route.RouteLayer.addFeatures(this.feature);
+        if (this.route.RouteLayer !== undefined && this.lineString) {
+            this.route.RouteLayer.addFeatures(this.lineString);
         }
     },
 
     destroy : function () {
-        if (this.feature) {
-            this.route.RouteLayer.removeFeatures(this.feature);
-            this.feature = undefined;
+        if (this.lineString) {
+            this.route.RouteLayer.removeFeatures(this.lineString);
+            this.lineString = undefined;
         }
         // Due to Joins we may have already changed the
         // forward/back links on the Waypoints. We only nullify
