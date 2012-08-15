@@ -20,7 +20,11 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
      * the first and last vertices from the layer after it super class has done this job.
      */
     collectVertices : function () {
+        console.log("ModifyFeatures.collectVertices |- " + this.vertices.length);
         OpenLayers.Control.ModifyFeature.prototype.collectVertices.apply(this, arguments);
+        console.log("ModifyFeatures.collectVertices -| " + this.vertices.length);
+        console.log("ModifyFeatures.collectVertices -| " + this.layer.name);
+        console.log("ModifyFeatures.collectVertices -| " + this.layer.features.length);
         this.layer.removeFeatures(this.vertices[0]);
         if (this.vertices.length > 1) {
             this.layer.removeFeatures(this.vertices[this.vertices.length-1]);

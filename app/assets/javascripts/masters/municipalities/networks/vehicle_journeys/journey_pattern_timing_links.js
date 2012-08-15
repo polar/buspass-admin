@@ -85,6 +85,12 @@ BusPass.PathFinderController = OpenLayers.Class({
                 strokeColor: "#00FF00",
                 strokeWidth: 3
             }),
+            "vertex" : new OpenLayers.Style({
+                fillColor : "#00aa33",
+                strokeWidth: 0,
+                fillOpacity : 1,
+                pointRadius : 4
+            }),
             "select":new OpenLayers.Style({
                 strokeColor: "#00FFFF",
                 strokeWidth: 3,
@@ -196,7 +202,10 @@ BusPass.PathFinderController = OpenLayers.Class({
                     }
                 }
             }),
-            modify : new BusPass.Controls.ModifyFeature(this.RouteLayer, {standalone : true}),
+            modify : new BusPass.Controls.ModifyFeature(this.RouteLayer, {
+                standalone : true,
+                vertexRenderIntent : "vertex"
+            }),
             select: new OpenLayers.Control.SelectFeature(this.MarkersLayer, {hover: true})
         };
         // Add control to handle mouse clicks for placing markers
@@ -335,33 +344,24 @@ BusPass.PathFinderController = OpenLayers.Class({
             this.Map.removeLayer(this.RouteLayer);
             this.Map.removeLayer(this.MarkersLayer);
             this.Map.addLayers([this.RouteLayer, this.MarkersLayer]);
-            if (this.LineString) {
-                this.RouteLayer.removeFeatures(this.LineString);
-                this.Route.initializeWithLineString(this.LineString);
-                this.LineString = undefined;
-                this.initializeRouteUI();
-                this.Route.draw();
-            }
-            $("#add_waypoint").attr("disabled", false);
+            $("#add_waypoint").removeAttr("disabled");
         } else {
-            var lineString = this.Route.createLineString();
-            for(var i = 0; i < this.Route.Links.length; i++) {
-                var link = this.Route.Links[i];
-                this.RouteLayer.removeFeatures(link.lineString);
-            }
-            for (var i = 0; i < this.Route.Waypoints.length; i++) {
-                if (i !=0 && i != this.Route.Waypoints.length-1) {
-                    this.MarkersLayer.removeFeatures(this.Route.Waypoints[i].marker);
-                }
-            }
             $("#add_waypoint").attr("disabled", "disabled");
-            this.LineString = lineString;
-            this.RouteLayer.addFeatures(lineString);
+
+            var lineString = this.Route.createLineString();
+
+            // Rebuild from the single LineString, results in one Link.
+            this.Route.clear();
+            this.Route.initializeWithLineString(lineString);
+            this.lockEndpoints();
+            this.initializeRouteUI();
+            this.Route.draw();
+
             this.Map.removeLayer(this.RouteLayer);
             this.Map.removeLayer(this.MarkersLayer);
             this.Map.addLayers([this.MarkersLayer, this.RouteLayer]);
             this.Controls.modify.activate();
-            this.Controls.modify.selectFeature(lineString);
+            this.Controls.modify.selectFeature(this.Route.Links[0].lineString);
         }
 
     },

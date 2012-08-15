@@ -68,7 +68,6 @@ BusPass.Route = OpenLayers.Class({
 
     },
 
-
     initializeWithKML : function (kml) {
         var features =  this.parseKMLToFeatures(kml);
         // The lineString should be the first feature.
@@ -477,7 +476,9 @@ BusPass.Route.Link = OpenLayers.Class({
     startWaypointUpdated : function (link, wp) {
         this.launchGetRoute(
             function (link) {
-                link.triggerUpdate();
+                if (!link.isDestroyed()) {
+                    link.triggerUpdate();
+                }
             },
             function (self, jqXHR, textStatus, errorThrown) {
 
@@ -488,7 +489,9 @@ BusPass.Route.Link = OpenLayers.Class({
     endWaypointUpdated : function (link, wp) {
         this.launchGetRoute(
             function (link) {
-                link.triggerUpdate();
+                if (!link.isDestroyed()) {
+                    link.triggerUpdate();
+                }
             },
             function (self, jqXHR, textStatus, errorThrown) {
 
@@ -497,9 +500,10 @@ BusPass.Route.Link = OpenLayers.Class({
     },
 
     reroute : function (draw) {
-        var self = this;
         this.launchGetRoute(function (link) {
-            self.triggerUpdate();
+            if (!link.isDestroyed()) {
+                link.triggerUpdate();
+            }
         });
     },
 
@@ -513,6 +517,17 @@ BusPass.Route.Link = OpenLayers.Class({
         }
     },
 
+    /**
+     * Returns true if this Link has been destroyed. Useful in
+     * Ajax callbacks. This call is only valid after the Link
+     * has been properly initialized. That means it is still
+     * associated with a route.
+     * @return {Boolean}
+     */
+    isDestroyed : function () {
+        return !this.route;
+    },
+
     launchGetRoute : function (returnCallback, errorCallback) {
         var self = this;
         if (!self.startWaypoint || !self.endWaypoint) {
@@ -523,7 +538,7 @@ BusPass.Route.Link = OpenLayers.Class({
             this.points = undefined;
         }
         if (self.startWaypoint.lonlat && self.endWaypoint.lonlat) {
-            if (!this.route.autoroute) {
+            if (!self.route.autoroute) {
                 var lineString = new OpenLayers.Geometry.LineString(
                     [self.startWaypoint.lonlat, self.endWaypoint.lonlat]
                 );
@@ -539,12 +554,18 @@ BusPass.Route.Link = OpenLayers.Class({
             self.route.RouteApi.getRoute(self.startWaypoint.lonlat, self.endWaypoint.lonlat,
                 function (xml) {
                     try {
-                        var features = self.route.parseKMLToFeatures(xml);
-                        if (features) {
-                            self.route.RouteLayer.removeFeatures(self.lineString);
-                            // LineString *should* be the first one.
-                            self.lineString = features[0];
-                            self.points = self.lineString.geometry.components;
+                        // Since this is an Ajax return, this link may have already been
+                        // destroyed. If it doesn't have a route, it's gone. We will
+                        // still maintain callback integrity, but the callback should
+                        // notice.
+                        if (!self.isDestroyed()){
+                            var features = self.route.parseKMLToFeatures(xml);
+                            if (features) {
+                                self.route.RouteLayer.removeFeatures(self.lineString);
+                                // LineString *should* be the first one.
+                                self.lineString = features[0];
+                                self.points = self.lineString.geometry.components;
+                            }
                         }
                     } catch (err) {
                         console.log("Route Error: bad line string.");
