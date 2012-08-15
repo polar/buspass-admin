@@ -229,6 +229,12 @@ module LocationBoxing
     return abs(dist)
   end
 
+  def getCenter(c1,c2)
+    dist = getGeoDistance(c1,c2)
+    bearing = getBearing(c1,c2)
+    getDesinationPoint(c1,dist/2,bearing)
+  end
+
   # Returns in Radians from North
   def getBearing(p1, p2)
     dLon = rad(p2[0]-p1[0])

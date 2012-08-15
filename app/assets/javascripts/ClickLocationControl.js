@@ -1,5 +1,7 @@
-
-// Create OpenLayers Control Click handler
+/**
+ * This Control handles clicks and reports location in the map's projection.
+ * @type {*}
+ */
 BusPass.ClickLocationControl = OpenLayers.Class(OpenLayers.Control, {
 
         onLocationClick : function(lonlat) {},

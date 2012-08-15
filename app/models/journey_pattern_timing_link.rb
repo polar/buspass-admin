@@ -64,6 +64,10 @@ class JourneyPatternTimingLink
     [ [nw_lon, nw_lat], [se_lon, se_lat]]
   end
 
+  def getCenter
+
+  end
+
   #
   # This function returns true if the point coord
   # is on the line [p1, p2]within a particular
@@ -246,6 +250,16 @@ class JourneyPatternTimingLink
     self.nw_lat= box[0][1]
     self.se_lon= box[1][0]
     self.se_lat= box[1][1]
+  end
+
+  def to_kml()
+    data = view_path_coordinates["LonLat"].map {|lon,lat| "#{lon},#{lat}" }.join(" ")
+    html = ""
+    html += "<kml xmlns='http://earth.google.com/kml/2.0'>"
+    html += "<Document><Folder><Placemark><LineString><coordinates>"
+    html += data
+    html += "</coordinates></LineString></Placemark></Folder></Document>"
+    html += "</kml>"
   end
 
 end

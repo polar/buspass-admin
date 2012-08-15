@@ -3,27 +3,10 @@
     <script type="text/javascript">
         $(function() {
             // Initialise the map
-            init();
-            /*
-            myFirstRoute.selectWaypoint();
-            myFirstRoute.waypoint("from").lonlat = new OpenLayers.LonLat(<%= "#{@from[0]},#{@from[1]}" %>).transform(myFirstMap.displayProjection, myFirstMap.projection);
-
-            $("#route_via li[waypointnr='" + myFirstRoute.waypoint("from").position + "'] .wp_location").val('<%= "#{@from[0]},#{@from[1]}" %>');
-            myFirstRoute.waypoint("from").lonlat = new OpenLayers.LonLat(<%= "#{@from[0]},#{@from[1]}" %>).transform(myFirstMap.displayProjection, myFirstMap.projection);
-            $("#route_via li[waypointnr='" + myFirstRoute.waypoint("to").position + "'] .wp_location").val('<%= "#{@to[0]},#{@to[1]}" %>');
-            myFirstRoute.waypoint("to").lonlat = new OpenLayers.LonLat(<%= "#{@to[0]},#{@to[1]}" %>).transform(myFirstMap.displayProjection, myFirstMap.projection);
-            myFirstRoute.waypoint("to").draw();
-            myFirstRoute.waypoint("from").draw();
-            myFirstRoute.draw();
-            var pos = new OpenLayers.LonLat(<%= @master.longitude %>,<%= @master.latitude %>);
-            myFirstMap.setCenter(pos.transform(myFirstMap.displayProjection, myFirstMap.projection), 14);
-            // Make the navigation tabs
-            //$("#nav_header").tabs();
-            // Make the via points sortable
-            $("#route_via").sortable({
-                update: waypointReorderCallback
-            });
-            */
+            init(<%= "[#{@center[0]},#{@center[1]}]" %>,
+                    <%= "[#{@from[0]},#{@from[1]}]" %>,
+                    <%= "[#{@to[0]},#{@to[1]}]" %>,
+                 "<%= @kml.html_safe %>");
         });
     </script>
 

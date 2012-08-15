@@ -11,6 +11,12 @@ BusPass.Route = OpenLayers.Class({
 
     RouteApi : null,
 
+    /**
+     * This option tells the Router to invoke the Route Finding Service
+     * to get a route. Otherwise, it just draws straight lines.
+     */
+    autoroute : true,
+
     onRouteUpdated : function(route) {},
 
     Map : null,
@@ -38,29 +44,59 @@ BusPass.Route = OpenLayers.Class({
 
     Links : [],
 
-    parseKMLToFeature : function (xml) {
+    parseKMLToFeatures : function (xml) {
         var kml = new OpenLayers.Format.KML({
             externalProjection : this.Map.displayProjection,
             internalProjection : this.Map.projection
         });
-        var feature = kml.read(xml);
-        return feature;
+        var features = kml.read(xml);
+        return features;
+    },
+
+    initializeWithFeature : function (feature) {
+        this.Links = [];
+        this.Waypoints = [];
+
+        var link = new BusPass.Route.Link({
+            route : this,
+            feature : feature
+        });
+
+        this.Waypoints = [link.startWaypoint, link.endWaypoint];
+        this.Links = [link];
+        this._updateWaypointsState();
+
     },
 
 
     initializeWithKML : function (kml) {
-        Links = [];
-        Waypoints = [];
+        var feature =  this.parseKMLToFeatures(kml);
+        // The lineString should be the first feature.
+        // Others are ignored.
+        this.initializeWithFeature(feature[0]);
+    },
 
-        var link = new BusPass.Route.Link({
-            route : this,
-            feature : this.parseKMLToFeature(kml)
-        });
+    getPoints : function () {
+        data = [];
+        for(var i = 0; i < this.Links.length; i++) {
+            var link = this.Links[i];
+            if (link.feature !== undefined) {
+                for (var j = 0; j < link.points.length; j++) {
+                    var point = link.points[j].clone();
+                    data.push(point);
+                }
+            } else {
+                return;
+            }
+        }
+        return data;
+    },
 
-        link.initializeWaypointsFromFeature();
-        Waypoints = [link.startWaypoint, link.endWaypoint];
-        Links = [link];
-        this._updateWaypointsState();
+    createFeature : function () {
+        var points = this.getPoints();
+        var geometry = new OpenLayers.Geometry.LineString(points);
+        var feature = new OpenLayers.Feature.Vector(geometry);
+        return feature;
     },
 
     getWaypoint : function(id) {
@@ -88,8 +124,14 @@ BusPass.Route = OpenLayers.Class({
         if (this.Waypoints.length == 0) {
             index = 0;
         }
+        // Install at last position if index isn't a number
+        // Ex: insertWaypoint("last", wp);
+        if (isNaN(index)) {
+            index = this.Waypoints.length;
+        }
+        // negative modulo. -1 is before the last one
         while (index < 0) {
-            index = this.Waypoints.length - 1 - index;
+            index = this.Waypoints.length + index;
         }
         if (index > this.Waypoints.length) {
             // Will be adding to this index
@@ -150,16 +192,16 @@ BusPass.Route = OpenLayers.Class({
             }
             else {
                 // Remove the link and replace with 2 from the split
-                var link = this.Links[index];
+                var link = this.Links[index-1];
                 var links = this.splitLinkToLinks(link, wp);
-                this.Links.splice(index,1,links[0],links[1]);
+                this.Links.splice(index-1,1,links[0],links[1]);
                 link.destroy();
             }
         }
         return wp;
     },
 
-    removeWaypoint : function (id) {
+    removeWaypoint : function (id, reroute) {
         var index = 0;
         switch(id) {
             case "start":
@@ -195,6 +237,9 @@ BusPass.Route = OpenLayers.Class({
             var link2 = this.Links[index];
             var link = this.joinLinksToLink(link1, link2);
             this.Links.splice(index-1,2,link);
+            if (reroute) {
+                link.reroute();
+            }
             link1.destroy();
             link2.destroy();
         } else {
@@ -221,6 +266,20 @@ BusPass.Route = OpenLayers.Class({
         if (!keepSelected) {
             this.SelectedWaypoint = undefined;
         }
+    },
+
+    clear : function () {
+        for(var i = 0; i < this.Waypoints.length; i++) {
+            var wp = this.Waypoints[i];
+            wp.destroy();
+        }
+        for(var i = 0; i < this.Links.length; i++) {
+            var wp = this.Links[i];
+            wp.destroy();
+        }
+        this.Waypoints = [];
+        this.Links = [];
+        this.SelectedWaypoint = undefined;
     },
 
     updateLinksState : function () {
@@ -320,6 +379,33 @@ BusPass.Route = OpenLayers.Class({
         }
     },
 
+    /*
+     * A route is complete if all it has at least one link
+     * and all its links have points. When a link is being
+     * updated its points are removed. This is meant to be
+     * used in "onRouteUpdated".
+     */
+    isComplete : function () {
+        var complete = this.Links.length > 0;
+        for(var i = 0; i < this.Links.length; i++) {
+            complete &= this.Links[i].points !== undefined;
+        }
+        return complete;
+    },
+
+    /*
+     * returns the routing errors if any.
+     */
+    getRoutingErrors : function () {
+        var error = [];
+        for(var i = 0; i < this.Links.length; i++) {
+            if (this.Links[i].RoutingError !== undefined) {
+                error += this.Links[i].RoutingError;
+            }
+        }
+        return error;
+    },
+
     triggerRouteUpdated : function () {
         console.log("triggerRouteUpdated");
         if (this.onRouteUpdated) {
@@ -364,15 +450,16 @@ BusPass.Route.Link = OpenLayers.Class({
             if (this.startWaypoint || this.endWaypoint) {
                 alert("bad init of BusPass.Route.Link");
             }
-            this.points = this.feature[0].geometry.components;
+            this.points = this.feature.geometry.components;
             this.startWaypoint = new BusPass.Route.Waypoint({
                 route : this.route,
-                lonlat : this.points[0],
+                lonlat : new OpenLayers.LonLat(this.points[0].x, this.points[0].y),
                 forwardLink : this
             });
             this.endWaypoint =  new BusPass.Route.Waypoint({
                 route : this.route,
-                lonlat : this.points[this.points.length - 1],
+                lonlat : new OpenLayers.LonLat(this.points[this.points.length - 1].x,
+                    this.points[this.points.length - 1].y),
                 backLink : this
             });
         }
@@ -400,6 +487,13 @@ BusPass.Route.Link = OpenLayers.Class({
         );
     },
 
+    reroute : function (draw) {
+        var self = this;
+        this.launchGetRoute(function (link) {
+            self.triggerUpdate();
+        });
+    },
+
     points : [],
 
     feature : null,
@@ -415,13 +509,36 @@ BusPass.Route.Link = OpenLayers.Class({
         if (!self.startWaypoint || !self.endWaypoint) {
             alert("bad call on BusPass.Route.Link.launchGetRoute");
         }
+        this.RoutingError = undefined;
+        if (this.points) {
+            this.points = undefined;
+        }
         if (self.startWaypoint.lonlat && self.endWaypoint.lonlat) {
+            if (!this.route.autoroute) {
+                var geometry = new OpenLayers.Geometry.LineString(
+                    [self.startWaypoint.lonlat, self.endWaypoint.lonlat]
+                );
+                var vector = new OpenLayers.Feature.Vector(geometry);
+                self.route.RouteLayer.removeFeatures(self.feature);
+                self.feature = feature;
+                self.points = self.feature[0].geometry.components;
+                if (returnCallback !== undefined) {
+                    returnCallback(self);
+                }
+                return;
+            }
             self.route.RouteApi.getRoute(self.startWaypoint.lonlat, self.endWaypoint.lonlat,
                 function (xml) {
-                    var feature = self.route.parseKMLToFeature(xml);
-                    if (feature) {
-                        self.feature = feature;
-                        self.points = self.feature[0].geometry.components;
+                    try {
+                        var feature = self.route.parseKMLToFeatures(xml);
+                        if (feature) {
+                            self.route.RouteLayer.removeFeatures(self.feature);
+                            self.feature = feature;
+                            self.points = self.feature[0].geometry.components;
+                        }
+                    } catch (err) {
+                        console.log("Route Error: bad line string.");
+                        self.RoutingError = err;
                     }
                     if (returnCallback !== undefined) {
                         returnCallback(self);
@@ -436,7 +553,7 @@ BusPass.Route.Link = OpenLayers.Class({
     },
 
     draw : function () {
-        if (this.route.RouteLayer !== undefined) {
+        if (this.route.RouteLayer !== undefined && this.feature) {
             this.route.RouteLayer.addFeatures(this.feature);
         }
     },
@@ -467,7 +584,18 @@ BusPass.Route.Waypoint = OpenLayers.Class({
 
     route : null,
 
-    markerUrl : function() { return '/assets/yours/markers/marker-green.png'; },
+    markerUrl : function() {
+        switch (this.type) {
+            case 'via':
+                return '/assets/yours/markers/number' + this.position + '.png';
+            case 'start':
+                return '/assets/yours/markers/route-start.png';
+            case 'end':
+                return '/assets/yours/markers/route-stop.png';
+            default:
+                return '/assets/yours/markers/marker-yellow.png';
+        }
+    },
 
     onWaypointUpdated : function(wp) {
     },
@@ -559,7 +687,7 @@ BusPass.Route.Api = OpenLayers.Class({
      * 0 - shortest route
      * 1 - fastest route (default)
      */
-    fast: '1',
+    fast: '0',
 
     /**
      * Property: Yours.Route.parameters.type
@@ -612,8 +740,8 @@ BusPass.Route.Api = OpenLayers.Class({
            search += '&v=' + this.type +
             '&fast=' + this.fast +
             '&layer=' + this.layer;
-
-        if (self.routeCache[search] === undefined) {
+        var xml = self.routeCache[search];
+        if (xml === undefined) {
             // Not in cache, request from server
             var url = self.apiUrl + search;
             $.get(url, {}, function(xml) {

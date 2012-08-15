@@ -2,42 +2,60 @@
 
 <h1>Timing Link</h1>
 <div>
-<div id="outer">
-  <div id="navigation">
-    <div id="fragment-route">
-      <form id="route" name="route" action="#" onsubmit="return false;">
-        <ul id="route_via" class="route_via">
-        </ul>
-        <ul>
-          <li>
-            <div>
-              <img src="/assets/yours/markers/yellow.png" alt="marker to" height="30" style="vertical-align:middle;"/>
-              <input type="button" id="add_waypoint" onclick="elementClick(this);" value="Add Waypoint" tabindex="4" class="btn"/>
-            </div>
-          </li>
-        </ul>
-      </form>
-      <form id="calculate" action="#">
-        <div id="route_action">
-          <input type="button" name="calculate" onclick="elementClick(this);" value="Find route" tabindex="3" class="btn"/>
-          <input type="button" name="clear" onclick="elementClick(this);" value="Clear" tabindex="5" class="btn"/>
-          <input type="button" name="reverse" onclick="elementClick(this);" value="Reverse" tabindex="7" class="btn"/>
+    <div id="outer">
+      <div id="navigation">
+        <div id="fragment-route">
+          <form id="route" name="route" action="#" onsubmit="return false;">
+            <ul>
+              <li>
+                <div>
+                  <span><%= @journey_pattern_timing_link.from.common_name %></span>
+                </div>
+              </li>
+            </ul>
+            <ul id="route_via" class="route_via">
+            </ul>
+            <ul>
+              <li>
+                <div>
+                  <span><%= @journey_pattern_timing_link.to.common_name %></span>
+                </div>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <div>
+                  <img src="/assets/yours/markers/yellow.png" alt="marker to" height="30" style="vertical-align:middle;"/>
+                  <input type="button" id="add_waypoint" onclick="elementClick(this);" value="Add Waypoint" tabindex="4" class="btn"/>
+                  <input type="button" id="revert" value="Revert" class="btn"/>
+                  <button id="autoroute" data-toggle="button" class="btn">Draw Lines</button>
+                </div>
+              </li>
+            </ul>
+          </form>
+
+          <div id="status">
+          </div>
+
+          <%= form_for @journey_pattern_timing_link, :url =>
+                 update_kml_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(
+                         @master, @municipality, @network, @vehicle_journey,
+                         @journey_pattern_timing_link
+                 ),        :remote => true do %>
+          <div id="copybox">
+            <input id="copybox_field" name="journey_pattern_timing_link[kml]" type="text"/>
+          </div>
+              <%= submit_tag("Update JPTL Route", :class => "btn") %>
+          <% end %>
         </div>
-      </form>
-      <div id="status">
       </div>
+      <div id="extra">
 
-      <div id="copybox">
-        <input id="copybox_field" type="text"/>
       </div>
-
     </div>
+  <div id="content">
+    <div id="map"></div>
   </div>
-  <div id="extra">
-
-  </div>
-</div>
-  <div id="content"><div id="map"></div></div>
 
 </div>
 

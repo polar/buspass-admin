@@ -201,7 +201,10 @@ BuspassAdmin::Application.routes.draw do
           end
 
           resources :journey_pattern_timing_links, :controller => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links" do
-
+            member do
+              get :kml
+              put :update_kml
+            end
           end
 
           resource :webmap,          :controller => "masters/municipalities/networks/vehicle_journeys/webmap" do
