@@ -179,44 +179,10 @@ BusPass.PathFinderController = OpenLayers.Class({
             console.log("Revert Button");
             ctrl.revert();
         });
-        $("#autoroute").click(function() {
-            console.log("Auto Routes Button " + $(this).hasClass("active"));
-            ctrl.Route.autoroute = $(this).hasClass("active");
-            if (ctrl.Route.autoroute) {
-                ctrl.Controls.modify.unselectFeature();
-                ctrl.Controls.modify.deactivate();
-                ctrl.Map.removeLayer(ctrl.RouteLayer);
-                ctrl.Map.removeLayer(ctrl.MarkersLayer);
-                ctrl.Map.addLayers([ctrl.RouteLayer, ctrl.MarkersLayer]);
-                if (ctrl.LineFeature) {
-                    ctrl.RouteLayer.removeFeatures(ctrl.LineFeature);
-                    ctrl.Route.initializeWithFeature(ctrl.LineFeature);
-                    ctrl.LineFeature = undefined;
-                    ctrl.renumberWaypointUI();
-                    ctrl.Route.draw();
-                }
-                $("#add_waypoint").attr("disabled", false);
-            } else {
-                var feature = ctrl.Route.createFeature();
-                for(var i = 0; i < ctrl.Route.Links.length; i++) {
-                   var link = ctrl.Route.Links[i];
-                    ctrl.RouteLayer.removeFeatures(link.feature);
-                }
-                for (var i = 0; i < ctrl.Route.Waypoints.length; i++) {
-                    if (i !=0 && i != ctrl.Route.Waypoints.length-1) {
-                       ctrl.MarkersLayer.removeFeatures(ctrl.Route.Waypoints[i].marker);
-                    }
-                }
-                $("#add_waypoint").attr("disabled", "disabled");
-                ctrl.LineFeature = feature;
-                ctrl.RouteLayer.addFeatures(feature);
-                ctrl.Map.removeLayer(ctrl.RouteLayer);
-                ctrl.Map.removeLayer(ctrl.MarkersLayer);
-                ctrl.Map.addLayers([ctrl.MarkersLayer, ctrl.RouteLayer]);
-                ctrl.Controls.modify.activate();
-                ctrl.Controls.modify.selectFeature(feature);
-            }
 
+        $("#autoroute").click(function () {
+            console.log("Auto Routes Button " + $(this).hasClass("active"));
+            ctrl.setAutoroute($(this).hasClass("active"));
         });
 
         this.RouteApi = new BusPass.Route.Api({
@@ -238,29 +204,8 @@ BusPass.PathFinderController = OpenLayers.Class({
         if (this.defaultRoute) {
             this.initializeFromDefaultRoute();
         } else {
-            // Add Two Initial Waypoints that will be "start" and "end"
-            this.addWaypoint(this.Route);
-            this.addWaypoint(this.Route);
-            var start = this.Route.getWaypoint("start");
-            var finish = this.Route.getWaypoint("end");
-            start.Locked = true;
-            finish.Locked = true;
-            if (this.startPoint) {
-                var pos = new OpenLayers.LonLat(this.startPoint[0], this.startPoint[1]);
-                var transformedLonLat = pos.transform(this.Map.displayProjection, this.Map.projection);
-                start.updateLonLat(transformedLonLat);
-                this.triggerOnLocationUpdated(start);
-            }
-            if (this.endPoint) {
-                var pos = new OpenLayers.LonLat(this.endPoint[0], this.endPoint[1]);
-                var transformedLonLat = pos.transform(this.Map.displayProjection, this.Map.projection);
-                finish.updateLonLat(transformedLonLat);
-                this.triggerOnLocationUpdated(finish);
-            }
-
+            this.initializeFromWaypoints();
         }
-        // We don't select any waypoints because we only do when they are added.
-        this.Route.selectWaypoint();
     },
 
     initializeFromDefaultRoute : function () {
@@ -283,6 +228,69 @@ BusPass.PathFinderController = OpenLayers.Class({
         this.triggerOnLocationUpdated(finish);
         this.writeToCopyBox(this.Route);
         this.Route.draw();
+    },
+
+    initializeFromWaypoints : function () {
+        // Add Two Initial Waypoints that will be "start" and "end"
+        this.addWaypoint(this.Route);
+        this.addWaypoint(this.Route);
+        var start = this.Route.getWaypoint("start");
+        var finish = this.Route.getWaypoint("end");
+        start.Locked = true;
+        finish.Locked = true;
+        if (this.startPoint) {
+            var pos = new OpenLayers.LonLat(this.startPoint[0], this.startPoint[1]);
+            var transformedLonLat = pos.transform(this.Map.displayProjection, this.Map.projection);
+            start.updateLonLat(transformedLonLat);
+            this.triggerOnLocationUpdated(start);
+        }
+        if (this.endPoint) {
+            var pos = new OpenLayers.LonLat(this.endPoint[0], this.endPoint[1]);
+            var transformedLonLat = pos.transform(this.Map.displayProjection, this.Map.projection);
+            finish.updateLonLat(transformedLonLat);
+            this.triggerOnLocationUpdated(finish);
+        }
+        // We don't select any waypoints because we only do when they are added.
+        this.Route.selectWaypoint();}
+    },
+
+    setAutoroute : function (autoroute) {
+        this.Route.autoroute = autoroute;
+        if (this.Route.autoroute) {
+            this.Controls.modify.unselectFeature();
+            this.Controls.modify.deactivate();
+            this.Map.removeLayer(this.RouteLayer);
+            this.Map.removeLayer(this.MarkersLayer);
+            this.Map.addLayers([this.RouteLayer, this.MarkersLayer]);
+            if (this.LineFeature) {
+                this.RouteLayer.removeFeatures(this.LineFeature);
+                this.Route.initializeWithFeature(this.LineFeature);
+                this.LineFeature = undefined;
+                this.renumberWaypointUI();
+                this.Route.draw();
+            }
+            $("#add_waypoint").attr("disabled", false);
+        } else {
+            var feature = this.Route.createFeature();
+            for(var i = 0; i < this.Route.Links.length; i++) {
+                var link = this.Route.Links[i];
+                this.RouteLayer.removeFeatures(link.feature);
+            }
+            for (var i = 0; i < this.Route.Waypoints.length; i++) {
+                if (i !=0 && i != this.Route.Waypoints.length-1) {
+                    this.MarkersLayer.removeFeatures(this.Route.Waypoints[i].marker);
+                }
+            }
+            $("#add_waypoint").attr("disabled", "disabled");
+            this.LineFeature = feature;
+            this.RouteLayer.addFeatures(feature);
+            this.Map.removeLayer(this.RouteLayer);
+            this.Map.removeLayer(this.MarkersLayer);
+            this.Map.addLayers([this.MarkersLayer, this.RouteLayer]);
+            this.Controls.modify.activate();
+            this.Controls.modify.selectFeature(feature);
+        }
+
     },
 
     revert : function () {
