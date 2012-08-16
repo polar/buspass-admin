@@ -69,8 +69,8 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                                 // we set the new point's parent and index based on the feature and not this
                                 // geometry. The DragHandler.onDragVertex will add this point to this point's
                                 // geometry.parent at _index.
-                                point.geometry.parent = components[i]._virtual_parent;
-                                point._index = components[i]._virtual_parent.
+                                point.geometry.parent = prevVertex._virtual_parent;
+                                point._index = prevVertex._virtual_parent_index;
                                 point._sketch = true;
                                 control.virtualVertices.push(point);
                             }
