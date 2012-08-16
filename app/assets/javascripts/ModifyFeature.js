@@ -31,6 +31,18 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                     vertex = new OpenLayers.Feature.Vector(geometry);
                     vertex._sketch = true;
                     vertex.renderIntent = control.vertexRenderIntent;
+                    // If the component has the virtual_parent set from below, it belongs to the main
+                    // feature. We set the vertex's geometry to the parent, which enables
+                    // the keypress handler to delete a vertex in the main feature..
+                    if (geometry._virtual_parent !== undefined) {
+                        // If we were excluded from making virtual points, we cannot be deleted.
+                        // It is a good condition in the handler just not to set the parent.
+                        if (component._exclude === undefined) {
+                            vertex.geometry.parent = geometry._virtual_parent;
+                        } else {
+                            vertex.geometry.parent = undefined;
+                        }
+                    }
                     control.vertices.push(vertex);
                 } else {
                     var numVert = geometry.components.length;
@@ -43,6 +55,18 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                             vertex = new OpenLayers.Feature.Vector(component);
                             vertex._sketch = true;
                             vertex.renderIntent = control.vertexRenderIntent;
+                            // If the component has the virtual_parent set from below, it belongs to the main
+                            // feature. We set the vertex's geometry to the parent, which enables
+                            // the keypress handler to delete a vertex in the main feature..
+                            if (component._virtual_parent !== undefined) {
+                                // If we were excluded from making virtual points, we cannot be deleted.
+                                // It is a good condition in the handler just not to set the parent.
+                                if (component._exclude === undefined) {
+                                    vertex.geometry.parent = component._virtual_parent;
+                                } else {
+                                    vertex.geometry.parent = undefined;
+                                }
+                            }
                             control.vertices.push(vertex);
                         } else {
                             collectComponentVertices(component);
@@ -56,23 +80,28 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                             var nextVertex = geometry.components[i + 1];
                             if(prevVertex.CLASS_NAME == "OpenLayers.Geometry.Point" &&
                                 nextVertex.CLASS_NAME == "OpenLayers.Geometry.Point") {
-                                var x = (prevVertex.x + nextVertex.x) / 2;
-                                var y = (prevVertex.y + nextVertex.y) / 2;
-                                var point = new OpenLayers.Feature.Vector(
-                                    new OpenLayers.Geometry.Point(x, y),
-                                    null, control.virtualStyle
-                                );
-                                // set the virtual parent and intended index
-                                //point.geometry.parent = geometry;
-                                //point._index = i + 1;
-                                // Since we are using a Geometry to filter out points in the main feature (LineString)
-                                // we set the new point's parent and index based on the feature and not this
-                                // geometry. The DragHandler.onDragVertex will add this point to this point's
-                                // geometry.parent at _index.
-                                point.geometry.parent = prevVertex._virtual_parent;
-                                point._index = prevVertex._virtual_parent_index;
-                                point._sketch = true;
-                                control.virtualVertices.push(point);
+                                // If both vertices were marked, there is 3 points in between in the feature
+                                // that are not in this geometry. We do not create a virtual vertex, because
+                                // that would cause a triangle.
+                                if (prevVertex._exclude === undefined || nextVertex._exclude === undefined) {
+                                    var x = (prevVertex.x + nextVertex.x) / 2;
+                                    var y = (prevVertex.y + nextVertex.y) / 2;
+                                    var point = new OpenLayers.Feature.Vector(
+                                        new OpenLayers.Geometry.Point(x, y),
+                                        null, control.virtualStyle
+                                    );
+                                    // Set the virtual parent and intended index
+                                    //point.geometry.parent = geometry;
+                                    //point._index = i + 1;
+                                    // Since we are using a Geometry to filter out points in the main selected
+                                    // feature (LineString), we set the new point's parent and index based on the
+                                    // feature's geometry. The DragHandler.onDragVertex will add this point to
+                                    // this point's geometry.parent at _index.
+                                    point.geometry.parent = prevVertex._virtual_parent;
+                                    point._index = prevVertex._virtual_parent_index;
+                                    point._sketch = true;
+                                    control.virtualVertices.push(point);
+                                }
                             }
                         }
                     }
@@ -83,42 +112,31 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
             // which is marked by _vertex, and the points surrounding each. This
             // allows us only to modify all points besides the vertex, which is
             // a locked waypoint.
-            // TODO: We need a way to create vertices, look above.
-            if (false) {
-            for (var i = 0; i < this.Route.Links.length; i++) {
-                var link = this.Route.Links[i];
-                var from = link.startWaypoint;
-                var to = link.endWaypoint;
-                var components = link.lineString.geometry.components.slice(0);
-                if (from.Locked) {
-                    components.splice(0,1);
+            var components = this.feature.geometry.components;
+            var vertices = [];
+            // We only include points if they are NOT a locked vertex
+            // and the points that surrounds them.
+            // The first and last points should be marked, so we don't look at them.
+            for(var i = 2; i < components.length-2; i++) {
+                if (components[i-1]._vertex == undefined &&
+                    components[i]._vertex   == undefined  &&
+                    components[i+1]._vertex == undefined) {
+                    components[i]._virtual_parent_index = i + 1;
+                    components[i]._virtual_parent = this.feature.geometry;
+                    vertices.push(components[i]);
                 } else {
-                    components.splice(0,0,from.marker.geometry.components[0]);
-                }
-                if (to.Locked) {
-                    components.splice(-1,1);
-                } else if (i == this.Route.Links.length -1) {
-                    components.push(to.marker.geometry.components[0]);
-                }
-                collectComponentVertices(new OpenLayers.Geometry.LineString(components));
-            }
-            } else {
-                var components = this.feature.geometry.components;
-                var vertices = [];
-                // We only include points if they are NOT a locked vertex
-                // and the points that surrounds them.
-                // The first and last points should be marked, so we don't look at them.
-                for(var i = 1; i < components.length-1; i++) {
-                    if (components[i-1]._vertex == undefined &&
-                        components[i]._vertex   == undefined  &&
-                        components[i+1]._vertex == undefined) {
-                        components[i]._virtual_parent_index = i + 1;
-                        components[i]._virtual_parent = this.feature.geometry;
-                        vertices.push(components[i]);
+                    // We do not include the point. However we need to mark that any surrounding
+                    // vertex is supposed to have a virtual vertex between them.
+                    if (components[i]._vertex !== undefined) {
+                        components[i-2]._exclude = true;
+                        components[i+2]._exclude = true;
                     }
                 }
-                collectComponentVertices(new OpenLayers.Geometry.LineString(vertices));
             }
+            components[2]._exclude = true;
+            components[components.length-3]._exclude = true;
+            collectComponentVertices(new OpenLayers.Geometry.LineString(vertices));
+
             this.layer.addFeatures(this.virtualVertices, {silent: true});
             this.layer.addFeatures(this.vertices, {silent: true});
         } else {
