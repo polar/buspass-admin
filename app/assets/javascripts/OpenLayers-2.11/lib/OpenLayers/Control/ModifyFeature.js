@@ -138,13 +138,6 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
     mode: null,
 
     /**
-     * APIProperty: createVertices
-     * {Boolean} Create new vertices by dragging the virtual vertices
-     *     in the middle of each edge. Default is true.
-     */
-    createVertices: true,
-
-    /**
      * Property: modified
      * {Boolean} The currently selected feature has been modified.
      */

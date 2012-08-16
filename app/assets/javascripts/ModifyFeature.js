@@ -73,10 +73,11 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                 }
             }
             // We have been given a LineString with points in it.
-            // We create verticies for each point that is not a vertex (waypoint),
+            // We create vertices for each point that is not a vertex (waypoint),
             // which is marked by _vertex, and the points surrounding each. This
             // allows us only to modify all points besides the vertex, which is
             // a locked waypoint.
+            // TODO: We need a way to create vertices, look above.
             for (var i = 0; i < this.Route.Links.length; i++) {
                 var link = this.Route.Links[i];
                 var from = link.startWaypoint;
