@@ -63,8 +63,14 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                                     null, control.virtualStyle
                                 );
                                 // set the virtual parent and intended index
-                                point.geometry.parent = geometry;
-                                point._index = i + 1;
+                                //point.geometry.parent = geometry;
+                                //point._index = i + 1;
+                                // Since we are using a Geometry to filter out points in the main feature (LineString)
+                                // we set the new point's parent and index based on the feature and not this
+                                // geometry. The DragHandler.onDragVertex will add this point to this point's
+                                // geometry.parent at _index.
+                                point.geometry.parent = components[i]._virtual_parent;
+                                point._index = components[i]._virtual_parent.
                                 point._sketch = true;
                                 control.virtualVertices.push(point);
                             }
@@ -78,6 +84,7 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
             // allows us only to modify all points besides the vertex, which is
             // a locked waypoint.
             // TODO: We need a way to create vertices, look above.
+            if (false) {
             for (var i = 0; i < this.Route.Links.length; i++) {
                 var link = this.Route.Links[i];
                 var from = link.startWaypoint;
@@ -94,6 +101,23 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                     components.push(to.marker.geometry.components[0]);
                 }
                 collectComponentVertices(new OpenLayers.Geometry.LineString(components));
+            }
+            } else {
+                var components = this.feature.geometry.components;
+                var vertices = [];
+                // We only include points if they are NOT a locked vertex
+                // and the points that surrounds them.
+                // The first and last points should be marked, so we don't look at them.
+                for(var i = 1; i < components.length-1; i++) {
+                    if (components[i-1]._vertex == undefined &&
+                        components[i]._vertex   == undefined  &&
+                        components[i+1]._vertex == undefined) {
+                        components[i]._virtual_parent_index = i + 1;
+                        components[i]._virtual_parent = this.feature.geometry;
+                        vertices.push(components[i]);
+                    }
+                }
+                collectComponentVertices(new OpenLayers.Geometry.LineString(vertices));
             }
             this.layer.addFeatures(this.virtualVertices, {silent: true});
             this.layer.addFeatures(this.vertices, {silent: true});

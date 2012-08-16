@@ -8,7 +8,6 @@
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ModifyFeature.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ModifyFeature.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/Control/ModifyFeature.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/Control/ModifyFeature.js" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -43,7 +42,7 @@
       <file leaf-file-name="journey_pattern_timing_links.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="276" column="43" selection-start="9498" selection-end="9512" vertical-scroll-proportion="-14.357142">
+            <state line="276" column="43" selection-start="9498" selection-end="9512" vertical-scroll-proportion="9.75">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -85,7 +84,7 @@
       <file leaf-file-name="ModifyFeature.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ModifyFeature.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="66" selection-start="4060" selection-end="4060" vertical-scroll-proportion="0.63165075">
+            <state line="70" column="61" selection-start="3821" selection-end="3821" vertical-scroll-proportion="0.3792633">
               <folding />
             </state>
           </provider>
@@ -3005,7 +3004,11 @@
       <created>1345096258904</created>
       <updated>1345096258904</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="Progress">
+      <created>1345096474913</created>
+      <updated>1345096474915</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -3209,7 +3212,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="276" column="43" selection-start="9498" selection-end="9512" vertical-scroll-proportion="-14.357142">
+        <state line="276" column="43" selection-start="9498" selection-end="9512" vertical-scroll-proportion="9.75">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -3227,7 +3230,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ModifyFeature.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="66" selection-start="4060" selection-end="4060" vertical-scroll-proportion="0.63165075">
+        <state line="70" column="61" selection-start="3821" selection-end="3821" vertical-scroll-proportion="0.3792633">
           <folding />
         </state>
       </provider>
