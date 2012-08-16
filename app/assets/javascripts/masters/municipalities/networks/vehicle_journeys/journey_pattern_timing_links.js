@@ -218,7 +218,6 @@ BusPass.PathFinderController = OpenLayers.Class({
         this.Map.addControl(this.Controls.select);
         this.Controls.select.activate();
         this.Map.addControl(this.Controls.modify);
-        var control = this.Controls.modify;
 
         this.initializeMapCenter();
 
@@ -230,6 +229,7 @@ BusPass.PathFinderController = OpenLayers.Class({
             featuremodified : function (event) {
                 console.log("Feature Modifed");
                 console.log("There are vertices: " + ctrl.Controls.modify.vertices.length);
+                ctrl.writeToCopyBox(ctrl.Route);
             },
             afterfeaturemodified : function (event) {
                 console.log("After Feature Modifed");
@@ -271,6 +271,10 @@ BusPass.PathFinderController = OpenLayers.Class({
                 ctrl.routeUpdated(route);
             }
         });
+
+        this.Controls.modify.Route = this.Route;
+        this.Controls.modify.mode = OpenLayers.Control.ModifyFeature.RESHAPE;
+        this.Controls.modify.createVertices = true;
 
         this.initializeFromOptions();
     },
@@ -317,14 +321,21 @@ BusPass.PathFinderController = OpenLayers.Class({
     },
 
     lockEndpoints : function () {
-        var start = this.Route.getWaypoint("start");
-        var finish = this.Route.getWaypoint("end");
-        if (start) {
-            start.Locked = true;
+        this.lockWaypoint("start");
+        this.lockWaypoint("end");
+    },
+
+    lockWaypoint : function (id) {
+        var wp;
+        if (id.CLASS_NAME && id.CLASS_NAME == "BusPass.Route.Waypoint") {
+            wp = id;
+        } else {
+            wp = this.Route.getWaypoint(id);
         }
-        if (finish) {
-            finish.Locked = true;
+        if (wp) {
+            wp.Locked = true;
         }
+        return wp;
     },
 
     initializeRouteUI : function () {
@@ -339,7 +350,12 @@ BusPass.PathFinderController = OpenLayers.Class({
     setAutoroute : function (autoroute) {
         this.Route.autoroute = autoroute;
         if (this.Route.autoroute) {
+            var lineString = this.Controls.modify.feature;
             this.Controls.modify.unselectFeature();
+            this.RouteLayer.removeFeatures(lineString);
+            this.Route.applyLineString(lineString);
+            lineString.destroy();
+            this.Route.draw();
             this.Controls.modify.deactivate();
             this.Map.removeLayer(this.RouteLayer);
             this.Map.removeLayer(this.MarkersLayer);
@@ -348,22 +364,30 @@ BusPass.PathFinderController = OpenLayers.Class({
         } else {
             $("#add_waypoint").attr("disabled", "disabled");
 
-            var lineString = this.Route.createLineString();
-
             // Rebuild from the single LineString, results in one Link.
-            this.Route.clear();
-            this.Route.initializeWithLineString(lineString);
-            this.lockEndpoints();
+            this.removeUnlockedWaypoints(this.Route);
+            this.Route.eraseLinks();
+            var lineString = this.Route.createLineString();
+            this.RouteLayer.addFeatures(lineString);
             this.initializeRouteUI();
-            this.Route.draw();
 
             this.Map.removeLayer(this.RouteLayer);
             this.Map.removeLayer(this.MarkersLayer);
             this.Map.addLayers([this.MarkersLayer, this.RouteLayer]);
             this.Controls.modify.activate();
-            this.Controls.modify.selectFeature(this.Route.Links[0].lineString);
+            this.Controls.modify.selectFeature(lineString);
         }
 
+    },
+
+    removeUnlockedWaypoints : function (route) {
+        var waypoints = route.Waypoints.slice(0);
+        for(var i = 0; i < waypoints.length; i++) {
+            var wp = waypoints[i];
+            if (!wp.Locked) {
+                route.removeWaypoint(wp, false);
+            }
+        }
     },
 
     routeUpdated : function (route) {
@@ -425,6 +449,7 @@ BusPass.PathFinderController = OpenLayers.Class({
     },
 
     writeToCopyBox : function (route) {
+        console.log("Write to copy box");
         var data = "";
         for(var i = 0; i < route.Links.length; i++) {
             var link = route.Links[i];
@@ -467,6 +492,8 @@ BusPass.PathFinderController = OpenLayers.Class({
          * We always add before the last one.
          */
         var wp = route.insertWaypoint(-1);
+        wp.Lockable = true;
+        wp.Unlockable = true;
         // Add the DOM LI
         var wp_li = this.createWaypointDOMElement(route, wp);
 
@@ -553,6 +580,65 @@ BusPass.PathFinderController = OpenLayers.Class({
         }
     },
 
+    toggleWaypointLock : function (waypoint, lock_button) {
+        if (waypoint.Locked) {
+            if (waypoint.Unlockable) {
+                waypoint.Locked = undefined;
+            }
+        } else {
+            if (waypoint.Lockable) {
+                waypoint.Locked = true;
+            }
+        }
+        this.setLockUI(waypoint, lock_button);
+    },
+
+    /**
+     *  TODO: CLean this up!
+     * @param waypoint
+     * @param lock_button
+     */
+    setLockUI : function (waypoint, lock_button) {
+        var waypointName;
+        if (waypoint.type == "start") {
+            waypointName = "start";
+        } else if (waypoint.type == "end") {
+            waypointName = "end";
+        } else {
+            waypointName = "waypoint " + waypoint.position;
+        }
+        if (waypoint.Locked) {
+            $(waypoint.viewElement).find("[name='via_del_image']").attr("disabled","disabled").css("visibility", "hidden");
+        } else {
+            $(waypoint.viewElement).find("[name='via_del_image']").removeAttr("disabled").css("visibility", "visible");
+        }
+        lock_button = $(lock_button);
+        if (waypoint.Locked) {
+            lock_button.attr("data-locked", "true");
+            lock_button.attr("alt", "Unlock " + waypointName + " on the map");
+            lock_button.attr("title", "Unlock " + waypointName + " on the map");
+            lock_button.attr("src", "/assets/stock_lock.png");
+        } else {
+            lock_button.attr("data-locked", "false");
+            lock_button.attr("src", "/assets/stock_lock_open.png");
+            lock_button.attr("alt", "Lock " + waypointName + " on the map");
+            lock_button.attr("title", "Lock " + waypointName + " on the map");
+        }
+        if (waypoint.Locked) {
+            if (waypoint.Unlockable)  {
+                lock_button.removeAttr("disabled");
+            } else {
+                lock_button.attr("disabled","disabled");
+            }
+        } else {
+            if (waypoint.Lockable) {
+                lock_button.removeAttr("disabled");
+            } else {
+                lock_button.attr("disabled","disabled");
+            }
+        }
+    },
+
     createWaypointDOMElement : function (route, waypoint) {
         var ctrl = this;
 
@@ -609,27 +695,39 @@ BusPass.PathFinderController = OpenLayers.Class({
         del_button.css("visibility", "hidden");
         del_button.addClass("via_del_image");
 
-        var via_image = $(document.createElement("img"));
-        via_image.attr("src", "/assets/yours/images/ajax-loader.gif");
-        via_image.css("visibility", "hidden");
-        via_image.attr("alt", "");
-        via_image.addClass("via_image");
-
-        var via_message = $(document.createElement("span"));
-        via_message.addClass("via_message");
+        var lock_button = $(document.createElement("input"));
+        lock_button.attr("type", "image");
+        lock_button.bind("click", function () {
+            ctrl.toggleWaypointLock(waypoint, this);
+        });
+        lock_button.attr("name", "via_lock_image");
+        lock_button.addClass("via_lock_image");
+//
+//        var via_image = $(document.createElement("img"));
+//        via_image.attr("src", "/assets/yours/images/ajax-loader.gif");
+//        via_image.css("visibility", "hidden");
+//        via_image.attr("alt", "");
+//        via_image.addClass("via_image");
+//
+//        var via_message = $(document.createElement("span"));
+//        via_message.addClass("via_message");
 
         wp_li.addClass("via");
         wp_li.append(marker_image);
         wp_li.append(' ');
         wp_li.append(location);
         wp_li.append(' ');
+        wp_li.append(lock_button);
+        wp_li.append(' ');
         wp_li.append(del_button);
         wp_li.append(' ');
-        wp_li.append(via_image);
-        wp_li.append(via_message);
+//        wp_li.append(via_image);
+//        wp_li.append(via_message);
 
         waypoint.viewElement = wp_li;
         wp_li.waypoint = waypoint;
+
+        ctrl.setLockUI(waypoint, lock_button[0]);
 
         return wp_li;
     }
