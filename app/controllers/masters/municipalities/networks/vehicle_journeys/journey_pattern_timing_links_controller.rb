@@ -21,8 +21,15 @@ class Masters::Municipalities::Networks::VehicleJourneys::JourneyPatternTimingLi
 
     @to = @journey_pattern_timing_link.to.location.coordinates["LonLat"]
     @from = @journey_pattern_timing_link.from.location.coordinates["LonLat"]
+    @isConsistent = @journey_pattern_timing_link.check_consistency
+    if ! @isConsistent
+      flash[:alert] = "The JPTL has a path inconsistent with its endpoints. The current geometry will be connected." +
+          " You must hit Update JPTL to save it."
+
+    end
     @kml = kml_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master, @municipality, @network, @vehicle_journey, @journey_pattern_timing_link)
     @kml = @journey_pattern_timing_link.to_kml
+
     @center = getCenter(@from, @to)
     render :layout => "masters/map-layout"
   end
@@ -51,7 +58,7 @@ class Masters::Municipalities::Networks::VehicleJourneys::JourneyPatternTimingLi
 
           @journey_pattern_timing_link.check_consistency!
           @journey_pattern_timing_link.save
-
+          @vehicle_journey.save
           @status = "JPTL Updated"
           rescue Exception => boom
             @status = "Illegal Path for JPTL Start and End"

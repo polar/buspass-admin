@@ -1,6 +1,6 @@
 <h3 id="processing_err_label">Processing Errors <span id="processing_err_click">(Click To View)</span></h3>
 <div id="processing_err">
   <% for i in @network.processing_errors %>
-      <div><%= i %></div>
+      <div><%= i.html_safe %></div>
   <% end %>
 </div>

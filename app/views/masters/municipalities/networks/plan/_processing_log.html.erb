@@ -1,6 +1,6 @@
 <h3 id="processing_log_label">Processing Log <span id="processing_log_click">(Click To View)</span></h3>
 <div id="processing_log">
   <% for i in @network.processing_log %>
-      <div><%= i %></div>
+      <div><%= i.html_safe %></div>
   <% end %>
 </div>

@@ -46,13 +46,19 @@ class JourneyPatternTimingLink
   DIST_FUDGE = 100
 
   def check_consistency!
+    if ! self.check_consistency
+      raise "Inconsistent Path for JPTL\n #{path1str}"
+    end
+  end
+
+  def check_consistency
     first = view_path_coordinates["LonLat"].first
     last = view_path_coordinates["LonLat"].last
     if DIST_FUDGE < getGeoDistance(from.location.coordinates["LonLat"],first) ||
         DIST_FUDGE < getGeoDistance(to.location.coordinates["LonLat"],last)
       # We have an inconsistency, the points are too far away from each other.
       path1str = "#{from.location.coordinates["LonLat"].inspect} - #{view_path_coordinates["LonLat"].inspect} - #{to.location.coordinates["LonLat"].inspect}"
-      raise "Inconsistent Path for JPTL\n #{path1str}"
+      return false
     end
     return true
   end

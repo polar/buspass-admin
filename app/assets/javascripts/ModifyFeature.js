@@ -35,9 +35,9 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                     // feature. We set the vertex's geometry to the parent, which enables
                     // the keypress handler to delete a vertex in the main feature..
                     if (geometry._virtual_parent !== undefined) {
-                        // If we were excluded from making virtual points, we cannot be deleted.
-                        // It is a good condition in the handler just not to set the parent.
-                        if (component._exclude === undefined) {
+                        // If it was excluded from making virtual points, it cannot be deleted.
+                        // The keypress Hander will not delete the component if it doesn't have a parent..
+                        if (component._exclude === undefined && component._excludeNext === undefined) {
                             vertex.geometry.parent = geometry._virtual_parent;
                         } else {
                             vertex.geometry.parent = undefined;
@@ -59,9 +59,9 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                             // feature. We set the vertex's geometry to the parent, which enables
                             // the keypress handler to delete a vertex in the main feature..
                             if (component._virtual_parent !== undefined) {
-                                // If we were excluded from making virtual points, we cannot be deleted.
-                                // It is a good condition in the handler just not to set the parent.
-                                if (component._exclude === undefined) {
+                                // If it was excluded from making virtual points, it cannot be deleted.
+                                // The keypress Hander will not delete the component if it doesn't have a parent..
+                                if (component._excludePrev === undefined && component._excludeNext === undefined) {
                                     vertex.geometry.parent = component._virtual_parent;
                                 } else {
                                     vertex.geometry.parent = undefined;
@@ -83,7 +83,7 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                                 // If both vertices were marked, there is 3 points in between in the feature
                                 // that are not in this geometry. We do not create a virtual vertex, because
                                 // that would cause a triangle.
-                                if (prevVertex._exclude === undefined || nextVertex._exclude === undefined) {
+                                if (!(prevVertex._excludePrev && nextVertex._excludeNext)) {
                                     var x = (prevVertex.x + nextVertex.x) / 2;
                                     var y = (prevVertex.y + nextVertex.y) / 2;
                                     var point = new OpenLayers.Feature.Vector(
@@ -128,13 +128,13 @@ BusPass.Controls.ModifyFeature = OpenLayers.Class(OpenLayers.Control.ModifyFeatu
                     // We do not include the point. However we need to mark that any surrounding
                     // vertex is supposed to have a virtual vertex between them.
                     if (components[i]._vertex !== undefined) {
-                        components[i-2]._exclude = true;
-                        components[i+2]._exclude = true;
+                        components[i-2]._excludePrev = true;
+                        components[i+2]._excludeNext = true;
                     }
                 }
             }
-            components[2]._exclude = true;
-            components[components.length-3]._exclude = true;
+            components[2]._excludeNext = true;
+            components[components.length-3]._excludePrev = true;
             collectComponentVertices(new OpenLayers.Geometry.LineString(vertices));
 
             this.layer.addFeatures(this.virtualVertices, {silent: true});
