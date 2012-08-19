@@ -1,0 +1,5 @@
+$("#update_status").html("<span class='alert alert-<%= @status_type %>'><%=@status%></span>");
+$("#update_status").fadeIn("fast");
+$("#update_waiting").hide();
+setTimeout(function() { $("#update_status").fadeOut("slow");}, 4000);
+$("#table_jptls").html("<%= escape_javascript(render(:partial => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/table_jptls")) %>");

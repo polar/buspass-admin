@@ -1,0 +1,32 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Vehicle Journey</th>
+    <th>Position</th>
+    <th>Departs</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Arrives</th>
+    <th>Duration</th>
+    <th>Note</th>
+    <th>Same Path</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @journey_links.each do |vj,tl,same_path| %>
+      <tr <%=  "class='tr-selected'" if tl.id == (@journey_pattern_timing_link.id) %>>
+        <!--- TODO: Internatialize Time -->
+        <td><%= check_box_tag 'timing_links[]', "#{vj.id},#{tl.id}", same_path,
+                    :class => "#{same_path ? 'same' : ''} #{@vehicle_journey.note == vj.note ? 'note' : ''} #{tl.id == @journey_pattern_timing_link.id ? 'one' : ''} all" %>&nbsp;<%= vj.time_start(0).strftime("%H:%M") %></td>
+        <td><%=  tl.position+1  %></td>
+        <td><%=  vj.time_start(tl.position).strftime("%H:%M") %></td>
+        <td><%=  tl.from.common_name  %><br /> <%= tl.from.location.coordinates['LonLat'] %></td>
+        <td><%=  tl.to.common_name  %><br /> <%= tl.to.location.coordinates['LonLat'] %></td>
+        <td><%=  vj.time_end(tl.position).strftime("%H:%M") %></td>
+        <td><%=  tl.time %></td>
+        <td><%=  vj.note %></td>
+        <td><%=  same_path %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

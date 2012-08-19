@@ -10,9 +10,14 @@
   border-top: 1px solid #DDD;
 }
 
-#status {
+#statusbox {
   height : 2em;
 }
+
+#copybox {
+  width: 22em;
+}
+
 #content {
   margin: 0 0 0 320px;
   width:100%;
@@ -98,3 +103,9 @@
 #via_a { background-image: url(/assets/yours/markers/letter1.png); }
 #via_b { background-image: url(/assets/yours/markers/letter2.png); }
 #via_c { background-image: url(/assets/yours/markers/letter3.png); }
+
+tr.tr-selected td {
+    color: #468847;
+    background-color: #dff0d8 !important;
+    border-color: #d6e9c6;
+}

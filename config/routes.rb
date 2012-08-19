@@ -204,6 +204,7 @@ BuspassAdmin::Application.routes.draw do
             member do
               get :kml
               put :update_kml
+              post :update_timing_links
             end
           end
 

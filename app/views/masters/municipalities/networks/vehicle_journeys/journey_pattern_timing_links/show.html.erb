@@ -1,7 +1,9 @@
 <%= render :partial => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/script" %>
 
-<h1>Timing Link</h1>
-<div>
+<h1>Timing Link Path Editor</h1>
+<%= @service.name %>&nbsp;Journey Starting at <%= @vehicle_journey.time_start(0).strftime("%H:%M") %>&nbsp;Link<%= @journey_pattern_timing_link.position %>
+
+  <div>
     <div id="outer">
       <div id="navigation">
         <div id="fragment-route">
@@ -27,26 +29,25 @@
                 <div>
                   <img src="/assets/yours/markers/yellow.png" alt="marker to" height="30" style="vertical-align:middle;"/>
                   <input type="button" id="add_waypoint" value="Add Waypoint" tabindex="4" class="btn"/>
+                </div>
+              </li>
+              <li>
+                <div>
                   <input type="button" id="revert" value="Revert" class="btn"/>
-                  <button id="autoroute" data-toggle="button" class="btn">Draw Lines</button>
+                  <button id="autoroute" class="btn">Draw Lines</button>
+                  <button id="button_reroute" class="btn">
+                   <i class="icon-refresh"></i></button>
                 </div>
               </li>
             </ul>
           </form>
-
-          <div id="status">
-          </div>
-
-          <%= form_for @journey_pattern_timing_link, :url =>
-                 update_kml_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(
-                         @master, @municipality, @network, @vehicle_journey,
-                         @journey_pattern_timing_link
-                 ),        :remote => true do %>
+          <div id="statusbox"><span id="status">
+          </span>
+          <img id="route_waiting" src="/assets/yours/images/ajax-loader.gif" alt="waiting"/></div>
+          <p></p>
           <div id="copybox">
             <input id="copybox_field" name="journey_pattern_timing_link[kml]" type="text"/>
           </div>
-              <%= submit_tag("Update JPTL Route", :class => "btn") %>
-          <% end %>
         </div>
       </div>
       <div id="extra">
@@ -55,29 +56,43 @@
     </div>
   <div id="content">
     <div id="map"></div>
+    <div style="clear:both"></div>
   </div>
 
+    <div style="clear:both"></div>
+  </div>
+
+<div>
+<h3>Vehicle Journeys in this Service with similar links</h3>
+
+<%= form_tag update_timing_links_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master,@municipality,@network,@vehicle_journey,@journey_pattern_timing_link, :format => "js"), :id => "form_update_jptls", :remote => true do %>
+
+    <div class="dropdown btn" id="menu1">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+        Check
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <a href="#" id="menu_select_same">All Same Path</a>
+        </li>
+        <li>
+          <a href="#" id="menu_select_one">This one only</a>
+        </li>
+        <li>
+          <a href="#" id="menu_select_all">All</a>
+        </li>
+        <li>
+          <a href="#" id="menu_select_note">All Same Note</a>
+        </li>
+      </ul>
+    </div>
+    <%= submit_tag "Update JPTLS", :class => "btn" %>
+    <%= hidden_field_tag "kml", "", :id => "jptls_kml" %>
+    <span id="update_status"></span>
+    <img id="update_waiting" src="/assets/yours/images/ajax-loader.gif" alt="waiting"/>
+    <div id="table_jptls">
+      <%=  render :partial => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/table_jptls" %>
+    </div>
+<% end %>
 </div>
-
-
-<table class="table table-striped">
-  <tr>
-    <th>Position</th>
-    <th>Departs</th>
-    <th>From</th>
-    <th>To</th>
-    <th>Arrives</th>
-    <th>Duration</th>
-  </tr>
-  <% @journey_pattern_timing_link.tap do |tl| %>
-      <tr>
-        <!--- TODO: Internatialize Time -->
-        <td><%=  tl.position+1  %></td>
-        <td><%=  @vehicle_journey.time_start(tl.position).strftime("%H:%M") %></td>
-        <td><%=  tl.from.common_name  %><br /> <%= tl.from.location.coordinates['LonLat'] %></td>
-        <td><%=  tl.to.common_name  %><br /> <%= tl.to.location.coordinates['LonLat'] %></td>
-        <td><%=  @vehicle_journey.time_end(tl.position).strftime("%H:%M") %></td>
-        <td><%=  tl.time %></td>
-      </tr>
-  <% end %>
-</table>

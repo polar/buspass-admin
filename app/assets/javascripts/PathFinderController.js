@@ -18,6 +18,7 @@ BusPass.PathFinderController = OpenLayers.Class({
     defaultRoute : null,
 
     onLocationUpdated : function(coordinates) {},
+    onRouteUpdated : function(route) {},
 
     initializeFromOptions : function () {
         this.initializeFromWaypoints();
@@ -40,16 +41,25 @@ BusPass.PathFinderController = OpenLayers.Class({
             return;
         }
         switch (type) {
+            case 'waiting':
+                $("#route_waiting").show();
+                message = '<span class="alert alert-info">' + message + '</span>';
+                break;
             case 'warning':
+                $("#route_waiting").hide();
                 message = '<span class="alert alert-warning">' + message + '</span>';
                 break;
             case 'error':
+                $("#route_waiting").hide();
                 message = '<span class="alert alert-error">' + message + '</span>';
                 break;
             default:
+                $("#route_waiting").hide();
                 message = '<span class="alert alert-info">' + message + '</span>';
+                setTimeout(function () { $("#status").fadeTo("slow", 0); }, 5000);
         }
         $("#status").html(message);
+        $("#status").fadeTo("fast", 1);
     },
 
     initializeMapCenter : function () {
@@ -241,6 +251,12 @@ BusPass.PathFinderController = OpenLayers.Class({
             ctrl.setAutoroute($(this).hasClass("active"));
         });
 
+        $("#route_waiting").hide();
+
+        $("#button_reroute").click(function() {
+            ctrl.reroute();
+        });
+
         this.RouteApi = new BusPass.Route.Api({
             mapProjection : this.Map.projection,
             apiProjection : this.Map.displayProjection
@@ -310,6 +326,17 @@ BusPass.PathFinderController = OpenLayers.Class({
         this.Route.selectWaypoint();
     },
 
+    reroute : function() {
+        if (this.Route.getWaypoint("selected")) {
+            this.notice("Please set location for waypoint", "warning");
+        } else if (this.Route.isComplete()) {
+            this.notice("Recalculating route", "waiting");
+            this.Route.reroute();
+        } else {
+            this.notice("Need route to be complete first");
+        }
+    },
+
     lockEndpoints : function () {
         this.lockWaypoint("start");
         this.lockWaypoint("end");
@@ -352,8 +379,12 @@ BusPass.PathFinderController = OpenLayers.Class({
             this.Map.removeLayer(this.MarkersLayer);
             this.Map.addLayers([this.RouteLayer, this.MarkersLayer]);
             $("#add_waypoint").removeAttr("disabled");
+            $("#button_reroute").removeAttr("disabled");
+            this.routeUpdated(this.Route);
+            $("#autoroute").removeClass("active");
         } else if (!drawlines && !this.Route.autoroute) {
             $("#add_waypoint").attr("disabled", "disabled");
+            $("#button_reroute").attr("disabled", "disabled");
 
             // Rebuild from the single LineString, results in one Link.
             this.removeUnlockedWaypoints(this.Route);
@@ -367,6 +398,8 @@ BusPass.PathFinderController = OpenLayers.Class({
             this.Map.addLayers([this.MarkersLayer, this.RouteLayer]);
             this.Controls.modify.activate();
             this.Controls.modify.selectFeature(lineString);
+            this.routeUpdated(this.Route);
+            $("#autoroute").addClass("active");
         }
 
     },
@@ -384,11 +417,12 @@ BusPass.PathFinderController = OpenLayers.Class({
     routeUpdated : function (route) {
         var errors = route.getRoutingErrors();
         if (errors.length > 0) {
-            this.notice("Could get route. Please move a point.", "warning");
+            this.notice("Could not get route. Please move a point.", "warning");
         } else {
             if (route.isComplete()) {
                 this.notice("Route is Complete!");
                 this.writeToCopyBox(route);
+                this.onRouteUpdated(route);
             }
         }
     },
@@ -406,7 +440,7 @@ BusPass.PathFinderController = OpenLayers.Class({
         // If the waypoint has a link and the location has changed.
         if ((wp.backLink || wp.forwardLink ) && wp.lonlat === undefined ||
             (wp.lonlat.lon != lonlat.lon || wp.lonlat.lat != lonlat.lat)) {
-            this.notice("Route is Calculating");
+            this.notice("Calculating route", "waiting");
         }
         wp.updateLonLat(lonlat);
         wp.draw();
@@ -523,6 +557,7 @@ BusPass.PathFinderController = OpenLayers.Class({
         // Delete waypoint
         $(waypoint.viewElement).remove();
         waypoint.viewElement = undefined;
+        this.notice("Calculating route", "waiting");
         this.Route.removeWaypoint(waypoint.position, true);
 
         // Renumber in the UI

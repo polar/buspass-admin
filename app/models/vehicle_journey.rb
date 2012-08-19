@@ -7,6 +7,7 @@ class VehicleJourney
   key :departure_time, Integer # in minutes from midnight
   key :display_name, String
   key :persistentid, String
+  key :note,         String
   key :slug,         String
 
   belongs_to :service
