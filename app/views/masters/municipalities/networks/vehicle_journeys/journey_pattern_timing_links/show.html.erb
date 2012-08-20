@@ -1,12 +1,11 @@
 <%= render :partial => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/script" %>
 
-<h1>Timing Link Path Editor</h1>
-<%= @service.name %>&nbsp;Journey Starting at <%= @vehicle_journey.time_start(0).strftime("%H:%M") %>&nbsp;Link<%= @journey_pattern_timing_link.position %>
+<h1>Journey Pattern Timing Link Path Editor</h1>
+<%= @service.name %>&nbsp;Journey Starting at <%= @vehicle_journey.time_start(0).strftime("%H:%M") %>&nbsp;Link <%= @journey_pattern_timing_link.position %>
 
   <div>
-    <div id="outer">
-      <div id="navigation">
-        <div id="fragment-route">
+    <div class="row">
+        <div id="navigation" class="left">
           <form id="route" name="route" action="#" onsubmit="return false;">
             <ul>
               <li>
@@ -49,20 +48,14 @@
             <input id="copybox_field" name="journey_pattern_timing_link[kml]" type="text"/>
           </div>
         </div>
-      </div>
-      <div id="extra">
-
-      </div>
+      <div id="map" class="right"></div>
+      <div style="clear:both"></div>
     </div>
-  <div id="content">
-    <div id="map"></div>
-    <div style="clear:both"></div>
-  </div>
 
-    <div style="clear:both"></div>
   </div>
 
 <div>
+  <hr />
 <h3>Vehicle Journeys in this Service with similar links</h3>
 
 <%= form_tag update_timing_links_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master,@municipality,@network,@vehicle_journey,@journey_pattern_timing_link, :format => "js"), :id => "form_update_jptls", :remote => true do %>

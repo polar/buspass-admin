@@ -22,7 +22,7 @@ gem 'hpricot'
 
 # The following gem is required to parse and create CSV files.
 
-gem "fastercsv"
+#gem "fastercsv"
 
 # The following gems are for using MongoMapper ORM
 

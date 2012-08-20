@@ -1,5 +1,6 @@
 class SimulateJob
   include MongoMapper::Document
+  plugin MongoMapper::Plugins::IdentityMap
 
   belongs_to :activement # if this isn't nil, it is for a activement.
   belongs_to :testament # if this isn't nil, it is for a testament.

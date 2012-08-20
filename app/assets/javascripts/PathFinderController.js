@@ -278,6 +278,8 @@ BusPass.PathFinderController = OpenLayers.Class({
         this.Controls.modify.createVertices = true;
 
         this.initializeFromOptions();
+        $("#map").height($("#navigation").height());
+        this.Map.updateSize();
     },
 
     initializeFromDefaultRoute : function () {
@@ -539,6 +541,7 @@ BusPass.PathFinderController = OpenLayers.Class({
         this.updateWaypointDeleteButtons();
 
         // By inserting new elements we may have moved the map
+        $("#map").height($("#navigation").height());
         this.Map.updateSize();
     },
 
@@ -566,6 +569,7 @@ BusPass.PathFinderController = OpenLayers.Class({
         // Ensure there are always at least two waypoints (start and end)
         this.updateWaypointDeleteButtons();
 
+        $("#map").height($("#navigation").height());
         // Redraw map
         this.Map.updateSize();
     },

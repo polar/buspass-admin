@@ -4,6 +4,7 @@
 #
 class Service
   include MongoMapper::Document
+  plugin MongoMapper::Plugins::IdentityMap
 
   belongs_to :route
   belongs_to :network
@@ -27,6 +28,14 @@ class Service
   key :day_class, String
   key :slug,      String
 
+  key :csv_stop_point_names, Array # [String]
+  key :csv_lineno,           Integer
+  key :csv_locations,        Array # [String]
+  key :csv_filename,         String
+
+  # Embedded
+  many :stop_points
+
   timestamps!
 
   ensure_index(:name, :unique => false)
@@ -35,7 +44,11 @@ class Service
                   :route, :route_id,
                   :network, :network_id,
                   :master, :master_id,
-                  :municipality, :municipality_id
+                  :municipality, :municipality_id,
+                  :csv_stop_point_names,
+                  :csv_lineno,
+                  :csv_locations,
+                  :csv_filename
 
 =begin
   validates_date :operating_period_start_date
@@ -96,6 +109,9 @@ class Service
     s = Service.first(:network_id => route.network.id, :name => name)
     #puts s ? "Found" : "creating......"
     if s.nil?
+
+      # Just make sure.
+      route.save!(:safe => true)
       s = Service.new(:network => route.network,
                       :master => route.network.master,
                       :municipality => route.network.municipality,
@@ -107,6 +123,12 @@ class Service
                       :route => route)
       #puts "Service saving...."
       s.save!(:safe => true)
+      if s.route != route
+        raise "DB Problem 1 Service Route doesn't contain the correct route! #{s.route}"
+      end
+    end
+    if s.route != route
+      raise "DB Problem 2 Service Route doesn't contain the correct route! #{s.route}"
     end
     #puts "Service Done"
     return s

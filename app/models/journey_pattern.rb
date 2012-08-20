@@ -19,6 +19,8 @@ class JourneyPattern
 
   key :version_cache, Integer
 
+  many :stop_points, :auto_save => false
+
   # journey_pattern_timing_links is an ordered list
   many :journey_pattern_timing_links, :autosave => false
 
@@ -76,7 +78,7 @@ class JourneyPattern
     end
     date = updated_at
     for jptl in journey_pattern_timing_links do
-      date = date > jptl.updated_at ? date : jptl.updated_at
+      date = jptl.updated_at? && date < jptl.updated_at ? jptl.updated_at : date
     end
     return date.to_i
   end
@@ -85,8 +87,16 @@ class JourneyPattern
     self.version_cache = get_version
   end
 
+  def journey_path
+    "/masters/#{master.id}/municipalities/#{municipality.id}/networks/#{network.id}/vehicle_journeys/#{vehicle_journey.id}"
+  end
+
   def jptl_path(jptl)
     "/masters/#{master.id}/municipalities/#{municipality.id}/networks/#{network.id}/vehicle_journeys/#{vehicle_journey.id}/journey_pattern_timing_links/#{jptl.id}"
+  end
+
+  def has_path_issues?
+    journey_pattern_timing_links.reduce(false) {|t,v| v.path_issue || t }
   end
 
   # We use YourNavigation.org to get the path, and the end points between validate
@@ -102,7 +112,8 @@ class JourneyPattern
     return  boom.to_s
   end
 
-  def check_consistency!
+  def check_consistency
+    journey_link = "<a href='#{journey_path}'>Journey</a>"
     last_jptl = journey_pattern_timing_links.first
     last_to_location = last_jptl.to.location
     last_coord = last_jptl.view_path_coordinates["LonLat"].last
@@ -121,7 +132,7 @@ class JourneyPattern
       if DIST_FUDGE < dist
         path1str = "#{last_jptl.from.location.coordinates["LonLat"].inspect} - #{last_jptl.view_path_coordinates["LonLat"].inspect} - #{last_jptl.to.location.coordinates["LonLat"].inspect}"
         path2str = "#{jptl.from.location.coordinates["LonLat"].inspect} - #{jptl.view_path_coordinates["LonLat"].inspect} - #{jptl.to.location.coordinates["LonLat"].inspect}"
-        raise "Inconsistent Path. Distance is #{dist} feet between last point on #{last_jptl_link} at #{last_coord.inspect} and first point on #{jptl_link} at #{coord.inspect}."
+        raise "Inconsistent Path in #{journey_link}. Distance is #{dist} feet between last point on #{last_jptl_link} at #{last_jptl.to.common_name} #{last_coord.inspect} and first point on #{jptl_link} at #{jptl.from.common_name} #{coord.inspect}."
      end
       last_coord = jptl.view_path_coordinates["LonLat"].last
       last_jptl = jptl
@@ -395,6 +406,10 @@ class JourneyPattern
 
   def starting_direction
     journey_pattern_timing_links.first.starting_direction
+  end
+
+  def stop_points
+    return [journey_pattern_timing_links.first.from] + journey_pattern_timing_links.map { |jptl| jptl.to }
   end
 
   def self.find_by_coord(coord)

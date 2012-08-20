@@ -3,24 +3,37 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/app/views/muni/muni_admins/destroy_confirm.html.erb" line="31" />
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
+    <bookmark url="file://$PROJECT_DIR$/app/models/service_table.rb" line="369" />
+    <bookmark url="file://$PROJECT_DIR$/app/models/service.rb" line="113" mnemonic="0" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/flash.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/_table_jptls.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/update_timing_links.js.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/location.rb" afterPath="$PROJECT_DIR$/app/models/location.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/stop_point.rb" afterPath="$PROJECT_DIR$/app/models/stop_point.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/routes/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/routes/webmap_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/webmap_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/journey_pattern.rb" afterPath="$PROJECT_DIR$/app/models/journey_pattern.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/journey_pattern_timing_link.rb" afterPath="$PROJECT_DIR$/app/models/journey_pattern_timing_link.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/network.rb" afterPath="$PROJECT_DIR$/app/models/network.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/route.rb" afterPath="$PROJECT_DIR$/app/models/route.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service.rb" afterPath="$PROJECT_DIR$/app/models/service.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_table.rb" afterPath="$PROJECT_DIR$/app/models/service_table.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/simulate_job.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_service_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_service_journeys.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_services.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_services.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_routes.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_routes.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_journeys.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_service.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_service.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_services.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_services.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_service.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_service.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_timing_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_timing_links.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_vehicle_journey.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_vehicle_journey.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -52,69 +65,93 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="journey_pattern_timing_links_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links_controller.rb">
+      <file leaf-file-name="journey_pattern.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/journey_pattern.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="6" selection-start="2229" selection-end="2229" vertical-scroll-proportion="0.0">
+            <state line="98" column="52" selection-start="2278" selection-end="2278" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="update_timing_links.js.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/update_timing_links.js.erb">
+      <file leaf-file-name="journey_pattern_timing_link.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/journey_pattern_timing_link.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="69" selection-start="229" selection-end="229" vertical-scroll-proportion="-1.875">
+            <state line="19" column="25" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html.erb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb">
+      <file leaf-file-name="network.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/network.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="34" selection-start="2140" selection-end="2140" vertical-scroll-proportion="0.7777778">
+            <state line="223" column="39" selection-start="6397" selection-end="6397" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PathFinderController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
+      <file leaf-file-name="vehicle_journey.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="330" column="57" selection-start="11827" selection-end="11827" vertical-scroll-proportion="-9.428572">
+            <state line="141" column="5" selection-start="3518" selection-end="3518" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ok.png" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/images/yours/images/ok.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="del.png" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/images/yours/images/del.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="journey_pattern_timing_links.css.scss" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.css.scss">
+      <file leaf-file-name="service_table.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="0" selection-start="2157" selection-end="2157" vertical-scroll-proportion="0.0">
+            <state line="693" column="66" selection-start="25291" selection-end="25291" vertical-scroll-proportion="0.58886254">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="icon-reload-green.jpg" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/images/icon-reload-green.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
+      <file leaf-file-name="location_boxing.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/location_boxing.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="32" column="27" selection-start="1029" selection-end="1029" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="location.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/location.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plan_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_table_info.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_info.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="0" selection-start="796" selection-end="796" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gemfile" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Gemfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="1" selection-start="422" selection-end="422" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -139,22 +176,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/models/location.rb" />
-        <option value="$PROJECT_DIR$/app/models/stop_point.rb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_journeys.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_service.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_services.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_routes.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_services.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_service_journeys.html.erb" />
+        <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
+        <option value="$PROJECT_DIR$/app/models/route.rb" />
+        <option value="$PROJECT_DIR$/app/models/service.rb" />
+        <option value="$PROJECT_DIR$/app/models/network.rb" />
+        <option value="$PROJECT_DIR$/Gemfile" />
+        <option value="$PROJECT_DIR$/app/models/journey_pattern_timing_link.rb" />
         <option value="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/update_kml.js.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/_table_jptls.html.erb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/flash.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/update_timing_links.js.erb" />
-        <option value="$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.css.scss" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/models/journey_pattern.rb" />
+        <option value="$PROJECT_DIR$/app/models/service_table.rb" />
       </list>
     </option>
   </component>
@@ -168,8 +205,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-1" />
     <option name="y" value="-1" />
-    <option name="width" value="1282" />
-    <option name="height" value="1026" />
+    <option name="width" value="1296" />
+    <option name="height" value="1033" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -219,6 +256,20 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="buspass.admin">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="RailsProjectView">
         <subPane>
           <PATH>
@@ -609,20 +660,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="buspass.admin">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -633,6 +670,20 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="External Libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sass (v3.1.20, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1045,6 +1096,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; RVM: ruby-1.9.3-p125 [rails3.2] &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="buspass.admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1265,11 +1330,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="vehicle_journeys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="journey_pattern_timing_links" />
+              <option name="myItemId" value="services" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1288,36 +1349,22 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layouts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layouts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="municipalities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="networks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1385,7 +1432,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1403,11 +1450,67 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="municipalities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="municipalities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="networks" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1419,15 +1522,15 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="256" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="265" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="260" />
-    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="260" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../delayed_job" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="269" />
     <property name="RakeTaksPopup.undocumentedIncluded" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="808" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="269" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="812" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="808" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="269" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="265" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -1441,9 +1544,9 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="Ruby.ViewRefParam.DefaultExtension" value="js.erb" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="Ruby.ViewRefParam.DefaultExtension" value="js.erb" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1750,13 +1853,6 @@
       <RUBY_REMOTE_DEBUG_CONFIG NAME="LOCAL_ROOT" VALUE="$PROJECT_DIR$/spec" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
-      <JSRemoteDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSRemoteDebuggerConfigurationSettings>
-      <method />
-    </configuration>
     <configuration default="true" type="CucumberRunConfigurationType" factoryName="Cucumber">
       <predefined_log_file id="RUBY_CUCUMBER" enabled="true" />
       <module name="" />
@@ -1788,6 +1884,13 @@
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="CUCUMBER_RUNNER_PATH" VALUE="" />
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_RUNNER" VALUE="false" />
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="SETTINGS_VERSION" VALUE="2" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
@@ -2460,7 +2563,11 @@
       <created>1345233884912</created>
       <updated>1345233884912</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="Progress">
+      <created>1345334478893</created>
+      <updated>1345334478894</updated>
+    </task>
+    <option name="localTasksCounter" value="123" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2484,25 +2591,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-1" width="1282" height="1026" extended-state="6" />
+    <frame x="-1" y="-1" width="1296" height="1033" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1286031" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32815966" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32150775" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17098865" sideWeight="0.8713969" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23095624" sideWeight="0.6940133" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3059867" sideWeight="0.36061588" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24311183" sideWeight="0.67849225" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30487806" sideWeight="0.36061588" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3181818" sideWeight="0.6337115" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32372504" sideWeight="0.46017158" order="1" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.49002218" sideWeight="0.46017158" order="1" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32815966" sideWeight="0.0" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2573,100 +2680,112 @@
           <url>file://$PROJECT_DIR$/app/controllers/masters/testament_controller.rb</url>
           <line>170</line>
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="ruby-line">
+          <url>file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/services_controller.rb</url>
+          <line>7</line>
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
+    <entry file="file://$PROJECT_DIR$/app/models/copy_network_job.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="288" selection-end="288" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/compile_service_table_job.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/services_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="187" selection-end="187" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
+    <entry file="file://$PROJECT_DIR$/app/models/activement.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="38" selection-start="274" selection-end="274" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/route.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="15" selection-start="3858" selection-end="3858" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/service.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="113" column="35" selection-start="3262" selection-end="3320" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/network.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="223" column="39" selection-start="6397" selection-end="6397" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="6" selection-start="2229" selection-end="2229" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/update_timing_links.js.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_info.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="69" selection-start="229" selection-end="229" vertical-scroll-proportion="-1.875">
+        <state line="30" column="0" selection-start="796" selection-end="796" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/yours/images/ok.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/yours/images/yours_left.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/yours/images/yours_text.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/yours/images/yours_right.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/yours/images/yours_pixel.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/glyphicons-halflings.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/glyphicons-halflings-white.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/yours/images/del.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/images/icon-reload-green.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.css.scss">
+    <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="0" selection-start="2157" selection-end="2157" vertical-scroll-proportion="0.0">
+        <state line="24" column="1" selection-start="422" selection-end="422" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
+    <entry file="file://$PROJECT_DIR$/app/models/location.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="330" column="57" selection-start="11827" selection-end="11827" vertical-scroll-proportion="-9.428572">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb">
+    <entry file="file://$PROJECT_DIR$/lib/location_boxing.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="34" selection-start="2140" selection-end="2140" vertical-scroll-proportion="0.7777778">
+        <state line="32" column="27" selection-start="1029" selection-end="1029" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/journey_pattern_timing_link.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="25" selection-start="379" selection-end="379" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="5" selection-start="3518" selection-end="3518" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/journey_pattern.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="52" selection-start="2278" selection-end="2278" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="693" column="66" selection-start="25291" selection-end="25291" vertical-scroll-proportion="0.58886254">
           <folding />
         </state>
       </provider>

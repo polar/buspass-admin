@@ -58,7 +58,8 @@ class Masters::Municipalities::Networks::Routes::WebmapController < Masters::Mun
      data = {}
      data[:_id]="#{journey.id}"
      data[:_type] = 'route'
-     data[:_name]="#{journey.route.display_name} #{(Time.parse("0:00") + journey.start_time.minutes).strftime("%H:%M %P")}"
+     data[:_name]= view_context.link_to "#{journey.route.display_name} #{(Time.parse("0:00") + journey.start_time.minutes).strftime("%H:%M %P")}",
+         master_municipality_network_vehicle_journey_path(@master, @municipality, @network, journey)
      data[:_code]="#{journey.route.code}"
      data[:_version]="#{journey.route.version}"
      data[:_geoJSONUrl]= route_master_municipality_network_route_webmap_path(@master, @municipality, @network, journey.route, :ref => journey.id, :format => "json" )

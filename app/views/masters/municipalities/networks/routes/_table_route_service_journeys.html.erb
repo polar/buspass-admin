@@ -1,15 +1,15 @@
 
     <h4>Vehicle Journeys on this Service and Route</h4>
     <table class="table table-striped">
-      <tr>
+      <thead><tr>
         <th>Route</th>
         <th>Display Name</th>
         <th>Direction</th>
         <th>Departs</th>
         <th>Ends</th>
         <th>Links</th>
-      </tr>
-      <% for vj in @service.vehicle_journeys do %>
+      </tr></thead>
+      <tbody><% for vj in @service.vehicle_journeys do %>
           <tr>
             <td><%=  link_to vj.route.code, master_municipality_network_route_path(@master, @municipality, @network, @route)  %></td>
             <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj)  %></td>
@@ -20,5 +20,5 @@
             <td><%=  vj.journey_pattern_timing_links.count %></td>
             <td><%= link_to "Map", map_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj) %></td>
           </tr>
-      <% end %>
+      <% end %></tbody>
     </table>

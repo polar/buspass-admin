@@ -352,7 +352,6 @@ DEPENDENCIES
   devise (>= 2.0.0)
   devise-mongo_mapper!
   factory_girl_rails (>= 1.6.0)
-  fastercsv
   hpricot
   jquery-rails
   launchy (>= 2.0.5)

@@ -68,7 +68,7 @@ class Masters::Municipalities::Networks::VehicleJourneys::WebmapController < Mas
    data = {}
    data[:_id]="#{timing_link.id}"
    data[:_type] = 'route'
-   data[:_name]="#{timing_link.from.common_name} - #{timing_link.to.common_name}"
+   data[:_name]= view_context.link_to "#{timing_link.from.common_name} - #{timing_link.to.common_name}", master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master, @municipality, @network, @vehicle_journey, timing_link)
    data[:_code]="#{timing_link.position+1}"
    data[:_version]="#{timing_link.created_at.to_i}"
    data[:_geoJSONUrl]= route_master_municipality_network_vehicle_journey_webmap_path(:ref => timing_link.id, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id, :vehicle_journey_id => @vehicle_journey.id, :format => "json" )

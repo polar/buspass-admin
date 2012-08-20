@@ -41,6 +41,7 @@ class Network
   # We need :autosave off for copy!
   many :routes, :dependent => :destroy, :autosave => false
   many :services, :dependent => :destroy, :autosave => false
+  many :vehicle_journeys, :dependent => false, :autosave => false
 
   many :active_copies, :class_name => "Network", :foreign_key => :copy_lock_id
 
@@ -217,6 +218,10 @@ class Network
 
   def service_count
      routes.map {|r| r.services.count }.reduce(0) {|v,x| v + x}
+  end
+
+  def inconsistent_journeys
+    vehicle_journeys.all.select {|vj| ! vj.check_consistency }
   end
 
   def service_dates

@@ -1,6 +1,7 @@
 class VehicleJourney
   include MongoMapper::Document
   include LocationBoxing
+  plugin MongoMapper::Plugins::IdentityMap
 
   key :name,        String
   key :description, String
@@ -8,7 +9,14 @@ class VehicleJourney
   key :display_name, String
   key :persistentid, String
   key :note,         String
+  key :days,          String
   key :slug,         String
+
+  key :csv,         Array # [String]
+  key :line_no,     Integer
+  key :filename,    String
+
+  key :path_issue,  String
 
   belongs_to :service
   belongs_to :network
@@ -102,6 +110,10 @@ class VehicleJourney
     start_time + duration
   end
 
+  def stop_points
+    journey_pattern.stop_points
+  end
+
   def time_start(position = 0)
     time = base_time + departure_time.minutes
     i = 0
@@ -128,6 +140,7 @@ class VehicleJourney
   def journey_pattern_timing_links
     journey_pattern.journey_pattern_timing_links
   end
+
   # Time is a time of day.
   def is_scheduled?(time)
     diff = (time-base_time)

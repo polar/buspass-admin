@@ -5,6 +5,7 @@
 class Route
   include MongoMapper::Document
   include LocationBoxing
+  plugin MongoMapper::Plugins::IdentityMap
 
   belongs_to :network
   belongs_to :master
@@ -12,6 +13,7 @@ class Route
 
   key :name,          String
   key :code,          String
+  key :sort,          Integer, :default => -1
   key :description,   String
   key :display_name,  String
   key :persistentid,  String
@@ -20,14 +22,14 @@ class Route
 
   timestamps!
 
-  attr_accessible :name, :code, :network, :network_id, :description, :display_name, :persistentid, :version_cache,
+  attr_accessible :name, :code, :sort, :network, :network_id, :description, :display_name, :persistentid, :version_cache,
                   :network, :network_id, :master, :master_id, :municipality, :municipality_id
 
   #ensure_index(:network)
   ensure_index(:name, :unique => false) # cannot be unique because of the scope, :unique => true)
   ensure_index(:persistentid, :unique => false)
 
-  before_validation :ensure_slug
+  before_validation :ensure_slug, :ensure_sort
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:master_id, :municipality_id, :network_id]
@@ -36,18 +38,9 @@ class Route
   validates_presence_of :slug
   validates_uniqueness_of :slug, :scope => [:master_id, :municipality_id, :network_id]
 
-  ##
-  # For sorting Route Codes. Most significant is last 2 digits, then the first.
-  #
-  def self.codeOrd(code1, code2)
-    code1 = code1.to_i
-    base1 = code1 % 100
-    code2 = code2.to_i
-    base2 = code2 % 100
-    if (base1 == base2)
-      code1/100 <=> code2/100
-    else
-      base1 <=> base2
+  def ensure_sort
+    if (self.sort < 0)
+      self.sort = self.code.to_i
     end
   end
 
@@ -126,20 +119,22 @@ class Route
     self.all.select {|r| r.locatedBy(location)}
   end
 
-  def self.find_or_create_by_number(network, route_number)
+  def self.definitely_get_route(network, route_code)
     #puts "Route query"
-    r = Route.first(:network_id => network.id, :code => route_number)
+    r = Route.first(:network_id => network.id, :code => route_code)
     #puts r ? "Route found" : "creating...."
     if r.nil?
       r = Route.new(:network => network,
-                    :code => route_number,
-                    :name => "Route #{route_number}",
+                    :code => route_code,
+                    :sort => route_code.to_i,
+                    :name => "Route #{route_code}",
                     :master => network.master,
                     :municipality => network.municipality)
 
       r.persistentid = r.name.hash.abs
       #puts "Route saving...."
       r.save!(:safe => true)
+      return r
     end
 
     #puts "Done."

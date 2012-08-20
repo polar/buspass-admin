@@ -1,4 +1,5 @@
 <table class="table table-striped">
+  <thead>
   <tr>
     <th>Position</th>
     <th>Departs</th>
@@ -6,7 +7,11 @@
     <th>To</th>
     <th>Arrives</th>
     <th>Duration</th>
+    <th></th>
   </tr>
+
+  </thead>
+  <tbody>
   <% for tl in @vehicle_journey.journey_pattern_timing_links do %>
       <tr>
         <!--- TODO: Internatialize Time -->
@@ -16,6 +21,9 @@
         <td><%=  tl.to.common_name  %><br /> <%= tl.to.location.coordinates['LonLat'] %></td>
         <td><%=  @vehicle_journey.time_end(tl.position).strftime("%H:%M") %></td>
         <td><%=  tl.time %></td>
+        <td><%=  link_to "Reroute", master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master, @municipality, @network, @vehicle_journey, tl), :class => "btn" %></td>
       </tr>
   <% end %>
+
+  </tbody>
 </table>

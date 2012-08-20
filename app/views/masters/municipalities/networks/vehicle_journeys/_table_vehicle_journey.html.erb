@@ -8,6 +8,7 @@
     <th>Departs</th>
     <th>Ends</th>
     <th>Links</th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
@@ -19,7 +20,7 @@
     <td><%=  @vehicle_journey.time_start.strftime("%H:%M") %></td>
     <td><%=  @vehicle_journey.time_end.strftime("%H:%M") %></td>
     <td><%=  @vehicle_journey.journey_pattern_timing_links.count %></td>
-    <td><%=  link_to "Map", map_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, @vehicle_journey) %></td>
+    <td><%=  link_to "Map", map_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, @vehicle_journey), :class => "btn" %></td>
   </tr>
   </tbody>
 </table>

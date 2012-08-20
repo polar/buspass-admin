@@ -1,14 +1,15 @@
 
 <table class="table table-striped">
-  <tr>
+  <thead><tr>
     <th>Route</th>
     <th>Display Name</th>
     <th>Direction</th>
     <th>Departure Time</th>
     <th>End Time</th>
     <th>Links</th>
-  </tr>
-  <% for vj in @journeys do %>
+    <th></th>
+  </tr></thead>
+  <tbody><% for vj in @journeys do %>
       <tr>
         <td><%= link_to vj.route.code, master_municipality_network_route_path(@master, @municipality, @network, vj.route)   %></td>
         <td><%= link_to vj.display_name, master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj)  %></td>
@@ -17,7 +18,7 @@
         <td><%= vj.time_start.strftime("%H:%M") %></td>
         <td><%= vj.time_end.strftime("%H:%M") %></td>
         <td><%= vj.journey_pattern_timing_links.count %></td>
-        <td><%= link_to "Map", map_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj) %></td>
+        <td><%= link_to "Map", map_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj), :class => "btn" %></td>
       </tr>
-  <% end %>
+  <% end %></tbody>
 </table>

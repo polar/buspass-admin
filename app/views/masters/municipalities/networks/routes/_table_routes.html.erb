@@ -8,21 +8,23 @@
     </p>
 <% else %>
     <table class="table table-striped">
-      <tr>
+      <thead><tr>
         <th>Code</th>
         <th>Name</th>
         <th>Description</th>
         <th>Services</th>
         <th>Vehicle Journeys</th>
-      </tr>
-      <% for r in @routes do %>
+        <th></th>
+      </tr></thead>
+      <tbody><% for r in @routes do %>
           <tr>
             <td><%=  link_to r.code, master_municipality_network_route_path(@master, @municipality, @network, r) %></td>
             <td><%=  link_to r.name, master_municipality_network_route_path(@master, @municipality, @network, r) %></td>
             <td><%=  r.description %></td>
             <td><%=  r.services.count %></td>
             <td><%=  r.vehicle_journey_count %></td>
+            <td><%= link_to "Map", map_master_municipality_network_route_path(@master, @municipality, @network, r), :class => "btn" %></td>
           </tr>
-      <% end %>
+      <% end %></tbody>
     </table>
 <% end %>

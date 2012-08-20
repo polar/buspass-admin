@@ -17,6 +17,8 @@ class JourneyPatternTimingLink
 
   key :position, Integer
 
+  key :path_issue, String
+
   key :view_path_coordinates, Hash, :default => { "LonLat" => [[0.0,0.0],[0.0,0.0]] }
 
   timestamps!
@@ -61,6 +63,22 @@ class JourneyPatternTimingLink
       return false
     end
     return true
+  end
+
+  #
+  # Ensures the endpoints of the path are connected to the Stop Points.
+  # Returns true if coordinates had to be added.
+  def connect_endpoints_to_path
+    # We always want to make sure that we have at least 2 points on a link
+    coords = oldcoords = view_path_coordinates["LonLat"]
+    if coords.length < 1 || coords.first != from.location.coordinates
+      coords = [from.location.coordinates] + coords
+    end
+    if coords.length < 2 || coords.last != to.location.coordinates
+      coords << to.location.coordinates
+    end
+    view_path_coordinates = { "LonLat" => coords }
+    return coords.length != oldcoords.length
   end
 
   #

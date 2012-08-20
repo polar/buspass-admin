@@ -5,33 +5,33 @@
     <% for s in r.services %>
         <h3><%= link_to "Service #{s.name}", master_municipality_network_service_path(@master, @municipality, @network, s) %></h3>
         <table class="table table-striped">
-          <tr>
+          <thead><tr>
             <th>Route</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Day Class</th>
             <th>Vehicle Journeys</th>
-          </tr>
-          <tr>
+          </tr></thead>
+          <tbody><tr>
             <td><%=  link_to r.code, master_municipality_network_route_path(@master, @municipality, @network, r)  %></td>
             <!--- TODO: Internatialize Time -->
             <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
             <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
             <td><%=  s.day_class %></td>
             <td><%=  s.vehicle_journeys.count %></td>
-          </tr>
+          </tr></tbody>
         </table>
         <h4>Vehicle Journeys on this Service and Route</h4>
         <table class="table table-striped">
-          <tr>
+          <thead><tr>
             <th>Route</th>
             <th>Display Name</th>
             <th>Direction</th>
             <th>Departs</th>
             <th>Ends</th>
             <th>Links</th>
-          </tr>
-          <% for vj in s.vehicle_journeys do %>
+          </tr></thead>
+          <tbody><% for vj in s.vehicle_journeys do %>
               <tr>
                 <td><%=  link_to r.code, master_municipality_network_route_path(@master, @municipality, @network, r)  %></td>
                 <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj)  %></td>
@@ -41,7 +41,7 @@
                 <td><%=  vj.time_end.strftime("%H:%M") %></td>
                 <td><%=  vj.journey_pattern_timing_links.count %></td>
               </tr>
-          <% end %>
+          <% end %></tbody>
         </table>
     <% end %>
 <% end %>
