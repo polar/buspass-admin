@@ -128,10 +128,23 @@ class ServiceTable
         "F" => 16,
         "S" => 32,
         "N" => 64,
+        "D" => 1 | 2 | 4 | 8 | 16 | 32 | 64, # MTWRFSN
+        "E" => 32 | 64, # SN
+        "K" => 1 | 2 | 4 | 8 | 16, # MTWRF
     }
   end
 
-  def self.getDayClass(service)
+  def self.parseDayClass(dayclass)
+     dayclass.split(//).reduce(0) do |t,c|
+       x = day_class_2[c]
+       if x.nil?
+         raise ProcessingError("Bad Day Class #{dayclass}")
+       end
+       t | x
+     end
+  end
+
+  def self.getNormalizedDayClass(service)
     cls = ""
     cls << "M" if service.monday
     cls << "T" if service.tuesday
@@ -140,7 +153,7 @@ class ServiceTable
     cls << "F" if service.friday
     cls << "S" if service.saturday
     cls << "N" if service.sunday
-    return cls
+    return {"MTWRF" => "K", "SN" => "E", "MTWRFSN" => "D"}[cls] || cls
   end
 
   def self.getDesignator(ch)
@@ -218,23 +231,28 @@ class ServiceTable
     end
   end
 
-  def self.create_vehicle_journey(network, service, journey_pattern, departure_time)
-    dtimelit = departure_time.strftime("%H:%M")
+  def self.toTimelit(time, sep = ":")
+    timem = (time - Time.parse("0:00"))/60  # could be negative
+    # If time is greater than 24 hours, we need to add 24 hours to time.
+    dtime = (timem/(60*24)).to_i.abs*24  # hours to add
+    hours = (Time.parse("0:00") + timem.minutes).hour + dtime
+    mins  = (Time.parse("0:00") + timem.minutes).min
+    (timem < 0 ? "~" : "") + ("%02i" % hours) + sep + ("%02i" % mins)
+  end
+
+  def self.create_vehicle_journey(network, service, journey_pattern, timelit, departure_time)
     # We use the name of the Service for the Vehicle Journey + the time.
     # We add differentiators in case there are two vjs with the same times
     # This could be more efficient, but probably won't happen that much.
     diff = 0
-    name = "#{service.name} #{dtimelit}"
+    name = "#{service.name} #{timelit}"
     while VehicleJourney.first(:network_id => network.id, :name => name) do
       diff = diff + 1
-      name = "#{service.name} #{dtimelit} #{diff}"
+      name = "#{service.name} #{timelit} #{diff}"
     end
 
-    # TODO: Must work on scheme for minutes before midnight, threshold?
-    dtime = (Time.parse(dtimelit)-Time.parse("0:00"))/60
-
     # TODO: PersistentId needs help.
-    pid   = (network.name + name).hash.abs
+    pid = name.hash.abs
     while VehicleJourney.first(:network_id => network.id, :persistentid => pid) do
       pid += 1
     end
@@ -244,7 +262,7 @@ class ServiceTable
         :network         => network,
         :service         => service,
         :name            => name,
-        :departure_time  => dtime,
+        :departure_time  => departure_time,
         :persistentid    => pid,
         :journey_pattern => journey_pattern)
     vehicle_journey.save!(:safe => true)
@@ -254,7 +272,7 @@ class ServiceTable
   end
 
 
-  def self.generateJPTLs(network, dir, file, progress)
+  def self.generateJPTLs(cache, network, dir, file, progress)
     service = nil
 
     jptl_dir = File.dirname(file)
@@ -343,13 +361,11 @@ class ServiceTable
         next
       end
       if cols[0] == "Stop Points"
-        # We do not reuse stop points and locations.
         stop_point_names_stage    = cols.drop(3)
         stop_point_names = nil
         next
       end
       if cols[0] == "Locations"
-        # We do not reuse stop points and locations.
         stop_point_locations_stage = cols.drop(3)
         stop_point_locations = nil
         next
@@ -364,7 +380,7 @@ class ServiceTable
 
         if (start_date > end_date)
           progress.error "#{table_file}:#{file_line}: Start Date must be after End Date"
-          raise "cannot continue with this file; bad date configuration."
+          raise "cannot continue with this file -- bad date configuration."
         end
       end
       # We can individually change these at any time, but we need them all.
@@ -375,41 +391,47 @@ class ServiceTable
         stop_point_names_stage     = nil
         stop_point_locations_stage = nil
         direction_stage            = nil
-        if stop_point_names.size < 3 # includes "NOTE"
+        if stop_point_names.length < 3 # includes "NOTE"
           progress.error "#{table_file}:#{file_line}: You need to have at least 2 stop points for a journey followed by NOTE."
-          raise ProcessingError.new("cannot continue with this file; needs at least 2 stop points.")
+          raise ProcessingError.new("cannot continue with this file -- needs at least 2 stop points.")
         end
-        if stop_point_locations.size < stop_point_names.size-1
+        if stop_point_locations.length < stop_point_names.length-1
           progress.error "#{table_file}:#{file_line}: You need to have at least a location for each stop point."
-          raise ProcessingError.new("cannot continue with this file; Need a location under every stop point.")
+          raise ProcessingError.new("cannot continue with this file -- need a location under every stop point.")
         end
         n = 0
-        while n < stop_point_names.size && stop_point_names[n] && stop_point_names[n].downcase != "note" do
+        while n < stop_point_names.length && stop_point_names[n] && stop_point_names[n].downcase != "note" do
           if (stop_point_locations[n].blank?)
             progress.error "#{table_file}:#{file_line}: Stop points must have a location under them."
-            raise ProcessingError.new("cannot continue with this file; Stop Point missing enough locations.")
+            raise ProcessingError.new("cannot continue with this file -- stop points missing enough locations.")
           end
           n += 1
         end
-        if n == stop_point_names.size
+        if n == stop_point_names.length
           progress.error "#{table_file}:#{file_line}: Stop points must end with 'NOTE'"
-          raise ProcessingError.new("cannot continue with this file; Stop Points must end with 'NOTE'.")
+          raise ProcessingError.new("cannot continue with this file -- stop points must end with 'NOTE'.")
         end
         if ! stop_point_names[n]
           progress.error "#{table_file}:#{file_line}: Stop point #{n+1} must have a name."
-          raise ProcessingError.new("cannot continue with this file; Stop Point missing name.")
+          raise ProcessingError.new("cannot continue with this file -- stop point missing name.")
+        end
+        if  stop_point_names[n].downcase != "note"
+          progress.error "#{table_file}:#{file_line}: Stop points must end with 'NOTE'"
+          raise ProcessingError.new("cannot continue with this file -- stop points must end with 'NOTE'.")
         end
       end
       if stop_point_names == nil || stop_point_locations == nil || direction == nil
         progress.error "#{table_file}:#{file_line}: Need to have the 'Stop Points', 'Locations', and 'Direction' lines before processing routes. Processing of file stopped."
-        raise ProcessingError.new("cannot continue with this file; needs start date, end date, and direction.")
+        raise ProcessingError.new("cannot continue with this file -- needs stop points, locations, and direction.")
       end
       if start_date == nil || end_date == nil
         progress.error "#{table_file}:#{file_line}: Need to have 'Start Date' and 'End Date' lines. Processing of file stopped."
-        raise ProcessingError.new("cannot continue with this file, no stop points or no locations")
+        raise ProcessingError.new("cannot continue with this file -- needs start date and end date.")
       end
       begin
-        # Otherwise, we start reading JPTLs
+        # If we catch a ProcessingError in here, we just ignore that VehicleJourney.
+
+        # Start reading a VehicleJourney
         route_code   = cols[0]
         day_class    = getDesignator(cols[1])
         display_name = cols[2]
@@ -442,10 +464,10 @@ class ServiceTable
           service.csv_lineno           = file_line
           service.csv_filename         = table_file
           service.stop_points          = []
-          for i in 0..stop_point_names.length-1 do
-            if stop_point_names[i].downcase != "note"
-              service.stop_points << self.createStopPoint(stop_point_names[i], stop_point_locations[i])
-            end
+          i = 0
+          while i < stop_point_names.length && stop_point_names[i].downcase != "note" do
+            service.stop_points << self.createStopPoint(stop_point_names[i], stop_point_locations[i])
+            i += 1
           end
           service.save
         end
@@ -505,6 +527,7 @@ class ServiceTable
               # This is the beginning point. The first time found.
               current_time  = parsed_times[i]
               start_time    = current_time
+              timelit       = toTimelit(current_time)
 
               # There is a VehicleJourney and a JourneyPattern
               # for each line associated with this service.
@@ -517,10 +540,10 @@ class ServiceTable
               if !service.route
                 raise "WTF 3 Route nil, Service #{service.name} #{i} #{stop_point_names[i]} #{times[i]}"
               end
-              journey_pattern                              = service.get_journey_pattern(start_time, journey_index, table_file, file_line)
-              vehicle_journey                              = create_vehicle_journey(network, service, journey_pattern, start_time)
-              # Do we actually need to do this for mongo?
-              journey_pattern                              = vehicle_journey.journey_pattern
+              time_minutes = (start_time - Time.parse("0:00"))/60 # can be negative
+              journey_pattern = service.get_journey_pattern(timelit, journey_index, table_file, file_line)
+              vehicle_journey = create_vehicle_journey(network, service, journey_pattern, timelit, time_minutes)
+              journey_pattern = vehicle_journey.journey_pattern
 
               #puts "Done Journey Pattern and VJ  #{Time.now - @jv_lookup}"
               # The JourneyPattern is persistent, and so are its JPTLs.
@@ -556,7 +579,7 @@ class ServiceTable
               # This is the initial path. May have to be modified,
               # which is why the JPTLs have persistent names.
               jptl.google_uri = constructGoogleMapURI(jptl.from.location, jptl.to.location)
-              vpc             = GoogleUriViewPath.getViewPathCoordinates(jptl.google_uri)
+              vpc             = cache.getViewPathCoordinates(jptl.google_uri)
               if !vpc
                 jptl.path_issue            = "#{table_file}:#{file_line}: No valid path"
                 jptl.view_path_coordinates = {"LonLat" => []}
@@ -629,7 +652,8 @@ class ServiceTable
         progress.continue!
 
       rescue ProcessingError => boom
-        progress.error "#{table_file}:#{file_line}: #{boom}}"
+        progress.error "#{table_file}:#{file_line}: #{boom}"
+        progress.error "Line #{file_line} ignored: #{cols.inspect}"
         progress.commit()
       rescue JobAborted => abort
         raise abort
@@ -650,7 +674,7 @@ class ServiceTable
   # @param network [Network]
   # @param jptl_file [File]
   # @param progress [Progress]
-  def self.updateJPTLs(network, dir, file, progress)
+  def self.updateJPTLs(cache, network, dir, file, progress)
     jptl_dir = File.dirname(file)
 
     jptl_file = File.join(jptl_dir.sub(/^#{dir}/, "."), File.basename(file))
@@ -685,7 +709,7 @@ class ServiceTable
               progress.log("Updating #{jptl.name} #{jptl.from.common_name} -> #{jptl.to.common_name}")
               jptl.google_uri = row[5]
               # Could also be a <kml> document from Google Earth
-              vpc             = GoogleUriViewPath.getViewPathCoordinates(jptl.google_uri)
+              vpc             = cache.getViewPathCoordinates(jptl.google_uri)
               if vpc != nil
                 jptl.view_path_coordinates = { "LonLat" => normalizePath(vpc["LonLat"]) }
                 if jptl.connect_endpoints_to_path()
@@ -741,7 +765,7 @@ class ServiceTable
     doit({:depth => -1, :maxdepth => 0, :files => [], :dir => "/"}, File.expand_path(dir), includeRE, excludeRE)
   end
 
-  def self.processDirectory(network, dir)
+  def self.processDirectory(cache, network, dir)
     progress = Progress.new(network)
     # First we must clear all Services, VehicleJourneys, and Routes.
     count = Route.where(:network_id => network.id).count
@@ -774,7 +798,7 @@ class ServiceTable
       ifile += 1
       begin
         progress.continue!
-        self.generateJPTLs(network, dir, f, progress)
+        self.generateJPTLs(cache, network, dir, f, progress)
       rescue ProcessingError => boom
         progress.error("#{boom}")
         progress.commit()
@@ -798,7 +822,7 @@ class ServiceTable
 
   end
 
-  def self.updateDirectory(network, dir)
+  def self.updateDirectory(cache, network, dir)
     progress = Progress.new(network)
     progress.log("Updating Directory #{dir}")
 
@@ -813,7 +837,7 @@ class ServiceTable
       ifile += 1
       begin
         progress.continue!
-        self.updateJPTLs(network, dir, f, progress)
+        self.updateJPTLs(cache, network, dir, f, progress)
       rescue ProcessingError => boom
         progress.error("#{boom}")
         progress.commit()
@@ -835,6 +859,12 @@ class ServiceTable
     progress.log "After processing, #{issues_count} Journeys have path issues."
     progress.commit()
 
+  end
+
+  def self.processNetwork(net, dir)
+    cache = GoogleUriViewPath::Cache.new()
+    processDirectory(cache, net, dir)
+    updateDirectory(cache, net, dir)
   end
 
   # For a route that will need to be rebuilt, but is already fixed.
@@ -883,7 +913,7 @@ class ServiceTable
       if fname != current_filename
         out.close() if !out.nil?
         FileUtils.mkdir_p(File.dirname(fname))
-        out = CSV.open(fname, "w", :force_quotes => true)
+        out = CSV.open(fname, "a+", :force_quotes => true)
       end
       out << ["Route Name", route.code, route.name, route.sort]
       out << ["Start Date", service.operating_period_start_date]
@@ -900,7 +930,7 @@ class ServiceTable
       out << row1
       out << row2
       service.vehicle_journeys.order(:csv_lineno).each do   |vj|
-        vjrow = [route.code, self.getDayClass(service), vj.display_name]
+        vjrow = [route.code, self.getNormalizedDayClass(service), vj.display_name]
         stop_points = service.stop_points
         index = 0
 
@@ -911,7 +941,7 @@ class ServiceTable
           index += 1
           vjrow << ""
         end
-        vjrow << (time < 0 ? "~" : "") + (Time.parse("0:00") + time.minutes).strftime("%H.%M")
+        vjrow << toTimelit(Time.parse("0:00")+time, ".")
         time += jptls[0].time
         for jptl in jptls do
           index += 1
@@ -920,7 +950,7 @@ class ServiceTable
             vjrow << ""
           end
           if index < stop_points.length
-            vjrow << (time < 0 ? "~" : "") + (Time.parse("0:00") + time.minutes).strftime("%H.%M")
+            vjrow << toTimelit(Time.parse("0:00")+time, ".")
             time = time + jptl.time
           end
         end

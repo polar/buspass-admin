@@ -65,12 +65,9 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
       return
     end
 
-    say "Begin rebuild"
-    ServiceTable.processDirectory(net, dir)
-    say "End rebuild"
-    say "Begin update"
-    ServiceTable.updateDirectory(net, dir)
-    say "End update"
+    say "Begin process network"
+    ServiceTable.processNetwork(net, dir)
+    say "End process network"
 
     begin
       say "Creating Zip file #{net.file_path}"

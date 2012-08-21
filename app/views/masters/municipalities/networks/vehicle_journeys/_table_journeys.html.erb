@@ -9,7 +9,7 @@
             <th>Route</th>
             <th>Start Date</th>
             <th>End Date</th>
-            <th>Day Class</th>
+            <th>Days</th>
             <th>Vehicle Journeys</th>
           </tr></thead>
           <tbody><tr>
@@ -26,20 +26,24 @@
           <thead><tr>
             <th>Route</th>
             <th>Display Name</th>
+            <th>Days</th>
             <th>Direction</th>
             <th>Departs</th>
             <th>Ends</th>
             <th>Links</th>
+            <th></th>
           </tr></thead>
           <tbody><% for vj in s.vehicle_journeys do %>
               <tr>
                 <td><%=  link_to r.code, master_municipality_network_route_path(@master, @municipality, @network, r)  %></td>
                 <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj)  %></td>
+                <td><%=  s.day_class %></td>
                 <td><%=  vj.service.direction  %></td>
                 <!--- TODO: Internatialize Time -->
-                <td><%=  vj.time_start.strftime("%H:%M") %></td>
-                <td><%=  vj.time_end.strftime("%H:%M") %></td>
+                <td><%=  to_time_literal(vj.time_start) %></td>
+                <td><%=  to_time_literal(vj.time_end) %></td>
                 <td><%=  vj.journey_pattern_timing_links.count %></td>
+                <td><%= link_to "Map", map_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj), :class => "btn" %></td>
               </tr>
           <% end %></tbody>
         </table>

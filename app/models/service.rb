@@ -214,9 +214,9 @@ class Service
   #
   # @returns [JourneyPattern] new and unsaved
   #
-  def get_journey_pattern(time, index, csv_file, csv_file_lineno)
+  def get_journey_pattern(timelit, index, csv_file, csv_file_lineno)
     # We make the name unique with the start time and index
-    name = "Route #{route.code} #{direction} #{day_class} S #{self.name}-#{index} #{time.strftime("%H:%M")}"
+    name = "Route #{route.code} #{direction} #{day_class} S #{self.name}-#{index} #{timelit}"
     JourneyPattern.new(:name            => name,
                        :csv_file        => csv_file,
                        :csv_file_lineno => csv_file_lineno)

@@ -58,7 +58,7 @@
   <hr />
 <h3>Vehicle Journeys in this Service with similar links</h3>
 
-<%= form_tag update_timing_links_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master,@municipality,@network,@vehicle_journey,@journey_pattern_timing_link, :format => "js"), :id => "form_update_jptls", :remote => true do %>
+<%= form_tag update_timing_links_1_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master,@municipality,@network,@vehicle_journey,@journey_pattern_timing_link, :format => "js"), :id => "form_update_jptls_1", :remote => true do %>
 
     <div class="dropdown btn" id="menu1">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
@@ -67,25 +67,59 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <a href="#" id="menu_select_same">All Same Path</a>
+          <a href="#" id="menu1_select_same">All Same Path</a>
         </li>
         <li>
-          <a href="#" id="menu_select_one">This one only</a>
+          <a href="#" id="menu1_select_one">This one only</a>
         </li>
         <li>
-          <a href="#" id="menu_select_all">All</a>
+          <a href="#" id="menu1_select_all">All</a>
         </li>
         <li>
-          <a href="#" id="menu_select_note">All Same Note</a>
+          <a href="#" id="menu1_select_note">All Same Note</a>
         </li>
       </ul>
     </div>
     <%= submit_tag "Update JPTLS", :class => "btn" %>
-    <%= hidden_field_tag "kml", "", :id => "jptls_kml" %>
-    <span id="update_status"></span>
-    <img id="update_waiting" src="/assets/yours/images/ajax-loader.gif" alt="waiting"/>
-    <div id="table_jptls">
+    <%= hidden_field_tag "kml", "", :id => "jptls_kml_1" %>
+    <span id="update_status_1"></span>
+    <img id="update_waiting_1" src="/assets/yours/images/ajax-loader.gif" alt="waiting"/>
+    <div id="table_jptls_1">
       <%=  render :partial => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/table_jptls" %>
     </div>
 <% end %>
+
+  <h3>Vehicle Journeys outisde this Service with similar links</h3>
+
+  <%= form_tag update_timing_links_2_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master,@municipality,@network,@vehicle_journey,@journey_pattern_timing_link, :format => "js"), :id => "form_update_jptls_2", :remote => true do %>
+
+      <div class="dropdown btn" id="menu2">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#menu2">
+          Check
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="#" id="menu2_select_same">All Same Path</a>
+          </li>
+          <li>
+            <a href="#" id="menu2_select_one">Same Route</a>
+          </li>
+          <li>
+            <a href="#" id="menu2_select_all">All</a>
+          </li>
+          <li>
+            <a href="#" id="menu2_select_note">All Same Note</a>
+          </li>
+        </ul>
+      </div>
+      <%= submit_tag "Update JPTLS", :class => "btn" %>
+      <%= hidden_field_tag "kml", "", :id => "jptls_kml_2" %>
+      <span id="update_status_2"></span>
+      <img id="update_waiting_2" src="/assets/yours/images/ajax-loader.gif" alt="waiting"/>
+      <div id="table_jptls_2">
+        <%=  render :partial => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/table_services_route_jptls" %>
+      </div>
+  <% end %>
+
 </div>

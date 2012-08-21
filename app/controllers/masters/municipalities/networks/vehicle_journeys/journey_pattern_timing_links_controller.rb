@@ -39,6 +39,14 @@ class Masters::Municipalities::Networks::VehicleJourneys::JourneyPatternTimingLi
     render :inline => @journey_pattern_timing_link.to_kml
   end
 
+  def update_timing_links_1
+    update_timing_links
+  end
+
+  def update_timing_links_2
+    update_timing_links
+  end
+
   def update_timing_links
     get_context
     authenticate_muni_admin!
@@ -144,6 +152,8 @@ class Masters::Municipalities::Networks::VehicleJourneys::JourneyPatternTimingLi
 
   def setup_jptls
 
+    tosp = @journey_pattern_timing_link.to
+    fromsp = @journey_pattern_timing_link.from
     @to = @journey_pattern_timing_link.to.location.coordinates["LonLat"]
     @from = @journey_pattern_timing_link.from.location.coordinates["LonLat"]
     @isConsistent = @journey_pattern_timing_link.check_consistency
@@ -152,9 +162,10 @@ class Masters::Municipalities::Networks::VehicleJourneys::JourneyPatternTimingLi
           " You must hit Update JPTL to save it."
 
     end
-    @kml = kml_master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master, @municipality, @network, @vehicle_journey, @journey_pattern_timing_link)
+
     @kml = @journey_pattern_timing_link.to_kml
 
+    @back_kml = @journey_pattern_timing_link.journey_pattern.to_kml
 
     @service = @vehicle_journey.service
     @vehicle_journeys = @service.vehicle_journeys
@@ -163,10 +174,28 @@ class Masters::Municipalities::Networks::VehicleJourneys::JourneyPatternTimingLi
       vj.journey_pattern.journey_pattern_timing_links.each do |jptl|
         if @journey_pattern_timing_link.to.same?(jptl.to) && @journey_pattern_timing_link.from.same?(jptl.from)
           same_path = @journey_pattern_timing_link.view_path_coordinates == jptl.view_path_coordinates
-          @journey_links << [vj, jptl, same_path]
+          same_note = vj.note == @vehicle_journey.note
+          same_journey = jptl == @journey_pattern_timing_link
+          @journey_links << [vj, jptl, same_path, same_note, same_journey]
         end
       end
     end
     @center = getCenter(@from, @to)
+
+    @services = {}
+    VehicleJourney.where(:network_id => @network.id, :service_id.ne => @service.id).each do |vj|
+       for jptl in vj.journey_pattern_timing_links do
+         if jptl.from.same?(fromsp) && jptl.to.same?(tosp)
+           same_path = @journey_pattern_timing_link.view_path_coordinates == jptl.view_path_coordinates
+           same_note = vj.note == @vehicle_journey.note
+           same_route =  vj.service.route == @service.route
+           if @services[vj.service] == nil
+             @services[vj.service] = [[vj, jptl, same_path, same_note, same_route]]
+           else
+             @services[vj.service] << [vj, jptl, same_path, same_note, same_route]
+           end
+         end
+       end
+    end
   end
 end

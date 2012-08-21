@@ -13,6 +13,7 @@
         <th>Route</th>
         <th>Start Date</th>
         <th>End Date</th>
+        <th>Days</th>
         <th>Vehicle Journeys</th>
       </tr></thead>
       <tbody><tr>
@@ -20,6 +21,7 @@
         <!--- TODO: Internationalize Time -->
         <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
         <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
+        <td><%=  s.day_class %></td>
         <td><%=  s.vehicle_journeys.count %></td>
         <td><%= link_to "Map", map_master_municipality_network_route_path(@master, @municipality, @network, @route, :service_id => s.id) %></td>
       </tr></tbody>
@@ -29,6 +31,7 @@
       <thead><tr>
         <th>Route</th>
         <th>Display Name</th>
+        <th>Days</th>
         <th>Direction</th>
         <th>Departs</th>
         <th>Ends</th>
@@ -38,10 +41,11 @@
           <tr>
             <td><%=  link_to vj.route.code, master_municipality_network_route_path(@master, @municipality, @network, @route)  %></td>
             <td><%=  link_to vj.display_name, master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj)  %></td>
+            <td><%=  s.day_class %></td>
             <td><%=  s.direction  %></td>
             <!--- TODO: Internatialize Time -->
-            <td><%=  vj.time_start.strftime("%H:%M") %></td>
-            <td><%=  vj.time_end.strftime("%H:%M") %></td>
+            <td><%=  to_time_literal(vj.time_start) %></td>
+            <td><%=  to_time_literal(vj.time_end) %></td>
             <td><%=  vj.journey_pattern_timing_links.count %></td>
             <td><%= link_to "Map", map_master_municipality_network_vehicle_journey_path(@master, @municipality, @network, vj) %></td>
           </tr>

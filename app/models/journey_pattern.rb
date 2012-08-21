@@ -169,10 +169,23 @@ class JourneyPattern
         return { "LonLat" => [[0.0,0.0],[0.0,0.0]] }
       else
         return { "LonLat" =>
-                     journey_pattern_timing_links.reduce([]) {|v,tl|v + tl.view_path_coordinates["LonLat"]}
+                     journey_pattern_timing_links.reduce([]) {|v,tl|
+                       v.length > 0 && tl.length > 0 && v.last == tl.first ?
+                           v + tl.view_path_coordinates["LonLat"].drop(1) :
+                           v + tl.view_path_coordinates["LonLat"]}
         }
       end
     end
+  end
+
+  def to_kml
+    data = view_path_coordinates["LonLat"].map {|lon,lat| "#{lon},#{lat}" }.join(" ")
+    html = ""
+    html += "<kml xmlns='http://earth.google.com/kml/2.0'>"
+    html += "<Document><Folder><Placemark><LineString><coordinates>"
+    html += data
+    html += "</coordinates></LineString></Placemark></Folder></Document>"
+    html += "</kml>"
   end
 
   def get_geometry

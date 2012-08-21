@@ -10,7 +10,8 @@
                     <%= "[#{@from[0]},#{@from[1]}]" %>,
                     <%= "[#{@to[0]},#{@to[1]}]" %>,
                     <%= (@kml ? "\"#{@kml}\"" : "null").html_safe %>,
-                    <%= @isConsistent %>);
+                    <%= @isConsistent %>,
+                    <%= (@back_kml ? "\"#{@back_kml}\"" : "null").html_safe %>);
 
         });
     </script>

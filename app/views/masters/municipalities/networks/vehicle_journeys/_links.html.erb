@@ -1,5 +1,1 @@
 <h2><%= link_to @network.name, master_municipality_network_path(@network, :master_id => @master.id, :municipality_id => @municipality.id) %></h2>
-<h3><%= link_to "Route #{@vehicle_journey.route.name}",
-                master_municipality_network_route_path(@vehicle_journey.route, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>
-<h3><%= link_to "Vehicle Journey #{@vehicle_journey.name}",
-                master_municipality_network_vehicle_journey_path(@vehicle_journey, :network_id => @network.id, :master_id => @master.id, :municipality_id => @municipality.id) %></h3>

@@ -11,7 +11,6 @@
       <thead><tr>
         <th>Code</th>
         <th>Name</th>
-        <th>Description</th>
         <th>Services</th>
         <th>Vehicle Journeys</th>
         <th></th>
@@ -20,8 +19,7 @@
           <tr>
             <td><%=  link_to r.code, master_municipality_network_route_path(@master, @municipality, @network, r) %></td>
             <td><%=  link_to r.name, master_municipality_network_route_path(@master, @municipality, @network, r) %></td>
-            <td><%=  r.description %></td>
-            <td><%=  r.services.count %></td>
+            <td><%=  r.services.count %> <%=  r.services.map {|s| s.day_class}.uniq.join(", ") %></td>
             <td><%=  r.vehicle_journey_count %></td>
             <td><%= link_to "Map", map_master_municipality_network_route_path(@master, @municipality, @network, r), :class => "btn" %></td>
           </tr>

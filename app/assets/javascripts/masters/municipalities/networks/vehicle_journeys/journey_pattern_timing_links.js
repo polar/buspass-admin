@@ -6,12 +6,13 @@
  *= require PathFinderController
  */
 
-function init(center, startPoint, endPoint, defaultRoute, isConsistent) {
+function init(center, startPoint, endPoint, defaultRoute, isConsistent, backRoute) {
     var controller = new BusPass.PathFinderController({
         center : center,
         startPoint : startPoint,
         endPoint : endPoint,
         defaultRoute : defaultRoute,
+        backRoute : backRoute,
         onRouteUpdated : function(route) {
             copyToJPTLSForm();
         }
@@ -27,38 +28,71 @@ function init(center, startPoint, endPoint, defaultRoute, isConsistent) {
  * just before this call, to the jptls form.
  */
 function copyToJPTLSForm() {
-    $("#jptls_kml").val(
+    $("#jptls_kml_1").val(
+        $("#copybox_field").val());
+    $("#jptls_kml_2").val(
         $("#copybox_field").val());
 
 }
-function select_one(e) {
-    $("input[type=checkbox].all").attr("checked", false);
-    $("input[type=checkbox].one").attr("checked", true);
+function select_one_1(e) {
+    $("#form_update_jptls_1 input[type=checkbox].all").attr("checked", false);
+    $("#form_update_jptls_1 input[type=checkbox].one").attr("checked", true);
+}
+function select_all_1(e) {
+    $("#form_update_jptls_1 input[type=checkbox].all").attr("checked", true);
+}
+function select_same_1(e) {
+    $("#form_update_jptls_1 input[type=checkbox].all").attr("checked", false);
+    $("#form_update_jptls_1 input[type=checkbox].same").attr("checked", true);
+}
+function select_note_1(e) {
+    $("#form_update_jptls_1 input[type=checkbox].all").attr("checked", false);
+    $("#form_update_jptls_1 input[type=checkbox].note").attr("checked", true);
+}
 
+function select_one_2(e) {
+    $("#form_update_jptls_2 input[type=checkbox].all").attr("checked", false);
+    $("#form_update_jptls_2 input[type=checkbox].one").attr("checked", true);
 }
-function select_all(e) {
-    $("input[type=checkbox].all").attr("checked", true);
+function select_all_2(e) {
+    $("#form_update_jptls_2 input[type=checkbox].all").attr("checked", true);
 }
-function select_same(e) {
-    $("input[type=checkbox].all").attr("checked", false);
-    $("input[type=checkbox].same").attr("checked", true);
+function select_same_2(e) {
+    $("#form_update_jptls_2 input[type=checkbox].all").attr("checked", false);
+    $("#form_update_jptls_2 input[type=checkbox].same").attr("checked", true);
 }
-function select_note(e) {
-    $("input[type=checkbox].all").attr("checked", false);
-    $("input[type=checkbox].note").attr("checked", true);
+function select_note_2(e) {
+    $("#form_update_jptls_2 input[type=checkbox].all").attr("checked", false);
+    $("#form_update_jptls_2 input[type=checkbox].note").attr("checked", true);
 }
-function onSubmitForm(e) {
-    $("#update_waiting").show();
+
+function onSubmitForm1(e) {
+    $("#update_waiting_1").show();
     return true;
 }
+
+function onSubmitForm2(e) {
+    $("#update_waiting_2").show();
+    return true;
+}
+
 $(function () {
     // Enable Twitter bootstrap dropdown menus.
     $('.dropdown-toggle').dropdown();
-    $("#menu_select_all").click(select_all);
-    $("#menu_select_one").click(select_one);
-    $("#menu_select_same").click(select_same);
-    $("#menu_select_note").click(select_note);
-    $("#update_waiting").hide();
-    $("#form_update_jptls").submit(onSubmitForm);
+
+    $("#menu1_select_all").click(select_all_1);
+    $("#menu1_select_one").click(select_one_1);
+    $("#menu1_select_same").click(select_same_1);
+    $("#menu1_select_note").click(select_note_1);
+    $("#update_waiting_1").hide();
+
+    $("#menu2_select_all").click(select_all_2);
+    $("#menu2_select_one").click(select_one_2);
+    $("#menu2_select_same").click(select_same_2);
+    $("#menu2_select_note").click(select_note_2);
+    $("#update_waiting_2").hide();
+
+    $("#form_update_jptls_1").submit(onSubmitForm1);
+    $("#form_update_jptls_2").submit(onSubmitForm2);
 });
 

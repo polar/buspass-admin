@@ -1,6 +1,17 @@
 
 module ApplicationHelper
 
+  #
+  # For the way we handle the represent time.
+  #
+  def to_time_literal(time, sep = ":")
+    timem = (time - Time.parse("0:00"))/60  # could be negative
+                                            # If time is greater than 24 hours, we need to add 24 hours to time.
+    dtime = (timem/(60*24)).to_i.abs*24  # hours to add
+    hours = (Time.parse("0:00") + timem.minutes).hour + dtime
+    mins  = (Time.parse("0:00") + timem.minutes).min
+    (timem < 0 ? "~" : "") + ("%02i" % hours) + sep + ("%02i" % mins)
+  end
 
     ##
     # Generic way to handle the Error Messages for Objects

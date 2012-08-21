@@ -13,9 +13,14 @@ BusPass.PathFinderController = OpenLayers.Class({
     endPoint : null,
 
     /*
-     * KML String.
+     * KML String. This it the route that will get modified.
      */
     defaultRoute : null,
+
+    /*
+     * KML String. This holds the entire route underneath the link being modified.
+     */
+    backRoute : null,
 
     onLocationUpdated : function(coordinates) {},
     onRouteUpdated : function(route) {},
@@ -72,6 +77,17 @@ BusPass.PathFinderController = OpenLayers.Class({
                 this.Map.setCenter(pos.transform(this.Map.displayProjection, this.Map.projection), 4);
             }
         }
+    },
+
+    initializeBackStyleMap : function () {
+        var styleMap = new OpenLayers.StyleMap({
+            "default":new OpenLayers.Style({
+                strokeColor: "#2222dd",
+                strokeWidth: 3,
+                strokeOpacity :.5
+            })
+        })
+        return styleMap;
     },
 
     initializeRouteStyleMap : function () {
@@ -135,6 +151,8 @@ BusPass.PathFinderController = OpenLayers.Class({
 
     Controls : null,
 
+    BackLayer : null,
+
     MarkersLayer : null,
 
     RouteLayer : null,
@@ -148,6 +166,10 @@ BusPass.PathFinderController = OpenLayers.Class({
 
         this.Map = this.initializeMap();
 
+        this.BackLayer = new OpenLayers.Layer.Vector("Back", {
+            styleMap: this.initializeBackStyleMap()
+        });
+
         this.RouteLayer = new OpenLayers.Layer.Vector("Route", {
             styleMap: this.initializeRouteStyleMap()
         });
@@ -157,7 +179,7 @@ BusPass.PathFinderController = OpenLayers.Class({
         });
 
         // Markers go on top, but will be switched if drawing lines, instead of auto-routing.
-        this.Map.addLayers([this.RouteLayer, this.MarkersLayer]);
+        this.Map.addLayers([this.BackLayer, this.RouteLayer, this.MarkersLayer]);
 
         this.Controls = {
             click: new BusPass.ClickLocationControl({
@@ -282,8 +304,23 @@ BusPass.PathFinderController = OpenLayers.Class({
         this.Map.updateSize();
     },
 
+    parseKMLToFeatures : function (xml) {
+        var kml = new OpenLayers.Format.KML({
+            externalProjection : this.Map.displayProjection,
+            internalProjection : this.Map.projection
+        });
+        var features = kml.read(xml);
+        return features;
+    },
+
     initializeFromDefaultRoute : function () {
         var parser = new DOMParser();
+
+        if (this.backRoute) {
+            var kml = parser.parseFromString(this.backRoute, "text/xml");
+            var features = this.parseKMLToFeatures(kml);
+            this.BackLayer.addFeatures(features);
+        }
 
         var xml = parser.parseFromString(this.defaultRoute,"text/xml");
 

@@ -15,6 +15,28 @@ class GoogleUriViewPath
 
   timestamps!
 
+  class Cache
+    attr_accessor :assoc
+    def initialize()
+      @assoc = {}
+    end
+
+    def getViewPathCoordinates(uri)
+      if (uri.start_with?("http:"))
+        ans = assoc["uri"]
+        if ans
+          return ans
+        end
+
+      end
+      ans = GoogleUriViewPath.getViewPathCoordinates(uri)
+      if ans
+        assoc[uri] = ans
+      end
+      return ans
+    end
+  end
+
   def self.create_indexes
     self.ensure_index(:uri, :unique => true)
   end

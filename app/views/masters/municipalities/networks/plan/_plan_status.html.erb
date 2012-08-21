@@ -1,5 +1,5 @@
 
-<%  if @journey_changed_count > 0 %>
+<%  if @journey_changed_count >= 0 %>
     <td><%= @journey_changed_count %> journeys have been manually changed since the plan was processed.</td>
     <td><%= button_to "Download Plan", download_master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn" %></td>
 <%  end %>
