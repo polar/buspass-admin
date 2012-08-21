@@ -18,6 +18,7 @@ class JourneyPatternTimingLink
   key :position, Integer
 
   key :path_issue, String
+  key :time_issue, String
 
   key :view_path_coordinates, Hash, :default => { "LonLat" => [[0.0,0.0],[0.0,0.0]] }
 
@@ -32,6 +33,8 @@ class JourneyPatternTimingLink
   validates_presence_of :nw_lon
   validates_presence_of :se_lat
   validates_presence_of :se_lon
+  validates_presence_of :to
+  validates_presence_of :from
 
   before_validation   :assign_lon_lat_locator_fields
 
@@ -39,6 +42,11 @@ class JourneyPatternTimingLink
     if view_path_coordinates == nil
       self.view_path_coordinates = { "LonLat" => [[0.0,0.0],[0.0,0.0]] }
     end
+  end
+
+  def normalize_stop_point_locations
+    to.location.coordinates["LonLat"] = normalizeCoordinates(to.location.coordinates["LonLat"])
+    from.location.coordinates["LonLat"] = normalizeCoordinates(from.location.coordinates["LonLat"])
   end
 
   # We use Google to get the path, and the end points may not be the
@@ -65,20 +73,25 @@ class JourneyPatternTimingLink
     return true
   end
 
+  ISSUE_DISTANCE = 100 # feet.
+
   #
   # Ensures the endpoints of the path are connected to the Stop Points.
-  # Returns true if coordinates had to be added.
+  # Returns true if there is an distance issue between the path and the endpoints
   def connect_endpoints_to_path
     # We always want to make sure that we have at least 2 points on a link
-    coords = oldcoords = view_path_coordinates["LonLat"]
-    if coords.length < 1 || coords.first != from.location.coordinates
-      coords = [from.location.coordinates] + coords
+    issue = false
+    coords = oldcoords = self.view_path_coordinates["LonLat"]
+    if coords.length < 1 || !equalCoordinates?(coords.first, self.from.location.coordinates["LonLat"])
+      issue = ISSUE_DISTANCE < getGeoDistance(coords.first, self.from.location.coordinates["LonLat"])
+      coords = [self.from.location.coordinates["LonLat"]] + coords
     end
-    if coords.length < 2 || coords.last != to.location.coordinates
-      coords << to.location.coordinates
+    if coords.length < 2 || !equalCoordinates?(coords.last, self.to.location.coordinates["LonLat"])
+      issue = issue || ISSUE_DISTANCE < getGeoDistance(coords.last, self.to.location.coordinates["LonLat"])
+      coords = coords + [self.to.location.coordinates["LonLat"]]
     end
-    view_path_coordinates = { "LonLat" => coords }
-    return coords.length != oldcoords.length
+    self.view_path_coordinates = { "LonLat" => coords }
+    return issue
   end
 
   #

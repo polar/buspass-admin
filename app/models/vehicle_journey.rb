@@ -12,11 +12,16 @@ class VehicleJourney
   key :days,          String
   key :slug,         String
 
-  key :csv,         Array # [String]
-  key :line_no,     Integer
-  key :filename,    String
+  key :csv_row,         Array # [Strings and Numbers]
+  key :csv_lineno,     Integer
+  key :csv_filename,    String
 
-  key :path_issue,  String
+  key :path_issue,  Boolean
+  key :time_issue,  Boolean
+  key :time_issues,  Array # String
+
+  # Searchable indicator if path has been updated manualy.
+  key :path_changed, Boolean, :default => false
 
   belongs_to :service
   belongs_to :network

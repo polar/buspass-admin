@@ -96,7 +96,10 @@ class JourneyPattern
   end
 
   def has_path_issues?
-    journey_pattern_timing_links.reduce(false) {|t,v| v.path_issue || t }
+    journey_pattern_timing_links.reduce(false) {|t,v| v.path_issue != nil || t }
+  end
+  def has_time_issues?
+    journey_pattern_timing_links.reduce(false) {|t,v| v.time_issue != nil || t }
   end
 
   # We use YourNavigation.org to get the path, and the end points between validate

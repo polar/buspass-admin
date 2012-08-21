@@ -1,5 +1,6 @@
 require "zipruby"
 require "fileutils"
+require "logger"
 require "carrierwave"
 require 'carrierwave/uploader/proxy'
 require 'carrierwave/orm/mongomapper'
@@ -11,7 +12,8 @@ require 'carrierwave/orm/mongomapper'
 class CompileServiceTableJob < Struct.new(:network_id, :token)
 
   def logger
-    Rails.logger
+    @logger ||= ::ActiveSupport::BufferedLogger.new(
+        File.open(File.join(Rails.root, "log", "service_table.log"), "a+")).tap {|l| l.auto_flushing = true }
   end
 
   def say(text, level = Logger::INFO)
@@ -21,14 +23,14 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
   end
 
   def enqueue(job)
-    say "Network.id #{network_id} token #{token}"
+    say "Queued: Network.id #{network_id} token #{token}"
     net = Network.find(network_id)
     net.processing_job = job
     net.save
   end
 
   def perform
-    say "Network.id #{network_id} token #{token}"
+    say "Perform: Network.id #{network_id} token #{token}"
     net = Network.find(network_id)
     say "Network.file #{net.file_path} Network.token #{net.processing_token}"
 
@@ -65,11 +67,15 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
 
     say "Begin rebuild"
     ServiceTable.processDirectory(net, dir)
-    say "End Rebuild"
+    say "End rebuild"
+    say "Begin update"
+    ServiceTable.updateDirectory(net, dir)
+    say "End update"
 
     begin
       say "Creating Zip file #{net.file_path}"
       zip(net, net.file_path, dir)
+      net.processing_log << "Result File is prepared and zipped at #{net.file_path}."
       say "Created Zip file #{net.file_path}"
       say "Removing Tmp Dir #{dir}"
      # FileUtils.rm_rf(dir)
@@ -78,16 +84,18 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
       net.processing_errors << "Failed to zip resultant directory #{dir}"
       raise "Zip #{boom2}"
     end
+  rescue Exception => boom
+    say "#{boom}"
 
   ensure
     unless dont_touch
-      say "Ending Job"
+      say "Ending Job: Network.id #{network_id} token #{token}"
       net.processing_lock = nil
       net.processing_job = nil
       net.processing_completed_at = Time.now
       net.save
     else
-      say "Ignoring Job, One is currently running"
+      say "Ignoring Job: Network.id #{network_id} token #{token} One is currently running"
     end
   end
 

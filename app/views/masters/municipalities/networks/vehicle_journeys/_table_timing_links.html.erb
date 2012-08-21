@@ -21,6 +21,7 @@
         <td><%=  tl.to.common_name  %><br /> <%= tl.to.location.coordinates['LonLat'] %></td>
         <td><%=  @vehicle_journey.time_end(tl.position).strftime("%H:%M") %></td>
         <td><%=  tl.time %></td>
+        <td><%=  tl.path_issue %></td>
         <td><%=  link_to "Reroute", master_municipality_network_vehicle_journey_journey_pattern_timing_link_path(@master, @municipality, @network, @vehicle_journey, tl), :class => "btn" %></td>
       </tr>
   <% end %>

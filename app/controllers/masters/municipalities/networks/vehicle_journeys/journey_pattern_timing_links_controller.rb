@@ -72,6 +72,7 @@ class Masters::Municipalities::Networks::VehicleJourneys::JourneyPatternTimingLi
 
     # If we are here, we are okay to save all Vehicle Journeys.
     timing_links.each do |vj,tl|
+      vj.path_changed = true
       vj.save
     end
 

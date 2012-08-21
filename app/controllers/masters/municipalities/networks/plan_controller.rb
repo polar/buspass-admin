@@ -7,6 +7,7 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
 
     if @network && !@network.copy_lock
       authorize_muni_admin!(:read, @network)
+      @journey_changed_count = VehicleJourney.where(:network_id => @network.id, :path_changed.ne => false).count
     else
       flash[:error] = "Network is being created by copy and you must wait for it to finish."
       redirect_to(:back)
@@ -163,6 +164,21 @@ class Masters::Municipalities::Networks::PlanController < Masters::Municipalitie
         end
       end
       redirect_to master_municipality_network_plan_path(@master, @municipality, @network)
+    end
+  end
+
+  def download
+    authorize_muni_admin!(:read, @network)
+
+    if (@network.processing_lock)
+      flash[:error] = "This network still has a job processing. You must wait until processing completes."
+      redirect_to master_municipality_network_plan_path(@master, @municipality, @network)
+    else
+      file = ServiceTable.generatePlanFile(@network)
+      send_file(file,
+                :type        => 'application/zip',
+                :filename    => File.basename(file),
+                :disposition => "inline")
     end
   end
 

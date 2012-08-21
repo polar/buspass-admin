@@ -10,7 +10,7 @@ class StopPoint
   attr_accessible :common_name, :location
 
   def same?(stop_point)
-    self.common_name == stop_point.common_name &&
+    stop_point && self.common_name == stop_point.common_name &&
         self.location.same?(stop_point.location)
   end
 end

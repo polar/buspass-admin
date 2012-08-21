@@ -224,6 +224,7 @@ BuspassAdmin::Application.routes.draw do
             get :upload
             get :partial_status
             post :abort
+            post :download
             get :file
           end
         end

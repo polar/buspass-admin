@@ -1,4 +1,7 @@
 module LocationBoxing
+
+  DEFAULT_PRECISION = 1.0e6
+
   def self.getWithinQuery(lon, lat)
     lateq = "(#{lat} BETWEEN nw_lat AND se_lat)"
     if (0 < lon)
@@ -127,6 +130,20 @@ module LocationBoxing
   # Coordinates are [ [lon,lat], [lon,lat], ...]
   def getBoxForCoordinates(coords)
     coords.drop(1).reduce(getBox(coords.first, coords.first)) { |box,coord| combineBoxes(box,getBox(coord,coord)) }
+  end
+
+  def normalizeCoordinates(coord, precision = DEFAULT_PRECISION)
+    [(coord[0]*precision).to_i/precision, (coord[1]*precision).to_i/precision ]
+  end
+
+  # CoordsEqual
+  def equalCoordinates?(coord1, coord2, precision = DEFAULT_PRECISION)
+    (coord1[0]*precision).to_i == (coord2[0]*precision).to_i  &&
+        (coord1[1]*precision).to_i == (coord2[1]*precision).to_i
+  end
+
+  def normalizePath(coordinates, precision = DEFAULT_PRECISION)
+    coordinates.map {|c| normalizeCoordinates(c, precision) }
   end
 
   #
