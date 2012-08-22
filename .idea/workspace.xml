@@ -9,270 +9,57 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/stylesheets/sessions.css.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/customer-devise.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/muni_admin-devise.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/third_party_auth.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/user-devise.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/customers/_form_registration.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/customers/new_registration.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/stop.js.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sessions/_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sessions/new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sessions/new_customer.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config/initializers/omni_auth.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/masters/municipalities/networks/vehicle_journeys/old.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/deployments/networks/vehicle_journeys/old.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/municipality_base_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/municipality_base_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/network_base_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/network_base_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/plan_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/routes/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/routes/webmap_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/routes_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/routes_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/services_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/services_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/vehicle_journeys/webmap_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/vehicle_journeys_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/vehicle_journeys_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/webmap_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/networks_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/simulate/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/simulate_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/webmap_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/controllers/masters/municipalities_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments_controller.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/models/municipality.rb" afterPath="$PROJECT_DIR$/app/models/deployment.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_button_check_activate_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_button_check_activate_status.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_buttons_active.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_buttons_active.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_edit.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_form_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_form_edit.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_form_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_form_new.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_link_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_link_new.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_links.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_map_script.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_mapview.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_mapview.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_new.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_status_activate.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_status_activate.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_active_deployments.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_table_active_deployments.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_table_index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_info.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_table_info.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_networks.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_table_networks.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_table_routes.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_table_routes.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/_ulist.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/_ulist.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/check.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/check.js.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/edit.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_copy.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_copy.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_copy_errors.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_copy_errors.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_copy_log.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_copy_log.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_edit.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_errors.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_errors.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_form_copy.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_form_copy.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_form_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_form_edit.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_form_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_form_new.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_links.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_map_script.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_new.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_poll.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_poll.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_content.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_table_content.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_copy_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_table_copy_status.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_table_index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_info.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_table_info.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_processing.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_table_processing.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/_table_routes_services.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/_table_routes_services.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/copy.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/copy.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/edit.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/new.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_button_abort.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_button_abort.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_button_upload.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_button_upload.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_file_download_link.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_file_download_link.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_form_upload.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_form_upload.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_plan_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_plan_status.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_poll.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_poll.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_processing_errors.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_processing_errors.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_processing_log.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_processing_log.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_route_codes.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_route_codes.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_status.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_table_counts.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_table_counts.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_table_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_table_status.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_upload.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_upload.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/upload.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/upload.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_links.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_map_script.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_service_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_service_journeys.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_route_services.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_services.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/_table_routes.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_routes.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/routes/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_table_journeys.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_service.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_table_service.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_services.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_table_services.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/_table_services_plan_if.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_table_services_plan_if.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/services/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_links.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_map_script.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_map_script_debug.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_map_script_debug.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_mapview.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_mapview.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_journeys.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_journeys_plan_if.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_journeys_plan_if.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_service.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_service.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_timing_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_timing_links.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/_table_vehicle_journey.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_vehicle_journey.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_script.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/_table_jptls.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_jptls.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/_table_services_route_jptls.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_services_route_jptls.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/update_kml.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/update_kml.js.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/update_timing_links_1.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/update_timing_links_1.js.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links/update_timing_links_2.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/update_timing_links_2.js.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/networks/vehicle_journeys/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/new.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/plan/home.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/plan/home.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/plan/home/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/plan/home/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/plan/networks/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/plan/networks/index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/plan/networks/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/plan/networks/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/plan/routeservices/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/plan/routeservices/index.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_mapview.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_mapview.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/map.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/start.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/start.js.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/municipalities/simulate/stop.js.erb" afterPath="$PROJECT_DIR$/app/assets/stylesheets/authentications.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.generators" afterPath="$PROJECT_DIR$/.idea/.generators" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/buspass.admin.iml" afterPath="$PROJECT_DIR$/.idea/buspass.admin.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/aol_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/aol_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/aol_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/aol_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/basecamp_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/basecamp_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/basecamp_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/basecamp_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/campfire_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/campfire_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/campfire_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/campfire_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/facebook_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/facebook_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/facebook_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/facebook_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/github_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/github_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/github_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/github_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/google_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/google_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/google_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/google_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/linkedin_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/linkedin_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/linkedin_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/linkedin_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/myspace_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/myspace_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/myspace_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/myspace_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/openid_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/openid_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/openid_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/openid_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/presently_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/presently_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/presently_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/presently_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/twitter_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/twitter_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/twitter_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/twitter_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/yahoo_128.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/yahoo_256.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/yahoo_32.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/auth/yahoo_64.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/icon-reload-green.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/images/icon-reload.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ListViewController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ListViewController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/Format/XLS/v1.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/Format/XLS/v1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.12/lib/OpenLayers/Format/XLS/v1.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.12/lib/OpenLayers/Format/XLS/v1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/normal-layout.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/activements/mydevise/registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/activements/mydevise/registrations_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/activements/mydevise/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/activements/mydevise/sessions_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/activements/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/activements/webmap_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/activements_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/activements_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/cms_admin/base_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/cms_admin/base_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/customers_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/customers_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/integrated_devise_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/integrated_devise_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/master_base_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/master_base_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/registrations_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_devise/sessions_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/users_devise/registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/users_devise/registrations_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/users_devise/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/users_devise/sessions_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/testaments/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/testaments/webmap_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/testaments_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/testaments_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/websites_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/activement.rb" afterPath="$PROJECT_DIR$/app/models/activement.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/cms/page.rb" afterPath="$PROJECT_DIR$/app/models/cms/page.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/copy_network_job.rb" afterPath="$PROJECT_DIR$/app/models/copy_network_job.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/customer.rb" afterPath="$PROJECT_DIR$/app/models/customer.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/devise_failure_app.rb" afterPath="$PROJECT_DIR$/app/models/devise_failure_app.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/journey_pattern.rb" afterPath="$PROJECT_DIR$/app/models/journey_pattern.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/master.rb" afterPath="$PROJECT_DIR$/app/models/master.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/muni_admin.rb" afterPath="$PROJECT_DIR$/app/models/muni_admin.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/network.rb" afterPath="$PROJECT_DIR$/app/models/network.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/route.rb" afterPath="$PROJECT_DIR$/app/models/route.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service.rb" afterPath="$PROJECT_DIR$/app/models/service.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_table.rb" afterPath="$PROJECT_DIR$/app/models/service_table.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/simulate_job.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/testament.rb" afterPath="$PROJECT_DIR$/app/models/testament.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user.rb" afterPath="$PROJECT_DIR$/app/models/user.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/customer_permit.rb" afterPath="$PROJECT_DIR$/app/permits/customer_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/guest_permit.rb" afterPath="$PROJECT_DIR$/app/permits/guest_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/operator_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/operator_role_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/planner_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/planner_role_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/super_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/super_role_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/activements/mydevise/registrations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/activements/mydevise/registrations/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/activements/mydevise/sessions/new.html.erb" afterPath="$PROJECT_DIR$/app/views/activements/mydevise/sessions/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/activements/run/map.html.erb" afterPath="$PROJECT_DIR$/app/views/activements/run/map.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/_customers.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/_customers.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/_form.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/municipalities/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/municipalities/application.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/main/_main_nav.html.builder" afterPath="$PROJECT_DIR$/app/views/main/_main_nav.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_links.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_table_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_table_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/_muni_admin_row.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/_muni_admin_row.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/registrations/_new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins_devise/sessions/_new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/users/destroy_confirm.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/users/destroy_confirm.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/users_devise/registrations/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/registrations/_new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/users_devise/sessions/new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/users_devise/sessions/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/muni/muni_admins/destroy_confirm.html.erb" afterPath="$PROJECT_DIR$/app/views/muni/muni_admins/destroy_confirm.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/muni/muni_admins/show.html.erb" afterPath="$PROJECT_DIR$/app/views/muni/muni_admins/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/mydevise/registrations/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/mydevise/registrations/_new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/_customer_navigation.html.erb" afterPath="$PROJECT_DIR$/app/views/shared/_customer_navigation.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/testaments/index.html.erb" afterPath="$PROJECT_DIR$/app/views/testaments/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/testaments/run/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/testaments/run/_map.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/testaments/show.html.erb" afterPath="$PROJECT_DIR$/app/views/testaments/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/_main_nav.html.builder" afterPath="$PROJECT_DIR$/app/views/websites/_main_nav.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/_my_index.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_my_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/delayed_job.rb" afterPath="$PROJECT_DIR$/config/initializers/delayed_job.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/devise.rb" afterPath="$PROJECT_DIR$/config/initializers/devise.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/devise/mongo_mapper.rb" afterPath="$PROJECT_DIR$/lib/devise/mongo_mapper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/page_utils.rb" afterPath="$PROJECT_DIR$/lib/page_utils.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/customers_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/customers_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/journey_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/journey_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/journeys_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/journeys_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/municipalities_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/municipalities_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/municipality_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/municipality_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/network_plan_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/network_plan_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/network_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/network_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/networks_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/networks_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/route_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/route_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/routes_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/routes_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/service_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/service_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/services_tag.rb" afterPath="$PROJECT_DIR$/lib/tags/services_tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tags/tag.rb" afterPath="$PROJECT_DIR$/lib/tags/tag.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/controllers/masters_controller_spec.rb" afterPath="$PROJECT_DIR$/spec/controllers/masters_controller_spec.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/controllers/muni/plan/home_controller_spec.rb" afterPath="$PROJECT_DIR$/spec/controllers/muni/plan/home_controller_spec.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/network_spec.rb" afterPath="$PROJECT_DIR$/spec/network_spec.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -1537,46 +1324,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="stylesheets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -2642,7 +2389,11 @@
       <created>1345568627898</created>
       <updated>1345568627898</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="Progress">
+      <created>1345594962032</created>
+      <updated>1345594962032</updated>
+    </task>
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2667,7 +2418,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-1" width="1296" height="1033" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1286031" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
@@ -2675,7 +2426,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32150775" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17098865" sideWeight="0.8713969" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2439222" sideWeight="0.69512194" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2439222" sideWeight="0.69512194" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30487806" sideWeight="0.36061588" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3181818" sideWeight="0.6337115" order="10" side_tool="true" content_ui="tabs" />
