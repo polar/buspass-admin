@@ -8,7 +8,7 @@ class Service
 
   belongs_to :route
   belongs_to :network
-  belongs_to :municipality
+  belongs_to :deployment
   belongs_to :master
 
   key :name,     String
@@ -44,7 +44,7 @@ class Service
                   :route, :route_id,
                   :network, :network_id,
                   :master, :master_id,
-                  :municipality, :municipality_id,
+                  :deployment, :deployment_id,
                   :csv_stop_point_names,
                   :csv_lineno,
                   :csv_locations,
@@ -70,7 +70,7 @@ class Service
     ret.route        = to_route
     ret.network      = to_network
     ret.master       = to_network.master
-    ret.municipality = to_network.municipality
+    ret.deployment = to_network.deployment
 
     ret.save!(:safe => true)
     ret
@@ -92,13 +92,13 @@ class Service
   # as well. That means we can update it from a CSV file.  Example:
   #  Route {code} {Weekday|Daily|Saturday|Sunday|Weekend} {Inbound|Outbound} Service <StartDate> to <EndDate>
   #
-  # Network is unique to Master and Municipality.
-  validates_uniqueness_of :name, :scope => [:network_id, :master_id, :municipality_id]
-  validates_uniqueness_of :slug, :scope => [:network_id, :master_id, :municipality_id]
+  # Network is unique to Master and Deployment.
+  validates_uniqueness_of :name, :scope => [:network_id, :master_id, :deployment_id]
+  validates_uniqueness_of :slug, :scope => [:network_id, :master_id, :deployment_id]
 
   validates_presence_of :network
   validates_presence_of :master
-  validates_presence_of :municipality
+  validates_presence_of :deployment
   validates_presence_of :route
 
   def self.find_or_create_by_route(route, direction, designator, start_date, end_date)
@@ -114,7 +114,7 @@ class Service
       route.save!(:safe => true)
       s = Service.new(:network => route.network,
                       :master => route.network.master,
-                      :municipality => route.network.municipality,
+                      :deployment => route.network.deployment,
                       :name => name,
                       :operating_period_start_date => start_date,
                       :operating_period_end_date => end_date,

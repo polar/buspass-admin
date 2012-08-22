@@ -35,7 +35,7 @@ class Network
   key :copy_started_at,   Time
   key :copy_completed_at, Time
 
-  belongs_to  :municipality
+  belongs_to  :deployment
   belongs_to  :master
 
   # We need :autosave off for copy!
@@ -62,22 +62,22 @@ class Network
   before_validation :ensure_slug
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :scope => [ :master_id, :municipality_id ]
-  validates_uniqueness_of :slug, :scope => [ :master_id, :municipality_id ]
+  validates_uniqueness_of :name, :scope => [ :master_id, :deployment_id ]
+  validates_uniqueness_of :slug, :scope => [ :master_id, :deployment_id ]
 
   attr_accessible :name, :mode, :description
-  attr_accessible :municipality, :municipality_id, :master, :master_id
+  attr_accessible :deployment, :deployment_id, :master, :master_id
 
-  def self.create_copy(fromnet, municipality)
+  def self.create_copy(fromnet, deployment)
     network = Network.new()
-    network.municipality = municipality
-    network.master = municipality.master
+    network.deployment = deployment
+    network.master = deployment.master
     network.description = fromnet.description
     network.copy_lock = fromnet
     network.name = fromnet.name
 
     # The only validity concern we have is the uniqueness of the name
-    # in the new municipality.
+    # in the new deployment.
     i = 1
     name = network.name
     while i < 1000 && !network.valid? do
@@ -139,15 +139,15 @@ class Network
     end
   end
   #
-  # Copies the network into the municipality, changing the name if
+  # Copies the network into the deployment, changing the name if
   # needed.
   #
-  def copy!(municipality)
+  def copy!(deployment)
     network = Network.new(self.attributes)
-    network.municipality = municipality
-    network.master = municipality.master
+    network.deployment = deployment
+    network.master = deployment.master
     # The only validity concern we have is the uniqueness of the name
-    # in the new municipality.
+    # in the new deployment.
     i = 1
     name = network.name
     while i < 1000 && !network.valid? do
@@ -201,7 +201,7 @@ class Network
   end
 
   def owner
-    municipality.owner
+    deployment.owner
   end
 
   def route_codes

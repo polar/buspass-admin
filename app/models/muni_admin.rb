@@ -2,105 +2,28 @@ class MuniAdmin
     include MongoMapper::Document
     plugin MongoMapper::Plugins::IdentityMap
 
-   # tango_user
-
-#    plugin MongoMapper::Devise
-
-    class << self
-      Devise::Models.config(self, :email_regexp, :password_length)
-    end
-
-    # Include default devise modules. Others available are:
-    # :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable, :validatable
-    devise :database_authenticatable, :registerable, :token_authenticatable,
-           :recoverable, :rememberable, :trackable
-
-    belongs_to :master
-
-    ## Database authenticatable
-    key :email,              String, :null => false, :default => ""
-    key :encrypted_password, String, :null => false, :default => ""
-
-    ## Recoverable
-    key :reset_password_token,   String
-    key :reset_password_sent_at, Time
-
-    ## Rememberable
-    key :remember_created_at, Time
-
-    ## Trackable
-    key :sign_in_count,      Integer, :default => 0
-    key :current_sign_in_at, Time
-    key :last_sign_in_at,    Time
-    key :current_sign_in_ip, String
-    key :last_sign_in_ip,    String
-
-    ## Encryptable
-    # key :password_salt, String
-
-    ## Confirmable
-    # key :confirmation_token,   String
-    # key :confirmed_at,         Time
-    # key :confirmation_sent_at, Time
-    # key :unconfirmed_email,    String # Only if using reconfirmable
-
-    ## Lockable
-    # key :failed_attempts, Integer, :default => 0 # Only if lock strategy is :failed_attempts
-    # key :unlock_token,    String # Only if unlock strategy is :email or :both
-    # key :locked_at,       Time
-
-    ## Token authenticatable
-    key :authentication_token, String
-
-    ## Invitable
-    # key :invitation_token, String
-
+    key :provider, String
+    key :uid, String
 
     key :name, String
-    # Array of String
 
-    many :municipalities, :foreign_key => "owner_id"
+    many :deployments, :foreign_key => :owner_id
+
+    validates_presence_of :name
+
+    def self.create_with_omniauth(auth)
+      create! do |cust|
+        cust.provider = auth["provider"]
+        cust.uid      = auth["uid"]
+        cust.name     = auth["info"]["name"]
+      end
+    end
+
+    many :deployments, :foreign_key => "owner_id"
 
     ROLE_SYMBOLS = [:operator, :planner, :super ]
 
     key :role_symbols, Array, :default => []
-
-    validates_presence_of :name
-
-    attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :authentication_token
-    attr_accessible :role_symbols
-    attr_accessible :encrypted_password, :master_id
-
-    validates_presence_of   :email, :if => :email_required?
-    validates_uniqueness_of :email, :allow_blank => true, :if => :email_changed?, :scope => :master_id
-    validates_format_of     :email, :with  => email_regexp, :allow_blank => true, :if => :email_changed?
-
-    validates_presence_of     :password, :if => :password_required?
-    validates_confirmation_of :password, :if => :password_required?
-    validates_length_of       :password, :within => password_length, :allow_blank => true
-
-    before_save :ensure_authentication_token
-
-    # Checks whether a password is needed or not. For validations only.
-    # Passwords are always required if it's a new record, or if the password
-    # or confirmation are being set somewhere.
-    def password_required?
-      !persisted? || !password.nil? || !password_confirmation.nil?
-    end
-
-    def email_required?
-      true
-    end
-
-    def self.find_for_database_authentication(conditions)
-      super
-    end
-
-    def initialize(attrs = {})
-        super
-        # This little hack allows us to assign encrypted_password while making a new
-        # User.non-empty
-    end
 
     def self.search(search)
       if search

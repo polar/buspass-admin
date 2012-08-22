@@ -2,9 +2,9 @@ class Activement
   include MongoMapper::Document
 
   belongs_to :master
-  belongs_to :municipality
+  belongs_to :deployment
 
-  attr_accessible :master, :master_id, :municipality, :municipality_id
+  attr_accessible :master, :master_id, :deployment, :deployment_id
 
   validate :master_consistent
 
@@ -17,11 +17,11 @@ class Activement
   end
 
   def set_master
-    master ||= municipality.master if municipality
+    master ||= deployment.master if deployment
   end
 
   def master_consistent
-    master == municipality.master   if municipality
+    master == deployment.master   if deployment
   end
 
   def status

@@ -6,7 +6,7 @@ class Testaments::WebmapController < ApplicationController
     @object ||=
         Route.where(:persistentid    => params[:ref],
                     :master_id       => @master.id,
-                    :municipality_id => @municipality.id).first
+                    :deployment_id => @deployment.id).first
     data    = getRouteGeoJSON(@object)
     respond_to do |format|
       format.json { render :json => data }
@@ -19,7 +19,7 @@ class Testaments::WebmapController < ApplicationController
     @object ||=
         VehicleJourney.where(:persistentid    => params[:ref],
                              :master_id       => @master.id,
-                             :municipality_id => @municipality.id).first
+                             :deployment_id => @deployment.id).first
 
     data = getRouteGeoJSON(@object)
     respond_to do |format|
@@ -33,11 +33,11 @@ class Testaments::WebmapController < ApplicationController
     @object = params[:type] == "V" &&
         VehicleJourney.where(:persistentid    => params[:ref],
                              :master_id       => @master.id,
-                             :municipality_id => @municipality.id).first
+                             :deployment_id => @deployment.id).first
     @object ||= params[:type] == "R" &&
         Route.where(:persistentid    => params[:ref],
                     :master_id       => @master.id,
-                    :municipality_id => @municipality.id).first
+                    :deployment_id => @deployment.id).first
 
     respond_to do |format|
       format.json { render :json => getDefinitionJSON(@object) }
@@ -48,7 +48,7 @@ class Testaments::WebmapController < ApplicationController
   def route_journeys
     get_context
 
-    @routes = Route.where(:master_id => @master.id, :municipality_id => @municipality.id).all
+    @routes = Route.where(:master_id => @master.id, :deployment_id => @deployment.id).all
     rs      = []
     if params[:routes] != nil
       rs = params[:routes].split(',')
@@ -60,7 +60,7 @@ class Testaments::WebmapController < ApplicationController
       @routes.select { |x| rs.include?(x.id) }
     end
 
-    @journey_locations = JourneyLocation.where(:municipality_id => @municipality.id).all
+    @journey_locations = JourneyLocation.where(:deployment_id => @deployment.id).all
     @vehicle_journeys  = @journey_locations.map { |x| x.vehicle_journey }
 
     specs = []
@@ -76,10 +76,10 @@ class Testaments::WebmapController < ApplicationController
   def curloc
     get_context
 
-    # TODO: searching by :municipality_id should be sufficient.
+    # TODO: searching by :deployment_id should be sufficient.
     @vehicle_journey = VehicleJourney.where(:persistentid    => params[:ref],
                                             :master_id       => @master.id,
-                                            :municipality_id => @municipality.id).first
+                                            :deployment_id => @deployment.id).first
 
     if @vehicle_journey != nil && @vehicle_journey.journey_location != nil
       @journey_location = @vehicle_journey.journey_location
@@ -102,8 +102,8 @@ class Testaments::WebmapController < ApplicationController
   def all_route_journeys
     get_context
 
-    # TODO: searching by :municipality_id should be sufficient.
-    @routes = Route.where(:master_id => @master.id, :municipality_id => @municipality.id).all
+    # TODO: searching by :deployment_id should be sufficient.
+    @routes = Route.where(:master_id => @master.id, :deployment_id => @deployment.id).all
 
     # if we have a route or routes parameter, we are only looking for
     # VehicleJourneys.
@@ -295,7 +295,7 @@ class Testaments::WebmapController < ApplicationController
       raise "No Testing Deployment Found"
     end
     @master       = @testament.master
-    @municipality = @testament.municipality
+    @deployment = @testament.deployment
   end
 
 end

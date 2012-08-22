@@ -1,0 +1,20 @@
+<% content_for :head do %>
+
+    <script type="text/javascript">
+        $(function() {
+            <% if ! @isConsistent %>
+            $("#autoroute").addClass("active");
+            <% end %>
+            // Initialise the map
+            init(<%= "[#{@center[0]},#{@center[1]}]," %>
+                    <%= "[#{@from[0]},#{@from[1]}]," %>
+                    <%= "[#{@to[0]},#{@to[1]}]," %>
+                    <%= (@kml ? "\"#{@kml}\"," : "null,").html_safe %>
+                    <%= "#{@isConsistent}," %>
+                    <%= (@back_kml ? "\"#{@back_kml}\"" : "null").html_safe %>
+            );
+
+        });
+    </script>
+
+<% end %>

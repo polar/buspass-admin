@@ -1,0 +1,10 @@
+
+<%= form_for @network, :url => master_deployment_networks_path(@master, @deployment), :validate => true do |f| %>
+    <%= render "shared/masters/error_messages", :target => @network %>
+      <%= f.hidden_field :master_id, :value => @master.id %>
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name %>
+      <%= f.label :description, "Description" %>
+      <%= f.text_area :description %>
+    <div><%= f.submit :class => "btn"  %></div>
+<% end %>

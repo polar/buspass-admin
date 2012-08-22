@@ -13,10 +13,10 @@ class MastersController < ApplicationController
       if @activement
         redirect_to activement_path(@activement)
       else
-        render :text => "Municipality's Active Deployment Not Found", :status => 404
+        render :text => "Deployment's Active Deployment Not Found", :status => 404
       end
     else
-      render :text => "Municipality Not Found", :status => 404
+      render :text => "Deployment Not Found", :status => 404
     end
   end
 
@@ -27,10 +27,10 @@ class MastersController < ApplicationController
       if @testament
         redirect_to master_testament_path(@master, @testament)
       else
-        render :text => "Municipality's Testing Deployment Not Found", :status => 404
+        render :text => "Deployment's Testing Deployment Not Found", :status => 404
       end
     else
-      render :text => "Municipality Not Found", :status => 404
+      render :text => "Deployment Not Found", :status => 404
     end
   end
 
@@ -65,7 +65,7 @@ class MastersController < ApplicationController
 
     error = false
     if @master == nil
-      flash[:error] = "Master Municipality #{params[:id]} doesn't exist"
+      flash[:error] = "Master #{params[:id]} doesn't exist"
       error         = true
     else
       slug_was = @master.slug
@@ -90,9 +90,9 @@ class MastersController < ApplicationController
           )
         end
 
-        flash[:notice] = "You have successfully updated your municipality."
+        flash[:notice] = "You have successfully updated your deployment."
       else
-        flash[:error] = "You couldn't update your municipality."
+        flash[:error] = "You couldn't update your deployment."
       end
     end
     respond_to do |format|

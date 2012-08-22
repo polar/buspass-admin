@@ -108,30 +108,30 @@ class Masters::UsersDevise::RegistrationsController <  DeviseController
   def after_sign_up_path_for(resource)
       # Resource should be a Admin
       if @master.nil?
-        raise "No Municipality Specified"
+        raise "No Deployment Specified"
       end
       #plan_home_path(:master_id => @master)
-      ret= master_municipalities_path( @master)
+      ret= master_deployments_path( @master)
       ret
   end
 
   def after_inactive_sign_up_path_for(resource)
       # Resource should be a Admin
       if @master.nil?
-        raise "No Municipality Specified"
+        raise "No Deployment Specified"
       end
       #plan_home_path(:master_id => @master)
-      ret= master_municipalities_path(@master)
+      ret= master_deployments_path(@master)
       ret
   end
 
   def after_update_path_for(resource)
       # Resource should be a Admin
       if @master.nil?
-        raise "No Municipality Specified"
+        raise "No Deployment Specified"
       end
       #plan_home_path(:master_id => @master)
-      ret= master_municipalities_path(@master)
+      ret= master_deployments_path(@master)
       ret
   end
 end

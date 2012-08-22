@@ -13,8 +13,8 @@
   <tr>
     <th><%=  link_to "Active Deployment", master_active_path(@master) %></th>
     <% if @master.activement %>
-        <td><%= @master.activement.municipality.name %></td>
-        <td><%= @master.activement.municipality.owner.name %></td>
+        <td><%= @master.activement.deployment.name %></td>
+        <td><%= @master.activement.deployment.owner.name %></td>
         <td><%= @master.activement.status %></td>
         <td><%= link_to "Manage", master_active_path(@master), :class=>"btn" %></td>
         <td><%= button_to "Deactivate", deactivate_master_active_path(@master), :method => :post, :class=>"btn" %></td>
@@ -25,8 +25,8 @@
   <tr>
     <th> <%= link_to "Testing Deployment", master_testament_path(@master) %></th>
     <% if @master.testament %>
-        <td><%= @master.testament.municipality.name %></td>
-        <td><%= @master.testament.municipality.owner.name %></td>
+        <td><%= @master.testament.deployment.name %></td>
+        <td><%= @master.testament.deployment.owner.name %></td>
         <td><%= @master.testament.status %></td>
         <td><%= link_to "Manage", master_testament_path(@master), :class=>"btn" %></td>
         <td><%= link_to "Deactivate", deactivate_master_testament_path(@master), :method => :post, :class=>"btn" %></td>

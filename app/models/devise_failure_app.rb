@@ -1,3 +1,4 @@
+=begin
 ##
 # We extend the Devise::FailureApp so that we can alter the
 # sign_in path with the proper master_id
@@ -9,7 +10,7 @@ class DeviseFailureApp < Devise::FailureApp
     route = :"new_#{scope}_session_path"
     opts[:format] = request_format unless skip_format?
 
-    # Need this option to get Devise to redirect to the correct Municipality
+    # Need this option to get Devise to redirect to the correct Deployment
     # when getting a new session for MuniAdmins.
     opts[:master_id] = params[:master_id] if params[:master_id]
 
@@ -30,3 +31,4 @@ class DeviseFailureApp < Devise::FailureApp
     end
   end
 end
+=end

@@ -3,9 +3,9 @@ require "spec_helper"
 describe Network do
 
   before(:each) do
-    @muni = Municipality.new(:name => "Syracuse", :location => [0.0,0.0])
+    @muni = Deployment.new(:name => "Syracuse", :location => [0.0,0.0])
     @muni.save!
-    @network = Network.new(:name => "Network One", :municipality => @muni)
+    @network = Network.new(:name => "Network One", :deployment => @muni)
     @network.save!
   end
 

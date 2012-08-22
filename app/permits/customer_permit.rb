@@ -17,8 +17,8 @@ class CustomerPermit < CanTango::UserPermit
   def permit_rules
     can(:create, Master)
     can(:read, Master)
-    can(:create, Municipality)
-    can(:read, Municipality)
+    can(:create, Deployment)
+    can(:read, Deployment)
     can(:read, Network)
   end
 

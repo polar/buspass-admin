@@ -50,7 +50,7 @@
     <div class="span16">
       <h2><%= link_to "#{@master.name}", master_path(@master) %>
         Testing Deployment
-        <%= link_to @municipality.name, master_municipality_path(@municipality, :master_id => @master.id) %>
+        <%= link_to @deployment.name, master_deployment_path(@deployment, :master_id => @master.id) %>
       </h2>
     </div>
   </div>

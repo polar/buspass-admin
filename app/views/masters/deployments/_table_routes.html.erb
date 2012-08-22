@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <th>Route</th>
+    <th>Network</th>
+  </tr>
+  <% for route in @routes do %>
+      <tr>
+        <td><%=  link_to route.code, master_deployment_network_route_path(@master, @deployment, @network, route)  %></td>
+        <td><%=  link_to route.network.name, master_deployment_network_path(@master, @deployment, route.network)  %></td>
+      </tr>
+  <% end %>
+</table>

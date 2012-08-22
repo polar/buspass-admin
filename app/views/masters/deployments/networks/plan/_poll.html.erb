@@ -1,0 +1,94 @@
+<% content_for :head do %>
+    <script type="text/javascript">
+      // TODO: Put this in the assets
+      // TODO: Make controller decide which buttons (abort,download,upload) are shown.
+        $(function() {
+            var polling = true;
+            function poll() {
+                var url = "<%= partial_status_master_deployment_network_plan_path(@master, @deployment, @network) %>";
+                var log = $('#processing_log')[0].children.length;
+                var err = $('#processing_err')[0].children.length;
+                var log_arg = "?log="+log+"&err="+err;
+                $.ajax({
+                    type: "GET",
+                    url: url + log_arg,
+                    dataType: "json",
+                    success: function(data) {
+                        if (data["logs"]) {
+                            $.each(data['logs'], function(i, item) {
+                                $('#processing_log').append('<div>'+item+'</div>');
+                            });
+                        }
+                        if (data["errors"]) {
+                            $.each(data['errors'], function(i, item) {
+                                $('#processing_err').append('<div>'+item+'</div>');
+                            });
+                        }
+                        if (data['completed_at']) {
+                            $('#completed_at').html(data['completed_at']);
+                            $('#upload_button').show();
+                            $('#abort_button').hide();
+                            polling = false;
+                        } else {
+                            $('#upload_button').hide();
+                            $('#download_button').hide();
+                            if (data['started_at']) {
+                                $('#abort_button').show();
+                            }
+                        }
+                        if (data['process_file']) {
+                            $('#process_file').html(data['process_file']);
+                            $('#download_button').show()
+                        }
+                        if (data['services_count']) {
+                            $('#services_count').html(""+data['services_count']);
+                        }
+                        if (data['route_codes']) {
+                            $('#route_codes').html(""+data['route_codes']);
+                        }
+                        if (data['routes_count']) {
+                            $('#routes_count').html(data[""+'routes_count']);
+                        }
+                        if (data['vj_count']) {
+                            $('#vj_count').html(""+data['vj_count']);
+                        }
+                        if (data['progress']) {
+                            $('#progress').html(""+(Math.floor(data['progress']*100))+"%");
+                        }
+                        if (data['started_at']) {
+                            $('#started_at').html(data['started_at']);
+                        }
+                    }
+                });
+                if (polling) {
+                    setTimeout(poll,5000);
+                }
+            }
+            setTimeout(poll,0);
+            $("#processing_log_click").hide();
+            $("#processing_err_click").hide();
+            <% if !@network.processing_lock %>
+            $("#processing_log").hide(); $("#processing_log_click").show();
+            $("#processing_errors").hide();
+            $("#processing_err_click").show();
+            <% end %>
+
+            $("#processing_log_label").live("click", function() {
+                $('#processing_log').toggle();
+                $("#processing_log_click").toggle();
+            });
+            $('#processing_log').live("click", function() {
+                $('#processing_log').toggle();
+                $("#processing_log_click").toggle();
+            });
+            $("#processing_err_label").live("click", function() {
+                $('#processing_err').toggle();
+                $("#processing_err_click").toggle();
+            });
+            $('#processing_err').live("click", function() {
+                $('#processing_err').toggle();
+                $("#processing_err_click").toggle();
+            });
+        });
+    </script>
+<% end %>

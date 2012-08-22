@@ -31,6 +31,28 @@ class CustomersController < ApplicationController
     end
   end
 
+  def new_registration
+    tpauth = ThirdPartyAuth.find session[:tpauth_id]
+    if tpauth
+      @customer = Customer.new()
+      @customer.name = tpauth.name
+    else
+      redirect_to root_path, :notice => "You need to authenticate first."
+    end
+  end
+
+  def create_registration
+    tpauth = ThirdPartyAuth.find session[:tpauth_id]
+    if tpauth
+      @customer = Customer.new(params[:customer])
+      @customer.third_party_auths << tpauth
+      @customer.save
+      redirect_to root_path, "Signed In!"
+    else
+      redirect_to root_path, "You need to authenticate first."
+    end
+  end
+
   def edit
     @customer = Customer.find(params[:id])
   end

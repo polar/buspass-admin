@@ -1,0 +1,17 @@
+<H3>Welcome to Planning for <%=  @deployment.name %></H3>
+
+
+<table>
+  <tr>
+    <th>Name</th>
+    <td><%= @deployment.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@deployment.location) %></td>
+  </tr>
+  <tr>
+    <th>Owner</th>
+    <td><%= @deployment.owner.name %></td>
+  </tr>
+</table>

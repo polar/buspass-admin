@@ -2,7 +2,7 @@ class Tag
 
   def setup
     @master ||= page.master!
-    @municipality ||= page.municipality!
+    @deployment ||= page.deployment!
     @network ||= page.network!
     @route ||= page.route!
     @service ||= page.service!

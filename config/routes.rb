@@ -1,6 +1,28 @@
 BuspassAdmin::Application.routes.draw do
 
   #root :to => "/"
+  #
+  match "/auth/:provider/callback" => "sessions#create"
+  match "/masters/:master_id/auth/:provider/callback" => "sessions#create"
+
+  match "/masters/:master_id/signout" => "sessions#destroy", :as => :signout
+
+  match "/customers/sign_up" => "sessions#new_customer"
+  match "/customers/sign_in" => "sessions#new_customer"
+  match "/customers/signout" => "sessions#destroy_customer", :as => :signout
+  resources :sessions do
+  end
+
+  resources :customers do
+    collection do
+      get  :new_registration
+      post :create_registration
+    end
+  end
+
+
+=begin
+
   devise_for :customers,
              :controllers => {
                  :registrations => "mydevise/registrations",
@@ -20,6 +42,7 @@ BuspassAdmin::Application.routes.draw do
              }
 
   resources :customers
+=end
   resources :passwords
 
   resources :websites do
@@ -130,7 +153,7 @@ BuspassAdmin::Application.routes.draw do
       end
     end
 
-    resources :municipalities, :controller => "masters/municipalities" do
+    resources :deployments, :controller => "masters/deployments" do
       member do
         get :check
         get :map
@@ -139,7 +162,7 @@ BuspassAdmin::Application.routes.draw do
         post :testit
       end
 
-      resource :webmap,            :controller => "masters/municipalities/webmap" do
+      resource :webmap,            :controller => "masters/deployments/webmap" do
         member do
           get :route
           get :journey
@@ -149,13 +172,13 @@ BuspassAdmin::Application.routes.draw do
         end
       end
 
-      resource :simulate, :controller => "masters/municipalities/simulate" do
+      resource :simulate, :controller => "masters/deployments/simulate" do
         get :api
         get :map
         post :start
         post :stop
         get :partial_status
-        resource :webmap,            :controller => "masters/municipalities/simulate/webmap" do
+        resource :webmap,            :controller => "masters/deployments/simulate/webmap" do
           member do
             get :route
             get :journey
@@ -166,7 +189,7 @@ BuspassAdmin::Application.routes.draw do
         end
       end
 
-      resources :networks, :controller => "masters/municipalities/networks" do
+      resources :networks, :controller => "masters/deployments/networks" do
         member do
           get :copy
           put :copyto
@@ -175,15 +198,15 @@ BuspassAdmin::Application.routes.draw do
           get :api
         end
 
-        resources :services,         :controller => "masters/municipalities/networks/services"
+        resources :services,         :controller => "masters/deployments/networks/services"
 
-        resources :routes,           :controller => "masters/municipalities/networks/routes"  do
+        resources :routes,           :controller => "masters/deployments/networks/routes"  do
           member do
             get :map
             get :api
           end
 
-          resource :webmap,          :controller => "masters/municipalities/networks/routes/webmap" do
+          resource :webmap,          :controller => "masters/deployments/networks/routes/webmap" do
             member do
               get :route
               get :journey
@@ -194,13 +217,13 @@ BuspassAdmin::Application.routes.draw do
           end
         end
 
-        resources :vehicle_journeys, :controller => "masters/municipalities/networks/vehicle_journeys" do
+        resources :vehicle_journeys, :controller => "masters/deployments/networks/vehicle_journeys" do
           member do
             get :map
             get :api
           end
 
-          resources :journey_pattern_timing_links, :controller => "masters/municipalities/networks/vehicle_journeys/journey_pattern_timing_links" do
+          resources :journey_pattern_timing_links, :controller => "masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links" do
             member do
               get :kml
               put :update_kml
@@ -209,7 +232,7 @@ BuspassAdmin::Application.routes.draw do
             end
           end
 
-          resource :webmap,          :controller => "masters/municipalities/networks/vehicle_journeys/webmap" do
+          resource :webmap,          :controller => "masters/deployments/networks/vehicle_journeys/webmap" do
             member do
               get :route
               get :route_journeys
@@ -219,7 +242,7 @@ BuspassAdmin::Application.routes.draw do
           end
         end
 
-        resource :plan,              :controller => "masters/municipalities/networks/plan" do
+        resource :plan,              :controller => "masters/deployments/networks/plan" do
           member do
             get :display
             get :upload
@@ -230,7 +253,7 @@ BuspassAdmin::Application.routes.draw do
           end
         end
 
-        resource :webmap,            :controller => "masters/municipalities/networks/webmap" do
+        resource :webmap,            :controller => "masters/deployments/networks/webmap" do
           member do
             get :route
             get :route_journeys

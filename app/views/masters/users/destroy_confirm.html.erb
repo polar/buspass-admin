@@ -15,12 +15,12 @@ You, <%= current_muni_admin.email %>, will be come the owner of the following:
   </tr>
   <% @masters.each do |x| %>
   <tr>
-    <td>Municipality</td>
+    <td>Deployment</td>
     <td><%= x.name %></td>
     <td><%=  x.owner.email %></td>
   </tr>
   <% end %>
-  <% @municipalities.each do |x| %>
+  <% @deployments.each do |x| %>
       <tr>
         <td>Deployment</td>
         <td><%= x.name %></td>

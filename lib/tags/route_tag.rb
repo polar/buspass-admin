@@ -17,13 +17,13 @@ class RouteTag < Tag
       when "slug"
         @route.slug
       when "page"
-        "<%= render :partial => 'masters/municipalities/networks/routes/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/routes/show' %>"
       when nil
-        "<%= render :partial => 'masters/municipalities/networks/routes/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/routes/show' %>"
       when ""
-        "<%= render :partial => 'masters/municipalities/networks/routes/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/routes/show' %>"
       else
-        "<%= render :partial => 'masters/municipalities/networks/routes/#{identifier}' %>"
+        "<%= render :partial => 'masters/deployments/networks/routes/#{identifier}' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

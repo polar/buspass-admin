@@ -1,0 +1,16 @@
+<h3><%= @master.name %></h3>
+<% if current_muni_admin %>
+    <p><%= "Welcome #{current_muni_admin.name} in your roles of " %>
+      <% for r in current_muni_admin.roles_list %>
+         <%= r.to_s.humanize %>
+      <% end %>
+    </p>
+<% end %>
+<h3>Active Deployments</h3>
+<div id="active_deployments">
+  <%= render :partial => "masters/deployments/table_active_deployments" %>
+</div>
+<h3>All Deployments</h3>
+<%= render :partial => "masters/deployments/table_index" %>
+<p>
+<%= render :partial => "masters/deployments/link_new" %>

@@ -20,10 +20,10 @@
 </table>
 <h3>Owns</h3>
 <table>
-  <% for m in @municipalities do %>
+  <% for m in @deployments do %>
       <tr>
         <td>
-          <%= link_to  m.name, master_municipality_path(m, :master_id => @master.id) %>
+          <%= link_to  m.name, master_deployment_path(m, :master_id => @master.id) %>
         </td>
       </tr>
   <% end %>

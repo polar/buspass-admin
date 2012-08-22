@@ -1,0 +1,10 @@
+<%=  form_for @network, :url => master_deployment_network_path(@master, @deployment, @network, :validate => true) do |f| %>
+    <%=  f.label :name, "Name" %>
+    <%=  f.text_field :name %>
+
+    <%=  f.label :description, "Description" %>
+    <%=  f.text_area :description %>
+
+    <div><%=  f.submit :class => "btn" %></div>
+
+<% end %>

@@ -1,0 +1,3 @@
+<h2><%= link_to @network.name, master_deployment_network_path(@network, :master_id => @master.id, :deployment_id => @deployment.id) %></h2>
+<H2>Routes</H2>
+<%= render :partial => "masters/deployments/networks/routes/table_routes" %>

@@ -1,0 +1,12 @@
+
+<%= form_for(@deployment, :url => master_deployment_path(@master), :validate => true) do |f| %>
+    <%= error_messages!(@deployment) %>
+
+    <%= f.label :name, "Internal Name" %>
+    <%= f.text_field :name %>
+
+    <%= f.label :note, "Note" %>
+    <%= f.text_area :note %>
+
+    <div><%= f.submit "Update", :class=>"btn"%></div>
+<% end %>

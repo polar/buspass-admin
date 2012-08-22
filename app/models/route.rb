@@ -9,7 +9,7 @@ class Route
 
   belongs_to :network
   belongs_to :master
-  belongs_to :municipality
+  belongs_to :deployment
 
   key :name,          String
   key :code,          String
@@ -23,7 +23,7 @@ class Route
   timestamps!
 
   attr_accessible :name, :code, :sort, :network, :network_id, :description, :display_name, :persistentid, :version_cache,
-                  :network, :network_id, :master, :master_id, :municipality, :municipality_id
+                  :network, :network_id, :master, :master_id, :deployment, :deployment_id
 
   #ensure_index(:network)
   ensure_index(:name, :unique => false) # cannot be unique because of the scope, :unique => true)
@@ -32,11 +32,11 @@ class Route
   before_validation :ensure_slug, :ensure_sort
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :scope => [:master_id, :municipality_id, :network_id]
+  validates_uniqueness_of :name, :scope => [:master_id, :deployment_id, :network_id]
   validates_presence_of :code
-  validates_uniqueness_of :code, :scope => [:master_id, :municipality_id, :network_id]
+  validates_uniqueness_of :code, :scope => [:master_id, :deployment_id, :network_id]
   validates_presence_of :slug
-  validates_uniqueness_of :slug, :scope => [:master_id, :municipality_id, :network_id]
+  validates_uniqueness_of :slug, :scope => [:master_id, :deployment_id, :network_id]
 
   def ensure_sort
     if (self.sort < 0)
@@ -67,7 +67,7 @@ class Route
 
     ret.network      = network
     ret.master       = network.master
-    ret.municipality = network.municipality
+    ret.deployment = network.deployment
 
     ret.save!(:safe => true)
     ret
@@ -129,7 +129,7 @@ class Route
                     :sort => route_code.to_i,
                     :name => "Route #{route_code}",
                     :master => network.master,
-                    :municipality => network.municipality)
+                    :deployment => network.deployment)
 
       r.persistentid = r.name.hash.abs
       #puts "Route saving...."
@@ -147,7 +147,7 @@ class Route
     if self.slug == nil
       self.slug = self.name.to_url()
       tries     = 0
-      while tries < SLUG_TRIES && Municipality.find(:slug => self.slug) != nil
+      while tries < SLUG_TRIES && Deployment.find(:slug => self.slug) != nil
         self.slug = name.to_url() + "-" + (Random.rand*1000).floor
       end
       if tries == SLUG_TRIES

@@ -16,13 +16,13 @@ class JourneyTag < Tag
       when "slug"
         @vehicle_journey.slug
       when "page"
-        "<%= render :partial => 'masters/municipalities/networks/vehicle_journeys/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/vehicle_journeys/show' %>"
       when nil
-        "<%= render :partial => 'masters/municipalities/networks/vehicle_journeys/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/vehicle_journeys/show' %>"
       when ""
-        "<%= render :partial => 'masters/municipalities/networks/vehicle_journeys/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/vehicle_journeys/show' %>"
       else
-        "<%= render :partial => 'masters/municipalities/networks/vehicle_journeys/#{identifier}' %>"
+        "<%= render :partial => 'masters/deployments/networks/vehicle_journeys/#{identifier}' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

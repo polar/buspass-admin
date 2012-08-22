@@ -14,9 +14,9 @@ class NetworksTag < Tag
     setup
     case identifier
       when "new"
-        "<%= render :partial => 'masters/municipalities/networks/new' %>"
+        "<%= render :partial => 'masters/deployments/networks/new' %>"
       else
-        "<%= render :partial => 'masters/municipalities/networks/index' %>"
+        "<%= render :partial => 'masters/deployments/networks/index' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

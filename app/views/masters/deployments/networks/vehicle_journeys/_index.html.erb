@@ -1,0 +1,3 @@
+<h2><%= link_to @network.name, master_deployment_network_path(@master, @deployment, @network) %></h2>
+<h3>Vehicle Journeys</h3>
+<%= render :partial => "table_journeys_plan_if" %>

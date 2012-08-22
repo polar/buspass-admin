@@ -13,8 +13,8 @@ class TestamentsController < ApplicationController
 
     authorize_muni_admin!(:read, @testament)
 
-    @municipality = @testament.municipality
-    @master = @municipality.master
+    @deployment = @testament.deployment
+    @master = @deployment.master
     @loginUrl = api_testament_path(@testament)
   end
 
@@ -24,8 +24,8 @@ class TestamentsController < ApplicationController
 
     authorize_muni_admin!(:read, @testament)
 
-    @municipality = @testament.municipality
-    @master = @municipality.master
+    @deployment = @testament.deployment
+    @master = @deployment.master
     @api = {
         "majorVersion"=> 1,
         "minorVersion"=> 0,

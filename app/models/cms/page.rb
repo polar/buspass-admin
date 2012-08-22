@@ -8,7 +8,7 @@ class Cms::Page <
 
   # Context for pages
   belongs_to :master
-  belongs_to :municipality
+  belongs_to :deployment
   belongs_to :network
   belongs_to :route
   belongs_to :service
@@ -16,7 +16,7 @@ class Cms::Page <
 
   attr_accessible :is_protected
   attr_accessible :master, :master_id
-  attr_accessible :municipality, :municipality_id
+  attr_accessible :deployment, :deployment_id
   attr_accessible :network, :network_id
   attr_accessible :route, :route_id
   attr_accessible :service, :service_id
@@ -37,9 +37,9 @@ class Cms::Page <
     self.parent.master! if self.parent
   end
 
-  def municipality!
-    return self.municipality if self.municipality
-    self.parent.municipality! if self.parent
+  def deployment!
+    return self.deployment if self.deployment
+    self.parent.deployment! if self.parent
   end
 
   def network!
@@ -68,7 +68,7 @@ class Cms::Page <
     if path
       path = path.gsub(":website_id", obj) if (obj = website_id)
       path = path.gsub(":master_id", obj.id) if (obj = master!)
-      path = path.gsub(":municipality_id", obj.id) if (obj = municipality!)
+      path = path.gsub(":deployment_id", obj.id) if (obj = deployment!)
       path = path.gsub(":network_id", obj.id) if (obj = network!)
       path = path.gsub(":route_id", obj.id) if (obj = route!)
       path = path.gsub(":service_id", obj.id) if (obj = service!)

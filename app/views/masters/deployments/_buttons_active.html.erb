@@ -1,0 +1,5 @@
+
+<div id="deploy_button" style="display: none">
+  <%= link_to "Select as Active", deploy_master_deployment_path(@master, @deployment), :class=>"btn", :method => :post %>
+  <%= link_to "Select as Testing", testit_master_deployment_path(@master, @deployment), :class=>"btn", :method => :post %>
+</div>

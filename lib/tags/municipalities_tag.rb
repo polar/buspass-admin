@@ -1,6 +1,6 @@
 require "tags/tag"
 
-class MunicipalitiesTag    < Tag
+class DeploymentsTag    < Tag
   include ComfortableMexicanSofa::Tag
 
   def self.regex_tag_signature(identifier = nil)
@@ -13,9 +13,9 @@ class MunicipalitiesTag    < Tag
     setup
     case identifier
       when "new"
-        "<%= render :partial => 'masters/municipalities/new' %>"
+        "<%= render :partial => 'masters/deployments/new' %>"
       else
-        "<%= render :partial => 'masters/municipalities/index' %>"
+        "<%= render :partial => 'masters/deployments/index' %>"
     end
 
   end

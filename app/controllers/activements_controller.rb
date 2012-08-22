@@ -17,8 +17,8 @@ class ActivementsController < ApplicationController
 
     authorize_muni_admin!(:read, @activement)
 
-    @municipality = @activement.municipality
-    @master = @municipality.master
+    @deployment = @activement.deployment
+    @master = @deployment.master
     @loginUrl = api_activement_path(@activement)
     render :layout => "webmap"
   end
@@ -29,8 +29,8 @@ class ActivementsController < ApplicationController
 
     authorize_muni_admin!(:read, @activement)
 
-    @municipality = @activement.municipality
-    @master = @municipality.master
+    @deployment = @activement.deployment
+    @master = @deployment.master
     @api = {
         "majorVersion"=> 1,
         "minorVersion"=> 0,

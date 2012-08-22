@@ -1,0 +1,27 @@
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+  <tr>
+    <th>Network</th>
+    <td><%= link_to @network.name, master_deployment_network_path(@master, @deployment, @network) %></td>
+  </tr>
+  <tr>
+    <th>Route Codes</th>
+    <td><div id="route_codes">
+      <%= render :partial => "masters/deployments/networks/plan/route_codes" %>
+    </div></td>
+  </tr>
+  <tr>
+    <th>Services</th>
+    <td><div id="services_count"><%= @network.services.count %></div></td>
+  </tr>
+  <tr>
+    <th>Routes</th>
+    <td><div id="routes_count"><%=  @network.routes.count %></div></td>
+  </tr>
+  <tr>
+    <th>Journeys</th>
+    <td><div id="vj_count"><%=  @network.vehicle_journey_count %></div></td>
+  </tr>
+  </tbody>
+</table>

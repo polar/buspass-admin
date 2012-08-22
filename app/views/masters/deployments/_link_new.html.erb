@@ -1,0 +1,4 @@
+
+<% if muni_admin_can?(:create, Deployment) %>
+    <%= link_to "New Deployment", new_master_deployment_path(@master), :class=>"btn" %>
+<% end %>

@@ -1,0 +1,7 @@
+
+<%=  form_tag(copyto_master_deployment_network_path(@master, @deployment, @network), :method => "put") do %>
+
+    Copy <%= link_to(@network.name, master_deployment_network_path(@master, @deployment, @network)) %> to
+    <%= collection_select(:dest_network, :deployment, @deployments, :id, :name, {:prompt => @prompt, :disabled => @disabled_options}, {:class => "btn"}) %>
+    <%= submit_tag "Copy", :class => "btn", :disabled => @disabled %>
+<% end %>

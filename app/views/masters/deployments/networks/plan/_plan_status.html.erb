@@ -1,0 +1,5 @@
+
+<%  if @journey_changed_count >= 0 %>
+    <td><%= @journey_changed_count %> journeys have been manually changed since the plan was processed.</td>
+    <td><%= button_to "Download Plan", download_master_deployment_network_plan_path(@master, @deployment, @network), :class => "btn" %></td>
+<%  end %>

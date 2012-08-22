@@ -47,8 +47,8 @@ class JourneyPattern
     vehicle_journey.network
   end
 
-  def municipality
-    vehicle_journey.municipality
+  def deployment
+    vehicle_journey.deployment
   end
 
   def master
@@ -88,11 +88,11 @@ class JourneyPattern
   end
 
   def journey_path
-    "/masters/#{master.id}/municipalities/#{municipality.id}/networks/#{network.id}/vehicle_journeys/#{vehicle_journey.id}"
+    "/masters/#{master.id}/deployments/#{deployment.id}/networks/#{network.id}/vehicle_journeys/#{vehicle_journey.id}"
   end
 
   def jptl_path(jptl)
-    "/masters/#{master.id}/municipalities/#{municipality.id}/networks/#{network.id}/vehicle_journeys/#{vehicle_journey.id}/journey_pattern_timing_links/#{jptl.id}"
+    "/masters/#{master.id}/deployments/#{deployment.id}/networks/#{network.id}/vehicle_journeys/#{vehicle_journey.id}/journey_pattern_timing_links/#{jptl.id}"
   end
 
   def has_path_issues?

@@ -1,7 +1,0 @@
-<div id="abort_button">
-  <% if muni_admin_can? :abort, @network %>
-    <p>
-    <%= button_to "Abort Processing", abort_master_municipality_network_plan_path(@master, @municipality, @network), :class => "btn btn-danger" %>
-    </p>
-  <% end %>
-</div>

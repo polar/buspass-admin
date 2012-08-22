@@ -12,10 +12,10 @@ class Masters::MasterBaseController < ApplicationController
 =begin
         @slug = params[:masters]
         # We should be checking the main database here for a
-        # valid municipality or else these calls could be creating lots
+        # valid deployment or else these calls could be creating lots
         # of empty databases
         if @slug.blank?
-            raise "Municipality Not Specified"
+            raise "Deployment Not Specified"
         end
         @database            = "#Busme-#{Rails.env}-#{@slug}"
 
@@ -24,7 +24,7 @@ class Masters::MasterBaseController < ApplicationController
         # We need to set the database name for all because it's been set this way in other operations.
         Master.set_database_name(@database)
         MuniAdmin.set_database_name(@database)
-        Municipality.set_database_name(@database)
+        Deployment.set_database_name(@database)
 
         Network.set_database_name(@database)
         Service.set_database_name(@database)

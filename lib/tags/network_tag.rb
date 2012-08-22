@@ -26,30 +26,30 @@ class NetworkTag < Tag
       # Unfortunately, the identifier catches the RoutesTag, ServiceTag, and JourneyTag
       # depending on when the tags' regexes are scanned
       when "simulate"
-        "<%= render :partial => 'masters/municipalities/networks/simulate/map' %>"
+        "<%= render :partial => 'masters/deployments/networks/simulate/map' %>"
       when "routes"
-        "<%= render :partial => 'masters/municipalities/networks/routes/index' %>"
+        "<%= render :partial => 'masters/deployments/networks/routes/index' %>"
       when "route"
-        "<%= render :partial => 'masters/municipalities/networks/routes/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/routes/show' %>"
       when "services"
-        "<%= render :partial => 'masters/municipalities/networks/services/index' %>"
+        "<%= render :partial => 'masters/deployments/networks/services/index' %>"
       when "service"
-        "<%= render :partial => 'masters/municipalities/networks/services/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/services/show' %>"
       when "journeys"
-        "<%= render :partial => 'masters/municipalities/networks/vehicle_journeys/index' %>"
+        "<%= render :partial => 'masters/deployments/networks/vehicle_journeys/index' %>"
       when "journey"
-        "<%= render :partial => 'masters/municipalities/networks/vehicle_journeys/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/vehicle_journeys/show' %>"
 
       when "plan"
-        "<%= render :partial => 'masters/municipalities/networks/plan/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/plan/show' %>"
       when "page"
-        "<%= render :partial => 'masters/municipalities/networks/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/show' %>"
       when nil
-        "<%= render :partial => 'masters/municipalities/networks/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/show' %>"
       when ""
-        "<%= render :partial => 'masters/municipalities/networks/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/show' %>"
       else
-        "<%= render :partial => 'masters/municipalities/networks/#{identifier}' %>"
+        "<%= render :partial => 'masters/deployments/networks/#{identifier}' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

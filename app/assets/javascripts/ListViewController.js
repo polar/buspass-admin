@@ -277,7 +277,7 @@ BusPass.ListViewController.prototype = {
     /**
      * Method: private _compareCodes
      * This method compares Route codes.
-     * TODO: Parameterize this for municipalities
+     * TODO: Parameterize this for deployments
      * Codes are compared on their route base, which is their
      * last 2 digits. The 43 has routes 143, 243, 443, 543.
      */

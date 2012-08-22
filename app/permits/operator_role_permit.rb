@@ -12,11 +12,11 @@ class OperatorRolePermit < CanTango::RolePermit
     can(:read, Master) do |master|
       user.master == master
     end
-    can([:read], Municipality) do |municipality|
-      user.master == municipality.master
+    can([:read], Deployment) do |deployment|
+      user.master == deployment.master
     end
-    can([:deploy], Municipality) do |municipality|
-      user.master == municipality.master && !municipality.is_active?
+    can([:deploy], Deployment) do |deployment|
+      user.master == deployment.master && !deployment.is_active?
     end
     can(:read, Network) do |network|
       user.master == network.master

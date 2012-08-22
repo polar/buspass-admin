@@ -258,7 +258,7 @@ class ServiceTable
     end
     vehicle_journey = VehicleJourney.new(
         :master          => network.master,
-        :municipality    => network.municipality,
+        :deployment    => network.deployment,
         :network         => network,
         :service         => service,
         :name            => name,
@@ -266,8 +266,8 @@ class ServiceTable
         :persistentid    => pid,
         :journey_pattern => journey_pattern)
     vehicle_journey.save!(:safe => true)
-    #create_deployment_network_journey_page(network.master.admin_site, network.municipality, network, vehicle_journey)
-    #create_deployment_network_journey_map_page(network.master.admin_site, network.municipality, network, vehicle_journey)
+    #create_deployment_network_journey_page(network.master.admin_site, network.deployment, network, vehicle_journey)
+    #create_deployment_network_journey_map_page(network.master.admin_site, network.deployment, network, vehicle_journey)
     return vehicle_journey
   end
 
@@ -440,8 +440,8 @@ class ServiceTable
         # Route is persistent by the number
         route        = Route.definitely_get_route(network, route_code)
 
-        #create_deployment_network_route_page(network.master.admin_site, network.municipality, network, route)
-        #create_deployment_network_route_map_page(network.master.admin_site, network.municipality, network, route)
+        #create_deployment_network_route_page(network.master.admin_site, network.deployment, network, route)
+        #create_deployment_network_route_map_page(network.master.admin_site, network.deployment, network, route)
 
         if route.nil?
           raise "WTF 1 Route is nil #{route_code}"
@@ -472,7 +472,7 @@ class ServiceTable
           service.save
         end
 
-        #create_deployment_network_service_page(network.master.admin_site, network.municipality, network, service)
+        #create_deployment_network_service_page(network.master.admin_site, network.deployment, network, service)
 
         #puts "Done Route and Service"
         if out == nil

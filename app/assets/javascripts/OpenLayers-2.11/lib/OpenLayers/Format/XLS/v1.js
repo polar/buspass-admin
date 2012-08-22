@@ -158,7 +158,7 @@ OpenLayers.Format.XLS.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             },
             "Place": function(node, address) {
                 // type is one of CountrySubdivision, 
-                // CountrySecondarySubdivision, Municipality or
+                // CountrySecondarySubdivision, Deployment or
                 // MunicipalitySubdivision
                 address.place[node.getAttribute("type")] = 
                     this.getChildValue(node);

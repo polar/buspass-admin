@@ -1,0 +1,26 @@
+
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+  <tr>
+    <th>Deployment</th>
+    <td><%= @deployment.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@deployment.location) %></td>
+  </tr>
+  <tr>
+    <th>Note</th>
+    <td><%= @deployment.note %></td>
+  </tr>
+  <tr>
+    <th>Owner</th>
+    <td><%= @deployment.owner.name %></td>
+  </tr>
+  <tr>
+    <th>Route Codes</th>
+    <td><%= @deployment.route_codes.join(" ") %></td>
+  </tr>
+  </tbody>
+</table>

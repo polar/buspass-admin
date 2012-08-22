@@ -1,0 +1,34 @@
+<% if @deployment.networks.count > 0 %>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Routes</th>
+        <th>Services</th>
+        <th>Journeys</th>
+        <th>Route Codes</th>
+        <th colspan="5">Operations</th>
+      </tr>
+
+      </thead>
+      <tbody>
+      <% for n in @deployment.networks do %>
+          <tr>
+            <td><%= link_to "#{n.name}", master_deployment_network_path(@master, @deployment, n) %></td>
+            <td><%= n.description %></td>
+            <td><%= n.routes.count %></td>
+            <td><%= n.services.count %></td>
+            <td><%= n.vehicle_journey_count %></td>
+            <td><%= n.route_codes.join(", ") %></td>
+            <td><%= link_to("Explore", master_deployment_network_path(@master, @deployment, n), :class=>"btn") if muni_admin_can?(:read, n)%></td>
+            <td><%= link_to("Edit", edit_master_deployment_network_path(@master, @deployment, n), :class=>"btn") if muni_admin_can?(:edit, n) %></td>
+            <td><%= link_to("Plan", master_deployment_network_plan_path(@master, @deployment, n), :class=>"btn") if muni_admin_can?(:edit, n) %></td>
+            <td><%= link_to("Copy to Deployment", copy_master_deployment_network_path(@master, @deployment, n), :class=>"btn") if muni_admin_can?(:edit, Deployment) %></td>
+            <td><%= link_to("Delete", master_deployment_network_path(@master, @deployment, n), :class=>"btn", :method => :delete, :confirm => "Are you sure?") if muni_admin_can?(:delete, n) %></td>
+          </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+<% end %>

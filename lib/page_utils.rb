@@ -95,7 +95,7 @@ module PageUtils
     new_page.slug         = "#{muni.slug}"
     new_page.label        = "#{muni.name}"
     new_page.master       = master
-    new_page.municipality = muni
+    new_page.deployment = muni
     new_page.save!
 
     # Customer may have added other pages to the template.
@@ -104,7 +104,7 @@ module PageUtils
     template.children.order(:position).all.each do |child|
       page = copy_page(site, new_page, child, !non_descend.include?(child.slug))
       page.master = master
-      page.municipality = muni
+      page.deployment = muni
       page.save!
     end
     return new_page
@@ -128,7 +128,7 @@ module PageUtils
     new_page.slug         = "#{network.slug}"
     new_page.label        = "#{network.name}"
     new_page.master       = master
-    new_page.municipality = muni
+    new_page.deployment = muni
     new_page.network      = network
     new_page.save!
     return new_page

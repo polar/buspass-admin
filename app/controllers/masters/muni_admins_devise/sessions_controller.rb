@@ -52,23 +52,23 @@ class Masters::MuniAdminsDevise::SessionsController < Devise::SessionsController
       return location
     end
 
-    setup_municipality
+    setup_deployment
     # Resource should be a Admin
     if @master.nil?
-      raise "No Municipality Specified"
+      raise "No Deployment Specified"
     end
     #plan_home_path(:master_id => @master)
-    ret= master_municipalities_path(:master_id => @master)
+    ret= master_deployments_path(:master_id => @master)
     ret
   end
 
   def after_sign_out_path_for(resource)
-    setup_municipality
+    setup_deployment
     # Resource should be a Admin
     if @master.nil?
-      raise "No Municipality Specified"
+      raise "No Deployment Specified"
     end
-    master_municipalities_path(:master_id => @master)
+    master_deployments_path(:master_id => @master)
   end
 
   private

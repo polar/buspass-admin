@@ -1,0 +1,28 @@
+<% if @routes.count == 0 %>
+    <p>
+      There are no routes established for this network yet. You must plan the network
+     </p>
+
+     <p>.
+      <%=  link_to "Plan Network", master_deployment_network_plan_path(@master, @deployment, @network), :class => "btn" %>
+    </p>
+<% else %>
+    <table class="table table-striped">
+      <thead><tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Services</th>
+        <th>Vehicle Journeys</th>
+        <th></th>
+      </tr></thead>
+      <tbody><% for r in @routes do %>
+          <tr>
+            <td><%=  link_to r.code, master_deployment_network_route_path(@master, @deployment, @network, r) %></td>
+            <td><%=  link_to r.name, master_deployment_network_route_path(@master, @deployment, @network, r) %></td>
+            <td><%=  r.services.count %> <%=  r.services.map {|s| s.day_class}.uniq.join(", ") %></td>
+            <td><%=  r.vehicle_journey_count %></td>
+            <td><%= link_to "Map", map_master_deployment_network_route_path(@master, @deployment, @network, r), :class => "btn" %></td>
+          </tr>
+      <% end %></tbody>
+    </table>
+<% end %>

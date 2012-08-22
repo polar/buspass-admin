@@ -11,22 +11,22 @@ class PlannerRolePermit < CanTango::RolePermit
     can(:read, Master) do |master|
       user.master == master
     end
-    can(:read, Municipality) do |municipality|
-      user.master == municipality.master
+    can(:read, Deployment) do |deployment|
+      user.master == deployment.master
     end
     can(:read, Network) do |network|
       user.master == network.master
     end
-    can([:edit, :delete], Municipality) do |municipality|
-      !municipality.is_active? && municipality.owner === user && user.master === municipality.master
+    can([:edit, :delete], Deployment) do |deployment|
+      !deployment.is_active? && deployment.owner === user && user.master === deployment.master
     end
     can([:edit, :delete], Network) do |network|
-      !network.municipality.is_active? && network.municipality.owner === user && user.master === network.master
+      !network.deployment.is_active? && network.deployment.owner === user && user.master === network.master
     end
   end
 
   def permit_rules
-    can([:create], Municipality)
+    can([:create], Deployment)
     can([:create], Network)
   end
 

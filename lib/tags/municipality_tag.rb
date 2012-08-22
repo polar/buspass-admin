@@ -1,6 +1,6 @@
 require "tags/tag"
 
-class MunicipalityTag  <Tag
+class DeploymentTag  <Tag
   include ComfortableMexicanSofa::Tag
 
   def self.regex_tag_signature(identifier = nil)
@@ -13,28 +13,28 @@ class MunicipalityTag  <Tag
     setup
     case identifier
       when "name"
-        @municipality.name
+        @deployment.name
       when "slug"
-        @municipality.slug
+        @deployment.slug
       when "location"
-        @municipality.location
+        @deployment.location
       when "owner"
-        @municipality.owner.name
+        @deployment.owner.name
       # Unfortunately, the identifier catches the NetworkTag depending on when the tags' regexes are scanned
       when "network"
-        "<%= render :partial => 'masters/municipalities/networks/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/show' %>"
       when "networks"
-        "<%= render :partial => 'masters/municipalities/networks/index' %>"
+        "<%= render :partial => 'masters/deployments/networks/index' %>"
       when "simulate"
-        "<%= render :partial => 'masters/municipalities/simulate/map' %>"
+        "<%= render :partial => 'masters/deployments/simulate/map' %>"
       when "page"
-        "<%= render :partial => 'masters/municipalities/show' %>"
+        "<%= render :partial => 'masters/deployments/show' %>"
       when nil
-        "<%= render :partial => 'masters/municipalities/show' %>"
+        "<%= render :partial => 'masters/deployments/show' %>"
       when ""
-        "<%= render :partial => 'masters/municipalities/show' %>"
+        "<%= render :partial => 'masters/deployments/show' %>"
       else
-        "<%= render :partial => 'masters/municipalities/#{identifier}' %>"
+        "<%= render :partial => 'masters/deployments/#{identifier}' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

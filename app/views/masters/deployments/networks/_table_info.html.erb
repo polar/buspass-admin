@@ -1,0 +1,51 @@
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+  <tr>
+    <th>Network</th>
+    <td><%= link_to "#{@network.name}", master_deployment_network_path(@master, @network.deployment, @network) %></td>
+  </tr>
+
+  <tr>
+    <th>Deployment</th>
+    <td><%= link_to @network.deployment.name, master_deployment_path(@master, @network.deployment) %></td>
+  </tr>
+
+  <tr>
+    <th>Description</th>
+    <td><%=  @network.description %></td>
+  </tr>
+
+  <tr>
+    <th>Route Codes</th>
+    <td>
+      <% for route in @network.routes.sort {|r1,r2| Route.codeOrd(r1.code, r2.code)} do %>
+        <%= link_to route.code, master_deployment_network_route_path(@master, @deployment, @network, route) %>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Combined Service Period</th>
+    <td>
+      <%= dates = @network.service_dates; "#{dates[0].strftime("%m-%d-%Y")} to #{dates[1].strftime("%m-%d-%Y")}"; %>
+    </td>
+  </tr>
+
+  <tr>
+    <th><%= link_to "Services", master_deployment_network_services_path(@master, @deployment, @network) %></th>
+    <td><%= @network.services.count %></td>
+  </tr>
+
+  <tr>
+    <th><%= link_to "Routes", master_deployment_network_routes_path(@master, @deployment, @network) %></th>
+    <td><%=  @network.routes.count %></td>
+  </tr>
+
+  <tr>
+    <th><%= link_to "Journeys", master_deployment_network_vehicle_journeys_path(@master, @deployment, @network) %></th>
+    <td><%=  @network.vehicle_journey_count %></td>
+  </tr>
+
+  </tbody>
+</table>

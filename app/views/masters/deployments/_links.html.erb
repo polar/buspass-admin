@@ -1,0 +1,13 @@
+
+<% if muni_admin_can?(:edit, @deployment) %>
+    <%= link_to("Edit Info", edit_master_deployment_path(@master, @deployment), :class=>"btn") %>
+<% end %>
+<% if muni_admin_can? :edit, @deployment %>
+    <%= link_to("Add New Network", new_master_deployment_network_path(@master, @deployment), :class=>"btn") %>
+<% end %>
+<% if muni_admin_can? :read, @deployment %>
+    <%= link_to("Map", map_master_deployment_path(@master, @deployment), :class=>"btn") %>
+<% end %>
+<% if muni_admin_can? :edit, @deployment %>
+    <%= link_to("Simulate", map_master_deployment_simulate_path(@master, @deployment), :class=>"btn") %>
+<% end %>

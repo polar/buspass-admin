@@ -12,11 +12,11 @@ class CustomersTag < Tag
     setup
     case identifier
       when "sign_up"
-        "<%= render :partial => 'mydevise/registrations/new' %>"
+        "<%= render :partial => 'customer_sessions/new' %>"
       when "edit"
-        "<%= render :partial => 'mydevise/registrations/edit' %>"
+        "<%= render :partial => 'customer_sessions/new' %>"
       when "sign_in"
-        "<%= render :partial => 'mydevise/sessions/new' %>"
+        "<%= render :partial => 'customer_sessions/new' %>"
       when "page"
         "<%= render :partial => 'customers/index' %>"
       when nil

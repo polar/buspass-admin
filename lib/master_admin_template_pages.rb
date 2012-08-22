@@ -122,7 +122,7 @@ of the layout regardless of where it appears here.
         :label => "New Deployment",
         :layout => normal_layout,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/new",
+        :controller_path => "/masters/:master_id/deployments/new",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployments:new }}"
@@ -166,7 +166,7 @@ of the layout regardless of where it appears here.
         :label => "Deployments",
         :layout => normal_layout,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities",
+        :controller_path => "/masters/:master_id/deployments",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployments }}"
@@ -279,7 +279,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => root,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment }}"
@@ -295,7 +295,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => deployment_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/edit",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/edit",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:edit }}"
@@ -311,7 +311,7 @@ of the layout regardless of where it appears here.
         :layout => map_layout,
         :parent => deployment_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/map",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:map }}"
@@ -327,7 +327,7 @@ of the layout regardless of where it appears here.
         :layout => map_layout,
         :parent => deployment_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/simulate",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/simulate",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:simulate }}"
@@ -343,7 +343,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => deployment_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/new",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/new",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:networks:new }}"
@@ -359,7 +359,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => deployment_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:networks }}"
@@ -375,7 +375,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => networks_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network }}"
@@ -391,7 +391,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/edit",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/edit",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:edit }}"
@@ -407,7 +407,7 @@ of the layout regardless of where it appears here.
         :layout => map_layout,
         :parent => network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/map",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:map }}"
@@ -423,7 +423,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/routes",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/routes",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:routes }}"
@@ -439,7 +439,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => routes_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/routes/:route_id",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/routes/:route_id",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:route }}"
@@ -455,7 +455,7 @@ of the layout regardless of where it appears here.
         :layout => map_layout,
         :parent => route_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/routes/:route_id/map",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/routes/:route_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:route:map }}"
@@ -471,7 +471,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/services",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/services",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:services }}"
@@ -487,7 +487,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => services_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/services/:service_id",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/services/:service_id",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:service }}"
@@ -503,7 +503,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/vehicle_journeys",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/vehicle_journeys",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:journeys }}"
@@ -519,7 +519,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => journeys_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/vehicle_journeys/:vehicle_journey_id",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/vehicle_journeys/:vehicle_journey_id",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:journey }}"
@@ -535,7 +535,7 @@ of the layout regardless of where it appears here.
         :layout => map_layout,
         :parent => journey_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/vehicle_journeys/:vehicle_journey_id/map",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/vehicle_journeys/:vehicle_journey_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:journey:map }}"
@@ -551,7 +551,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/plan",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/plan",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:plan }}"
@@ -567,7 +567,7 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => plan_network_template,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/municipalities/:municipality_id/networks/:network_id/plan/upload",
+        :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/plan/upload",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:deployment:network:plan:upload }}"

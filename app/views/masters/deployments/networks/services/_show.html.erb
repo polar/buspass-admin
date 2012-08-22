@@ -1,0 +1,7 @@
+<h2><%= link_to @network.name, master_deployment_network_path(@master, @deployment, @network) %></h2>
+<h3><%= link_to "Service #{@service.name}",
+                master_deployment_network_service_path(@master, @deployment, @network, @service) %></h3>
+<%= render :partial => "masters/deployments/networks/services/table_service" %>
+
+<h4>Vehicle Journeys on this Service and Route</h4>
+<%= render :partial => "masters/deployments/networks/services/table_journeys" %>

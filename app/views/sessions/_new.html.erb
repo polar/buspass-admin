@@ -1,0 +1,8 @@
+<h2>Sign in</h2>
+
+<% if current_customer %>
+    Welcome <%= current_customer.name %>!
+    <%= link_to "Sign Out", signout_path %>
+<% else %>
+    <%= link_to "Sign in with Twitter", "/auth/twitter" %>
+<% end %>

@@ -24,15 +24,15 @@ class NetworkPlanTag < Tag
         "#{@network.journeys.count}"
 
       when "upload"
-        "<%= render :partial => 'masters/municipalities/networks/plan/upload' %>"
+        "<%= render :partial => 'masters/deployments/networks/plan/upload' %>"
       when "page"
-        "<%= render :partial => 'masters/municipalities/networks/plan/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/plan/show' %>"
       when nil
-        "<%= render :partial => 'masters/municipalities/networks/plan/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/plan/show' %>"
       when ""
-        "<%= render :partial => 'masters/municipalities/networks/plan/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/plan/show' %>"
       else
-        "<%= render :partial => 'masters/municipalities/networks/plan/#{identifier}' %>"
+        "<%= render :partial => 'masters/deployments/networks/plan/#{identifier}' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

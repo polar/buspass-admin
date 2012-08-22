@@ -24,8 +24,8 @@
     <%- end -%>
   </header>
   <div id="main" role="main">
-    <div class="header"><%= link_to "Municipality #{@master.name}", master_municipalities_path(:master_id => @master) %></div>
-    <div class="header"><%= link_to "Deployment #{@municipality.name}", master_municipality_path(@municipality, :master_id => @master) %></div>
+    <div class="header"><%= link_to "Deployment #{@master.name}", master_deployments_path(:master_id => @master) %></div>
+    <div class="header"><%= link_to "Deployment #{@deployment.name}", master_deployment_path(@deployment, :master_id => @master) %></div>
     <%= yield %>
   </div>
   <footer>

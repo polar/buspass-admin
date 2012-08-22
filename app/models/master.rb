@@ -17,7 +17,7 @@ class Master
   key :dbname, String #, :unique => true, :allow_nil => true
 
   belongs_to :owner, :class_name => "Customer"
-  many :municipalities, :autosave => false, :dependent => :destroy
+  many :deployments, :autosave => false, :dependent => :destroy
   one :activement, :dependent => :destroy
   one :testament, :dependent => :destroy
 

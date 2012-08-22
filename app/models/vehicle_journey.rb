@@ -26,7 +26,7 @@ class VehicleJourney
   belongs_to :service
   belongs_to :network
   belongs_to :master
-  belongs_to :municipality
+  belongs_to :deployment
 
   one :journey_location, :dependent => :delete
 
@@ -42,14 +42,14 @@ class VehicleJourney
                   :persistentid, :slug,
                   :journey_pattern, :journey_pattern_id,
                   :master, :master_id,
-                  :municipality, :municipality_id,
+                  :deployment, :deployment_id,
                   :network, :network_id,
                   :service, :service_id
 
   before_validation :ensure_slug
 
-  validates_uniqueness_of :slug, :scope => [:network_id, :master_id, :municipality_id]
-  validates_uniqueness_of :name, :scope => [:network_id, :master_id, :municipality_id]
+  validates_uniqueness_of :slug, :scope => [:network_id, :master_id, :deployment_id]
+  validates_uniqueness_of :name, :scope => [:network_id, :master_id, :deployment_id]
 
   validates_presence_of :journey_pattern
   validates_presence_of :service
@@ -60,11 +60,11 @@ class VehicleJourney
   before_save :make_id_name
 
   def consistency_check
-    master == municipality.master &&
+    master == deployment.master &&
         master == network.master &&
         master == service.master &&
-        municipality == network.municipality &&
-        municipality == service.municipality &&
+        deployment == network.deployment &&
+        deployment == service.deployment &&
         network == service.network
   end
 
@@ -79,7 +79,7 @@ class VehicleJourney
     ret.service      = to_service
     ret.network      = to_network
     ret.master       = to_network.master
-    ret.municipality = to_network.municipality
+    ret.deployment = to_network.deployment
 
     ret.save!(:safe => true)
     ret

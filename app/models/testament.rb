@@ -2,21 +2,21 @@ class Testament
   include MongoMapper::Document
 
   belongs_to :master
-  belongs_to :municipality
+  belongs_to :deployment
   one :simulate_job
 
-  attr_accessible :master, :master_id, :municipality, :municipality_id
+  attr_accessible :master, :master_id, :deployment, :deployment_id
 
   validate :master_consistent
 
   before_validation :set_master
 
   def set_master
-    master = municipality.master if municipality
+    master = deployment.master if deployment
   end
 
   def master_consistent
-    master == municipality.master if municipality
+    master == deployment.master if deployment
   end
 
   def status

@@ -14,15 +14,17 @@ gem 'compass-rails'
 
 gem 'jquery-rails'
 
+# Validates email addresses
+
+gem 'valid_email'
+
+# Proper dealings with timezone names for maps
+
 gem "timezone"
 
 # The following gem is required to parse HTML using XPath.
 
 gem 'hpricot'
-
-# The following gem is required to parse and create CSV files.
-
-#gem "fastercsv"
 
 # The following gems are for using MongoMapper ORM
 
@@ -31,9 +33,13 @@ gem "mongo_mapper"
 
 # The following gems handle users and the login registration process
 
-gem "devise", ">= 2.0.0"
+#gem "devise", ">= 2.0.0"
 #gem 'devise-mongo_mapper', :path => "/home/polar/src/devise-mongo_mapper"
-gem 'devise-mongo_mapper', :git => "git://github.com/polar/devise-mongo_mapper"
+#gem 'devise-mongo_mapper', :git => "git://github.com/polar/devise-mongo_mapper"
+
+gem "omniauth-twitter"
+gem "omniauth-facebook"
+gem "omniauth-google"
 
 # The following gem supplies with String.to_url
 

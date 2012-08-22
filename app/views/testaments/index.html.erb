@@ -1,9 +1,9 @@
 <h1>Busme US</h1>
-<h3>Municipalities in Test</h3>
+<h3>Deployments in Test</h3>
 <table>
   <% for d in @testaments do %>
   <tr>
-    <td><%=  link_to d.municipality.master.name, testament_path(d) %></td>
+    <td><%=  link_to d.deployment.master.name, testament_path(d) %></td>
   </tr>
   <% end %>
 </table>

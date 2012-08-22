@@ -47,7 +47,7 @@ xml.ul(:id => "sitemap") {
       end
     }
   end
-  page = @site.pages.find_by_full_path("/deployments/#{@municipality.slug}")
+  page = @site.pages.find_by_full_path("/deployments/#{@deployment.slug}")
   xml.li() {
     xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
     subpages(page).tap do |pages|

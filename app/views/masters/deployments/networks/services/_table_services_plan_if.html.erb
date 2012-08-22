@@ -1,0 +1,11 @@
+<% if @services.count == 0 %>
+    <h3>Services for Network <%= link_to @network.name, master_deployment_network_path(@master, @deployment, @network) %></h3>
+ <p>
+   There are no services established for this Network. You must plan the network.
+ </p>
+ <p>
+   <%= link_to "Plan Network", master_deployment_network_plan_path(@master, @deployment, @network), :class => "btn" %>
+ </p>
+<% else %>
+  <%= render :partial => "masters/deployments/networks/services/table_services" %>
+<% end %>

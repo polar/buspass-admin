@@ -1,5 +1,5 @@
 ##
-# Controller for Toplevel Master Municipality Websites.
+# Controller for Toplevel Master Deployment Websites.
 # A "Website" is synonymous with the Master and CMS::Site combination.
 #
 class WebsitesController < ApplicationController
@@ -74,7 +74,7 @@ class WebsitesController < ApplicationController
       @master.ensure_slug()
       dbname = "#Busme-#{Rails.env}-#{@master.slug}"
     else
-      # We use the id of the MasterMunicipality for a unique name.
+      # We use the id of the MasterDeployment for a unique name.
       dbname = "#Busme-#{Rails.env}-#{@master.id.to_s}"
     end
 
@@ -86,7 +86,7 @@ class WebsitesController < ApplicationController
     @admin_site = create_master_admin_site(@master)
     @main_site  = create_master_main_site(@master)
 
-    logger.info("Creating New Municipality Database #{dbname} for Master #{@master.name}")
+    logger.info("Creating New Deployment Database #{dbname} for Master #{@master.name}")
 
     master         = @master
                                    # Save everything to the new database, which is the local masterdb.
@@ -102,9 +102,9 @@ class WebsitesController < ApplicationController
       local_master.dbname = local_masterdb
       local_master.save!
 
-      # Master Municipality and MuniAdmins are in the "masters" database
-      # for the whole masters Municipality. This DB will contain the
-      # MuniAdmin, the GoogleUriViewPath cache, and the Municipalities in
+      # Master Deployment and MuniAdmins are in the "masters" database
+      # for the whole masters Deployment. This DB will contain the
+      # MuniAdmin, the GoogleUriViewPath cache, and the Deployments in
 =end
     local_master          = master # their various modes and deployments.
 
@@ -118,24 +118,24 @@ class WebsitesController < ApplicationController
     @muni_admin.save!
 
     # Creating the first Deployment, which is a courtesy.
-    @municipality              = Municipality.new()
-    @municipality.name         = "Deployment 1"
-    @municipality.display_name = "Deployment 1"
-    @municipality.latitude     = local_master.latitude
-    @municipality.longitude    = local_master.longitude
-    @municipality.owner        = @muni_admin
-    @municipality.master       = local_master
-    @municipality.save!
-    create_master_deployment_page(@master, @municipality)
+    @deployment              = Deployment.new()
+    @deployment.name         = "Deployment 1"
+    @deployment.display_name = "Deployment 1"
+    @deployment.latitude     = local_master.latitude
+    @deployment.longitude    = local_master.longitude
+    @deployment.owner        = @muni_admin
+    @deployment.master       = local_master
+    @deployment.save!
+    create_master_deployment_page(@master, @deployment)
 
     # Creating the first Network in the first Deployment, which is a courtesy.
     @network              = Network.new
     @network.master       = @master
-    @network.municipality = @municipality
+    @network.deployment = @deployment
     @network.name         = "Network 1"
     @network.ensure_slug
     @network.save!
-    create_master_deployment_network_page(@master, @municipality, @network)
+    create_master_deployment_network_page(@master, @deployment, @network)
 
     flash[:notice] = "Site #{master.name} created with default deployment and default network"
 
@@ -151,10 +151,10 @@ class WebsitesController < ApplicationController
     @admin_site.destroy if @admin_site
     @main_site.destroy if @main_site
     @master.destroy if @master
-    @municipality.destroy if @municipality
+    @deployment.destroy if @deployment
     @muni_admin.destroy if @muni_admin
 
-    flash[:error] = "Could not create the site for your municipality."
+    flash[:error] = "Could not create the site for your deployment."
     render :action => :new
   end
 
@@ -169,7 +169,7 @@ class WebsitesController < ApplicationController
 
     error = false
     if @master == nil
-      flash[:error] = "Master Municipality #{params[:id]} doesn't exist"
+      flash[:error] = "Master Deployment #{params[:id]} doesn't exist"
       error         = true
     elsif customer_cannot?(:edit, @master)
       flash[:error] = "You do not have permission to update this object"
@@ -197,9 +197,9 @@ class WebsitesController < ApplicationController
           )
         end
 
-        flash[:notice] = "You have successfully updated your municipality."
+        flash[:notice] = "You have successfully updated your deployment."
       else
-        flash[:error] = "You couldn't update your municipality."
+        flash[:error] = "You couldn't update your deployment."
       end
     end
     respond_to do |format|
@@ -225,10 +225,10 @@ class WebsitesController < ApplicationController
     authorize_customer!(:delete, @master)
 
     if @master == nil
-      flash[:error] = "Municipality #{params[:id]} doesn't exist"
+      flash[:error] = "Deployment #{params[:id]} doesn't exist"
       error         = true
     elsif customer_cannot?(:delete, @master)
-      flash[:error] = "You do not have permission to delete the #{@master.name} Municipality."
+      flash[:error] = "You do not have permission to delete the #{@master.name} Deployment."
       error = true
     else
       @master.destroy()

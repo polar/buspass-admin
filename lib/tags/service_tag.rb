@@ -17,13 +17,13 @@ class ServiceTag < Tag
       when "slug"
         @service.slug
       when "page"
-        "<%= render :partial => 'masters/municipalities/networks/services/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/services/show' %>"
       when nil
-        "<%= render :partial => 'masters/municipalities/networks/services/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/services/show' %>"
       when ""
-        "<%= render :partial => 'masters/municipalities/networks/services/show' %>"
+        "<%= render :partial => 'masters/deployments/networks/services/show' %>"
       else
-        "<%= render :partial => 'masters/municipalities/networks/services/#{identifier}' %>"
+        "<%= render :partial => 'masters/deployments/networks/services/#{identifier}' %>"
     end
   end
   # This renders the tag without sanitizing the ERB for our

@@ -5,9 +5,9 @@ class Masters::TestamentController < ApplicationController
     get_context
 
     if @testament
-      options = {:master_id => @master.id, :municipality_id => @municipality.id}
+      options = {:master_id => @master.id, :deployment_id => @deployment.id}
       @job = SimulateJob.first(options)
-      #authorize!(:deploy, @municipality)
+      #authorize!(:deploy, @deployment)
       @date = Time.now
       @time = @date
       if params[:date]
@@ -26,23 +26,23 @@ class Masters::TestamentController < ApplicationController
       @partialStatusUrl = partial_status_master_testament_path(@master, :format => :json)
     else
       flash[:error] = "You have not selected a Deployment for testing."
-      redirect_to master_municipalities_path(@master)
+      redirect_to master_deployments_path(@master)
     end
   end
 
   def status
     get_context
-    #authorize!(:read, @municipality)
+    #authorize!(:read, @deployment)
     options = {:testament_id => @testament.id}
     @job = SimulateJob.first(options)
     if @job.nil?
-      flash[:error] = "There is no simulation running for #{@municipality.name}."
+      flash[:error] = "There is no simulation running for #{@deployment.name}."
     end
   end
 
   def start
     get_context
-    #authorize!(:deploy, @municipality)
+    #authorize!(:deploy, @deployment)
     options = {:testament_id => @testament.id}
     # Start the "run"
     # Date and time is now
@@ -65,7 +65,7 @@ class Masters::TestamentController < ApplicationController
     @job = SimulateJob.first(options)
     if @job
       if @job.is_processing?
-        @status += "Run of #{@master.name}'s #{@municipality.name} is still running."
+        @status += "Run of #{@master.name}'s #{@deployment.name} is still running."
         return
       else
         @job.reinitialize()
@@ -89,25 +89,25 @@ class Masters::TestamentController < ApplicationController
     job = VehicleJourney.delay(:queue => @master.slug).simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
     @job.delayed_job = job
     @job.save!
-    @status = "Run of #{@master.name}'s #{@municipality.name} has been started."
+    @status = "Run of #{@master.name}'s #{@deployment.name} has been started."
   end
 
   def stop
     get_context
 
-    #authorize!(:deploy, @municipality)
+    #authorize!(:deploy, @deployment)
     options = {:testament_id => @testament.id}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
     if @job
       if @job.processing_status == "Running"
         @job.set_processing_status!("StopRequested")
-        @status =  "The run of #{@master.name}'s '#{@municipality.name} will stop shortly."
+        @status =  "The run of #{@master.name}'s '#{@deployment.name} will stop shortly."
       else
-        @status = "The run of #{@master.name}'s '#{@municipality.name} is stopping."
+        @status = "The run of #{@master.name}'s '#{@deployment.name} is stopping."
       end
     else
-      @status =  "There is no run for #{@master.name}'s '#{@municipality.name}  to stop."
+      @status =  "There is no run for #{@master.name}'s '#{@deployment.name}  to stop."
     end
   end
 
@@ -116,7 +116,7 @@ class Masters::TestamentController < ApplicationController
   #
   def partial_status
     get_context
-    #authorize!(:read, @municipality)
+    #authorize!(:read, @deployment)
 
     options = {:testament_id => @testament.id}
     @job = SimulateJob.first(options)
@@ -175,17 +175,17 @@ class Masters::TestamentController < ApplicationController
       # We automatically kill any job if we remove the SimulateJob
       @job.destroy
       @testament.destroy
-      flash[:notice] = "#{@master.name} Testament #{@municipality.name} has been deactivated."
+      flash[:notice] = "#{@master.name} Testament #{@deployment.name} has been deactivated."
     else
-      flash[:error] = "You are not allowed to deactivate #{@master.name} Testament #{@municipality.name}"
+      flash[:error] = "You are not allowed to deactivate #{@master.name} Testament #{@deployment.name}"
     end
 
-    redirect_to master_municipalities_path(@master)
+    redirect_to master_deployments_path(@master)
   end
 
   def api
     get_context
-    authorize_muni_admin!(:edit, @municipality)
+    authorize_muni_admin!(:edit, @deployment)
     @api = {
         :majorVersion => 1,
         :minorVersion => 0,
@@ -208,7 +208,7 @@ class Masters::TestamentController < ApplicationController
     @master = @testament.master if @testament
     @master ||= Master.find(params[:master_id])
     @testament ||= Testament.where(:master_id => params[:master_id]).first
-    @municipality = @testament.municipality if @testament
+    @deployment = @testament.deployment if @testament
   end
 
   def authorize_muni_admin!(action, obj)

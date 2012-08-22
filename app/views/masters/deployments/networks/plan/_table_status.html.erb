@@ -1,0 +1,26 @@
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+  <tr>
+    <th>Start Time</th>
+    <td><div id="started_at"><%=  @network.processing_completed_at ?
+                                          @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                          @network.processing_lock ? "Pending" : "Never"  %></div></td>
+  </tr>
+  <tr>
+    <th>Progress</th>
+    <td><div id="progress"><%= (@network.processing_progress * 100).floor %>%</div></td>
+  </tr>
+  <tr>
+    <th>Complete Time</th>
+    <td><div id="completed_at"><%= @network.processing_completed_at ?
+                                           @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                           "" %></div></td>
+  </tr>
+  <tr>
+    <th>Result File</th>
+    <td><div id="process_file"><%= @network.file_path && !@network.processing_lock ?
+                                           link_to("Download", file_master_deployment_network_plan_path(@master, @deployment, @network), :class => "btn"): "" %></div></td>
+  </tr>
+  </tbody>
+</table>

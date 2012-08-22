@@ -5,9 +5,9 @@ class SimulateJob
   belongs_to :activement # if this isn't nil, it is for a activement.
   belongs_to :testament # if this isn't nil, it is for a testament.
 
-  # If one of the above is assigned, both the master and municipality should be nil.
+  # If one of the above is assigned, both the master and deployment should be nil.
   belongs_to :master
-  belongs_to :municipality
+  belongs_to :deployment
 
   key :processing_status, String # "Starting", "Running", "StopRequested", Stopping", "Stopped"
   key :processing_log, Array     # of String
@@ -24,7 +24,7 @@ class SimulateJob
 
 
   attr_accessible :master, :master_id
-  attr_accessible :municipality, :municipality_id
+  attr_accessible :deployment, :deployment_id
   attr_accessible :activement, :activement_id
   attr_accessible :testament, :testament_id
   attr_accessible :time_zone
@@ -45,9 +45,9 @@ class SimulateJob
     name1 = self.master.name if self.master
     name1 ||= self.testament.master.name if self.testament
     name1 ||= self.activement.master.name if self.activement
-    name2 = self.municipality.name if self.municipality
-    name2 ||= self.testament.municipality.name if self.testament
-    name2 ||= self.activement.municipality.name if self.activement
+    name2 = self.deployment.name if self.deployment
+    name2 ||= self.testament.deployment.name if self.testament
+    name2 ||= self.activement.deployment.name if self.activement
     "#{name1} - #{name2}"
   end
 

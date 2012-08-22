@@ -116,14 +116,14 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     @muni_admin = MuniAdmin.find(params[:id])
     authorize_muni_admin!(:delete, @muni_admin)
     if @muni_admin
-      @municipalities = Municipality.where(:owner_id => @muni_admin.id).all
-      if @muni_admin.municipalities.empty?
+      @deployments = Deployment.where(:owner_id => @muni_admin.id).all
+      if @muni_admin.deployments.empty?
         @muni_admin.destroy
         redirect_to master_muni_admins_path(@master)
       else
-        @municipalities.each do |municipality|
-          municipality.owner = current_muni_admin
-          municipality.save
+        @deployments.each do |deployment|
+          deployment.owner = current_muni_admin
+          deployment.save
         end
         @muni_admin.reload
         @muni_admin.destroy
@@ -143,14 +143,14 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     end
 
     if @muni_admin
-      @municipalities = Municipality.where(:owner_id => @muni_admin.id).all
-      if @muni_admin.municipalities.empty?
+      @deployments = Deployment.where(:owner_id => @muni_admin.id).all
+      if @muni_admin.deployments.empty?
         @muni_admin.destroy
         redirect_to master_muni_admins_path(@master)
       else
-        @municipalities.each do |municipality|
-          municipality.owner = current_muni_admin
-          municipality.save
+        @deployments.each do |deployment|
+          deployment.owner = current_muni_admin
+          deployment.save
         end
         @muni_admin.reload
         @muni_admin.destroy

@@ -2,7 +2,7 @@
   <tbody>
       <% @masters.each do |master| %>
           <tr>
-            <td>Municipality:</td>
+            <td>Deployment:</td>
             <td><%= link_to master.name, master_path(master) %></td>
           </tr>
       <% end %>

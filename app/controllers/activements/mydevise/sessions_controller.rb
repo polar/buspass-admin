@@ -51,10 +51,10 @@ class Activements::Mydevise::SessionsController < Devise::SessionsController
       return location
     end
 
-    setup_municipality
+    setup_deployment
     # Resource should be a User
     if @master.nil?
-      raise "No Municipality Specified"
+      raise "No Deployment Specified"
     end
     #plan_home_path(:master_id => @master)
     ret= activements_path(:master_id => @master)
@@ -62,10 +62,10 @@ class Activements::Mydevise::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource)
-    setup_municipality
+    setup_deployment
     # Resource should be a Admin
     if @master.nil?
-      raise "No Municipality Specified"
+      raise "No Deployment Specified"
     end
     activements_path(:master_id => @master)
   end

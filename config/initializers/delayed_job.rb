@@ -11,7 +11,7 @@ Delayed::Worker.max_attempts=1
 #
 # We set the database for the Jobs Collection, no matter what
 # database we are using. This allows us to only have several
-# workers without having one for each municipality.
+# workers without having one for each deployment.
 # We really should get this from MongoMapper default, but
 # not sure if it's initialized yet. We initialize to the
 # same DB.

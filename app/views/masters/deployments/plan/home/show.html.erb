@@ -1,0 +1,17 @@
+<h2>Deployment Planning for <%=  @muni.name %></h2>
+Welcome Planner <%= current_customer.name %><br />
+Database: <%= @database %><br />
+Slug <%= @slug %>          <br />
+<table>
+  <tr>
+    <th>Name</th>
+    <td><%= @muni.name %></td>
+  </tr>
+  <tr>
+    <th>Location</th>
+    <td><%= to_location_str(@muni.location) %></td>
+  </tr>
+</table>
+<p>
+  <%=  link_to :Networks, plan_networks_path(:@numi => @muni.slug) %>
+</p>

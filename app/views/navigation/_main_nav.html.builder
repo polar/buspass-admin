@@ -26,7 +26,7 @@ xml.ul(:id => "main_site_nav") {
     end
     page.children.all.each do |page|
       # We don't process the deployment template because it doesn't show
-      # any municipality, and would come up blank.
+      # any deployment, and would come up blank.
       do_page(page, xml)
     end
   }

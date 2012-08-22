@@ -15,7 +15,7 @@ class CmsAdmin::BaseController  < CmsBaseController
   def setup
     @master = Master.find_by_slug(params[:master_id]) if params[:master_id]
     @master ||= Master.find(params[:master_id]) if params[:master_id]
-    @municipality = Municipality.find(params[:municipality_id]) if params[:municipality_id]
+    @deployment = Deployment.find(params[:deployment_id]) if params[:deployment_id]
     @network = Network.find(params[:network_id]) if params[:network_id]
     @route = Route.find(params[:route_id]) if params[:route_id]
     @service = Route.find(params[:service_id]) if params[:service_id]
@@ -39,7 +39,7 @@ class CmsAdmin::BaseController  < CmsBaseController
       if @site.nil?
         I18n.locale = ComfortableMexicanSofa.config.admin_locale || I18n.default_locale
         flash[:error] = I18n.t('cms.base.site_not_found')
-        return redirect_to(main_app.master_municipalities_path(@master))
+        return redirect_to(main_app.master_deployments_path(@master))
       end
   end
 

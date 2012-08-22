@@ -1,0 +1,18 @@
+
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+  <tr>
+    <th><%= link_to "Services", master_deployment_network_services_path(@master, @deployment, @network) %></th>
+    <td><%= @network.services.count %></td>
+  </tr>
+  <tr>
+    <th><%= link_to "Routes", master_deployment_network_routes_path(@master, @deployment, @network) %></th>
+    <td><%=  @network.routes.count %></td>
+  </tr>
+  <tr>
+    <th><%= link_to "Journeys", master_deployment_network_vehicle_journeys_path(@master, @deployment, @network) %></th>
+    <td><%=  @network.vehicle_journey_count %></td>
+  </tr>
+  </tbody>
+</table>

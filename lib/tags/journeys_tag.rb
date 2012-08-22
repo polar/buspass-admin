@@ -11,7 +11,7 @@ class JourneysTag   < Tag
 
   def content
     setup
-    "<%= render :partial => 'masters/municipalities/networks/vehicle_journeys/index' %>"
+    "<%= render :partial => 'masters/deployments/networks/vehicle_journeys/index' %>"
   end
   # This renders the tag without sanitizing the ERB for our
   # purposes. Only applies to our tags.

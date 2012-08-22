@@ -17,17 +17,17 @@ class SuperRolePermit < CanTango::RolePermit
     can([:delete], Testament) do |testament|
       user.master == testament.master
     end
-    can([:read], Municipality) do |municipality|
-      master == municipality.master
+    can([:read], Deployment) do |deployment|
+      master == deployment.master
     end
-    can([:edit, :delete, :deploy], Municipality) do |municipality|
-      !municipality.is_active? && user.master == municipality.master
+    can([:edit, :delete, :deploy], Deployment) do |deployment|
+      !deployment.is_active? && user.master == deployment.master
     end
     can([:read], Network) do |network|
       user.master == network.master
     end
     can([:edit, :delete, :abort], Network) do |network|
-      !network.municipality.is_active? && user.master == network.master
+      !network.deployment.is_active? && user.master == network.master
     end
     can([:edit, :delete], Testament) do |testament|
       user.master == testament.master
@@ -48,7 +48,7 @@ class SuperRolePermit < CanTango::RolePermit
 
   def permit_rules
     can(:create, Network)
-    can(:create, Municipality)
+    can(:create, Deployment)
     can(:create, MuniAdmin)
     can(:read,   MuniAdmin)
     can(:create, User)
