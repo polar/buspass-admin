@@ -1,9 +1,10 @@
 <div class="user_nav">
 
   <% if customer_signed_in? %>
-      <%= link_to('Logout', destroy_customer_session_path, :method=>'delete',
+      <%= link_to('Logout', destroy_customer_sessions_path, :method=>'delete',
                   :class => "logout") %>
+      <%= link_to current_customer.name, edit_registration_customers_path %>
   <% else %>
-      <%= link_to('Customer Login', customers_sign_in_path, :class => "login")  %>
+      <%= link_to('Customer Login', customer_sign_in_path, :class => "login")  %>
   <% end %>
 </div>

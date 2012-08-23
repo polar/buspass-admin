@@ -88,39 +88,6 @@ of the layout regardless of where it appears here.
                                    :content    => "{{ cms:bus:navigation:websites_nav }}"
                                }])
 
-    signup = site.pages.create!(
-        :slug              => "sign-up",
-        :label             => "Sign Up",
-        :layout            => normal_layout,
-        :parent            => root,
-        :is_protected      => true,
-        :controller_path   => "/customers/sign_up",
-        :blocks_attributes => [{
-                                   :identifier => "content",
-                                   :content    => "{{ cms:bus:customers:sign_up }}"
-                               },
-                               {
-                                   :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
-                               }])
-
-    signin = site.pages.create!(
-        :slug              => "sign-in",
-        :label             => "Sign In",
-        :layout            => normal_layout,
-        :parent            => root,
-        :is_protected      => true,
-        :controller_path   => "/customers/sign_in",
-        :blocks_attributes => [{
-                                   :identifier => "content",
-                                   :content    => "{{ cms:bus:customers:sign_in }}"
-                               },
-                               {
-                                   :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
-                               }])
-
-
     index = site.pages.create!(
         :slug              => "all-websites",
         :label             => "All Sites",

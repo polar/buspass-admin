@@ -2,30 +2,20 @@ class Customer
   include MongoMapper::Document
   plugin MongoMapper::Plugins::IdentityMap
 
-  tango_user
+  #tango_user
 
   ROLE_SYMBOLS = [:admin, :super]
 
   key :name, String
   key :email, String
 
-  many :third_party_auths
+  many :authentications
 
   many :masters, :foreign_key => :owner_id
 
   attr_accessible :name, :email
 
   validates :email, :presence => true, :email => true
-
-  def self.create_with_omniauth(auth, session)
-    Customer.new.tap do |cust|
-      cust.provider = auth["provider"]
-      cust.uid      = auth["uid"]
-      cust.name     = auth["info"]["name"]
-      cust.save!
-    end
-  end
-
   def self.search(search)
     if search
       words  = search.split(" ")
@@ -40,6 +30,14 @@ class Customer
   # That should be the case for muni_admin, or user, but not admin.
   def self.authentication_keys
     return [:email]
+  end
+
+  def authentications_copy
+    as = []
+    for a in self.authentications do
+      as << a.copy!
+    end
+    as
   end
 
   key :role_symbols, Array, :default => []

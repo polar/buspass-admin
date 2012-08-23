@@ -1,0 +1,26 @@
+<%= form_for @muni_admin,
+             :url => @muni_admin.new? ? create_registration_master_muni_admins_path(@master) :
+                     update_registration_master_muni_admins_path(@master),
+             :validate => true do |f| %>
+  <% if @muni_admin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@muni_admin.errors.count, "error") %> prohibited this admin from being saved:</h2>
+
+      <ul>
+      <% @muni_admin.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+    <br />
+    <br />
+  <div class="actions">
+    <%= f.submit (@muni_admin.new? ? "Create Account" : "Update Info"), :class => "btn" %>
+  </div>
+<% end %>

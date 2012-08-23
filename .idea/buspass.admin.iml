@@ -102,8 +102,10 @@
     <orderEntry type="library" scope="PROVIDED" name="omniauth (v1.0.3, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="omniauth-facebook (v1.4.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="omniauth-google (v1.0.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="omniauth-linkedin (v0.0.8, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="omniauth-oauth (v1.0.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="omniauth-oauth2 (v1.1.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="omniauth-openid (v1.0.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="omniauth-twitter (v0.0.12, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="paperclip (v3.1.4, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="passenger (v3.0.15, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
@@ -112,6 +114,7 @@
     <orderEntry type="library" scope="PROVIDED" name="polyglot (v0.3.3, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v1.4.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-cache (v1.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-openid (v1.3.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-ssl (v1.3.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails (v3.2.7, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
@@ -129,6 +132,7 @@
     <orderEntry type="library" scope="PROVIDED" name="ruby-debug-base19x (v0.11.30.pre10, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-debug-ide (v0.4.16, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-ole (v1.2.11.4, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby-openid (v2.2.0, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby_core_source (v0.1.5, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyvis (v0.2.2, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyzip (v0.9.9, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
@@ -154,6 +158,8 @@
     <orderEntry type="library" scope="PROVIDED" name="treetop (v1.4.10, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v0.3.33, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="uglifier (v1.2.7, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="valid_email (v0.0.4, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="warden (v1.2.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="will_paginate (v3.0.3, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="will_paginate-bootstrap (v0.2.1, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="xpath (v0.1.4, RVM: ruby-1.9.3-p125 [rails3.2]) [gem]" level="application" />

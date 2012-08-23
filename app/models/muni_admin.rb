@@ -4,20 +4,15 @@ class MuniAdmin
 
     key :provider, String
     key :uid, String
-
+    key :email, String
     key :name, String
 
-    many :deployments, :foreign_key => :owner_id
-
     validates_presence_of :name
+    validates :email, :presence => true, :email => true
 
-    def self.create_with_omniauth(auth)
-      create! do |cust|
-        cust.provider = auth["provider"]
-        cust.uid      = auth["uid"]
-        cust.name     = auth["info"]["name"]
-      end
-    end
+    many :authentications
+
+    belongs_to :master
 
     many :deployments, :foreign_key => "owner_id"
 

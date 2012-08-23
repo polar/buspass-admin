@@ -110,10 +110,11 @@ class WebsitesController < ApplicationController
 
     #MuniAdmin.set_database_name(local_masterdb)
 
-    muni_admin_attributes = current_customer.attributes.slice("encrypted_password", "email", "name")
+    muni_admin_attributes = current_customer.attributes.slice("email", "name")
     @muni_admin           = MuniAdmin.new(muni_admin_attributes)
     @muni_admin.master    = local_master
-    @muni_admin.disable_empty_password_validation() # Keeps from arguing for a non-empty password.
+    auths = current_customer.authentications_copy
+    auths.each{ |auth| @muni_admin.authentications << auth }
     @muni_admin.add_roles([:super, :planner, :operator])
     @muni_admin.save!
 
@@ -142,8 +143,14 @@ class WebsitesController < ApplicationController
     if current_customer.has_role?(:admin) || current_customer.has_role?(:super)
       redirect_to websites_path
     else
+      # We are going to switch from the Customer site to the Master site
+      @customer = current_customer
+      @old_auth = current_authentication
       sign_out(current_customer)
-      sign_in(@muni_admin)
+      # We have copied over all the authentications to the MuniAdmin
+      # We will just say that he is still authenticated with the one from the
+      # same provider, since we only allow one from each.
+      sign_in(@muni_admin, @muni_admin.authentications.find_by_provider(@old_auth.provider))
       redirect_to master_path(@master)
     end
 
@@ -153,8 +160,12 @@ class WebsitesController < ApplicationController
     @master.destroy if @master
     @deployment.destroy if @deployment
     @muni_admin.destroy if @muni_admin
+    if @customer
+      sign_in(@customer, @old_auth)
+    end
 
     flash[:error] = "Could not create the site for your deployment."
+    @render_action = "new"  # This is needed for the layout.
     render :action => :new
   end
 

@@ -2,6 +2,9 @@
 
 <% if current_customer %>
     Welcome <%= current_customer.name %>!
+
+    You may associate other associated authenticators with your current login.
+
     <%= link_to "Sign Out", signout_path %>
 <% else %>
     <%= link_to "Sign in with Twitter", "/auth/twitter" %>

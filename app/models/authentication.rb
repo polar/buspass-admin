@@ -1,0 +1,38 @@
+class Authentication
+  include MongoMapper::Document
+  plugin MongoMapper::Plugins::IdentityMap
+
+  key :provider
+  key :uid
+  key :name
+  key :original_info, Hash
+  key :last_info, Hash
+
+  belongs_to :customer
+  belongs_to :muni_admin
+  belongs_to :user
+  belongs_to :admin
+
+  def self.create_with_omniauth(auth)
+    Authentication.new.tap do |tpauth|
+      tpauth.provider = auth["provider"]
+      tpauth.uid      = auth["uid"]
+      tpauth.name     = auth["info"]["name"]
+      tpauth.original_info = auth["info"]
+      tpauth.last_info = auth["info"]
+      tpauth.save!
+    end
+  end
+
+  def copy!
+    Authentication.new.tap do |tpauth|
+      tpauth.provider = provider
+      tpauth.uid      = uid
+      tpauth.name     = name
+      tpauth.original_info = original_info
+      tpauth.last_info = last_info
+      tpauth.save!
+    end
+  end
+
+end

@@ -11,8 +11,8 @@
   <%= javascript_include_tag "webmap" %>
   <%= stylesheet_link_tag "#{controller_path}" %>
   <%= javascript_include_tag "#{controller_path}" %>
-  <%= stylesheet_link_tag "#{controller_path}/#{params[:action]}" %>
-  <%= javascript_include_tag "#{controller_path}/#{params[:action]}" %>
+  <%= stylesheet_link_tag "#{controller_path}/#{@render_action || params[:action]}" %>
+  <%= javascript_include_tag "#{controller_path}/#{@render_action || params[:action]}" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
       $(function() {

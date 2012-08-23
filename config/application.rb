@@ -18,6 +18,15 @@ end
 module BuspassAdmin
   class Application < Rails::Application
 
+
+    @@oauthProviders = []
+    def self.oauth_providers
+      @@oauthProviders
+    end
+    def self.oauth_providers=(arg)
+      @@oauthProviders = arg
+    end
+
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
       g.view_specs false
@@ -86,6 +95,11 @@ module BuspassAdmin
        else
          %{<div class="control-group-error">#{html_tag}</div>}.html_safe
        end
+    end
+
+    # We configure Warden merely to catch throw(:warden, :path => .,.., :notice => ....)
+    config.middleware.use ::Warden::Manager do |manager|
+      manager.failure_app = WardenFailureApp
     end
   end
 end

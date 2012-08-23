@@ -32,24 +32,65 @@ class CustomersController < ApplicationController
   end
 
   def new_registration
-    tpauth = ThirdPartyAuth.find session[:tpauth_id]
-    if tpauth
-      @customer = Customer.new()
-      @customer.name = tpauth.name
+    @authentication = Authentication.find session[:tpauth_id]
+    if @authentication
+      cust = Customer.find_by_authentication_id(@authentication.id)
+      if cust
+        redirect_to edit_registration_customer_path, :notice => "edit"
+      else
+        @customer = Customer.new()
+        @customer.name = @authentication.name
+        @customer.email = @authentication.last_info["email"]
+        # render form that posts to create_registration
+      end
     else
-      redirect_to root_path, :notice => "You need to authenticate first."
+      redirect_to customer_sign_in_path, :notice => "You need to authenticate first."
     end
   end
 
+  def edit_registration
+    authenticate_customer!
+
+    @customer = current_customer
+    @authentication = @customer.authentications.find session[:tpauth_id]
+    @authentications = @customer.authentications - [@authentication]
+    @providers = BuspassAdmin::Application.oauth_providers - @customer.authentications.map {|a| a.provider.to_s }
+
+    # We put this in the session in case the user adds an authentication.
+    session[:tpauth] = :amend_customer
+  end
+
+  #
+  # This gets called from a redirect from new_registration
+  #
   def create_registration
-    tpauth = ThirdPartyAuth.find session[:tpauth_id]
+    tpauth = Authentication.find session[:tpauth_id]
     if tpauth
       @customer = Customer.new(params[:customer])
-      @customer.third_party_auths << tpauth
+      @customer.authentications << tpauth
       @customer.save
-      redirect_to root_path, "Signed In!"
+      session[:customer_id] = @customer.id
+      redirect_to edit_registration_customers_path, :notice => "Signed In!"
     else
-      redirect_to root_path, "You need to authenticate first."
+      redirect_to customer_sign_in_path, "You need to authenticate first."
+    end
+  end
+
+  #
+  # This gets called from a redirect from edit_registration
+  def update_registration
+    authenticate_customer!
+    # We put this in the session in case the user adds an authentication.
+    session[:tpauth] = nil
+    tpauth = Authentication.find session[:tpauth_id]
+    if tpauth
+      @customer = current_customer
+      @customer.update_attributes(params[:customer])
+      @customer.authentications << tpauth
+      @customer.save
+      redirect_to edit_registration_customers_path, :notice => "Account Updated!"
+    else
+      redirect_to customer_sign_in_path, "You need to authenticate first."
     end
   end
 

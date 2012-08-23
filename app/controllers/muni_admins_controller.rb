@@ -1,4 +1,4 @@
-class MuniAdminController < ApplicationController
+class MuniAdminsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def authorize_muni_admin!(action, obj)
@@ -99,6 +99,8 @@ class MuniAdminController < ApplicationController
       format.js # destroy.htm.erb
     end
   end
+
+  # TODO This controller should go in Masters.
 
   private
 

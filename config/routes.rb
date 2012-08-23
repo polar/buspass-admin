@@ -8,17 +8,36 @@ BuspassAdmin::Application.routes.draw do
   match "/masters/:master_id/signout" => "sessions#destroy", :as => :signout
 
   match "/customers/sign_up" => "sessions#new_customer"
-  match "/customers/sign_in" => "sessions#new_customer"
-  match "/customers/signout" => "sessions#destroy_customer", :as => :signout
+  match "/customers/sign_in" => "sessions#new_customer", :as => :customer_sign_in
+  match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout
+
+  match "/muni_admin/sign_up" => "sessions#new_muni_admin"
+  match "/muni_admin/sign_in" => "sessions#new_muni_admin", :as => :muni_admin_sign_in
+  match "/muni_admin/signout" => "sessions#destroy_muni_admin", :as => :muni_admin_signout
+
   resources :sessions do
+    collection do
+      get :new_customer
+      post :create_customer
+      delete :destroy_customer
+
+      get :new_muni_admin
+      post :create_muni_admin
+      delete :destroy_muni_admin
+    end
   end
+
+  resources :customer_authentications
 
   resources :customers do
     collection do
       get  :new_registration
+      get  :edit_registration
       post :create_registration
+      put :update_registration
     end
   end
+  resources :muni_admin_authentications
 
 
 =begin
@@ -127,6 +146,12 @@ BuspassAdmin::Application.routes.draw do
     resources :muni_admins, :controller => "masters/muni_admins" do
       member do
         post :destroy_confirm
+      end
+      collection do
+        get  :new_registration
+        get  :edit_registration
+        post :create_registration
+        put :update_registration
       end
     end
 

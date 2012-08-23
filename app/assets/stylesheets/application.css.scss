@@ -15,6 +15,9 @@
 *= require_self
 */
 
+.user_nav {
+  float: right;
+}
 .edit_deployment input[type=text], textarea {
   width : 30em;
 }

@@ -30,15 +30,67 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_customer, :customer_signed_in?
 
-  private
-
   def current_customer
     @current_customer ||= Customer.find(session[:customer_id]) if session[:customer_id]
   end
+
   def customer_signed_in?
     ! @current_customer.nil?
   end
 
+  def authenticate_customer!
+    if ! current_customer
+      throw(:warden, :path => new_customer_sessions_path, :notice => "Please sign in." )
+    end
+  end
+
+  helper_method :current_muni_admin, :muni_admin_signed_in?
+
+  def current_muni_admin
+    @current_muni_admin ||= MuniAdmin.find(session[:muni_admin_id]) if session[:muni_admin_id]
+  end
+
+  def muni_admin_signed_in?
+    ! @current_muni_admin.nil?
+  end
+
+  def authenticate_muni_admin!
+    if ! current_muni_admin
+      throw(:warden, :path => new_muni_admin_sessions_path(:master_id => @master.id), :notice => "Please sign in." )
+    end
+  end
+
+  def current_authentication
+    @current_authentication ||= Authentication.find(session[:tpauth_id]) if session[:tpauth_id]
+  end
+
+  def sign_out(user)
+    case (user.class)
+      when Customer
+        session[:customer_id] = nil
+      when MuniAdmin
+        session[:muni_admin_id] = nil
+      when User
+        session[:user_id] = nil
+      else
+    end
+    session[:tpauth_id] = nil
+  end
+
+
+  def sign_in(user, oauth = nil)
+    case (user.class)
+      when Customer
+        session[:customer_id] = user
+      when MuniAdmin
+        session[:muni_admin_id] = user
+      when User
+        session[:user_id] = user
+      else
+    end
+    oauth ||= user.authentications.first
+    session[:tpauth_id] = oauth.id
+  end
   #
   #def default_url_options
   #  puts "default_url_options called"
