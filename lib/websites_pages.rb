@@ -70,7 +70,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
 
     help = site.pages.create!(
@@ -85,7 +85,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
 
     index = site.pages.create!(
@@ -97,11 +97,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/websites",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:websites:index }}"
+                                   :content    => "{{ cms:bus:render:websites/index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
 
     myindex = site.pages.create!(
@@ -113,11 +113,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/websites/my_index",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:websites:my_index }}"
+                                   :content    => "{{ cms:bus:render:websites/my_index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
 
     new_site      = site.pages.create!(
@@ -129,11 +129,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/websites/new",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:websites:new }}"
+                                   :content    => "{{ cms:bus:render:websites/new }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
 
     # This page will not be considered in the navigation because the slug ends in template.
@@ -146,11 +146,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/websites/:site_id/show",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:websites:show }}"
+                                   :content    => "{{ cms:bus:render:websites/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
 
     site_edit_template = site.pages.create!(
@@ -162,11 +162,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/websites/:site_id/edit",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:websites:edit }}"
+                                   :content    => "{{ cms:bus:render:websites/edit }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
 
     admin = site.pages.create!(
@@ -178,11 +178,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/websites/admin",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:websites:admin }}"
+                                   :content    => "{{ cms:bus:render:websites/admin }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:websites_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
     return site
   end

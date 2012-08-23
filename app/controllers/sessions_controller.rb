@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   def new_customer
     # We are going to auth a muni_admin. We indicate that in the session
     if current_customer
-      redirect_to edit_registration_customers_path, :notice => "You are already signed in."
+      redirect_to edit_customer_registration_path(current_customer), :notice => "You are already signed in."
     end
     @providers = BuspassAdmin::Application.oauth_providers
     session[:tpauth] = :customer
@@ -47,12 +47,13 @@ class SessionsController < ApplicationController
   def new_muni_admin
     # We are going to auth a muni_admin. We indicate that in the session
     if current_muni_admin
-      redirect_to edit_registration_muni_admins_path(@master_id => current_muni_admin.master.id), :notice => "You are already signed in."
+      redirect_to edit_master_muni_admin_registration_path(current_muni_admin.master, current_muni_admin), :notice => "You are already signed in."
     else
       @providers = BuspassAdmin::Application.oauth_providers
       session[:tpauth] = :muni_admin
       session[:master_id] = params[:master_id]
       # We will render new_muni_admin and then that will redirect to sessions#create on /auth/;provider/callback
+      @master = Master.find(params[:master_id])
       render :layout => "masters/normal-layout"
     end
 
@@ -72,7 +73,7 @@ class SessionsController < ApplicationController
   #
   def create_customer
     auth  = request.env["omniauth.auth"]
-    oauth = Authentication.find_by_provider_and_uid(auth["provider"], auth["uid"])
+    oauth = Authentication.find_by_provider_and_uid_and_master_id(auth["provider"], auth["uid"], nil)
     if oauth
       cust = oauth.customer
       session[:tpauth_id] = oauth.id
@@ -82,11 +83,11 @@ class SessionsController < ApplicationController
         oauth.save
         redirect_to my_index_websites_path, :notice => "Signed in!"
       else
-        redirect_to new_registration_customers_path, :notice => "Could not find you. Please create an account."
+        redirect_to new_customer_registration_path, :notice => "Could not find you. Please create an account."
       end
     else
       session[:tpauth_id] = Authentication.create_with_omniauth(auth).id
-      redirect_to new_registration_customers_path, :notice => "Need to create an account."
+      redirect_to new_customer_registration_path, :notice => "Need to create an account."
     end
   end
 
@@ -104,10 +105,10 @@ class SessionsController < ApplicationController
         if oauth.customer.nil?
           oauth.customer = cust
           oauth.save
-          redirect_to edit_registration_customer_path, :notice => "This authentication already exists"
+          redirect_to edit_customer_registration_path(cust), :notice => "This authentication already exists"
         elsif cust == oauth.customer
           # Already added
-          redirect_to edit_registration_customer_path, :notice => "This authentication already exists"
+          redirect_to edit_customer_registration_path(cust), :notice => "This authentication already exists"
         else
           session[:customer_id] = nil
           session[:tpauth_id] = nil
@@ -117,7 +118,7 @@ class SessionsController < ApplicationController
         oauth = Authentication.create_with_omniauth(auth)
         cust.authentications << oauth
         cust.save
-        redirect_to edit_registration_customers_path, :notice => "Authentication failed."
+        redirect_to edit_customer_registration_path(cust), :notice => "Authentication failed."
       end
     else
       redirect_to customer_sign_in_path, :notice => "Need to sign in first."
@@ -130,7 +131,8 @@ class SessionsController < ApplicationController
   #
   def create_muni_admin
     auth  = request.env["omniauth.auth"]
-    oauth = Authentication.find_by_provider_and_uid(auth["provider"], auth["uid"])
+
+    oauth = Authentication.find_by_provider_and_uid_and_master_id(auth["provider"], auth["uid"], session[:master_id])
     if oauth
       muni_admin = oauth.muni_admin
       session[:tpauth_id] = oauth.id
@@ -140,12 +142,12 @@ class SessionsController < ApplicationController
         oauth.save
         redirect_to master_path(muni_admin.master), :notice => "Signed in!"
       else
-        redirect_to new_registration_master_muni_admins_path(:master_id => session[:master_id]),
+        redirect_to new_master_muni_admin_registration_path(:master_id => session[:master_id]),
                     :notice => "Could not find you. Please create an account."
       end
     else
       session[:tpauth_id] = Authentication.create_with_omniauth(auth).id
-      redirect_to new_registration_master_muni_admins_path(:master_id => params[:master_id]),
+      redirect_to new_master_muni_admin_registration_path(:master_id => session[:master_id]),
                   :notice => "Need to create an account."
     end
   end
@@ -164,27 +166,27 @@ class SessionsController < ApplicationController
         if oauth.muni_admin.nil?
           oauth.muni_admin = muni_admin
           oauth.save
-          redirect_to edit_registration_master_muni_admins_path(:master_id => muni_admin.master.id),
+          redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
                       :notice => "This authentication has been accepted"
-        elsif cust == oauth.muni_admin
+        elsif muni_admin == oauth.muni_admin
           # Already added
-          redirect_to edit_registration_master_muni_admins_path(:master_id => muni_admin.master.id),
+          redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
                       :notice => "This authentication has been accepted"
         else
           session[:muni_admin_id] = nil
           session[:tpauth_id] = nil
-          redirect_to muni_admin_sign_in_path(:master_id => muni_admin.master.id),
+          redirect_to master_muni_admin_sign_in_path(muni_admin),
                       :notice => "Authentication belongs to another Admin!"
         end
       else
         oauth = Authentication.create_with_omniauth(auth)
         muni_admin.authentications << oauth
         muni_admin.save
-        redirect_to edit_registration_master_muni_admins_path(:master_id => muni_admin.master.id),
+        redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
                     :notice => "Authentication failed."
       end
     else
-      redirect_to muni_admin_sign_in_path(:master_id => params[:master_id]),
+      redirect_to master_muni_admin_sign_in_path(:master_id => params[:master_id]),
                   :notice => "Need to sign in first."
     end
   end

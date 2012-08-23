@@ -135,6 +135,9 @@ BusPass.MapLocationController = OpenLayers.Class({
             }
         }
 
+        $("#map").height($("#navigation").height());
+        this.Map.updateSize();
+
     },
 
     selectWaypoint : function(wp) {

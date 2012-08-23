@@ -8,10 +8,12 @@ class Authentication
   key :original_info, Hash
   key :last_info, Hash
 
+  belongs_to :master
   belongs_to :customer
   belongs_to :muni_admin
   belongs_to :user
-  belongs_to :admin
+
+  attr_accessible :master, :master_id, :customer, :customer_id, :muni_admin, :muni_admin_id, :user, :user_id
 
   def self.create_with_omniauth(auth)
     Authentication.new.tap do |tpauth|
@@ -24,8 +26,8 @@ class Authentication
     end
   end
 
-  def copy!
-    Authentication.new.tap do |tpauth|
+  def copy!(attributes = {})
+    Authentication.new(attributes).tap do |tpauth|
       tpauth.provider = provider
       tpauth.uid      = uid
       tpauth.name     = name

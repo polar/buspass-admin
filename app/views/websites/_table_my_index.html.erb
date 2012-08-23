@@ -3,6 +3,7 @@
     <tr>
       <th>Name</th>
       <th>Website</th>
+      <th>Administration</th>
     </tr>
   </thead>
   <tbody>
@@ -10,6 +11,7 @@
           <tr>
             <td><%= link_to master.name, website_path(master) %></td>
             <td><%= link_to "#{master.siteurl}", master_active_path(master) %></td>
+            <td><%= link_to "#{master.siteurl}/admin", master_path(master) %></td>
           </tr>
       <% end %>
   </tbody>

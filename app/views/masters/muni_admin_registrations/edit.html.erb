@@ -1,5 +1,5 @@
 <%= content_for :left do %>
-   <%= render :partial => "navigation/websites_nav" %>
+   <%= render :partial => "navigation/admin_nav" %>
 <% end %>
 
 <h1>Edit Account</h1>
@@ -24,7 +24,8 @@
             <%= image_tag "auth/#{authentication.provider}_32.png", :size => "32x32" %>
             <div class="provider"><%= authentication.provider.titleize %></div>
             <div class="uid"><%= authentication.uid %></div>
-            <%= link_to "x", customer_authentication_path(authentication), :method => :delete, :class => "remove" %>
+            <%= button_to "x", master_muni_admin_authentication_path(@master, authentication),
+                        :method => :delete, :class => "remove btn-link" %>
           </div>
       <% end %>
     </div>
@@ -36,7 +37,7 @@
 <p>Please edit account information:<p/>
 
 
-<%= render 'customers/form_customer_registration' %>
+<%= render 'masters/muni_admin_registrations/form_registration' %>
 
 
 <% if @providers && !@providers.empty? %>

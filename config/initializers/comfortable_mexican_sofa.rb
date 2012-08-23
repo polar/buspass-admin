@@ -98,14 +98,15 @@ ComfortableMexicanSofa.configure do |config|
   #   config.hostname_aliases = nil
 
   # Database Backend ORM. Select the ORM for the database. The default is active_record.
+## BUSPASS
    config.backend = :mongo_mapper
   # config.backend = :active_record
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth
 # YOU REALLY WANT TO CHANGE THIS BEFORE PUTTING YOUR SITE LIVE
-ComfortableMexicanSofa::HttpAuth.username = 'username'
-ComfortableMexicanSofa::HttpAuth.password = 'password'
+#ComfortableMexicanSofa::HttpAuth.username = 'username'
+#ComfortableMexicanSofa::HttpAuth.password = 'password'
 
 # If you need to inject some html in cms admin views you can define what partial
 # should be rendered into the following areas:

@@ -1,5 +1,7 @@
 <%= form_for @customer,
-             :url => @customer.new? ? create_registration_customers_path : update_registration_customers_path,
+             :url => @customer.new? ?
+                     customer_registrations_path :
+                     customer_registration_path(@customer),
              :validate => true do |f| %>
   <% if @customer.errors.any? %>
     <div id="error_explanation">

@@ -1,11 +1,12 @@
 <%= render :partial => "websites/new_script" %>
 
-<h2>Create New Deployment Website</h2>
-<div id="outer">
-  <%= render :partial => "websites/form_new" %>
-
+<h2>Create New Transportation Site</h2>
+<div>
+  <div class="row">
+    <div id="navigation" class="left">
+       <%= render :partial => "websites/form_new" %>
+    </div>
+    <div id="map" class="right"></div>
+    <div style="clear:both"></div>
+  </div>
 </div>
-<div id="content">
-  <div id="map"></div>
-</div>
-

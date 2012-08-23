@@ -9,7 +9,7 @@ class Customer
   key :name, String
   key :email, String
 
-  many :authentications
+  many :authentications, :dependent => :destroy
 
   many :masters, :foreign_key => :owner_id
 
@@ -32,10 +32,10 @@ class Customer
     return [:email]
   end
 
-  def authentications_copy
+  def authentications_copy(attributes)
     as = []
     for a in self.authentications do
-      as << a.copy!
+      as << a.copy!(attributes)
     end
     as
   end

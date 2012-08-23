@@ -51,11 +51,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/masters/:master_id/active",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:deployments:active }}"
+                                   :content    => "{{ cms:bus:render:masters/deployments/active/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:main_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
 
     help = site.pages.create!(
@@ -69,7 +69,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:main_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
 
     user_sign_up = site.pages.create!(
@@ -81,11 +81,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/masters/:master_id/users/sign_up",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:users:sign_up }}"
+                                   :content    => "{{ cms:bus:render:masters/users/sign_up }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:main_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
 
     user_sign_in = site.pages.create!(
@@ -97,11 +97,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/masters/:master_id/users/sign_in",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:users:sign_in }}"
+                                   :content    => "{{ cms:bus:render:masters/users/sign_in }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:main_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
 
     downloads = site.pages.create!(
@@ -113,11 +113,11 @@ of the layout regardless of where it appears here.
         :controller_path   => "/masters/:master_id/downloads",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:downloads }}"
+                                   :content    => "{{ cms:bus:render:masters/downloads/index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content    => "{{ cms:bus:navigation:main_nav }}"
+                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
     return site
   end

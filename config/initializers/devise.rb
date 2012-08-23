@@ -1,3 +1,9 @@
+##
+# BusPass Devise Configuation
+#
+# NOTE: 2012-08-22 We are not using Devise!! We might use it to handle authTokens from the Handhelds.
+#
+
 =begin
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.

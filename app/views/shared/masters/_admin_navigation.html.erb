@@ -1,10 +1,10 @@
 <div class="user_nav">
 
   <% if muni_admin_signed_in? %>
-      <%= link_to('Logout', destroy_muni_admin_sessions_path, :method=>'delete',
+      <%= link_to('Logout', destroy_muni_admin_sessions_path(:master_id => @master.id), :method=>'delete',
                   :class => "logout") %>
-      <%= link_to current_muni_admin.name, edit_registration_master_muni_admins_path(@master) %>
+      <%= link_to current_muni_admin.name, edit_master_muni_admin_registration_path(@master, current_muni_admin) %>
   <% else %>
-      <%= link_to('Admin Login', muni_admin_sign_in_path(:master_id => @master.id), :class => "login")  %>
+      <%= link_to('Admin Login', master_muni_admin_sign_in_path(@master), :class => "login")  %>
   <% end %>
 </div>

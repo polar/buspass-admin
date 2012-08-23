@@ -54,7 +54,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     help = site.pages.create!(
@@ -68,7 +68,7 @@ of the layout regardless of where it appears here.
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     tools = site.pages.create!(
@@ -79,11 +79,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/tools",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:masters:tools }}"
+                                   :content => "{{ cms:bus:render:masters/tools/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     pathfinder = site.pages.create!(
@@ -95,11 +95,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/tools/pathfinder",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:masters:tools:pathfinder }}"
+                                   :content => "{{ cms:bus:render:masters/tools/pathfinder/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     edit = site.pages.create!(
@@ -110,11 +110,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/edit",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:masters:edit }}"
+                                   :content => "{{ cms:bus:render:masters/edit }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     new_deployment = site.pages.create!(
@@ -125,11 +125,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/new",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployments:new }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/new }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     active_deployment = site.pages.create!(
@@ -140,11 +140,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/active",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:active-deployment }}"
+                                   :content => "{{ cms:bus:render:masters/active/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     active_testament = site.pages.create!(
@@ -155,11 +155,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/testament",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:active-testament }}"
+                                   :content => "{{ cms:bus:render:masters/testament/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
     deployments = site.pages.create!(
         :slug => "deployments",
@@ -169,11 +169,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployments }}"
+                                   :content => "{{ cms:bus:render:/masters/deployments/index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
 
@@ -186,11 +186,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/muni_admins",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:muni_admins:admin }}"
+                                   :content => "{{ cms:bus:render:masters/muni_admins/admin }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     users = site.pages.create!(
@@ -202,11 +202,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/users/admin",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:users:admin }}"
+                                   :content => "{{ cms:bus:render:masters/users/admin }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:admin_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
     deployment_template = site.pages.create!(
@@ -218,11 +218,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/deployment_nav }}"
                                }])
 
     deployment_edit =  site.pages.create!(
@@ -234,11 +234,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/edit",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:edit }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/edit }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/deployment_nav }}"
                                }])
 
     deployment_map =  site.pages.create!(
@@ -250,11 +250,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:map }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/map }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/deployment_nav }}"
                                }])
 
     deployment_simulate =  site.pages.create!(
@@ -266,11 +266,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/simulate",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:simulate }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/simulate/map }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/deployment_nav }}"
                                }])
 
     new_network_template = site.pages.create!(
@@ -282,11 +282,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/new",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:networks:new }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/new }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/deployment_nav }}"
                                }])
 
     networks_template = site.pages.create!(
@@ -298,11 +298,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:networks }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:deployment_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/deployment_nav }}"
                                }])
 
     network_template = site.pages.create!(
@@ -314,11 +314,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     edit_network_template = site.pages.create!(
@@ -330,11 +330,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/edit",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:edit }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/edit }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     map_network_template = site.pages.create!(
@@ -346,11 +346,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:map }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/map }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     routes_template = site.pages.create!(
@@ -362,11 +362,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/routes",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:routes }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/routes/index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     route_template = site.pages.create!(
@@ -378,11 +378,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/routes/:route_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:route }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/routes/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     map_route_template = site.pages.create!(
@@ -394,11 +394,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/routes/:route_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:route:map }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/routes/map }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     services_template = site.pages.create!(
@@ -410,11 +410,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/services",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:services }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/services/index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     service_template = site.pages.create!(
@@ -426,11 +426,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/services/:service_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:service }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/services/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     journeys_template = site.pages.create!(
@@ -442,11 +442,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/vehicle_journeys",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:journeys }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/vehicle_journeys/index }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     journey_template = site.pages.create!(
@@ -458,11 +458,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/vehicle_journeys/:vehicle_journey_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:journey }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/vehicle_journeys/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     map_journey_template = site.pages.create!(
@@ -474,11 +474,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/vehicle_journeys/:vehicle_journey_id/map",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:journey:map }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/vehicle_journeys/map }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     plan_network_template = site.pages.create!(
@@ -490,11 +490,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/plan",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:plan }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/plan/show }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     upload = site.pages.create!(
@@ -506,11 +506,11 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/deployments/:deployment_id/networks/:network_id/plan/upload",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:deployment:network:plan:upload }}"
+                                   :content => "{{ cms:bus:render:masters/deployments/networks/plan/upload }}"
                                },
                                {
                                    :identifier => "left",
-                                   :content => "{{ cms:bus:navigation:network_nav }}"
+                                   :content => "{{ cms:bus:render:navigation/network_nav }}"
                                }])
 
     return site

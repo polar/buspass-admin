@@ -113,7 +113,7 @@ class WebsitesController < ApplicationController
     muni_admin_attributes = current_customer.attributes.slice("email", "name")
     @muni_admin           = MuniAdmin.new(muni_admin_attributes)
     @muni_admin.master    = local_master
-    auths = current_customer.authentications_copy
+    auths = current_customer.authentications_copy(:master_id => local_master.id)
     auths.each{ |auth| @muni_admin.authentications << auth }
     @muni_admin.add_roles([:super, :planner, :operator])
     @muni_admin.save!

@@ -5,4 +5,4 @@ require "timezone"
 
 # List for Views selections.
 
-TIMEZONES_LIST = Timezone::Zone.list.map {|z| z[:title] }
+TIMEZONES_LIST = Timezone::Zone.list.map {|z| z[:title] }.sort

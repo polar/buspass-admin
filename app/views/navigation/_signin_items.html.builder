@@ -38,7 +38,7 @@ xml.ul(:id => "sitemap") {
     }
     subpages(page).tap do |pages|
       pages.each do |chpage|
-        do_page(chpage, xml)
+        do_page(chpage, xml) if chpage.slug == "help"
       end if pages.size > 0
     end
   end

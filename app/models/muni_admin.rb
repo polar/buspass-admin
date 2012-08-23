@@ -10,7 +10,7 @@ class MuniAdmin
     validates_presence_of :name
     validates :email, :presence => true, :email => true
 
-    many :authentications
+    many :authentications, :dependent => :destroy
 
     belongs_to :master
 

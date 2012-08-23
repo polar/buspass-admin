@@ -1,11 +1,18 @@
+/**
+ * This SCSS file governs the icons for OAuth authentications.
+ */
+
 .authentications {
   margin-bottom: 50px;
 }
 
+.authentication-base {
+  background-color: #EEE;
+}
 .authentication {
+  @extend .authentication-base;
   width: 130px;
   float: left;
-  background-color: #EEE;
   border: solid 1px #999;
   padding: 5px 10px;
   -moz-border-radius: 8px;
@@ -15,6 +22,7 @@
 }
 
 .authentication .remove {
+  @extend .authentication-base;
   text-decoration: none;
   position: absolute;
   top: 3px;

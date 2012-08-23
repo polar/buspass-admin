@@ -11,6 +11,8 @@
   <%= javascript_include_tag "normal-layout", :debug => true  %>
   <%= stylesheet_link_tag "#{controller_path}" %>
   <%= javascript_include_tag "#{controller_path}" %>
+  <%= stylesheet_link_tag "#{controller_path}/#{@render_action || params[:action]}" %>
+  <%= javascript_include_tag "#{controller_path}/#{@render_action || params[:action]}" %>
   <%= csrf_meta_tags %>
   <%=  yield :head %>
   <script type="text/javascript">

@@ -19,6 +19,7 @@ function init(coordinates) {
         $("#master_longitude").val(lonlat[0]);
         $("#master_latitude").val(lonlat[1]);
 
+        // Changes TimeZones.
         $.get("/transport.php?url=http://api.geonames.org/timezoneJSON?lng="+lonlat[0]+"&lat="+lonlat[1]+"&username=demo",
             {},
             function (data) {
