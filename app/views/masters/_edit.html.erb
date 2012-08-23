@@ -1,10 +1,12 @@
 <%= render :partial => "masters/edit_script" %>
 
 <h2>Edit Deployment</h2>
-<div id="outer">
-  <%= render :partial => "masters/form_edit" %>
-
-</div>
-<div id="content">
-  <div id="map"></div>
+<div>
+  <div class="row">
+    <div id="navigation" class="left">
+      <%= render :partial => "websites/form_new" %>
+    </div>
+    <div id="map" class="right"></div>
+    <div style="clear:both"></div>
+  </div>
 </div>
