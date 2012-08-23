@@ -1,7 +1,5 @@
 class Masters::MuniAdminsController < Masters::MasterBaseController
 
-  layout "masters/normal-layout"
-
   helper_method :sort_column, :sort_direction
 
   def index
@@ -179,6 +177,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
         @muni_admin.email = @authentication.last_info["email"]
         @muni_admin.master = @master
         # render form that posts to create_registration
+        render :layout => "masters/normal-layout"
       end
     else
       redirect_to muni_admin_sign_in_path(:master_id => @master.id), :notice => "You need to authenticate first."
@@ -195,6 +194,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
 
     # We put this in the session in case the user adds an authentication.
     session[:tpauth] = :amend_muni_admin
+    render :layout => "masters/normal-layout"
   end
 
   #

@@ -10,7 +10,7 @@ CanTango.config do |config|
 
   config.roles.has_method = :has_role?
 
-  #config.debug.set :on
+  config.debug.set :on
   #config.models.exclude :admin, :muni_admin
   #config.enable_helpers :rest
   config.users.register :customer, Customer

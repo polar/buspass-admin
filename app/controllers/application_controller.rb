@@ -65,28 +65,26 @@ class ApplicationController < ActionController::Base
   end
 
   def sign_out(user)
-    case (user.class)
-      when Customer
+    if user.is_a? Customer
         session[:customer_id] = nil
-      when MuniAdmin
+    elsif user.is_a?  MuniAdmin
         session[:muni_admin_id] = nil
-      when User
+    elsif user.is_a?  User
         session[:user_id] = nil
-      else
+    else
     end
     session[:tpauth_id] = nil
   end
 
 
   def sign_in(user, oauth = nil)
-    case (user.class)
-      when Customer
-        session[:customer_id] = user
-      when MuniAdmin
-        session[:muni_admin_id] = user
-      when User
-        session[:user_id] = user
-      else
+    if user.is_a? Customer
+      session[:customer_id] = user.id
+    elsif user.is_a?  MuniAdmin
+      session[:muni_admin_id] = user.id
+    elsif user.is_a?  User
+      session[:user_id] = user.id
+    else
     end
     oauth ||= user.authentications.first
     session[:tpauth_id] = oauth.id

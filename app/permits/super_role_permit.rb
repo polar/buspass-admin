@@ -35,11 +35,11 @@ class SuperRolePermit < CanTango::RolePermit
     can([:edit, :delete], Activement) do |activement|
       user.master == activement.master
     end
-    cannot([:delete], MuniAdmin) do |muni_admin|
-      muni_admin === user
-    end
-    can([:read, :edit, :delete], MuniAdmin) do |muni_admin|
+    can([:read, :edit], MuniAdmin) do |muni_admin|
       user.master == muni_admin.master
+    end
+    can([:delete], MuniAdmin) do |muni_admin|
+      muni_admin != user && user.master == muni_admin.master
     end
     can([:read, :edit, :delete], User) do |user1|
       user.master == user1.master

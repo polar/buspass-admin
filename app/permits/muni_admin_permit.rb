@@ -6,25 +6,26 @@ class MuniAdminPermit < CanTango::UserPermit
   protected
 
   def dynamic_rules
-    cannot(:delete, MuniAdmin) do |muni_admin|
-      user == muni_admin
-    end
-    can(:abort, Network) do |network|
+    can([:abort], Network) do |network|
+      puts "---------Networ Rules? #{user.id}"
       network.processing_lock == user
     end
   end
 
   def permit_rules
+    puts "---------Permit Rules? #{user.id}"
     can(:read, MuniAdmin)
   end
 
   module Cached
     def permit_rules
+      puts "----------Cached Rules? #{user.id}"
     end
   end
 
   module NonCached
     def permit_rules
+      puts "---------NonCached Rules? #{user.id}"
     end
   end
 end

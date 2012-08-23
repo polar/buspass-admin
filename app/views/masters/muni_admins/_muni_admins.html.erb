@@ -21,7 +21,3 @@
   <% end %>
 </div>
 <%= will_paginate @muni_admins, :renderer => BootstrapPagination::Rails %>
-
-<% @muni_admins.each do |muni_admin| %>
-    <%= render "password_modal", :muni_admin => muni_admin %>
-<% end %>
