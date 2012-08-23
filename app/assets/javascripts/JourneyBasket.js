@@ -4,6 +4,9 @@
  * This class manages the storage and retrieval of Routes
  * from the web. It replaces journeys with new versions
  * if need be.
+ *
+ *= require Route
+ *= require_self
  */
 
 /**

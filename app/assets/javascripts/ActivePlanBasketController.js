@@ -1,5 +1,11 @@
 /**
  * ActivePlanBasketController
+ *
+ *= require BusPassAPI
+ *= require JourneyBasket
+ *= require ActivePlanController
+ *= require JourneyStore
+ *= require_self
  */
 BusPass.ActivePlanBasketController = function(options) {
     options = $.extend({}, options);

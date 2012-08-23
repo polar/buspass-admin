@@ -1,4 +1,12 @@
-
+/**
+ * LocationMapViewController
+ *
+ * @type {*}
+ *
+ *= require RoutesMapController
+ *= require SelectAllFeature
+ *= require_self
+ */
 
 BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController, {
     /**

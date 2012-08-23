@@ -4,6 +4,10 @@
  * This class controls a view of list items that represent a
  * route. It has a sorting function. There is also a concept
  * of selection, highlighting, and visibility.
+ *
+ * TODO: Need to enhance the API and the sort function
+ *
+ *= require_self
  */
 BusPass.ListViewController = function(options) {
     this._routes = [];
@@ -86,7 +90,7 @@ BusPass.ListViewController.prototype = {
         for(var i = 0; i < this._routes.length; i++) {
             if (this._routes[i] != route) {
                 rs.push(this._routes[i]);
-            };
+            }
         }
         this._routes = rs;
         // This maybe should be $(route.__element.parentNode).remove(route.__element);
@@ -166,7 +170,6 @@ BusPass.ListViewController.prototype = {
 
     _addClass : function(className, clazz) {
         var classes = className.split(' ');
-        var add = true;
         if (classes.indexOf(clazz) == -1) {
             classes.push(clazz);
         }
@@ -175,8 +178,7 @@ BusPass.ListViewController.prototype = {
 
     _removeClass : function(className, clazz) {
         var classes = this._remove(className.split(' '), clazz);
-        var name = classes.join(' ');
-        return name;
+        return classes.join(' ');
     },
 
     redraw : function () {
@@ -300,6 +302,7 @@ BusPass.ListViewController.prototype = {
      * Method: private _compareRoutes
      * This method compares Routes. We always put the Route
      * atop of its Journeys. The rest are sorted by codes.
+     * TODO: Sort by Route.sort
      */
     _compareRoutes : function (r1,r2) {
         if (r1.isJourney() && r2.isJourney() ||
@@ -390,5 +393,5 @@ BusPass.ListViewController.prototype = {
 
     _triggerCallback : function(cb, route) {
         cb.apply(this.scope, [route]);
-    },
+    }
 };

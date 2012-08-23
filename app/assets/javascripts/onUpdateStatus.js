@@ -1,7 +1,8 @@
 /**
  * Deployments Controller
+ *
+ * @requires ActivePlanBasketController
  */
-//= include ActivePlanBasketController.js
 
 var activePlanView;
 

@@ -1,4 +1,10 @@
-
+/**
+ * Map
+ *
+ * *NOT_USED*
+ *
+ * @type {*}
+ */
 
 SelectControl = OpenLayers.Class(OpenLayers.Control.SelectFeature, {
     /**

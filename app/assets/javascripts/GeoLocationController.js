@@ -1,3 +1,13 @@
+/**
+ * GeoLocationController
+ *
+ * This class is used to get a location from a map.
+ *
+ * *NOT_USED*
+ *
+ * @param options
+ * @constructor
+ */
 BusPass.GeoLocationController = function (options) {
     $.extend(this,options);
 };

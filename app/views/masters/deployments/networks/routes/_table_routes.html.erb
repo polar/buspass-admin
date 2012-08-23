@@ -13,7 +13,6 @@
         <th>Name</th>
         <th>Services</th>
         <th>Vehicle Journeys</th>
-        <th></th>
       </tr></thead>
       <tbody><% for r in @routes do %>
           <tr>
@@ -21,7 +20,6 @@
             <td><%=  link_to r.name, master_deployment_network_route_path(@master, @deployment, @network, r) %></td>
             <td><%=  r.services.count %> <%=  r.services.map {|s| s.day_class}.uniq.join(", ") %></td>
             <td><%=  r.vehicle_journey_count %></td>
-            <td><%= link_to "Map", map_master_deployment_network_route_path(@master, @deployment, @network, r), :class => "btn" %></td>
           </tr>
       <% end %></tbody>
     </table>

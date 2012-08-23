@@ -1,5 +1,8 @@
 /**
  * Class: RoutesMapController
+ *
+ *= require SelectAllFeature
+ *= require_self
  */
 BusPass.RoutesMapController = OpenLayers.Class({
 

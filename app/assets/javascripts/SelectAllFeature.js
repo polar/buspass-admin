@@ -1,12 +1,3 @@
-
-
-/**
- * @requires OpenLayers/Control.js
- * @requires OpenLayers/Feature/Vector.js
- * @requires OpenLayers/Handler/Click.js
- * @requires OpenLayers/Layer/Vector/RootContainer.js
- */
-
 /**
  * Class: BusPass.SelectAllFeature
  * The SelectAllFeature control selects all vector features from a given layer on
@@ -14,6 +5,10 @@
  *
  * Inherits from:
  *  - <OpenLayers.Control>
+ * @requires OpenLayers/Control.js
+ * @requires OpenLayers/Feature/Vector.js
+ * @requires OpenLayers/Handler/Click.js
+ * @requires OpenLayers/Layer/Vector/RootContainer.js
  */
 
 BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {

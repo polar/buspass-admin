@@ -7,7 +7,7 @@
 <% else %>
 
   <% for s in @services do %>
-    <h3><%= link_to "Service #{s.name}", master_deployment_network_service_path(@master, @deployment, @network, s)  %></h3>
+    <h3><%= link_to "Service #{s.name}", master_deployment_network_service_path(@master, @deployment, @network, s) %></h3>
     <table class="table table-striped">
       <thead><tr>
         <th>Route</th>
@@ -15,6 +15,7 @@
         <th>End Date</th>
         <th>Days</th>
         <th>Vehicle Journeys</th>
+        <th></th>
       </tr></thead>
       <tbody><tr>
         <td><%=  link_to s.route.code, master_deployment_network_route_path(@master, @deployment, @network, @route)  %></td>
@@ -23,7 +24,7 @@
         <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
         <td><%=  s.day_class %></td>
         <td><%=  s.vehicle_journeys.count %></td>
-        <td><%= link_to "Map", map_master_deployment_network_route_path(@master, @deployment, @network, @route, :service_id => s.id) %></td>
+        <td><%= link_to "Map", map_master_deployment_network_route_path(@master, @deployment, @network, @route, :service_id => s.id), :class => "btn" %></td>
       </tr></tbody>
     </table>
     <h4>Vehicle Journeys on this Service and Route</h4>
@@ -47,7 +48,7 @@
             <td><%=  to_time_literal(vj.time_start) %></td>
             <td><%=  to_time_literal(vj.time_end) %></td>
             <td><%=  vj.journey_pattern_timing_links.count %></td>
-            <td><%= link_to "Map", map_master_deployment_network_vehicle_journey_path(@master, @deployment, @network, vj) %></td>
+            <td><%= link_to "Map", map_master_deployment_network_vehicle_journey_path(@master, @deployment, @network, vj), :class => "btn" %></td>
           </tr>
       <% end %></tbody>
     </table>

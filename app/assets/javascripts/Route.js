@@ -1,3 +1,11 @@
+/**
+ * Route
+ *
+ * @param data
+ * @constructor
+ *
+ * = require_self
+ */
 Route = function(data) {
     this._selected = false;
     this._pathVisible = true;

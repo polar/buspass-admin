@@ -1,3 +1,11 @@
+/**
+ * RunStatusView
+ *
+ * **NOT_USED**
+ *
+ * @param options
+ * @constructor
+ */
 BusPass.RunStatusView = function (options) {
     $.extend(this, options);
 

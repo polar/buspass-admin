@@ -1,3 +1,9 @@
+/**
+ * JourneyStore
+ * @constructor
+ *
+ *= require_self
+ */
 BusPass.JourneyStore = function () {
     this._journeys = new Hashtable();
 };

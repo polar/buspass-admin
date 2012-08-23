@@ -1,3 +1,16 @@
+/**
+ * JourneyBasketController
+ *
+ * @param api
+ * @param journeyBasket
+ * @param routesController
+ * @constructor
+ *
+ *= require JourneyBasket
+ * * TODO: Where is JourneyLocationUpdater?
+ *= require JourneyLocationUpdater
+ *= require_self
+ */
 BusPass.JourneyBasketController = function (api,journeyBasket,routesController) {
     this._busAPI = api;
     this._journeyBasket = journeyBasket;
@@ -52,7 +65,7 @@ BusPass.JourneyBasketController.prototype = {
                 removed.updater = null;
             }
             this._routesC.removeRoute(removed);
-            console.log("JourneyBasketController: removing RouteDisplay: Route " + removed.getName() + " version " + removed.getVersion();
+            console.log("JourneyBasketController: removing RouteDisplay: Route " + removed.getName() + " version " + removed.getVersion());
             var i = this._journeyDisplays.indexOf(removed);
             if (i >= 0) {
                 this._journeyDisplays.splice(i,1);

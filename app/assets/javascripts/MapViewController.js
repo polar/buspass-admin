@@ -1,4 +1,10 @@
-
+/**
+ * MapViewController
+ *
+ * *NOT_USED*
+ *
+ * @type {*}
+ */
 
 BusPass.MapViewController = OpenLayers.Class( {
 

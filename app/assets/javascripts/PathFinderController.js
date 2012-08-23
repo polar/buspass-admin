@@ -1,4 +1,12 @@
-
+/**
+ * PathFinderController
+ *
+ * @type {*}
+ *
+ *= require ModifyFeature
+ *= require Route
+ *= require_self
+ */
 BusPass.PathFinderController = OpenLayers.Class({
 
     id : "map",

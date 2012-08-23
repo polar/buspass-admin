@@ -1,3 +1,13 @@
+/**
+ * ActivePlanController
+ *
+ * @param options
+ * @constructor
+ *
+ *= require LocationMapViewController
+ *= require ListViewController
+ *= require LocationController
+ */
 BusPass.ActivePlanController = function(options) {
     this._routes = [];
     $.extend(this,options);

@@ -247,7 +247,7 @@ class Masters::Deployments::NetworksController < Masters::Deployments::Deploymen
     @network = Network.find(params[:network_id] || params[:id])
     authorize_muni_admin!(:read, @network)
     @network ||= Network.find(params[:id])
-    @routes = @network.routes.all.sort { |r1,r2| Route.codeOrd(r1.code,r2.code) }
+    @routes = @network.routes.all.sort { |r1,r2| r1.sort <=> r2.sort }
   end
 
   def api

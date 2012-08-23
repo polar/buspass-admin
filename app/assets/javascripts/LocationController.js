@@ -1,3 +1,11 @@
+/**
+ * LocationController
+ *
+ * @param options
+ * @constructor
+ *
+ *= require_self
+ */
 BusPass.LocationController = function (options) {
     this._routes = [];
     this._active = true;

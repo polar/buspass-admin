@@ -1,5 +1,8 @@
 /**
  * This a HTML5 WebWorker.
+ *
+ *= require BusPassAPI
+ *= require_self
  */
 self.importScripts("/assets/jquery.hive.pollen.js");
 self.importScripts("/assets/WorkerBusPassAPI.js");

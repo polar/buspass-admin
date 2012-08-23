@@ -1,3 +1,7 @@
+/**
+ * This JS is for the set up of the Customers Index where a Customer
+ * in an AdminRole can delete other Customers.
+ */
 //=require_self
 
 $(function () {
