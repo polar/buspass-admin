@@ -16,8 +16,14 @@ BusPass.PathFinderController = OpenLayers.Class({
      */
     center : null,
 
+    /*
+     * The coordinates [lon,lat] of the starting point.
+     */
     startPoint : null,
 
+    /*
+     * The coordinates [lon,lat] of the end point.
+     */
     endPoint : null,
 
     /*
@@ -166,7 +172,7 @@ BusPass.PathFinderController = OpenLayers.Class({
     RouteLayer : null,
 
     /**
-     * Constructor: BusPass.MapLocationTool
+     * Constructor: BusPass.PathFinderController
      */
     initialize : function (options) {
         OpenLayers.Util.extend(this, options);

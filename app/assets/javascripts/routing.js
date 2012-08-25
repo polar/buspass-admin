@@ -758,7 +758,7 @@ BusPass.Route.Waypoint = OpenLayers.Class({
             case 'end':
                 return '/assets/yours/markers/route-stop.png';
             default:
-                return '/assets/yours/markers/marker-yellow.png';
+                return '/assets/yours/markers/yellow.png';
         }
     },
 

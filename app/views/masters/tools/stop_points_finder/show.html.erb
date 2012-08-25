@@ -1,0 +1,43 @@
+<%= render :partial => "masters/tools/stop_points_finder/script" %>
+
+<% content_for :left do %>
+    <%= render :partial => "navigation/admin_nav" %>
+<% end %>
+
+<h1>Journey Path Finder</h1>
+<div>
+  <div class="row">
+    <div id="navigation" class="left">
+      <form id="route" name="route" action="#" onsubmit="return false;">
+        <ul id="route_via" class="route_via">
+        </ul>
+        <ul>
+          <li>
+            <div>
+              <img src="/assets/yours/markers/yellow.png" alt="marker to" height="30" style="vertical-align:middle;"/>
+              <input type="button" id="add_waypoint" value="Add Bus Stop" tabindex="4" class="btn"/>
+            </div>
+          </li>
+          <li>
+            <div>
+              <input type="button" id="revert" value="Revert" class="btn"/>
+              <button id="autoroute" class="btn">Draw Lines</button>
+              <button id="button_reroute" class="btn">
+                <i class="icon-refresh"></i></button>
+            </div>
+          </li>
+        </ul>
+      </form>
+      <div id="statusbox"><span id="status">
+          </span>
+        <img id="route_waiting" src="/assets/yours/images/ajax-loader.gif" alt="waiting"/></div>
+      <p></p>
+      <div id="copybox">
+        <input id="copybox_field" name="journey_pattern_timing_link[kml]" type="text"/>
+      </div>
+    </div>
+    <div id="map" class="right"></div>
+    <div style="clear:both"></div>
+  </div>
+
+</div>
