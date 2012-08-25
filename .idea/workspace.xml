@@ -8,18 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/NameFinder.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/tools/stop_points_finder.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/test.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/masters/tools/stop_points_finder_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routing.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -54,7 +44,7 @@
       <file leaf-file-name="StopPointsController.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="444" column="10" selection-start="14112" selection-end="14112" vertical-scroll-proportion="0.3580705">
+            <state line="466" column="29" selection-start="15042" selection-end="15042" vertical-scroll-proportion="0.71985155">
               <folding />
             </state>
           </provider>
@@ -143,7 +133,7 @@
       <file leaf-file-name="routing.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="760" column="46" selection-start="25650" selection-end="25650" vertical-scroll-proportion="0.0">
+            <state line="236" column="18" selection-start="7439" selection-end="7453" vertical-scroll-proportion="4.0">
               <folding />
             </state>
           </provider>
@@ -1633,7 +1623,11 @@
       <created>1345816404463</created>
       <updated>1345816404463</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Progress">
+      <created>1345858827248</created>
+      <updated>1345858827248</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="f1da8a85cd38eb36ea7a5705016c28887af74637" />
@@ -1739,7 +1733,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="99045-busme-website-4 network/edit  could use smaller text area&#10;[#4 state:resolved]" />
+    <option name="LAST_COMMIT_MESSAGE" value="Progress" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1759,8 +1753,8 @@
     <MESSAGE value="Clean up webmap.js and ActivePlan.js to only contain necessary JS" />
     <MESSAGE value="Clean up webmap.js and ActivePlan.js to only contain necessary JS&#10;[#{number} state:resolved]" />
     <MESSAGE value="Clean up webmap.js and ActivePlan.js to only contain necessary JS&#10;[#{number} state:resolved]  [#1 state:resolved]" />
-    <MESSAGE value="Progress" />
     <MESSAGE value="99045-busme-website-4 network/edit  could use smaller text area&#10;[#4 state:resolved]" />
+    <MESSAGE value="Progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1877,14 +1871,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="760" column="46" selection-start="25650" selection-end="25650" vertical-scroll-proportion="0.0">
+        <state line="236" column="18" selection-start="7439" selection-end="7453" vertical-scroll-proportion="4.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="444" column="10" selection-start="14112" selection-end="14112" vertical-scroll-proportion="0.3580705">
+        <state line="466" column="29" selection-start="15042" selection-end="15042" vertical-scroll-proportion="0.71985155">
           <folding />
         </state>
       </provider>

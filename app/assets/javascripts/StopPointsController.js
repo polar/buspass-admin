@@ -444,12 +444,27 @@ BusPass.StopPointsController = OpenLayers.Class({
             this.Route.selectWaypoint();
         }
 
+        if (stop_point.position == 0) {
+            // Remove all Waypoints uptil the next.
+            var nwps = this.StopPoints[1].Waypoint.position;
+            for (var i = 0; i < nwps; i++) {
+               this.Route.removeWaypoint("start", false);
+            }
+        } else if (stop_point.position == this.StopPoints.length-1) {
+            var nwps = stop_point.Waypoint.position - this.StopPoints[this.StopPoints.length-2].Waypoint.position;
+            for (var i = 0; i < nwps; i++) {
+                this.Route.removeWaypoint("end", false);
+            }
+        }  else {
+            this.Route.removeWaypoint(stop_point.Waypoint.position, false);
+        }
+
         // Delete waypoint
         $(stop_point.viewElement).remove();
         stop_point.viewElement = undefined;
         this.StopPoints.splice(stop_point.position,1);
         this.notice("Calculating route", "waiting");
-        this.Route.removeWaypoint(stop_point.Waypoint.position, true);
+        this.Route.reroute();
 
         this.updateUI();
 
