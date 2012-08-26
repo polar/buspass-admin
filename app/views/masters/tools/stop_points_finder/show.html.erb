@@ -8,21 +8,19 @@
 <div>
   <div class="row">
     <div id="navigation" class="left">
-      <form id="route" name="route" action="#" onsubmit="return false;">
-        <ul id="route_via" class="route_via">
+      <form id="stop_points" name="stop_points" action="#" onsubmit="return false;">
+        <ul id="stop_points_list" class="stop_points_list">
         </ul>
         <ul>
           <li>
             <div>
-              <img src="/assets/yours/markers/yellow.png" alt="marker to" height="30" style="vertical-align:middle;"/>
-              <input type="button" id="add_waypoint" value="Add Bus Stop" tabindex="4" class="btn"/>
+              <img src="/assets/yours/markers/marker.png" alt="Add Bus Stop" height="30" style="vertical-align:middle;"/>
+              <input type="button" id="add_stoppoint" value="Add Bus Stop" tabindex="4" class="btn"/>
             </div>
           </li>
           <li>
             <div>
-              <input type="button" id="revert" value="Revert" class="btn"/>
-              <button id="autoroute" class="btn">Draw Lines</button>
-              <button id="button_reroute" class="btn">
+              <button id="drawlines" class="btn">Draw Lines</button>
                 <i class="icon-refresh"></i></button>
             </div>
           </li>

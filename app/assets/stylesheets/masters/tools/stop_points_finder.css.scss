@@ -57,7 +57,7 @@
   border-top: 1px solid #DDD;
 }
 
-.route_via {
+.stop_points_list {
   list-style: none;
   position: relative;
   top: 5px;
@@ -68,27 +68,27 @@
   left: 250px;
 }
 
-#route_via img.marker {
+#stop_points_list img.marker {
   cursor: pointer;
 }
 
-#route_via .marker, #route_via .via_image, #route_via .via_del_image .via_lock_image {
+#stop_points_list .marker, #stop_points_list .via_image, #stop_points_list .via_del_image .via_lock_image {
   vertical-align: middle;
 }
 
-#route_via .via_lock_image {
+#stop_points_list .via_lock_image {
   height: 20px;
   width: 20px;
   horizontal-align : middle;
 }
 
-#route ul {
+#stop_points ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-#route ul li {
+#stop_points ul li {
   margin: 2px 0 6px 0;
   padding: 0;
   font-weight: bold;
@@ -97,7 +97,7 @@
   background-position: 0 50%;
 }
 
-#route ul li a {
+#stop_points ul li a {
   display: block;
   margin-left: 30px; /* width of icon + whitespace */
   padding-left: 20px;
@@ -105,22 +105,10 @@
   style-set: "std-button";
 }
 
-#route input.box {
+#stop_points input.box {
   display: inline-block;        /* inline with outer text */
   display-model: inline-inside; /* contains only inlines */
   width: 225px;
   style-set: "std-input";    /* all other visual and behavioral styles are
                                      derived from standard checkbox */
-}
-
-#via_begin { background-image: url(/assets/yours/markers/route1.png); }
-#via_end { background-image: url(/assets/yours/markers/route2.png); }
-#via_a { background-image: url(/assets/yours/markers/letter1.png); }
-#via_b { background-image: url(/assets/yours/markers/letter2.png); }
-#via_c { background-image: url(/assets/yours/markers/letter3.png); }
-
-tr.tr-selected td {
-    color: #468847;
-    background-color: #dff0d8 !important;
-    border-color: #d6e9c6;
 }
