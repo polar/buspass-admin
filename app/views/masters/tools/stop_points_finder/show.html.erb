@@ -8,20 +8,25 @@
 <div>
   <div class="row">
     <div id="navigation" class="left">
+      <div class="btn-group" data-toggle="buttons-radio" >
+      <button id="show_names" type="button" class="btn" data-toggle="button">Names</button>
+      <button id="show_locations" type="button" class="btn" data-toggle="button">Locations</button>
+      </div>
+
       <form id="stop_points" name="stop_points" action="#" onsubmit="return false;">
         <ul id="stop_points_list" class="stop_points_list">
         </ul>
         <ul>
           <li>
             <div>
-              <img src="/assets/yours/markers/marker.png" alt="Add Bus Stop" height="30" style="vertical-align:middle;"/>
-              <input type="button" id="add_stoppoint" value="Add Bus Stop" tabindex="4" class="btn"/>
+              <img src="/assets/yours/markers/marker.png" alt="Add Stop" height="24" style="vertical-align:middle;"/>
+              <input type="button" id="add_stoppoint" value="Add Stop" tabindex="4" class="btn"/>
             </div>
           </li>
           <li>
             <div>
               <button id="drawlines" class="btn">Draw Lines</button>
-                <i class="icon-refresh"></i></button>
+                <i class="icon-refresh"></i>
             </div>
           </li>
         </ul>

@@ -70,16 +70,25 @@
 
 #stop_points_list img.marker {
   cursor: pointer;
+  height: 24px;
 }
 
-#stop_points_list .marker, #stop_points_list .via_image, #stop_points_list .via_del_image .via_lock_image {
-  vertical-align: middle;
-}
 
-#stop_points_list .via_lock_image {
+#stop_points_list input[type='button'] {
   height: 20px;
   width: 20px;
+  background-color:#EEE;
   horizontal-align : middle;
+  border: 0;
+}
+
+#stop_points_list .add_waypoint {
+  height: 20px;
+  width: 20px;
+  border: 0;
+  background-image: url("/assets/add-waypoint.png");
+  background-repeat: no-repeat;
+  background-color:#EEE;
 }
 
 #stop_points ul {
@@ -111,4 +120,18 @@
   width: 225px;
   style-set: "std-input";    /* all other visual and behavioral styles are
                                      derived from standard checkbox */
+}
+
+#stop_points_list input.via_del_image {
+  background-image: url(/assets/delete-16x16.png);
+  background-repeat: no-repeat;
+}
+
+#stop_points_list input.via_lock_image[data-locked='true'] {
+  background-image: url(/assets/anchor-down.png);
+  background-repeat: no-repeat;
+}
+#stop_points_list input.via_lock_image[data-locked='false'] {
+  background-image: url(/assets/anchor-up.png);
+  background-repeat: no-repeat;
 }
