@@ -54,14 +54,18 @@ class ServiceCSVFile
     CSV.generate do |csv|
       csv.add_row(["Route Name", code, sort])
       csv.add_row(["Start Date", start_date.strftime("%Y-%m-%d")])
-      csv.add_row(["Start Date", end_date.strftime("%Y-%m-%d")])
+      csv.add_row(["End Date", end_date.strftime("%Y-%m-%d")])
       csv.add_row(["Direction", direction])
       names = ["Stop Points", "Days", "Display Name"]
       locations = ["Locations","",""]
       xml =  Hpricot(kml)
       stop_points = xml.search("placemark[@id*=sp]")
       for spdoc in stop_points do
-        names << spdoc.at("name").inner_html
+        name = spdoc.at("name").inner_html
+        if (/^(sp|link)_[0-9]+:/ =~ name)
+          name = name.split(":")[1]
+        end
+        names << name
         locations << spdoc.at("point/coordinates").inner_html
       end
       names << "NOTE"

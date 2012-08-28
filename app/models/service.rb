@@ -139,7 +139,7 @@ class Service
   end
 
   def setOperatingDays(designator)
-    self.day_class = designator
+    self.day_class = parseDayClass(designator)
 
     self.monday    = false
     self.tuesday   = false
@@ -149,53 +149,64 @@ class Service
     self.saturday  = false
     self.sunday    = false
 
-    items = designator.split(",").collect { |s| s.strip.downcase }
+    items = self.day_class.split(//)
     items.each do |item|
       case item
-        when "monday", "m", "mon"
+        when "M"
           self.monday = true
-        when "tuesday", "t", "tu" "tue"
+        when "T"
           self.tuesday = true
-        when "wednesday", "w", "wWed"
+        when "W"
           self.wednesday = true
-        when "thursday", "th", "thu"
+        when "R"
           self.thursday = true
-        when "friday", "f", "fri"
+        when "F"
           self.friday = true
-        when "saturday", "s", "sat"
+        when "S"
           self.saturday = true
-        when "sunday", "su", 'sun'
+        when "N"
           self.sunday = true
-        when "weekday"
-          self.monday    = true
-          self.tuesday   = true
-          self.wednesday = true
-          self.thursday  = true
-          self.friday    = true
-        when "daily", "d"
-          self.monday    = true
-          self.tuesday   = true
-          self.wednesday = true
-          self.thursday  = true
-          self.friday    = true
-          self.saturday  = true
-          self.sunday    = true
-        when "weekend"
-          self.saturday = true
-          self.sunday   = true
-        when "mon-thurs"
-          self.monday    = true
-          self.tuesday   = true
-          self.wednesday = true
-          self.thursday  = true
-        when "mwf"
-          self.monday    = true
-          self.wednesday = true
-          self.friday    = true
-        else # skip it.
       end
     end
   end
+
+  def dayClassMap
+    {
+        "M" => 1,
+        "T" => 2,
+        "W" => 4,
+        "R" => 8,
+        "F" => 16,
+        "S" => 32,
+        "N" => 64,
+        "D" => 1 | 2 | 4 | 8 | 16 | 32 | 64, # MTWRFSN
+        "E" => 32 | 64, # SN
+        "K" => 1 | 2 | 4 | 8 | 16, # MTWRF
+    }
+  end
+
+  def intToDayClass(x)
+    map = "MTWRFSN"
+    res = ""
+    while(x > 0)
+      res << map[i] if x%2 == 1
+      i += 1
+      x = x/2
+    end
+    res
+  end
+
+  def parseDayClass(dayclass)
+    intdc = dayclass.split(//).reduce(0) do |t,c|
+      x = dayClassMap[c]
+      if x.nil?
+        raise ProcessingError("Bad Day Class #{dayclass}")
+      end
+      t | x
+    end
+    intToDayClass(intdc)
+  end
+
 
   def is_operational?(date)
     date = date.to_date

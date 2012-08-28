@@ -188,6 +188,79 @@ class JourneyPattern
     html += "</kml>"
   end
 
+
+  def find_placemark(i, type, placemarks)
+    for p in placemarks do
+      if p.attributes["id"] == "#{type}_#{i}" || /^#{type}_#{i}/ =~ p.at("name").inner_text
+        return p
+      end
+    end
+    return nil
+  end
+
+  def copy_from(jp)
+    position = 0
+    for jptl in jp.journey_pattern_timing_links do
+      njptl = self.get_journey_pattern_timing_link(position)
+      njptl.from = jptl.from
+      njptl.to   = jptl.to
+      njptl.view_path_coordinates = jptl.view_path_coordinates
+    end
+  end
+
+  def parse_kml(kml_string)
+    kml = Hpricot(kml_string)
+    if kml
+      placemarks = kml.search("placemark")
+      puts "Got #{placemarks.length} placemarks"
+      i = 0;
+      position = 0
+      last_stop_point = nil
+      while i < placemarks.length && sp = find_placemark(i,"sp", placemarks) do
+        puts "Loooking at #{i}..... #{sp.inspect}"
+        name = sp.at("name").inner_text
+        name = name.split(":")[1] if /^sp_[0-9]+\:/ =~ name
+        lonlatliteral = sp.at("point/coordinates").inner_text
+        if (name && lonlatliteral)
+          stop_point = self.createStopPoint(name, lonlatliteral)
+          self.stop_points << stop_point
+          if i > 0
+            link = find_placemark(i-1, "link", placemarks)
+            if link
+              puts " Link #{i-1} #{link.inspect}"
+              coordslit = link.at("linestring/coordinates").inner_text
+              coords = coordslit.split(" ").map {|s| s.split(",").take(2).map {|x| x.to_f}} if coordslit
+              p coords
+              p coords.length
+              if coords.length > 2
+                # Create Link.
+                jptl = self.get_journey_pattern_timing_link(position)
+                jptl.from = last_stop_point
+                jptl.to = stop_point
+                jptl.view_path_coordinates = { "LonLat" => self.normalizePath(coords) }
+                if jptl.new?
+                  journey_pattern_timing_links << jptl
+                else
+                  jptl.save
+                end
+                position += 1
+              else
+                raise "Bad KML"
+              end
+            else
+              raise "Bad KML"
+            end
+
+          end
+        else
+          raise "Bad KML"
+        end
+        last_stop_point = stop_point
+        i += 1
+      end
+    end
+  end
+
   def get_geometry
     if journey_pattern_timing_links.size == 0
       return [[0.0,0.0],[0.0,0.0]]
@@ -424,14 +497,30 @@ class JourneyPattern
     journey_pattern_timing_links.first.starting_direction
   end
 
-  def stop_points
+  def get_stop_points
     return [journey_pattern_timing_links.first.from] + journey_pattern_timing_links.map { |jptl| jptl.to }
   end
 
   def self.find_by_coord(coord)
     # TODO: Faster using a Database query.
     self.all.select {|a| a.locatedBy(coord)}
+
   end
+
+  def createStopPoint(stop_name, latlonliteral)
+    lonlat = self.normalizeCoordinates(latlonliteral.split(",").take(2).map {|l| l.to_f})
+
+    location = Location.new( :name => stop_name, :coordinates => { "LonLat" => lonlat } )
+
+    # Not needed for Mongo
+    #location.save!
+    stop = StopPoint.new( :common_name => stop_name, :location => location )
+
+    # Not needed for Mongo
+    #stop.save!
+    return stop
+  end
+
 
   def locatedBy(coord)
     inBox(theBox, coord)

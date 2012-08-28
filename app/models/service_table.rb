@@ -84,42 +84,7 @@ class ServiceTable
     end
   end
 
-  def self.designator
-    {
-        "W" => "Weekday",
-        "D" => "Daily",
-        "S" => "Saturday",
-        "U" => "Sunday",
-        "E" => "Weekend",
-        "M" => "Mon-Thurs",
-        "F" => "Friday"
-    }
-  end
-
-  def self.day_class
-    {
-        "Weekday"   => "W",
-        "Daily"     => "D",
-        "Saturday"  => "S",
-        "Sunday"    => "U",
-        "Weekend"   => "E",
-        "Mon-Thurs" => "M",
-        "Friday"    => "F"
-    }
-  end
-  def self.day_class_standard
-    {
-        "Weekday"   => "MTWRF",
-        "Daily"     => "D",
-        "Saturday"  => "S",
-        "Sunday"    => "U",
-        "Weekend"   => "E",
-        "Mon-Thurs" => "M",
-        "Friday"    => "F"
-    }
-  end
-
-  def self.day_class_2
+  def self.dayClassMap
     {
         "M" => 1,
         "T" => 2,
@@ -134,14 +99,28 @@ class ServiceTable
     }
   end
 
+  def self.intToDayClass(x)
+    map = "MTWRFSN"
+    res = ""
+    i = 0
+    while(x > 0)
+      res << map[i] if x%2 == 1
+      i += 1
+      x = x/2
+    end
+    return {"MTWRF" => "K", "SN" => "E", "MTWRFSN" => "D"}[res] || res
+  end
+
   def self.parseDayClass(dayclass)
-     dayclass.split(//).reduce(0) do |t,c|
-       x = day_class_2[c]
+     intdc = dayclass.split(//).reduce(0) do |t,c|
+       x = dayClassMap[c]
        if x.nil?
          raise ProcessingError("Bad Day Class #{dayclass}")
        end
        t | x
      end
+
+    self.intToDayClass(intdc)
   end
 
   def self.getNormalizedDayClass(service)
@@ -154,22 +133,6 @@ class ServiceTable
     cls << "S" if service.saturday
     cls << "N" if service.sunday
     return {"MTWRF" => "K", "SN" => "E", "MTWRFSN" => "D"}[cls] || cls
-  end
-
-  def self.getDesignator(ch)
-    x = self.designator[ch]
-    if x == nil
-      raise ProcessingError.new("Bad Day Class Designator")
-    end
-    return x
-  end
-
-  def self.fromDayClass(dc)
-    x = self.day_class[dc]
-    if x == nil
-      raise ProcessingError.new("Bad Day Class")
-    end
-    return x
   end
 
   def self.constructGoogleMapURI(from,to)
@@ -418,7 +381,20 @@ class ServiceTable
         if  stop_point_names[n].downcase != "note"
           progress.error "#{table_file}:#{file_line}: Stop points must end with 'NOTE'"
           raise ProcessingError.new("cannot continue with this file -- stop points must end with 'NOTE'.")
-        end
+        elsif (stop_point_names[n+1])
+           begin
+             indexKML = n+1
+             defaultKML = stop_point_names[n+1]
+             defaultJourneyPattern = JourneyPattern.new()
+             defaultJourneyPattern.parse_kml(defaultKML)
+           rescue Exception => boom2
+             progress.error "#{table_file}:#{file_line}: KML Parse error after 'NOTE'"
+             raise ProcessingError.new("cannot continue with this file -- KML parse error after 'NOTE'.")
+           end
+         else
+           defaultKML = nil
+           defaultJourneyPattern = nil
+         end
       end
       if stop_point_names == nil || stop_point_locations == nil || direction == nil
         progress.error "#{table_file}:#{file_line}: Need to have the 'Stop Points', 'Locations', and 'Direction' lines before processing routes. Processing of file stopped."
@@ -433,7 +409,7 @@ class ServiceTable
 
         # Start reading a VehicleJourney
         route_code   = cols[0]
-        day_class    = getDesignator(cols[1])
+        day_class    = parseDayClass(cols[1])
         display_name = cols[2]
 
         #puts "Finding Route and Service"
@@ -552,6 +528,17 @@ class ServiceTable
               #journey_pattern.journey_pattern_timing_links.destroy_all
               journey_pattern.journey_pattern_timing_links = []
 
+              if times[indexKML]
+                begin
+                  journey_pattern.parse_kml(times[indexKML])
+                rescue Exception => boom3
+                  progress.error "#{table_file}:#{file_line}: KML Parse error after 'NOTE'"
+                  raise ProcessingError.new("KML parse error for special route")
+                end
+              elsif defaultJourneyPattern
+                journey_pattern.copy_from(defaultJourneyPattern)
+              end
+
               # Our starting StopPoint
               stop                                         = createStopPoint(stop_name, stop_point_locations[i])
 
@@ -563,10 +550,24 @@ class ServiceTable
               # last location with a time.
               stop      = createStopPoint(stop_name, stop_point_locations[i])
 
-              # Create the Link.
+              # Create or Get the Link.
               jptl      = journey_pattern.get_journey_pattern_timing_link(position)
-              jptl.from = last_stop
-              jptl.to   = stop
+              if jptl.from
+                if ! jptl.from.same?(last_stop)
+                  progress.error "#{table_file}:#{file_line}: KML inconsistency with timing link"
+                  raise ProcessingError.new("KML inconsistency with timing link")
+                end
+              else
+                jptl.from = last_stop
+              end
+              if jptl.to
+                if ! jptl.to.same?(stop)
+                  progress.error "#{table_file}:#{file_line}: KML inconsistency with timing link"
+                  raise ProcessingError.new("KML inconsistency with timing link")
+                end
+              else
+                jptl.to = stop
+              end
 
               current_time = parsed_times[i]
               # time is stored in minutes the link takes to travel
@@ -576,22 +577,25 @@ class ServiceTable
                 jptl.time_issue = "#{table_file}:#{file_line}: Time issue #{current_time} is before the time of last JPTL #{last_time}"
               end
 
-              # This is the initial path. May have to be modified,
-              # which is why the JPTLs have persistent names.
-              jptl.google_uri = constructGoogleMapURI(jptl.from.location, jptl.to.location)
-              vpc             = cache.getViewPathCoordinates(jptl.google_uri)
-              if !vpc
-                jptl.path_issue            = "#{table_file}:#{file_line}: No valid path"
-                jptl.view_path_coordinates = {"LonLat" => []}
-                jptl.connect_endpoints_to_path()
+              if ! jptl.view_path_coordinates
+                # This is the initial path. May have to be modified,
+                # which is why the JPTLs have persistent names.
+                jptl.google_uri = constructGoogleMapURI(jptl.from.location, jptl.to.location)
+                vpc             = cache.getViewPathCoordinates(jptl.google_uri)
+                if !vpc
+                  jptl.path_issue            = "#{table_file}:#{file_line}: No valid path"
+                  jptl.view_path_coordinates = {"LonLat" => []}
+                  jptl.connect_endpoints_to_path()
+                end
+                jptl.view_path_coordinates = {"LonLat" => normalizePath(vpc["LonLat"])}
+                if jptl.connect_endpoints_to_path()
+                  cs = jptl.view_path_coordinates["LonLat"]
+                  progress.log "Path Issue #{getGeoDistance(cs[0], cs[1])}"
+                  progress.log "Path Issue #{getGeoDistance(cs[cs.length-2], cs.last)}"
+                  jptl.path_issue = "#{table_file}:#{file_line}: Unconnected endpoints"
+                end
               end
-              jptl.view_path_coordinates = {"LonLat" => normalizePath(vpc["LonLat"])}
-              if jptl.connect_endpoints_to_path()
-                cs = jptl.view_path_coordinates["LonLat"]
-                progress.log "Path Issue #{getGeoDistance(cs[0], cs[1])}"
-                progress.log "Path Issue #{getGeoDistance(cs[cs.length-2], cs.last)}"
-                jptl.path_issue = "#{table_file}:#{file_line}: Unconnected endpoints"
-              end
+
 
               # Add and output to "fix it" file.
               #puts "Adding JPTL #{position}"

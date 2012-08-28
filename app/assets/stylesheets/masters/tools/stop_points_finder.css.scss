@@ -135,3 +135,8 @@
   background-image: url(/assets/anchor-up.png);
   background-repeat: no-repeat;
 }
+
+/* Puts Refresh button at the same alignment as the text box to its left */
+#refresh_kml {
+  verticle-align: top;
+}

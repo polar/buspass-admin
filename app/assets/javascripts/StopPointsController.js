@@ -58,13 +58,18 @@ BusPass.StopPoint = OpenLayers.Class({
     },
 
     /**
-     * Returns the current LonLat location of the StopPoint.
-     *
-     * @return {*}
+     * Returns the current LonLat location of the StopPoint based on its Waypoint geometry,
+     * which could have moved from the set value (during a drag).
      */
     getLonLat : function () {
         return this.Waypoint.getLonLat();
     },
+
+    /**
+     * Sets the Waypoint for this StopPoint. It does not affect the geometry of the Waypoint
+     * even if the StopPoint lonlat is set.
+     * @param wp
+     */
 
     setWaypoint : function (wp) {
         this.Waypoint = wp;
@@ -74,6 +79,10 @@ BusPass.StopPoint = OpenLayers.Class({
         }
     },
 
+    /**
+     * The markers distinguish among Start Stop and numbered in betweens.
+     * @return {String}
+     */
     markerUrl : function() {
         switch (this.Waypoint.type) {
             case 'via':
@@ -89,19 +98,14 @@ BusPass.StopPoint = OpenLayers.Class({
 
 });
 
-BusPass.JourneyPatternLink = OpenLayers.Class({
-    startStopPoint : null,
-    endStopPoint : null,
-    lineString : null
-});
-
-BusPass.JourneyPattern = OpenLayers.Class({
-    patternLinks : null
-});
-
 BusPass.StopPointsController = OpenLayers.Class({
 
     id : "map",
+
+    /**
+     * Key Codes used to delete Waypoints from the map. Delete, Backspace
+     */
+    deleteCodes : [46, 68],
 
     /*
      * The coordinates [lon,lat] of where to center the map.
@@ -125,94 +129,37 @@ BusPass.StopPointsController = OpenLayers.Class({
      */
     backRoute : null,
 
+    /**
+     * The NameFinder Object
+     */
     nameFinder : null,
 
     /**
-     *
-     * @param xmlString
-     * @return {*}
+     * Callback for when a StopPoint gets its location updated from the UI.
+     * @param stop_point
      */
-    parseKMLToFeatures : function (xmlString) {
-        var parser = new DOMParser();
+    onLocationUpdated : function (stop_point) { },
 
-        var xml = parser.parseFromString(xmlString, "text/xml");
-        if (xml.documentElement.nodeName == "kml") {
-            var kml = new OpenLayers.Format.KML({
-                externalProjection : this.Map.displayProjection,
-                internalProjection : this.Map.projection
-            });
-            var features;
-            function find(type, n) {
-                for(var i = 0; i < features.length; i++) {
-                    var feature = features[i];
-                    if (feature.fid == (type + "_" + n) ||
-                        feature.attributes.name && feature.attributes.name.startsWith(type+"_"+n)) {
-                        // From Google Earth Folder
-                        // We make the user name the Placemark with "sp_0:Street Name"
-                        if (feature.attributes.name) {
-                            if (feature.attributes.name.startsWith(type+"_"+n+":")) {
-                                feature.attributes.Name = feature.attributes.name.split(":")[1].trim();
-                            }
-                        }
+    /**
+     * Callback for when the Route gets updated from the UI or route finders.
+     * @param route
+     */
+    onRouteUpdated : function (route) { },
 
-                        return feature;
-                    }
-                }
-            }
-            // Checks to make sure we have links between all stop points.
-            function check() {
-                var i = 0;
-                var feature;
-                while(feature = find("sp",i)) {
-                    if (feature.geometry.CLASS_NAME != "OpenLayers.Geometry.Point") {
-                        return false;
-                    }
-                    if (i > 0) {
-                        feature = find("link", i-1);
-                        if (!feature || feature.geometry.CLASS_NAME != "OpenLayers.Geometry.LineString") {
-                            return false;
-                        }
-                    }
-                    i++;
-                }
-                return true;
-            }
-            // Make sure we have everything, at least try.
-            features = kml.read(xml);
-            if (features && check()) {
-                this.Route.clear();
-                this.StopPoints = [];
-                $("#stop_points_list").html("");
-                var i = 0;
-                var feature;
-                while(feature = find("sp", i)) {
-                    var lonlat = new OpenLayers.LonLat(feature.geometry.x, feature.geometry.y);
-                    var name = feature.attributes.Name;
-                    var lineString = undefined;
-                    if (i > 0) {
-                        var link = find("link", i-1);
-                        if (link) {
-                            lineString = link; // OpenLayers.Feature.Vector
-                        }
-                    }
-                    // lineString may be undefined (first stop point)
-                    this.appendNewStopPoint(name, lonlat, lineString);
-                    i += 1;
-                }
-                this.Route.draw();
-                this.updateUI();
-                this.Route.selectWaypoint();
-                console.log("parseKMLToFeatures: got features " + features.length);
-            } else {
-                this.notice("Illegal KML", "error", true);
-            }
-            return features;
-        } else {
-            this.notice("No KML", "error", true);
-        }
-    },
-
-
+    /**
+     * notice:
+     *
+     * UI Component
+     *
+     * Displays a message in the status box : #status
+     * If type is "waiting" it will make the spinner visible.
+     * If fade is true, messae will fade in 5 seconds.
+     * Default type will fade.
+     *
+     * @param message {String}
+     * @param type   ["waiting", "warning", "error", default]
+     * @param fade   {Boolean}
+     */
     notice : function (message, type, fade) {
         if (message == "")  {
             $("#status").html("");
@@ -242,8 +189,6 @@ BusPass.StopPointsController = OpenLayers.Class({
         $("#status").html(message);
         $("#status").fadeTo("fast", 1);
     },
-
-    onLocationUpdated : function (stop_point) { },
 
     initializeMapCenter : function () {
         var ctrl = this;
@@ -355,18 +300,42 @@ BusPass.StopPointsController = OpenLayers.Class({
         return map;
     },
 
+    /**
+     * The OpenLayers Map
+     */
     Map : null,
 
+    /**
+     * A property for various OpenLayers controls.
+     * ClickControl, ModifyFeatureControl, DragControl
+     */
     Controls : null,
 
+    /**
+     * A layer for displaying the original route before editing.
+     */
     BackLayer : null,
 
+    /**
+     * We have a marker layer so that the Makers remain on top, so lines don't
+     * appear to run over them. Also, only allows selection of Waypoints.
+     */
     MarkersLayer : null,
 
+    /**
+     * The layer on which we draw lines.
+     */
     RouteLayer : null,
 
     /**
-     * Constructor: BusPass.PathFinderController
+     * The layer on which we draw everything when we are modifying a route
+     * with DrawLines.
+     */
+    ModifyLayer : null,
+
+
+    /**
+     * Constructor: BusPass.StopPointsController
      */
     initialize : function (options) {
         OpenLayers.Util.extend(this, options);
@@ -392,7 +361,7 @@ BusPass.StopPointsController = OpenLayers.Class({
             styleMap: this.initializeModifyStyleMap()
         });
 
-        // Markers go on top, but will be switched if drawing lines, instead of auto-routing.
+        // Markers go on top. Modify gets used during Draw Lines
         this.Map.addLayers([this.BackLayer, this.RouteLayer, this.MarkersLayer]);
 
         this.Controls = {
@@ -413,6 +382,8 @@ BusPass.StopPointsController = OpenLayers.Class({
                             ctrl.notice("Cannot Drag Locked StopPoint", "error");
                             return false;
                         }
+                        // If we start dragging a StopPoint or Waypoint we reset the
+                        // attached links to straight lines.
                         if (wp.backLink) {
                             wp.backLink.reset();
                             wp.backLink.draw();
@@ -430,6 +401,8 @@ BusPass.StopPointsController = OpenLayers.Class({
                         if (wp.StopPoint && wp.StopPoint.Locked) {
                             return false;
                         }
+                        // On drag we keep drawing the attached links so that it appears
+                        // the user is dragging the lines as well.
                         if (wp.backLink) {
                             wp.backLink.draw();
                         }
@@ -440,7 +413,8 @@ BusPass.StopPointsController = OpenLayers.Class({
                 },
                 onComplete: function(feature, pixel) {
                     if (!feature.geometry) {
-                        // This happens sometimes.
+                        // For some reason, sometimes a feature doesn't have a geometry, which renders it
+                        // useless to us.. We could just let the browser ignore, but will play nice.
                         return;
                     }
 
@@ -454,7 +428,6 @@ BusPass.StopPointsController = OpenLayers.Class({
                             // It's geometry has been moved. Restore its original position
                             wp.resetGeometry();
                             wp.draw();
-                            // ctrl.updateStopPointLocationUI(sp);
                             // Gets rid of error message for starting the drag.
                             ctrl.notice("");
                             return false;
@@ -486,15 +459,21 @@ BusPass.StopPointsController = OpenLayers.Class({
         };
         // Add control to handle mouse clicks for placing markers
         this.Map.addControl(this.Controls.click);
+        // We'll turn it on when we are ready.
         this.Controls.click.deactivate();
+
         // Add control to handle mouse drags for moving markers
         this.Map.addControl(this.Controls.drag);
         this.Controls.drag.activate();
         // Add control to show which marker we point at
         this.Map.addControl(this.Controls.select);
         this.Controls.select.activate();
-        this.Map.addControl(this.Controls.modify);
 
+        // Add the Modify control for possible future use. We always want RESHAPE;
+        this.Map.addControl(this.Controls.modify);
+        this.Controls.modify.mode = OpenLayers.Control.ModifyFeature.RESHAPE;
+
+        // This call may ask the browser for its location.
         this.initializeMapCenter();
 
         $("#add_stoppoint").click(function () {
@@ -515,12 +494,17 @@ BusPass.StopPointsController = OpenLayers.Class({
         $("#show_locations").click(function () {
             ctrl.show_locations();
         });
+
         $("#clear_route").click(function () {
             ctrl.clear();
-        })
+        });
 
         $("#copybox_field").change(function () {
-            ctrl.parseKMLToFeatures($(this).val());
+            ctrl.initializeFromKMLString($(this).val());
+        });
+
+        $("#refresh_kml").click(function () {
+            ctrl.writeToCopyBox();
         });
 
         this.show_names();
@@ -541,9 +525,8 @@ BusPass.StopPointsController = OpenLayers.Class({
             }
         });
 
-        this.Controls.modify.mode = OpenLayers.Control.ModifyFeature.RESHAPE;
-
-        // configure the keyboard handler
+        // configure the keyboard handler so that we can get Waypoint deletes when
+        // mouse is over waypoint and user hits a delete key.
         var keyboardOptions = {
             keydown: this.handleKeypress
         };
@@ -556,16 +539,112 @@ BusPass.StopPointsController = OpenLayers.Class({
         this.initializeFromOptions();
         this.updateUI();
 
+        // We want the UI to be aligned at the bottom with the map.
         $("#map").height($("#navigation").height());
         this.Map.updateSize();
     },
 
+    /**
+     * This (re)initializes the whole controller with a KML file. If the KML is bad
+     * a message is displayed. The string comes from the CopyBox.
+     *
+     * @param xmlString
+     * @return {*}
+     */
+    initializeFromKMLString : function (xmlString) {
+        var parser = new DOMParser();
+
+        var xml = parser.parseFromString(xmlString, "text/xml");
+        if (xml.documentElement.nodeName == "kml") {
+            var kml = new OpenLayers.Format.KML({
+                externalProjection : this.Map.displayProjection,
+                internalProjection : this.Map.projection
+            });
+            var features;
+            function find(type, n) {
+                for(var i = 0; i < features.length; i++) {
+                    var feature = features[i];
+                    if (feature.fid == (type + "_" + n) ||
+                        feature.attributes.name && feature.attributes.name.startsWith(type+"_"+n)) {
+                        // From Google Earth Folder
+                        // We make the user name the Placemark with "sp_0:Street Name"
+                        if (feature.attributes.name) {
+                            if (feature.attributes.name.startsWith(type+"_"+n+":")) {
+                                feature.attributes.Name = feature.attributes.name.split(":")[1].trim();
+                            }
+                        }
+
+                        return feature;
+                    }
+                }
+            }
+            // Checks to make sure we have links between all stop points.
+            function check() {
+                var i = 0;
+                var feature;
+                while(feature = find("sp",i)) {
+                    if (feature.geometry.CLASS_NAME != "OpenLayers.Geometry.Point") {
+                        return false;
+                    }
+                    if (i > 0) {
+                        feature = find("link", i-1);
+                        if (!feature || feature.geometry.CLASS_NAME != "OpenLayers.Geometry.LineString") {
+                            return false;
+                        }
+                    }
+                    i++;
+                }
+                return true;
+            }
+            // Make sure we have everything, at least try.
+            try {
+                features = kml.read(xml);
+                if (features && check()) {
+                    this.Route.clear();
+                    this.StopPoints = [];
+                    $("#stop_points_list").html("");
+                    var i = 0;
+                    var feature;
+                    while(feature = find("sp", i)) {
+                        var lonlat = new OpenLayers.LonLat(feature.geometry.x, feature.geometry.y);
+                        var name = feature.attributes.Name;
+                        var lineString = undefined;
+                        if (i > 0) {
+                            var link = find("link", i-1);
+                            if (link) {
+                                lineString = link; // OpenLayers.Feature.Vector
+                            }
+                        }
+                        // lineString may be undefined (first stop point)
+                        this.appendNewStopPoint(name, lonlat, lineString);
+                        i += 1;
+                    }
+                    this.Route.draw();
+                    this.updateUI();
+                    this.Route.selectWaypoint();
+                    console.log("parseKMLToFeatures: got features " + features.length);
+                } else {
+                    this.notice("Illegal KML", "error", true);
+                }
+            } catch(e) {
+                this.notice("Illegal KML", "error", true);
+            }
+            return features;
+        } else {
+            this.notice("No KML", "error", true);
+        }
+    },
+
+    /**
+     * This function is the onSelect callback function for the Select Control. We keep the selected
+     * feature cached. This is necessary to handle the delete key presses.
+     * @param feature
+     */
     selectFeature : function (feature) {
         console.log("Selected Feature:");
         this.SelectedFeature = feature;
     },
 
-    deleteCodes : [46, 68],
 
     /**
      * Method: handleKeypress
@@ -596,11 +675,20 @@ BusPass.StopPointsController = OpenLayers.Class({
         }
     },
 
+    /**
+     * Selects a Stop Point, which means the Map cursor will be the marker image of the stop point.
+     * It's mearly a delegation to the BusPass.Route on the waypoint.
+     * @param sp
+     */
     selectStopPoint : function (sp) {
         this.Route.selectWaypoint(sp.Waypoint);
     },
 
 
+    /**
+     * We just add two empty StopPoints and select the first one, and activate the ClickControl
+     * so that the user can click them down.
+     */
     initializeFromOptions : function () {
         this.addStopPoint();
         this.addStopPoint();
@@ -608,6 +696,10 @@ BusPass.StopPointsController = OpenLayers.Class({
         this.Controls.click.activate();
     },
 
+    /**
+     * This function updates the Name/Location UI of the StopPoint, based on its state.
+     * @param stop_point
+     */
     updateStopPointLocationUI : function (stop_point) {
         var ctrl = this;
 
@@ -629,6 +721,10 @@ BusPass.StopPointsController = OpenLayers.Class({
         }
     },
 
+    /**
+     * This method is used by various functions that updates the location of a StopPoint.
+     * @param stop_point
+     */
     triggerOnLocationUpdated : function (stop_point) {
         console.log("triggerOnLocationUpdated");
         if (stop_point !== undefined) {
@@ -636,6 +732,15 @@ BusPass.StopPointsController = OpenLayers.Class({
         }
     },
 
+    /**
+     * This function is exclusively used by the KML parser as we have special UI considerations
+     * when we are constructing the StopPoint Route from KML sequentially, such as indicating
+     * that the NameFinder need not be invoked for names that are filled in.
+     *
+     * @param name       Name of StopPoint in the KML
+     * @param lonlat     The LonLat (in map projection)
+     * @param lineString  The Geometery (not Vector).
+     */
     appendNewStopPoint : function(name, lonlat, lineString) {
         var sp = new BusPass.StopPoint(name, lonlat.lon, lonlat.lat);
         if (name != "") {
