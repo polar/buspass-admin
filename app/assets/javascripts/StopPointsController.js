@@ -127,30 +127,89 @@ BusPass.StopPointsController = OpenLayers.Class({
 
     nameFinder : null,
 
+    /**
+     *
+     * @param xmlString
+     * @return {*}
+     */
     parseKMLToFeatures : function (xmlString) {
-//        var parser = new DOMParser();
-//
-//        var xml = parser.parseFromString(xmlString, "text/xml");
-//        if (xml.documentElement.nodeName == "kml") {
-//            var kml = new OpenLayers.Format.KML({
-//                externalProjection : this.Map.displayProjection,
-//                internalProjection : this.Map.projection
-//            });
-//            var features = kml.read(xml);
-//            if (features) {
-//                this.Route.reset();
-//                this.StopPoints = [];
-//                for (var i = 0; i < features.length; i++) {
-//                    if (feature.fid.startsWith("sp_")) {
-//                        var sp = new BusPassStopPoint({name: features.attributes.Name}, lineString : )
-//                    }
-//                }
-//                console.log("parseKMLToFeatures: got features " + features.length);
-//            }
-//            this.RouteLayer.removeAllFeatures();
-//            this.RouteLayer.addFeatures(features);
-//            return features;
-//        }
+        var parser = new DOMParser();
+
+        var xml = parser.parseFromString(xmlString, "text/xml");
+        if (xml.documentElement.nodeName == "kml") {
+            var kml = new OpenLayers.Format.KML({
+                externalProjection : this.Map.displayProjection,
+                internalProjection : this.Map.projection
+            });
+            var features;
+            function find(type, n) {
+                for(var i = 0; i < features.length; i++) {
+                    var feature = features[i];
+                    if (feature.fid == (type + "_" + n) ||
+                        feature.attributes.name && feature.attributes.name.startsWith(type+"_"+n)) {
+                        // From Google Earth Folder
+                        // We make the user name the Placemark with "sp_0:Street Name"
+                        if (feature.attributes.name) {
+                            if (feature.attributes.name.startsWith(type+"_"+n+":")) {
+                                feature.attributes.Name = feature.attributes.name.split(":")[1].trim();
+                            }
+                        }
+
+                        return feature;
+                    }
+                }
+            }
+            // Checks to make sure we have links between all stop points.
+            function check() {
+                var i = 0;
+                var feature;
+                while(feature = find("sp",i)) {
+                    if (feature.geometry.CLASS_NAME != "OpenLayers.Geometry.Point") {
+                        return false;
+                    }
+                    if (i > 0) {
+                        feature = find("link", i-1);
+                        if (!feature || feature.geometry.CLASS_NAME != "OpenLayers.Geometry.LineString") {
+                            return false;
+                        }
+                    }
+                    i++;
+                }
+                return true;
+            }
+            // Make sure we have everything, at least try.
+            features = kml.read(xml);
+            if (features && check()) {
+                this.Route.clear();
+                this.StopPoints = [];
+                $("#stop_points_list").html("");
+                var i = 0;
+                var feature;
+                while(feature = find("sp", i)) {
+                    var lonlat = new OpenLayers.LonLat(feature.geometry.x, feature.geometry.y);
+                    var name = feature.attributes.Name;
+                    var lineString = undefined;
+                    if (i > 0) {
+                        var link = find("link", i-1);
+                        if (link) {
+                            lineString = link; // OpenLayers.Feature.Vector
+                        }
+                    }
+                    // lineString may be undefined (first stop point)
+                    this.appendNewStopPoint(name, lonlat, lineString);
+                    i += 1;
+                }
+                this.Route.draw();
+                this.updateUI();
+                this.Route.selectWaypoint();
+                console.log("parseKMLToFeatures: got features " + features.length);
+            } else {
+                this.notice("Illegal KML", "error", true);
+            }
+            return features;
+        } else {
+            this.notice("No KML", "error", true);
+        }
     },
 
 
@@ -380,6 +439,11 @@ BusPass.StopPointsController = OpenLayers.Class({
                     }
                 },
                 onComplete: function(feature, pixel) {
+                    if (!feature.geometry) {
+                        // This happens sometimes.
+                        return;
+                    }
+
                     // The pixel coordinate represents the mouse pointer, which is not the center of the image,
                     // but the location where the user picked the image. Therefore, we use the geometry of the
                     // image, which is the actual image location (respecting any offsets defining its base)
@@ -451,6 +515,9 @@ BusPass.StopPointsController = OpenLayers.Class({
         $("#show_locations").click(function () {
             ctrl.show_locations();
         });
+        $("#clear_route").click(function () {
+            ctrl.clear();
+        })
 
         $("#copybox_field").change(function () {
             ctrl.parseKMLToFeatures($(this).val());
@@ -567,6 +634,21 @@ BusPass.StopPointsController = OpenLayers.Class({
         if (stop_point !== undefined) {
             this.onLocationUpdated(stop_point);
         }
+    },
+
+    appendNewStopPoint : function(name, lonlat, lineString) {
+        var sp = new BusPass.StopPoint(name, lonlat.lon, lonlat.lat);
+        if (name != "") {
+            sp.hasNameSetByUser = true;
+        }
+        this.StopPoints.splice(this.StopPoints.length,0,sp);
+        var wp = this.Route.appendNewWaypoint(lonlat, lineString);
+        sp.setWaypoint(wp);
+
+        var sp_li = this.createStopPointDOMElement(sp);
+
+        var ul = $("#stop_points_list");
+        ul.append(sp_li);
     },
 
     addStopPoint : function () {
@@ -762,6 +844,19 @@ BusPass.StopPointsController = OpenLayers.Class({
 
     },
 
+    clear : function () {
+        this.Route.clear();
+        this.StopPoints = [];
+        $("#stop_points_list").html("");
+        this.addStopPoint();
+        this.addStopPoint();
+        this.Controls.click.activate();
+        this.Route.selectWaypoint("start");
+        this.updateUI();
+        this.notice("Route Cleared");
+        $("#copybox").val("");
+    },
+
     routeUpdated : function () {
         this.updateUI();
         this.writeToCopyBox();
@@ -848,11 +943,15 @@ BusPass.StopPointsController = OpenLayers.Class({
     updateUI : function () {
         // Enable Add Bus Stop when we have a complete route.
         if (this.Route.isComplete()) {
+            $("#submit_for_csv").removeAttr("disabled");
             $("#add_stoppoint").removeAttr("disabled");
+            $(".add_waypoint").removeAttr("disabled");
             $("#route_waiting").hide();
             this.notice("");
         } else {
+            $(".add_waypoint").attr("disabled", "disabled");
             $("#add_stoppoint").attr("disabled", "disabled");
+            $("#submit_for_csv").attr("disabled", "disabled");
         }
         for(var index = 0; index < this.StopPoints.length; index++) {
 
@@ -1031,8 +1130,8 @@ BusPass.StopPointsController = OpenLayers.Class({
         function stopPointKML (sp) {
            var lonlat = new OpenLayers.LonLat(sp.Waypoint.geometry.x, sp.Waypoint.geometry.y);
            lonlat.transform(ctrl.Map.projection, ctrl.Map.displayProjection);
-           return  "<Placemark id='sp_" + i + "'><Name>" + sp.name +
-                   "</Name><Point><coordinates>" + lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6) +
+           return  "<Placemark id='sp_" + i + "'><name>" + "sp_" + i + ":" + sp.name +
+                   "</name><Point><coordinates>" + lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6) +
                    "</coordinates></Point></Placemark>";
         }
         function lineStringKML(lineString) {
@@ -1046,10 +1145,10 @@ BusPass.StopPointsController = OpenLayers.Class({
             return kml + "</coordinates>";
         }
         function linkKML(i,lineString) {
-            return "<Placemark id='link_" + i + "'><LineString>" + lineStringKML(lineString) +
+            return "<Placemark id='link_" + i + "'><name>" + "link_" + i + ":" +"</name><LineString>" + lineStringKML(lineString) +
                 "</LineString></Placemark>"
         }
-        var kml = "<kml xmlns='http://earth.google.com/kml/2.0'>";
+        var kml = "<kml xmlns='http://earth.google.com/kml/2.0'><Folder><name>Busme</name>";
         for(var i = 0; i < this.StopPoints.length-1; i++) {
             var sp = this.StopPoints[i];
             var sp_next = this.StopPoints[i+1];
@@ -1057,7 +1156,7 @@ BusPass.StopPointsController = OpenLayers.Class({
             kml += stopPointKML(sp) + linkKML(i, lineString);
         }
         kml += stopPointKML(this.StopPoints[this.StopPoints.length-1]);
-        return kml + "</kml>";
+        return kml + "</Folder></kml>";
     },
 
     CLASS_NAME : "BusPass.StopPointsController"

@@ -26,7 +26,7 @@
           <li>
             <div>
               <button id="drawlines" class="btn">Draw Lines</button>
-                <i class="icon-refresh"></i>
+              <button id="clear_route" class="btn">Clear</button>
             </div>
           </li>
         </ul>
@@ -79,7 +79,7 @@
           </tbody>
         </table>
         <%= form.hidden_field :kml, :id => "service_kml_field" %>
-        <%= form.submit "Download Service CSV File" %>
+        <%= form.submit "Download Service CSV File", :id => "submit_for_csv", :class => "btn" %>
     <% end %>
 
 </div>

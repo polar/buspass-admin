@@ -62,7 +62,7 @@ class ServiceCSVFile
       stop_points = xml.search("placemark[@id*=sp]")
       for spdoc in stop_points do
         names << spdoc.at("name").inner_html
-        locations << spdoc.at("geometry/point").inner_html
+        locations << spdoc.at("point/coordinates").inner_html
       end
       names << "NOTE"
       names << kml

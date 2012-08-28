@@ -4,27 +4,17 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/muni/muni_admins/destroy_confirm.html.erb" line="31" />
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
     <bookmark url="file://$PROJECT_DIR$/app/models/service_table.rb" line="446" />
-    <bookmark url="file://$PROJECT_DIR$/app/assets/javascripts/routing.js" line="166" mnemonic="0" />
+    <bookmark url="file://$PROJECT_DIR$/app/assets/javascripts/routing.js" line="168" mnemonic="0" />
+    <bookmark url="file://$PROJECT_DIR$/app/assets/javascripts/routing.js" line="381" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/chronic_date_validator.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/service_csv_file.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/download.js.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/chronic_data_validator.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/buspass.admin.iml" afterPath="$PROJECT_DIR$/.idea/buspass.admin.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routing.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/tools/stop_points_finder_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/tools/stop_points_finder_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_csv_file.rb" afterPath="$PROJECT_DIR$/app/models/service_csv_file.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/locales/en.yml" afterPath="$PROJECT_DIR$/config/locales/en.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -68,7 +58,7 @@
       <file leaf-file-name="service_csv_file.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/service_csv_file.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="114" selection-start="1431" selection-end="1431" vertical-scroll-proportion="0.0">
+            <state line="64" column="48" selection-start="1998" selection-end="1998" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -77,8 +67,19 @@
       <file leaf-file-name="StopPointsController.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="153" column="0" selection-start="2633" selection-end="3662" vertical-scroll-proportion="0.8051948">
+            <state line="210" column="31" selection-start="5995" selection-end="5995" vertical-scroll-proportion="0.79901963">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="normal-layout.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,7 +87,7 @@
       <file leaf-file-name="webmap.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="56" selection-start="168" selection-end="168" vertical-scroll-proportion="0.0">
+            <state line="4" column="28" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -95,7 +96,7 @@
       <file leaf-file-name="routing.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="44" selection-start="906" selection-end="1191" vertical-scroll-proportion="0.0">
+            <state line="166" column="55" selection-start="5066" selection-end="5066" vertical-scroll-proportion="-23.234043">
               <folding />
             </state>
           </provider>
@@ -104,7 +105,7 @@
       <file leaf-file-name="PathFinderController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="330" column="94" selection-start="11193" selection-end="11193" vertical-scroll-proportion="-167.14285">
+            <state line="330" column="37" selection-start="11193" selection-end="11193" vertical-scroll-proportion="-167.14285">
               <folding />
             </state>
           </provider>
@@ -131,16 +132,7 @@
       <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="127" selection-start="1735" selection-end="1735" vertical-scroll-proportion="-12.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rescue.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/actionpack-3.2.7/lib/action_controller/metal/rescue.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="0" selection-start="1023" selection-end="1023" vertical-scroll-proportion="0.0">
+            <state line="79" column="98" selection-start="2623" selection-end="2623" vertical-scroll-proportion="-26.666666">
               <folding />
             </state>
           </provider>
@@ -168,7 +160,6 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
@@ -178,10 +169,11 @@
         <option value="$PROJECT_DIR$/lib/chronic_data_validator.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb" />
         <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/download.js.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/tools/stop_points_finder_controller.rb" />
-        <option value="$PROJECT_DIR$/app/models/service_csv_file.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
+        <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/models/service_csv_file.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
       </list>
     </option>
@@ -1731,7 +1723,11 @@
       <created>1346017266531</created>
       <updated>1346017266531</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Progress">
+      <created>1346112481075</created>
+      <updated>1346112481075</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="f1da8a85cd38eb36ea7a5705016c28887af74637" />
@@ -1783,7 +1779,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24722838" sideWeight="0.5768443" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1286031" sideWeight="0.493517" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32815966" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32150775" sideWeight="0.46515396" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32150775" sideWeight="0.46515396" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17098865" sideWeight="0.8713969" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23257698" sideWeight="0.67849225" order="0" side_tool="false" content_ui="combo" />
@@ -1864,13 +1860,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/activemodel-3.2.7/lib/active_model/errors.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="0" selection-start="2615" selection-end="2615" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/share/ruby-rvm/gems/ruby-1.9.3-p125@rails3.2/gems/activemodel-3.2.7/lib/active_model/validations.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="193" column="0" selection-start="6825" selection-end="6825" vertical-scroll-proportion="0.0">
@@ -1920,30 +1909,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/service_csv_file.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="114" selection-start="1431" selection-end="1431" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="127" selection-start="1735" selection-end="1735" vertical-scroll-proportion="-12.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="44" selection-start="906" selection-end="1191" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="330" column="94" selection-start="11193" selection-end="11193" vertical-scroll-proportion="-167.14285">
+        <state line="330" column="37" selection-start="11193" selection-end="11193" vertical-scroll-proportion="-167.14285">
           <folding />
         </state>
       </provider>
@@ -1962,16 +1930,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="56" selection-start="168" selection-end="168" vertical-scroll-proportion="0.0">
+        <state line="4" column="28" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/service_csv_file.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="48" selection-start="1998" selection-end="1998" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="98" selection-start="2623" selection-end="2623" vertical-scroll-proportion="-26.666666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="166" column="55" selection-start="5066" selection-end="5066" vertical-scroll-proportion="-23.234043">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="0" selection-start="2633" selection-end="3662" vertical-scroll-proportion="0.8051948">
+        <state line="210" column="31" selection-start="5995" selection-end="5995" vertical-scroll-proportion="0.79901963">
           <folding />
         </state>
       </provider>

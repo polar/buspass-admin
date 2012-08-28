@@ -161,9 +161,11 @@ BusPass.Route = OpenLayers.Class({
 
     createLineStringFromTo : function (from, to) {
         var points = [];
+        var inbetween = false;
         for(var i = 0; i < this.Links.length; i++) {
             var link = this.Links[i];
-            if (link.startWaypoint == from) {
+            if (inbetween || link.startWaypoint == from) {
+                inbetween = true;
                 var pts = link.getPoints();
                 // Avoid duplication with the start point in the next link..
                 for (var j = 0; j < pts.length-1; j++) {
@@ -376,6 +378,28 @@ BusPass.Route = OpenLayers.Class({
         wp.destroy();
     },
 
+    appendNewWaypoint : function (lonlat, lineString) {
+        if (this.Waypoints.length > 0) {
+            var last = this.getWaypoint("end");
+            var wp = this.newWaypoint({ lonlat : lonlat});
+            this.Waypoints.push(wp);
+            var link = new BusPass.Route.Link({
+                route : this,
+                startWaypoint : last,
+                endWaypoint : wp,
+                lineString : lineString
+            });
+            this.Links.push(link);
+            this._updateWaypointsState();
+            return wp;
+        } else {
+            var wp = this.newWaypoint({ lonlat : lonlat});
+            this.Waypoints.push(wp);
+            this._updateWaypointsState();
+            return wp;
+        }
+    },
+
     _updateWaypointsState : function () {
         // If we have a selected waypoint and we don't find it, we get rid of the current selection.
         var keepSelected = this.SelectedWaypoint === undefined;
@@ -506,13 +530,14 @@ BusPass.Route = OpenLayers.Class({
                     index = 0;
                     break;
                 case "end":
+                case "last":
                     index = this.Waypoints.length - 1;
                     break;
                 default:
                     index = id;
             }
             console.log("Selected Waypoint " + index);
-            if (id === undefined || isNaN(id)) {
+            if (id === undefined || isNaN(index)) {
                 this.SelectedWaypoint = undefined;
             } else {
                 this.SelectedWaypoint = this.Waypoints[index];
@@ -925,8 +950,8 @@ BusPass.Route.Waypoint = OpenLayers.Class({
      */
     resetGeometry : function () {
         if (this.lonlat) {
-            this.geometry.x = lonlat.lon;
-            this.geometry.y = lonlat.lat;
+            this.geometry.x = this.lonlat.lon;
+            this.geometry.y = this.lonlat.lat;
         }
     },
 
