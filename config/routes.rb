@@ -171,7 +171,11 @@ BuspassAdmin::Application.routes.draw do
 
     resource :tools, :controller => "masters/tools" do
       resource :pathfinder, :controller => "masters/tools/pathfinder", :only => [:show]
-      resource :stop_points_finder, :controller => "masters/tools/stop_points_finder", :only => [:show]
+      resource :stop_points_finder, :controller => "masters/tools/stop_points_finder", :only => [:show] do
+        member do
+          post :download
+        end
+      end
     end
 
     resource :home, :controller => "masters/home" do

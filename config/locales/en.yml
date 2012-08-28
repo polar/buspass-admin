@@ -3,3 +3,8 @@
 
 en:
   hello: "Hello world"
+
+en:
+  errors:
+    messages:
+      date: is not a valid date.

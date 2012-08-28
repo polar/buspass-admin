@@ -1,11 +1,12 @@
 <% content_for :head do %>
 
     <script type="text/javascript">
+      var ctrl;
         $(function() {
             <% if ! @isConsistent %>
                 $("#autoroute").addClass("active");
             <% end %>
-            var ctrl = new BusPass.StopPointsController();
+            ctrl = new BusPass.StopPointsController();
         });
     </script>
 

@@ -159,6 +159,28 @@ BusPass.Route = OpenLayers.Class({
         return lineString;
     },
 
+    createLineStringFromTo : function (from, to) {
+        var points = [];
+        for(var i = 0; i < this.Links.length; i++) {
+            var link = this.Links[i];
+            if (link.startWaypoint == from) {
+                var pts = link.getPoints();
+                // Avoid duplication with the start point in the next link..
+                for (var j = 0; j < pts.length-1; j++) {
+                    points.push(pts[j]);
+                }
+            }
+            if (link.endWaypoint == to) {
+                // Add the last endpoint
+                points.push(link.endWaypoint.geometry);
+                var geometry = new OpenLayers.Geometry.LineString(points);
+                var lineString = new OpenLayers.Feature.Vector(geometry);
+                return lineString;
+            }
+        }
+        throw "Bad Args";
+    },
+
     newWaypoint : function(options) {
         options = OpenLayers.Util.extend({}, options);
         options = OpenLayers.Util.extend(options, {
@@ -738,6 +760,10 @@ BusPass.Route.Link = OpenLayers.Class({
         this.points = this.lineString.geometry.components;
     },
 
+    getPoints : function () {
+        return this.lineString.geometry.components;
+    },
+
     reset : function () {
         if (this.lineString) {
             this.route.RouteLayer.removeFeatures(this.lineString);
@@ -884,9 +910,51 @@ BusPass.Route.Waypoint = OpenLayers.Class({
     geometry : null,
 
     setLonLat : function (lonlat) {
-        this.lonlat = lonlat;
+        this.lonlat  = lonlat.clone();
         this.geometry.x = lonlat.lon;
         this.geometry.y = lonlat.lat;
+    },
+
+    isLonLatSet : function () {
+        return this.lonlat !== undefined;
+    },
+
+    /**
+     * Effectively moves the Waypoint back to where it was. Certain controls (Drag) might move the waypoint
+     * Geometry. We reset to the last setLonLat();
+     */
+    resetGeometry : function () {
+        if (this.lonlat) {
+            this.geometry.x = lonlat.lon;
+            this.geometry.y = lonlat.lat;
+        }
+    },
+
+    /**
+     * Returns the LonLat location in the Map's projection according to the current Geometry..
+     *
+     * @return {OpenLayers.LonLat}
+     */
+    getLonLat : function () {
+        if (this.geometry) {
+            return new OpenLayers.LonLat(this.geometry.x, this.geometry.y);
+        }
+        return undefined;
+    },
+
+    hasLink : function () {
+        return this.backLink || this.forwardLink ;
+    },
+
+    /**
+     * Returns true if and only if the Waypoint has a geometry (point set) and it has
+     * the same location.
+     *
+     * @param lonlat
+     * @return {Boolean}
+     */
+    isCurrentLonLat : function (lonlat) {
+        return this.geometry && this.geometry.x == lonlat.lon && this.geometry.y == lonlat.lat;
     },
 
     /**
@@ -914,7 +982,7 @@ BusPass.Route.Waypoint = OpenLayers.Class({
      * Waypoint will not be drawn.
      */
     draw : function() {
-        if (this.lonlat !== undefined) {
+        if (this.geometry !== undefined) {
             // Delete old marker, if available. It's label may have changed.
             // We keep the same geometry.
             if (this.marker !== undefined) {
@@ -941,9 +1009,9 @@ BusPass.Route.Waypoint = OpenLayers.Class({
     destroy : function() {
         if (this.marker !== undefined) {
             this.route.MarkersLayer.removeFeatures(this.marker);
+            this.geometry = undefined;
             this.marker.destroy();
             this.marker = undefined;
-            this.lonlat = undefined;
             this.backLink = undefined;
             this.forwardLink = undefined;
         }

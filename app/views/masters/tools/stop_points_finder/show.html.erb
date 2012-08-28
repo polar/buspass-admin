@@ -35,12 +35,51 @@
           </span>
         <img id="route_waiting" src="/assets/yours/images/ajax-loader.gif" alt="waiting"/></div>
       <p></p>
+      <span>Route KML</span>
       <div id="copybox">
-        <input id="copybox_field" name="journey_pattern_timing_link[kml]" type="text"/>
+        <input id="copybox_field" name="kml" type="text"/>
       </div>
     </div>
     <div id="map" class="right"></div>
     <div style="clear:both"></div>
   </div>
+</div>
+<div class="content">
+    <%= form_for @csv_file, :url => download_master_tools_stop_points_finder_path(@master), :validate => true, :remote => false do |form| %>
+       <table class="table">
+         <thead>
+         <tr>
+           <th>Route Name</th>
+           <th>Route Code</th>
+           <th>Route Sort</th>
+         </tr>
+         </thead>
+         <tbody>
+         <tr>
+           <td><%= form.text_field :name %></td>
+           <td><%= form.text_field :code %></td>
+           <td><%= form.text_field :sort %></td>
+         </tr>
+         </tbody>
+       </table>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Direction</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><%= form.text_field :direction %></td>
+            <td><%= form.text_field :start_date %></td>
+            <td><%= form.text_field :end_date %></td>
+          </tr>
+          </tbody>
+        </table>
+        <%= form.hidden_field :kml, :id => "service_kml_field" %>
+        <%= form.submit "Download Service CSV File" %>
+    <% end %>
 
 </div>

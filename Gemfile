@@ -21,6 +21,8 @@ gem 'valid_email'
 # Proper dealings with timezone names for maps
 
 gem "timezone"
+gem "date_validator"
+gem "chronic"
 
 # The following gem is required to parse HTML using XPath.
 

@@ -10,6 +10,7 @@
 //= require sitemapstyler
 //= require rails.validations
 //= require flash
+//= require chronic_date_validator
 //= require_self
 
 $(function () {

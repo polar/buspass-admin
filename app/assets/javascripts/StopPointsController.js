@@ -57,6 +57,14 @@ BusPass.StopPoint = OpenLayers.Class({
         return this.Locked;
     },
 
+    /**
+     * Returns the current LonLat location of the StopPoint.
+     *
+     * @return {*}
+     */
+    getLonLat : function () {
+        return this.Waypoint.getLonLat();
+    },
 
     setWaypoint : function (wp) {
         this.Waypoint = wp;
@@ -118,6 +126,32 @@ BusPass.StopPointsController = OpenLayers.Class({
     backRoute : null,
 
     nameFinder : null,
+
+    parseKMLToFeatures : function (xmlString) {
+//        var parser = new DOMParser();
+//
+//        var xml = parser.parseFromString(xmlString, "text/xml");
+//        if (xml.documentElement.nodeName == "kml") {
+//            var kml = new OpenLayers.Format.KML({
+//                externalProjection : this.Map.displayProjection,
+//                internalProjection : this.Map.projection
+//            });
+//            var features = kml.read(xml);
+//            if (features) {
+//                this.Route.reset();
+//                this.StopPoints = [];
+//                for (var i = 0; i < features.length; i++) {
+//                    if (feature.fid.startsWith("sp_")) {
+//                        var sp = new BusPassStopPoint({name: features.attributes.Name}, lineString : )
+//                    }
+//                }
+//                console.log("parseKMLToFeatures: got features " + features.length);
+//            }
+//            this.RouteLayer.removeAllFeatures();
+//            this.RouteLayer.addFeatures(features);
+//            return features;
+//        }
+    },
 
 
     notice : function (message, type, fade) {
@@ -354,7 +388,7 @@ BusPass.StopPointsController = OpenLayers.Class({
                     if (wp !== undefined) {
                         if (wp.StopPoint && wp.StopPoint.Locked) {
                             // It's geometry has been moved. Restore its original position
-                            wp.updateLonLat(wp.lonlat);
+                            wp.resetGeometry();
                             wp.draw();
                             // ctrl.updateStopPointLocationUI(sp);
                             // Gets rid of error message for starting the drag.
@@ -417,6 +451,11 @@ BusPass.StopPointsController = OpenLayers.Class({
         $("#show_locations").click(function () {
             ctrl.show_locations();
         });
+
+        $("#copybox_field").change(function () {
+            ctrl.parseKMLToFeatures($(this).val());
+        });
+
         this.show_names();
 
         this.RouteApi = new BusPass.Route.Api({
@@ -502,24 +541,11 @@ BusPass.StopPointsController = OpenLayers.Class({
         this.Controls.click.activate();
     },
 
-    parseKMLToFeatures : function (xml) {
-        var kml = new OpenLayers.Format.KML({
-            externalProjection : this.Map.displayProjection,
-            internalProjection : this.Map.projection
-        });
-        var features = kml.read(xml);
-        return features;
-    },
-
     updateStopPointLocationUI : function (stop_point) {
         var ctrl = this;
 
-        if (stop_point.Waypoint.lonlat) {
-            if (this.Route.autoroute) {
-                ctrl.notice("Calculating Route");
-                $("#route_waiting").show();
-            }
-            var lonlat = stop_point.Waypoint.lonlat.clone();
+        var lonlat = stop_point.getLonLat();
+        if (lonlat) {
             lonlat.transform(this.Map.projection, this.Map.displayProjection);
             var sp_li = $(stop_point.viewElement);
             sp_li.find("[name='sp_location']").val(lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6));
@@ -528,6 +554,8 @@ BusPass.StopPointsController = OpenLayers.Class({
                     if (!stop_point.hasNameSetByUser) {
                        var name = ctrl.findNameReturn(json);
                        sp_li.find("[name='sp_name']").val(name);
+                       stop_point.name = name;
+                       ctrl.writeToCopyBox();
                     }
                 });
             }
@@ -648,6 +676,8 @@ BusPass.StopPointsController = OpenLayers.Class({
             $("#add_stoppoint").removeAttr("disabled");
             $(".add_waypoint").removeAttr("disabled");
             this.routeUpdated(this.Route);
+            // Stop points may have moved, need to get new names, etc.
+            this.updateUI();
             $("#drawlines").removeClass("active");
         } else if (!drawlines && turnon) {
             $("#add_stoppoint").attr("disabled", "disabled");
@@ -698,8 +728,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         console.log("updateWayPointLonlat(" + lonlat + ") = " + wp);
 
         // If the waypoint has a link and the location has changed.
-        if ((wp.backLink || wp.forwardLink ) && wp.lonlat === undefined ||
-            (wp.lonlat.lon != lonlat.lon || wp.lonlat.lat != lonlat.lat)) {
+        if (wp.hasLink() && !wp.isCurrentLonLat(lonlat)) {
             this.notice("Calculating route", "waiting");
         }
         wp.updateLonLat(lonlat);
@@ -709,7 +738,7 @@ BusPass.StopPointsController = OpenLayers.Class({
             if (next_stop_point !== undefined) {
                 // We ask the route, just in case the Waypoint got deleted.
                 var next = this.Route.getWaypoint(next_stop_point.Waypoint.position);
-                if (next !== undefined && !next.lonlat) {
+                if (next !== undefined && !next.isLonLatSet()) {
                     if (this.Route.selectWaypoint(next.position) === undefined) {
                         this.Controls.click.deactivate();
                     }
@@ -733,8 +762,17 @@ BusPass.StopPointsController = OpenLayers.Class({
 
     },
 
-    routeUpdated : function (route) {
+    routeUpdated : function () {
         this.updateUI();
+        this.writeToCopyBox();
+    },
+
+    writeToCopyBox : function () {
+        if (this.Route.isComplete()) {
+            var kml = this.toKML();
+            $("#copybox_field").val(kml);
+            $("#service_kml_field").val(kml);
+        }
     },
 
     toggleWaypointLock : function (stop_point, lock_button) {
@@ -753,7 +791,7 @@ BusPass.StopPointsController = OpenLayers.Class({
     inputUpdateStopPointLocation : function (stop_point, input_field) {
         var ctrl = this;
         if (stop_point.Locked) {
-            var lonlat = stop_point.Waypoint.lonlat.clone();
+            var lonlat = stop_point.getLonLat();
             lonlat.transform(ctrl.Map.projection, ctrl.Map.displayProjection);
             $(input_field).val(lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6));
             ctrl.notice("Cannot change location of locked stop", "error", true);
@@ -842,7 +880,7 @@ BusPass.StopPointsController = OpenLayers.Class({
                 addwp_button.attr("disabled", "disabled");
                 addwp_button.css("visibility", "hidden");
             }
-
+            this.updateStopPointLocationUI(sp);
         }
         if ($("#show_names").hasClass("active")) {
             this.show_names();
@@ -881,9 +919,9 @@ BusPass.StopPointsController = OpenLayers.Class({
         location[0].Controller = this;
         location.attr("type", "text");
         location.attr("name", "sp_location");
-        location.addClass("sp_location");
-        if (stop_point.Waypoint.lonlat) {
-            var lonlat = stop_point.Waypoint.lonlat.clone();
+        location.addClass("sp_location")
+        var lonlat = stop_point.getLonLat();
+        if (lonlat) {
             lonlat.transform(this.Map.projection, this.Map.displayProjection);
             location.val(lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6));
         }
@@ -986,6 +1024,40 @@ BusPass.StopPointsController = OpenLayers.Class({
             }
             return ans.display_name;
         }
+    },
+
+    toKML : function() {
+        var ctrl = this;
+        function stopPointKML (sp) {
+           var lonlat = new OpenLayers.LonLat(sp.Waypoint.geometry.x, sp.Waypoint.geometry.y);
+           lonlat.transform(ctrl.Map.projection, ctrl.Map.displayProjection);
+           return  "<Placemark id='sp_" + i + "'><Name>" + sp.name +
+                   "</Name><Point><coordinates>" + lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6) +
+                   "</coordinates></Point></Placemark>";
+        }
+        function lineStringKML(lineString) {
+            var kml = "<coordinates>";
+            var points = lineString.geometry.components;
+            for (var i = 0; i < points.length; i++) {
+                var lonlat = new OpenLayers.LonLat(points[i].x, points[i].y);
+                lonlat.transform(ctrl.Map.projection, ctrl.Map.displayProjection);
+                kml += lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6) + " ";
+            }
+            return kml + "</coordinates>";
+        }
+        function linkKML(i,lineString) {
+            return "<Placemark id='link_" + i + "'><LineString>" + lineStringKML(lineString) +
+                "</LineString></Placemark>"
+        }
+        var kml = "<kml xmlns='http://earth.google.com/kml/2.0'>";
+        for(var i = 0; i < this.StopPoints.length-1; i++) {
+            var sp = this.StopPoints[i];
+            var sp_next = this.StopPoints[i+1];
+            var lineString = this.Route.createLineStringFromTo(sp.Waypoint, sp_next.Waypoint);
+            kml += stopPointKML(sp) + linkKML(i, lineString);
+        }
+        kml += stopPointKML(this.StopPoints[this.StopPoints.length-1]);
+        return kml + "</kml>";
     },
 
     CLASS_NAME : "BusPass.StopPointsController"
