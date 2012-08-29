@@ -55,6 +55,8 @@ class JourneyPattern
     vehicle_journey.master
   end
 
+
+
   # We always calculate and save the locator box.
 
   # We only make the name unique so that we may update them by
@@ -148,7 +150,11 @@ class JourneyPattern
   # Names the JPTL with an index into this JourneyPattern.
   def get_journey_pattern_timing_link(position)
     name = "#{self.name} #{position}"
-    jptl = journey_pattern_timing_links.find(:name => name)
+    # This is a MongoMapper Association, I don't know why this doesn't work.
+    #jptl = journey_pattern_timing_links.where(:name => name).first
+    jptl= journey_pattern_timing_links.select {|j| j.name == name}.first
+    jptl.already_set = true if jptl
+
     jptl ||= JourneyPatternTimingLink.new(
         :name => name,
         :position => position)
@@ -199,12 +205,16 @@ class JourneyPattern
   end
 
   def copy_from(jp)
-    position = 0
     for jptl in jp.journey_pattern_timing_links do
-      njptl = self.get_journey_pattern_timing_link(position)
+      njptl = get_journey_pattern_timing_link(jptl.position)
       njptl.from = jptl.from
       njptl.to   = jptl.to
       njptl.view_path_coordinates = jptl.view_path_coordinates
+      if njptl.new?
+        journey_pattern_timing_links << njptl
+      else
+        njptl.save
+      end
     end
   end
 

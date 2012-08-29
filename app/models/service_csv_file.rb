@@ -52,9 +52,10 @@ class ServiceCSVFile
 
   def to_csv
     CSV.generate do |csv|
-      csv.add_row(["Route Name", code, sort])
+      csv.add_row(["Route Name", code, name, sort])
       csv.add_row(["Start Date", start_date.strftime("%Y-%m-%d")])
       csv.add_row(["End Date", end_date.strftime("%Y-%m-%d")])
+      csv.add_row(["Exception Dates"])
       csv.add_row(["Direction", direction])
       names = ["Stop Points", "Days", "Display Name"]
       locations = ["Locations","",""]

@@ -4,7 +4,7 @@
   <tr>
     <th>Start Time</th>
     <td><div id="started_at"><%=  @network.processing_completed_at ?
-                                          @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                          @network.processing_completed_at.strftime("#{@master.date_format} %H:%M %Z"):
                                           @network.processing_lock ? "Pending" : "Never"  %></div></td>
   </tr>
   <tr>
@@ -14,7 +14,7 @@
   <tr>
     <th>Complete Time</th>
     <td><div id="completed_at"><%= @network.processing_completed_at ?
-                                           @network.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                                           @network.processing_completed_at.strftime("#{@master.date_format} %H:%M %Z"):
                                            "" %></div></td>
   </tr>
   <tr>

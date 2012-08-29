@@ -38,6 +38,8 @@ class JourneyPatternTimingLink
 
   before_validation   :assign_lon_lat_locator_fields
 
+  attr_accessor :already_set
+
   def init_view_path_coordinates
     if view_path_coordinates == nil
       self.view_path_coordinates = { "LonLat" => [[0.0,0.0],[0.0,0.0]] }

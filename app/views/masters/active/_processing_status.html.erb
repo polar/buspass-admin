@@ -17,7 +17,7 @@
           <th>Run Base Time</th>
           <td>
             <div id="sim_time" class="sim_time"><%= @job.sim_time ?
-                                                            @job.sim_time.strftime("%m-%d-%Y %H:%M %Z") :
+                                                            @job.sim_time.strftime("#{@master.date_format} %H:%M %Z") :
                                                             "Pending" if @job %></div>
           </td>
         </tr>
@@ -33,7 +33,7 @@
           <th>Process Start Time</th>
           <td>
             <div id="started_at" class="started_at"><%= @job.processing_completed_at ?
-                                                                @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z") :
+                                                                @job.processing_completed_at.strftime("#{@master.date_format} %H:%M %Z") :
                                                                 "Pending" if @job %></div>
           </td>
         </tr>
@@ -47,7 +47,7 @@
         <th>Process Complete Time</th>
         <td>
           <div id="completed_at" class="completed_at"><%= @job.processing_completed_at ?
-                                                                  @job.processing_completed_at.strftime("%m-%d-%Y %H:%M %Z") :
+                                                                  @job.processing_completed_at.strftime("#{@master.date_format} %H:%M %Z") :
                                                                   "" if @job %></div>
         </td>
 

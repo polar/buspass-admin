@@ -22,7 +22,7 @@
             <td>
               <div class="started_at">
                 <%= network.copy_completed_at ?
-                      network.copy_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                      network.copy_completed_at.strftime("#{@master.date_format} %H:%M %Z"):
                       network.copy_lock ? "Pending" : "Never"  %>
               </div>
             </td>
@@ -34,7 +34,7 @@
             <td>
               <div class="completed_at">
                 <%= network.copy_completed_at ?
-                      network.copy_completed_at.strftime("%m-%d-%Y %H:%M %Z"):
+                      network.copy_completed_at.strftime("#{@master.date_format} %H:%M %Z"):
                       "" %>
               </div>
             </td>

@@ -10,14 +10,16 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Days</th>
+            <th>Exception Dates</th>
             <th>Vehicle Journeys</th>
           </tr></thead>
           <tbody><tr>
             <td><%=  link_to r.code, master_deployment_network_route_path(@master, @deployment, @network, r)  %></td>
             <!--- TODO: Internatialize Time -->
-            <td><%=  s.operating_period_start_date.strftime("%m-%d-%Y") %></td>
-            <td><%=  s.operating_period_end_date.strftime("%m-%d-%Y") %></td>
+            <td><%=  s.operating_period_start_date.strftime(@master.date_format) %></td>
+            <td><%=  s.operating_period_end_date.strftime(@master.date_format) %></td>
             <td><%=  s.day_class %></td>
+            <td><%=  s.operating_period_exception_dates.map {|d| "<span>#{d.strftime(@master.date_format)}</span>"}.join(" ") %></td>
             <td><%=  s.vehicle_journeys.count %></td>
           </tr></tbody>
         </table>

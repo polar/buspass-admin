@@ -15,6 +15,7 @@ class Service
 
   key :operating_period_start_date, Date
   key :operating_period_end_date,   Date
+  key :operating_period_exception_dates, Array
 
   key :monday,    Boolean
   key :tuesday,   Boolean
@@ -101,10 +102,18 @@ class Service
   validates_presence_of :deployment
   validates_presence_of :route
 
-  def self.find_or_create_by_route(route, direction, designator, start_date, end_date)
+  def self.find_or_create_by_route(route, direction, designator, start_date, end_date, exception_dates)
     sd = start_date.strftime("%Y-%m-%d")
     ed = end_date.strftime("%Y-%m-%d")
     name = "Route #{route.code} #{designator} #{direction} #{sd} to #{ed}"
+
+    if ! exception_dates.empty?
+      eds = exception_dates.map {|d| d.strftime("%Y-%m-%d")}.join(" ")
+      name += " X (#{eds})"
+    else
+      exception_dates = []
+    end
+
     #puts "Service query"
     s = Service.first(:network_id => route.network.id, :name => name)
     #puts s ? "Found" : "creating......"
@@ -118,6 +127,7 @@ class Service
                       :name => name,
                       :operating_period_start_date => start_date,
                       :operating_period_end_date => end_date,
+                      :operating_period_exception_dates => exception_dates,
                       :day_class => designator,
                       :direction => direction,
                       :route => route)
@@ -185,13 +195,14 @@ class Service
     }
   end
 
-  def intToDayClass(x)
+  def intToDayClass(dayClassInt)
     map = "MTWRFSN"
     res = ""
-    while(x > 0)
-      res << map[i] if x%2 == 1
+    i = 0
+    while(dayClassInt > 0)
+      res << map[i] if dayClassInt%2 == 1
       i += 1
-      x = x/2
+      dayClassInt = dayClassInt/2
     end
     res
   end

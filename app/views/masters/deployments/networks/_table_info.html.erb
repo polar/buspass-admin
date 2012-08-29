@@ -28,7 +28,7 @@
   <tr>
     <th>Combined Service Period</th>
     <td>
-      <%= dates = @network.service_dates; "#{dates[0].strftime("%m-%d-%Y")} to #{dates[1].strftime("%m-%d-%Y")}" if dates; %>
+      <%= dates = @network.service_dates; "#{dates[0].strftime(@master.date_format)} to #{dates[1].strftime(@master.date_format)}" if dates; %>
     </td>
   </tr>
 

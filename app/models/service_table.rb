@@ -99,14 +99,14 @@ class ServiceTable
     }
   end
 
-  def self.intToDayClass(x)
+  def self.intToDayClass(dayClassInt)
     map = "MTWRFSN"
     res = ""
     i = 0
-    while(x > 0)
-      res << map[i] if x%2 == 1
+    while(dayClassInt > 0)
+      res << map[i] if dayClassInt%2 == 1
       i += 1
-      x = x/2
+      dayClassInt = dayClassInt/2
     end
     return {"MTWRF" => "K", "SN" => "E", "MTWRFSN" => "D"}[res] || res
   end
@@ -144,7 +144,7 @@ class ServiceTable
   end
 
   def self.createStopPoint(stop_name, latlonliteral)
-    lonlat = self.normalizeCoordinates(latlonliteral.split(",").take(2).map {|l| l.to_f}.reverse())
+    lonlat = self.normalizeCoordinates(latlonliteral.split(",").take(2).map {|l| l.to_f})
 
     location = Location.new( :name => stop_name, :coordinates => { "LonLat" => lonlat } )
 
@@ -168,29 +168,74 @@ class ServiceTable
     Route.delete_all
   end
 
-  # Sometimes we have times out of range. 25:33
+  #
+  # 1:23
+  # 12:12
+  # 23:59
+  # 24:00  - next day
+  # ~12:00  - noon yesterday
+  # 1:23 am
+  # 12:33 PM
+  # 1;34 *  - next morning
+  # ~ 23:44 - yesterday at 11:44 PM
+  # 12:33 PM * - next dat at 33 minutes past noon.
+  #
   def self.parseTime(timeliteral)
+    h = 0
+    m = 0
     begin
       if timeliteral.is_a? String
-        if (timeliteral.index(':') != nil)
-          h,m = timeliteral.split(':').map {|n| n.to_i}
-        elsif (timeliteral.index('.') != nil)
-          h,m = timeliteral.split('.').map {|n| n.to_i}
+
+        # AM/PM Time
+        match = /^\s*(~?)(0?0|0?1|0?2|0?3|0?4|0?5|0?6|0?7|0?8|0?9|10|11||12)[\:\.]([0-5][0-9])(?::[0-5][0-9])?\s*(am|pm|AM|PM)\s*(\*?)/.match(timeliteral)
+        if (match)
+          h = match[2].to_i
+          m = match[3].to_i
+          if /(am|AM)/ =~ match[4] && h == 12
+            h = 0
+          end
+          if /(pm|PM)/ =~ match[4] && h != 12
+            h = h + 12
+          end
+          if (match[1] == "~" && match[5] == "*")
+            raise "Bad Time Format, #{timeliteral} cannot have both ~ and *"
+          end
+          if (match[1] == "~")#negative time
+            h = h - 24
+          end
+          if (match[5] == "*") # next day
+            h = h + 24
+          end
         else
-          raise ProcessingError.new("Time Format Error")
+          match = /^\s*(~?)([0-9]+)[\:\.]([0-5][0-9])(?::[0-5][0-9])?\s*(\*?)/.match(timeliteral)
+          if (match)
+            h = match[2].to_i
+            m = match[3].to_i
+            if (match[1] == "~" && match[5] == "*")
+              raise "Bad Time Format, #{timeliteral} cannot have both ~ and *"
+            end
+            if (match[1] == "~")#negative time
+              h = h - 24
+            end
+            if (match[5] == "*") # next day
+              h = h + 24
+            end
+          else
+            raise "Bad Time Format on #{timeliteral}"
+          end
         end
       elsif timeliteral.is_a? Float
         h,m = sprintf("%0.2f",timeliteral).split('.').map {|n| n.to_i}
       else
-        raise ProcessingError.new("Time Format Error")
+        raise "Bad Time Format on #{timeliteral}"
       end
       if (m < 0 || m > 59)
-        raise ProcessingError.new("Time Format Error")
+        raise "Bad Time Format on #{timeliteral}"
       end
       # works even if hours is negative.  -1.23 means 11:23pm the previous day.
       time = Time.parse("0:00") + h.hours + m.minutes
-    rescue
-      raise ProcessingError.new("Invalid Time Error at 111 '#{timeliteral}' h=#{h} m=#{m}")
+    rescue Exception => boom
+      raise ProcessingError.new("#{boom}")
     end
   end
 
@@ -277,14 +322,24 @@ class ServiceTable
     direction            = nil
     start_date           = nil
     end_date             = nil
+    exception_dates      = nil
     stop_point_names     = nil
     stop_point_locations = nil
 
     direction_stage            = nil
     start_date_stage           = nil
     end_date_stage             = nil
+    exception_dates_stage      = nil
     stop_point_names_stage     = nil
     stop_point_locations_stage = nil
+
+    indexNOTE = 0
+    indexKML = 0
+    defaultJourneyPattern = nil
+    defaultKML = nil
+
+    vehicle_journey = nil
+    journey_pattern = nil
 
     #
     # Starting reading
@@ -306,13 +361,18 @@ class ServiceTable
         next
       end
       if cols[0] == "Start Date"
-        start_date_stage = Date.strptime(cols[1], "%m/%d/%Y").to_time
+        start_date_stage = Chronic::parse(cols[1])
         start_date = nil
         next
       end
       if cols[0] == "End Date"
-        end_date_stage = Date.strptime(cols[1], "%m/%d/%Y").to_time
+        end_date_stage = Chronic::parse(cols[1])
         end_date = nil
+        next
+      end
+      if cols[0] == "Exceptions Dates"
+        exception_dates_stage = cols.drop(1).map { |t| Chronic::parse(t) }
+        exception_dates = nil
         next
       end
       if cols[0] == "Route Name"
@@ -381,20 +441,28 @@ class ServiceTable
         if  stop_point_names[n].downcase != "note"
           progress.error "#{table_file}:#{file_line}: Stop points must end with 'NOTE'"
           raise ProcessingError.new("cannot continue with this file -- stop points must end with 'NOTE'.")
-        elsif (stop_point_names[n+1])
+        else
+          indexNOTE = n
+          if (stop_point_names[n+1])
            begin
              indexKML = n+1
              defaultKML = stop_point_names[n+1]
              defaultJourneyPattern = JourneyPattern.new()
+             progress.log "Parsing Default KML"
              defaultJourneyPattern.parse_kml(defaultKML)
+             progress.log "Parsed Default Route with #{defaultJourneyPattern.journey_pattern_timing_links.count} paths."
+             defaultJourneyPattern.journey_pattern_timing_links.each do |jptl|
+               progress.log "JPTL #{jptl.position}: #{jptl.view_path_coordinates.inspect}"
+             end
            rescue Exception => boom2
              progress.error "#{table_file}:#{file_line}: KML Parse error after 'NOTE'"
              raise ProcessingError.new("cannot continue with this file -- KML parse error after 'NOTE'.")
            end
-         else
+          else
            defaultKML = nil
            defaultJourneyPattern = nil
-         end
+          end
+        end
       end
       if stop_point_names == nil || stop_point_locations == nil || direction == nil
         progress.error "#{table_file}:#{file_line}: Need to have the 'Stop Points', 'Locations', and 'Direction' lines before processing routes. Processing of file stopped."
@@ -403,6 +471,16 @@ class ServiceTable
       if start_date == nil || end_date == nil
         progress.error "#{table_file}:#{file_line}: Need to have 'Start Date' and 'End Date' lines. Processing of file stopped."
         raise ProcessingError.new("cannot continue with this file -- needs start date and end date.")
+      end
+      if exception_dates_stage != nil
+        exception_dates = exception_dates_stage
+        exception_dates_stage = nil
+        exception_dates.each do |d|
+          if d < start_date || end_date > d
+            progress.error "#{table_file}:#{file_line}: All Exception Dates must be between 'Start Date' and 'End Date'. Processing of file stopped."
+            raise ProcessingError.new("cannot continue with this file -- exception date out of start end date range.")
+          end
+        end
       end
       begin
         # If we catch a ProcessingError in here, we just ignore that VehicleJourney.
@@ -426,7 +504,7 @@ class ServiceTable
         # Service is persistent by all of the following arguments.
         # It always has the same stop points
         service = Service.find_or_create_by_route(route,
-                                                  direction, day_class, start_date, end_date)
+                                                  direction, day_class, start_date, end_date, exception_dates)
 
         if service.route.nil?
           progress.error "#{table_file}:#{file_line}: Service is nil #{service.name} Route #{route.name}"
@@ -441,7 +519,7 @@ class ServiceTable
           service.csv_filename         = table_file
           service.stop_points          = []
           i = 0
-          while i < stop_point_names.length && stop_point_names[i].downcase != "note" do
+          while i < stop_point_names.length && i < indexNOTE do
             service.stop_points << self.createStopPoint(stop_point_names[i], stop_point_locations[i])
             i += 1
           end
@@ -477,8 +555,7 @@ class ServiceTable
 
         # parse times and exit row if one is invalid
         parsed_times = []
-        for i in 0..stop_point_names.size-1 do
-          break if stop_point_names[i].downcase == "note"
+        for i in 0..indexNOTE-1 do
           parsed_times << ((times[i] && !times[i].strip.blank?) ? parseTime(times[i]) : nil)
         end
 
@@ -489,7 +566,7 @@ class ServiceTable
         i = 0
         vehicle_journey = nil
         while i < stop_point_names.size
-          if stop_point_names[i].downcase == "note"
+          if i == indexNOTE
             # We've got the note, regardless of extra columns, we end here.
             vehicle_journey.note = times[i]
             break
@@ -530,54 +607,51 @@ class ServiceTable
 
               if times[indexKML]
                 begin
+                  progress.log "Parsing KML"
                   journey_pattern.parse_kml(times[indexKML])
+                  progress.log "Parsed Route with #{journey_pattern.journey_pattern_timing_links.count} paths"
                 rescue Exception => boom3
                   progress.error "#{table_file}:#{file_line}: KML Parse error after 'NOTE'"
                   raise ProcessingError.new("KML parse error for special route")
                 end
               elsif defaultJourneyPattern
+                progress.log "Using Default Journey Pattern"
                 journey_pattern.copy_from(defaultJourneyPattern)
+                #journey_pattern.journey_pattern_timing_links.each do |jptl|
+                #  progress.log "JPTL #{jptl.position}: #{jptl.name} #{jptl.new?}"
+                #  progress.log "JPTL #{jptl.position}: #{jptl.view_path_coordinates}"
+                #end
+              else
+                progress.log "Figuring route dynamically"
               end
 
               # Our starting StopPoint
-              stop                                         = createStopPoint(stop_name, stop_point_locations[i])
+              stop = createStopPoint(stop_name, stop_point_locations[i])
 
               # Onto the rest
-              last_time                                    = start_time
-              last_stop                                    = stop
+              last_time = start_time
+              last_stop = stop
             else
               # If there is a time in this column (i), then we have a link from the
               # last location with a time.
-              stop      = createStopPoint(stop_name, stop_point_locations[i])
+              stop = createStopPoint(stop_name, stop_point_locations[i])
 
               # Create or Get the Link.
-              jptl      = journey_pattern.get_journey_pattern_timing_link(position)
-              if jptl.from
-                if ! jptl.from.same?(last_stop)
-                  progress.error "#{table_file}:#{file_line}: KML inconsistency with timing link"
-                  raise ProcessingError.new("KML inconsistency with timing link")
-                end
-              else
-                jptl.from = last_stop
-              end
-              if jptl.to
-                if ! jptl.to.same?(stop)
-                  progress.error "#{table_file}:#{file_line}: KML inconsistency with timing link"
-                  raise ProcessingError.new("KML inconsistency with timing link")
-                end
-              else
-                jptl.to = stop
-              end
+              jptl = journey_pattern.get_journey_pattern_timing_link(position)
+              #progress.log "JPTL #{jptl.position}: #{jptl.name} #{jptl.already_set}"
+              #progress.log "JPTL #{position} of #{journey_pattern.journey_pattern_timing_links.count}: #{jptl.view_path_coordinates.inspect}"
 
               current_time = parsed_times[i]
               # time is stored in minutes the link takes to travel
-              jptl.time    = (current_time-last_time)/60
+              jptl.time = (current_time-last_time)/60
 
               if jptl.time < 0
                 jptl.time_issue = "#{table_file}:#{file_line}: Time issue #{current_time} is before the time of last JPTL #{last_time}"
               end
 
-              if ! jptl.view_path_coordinates
+              if ! jptl.already_set
+                jptl.from = last_stop
+                jptl.to   = stop
                 # This is the initial path. May have to be modified,
                 # which is why the JPTLs have persistent names.
                 jptl.google_uri = constructGoogleMapURI(jptl.from.location, jptl.to.location)
@@ -594,13 +668,19 @@ class ServiceTable
                   progress.log "Path Issue #{getGeoDistance(cs[cs.length-2], cs.last)}"
                   jptl.path_issue = "#{table_file}:#{file_line}: Unconnected endpoints"
                 end
+                journey_pattern.journey_pattern_timing_links << jptl
+              else # This was copied from default or parsed. Just check.
+                if ! jptl.from.same?(last_stop)
+                  progress.error "#{table_file}:#{file_line}: KML inconsistency with timing link"
+                  raise ProcessingError.new("KML inconsistency with timing link")
+                end
+                if ! jptl.to.same?(stop)
+                  progress.error "#{table_file}:#{file_line}: KML inconsistency with timing link"
+                  raise ProcessingError.new("KML inconsistency with timing link")
+                end
+                jptl.save # Not sure this is necessary for MongoMapper.
               end
 
-
-              # Add and output to "fix it" file.
-              #puts "Adding JPTL #{position}"
-              journey_pattern.journey_pattern_timing_links << jptl
-              #puts "Done JPTL"
               # Put this out in the file that will get the URIs updated.
               out << [service.name,
                       journey_pattern.name,
