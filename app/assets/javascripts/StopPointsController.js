@@ -286,8 +286,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         var map = new OpenLayers.Map ("map", {
             controls: [
                 new OpenLayers.Control.Navigation(),
-                new OpenLayers.Control.PanZoomBar(),
-                new OpenLayers.Control.Attribution()
+                new OpenLayers.Control.PanZoomBar()
             ],
             layers : [new OpenLayers.Layer.OSM.Mapnik("Mapnik")],
             maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
@@ -501,6 +500,8 @@ BusPass.StopPointsController = OpenLayers.Class({
 
         $("#copybox_field").change(function () {
             ctrl.initializeFromKMLString($(this).val());
+            // By inserting new elements we may have moved the map
+            $("#map").height($("#navigation").height());
         });
 
         $("#refresh_kml").click(function () {
@@ -619,8 +620,9 @@ BusPass.StopPointsController = OpenLayers.Class({
                         this.appendNewStopPoint(name, lonlat, lineString);
                         i += 1;
                     }
-                    this.Route.draw();
+                    // We update the UI first. That selects the numbered markers to draw on the map.
                     this.updateUI();
+                    this.Route.draw();
                     this.Route.selectWaypoint();
                     console.log("parseKMLToFeatures: got features " + features.length);
                 } else {
@@ -1139,6 +1141,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         name.addClass("sp_name");
         name.val(stop_point.name);
         name.change(function () {
+            this.StopPoint.name = $(this).val();
             this.StopPoint.hasNameSetByUser = true;
         });
 
@@ -1173,6 +1176,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         lock_button.attr("type", "button");
         lock_button.bind("click", function () {
             ctrl.toggleWaypointLock(stop_point, this);
+            ctrl.updateUI();
         });
         lock_button.attr("name", "via_lock_image");
         lock_button.addClass("via_lock_image");
@@ -1235,7 +1239,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         function stopPointKML (sp) {
            var lonlat = new OpenLayers.LonLat(sp.Waypoint.geometry.x, sp.Waypoint.geometry.y);
            lonlat.transform(ctrl.Map.projection, ctrl.Map.displayProjection);
-           return  "<Placemark id='sp_" + i + "'><name>" + "sp_" + i + ":" + sp.name +
+           return  "<Placemark id='sp_" + i + "'><name>" + "sp_" + i + ":" + sp.name.htmlEscape() +
                    "</name><Point><coordinates>" + lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6) +
                    "</coordinates></Point></Placemark>";
         }

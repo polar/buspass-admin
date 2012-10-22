@@ -50,8 +50,7 @@
 }
 #map {
   height:320px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   background-color:#EEE;
   border-bottom: 1px solid #DDD;
   border-top: 1px solid #DDD;

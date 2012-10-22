@@ -86,13 +86,29 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
+    stoppointsfinder = site.pages.create!(
+        :slug              => "journey_path_finder",
+        :label             => "Journey Path Finder",
+        :parent            => tools,
+        :layout            => map_layout,
+        :is_protected      => true,
+        :controller_path   => "/masters/:master_id/tools/stop_points_finder",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:masters/tools/stop_points_finder/show }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
     pathfinder = site.pages.create!(
-        :slug => "pathfinder",
-        :label => "Path Finder",
-        :parent => tools,
-        :layout => map_layout,
-        :is_protected => true,
-        :controller_path => "/masters/:master_id/tools/pathfinder",
+        :slug              => "pathfinder",
+        :label             => "Timing Link Path Finder",
+        :parent            => tools,
+        :layout            => map_layout,
+        :is_protected      => true,
+        :controller_path   => "/masters/:master_id/tools/pathfinder",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:render:masters/tools/pathfinder/show }}"
@@ -208,6 +224,14 @@ of the layout regardless of where it appears here.
                                    :identifier => "left",
                                    :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
+
+    pages_admin = site.pages.create!(
+        :slug              => "pages",
+        :label             => "Pages Admin",
+        :layout            => normal_layout,
+        :parent            => root,
+        :is_protected      => true,
+        :controller_path   => "/cms-admin/sites?master_id=:master_id")
 
     deployment_template = site.pages.create!(
         :slug => "deployment-template",

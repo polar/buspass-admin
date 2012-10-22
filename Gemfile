@@ -111,6 +111,7 @@ group :test do
   gem "cucumber-rails", ">= 1.2.1"
   gem "capybara", ">= 1.1.2"
   gem "launchy", ">= 2.0.5"
+  gem "debugger" unless ENV["RM_INFO"]
 end
 
 #
@@ -118,9 +119,7 @@ end
 #
 group :development do
   gem "rspec-rails", ">= 2.8.1"
-  gem 'linecache19', "0.5.13"
-  gem 'ruby-debug-base19x', '0.11.30.pre10'
-  gem 'ruby-debug-ide'
+  gem "debugger"  unless ENV["RM_INFO"]
 end
 
 #

@@ -169,6 +169,8 @@ class ServiceTable
   end
 
   #
+  # 1.3
+  # 1.30
   # 1:23
   # 12:12
   # 23:59
@@ -176,7 +178,7 @@ class ServiceTable
   # ~12:00  - noon yesterday
   # 1:23 am
   # 12:33 PM
-  # 1;34 *  - next morning
+  # 1:34 *  - next morning
   # ~ 23:44 - yesterday at 11:44 PM
   # 12:33 PM * - next dat at 33 minutes past noon.
   #
@@ -207,7 +209,7 @@ class ServiceTable
             h = h + 24
           end
         else
-          match = /^\s*(~?)([0-9]+)[\:\.]([0-5][0-9])(?::[0-5][0-9])?\s*(\*?)/.match(timeliteral)
+          match = /^\s*(~?)([0-9]+)[\:\.]([0-5][0-9]?)(?::[0-5][0-9])?\s*(\*?)/.match(timeliteral)
           if (match)
             h = match[2].to_i
             m = match[3].to_i
@@ -370,8 +372,10 @@ class ServiceTable
         end_date = nil
         next
       end
-      if cols[0] == "Exceptions Dates"
-        exception_dates_stage = cols.drop(1).map { |t| Chronic::parse(t) }
+      if cols[0] == "Exception Dates"
+        # There may be empty columns or ones that are not dates.
+        xs = cols.drop(1).map { |t| t && !t.blank? ? Chronic::parse(t) : nil }
+        exception_dates_stage = xs.select { |t| !t.nil? }
         exception_dates = nil
         next
       end
@@ -473,6 +477,7 @@ class ServiceTable
         raise ProcessingError.new("cannot continue with this file -- needs start date and end date.")
       end
       if exception_dates_stage != nil
+        progress.log("There are #{exception_dates_stage.size} Exceptions through #{start_date} and #{end_date}.")
         exception_dates = exception_dates_stage
         exception_dates_stage = nil
         exception_dates.each do |d|
