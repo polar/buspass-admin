@@ -347,17 +347,17 @@ BusPass.Route = OpenLayers.Class({
         if (wp == this.SelectedWaypoint) {
             this.SelectedWaypoint = undefined;
         }
+        console.log("RemoveWaypoint wp " + index + " of " + this.Waypoints.length + "/" + this.Links.length + " at " + wp.backLink + " forward " + wp.forwardLink);
         this.Waypoints.splice(index, 1);
         this._updateWaypointsState();
-        console.log("RemoveWaypoint wp at " + wp.backLink + " forward " + wp.forwardLink);
         if (wp.backLink && wp.forwardLink) {
             var link1 = this.Links[index - 1];
             if (wp.backLink != link1) {
-                console.log("RemoveWaypoint : inconsistent backLinke");
+                console.log("RemoveWaypoint : inconsistent back link");
             }
             var link2 = this.Links[index];
             if (wp.forwardLink != link2) {
-                console.log("RemoveWaypoint : inconsistent forwardLink");
+                console.log("RemoveWaypoint : inconsistent forward link");
             }
             var link = this.joinLinksToLink(link1, link2);
             this.Links.splice(index - 1, 2, link);
@@ -367,13 +367,18 @@ BusPass.Route = OpenLayers.Class({
                 link.reroute();
             }
         } else {
+            // Destroying the first or last Waypoint.
             if (wp.backLink) {
+                // This is the last Waypoint, remove last link.
                 wp.backLink.destroy();
-            }
-            if (wp.forwardLink) {
+                this.Links.splice(index-1, 1);
+            }  else  if (wp.forwardLink) {
+                // This is the first Waypoint, remove first link.
                 wp.forwardLink.destroy();
+                this.Links.splice(0,1);
+            } else {
+                alert("Bad Waypoint delete");
             }
-            this.Links.splice(index, 1);
         }
         wp.destroy();
     },
@@ -475,6 +480,7 @@ BusPass.Route = OpenLayers.Class({
             }
             link.lineString = new OpenLayers.Feature.Vector(
                 new OpenLayers.Geometry.LineString(points));
+            link.connectEndpoints();
             link.points = link.lineString.geometry.components;
             collected += points.length;
         }
@@ -655,6 +661,35 @@ BusPass.Route = OpenLayers.Class({
         this.triggerRouteUpdated();
     },
 
+    reverse : function() {
+        this.Links = this.Links.reverse();
+        this.Waypoints = this.Waypoints.reverse();
+        for(var i = 0; i < this.Links.length; i++) {
+            this.Links[i].reverse();
+        }
+        if (this.Waypoints[0]) {
+            this.Waypoints[0].type = "start";
+            this.Waypoints[0].backLink = null;
+            this.Waypoints[this.Waypoints.length - 1].forwardLink = null;
+        }
+        if (this.Waypoints.length > 1) {
+            this.Waypoints[this.Waypoints.length-1].type = "end";
+        }
+        for(var i = 0; i < this.Waypoints.length; i++) {
+            this.Waypoints[i].position = i;
+        }
+    },
+
+    /**
+     * This function may be used after a modify control may have deleted some
+     * geometry components that we need to keep next to the way points.
+     */
+    connectLinkEndpoints : function () {
+        for(var i = 0; i < this.Links.length; i++) {
+            this.Links[i].connectEndpoints();
+        }
+    },
+
     CLASS_NAME : "BusPass.Route"
 });
 
@@ -710,6 +745,22 @@ BusPass.Route.Link = OpenLayers.Class({
                 this.connectEndpoints();
                 this.draw();
             }
+        }
+    },
+
+    reverse : function() {
+        var x = this.startWaypoint;
+        this.startWaypoint = this.endWaypoint;
+        this.endWaypoint = x;
+        if (this.startWaypoint) {
+            this.startWaypoint.forwardLink = this;
+        }
+        if (this.endWaypoint) {
+            this.endWaypoint.backLink = this;
+        }
+        if (this.lineString) {
+            this.lineString.geometry.components = this.lineString.geometry.components.reverse();
+            this.points = this.lineString.geometry.components;
         }
     },
 
@@ -804,7 +855,13 @@ BusPass.Route.Link = OpenLayers.Class({
     launchGetRoute : function (returnCallback, errorCallback) {
         var self = this;
         if (!self.startWaypoint || !self.endWaypoint) {
-            alert("bad call on BusPass.Route.Link.launchGetRoute");
+            var name1 = self.startWaypoint ? self.startWaypoint.name : "no start";
+            var name2 = self.endWaypoint ? self.endWaypoint.name : "no end";
+            alert("bad call on BusPass.Route.Link.launchGetRoute " + name1 + " -> " + name2);
+            if (errorCallback !== undefined) {
+                errorCallback(self);
+            }
+            return;
         }
         this.RoutingError = undefined;
         if (this.points) {

@@ -6,21 +6,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/xxx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/buspass.admin.iml" afterPath="$PROJECT_DIR$/.idea/buspass.admin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/StopPointModifyFeatureControl.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointModifyFeatureControl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_table.rb" afterPath="$PROJECT_DIR$/app/models/service_table.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/boot.rb" afterPath="$PROJECT_DIR$/config/boot.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/environment.rb" afterPath="$PROJECT_DIR$/config/environment.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routing.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/master.rb" afterPath="$PROJECT_DIR$/app/models/master.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -52,17 +44,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="master_admin_template_pages.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/master_admin_template_pages.rb">
+      <file leaf-file-name="StopPointsController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="233" column="68" selection-start="9809" selection-end="9809" vertical-scroll-proportion="-10.0">
+            <state line="1029" column="60" selection-start="36139" selection-end="36139" vertical-scroll-proportion="-5.44">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stop_points_finder.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/tools/stop_points_finder.js">
+      <file leaf-file-name="PathFinderController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="526" column="6" selection-start="18602" selection-end="18602" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StopPointModifyFeatureControl.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointModifyFeatureControl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="60" selection-start="770" selection-end="770" vertical-scroll-proportion="36.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ModifyFeature.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/Control/ModifyFeature.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding>
@@ -72,35 +82,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StopPointsController.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
+      <file leaf-file-name="Control.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/Control.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="622" column="100" selection-start="21230" selection-end="21230" vertical-scroll-proportion="0.7537037">
-              <folding />
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="xxx" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/xxx">
+      <file leaf-file-name="Class.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/BaseTypes/Class.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="8337" selection-start="0" selection-end="8360" vertical-scroll-proportion="-0.0">
-              <folding />
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webmap.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="32" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pathfinder.css.scss" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/tools/pathfinder.css.scss">
+      <file leaf-file-name="SelectAllFeature.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/SelectAllFeature.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -108,37 +113,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stop_points_finder.css.scss" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss">
+      <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="20" selection-start="768" selection-end="788" vertical-scroll-proportion="0.0">
+            <state line="31" column="52" selection-start="1329" selection-end="1329" vertical-scroll-proportion="-11.875">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service_table.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
+      <file leaf-file-name="routing.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="214" column="55" selection-start="5396" selection-end="5396" vertical-scroll-proportion="0.0">
+            <state line="311" column="4" selection-start="10227" selection-end="10227" vertical-scroll-proportion="3.6">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="journey_pattern_timing_links.css.scss" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links.css.scss">
+      <file leaf-file-name="xxx" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/xxx">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="52" column="10" selection-start="779" selection-end="779" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PathFinderController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="155" column="19" selection-start="4659" selection-end="4663" vertical-scroll-proportion="-10.4">
+            <state line="0" column="25" selection-start="0" selection-end="8360" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -161,24 +157,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_file_download_link.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/networks/plan/_poll.html.erb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks/plan_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/municipalities/networks_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/municipalities/simulate/_map_script.html.erb" />
-        <option value="$USER_HOME$/.rvm/gems/ruby-1.9.3-p194@global/bin/rake" />
         <option value="$PROJECT_DIR$/config/environment.rb" />
         <option value="$PROJECT_DIR$/config/boot.rb" />
         <option value="$PROJECT_DIR$/Gemfile" />
@@ -188,6 +170,12 @@
         <option value="$PROJECT_DIR$/app/models/service_table.rb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links.css.scss" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/xxx" />
+        <option value="$PROJECT_DIR$/app/models/master.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.12/lib/OpenLayers/Control/ModifyFeature.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/StopPointModifyFeatureControl.js" />
+        <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
       </list>
     </option>
@@ -200,10 +188,10 @@
     <option name="CUSTOM_FILTER" value="token" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2" />
+    <option name="x" value="1278" />
     <option name="y" value="-3" />
-    <option name="width" value="1284" />
-    <option name="height" value="1031" />
+    <option name="width" value="1684" />
+    <option name="height" value="1008" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -253,12 +241,12 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
+      <pane id="RailsProjectView">
+        <subPane>
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="org.jetbrains.plugins.ruby.rails.projectView.v2.nodes.RailsProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -534,6 +522,62 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stop_points_finder" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -865,14 +909,142 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="RailsProjectView">
-        <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="org.jetbrains.plugins.ruby.rails.projectView.v2.nodes.RailsProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javascripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OpenLayers-2.11" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javascripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OpenLayers-2.11" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javascripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OpenLayers-2.11" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OpenLayers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javascripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OpenLayers-2.11" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OpenLayers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BaseTypes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -883,15 +1055,15 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="256" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="265" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="260" />
-    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="260" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../comatose" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="269" />
     <property name="RakeTaksPopup.undocumentedIncluded" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="808" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="269" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="812" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="808" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="269" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="265" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -905,9 +1077,9 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="org.jetbrains.plugins.ruby.settings.RubyIdeSdkConfigurable" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="Ruby.ViewRefParam.DefaultExtension" value="html.erb" />
+    <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -925,7 +1097,7 @@
       <recent name="$PROJECT_DIR$/app/views/layouts" />
     </key>
   </component>
-  <component name="RunManager" selected="Rails.Development">
+  <component name="RunManager" selected="IRB console.Rails console: buspass.admin">
     <configuration default="false" name="Network should create routes" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
       <predefined_log_file id="RUBY_RSPEC" enabled="true" />
       <module name="buspass.admin" />
@@ -1234,13 +1406,6 @@
       <RUBY_REMOTE_DEBUG_CONFIG NAME="LOCAL_ROOT" VALUE="$PROJECT_DIR$/spec" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
-      <JSRemoteDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSRemoteDebuggerConfigurationSettings>
-      <method />
-    </configuration>
     <configuration default="true" type="CucumberRunConfigurationType" factoryName="Cucumber">
       <predefined_log_file id="RUBY_CUCUMBER" enabled="true" />
       <module name="" />
@@ -1272,6 +1437,13 @@
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="CUCUMBER_RUNNER_PATH" VALUE="" />
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_RUNNER" VALUE="false" />
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="SETTINGS_VERSION" VALUE="2" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
@@ -1422,11 +1594,12 @@
       <item index="8" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
         <item index="1" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
         <item index="2" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
         <item index="3" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
+        <item index="4" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
       </list>
     </recent_temporary>
   </component>
@@ -1714,7 +1887,11 @@
       <created>1342298630206</created>
       <updated>1342298630206</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Progress">
+      <created>1350950054095</created>
+      <updated>1350950054095</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1738,25 +1915,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="-3" width="1284" height="1031" extended-state="6" />
+    <frame x="1278" y="-3" width="1684" height="1008" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32724902" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3245033" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3238958" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3273906" sideWeight="0.67108166" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1891065" sideWeight="0.6761042" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3178808" sideWeight="0.3610771" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31898454" sideWeight="0.6346389" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32339954" sideWeight="0.46017158" order="1" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.3238958" sideWeight="0.46017158" order="1" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.32802936" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2464146" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24613686" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1820,49 +1997,49 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Gemfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="38" selection-start="2841" selection-end="2841" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/builder-3.0.2/lib/builder/xmlbase.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="0" selection-start="5463" selection-end="5463" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/bundler/gems/comfortable-mexican-sofa-17703629a3bf/app/models/cms/page.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/RoutesController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/cms/page.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/RoutesView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/bundler/gems/comfortable-mexican-sofa-17703629a3bf/lib/comfortable_mexican_sofa/backend/mongo_mapper/models/page.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/Route.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="25" selection-start="852" selection-end="863" vertical-scroll-proportion="-7.08">
+        <state line="5" column="30" selection-start="49" selection-end="49" vertical-scroll-proportion="-3.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/navigation/_admin_items.html.builder">
+    <entry file="file://$PROJECT_DIR$/app/controllers/transport_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0">
+        <state line="32" column="0" selection-start="965" selection-end="965" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/tools/stop_points_finder.js">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ModifyFeature.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="34" selection-start="6728" selection-end="6728" vertical-scroll-proportion="-0.36363637">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.12/lib/OpenLayers/Control/ModifyFeature.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="551" column="120" selection-start="20143" selection-end="20143" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/BaseTypes/Class.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
@@ -1871,65 +2048,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/master_admin_template_pages.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/Control.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="233" column="68" selection-start="9809" selection-end="9809" vertical-scroll-proportion="-10.0">
-          <folding />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/OpenLayers-2.11/lib/OpenLayers/Control/ModifyFeature.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="155" column="19" selection-start="4659" selection-end="4663" vertical-scroll-proportion="-10.4">
-          <folding />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="32" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/tools/pathfinder.css.scss">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/SelectAllFeature.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointModifyFeatureControl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="20" selection-start="768" selection-end="788" vertical-scroll-proportion="0.0">
+        <state line="18" column="60" selection-start="770" selection-end="770" vertical-scroll-proportion="36.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="55" selection-start="5396" selection-end="5396" vertical-scroll-proportion="0.0">
+        <state line="311" column="4" selection-start="10227" selection-end="10227" vertical-scroll-proportion="3.6">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links.css.scss">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="10" selection-start="779" selection-end="779" vertical-scroll-proportion="0.0">
+        <state line="31" column="52" selection-start="1329" selection-end="1329" vertical-scroll-proportion="-11.875">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/xxx">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="8337" selection-start="0" selection-end="8360" vertical-scroll-proportion="0.0">
+        <state line="526" column="6" selection-start="18602" selection-end="18602" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="622" column="100" selection-start="21230" selection-end="21230" vertical-scroll-proportion="0.7537037">
+        <state line="1029" column="60" selection-start="36139" selection-end="36139" vertical-scroll-proportion="-5.44">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/xxx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="25" selection-start="0" selection-end="8360" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

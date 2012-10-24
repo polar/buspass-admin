@@ -260,7 +260,7 @@ BusPass.PathFinderController = OpenLayers.Class({
             featuremodified : function (event) {
                 console.log("Feature Modifed");
                 console.log("There are vertices: " + ctrl.Controls.modify.vertices.length);
-                ctrl.writeToCopyBox(ctrl.Route);
+                ctrl.routeModified(ctrl.Route);
             },
             afterfeaturemodified : function (event) {
                 console.log("After Feature Modifed");
@@ -351,7 +351,7 @@ BusPass.PathFinderController = OpenLayers.Class({
         ul.append(wpf_li);
         this.triggerOnLocationUpdated(start);
         this.triggerOnLocationUpdated(finish);
-        this.writeToCopyBox(this.Route);
+        this.routeModified(this.Route);
         this.Route.draw();
     },
 
@@ -474,7 +474,7 @@ BusPass.PathFinderController = OpenLayers.Class({
         } else {
             if (route.isComplete()) {
                 this.notice("Route is Complete!");
-                this.writeToCopyBox(route);
+                this.routeModified(route);
                 this.onRouteUpdated(route);
             }
         }
@@ -526,7 +526,7 @@ BusPass.PathFinderController = OpenLayers.Class({
         }
     },
 
-    writeToCopyBox : function (route) {
+    routeModified : function (route) {
         console.log("Write to copy box");
         var data = "";
         for(var i = 0; i < route.Links.length; i++) {
