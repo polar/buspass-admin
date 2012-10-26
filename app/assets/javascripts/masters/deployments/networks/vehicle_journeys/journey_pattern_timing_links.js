@@ -1,7 +1,7 @@
 /*
  *= require OpenLayers-2.12/OpenStreetMap
  *= require ClickLocationControl
- *= require ModifyFeature
+ *= require WaypointModifyFeatureControl
  *= require routing
  *= require PathFinderController
  */

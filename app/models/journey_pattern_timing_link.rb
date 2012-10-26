@@ -292,13 +292,27 @@ class JourneyPatternTimingLink
   end
 
   def to_kml()
-    data = view_path_coordinates["LonLat"].map {|lon,lat| "#{lon},#{lat}" }.join(" ")
     html = ""
     html += "<kml xmlns='http://earth.google.com/kml/2.0'>"
-    html += "<Document><Folder><Placemark><LineString><coordinates>"
-    html += data
-    html += "</coordinates></LineString></Placemark></Folder></Document>"
+    html += "<Document><Folder>"
+    html += to_journey_kml
+    html += "</Folder></Document>"
     html += "</kml>"
+  end
+
+  def to_journey_kml(i = nil)
+    html = ""
+    if i
+      html += "<Placemark id='link_#{i}'><name>link_#{i}</name>"
+    else
+      html += "<Placemark>"
+    end
+    data = view_path_coordinates["LonLat"].map { |lon, lat| "#{lon},#{lat}" }.join(" ")
+    html += "<LineString><coordinates>"
+    html += data
+    html += "</coordinates></LineString>"
+    html += "</Placemark>"
+    html
   end
 
 end

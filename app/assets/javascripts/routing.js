@@ -408,10 +408,11 @@ BusPass.Route = OpenLayers.Class({
     _updateWaypointsState : function () {
         // If we have a selected waypoint and we don't find it, we get rid of the current selection.
         var keepSelected = this.SelectedWaypoint === undefined;
+        // If we specifically set the waypoint type to "other", we leave it, unless it's start or end.
         for (var i = 0; i < this.Waypoints.length; i++) {
             var wp = this.Waypoints[i];
             keepSelected = keepSelected || wp == this.SelectedWaypoint
-            wp.type = i == 0 ? "start" : (i == this.Waypoints.length-1 ? "end" : "via");
+            wp.type = i == 0 ? "start" : (i == this.Waypoints.length-1 ? "end" : (wp.type == "other" ? "other" : "via"));
             wp.position = i;
         }
         if (!keepSelected) {

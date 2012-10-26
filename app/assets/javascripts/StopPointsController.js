@@ -675,6 +675,8 @@ BusPass.StopPointsController = OpenLayers.Class({
                     this.Route.draw();
                     this.Route.selectWaypoint();
                     console.log("parseKMLToFeatures: got features " + features.length);
+                    // We want the UI to be aligned at the bottom with the map.
+                    $("#map").height($("#navigation").height());
                     return features;
                 } else {
                     this.notice("Illegal KML", "error", true);

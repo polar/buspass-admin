@@ -86,9 +86,9 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
-    stoppointsfinder = site.pages.create!(
-        :slug              => "journey_path_finder",
-        :label             => "Journey Path Finder",
+    journeybuilder = site.pages.create!(
+        :slug              => "journey_builder",
+        :label             => "Journey Builder",
         :parent            => tools,
         :layout            => map_layout,
         :is_protected      => true,
@@ -96,22 +96,6 @@ of the layout regardless of where it appears here.
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:render:masters/tools/stop_points_finder/show }}"
-                               },
-                               {
-                                   :identifier => "left",
-                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
-                               }])
-
-    pathfinder = site.pages.create!(
-        :slug              => "pathfinder",
-        :label             => "Timing Link Path Finder",
-        :parent            => tools,
-        :layout            => map_layout,
-        :is_protected      => true,
-        :controller_path   => "/masters/:master_id/tools/pathfinder",
-        :blocks_attributes => [{
-                                   :identifier => "content",
-                                   :content => "{{ cms:bus:render:masters/tools/pathfinder/show }}"
                                },
                                {
                                    :identifier => "left",

@@ -1,11 +1,14 @@
 <h1>Tools</h1>
 
 <dl>
-  <dt><%= link_to "Pathfinder", master_tools_pathfinder_path(@master) %></dt>
+  <dt><%= link_to "Journey Builder", master_tools_stop_points_finder_path(@master) %></dt>
   <dd>
-    This tool allows you to get lonlat coordinates (longitude, latitude) for points
-    It also gives you the capability to create routes and get copy the KML document
-    that you need to put
-    into the CSV files for timing links.
+    This graphical map tool helps you build a CSV file that you use in planning a
+    <em>Network</em> for a particular <em>Journey Pattern</em>. After filling out some pertinent
+    text information about a <em>Route</em>, i.e. <em>Route Number</em>, <em>Route Code</em>, <em>Journey Direction</em>,
+    and <em>Service Dates</em>, it will construct a basic CSV file for you to download. From there, you
+    can use your favorite spreadsheet tool (LibreOffice, MS Excel, etc.) to add a row for each
+    <em>Journey</em> of this <em>Route</em> by listing the times at a bus would reach each <em>Stop Point</em>
+    you created.
   </dd>
 </dl>

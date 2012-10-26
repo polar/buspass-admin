@@ -30,6 +30,7 @@ class JourneyPattern
   # Source line from CSV file
   key :csv_file,        String
   key :csv_file_lineno, Integer
+  key :default_kml,     String
 
   timestamps!
 
@@ -194,6 +195,43 @@ class JourneyPattern
     html += "</kml>"
   end
 
+  def to_journey_kml
+    html = ""
+    html += "<kml xmlns='http://earth.google.com/kml/2.0'>"
+    html += "<Document><Folder><name>Busme</name>"
+
+    sp_n = 0
+    link_n = 0
+    html += journey_pattern_timing_links.first.to.to_kml(sp_n)
+    journey_pattern_timing_links.each do |jptl|
+      html += jptl.to_journey_kml(link_n)
+      link_n += 1
+      sp_n += 1
+      html += jptl.from.to_kml(sp_n)
+    end
+
+    html += "</Folder></Document>"
+    html += "</kml>"
+    html
+  end
+
+  def to_csv_row
+    cols = []
+    cols << route.code
+    cols << ServiceTable.getNormalizedDayClass(service)
+    cols << vehicle_journey.display_name
+    time = Time.parse("0:00") + vehicle_journey.start_time
+    cols << ServiceTable.toTimelit(time)
+    journey_pattern_timing_links.each do |jptl|
+      time += jptl.time
+      cols << ServiceTable.toTimelit(time)
+    end
+    cols << vehicle_journey.note
+    if default_kml.nil?
+      cols << to_journey_kml
+    end
+    cols
+  end
 
   def find_placemark(i, type, placemarks)
     for p in placemarks do

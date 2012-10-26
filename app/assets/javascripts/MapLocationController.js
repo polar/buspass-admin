@@ -83,7 +83,7 @@ BusPass.MapLocationController = OpenLayers.Class({
         this.Controls = {
             click: new BusPass.ClickLocationControl({
                 onLocationClick : function(lonlat) {
-                    var wp = ctrl.onWaypointClick(lonlat);
+                    var wp = ctrl.onMapClick(lonlat);
                     ctrl.triggerOnLocationUpdated(wp);
                 }
             }),
@@ -119,7 +119,7 @@ BusPass.MapLocationController = OpenLayers.Class({
                 var pos = new OpenLayers.LonLat(coordinates[0], coordinates[1]);
                 var transformedLonLat = pos.transform(this.Map.displayProjection, this.Map.projection);
                 // make believe we are already set.
-                this.onWaypointClick(transformedLonLat);
+                this.onMapClick(transformedLonLat);
                 this.Map.setCenter(transformedLonLat, 14);
             } else {
                 if (navigator.geolocation) {
@@ -152,7 +152,7 @@ BusPass.MapLocationController = OpenLayers.Class({
         }
     },
 
-    onWaypointClick : function(location) {
+    onMapClick : function(location) {
         var wp = this.SelectedWaypoint;
         wp.lonlat = location;
         wp.draw();

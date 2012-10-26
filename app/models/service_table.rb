@@ -189,8 +189,9 @@ class ServiceTable
       if timeliteral.is_a? String
 
         # AM/PM Time
-        match = /^\s*(~?)(0?0|0?1|0?2|0?3|0?4|0?5|0?6|0?7|0?8|0?9|10|11||12)[\:\.]([0-5][0-9])(?::[0-5][0-9])?\s*(am|pm|AM|PM)\s*(\*?)/.match(timeliteral)
+        match = /^\s*(~?)(0?0|0?1|0?2|0?3|0?4|0?5|0?6|0?7|0?8|0?9|10|11||12)\:([0-5][0-9])(?::[0-5][0-9])?\s*(am|pm|AM|PM)\s*(\*?)/.match(timeliteral)
         if (match)
+          # We don't care about seconds. It's just some spreadsheets will change 12:33 AM to 12:33:00 AM.
           h = match[2].to_i
           m = match[3].to_i
           if /(am|AM)/ =~ match[4] && h == 12
@@ -211,8 +212,10 @@ class ServiceTable
         else
           match = /^\s*(~?)([0-9]+)[\:\.]([0-5][0-9]?)(?::[0-5][0-9])?\s*(\*?)/.match(timeliteral)
           if (match)
+            # We accept times like 5.3 because some spreadsheets will transform the number 5.30 into 5.3.
+            # That incorrectly leads to 5:03.
             h = match[2].to_i
-            m = match[3].to_i
+            m = match[3].length == 1 ? match[3].to_i * 10 : match[3].to_i
             if (match[1] == "~" && match[5] == "*")
               raise "Bad Time Format, #{timeliteral} cannot have both ~ and *"
             end
@@ -227,7 +230,9 @@ class ServiceTable
           end
         end
       elsif timeliteral.is_a? Float
-        h,m = sprintf("%0.2f",timeliteral).split('.').map {|n| n.to_i}
+        hlit,mlit = sprintf("%0.2f",timeliteral).split('.')
+        h = hlit.to_i
+        m = mlit.length == 1 ? mlit.to_i * 10 : mlit.to_i
       else
         raise "Bad Time Format on #{timeliteral}"
       end
@@ -268,7 +273,7 @@ class ServiceTable
     end
     vehicle_journey = VehicleJourney.new(
         :master          => network.master,
-        :deployment    => network.deployment,
+        :deployment      => network.deployment,
         :network         => network,
         :service         => service,
         :name            => name,
@@ -279,6 +284,21 @@ class ServiceTable
     #create_deployment_network_journey_page(network.master.admin_site, network.deployment, network, vehicle_journey)
     #create_deployment_network_journey_map_page(network.master.admin_site, network.deployment, network, vehicle_journey)
     return vehicle_journey
+  end
+
+  def self.spreadsheet_col(s,n)
+    if (n >= 26)
+      s = self.spreadsheet_col(s, (n/26).floor )
+    end
+    return s + (("A".."Z").to_a)[n%26]
+  end
+
+  def self.spreadsheet_column(n)
+    s = self.spreadsheet_col("",n)
+    if s.length > 1
+      s[0] = (s[0].ord - 1).chr.to_s
+    end
+    return s
   end
 
 
@@ -454,9 +474,9 @@ class ServiceTable
              defaultJourneyPattern = JourneyPattern.new()
              progress.log "Parsing Default KML"
              defaultJourneyPattern.parse_kml(defaultKML)
-             progress.log "Parsed Default Route with #{defaultJourneyPattern.journey_pattern_timing_links.count} paths."
+             progress.log "Parsed Default Route with #{defaultJourneyPattern.journey_pattern_timing_links.count} links."
              defaultJourneyPattern.journey_pattern_timing_links.each do |jptl|
-               progress.log "JPTL #{jptl.position}: #{jptl.view_path_coordinates.inspect}"
+              # progress.log "JPTL #{jptl.position}: #{jptl.view_path_coordinates.inspect}"
              end
            rescue Exception => boom2
              progress.error "#{table_file}:#{file_line}: KML Parse error after 'NOTE'"
@@ -567,10 +587,13 @@ class ServiceTable
         # The last column of the stop_point_names
         # *should be* NOTE and is and end marker
         # and therefore does not contain a time and
-        # that is where we stop
+        # that is where we stop.
+        # Column_start is used for error messages as time[i] where i == 0 represents the time column 3 of the file.
+        column_start = 3
         i = 0
         vehicle_journey = nil
         while i < stop_point_names.size
+          column = column_start + i  # True file column.
           if i == indexNOTE
             # We've got the note, regardless of extra columns, we end here.
             vehicle_journey.note = times[i]
@@ -622,6 +645,7 @@ class ServiceTable
               elsif defaultJourneyPattern
                 progress.log "Using Default Journey Pattern"
                 journey_pattern.copy_from(defaultJourneyPattern)
+                journey_pattern.default_kml = defaultKML
                 #journey_pattern.journey_pattern_timing_links.each do |jptl|
                 #  progress.log "JPTL #{jptl.position}: #{jptl.name} #{jptl.new?}"
                 #  progress.log "JPTL #{jptl.position}: #{jptl.view_path_coordinates}"
@@ -651,7 +675,9 @@ class ServiceTable
               jptl.time = (current_time-last_time)/60
 
               if jptl.time < 0
-                jptl.time_issue = "#{table_file}:#{file_line}: Time issue #{current_time} is before the time of last JPTL #{last_time}"
+                jptl.time_issue = "#{table_file}:#{file_line}: Time issue: The time of #{toTimelit(last_time)} in column #{spreadsheet_column(column-1)} is after the time of #{toTimelit(current_time)} in column #{(spreadsheet_column(column))}."
+                progress.error(jptl.time_issue)
+                progress.commit()
               end
 
               if ! jptl.already_set
@@ -1112,4 +1138,107 @@ class ServiceTable
     end
   end
 
+  def self.service_journeys_hash_by_default_kml(service)
+    vjh = { }
+    specials = []
+    service.vehicle_journeys.each do |vj|
+      if vj.journey_pattern.default_kml
+        vjh[vj.journey_pattern.default_kml] ||= []
+        vjh[vj.journey_pattern.default_kml] << vj
+      else
+        specials << vj
+        vjh.each_pair do |k, jvs|
+          if vjs[0].journey_pattern.stop_points == vj.journey_pattern.stop_points
+            vjh[k] << vj
+            specials.delete(vj)
+            break
+          end
+        end
+      end
+    end
+    return vjh, specials
+  end
+
+  def self.service_csv_file_name(s)
+    "#{s.name}_#{s.direction}_#{s.day_class}_#{s.operating_period_start_date.strftime("%Y-%m-%d")}-#{s.operating_period_end_date.strftime("%Y-%m-%d")}.csv".gsub(" ", "_")
+  end
+
+  def self.service_to_csv(service)
+    CSV.generate do |csv|
+      service_csv_header(service, csv)
+      service_csv_journeys(service, csv)
+    end
+  end
+
+  def self.service_csv_header(service, csv)
+    csv.add_row(["Route Name", service.route.code, service.route.name, service.route.sort])
+    csv.add_row(["Start Date", service.operating_period_start_date.strftime("%Y-%m-%d")])
+    csv.add_row(["End Date", service.operating_period_end_date.strftime("%Y-%m-%d")])
+    edates = ["Exception Dates"]
+    service.operating_period_exception_dates.each do |d|
+      edates << d.strftime("%Y-%m-%d")
+    end
+    csv.add_row(edates)
+    csv.add_row(["Direction", service.direction])
+  end
+
+  def self.service_csv_journeys(service, csv)
+    vjhs, specials = service_journeys_hash_by_default_kml(service)
+    vjhs.each_pair do |k, vjs|
+      names     = ["Stop Points", "Days", "Display Name"]
+      locations = ["Locations", "", ""]
+      journey   = vjs.first
+      journey.journey_pattern.stop_points.each do |sp|
+        name   = sp.common_name
+        coords = sp.location.coordinates["LonLat"]
+        location = "#{coords[0]},#{coords[1]}"
+        names << name
+        locations << location
+      end
+      names << "NOTE"
+      names << kml
+      csv.add_row(names)
+      csv.add_row(locations)
+      vjs.each do |vj|
+        row = vehicle_journey_to_csv_row(vj)
+        csv.add_row(row)
+      end
+    end
+
+    specials.each do |vj|
+      names     = ["Stop Points", "Days", "Display Name"]
+      locations = ["Locations", "", ""]
+      vj.journey_pattern.stop_points.each do |sp|
+        name   = sp.common_name
+        coords = sp.location.coordinates["LonLat"]
+        location = "#{coords[0]},#{coords[1]}"
+        names << name
+        locations << location
+      end
+      names << "NOTE"
+      csv.add_row(names)
+      csv.add_row(locations)
+      row = vehicle_journey_to_csv_row(vj)
+      csv.add_row(row)
+    end
+  end
+
+
+  def self.vehicle_journey_to_csv_row(vehicle_journey)
+    cols = []
+    cols << vehicle_journey.route.code
+    cols << getNormalizedDayClass(vehicle_journey.service)
+    cols << vehicle_journey.display_name
+    time = Time.parse("0:00") + vehicle_journey.start_time
+    cols << toTimelit(time)
+    vehicle_journey.journey_pattern.journey_pattern_timing_links.each do |jptl|
+      time += jptl.time
+      cols << toTimelit(time)
+    end
+    cols << vehicle_journey.note
+    if vehicle_journey.journey_pattern.default_kml.nil?
+      cols << vehicle_journey.journey_pattern.to_journey_kml
+    end
+    cols
+  end
 end
