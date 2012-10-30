@@ -19,8 +19,6 @@ class JourneyPattern
 
   key :version_cache, Integer
 
-  many :stop_points, :auto_save => false
-
   # journey_pattern_timing_links is an ordered list
   many :journey_pattern_timing_links, :autosave => false
 
@@ -56,7 +54,9 @@ class JourneyPattern
     vehicle_journey.master
   end
 
-
+  def stop_points
+    journey_pattern_timing_links.reduce([journey_pattern_timing_links.first.from]) { |t,jptl| t + [jptl.to]}
+  end
 
   # We always calculate and save the locator box.
 
@@ -148,6 +148,36 @@ class JourneyPattern
   end
 
 
+  def check_consistency_without_links
+    journey_link = "JourneyPattern"
+    last_jptl    = journey_pattern_timing_links.first
+    last_to_location = last_jptl.to.location
+    last_coord   = last_jptl.view_path_coordinates["LonLat"].last
+
+    #p last_jptl.view_path_coordinates
+    for jptl in journey_pattern_timing_links.drop(1) do
+      last_jptl_link = "JPTL #{last_jptl.position+1}"
+      jptl_link = "JPTL #{jptl.position+1}"
+      location  = jptl.from.location
+      coord     = jptl.view_path_coordinates["LonLat"].first
+      if DIST_FUDGE < getGeoDistance(last_to_location.coordinates["LonLat"], location.coordinates["LonLat"])
+        str = last_to_location.name != location.name ? " have names that are not equal" : ""
+        raise "Inconsistent Locations. End of #{last_jptl_link}: '#{last_to_location.name}' at #{last_to_location.coordinates["LonLat"]} to #{jptl_link}: '#{location.name}' at #{location..coordinates["LonLat"]}#{str}."
+      end
+      dist = getGeoDistance(last_coord, coord)
+      if DIST_FUDGE < dist
+        path1str = "#{last_jptl.from.location.coordinates["LonLat"].inspect} - #{last_jptl.view_path_coordinates["LonLat"].inspect} - #{last_jptl.to.location.coordinates["LonLat"].inspect}"
+        path2str = "#{jptl.from.location.coordinates["LonLat"].inspect} - #{jptl.view_path_coordinates["LonLat"].inspect} - #{jptl.to.location.coordinates["LonLat"].inspect}"
+        raise "Inconsistent Path in #{journey_link}. Distance is #{dist} feet between last point on #{last_jptl_link} at #{last_jptl.to.common_name} #{last_coord.inspect} and first point on #{jptl_link} at #{jptl.from.common_name} #{coord.inspect}."
+      end
+      last_coord = jptl.view_path_coordinates["LonLat"].last
+      last_jptl  = jptl
+      last_to_location = jptl.to.location
+    end
+    return nil
+  end
+
+
   # Names the JPTL with an index into this JourneyPattern.
   def get_journey_pattern_timing_link(position)
     name = "#{self.name} #{position}"
@@ -202,6 +232,9 @@ class JourneyPattern
 
     sp_n = 0
     link_n = 0
+    if journey_pattern_timing_links.nil? || journey_pattern_timing_links.length < 1
+      raise "No Links"
+    end
     html += journey_pattern_timing_links.first.to.to_kml(sp_n)
     journey_pattern_timing_links.each do |jptl|
       html += jptl.to_journey_kml(link_n)
@@ -271,7 +304,6 @@ class JourneyPattern
         lonlatliteral = sp.at("point/coordinates").inner_text
         if (name && lonlatliteral)
           stop_point = self.createStopPoint(name, lonlatliteral)
-          self.stop_points << stop_point
           if i > 0
             link = find_placemark(i-1, "link", placemarks)
             if link
@@ -543,10 +575,6 @@ class JourneyPattern
 
   def starting_direction
     journey_pattern_timing_links.first.starting_direction
-  end
-
-  def get_stop_points
-    return [journey_pattern_timing_links.first.from] + journey_pattern_timing_links.map { |jptl| jptl.to }
   end
 
   def self.find_by_coord(coord)

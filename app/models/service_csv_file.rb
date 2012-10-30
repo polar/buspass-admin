@@ -51,7 +51,7 @@ class ServiceCSVFile
   end
 
   def to_csv
-    CSV.generate do |csv|
+    CSV.generate(:force_quotes => true) do |csv|
       csv.add_row(["Route Name", code, name, sort])
       csv.add_row(["Start Date", start_date.strftime("%Y-%m-%d")])
       csv.add_row(["End Date", end_date.strftime("%Y-%m-%d")])

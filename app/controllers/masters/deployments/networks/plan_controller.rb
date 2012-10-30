@@ -123,7 +123,6 @@ class Masters::Deployments::Networks::PlanController < Masters::Deployments::Net
 
     if @network.file_path && File.exists?(@network.file_path)
 
-      @network.delete_routes()
       @network.processing_token        = rand.to_s
       @network.processing_lock         = current_muni_admin
       @network.processing_log          = []
@@ -177,7 +176,7 @@ class Masters::Deployments::Networks::PlanController < Masters::Deployments::Net
       file = ServiceTable.generatePlanFile(@network)
       send_file(file,
                 :type        => 'application/zip',
-                :filename    => File.basename(file),
+                :filename    => "#{@network.name}.zip",
                 :disposition => "inline")
     end
   end

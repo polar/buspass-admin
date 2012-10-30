@@ -16,8 +16,8 @@ class VehicleJourney
   key :csv_lineno,     Integer
   key :csv_filename,    String
 
-  key :path_issue,  Boolean
-  key :time_issue,  Boolean
+  key :path_issue,  Boolean, :default => false
+  key :time_issue,  Boolean, :default => false
   key :time_issues,  Array # String
 
   # Searchable indicator if path has been updated manualy.

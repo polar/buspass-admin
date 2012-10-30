@@ -363,6 +363,7 @@ class ServiceTable
     vehicle_journey = nil
     journey_pattern = nil
 
+    last_log_service = nil
     #
     # Starting reading
     #
@@ -372,11 +373,6 @@ class ServiceTable
       file_line += 1
 
       if cols[0] == "Direction"
-        if out != nil
-          progress.log("Finished creating JPTLs in #{jptl_dname} for Direction #{direction}")
-          out.close()
-          out = nil
-        end
         direction_stage   = cols[1]
         direction = nil
         progress.commit()
@@ -428,6 +424,19 @@ class ServiceTable
         if (start_date > end_date)
           progress.error "#{table_file}:#{file_line}: Start Date must be after End Date"
           raise "cannot continue with this file -- bad date configuration."
+        else
+          progress.log "Service Dates are from #{start_date.strftime('%Y-%m-%d')} to #{end_date.strftime('%Y-%m-%d')}"
+        end
+      end
+      if exception_dates_stage != nil
+        progress.log("There are #{exception_dates_stage.size} Exception Dates listed.")
+        exception_dates = exception_dates_stage
+        exception_dates_stage = nil
+        exception_dates.each do |d|
+          if d < start_date || end_date > d
+            progress.error "#{table_file}:#{file_line}: All Exception Dates must be between 'Start Date' and 'End Date'. Processing of file stopped."
+            raise ProcessingError.new("cannot continue with this file -- exception date out of start end date range.")
+          end
         end
       end
       # We can individually change these at any time, but we need them all.
@@ -472,14 +481,20 @@ class ServiceTable
              indexKML = n+1
              defaultKML = stop_point_names[n+1]
              defaultJourneyPattern = JourneyPattern.new()
-             progress.log "Parsing Default KML"
+             progress.log "Parsing a default KML on line #{file_line}."
              defaultJourneyPattern.parse_kml(defaultKML)
-             progress.log "Parsed Default Route with #{defaultJourneyPattern.journey_pattern_timing_links.count} links."
+             progress.log "Checking consistency of default KML."
+             defaultJourneyPattern.check_consistency_without_links()
+             # Normalize KML
+             defaultKML = defaultJourneyPattern.to_journey_kml
+             progress.log "Parsed Default KML has a Journey Pattern with #{defaultJourneyPattern.journey_pattern_timing_links.count} links."
              defaultJourneyPattern.journey_pattern_timing_links.each do |jptl|
               # progress.log "JPTL #{jptl.position}: #{jptl.view_path_coordinates.inspect}"
              end
            rescue Exception => boom2
-             progress.error "#{table_file}:#{file_line}: KML Parse error after 'NOTE'"
+             progress.log "Error in parsing default KML: #{boom2}"
+             progress.error "#{table_file}:#{file_line}: KML Parse error after 'NOTE': #{boom2}"
+             #progress.error "#{boom2.backtrace.inspect}"
              raise ProcessingError.new("cannot continue with this file -- KML parse error after 'NOTE'.")
            end
           else
@@ -496,17 +511,7 @@ class ServiceTable
         progress.error "#{table_file}:#{file_line}: Need to have 'Start Date' and 'End Date' lines. Processing of file stopped."
         raise ProcessingError.new("cannot continue with this file -- needs start date and end date.")
       end
-      if exception_dates_stage != nil
-        progress.log("There are #{exception_dates_stage.size} Exceptions through #{start_date} and #{end_date}.")
-        exception_dates = exception_dates_stage
-        exception_dates_stage = nil
-        exception_dates.each do |d|
-          if d < start_date || end_date > d
-            progress.error "#{table_file}:#{file_line}: All Exception Dates must be between 'Start Date' and 'End Date'. Processing of file stopped."
-            raise ProcessingError.new("cannot continue with this file -- exception date out of start end date range.")
-          end
-        end
-      end
+
       begin
         # If we catch a ProcessingError in here, we just ignore that VehicleJourney.
 
@@ -551,18 +556,6 @@ class ServiceTable
           service.save
         end
 
-        #create_deployment_network_service_page(network.master.admin_site, network.deployment, network, service)
-
-        #puts "Done Route and Service"
-        if out == nil
-          jptl_name  = "JPTL-#{File.basename(table_file)}"
-          jptl_dname = File.join(File.dirname(table_file), jptl_name)
-          fname      = File.join(dir, File.join(File.dirname(table_file), jptl_name))
-          progress.log("Creating JPTLs in #{jptl_dname} for Direction #{direction} in file #{fname}")
-          out = CSV.open(fname, "w", :force_quotes => true)
-          progress.commit()
-        end
-
         # position is the order of the JPTL in the JourneyPattern
         position   = 0
         last_stop  = nil
@@ -574,15 +567,16 @@ class ServiceTable
 
         progress.continue!
 
-        progress.log("Service #{service.name}")
-        progress.log("#{times.inspect}")
-        progress.commit()
+        progress.log("Service #{service.name}") if last_log_service != service
+        last_log_service = service
 
         # parse times and exit row if one is invalid
         parsed_times = []
         for i in 0..indexNOTE-1 do
           parsed_times << ((times[i] && !times[i].strip.blank?) ? parseTime(times[i]) : nil)
         end
+        progress.log("#{parsed_times.map {|t| toTimelit(t) }.inspect}")
+        progress.commit()
 
         # The last column of the stop_point_names
         # *should be* NOTE and is and end marker
@@ -635,15 +629,17 @@ class ServiceTable
 
               if times[indexKML]
                 begin
-                  progress.log "Parsing KML"
+                  progress.log "Parsing KML Specific to Journey"
                   journey_pattern.parse_kml(times[indexKML])
-                  progress.log "Parsed Route with #{journey_pattern.journey_pattern_timing_links.count} paths"
+                  progress.log "Checking consistency of KML."
+                  journey_pattern.check_consistency_without_links()
+                  progress.log "Parsed Journey Pattern with #{journey_pattern.journey_pattern_timing_links.count} paths"
                 rescue Exception => boom3
                   progress.error "#{table_file}:#{file_line}: KML Parse error after 'NOTE'"
                   raise ProcessingError.new("KML parse error for special route")
                 end
               elsif defaultJourneyPattern
-                progress.log "Using Default Journey Pattern"
+                #progress.log "Using Default Journey Pattern"
                 journey_pattern.copy_from(defaultJourneyPattern)
                 journey_pattern.default_kml = defaultKML
                 #journey_pattern.journey_pattern_timing_links.each do |jptl|
@@ -712,14 +708,6 @@ class ServiceTable
                 jptl.save # Not sure this is necessary for MongoMapper.
               end
 
-              # Put this out in the file that will get the URIs updated.
-              out << [service.name,
-                      journey_pattern.name,
-                      position,
-                      jptl.from.common_name,
-                      jptl.to.common_name,
-                      jptl.to_kml]
-
               # Onto the next link, if any.
               position  += 1
               last_time = current_time
@@ -742,6 +730,7 @@ class ServiceTable
           vehicle_journey.journey_pattern = journey_pattern
           vehicle_journey.display_name    = display_name
           vehicle_journey.path_issue      = journey_pattern.has_path_issues?
+          vehicle_journey.time_issue      = journey_pattern.has_time_issues?
           vehicle_journey.csv_lineno      = file_line
           vehicle_journey.csv_filename    = table_file
           vehicle_journey.csv_row         = cols
@@ -754,14 +743,6 @@ class ServiceTable
             progress.error("journey_pattern.vehicle_journey is null! #{vehicle_journey.id}")
             progress.commit()
           end
-
-
-          # We connect all paths to the endpoints. No need for more consitency checks.
-          #error = vehicle_journey.journey_pattern.check_consistency
-          #if error
-          #  progress.error "Error in file #{table_file}: line #{file_line}: #{error}"
-          #  progress.commit()
-          #end
         end
 
         progress.continue!
@@ -773,11 +754,6 @@ class ServiceTable
       rescue JobAborted => abort
         raise abort
       end
-    end
-    if out != nil
-      progress.log("Finished creating JPTLs in #{jptl_dname} for Direction #{direction}.")
-      out.close()
-      out = nil
     end
 
     progress.progress(0, file_line, line_count)
@@ -836,6 +812,7 @@ class ServiceTable
               jptl.save!
             end
             vehicle_journey.path_issue = journey_pattern.has_path_issues?
+            vehicle_journey.time_issue = journey_pattern.has_time_issues?
           else
             progress.log("Cannot find Journey for #{row[0]} #{row[1]} #{row[2]}")
           end
@@ -884,7 +861,7 @@ class ServiceTable
     progress = Progress.new(network)
     # First we must clear all Services, VehicleJourneys, and Routes.
     count = Route.where(:network_id => network.id).count
-    progress.log "Destroying all routes (#{count}) in Network #{network.name}"
+    progress.log "Destroying all routes (#{count}) in Network '#{network.name}'"
     Route.where(:network_id => network.id).each {|x| x.destroy }
     count = Service.where(:network_id => network.id).count
     if count > 0
@@ -899,7 +876,7 @@ class ServiceTable
 
     # That should do it.
     progress = Progress.new(network)
-    progress.log("Processing Directory #{dir}")
+    #progress.log("Processing Directory #{dir}")
 
     # Get all CSV files that do not start with JPTL
     s = self.dir_structure(dir, /\.[Cc][Ss][Vv]$/, /^JPTL-/)
@@ -931,8 +908,17 @@ class ServiceTable
       end
     end
 
+    route_count = Route.where(:network_id => network.id).count
+    journey_count = VehicleJourney.where(:network_id => network.id).count
+    progress.log "After processing, Network '#{network.name}' has #{route_count} Route#{route_count == 1 ? "" : "s"} and a total of #{journey_count} Journey#{journey_count == 1 ? "": "s"}."
+
     issues_count = VehicleJourney.where(:network_id => network.id, :time_issue.ne => false).count
-    progress.log "After processing, #{issues_count} Journeys have time issues."
+    progress.log "After processing, #{issues_count} Journeys have time issues." if issues_count > 1
+    progress.log "After processing, one Journey has a time issue." if issues_count == 1
+
+    issues_count = VehicleJourney.where(:network_id => network.id, :path_issue.ne => false).count
+    progress.log "After processing, #{issues_count} Journeys have path issues." if issues_count > 1
+    progress.log "After processing, one Journey has a path issue." if issues_count == 1
     progress.commit()
 
   end
@@ -979,7 +965,6 @@ class ServiceTable
   def self.processNetwork(net, dir)
     cache = GoogleUriViewPath::Cache.new()
     processDirectory(cache, net, dir)
-    updateDirectory(cache, net, dir)
   end
 
   # For a route that will need to be rebuilt, but is already fixed.
@@ -1019,6 +1004,25 @@ class ServiceTable
   end
 
   def self.generateRouteTableFiles(dir, route, progress)
+    progress.commit() if progress
+    out = nil
+    current_filename = nil
+    route_dir = "Route_#{route.code}"
+    FileUtils.mkdir_p(File.join(dir, route_dir))
+    for service in route.services do
+      fname = File.join(dir, route_dir, self.service_csv_filename(service))
+      progress.log("Creating Route #{route.code} in #{fname}")
+      if fname != current_filename
+        out.close() if !out.nil?
+        FileUtils.mkdir_p(File.dirname(fname))
+        out = File.open(fname, "a+")
+      end
+      out.write(service_to_csv(service))
+    end
+    out.close() if !out.nil?
+  end
+
+  def self.generateRouteTableFiles1(dir, route, progress)
     progress.commit()  if progress
     out = nil
     current_filename = nil
@@ -1089,7 +1093,7 @@ class ServiceTable
       if fname != current_filename
         out.close() if !out.nil?
         FileUtils.mkdir_p(File.dirname(fname))
-        out = CSV.open(fname, "w", :force_quotes => true)
+        out = File.open(fname, "w")
       end
       service.vehicle_journeys.order(:csv_lineno).each do   |vj|
         vj.journey_pattern_timing_links.each do |jptl|
@@ -1110,14 +1114,13 @@ class ServiceTable
     progress ||= NullProgress.new(network)
     for route in network.routes do
       self.generateRouteTableFiles(dir, route, progress)
-      self.generateJPTLFiles(dir, route, progress)
     end
   end
 
   def self.generatePlanFile(network, progress = nil)
     dir = Dir.mktmpdir()
     generateNetwork(dir, network, progress)
-    file = Tempfile.new(network.name)
+    file = Tempfile.new(network.name + ".zip")
     zip(network, file.path, dir)
     file.close
     return file.path
@@ -1159,12 +1162,12 @@ class ServiceTable
     return vjh, specials
   end
 
-  def self.service_csv_file_name(s)
-    "#{s.name}_#{s.direction}_#{s.day_class}_#{s.operating_period_start_date.strftime("%Y-%m-%d")}-#{s.operating_period_end_date.strftime("%Y-%m-%d")}.csv".gsub(" ", "_")
+  def self.service_csv_filename(s)
+    "#{s.name}.csv".gsub(" ", "_")
   end
 
   def self.service_to_csv(service)
-    CSV.generate do |csv|
+    CSV.generate(:force_quotes => true) do |csv|
       service_csv_header(service, csv)
       service_csv_journeys(service, csv)
     end
@@ -1184,7 +1187,7 @@ class ServiceTable
 
   def self.service_csv_journeys(service, csv)
     vjhs, specials = service_journeys_hash_by_default_kml(service)
-    vjhs.each_pair do |k, vjs|
+    vjhs.each_pair do |kml, vjs|
       names     = ["Stop Points", "Days", "Display Name"]
       locations = ["Locations", "", ""]
       journey   = vjs.first
@@ -1229,10 +1232,10 @@ class ServiceTable
     cols << vehicle_journey.route.code
     cols << getNormalizedDayClass(vehicle_journey.service)
     cols << vehicle_journey.display_name
-    time = Time.parse("0:00") + vehicle_journey.start_time
+    time = vehicle_journey.time_start
     cols << toTimelit(time)
     vehicle_journey.journey_pattern.journey_pattern_timing_links.each do |jptl|
-      time += jptl.time
+      time += jptl.time.minutes
       cols << toTimelit(time)
     end
     cols << vehicle_journey.note

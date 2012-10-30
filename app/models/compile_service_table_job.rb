@@ -72,7 +72,7 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
     begin
       say "Creating Zip file #{net.file_path}"
       zip(net, net.file_path, dir)
-      net.processing_log << "Result File is prepared and zipped at #{net.file_path}."
+      # net.processing_log << "Result File is prepared and zipped at #{net.file_path}."
       say "Created Zip file #{net.file_path}"
       say "Removing Tmp Dir #{dir}"
      # FileUtils.rm_rf(dir)

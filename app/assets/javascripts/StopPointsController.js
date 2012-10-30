@@ -606,7 +606,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         var parser = new DOMParser();
 
         var xml = parser.parseFromString(xmlString, "text/xml");
-        if (xml.documentElement.nodeName == "kml") {
+        if (xml.documentElement.nodeName == "kml" && ! (xml.childNodes[0].firstChild.localName == "parsererror")) {
             var kml = new OpenLayers.Format.KML({
                 externalProjection : this.Map.displayProjection,
                 internalProjection : this.Map.projection
@@ -684,11 +684,16 @@ BusPass.StopPointsController = OpenLayers.Class({
                 }
             } catch(e) {
                 this.notice("Illegal KML", "error", true);
+                alert("Illegal KML: " + e);
                 return false;
             }
             return features;
         } else {
-            this.notice("No KML", "error", true);
+            this.notice("Not XML", "error", true);
+            var xmls = new XMLSerializer();
+            var err = xmls.serializeToString(xml.childNodes[0].lastChild);
+            err = err.substring(err.length-100);
+            alert("Illegal XML: " +xml.childNodes[0].firstChild.innerText + "\n" + err);
             return false;
         }
     },
