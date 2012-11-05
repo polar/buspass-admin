@@ -1235,10 +1235,12 @@ BusPass.StopPointsController = OpenLayers.Class({
             location.val(lonlat.lon.toFixed(6) + "," + lonlat.lat.toFixed(6));
         }
         location.change(function () {
-           this.Controller.inputUpdateStopPointLocation(this.StopPoint, this);
+            this.Controller.inputUpdateStopPointLocation(this.StopPoint, this);
+            this.Controller.routeUpdated();
         });
         var name = $(document.createElement("input"));
         name[0].StopPoint = stop_point;
+        name[0].Controller = this;
         name.attr("type", "text");
         name.attr("name", "sp_name");
         name.addClass("sp_name");
@@ -1246,6 +1248,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         name.change(function () {
             this.StopPoint.name = $(this).val();
             this.StopPoint.hasNameSetByUser = true;
+            this.Controller.routeModified();
         });
 
         var del_button = $(document.createElement("input"));

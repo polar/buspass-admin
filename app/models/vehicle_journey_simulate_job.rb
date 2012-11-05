@@ -1,4 +1,4 @@
-class VehicleJourneySimulateJob < Struct.new(:simulate_job_id, :find_interval, :time_interval, :clock, :mult, :duration, :options)
+class VehicleJourneySimulateJob < Struct.new(:simulate_job_id, :find_interval, :time_interval, :clock, :mult, :duration)
 
   def logger
     Rails.logger
@@ -11,16 +11,25 @@ class VehicleJourneySimulateJob < Struct.new(:simulate_job_id, :find_interval, :
   end
 
   def enqueue(job)
-    sjob = SimulateJob.find(:simulate_job_id)
+    sjob = SimulateJob.find(simulate_job_id)
     if sjob
       sjob.delayed_job = job
+      sjob.processing_status = "Enqueued"
       sjob.save
     end
   end
 
   def perform
     begin
-      VehicleJourney.simulate_all(find_interval, time_interval, clock, mult, duration, options)
+      job = SimulateJob.find(simulate_job_id)
+      if (job)
+        if job.processing_status == "Enqueued"
+          VehicleJourney.simulate_all(job.id, find_interval, time_interval, clock, mult, duration)
+        end
+        job.processing_status = "Stopped"
+        job.processing_log << "Stopped"
+        job.save
+      end
     rescue Exception => boom
       job = SimulateJob.first(options)
       if job

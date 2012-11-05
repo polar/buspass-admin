@@ -62,7 +62,7 @@ class ServiceCSVFile
       xml =  Hpricot(kml)
       stop_points = xml.search("placemark[@id*=sp]")
       for spdoc in stop_points do
-        name = spdoc.at("name").inner_html
+        name = spdoc.at("name").to_plain_text
         if (/^(sp|link)_[0-9]+:/ =~ name)
           name = name.split(":")[1]
         end

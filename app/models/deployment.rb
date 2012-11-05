@@ -70,7 +70,21 @@ class Deployment
 
     def service_dates
       dates = networks.reduce([]) {|v,n| v + [n.service_dates]}
-      dates.reduce {|v,d| [ [v[0],d[0]].min, [v[1],d[1]].max ]}
+      dates.reduce do |v,d|
+        if v
+          if d
+            [ [v[0],d[0]].min, [v[1],d[1]].max ]
+          else
+            v
+          end
+        else
+          if d
+            d
+          else
+            nil
+          end
+        end
+      end
     end
 
     def ensure_slug

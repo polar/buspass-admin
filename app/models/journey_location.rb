@@ -9,6 +9,7 @@ class JourneyLocation
   key :timediff, Integer
   key :reported_time, Time
   key :recorded_time, Time
+  key :disposition, String # "active", "test", "simulate"
 
   key :last_coordinates, Array
   key :last_direction, Float
@@ -20,6 +21,11 @@ class JourneyLocation
   belongs_to :vehicle_journey
   belongs_to :service
   belongs_to :route
+
+  # Only one of these should be non-nil. This is for look up during
+  # Activated Deployment, Test, and Simulation.
+  belongs_to :simulate_job
+  belongs_to :deployment
 
   validates_presence_of :coordinates
   validates_presence_of :vehicle_journey

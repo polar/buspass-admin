@@ -1,6 +1,5 @@
 /**
- * activements/run.js
- *    We just inherit the UI behavior from activement behavior.
+ * deployments/simulate.js
  */
 //= include RunStatusView
 //= include ActivePlanBasketController

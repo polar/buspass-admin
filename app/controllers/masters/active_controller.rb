@@ -33,9 +33,11 @@ class Masters::ActiveController < ApplicationController
     #authorize!(:read, @deployment)
 
     options = {:master_id => @master.id, :deployment_id => @deployment.id}
-    @job = SimulateJob.first(options)
-    if @job.nil?
-      flash[:error] = "There is no simulation running for #{@deployment.name}."
+    if @activement
+      @job = SimulateJob.where(options).first
+      if @job.nil?
+        flash[:error] = "There is no simulation running for #{@deployment.name}."
+      end
     end
   end
 
@@ -86,7 +88,7 @@ class Masters::ActiveController < ApplicationController
     end
 
     # Schedule the job with delayed_job
-    job = VehicleJourney.delay(:queue => @master.slug).simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
+    job = VehicleJourney.delay(:queue => @master.slug).simulate_all(@job.id, @find_interval, @time_interval, @clock, @mult, @duration)
     @job.delayed_job = job
     @job.save!
     @status = "Run of #{@master.name}'s #{@deployment.name} has been started."
@@ -100,7 +102,11 @@ class Masters::ActiveController < ApplicationController
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
     if @job
-      if @job.processing_status == "Running"
+      if @job.processing_status == "Starting"
+        @job.destroy
+        @job = nil
+        @status = "Job removed."
+      elsif @job.processing_status == "Running"
         @job.set_processing_status!("StopRequested")
         @status =  "The run of #{@master.name}'s '#{@deployment.name} will stop shortly."
       else

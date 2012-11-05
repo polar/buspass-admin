@@ -18,10 +18,10 @@ class PlannerRolePermit < CanTango::RolePermit
       user.master == network.master
     end
     can([:edit, :delete], Deployment) do |deployment|
-      !deployment.is_active? && deployment.owner === user && user.master === deployment.master
+      deployment.owner === user && user.master === deployment.master
     end
     can([:edit, :delete], Network) do |network|
-      !network.deployment.is_active? && network.deployment.owner === user && user.master === network.master
+      network.deployment.owner === user && user.master === network.master
     end
   end
 

@@ -20,7 +20,7 @@ class VehicleJourney
   key :time_issue,  Boolean, :default => false
   key :time_issues,  Array # String
 
-  # Searchable indicator if path has been updated manualy.
+  # Searchable indicator if path has been updated manually.
   key :path_changed, Boolean, :default => false
 
   belongs_to :service
@@ -28,7 +28,9 @@ class VehicleJourney
   belongs_to :master
   belongs_to :deployment
 
-  one :journey_location, :dependent => :delete
+  one :active_journey_location,   :class_name => "JourneyLocation", :dependent => :delete
+  one :test_journey_location,     :class_name => "JourneyLocation", :dependent => :delete
+  one :simulate_journey_location, :class_name => "JourneyLocation", :dependent => :delete
 
   # Embedded
   one :journey_pattern, :autosave => true
@@ -119,6 +121,7 @@ class VehicleJourney
     journey_pattern.stop_points
   end
 
+  # TODO: There is an issue where we are planing in Daylight Savings Time and switching to Standard Time.
   def time_start(position = 0)
     time = base_time + departure_time.minutes
     i = 0
@@ -142,18 +145,41 @@ class VehicleJourney
     return time
   end
 
+  def time_start_lit(position = 0)
+    minutes = departure_time
+    i = 0
+    while i < position
+      minutes += journey_pattern_timing_links[i].time
+      i += 1
+    end
+    return ServiceTable.minutesToTimelit(minutes)
+  end
+
+  def time_end_lit(position = -1)
+    # -1 means the end of last timing link
+    raise "bad position" if position >= journey_pattern_timing_links.size
+    position = journey_pattern_timing_links.size-1 if position == -1
+    minutes = departure_time
+    i = 0
+    while i <= position
+      minutes += journey_pattern_timing_links[i].time
+      i += 1
+    end
+    return ServiceTable.minutesToTimelit(minutes)
+  end
+
   def journey_pattern_timing_links
     journey_pattern.journey_pattern_timing_links
   end
 
   # Time is a time of day.
   def is_scheduled?(time)
-    diff = (time-base_time)
+    diff = (time-base_time(time))
     if (departure_time.minutes < diff && diff < departure_time.minutes + duration.minutes)
       return true
     else # it could be by a lot.
-         #Say our base time ended up at midnight tomorrow becase it's after midnight
-         # then our diff < -24 hourse
+         #Say our base time ended up at midnight tomorrow because it's after midnight
+         # then our diff < -24 hours
       diff = diff + 24.hours
       departure_time.minutes < diff && diff < departure_time.minutes + duration.minutes
     end
@@ -282,8 +308,12 @@ class VehicleJourney
     return master.time_zone
   end
 
-  def base_time
-    Time.parse("0:00 #{time_zone}")
+  def base_time(reference = Time.now)
+    # This allows us to account for Daylight Savings Time at "now"
+    offset = Timezone::Zone.new(:zone => time_zone).utc_offset(reference)
+    # We get the right offset for the reference datetime, then we get midnight of that day
+    # at the proper offset. This matters with Daylight Savings Time. See, is_scheduled?
+    Time.parse("#{reference.strftime("%Y-%m-%d")} 0:00 #{offset}")
   end
 
   def tz(time)
@@ -312,7 +342,7 @@ class VehicleJourney
 
   def simulate_self(time_interval)
     clock = BaseTime.new(base_time+departure_time.minutes-1.minutes)
-    simulate(time_interval, AuditLogger.new(STDOUT), clock)
+    simulate( time_interval, nil, AuditLogger.new(STDOUT), clock)
   end
 
   #
@@ -320,7 +350,8 @@ class VehicleJourney
   # on the current distance traveled, the time and the last time
   # it was figured.
   # Parameters
-  #  distance          The distance traveled
+  #  disposition     The disposition, active, test, or simulate.
+  #  distance        The distance traveled
   #  tm_last         The time at distance
   #  tm_now          The time it is now
   #  tm_start        The time the route is supposed to start
@@ -332,7 +363,7 @@ class VehicleJourney
   #  :ti_diff => The time interval from the last distance time
   #  :ti_offschedule => The time off schedule.
   #
-  def figure_location(distance, tm_last, tm_now, tm_start)
+  def figure_location(disposition, distance, tm_last, tm_now, tm_start)
     #p [tm_last, tm_now, tm_start]
     if (tm_now > tm_start) # or we have a Good Reported JourneyLocation.
                            # Maybe the bus is OnRoute sitting there waiting to go.
@@ -344,9 +375,8 @@ class VehicleJourney
       estimate[:ti_diff] = ti_diff
 
       #Look for ReportedJourneyLocation
-      rjls = ReportedJourneyLocation.find(:all,
-                                          :conditions => {:vehicle_journey_id => self.id},
-                                          :order => "reported_time, recorded_time")
+      rjls = ReportedJourneyLocation.where(:vehicle_journey_id => self.id,
+                                           :disposition => disposition).order(:reported_time, :recorded_time).all
       if (rjls == nil)
         return estimate
       end
@@ -414,12 +444,16 @@ class VehicleJourney
     end
   end
 
-  def simulate(interval, logger = VehicleJourney.logger, clock = Time)
+  def simulate(interval, job = nil, logger = VehicleJourney.logger, clock = Time)
+    journey_location = nil
+    disp = job ? job.disposition : "simulate"
+
     tm_start = base_time + departure_time.minutes
-    logger.info("Start Journey #{self.name} start #{tm_start} at #{tz(clock.now)}")
+    logger.info("Start #{disp} Journey #{self.name} start #{tm_start} at #{tz(clock.now)}")
 
     # Since we are working with time intervals, we get our current time base.
     tm_base = clock.now
+
     # The base time may be midnight of the next day due to TimeZone.
     # If so the time_from_midnight will be negative. However, before we
     # add 24 hours to it, we check to see if we are scheduled within
@@ -429,17 +463,26 @@ class VehicleJourney
         ti_from_midnight <= departure_time.minutes + duration.minutes)
       tm_start = tm_start + 24.hours
     end
+
     target_distance = journey_pattern.path_distance
     #logger.info("#{self.name} start #{tm_start} for #{departure_time} after #{base_time} path_distance #{target_distance}")
     distance = 0.0
     tm_last = tm_base
     tm_now = tm_base
     while (distance < target_distance) do
-      ans = figure_location(distance, tm_last, tm_now, tm_start)
+      ans = figure_location(disp, distance, tm_last, tm_now, tm_start)
       if (ans != nil)
         #logger.info "Journey '#{self.name}' answer #{ans[:coord]}"
-        if journey_location == nil
-          create_journey_location(:service => service, :route => service.route)
+        if journey_location.nil?
+          fields = { :disposition => disp, :job => job, :service => service, :route => service.route }
+          case disp
+            when :active
+              journey_location = create_active_journey_location(fields)
+            when :test
+              journey_location = create_test_journey_location(fields)
+            else
+              journey_location = create_simulate_journey_location(fields)
+          end
         else
           journey_location.last_coordinates   = journey_location.coordinates
           journey_location.last_reported_time = journey_location.reported_time
@@ -462,12 +505,9 @@ class VehicleJourney
       sleep interval
       tm_now = clock.now
       #logger.info("VehicleJourney '#{self.name}' tick #{tm_now} tm_start #{tm_start}")
-      if @please_stop_simulating
+      if @please_stop_simulating || (job && SimulateJob.find(job.id).nil? || job.delayed_job.nil?)
         logger.info "Stopping #{self.name}"
         break
-      end
-      if @please_stop_simulating
-        logger.info "Break didn't work: #{name}"
       end
     end
     logger.info "Ending Journey '#{self.name}' at #{distance} at #{tm_now}"
@@ -496,13 +536,15 @@ class VehicleJourney
     attr_accessor :time_interval
     attr_accessor :logger
     attr_accessor :clock
+    attr_accessor :job
 
-    def initialize(rs,j,t, clk = Time, logger = VehicleJourney.logger)
+    def initialize(rs,job, j,t, clk = Time, logger = VehicleJourney.logger)
       @runners = rs
       @journey = j
       @time_interval = t
       @logger = logger
       @clock = clk
+      @job = job
       #logger.info "Initializing Journey #{journey.name}"
     end
 
@@ -510,7 +552,7 @@ class VehicleJourney
       logger.info "Starting Journey #{journey.name}"
       thread = Thread.new do
         begin
-          journey.simulate(time_interval, logger, clock)
+          journey.simulate(time_interval, job, logger, clock)
           logger.info "Journey ended normally #{journey.name}"
         rescue Exception => boom
           logger.info "Stopping Journey #{journey.name} on #{VehicleJourney.html_escape(boom)}"
@@ -527,28 +569,27 @@ class VehicleJourney
   # on the time_interval. The active journey list checked every 60
   # seconds. An exception delivered to this function will end the
   # simulation of all running journeys.
-  def self.simulate_all(find_interval, time_interval, time = Time.now, mult = 1, duration = -1, options = {})
+  def self.simulate_all(job_id, find_interval, time_interval, time = Time.now, mult = 1, duration = -1)
+    logger = job = SimulateJob.find(job_id)
     clock = BaseTime.new(time, mult)
-    job = SimulateJob.first(options)
-    logger.info "Starting for #{job.name}"
-    logger = job
     logical_start_time = clock.now
+    logger.info "Starting for #{job.name} in #{job.master.name} at #{logical_start_time}"
     begin
       job.sim_time = time
       job.clock_mult = mult
       job.processing_started_at = Time.now
       job.processing_completed_at = nil
       job.set_processing_status!("Running")
-      JourneyLocation.where(options).all.each {|x| x.delete() }
+      JourneyLocation.where(:job => job.id).all.each {|x| x.delete() }
       runners = {}
-      while (x = SimulateJob.first(options)) && !x.please_stop && (duration < 0 || (clock.now - logical_start_time) <= duration.minutes) do
+      while (x = SimulateJob.find(job_id)) && !x.please_stop && (duration < 0 || (clock.now - logical_start_time) <= duration.minutes) do
         date = time = clock.now
-        journeys = VehicleJourney.find_by_date_time(date, time, options)
+        journeys = VehicleJourney.find_by_date_time(date, time, {:master_id => job.master.id, :deployment_id => job.deployment.id})
         logger.info "Found #{journeys.length} journeys at #{date.in_time_zone(job.master.time_zone).strftime("%m-%d-%Y")} #{time.in_time_zone(job.master.time_zone).strftime("%H:%M %Z")}"
         # Create Journey Runners for new Journeys.
         for j in journeys do
           if !runners.keys.include?(j.id)
-            runners[j.id] = JourneyRunner.new(runners,j,time_interval, clock, logger).run
+            runners[j.id] = JourneyRunner.new(runners, job, j, time_interval, clock, logger).run
           end
         end
         sleep find_interval

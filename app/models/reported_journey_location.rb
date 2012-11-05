@@ -8,6 +8,7 @@ class ReportedJourneyLocation
   key :speed,         Float
   key :reported_time, Time
   key :recorded_time, Time
+  key :disposition,    String # "active", "test", or "simulate"
 
   attr_accessor :variance
   attr_accessor :off_schedule

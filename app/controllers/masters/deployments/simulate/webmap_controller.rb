@@ -69,8 +69,8 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
   def curloc
     @vehicle_journey = VehicleJourney.find(params[:ref])
 
-    if @vehicle_journey != nil && @vehicle_journey.journey_location != nil
-      @journey_location = @vehicle_journey.journey_location
+    if @vehicle_journey != nil && @vehicle_journey.simulate_journey_location != nil
+      @journey_location = @vehicle_journey.simulate_journey_location
     end
 
     respond_to do |format|

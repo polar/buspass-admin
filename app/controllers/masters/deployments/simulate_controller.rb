@@ -1,4 +1,5 @@
 class Masters::Deployments::SimulateController < Masters::Deployments::DeploymentBaseController
+  layout "empty"
 
   def show
     map
@@ -7,7 +8,7 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
   def map
     authenticate_muni_admin!
     authorize_muni_admin!(:edit, @deployment)
-    options = {:master_id => @master.id, :deployment_id => @deployment.id}
+    options = {:master_id => @master.id, :deployment_id => @deployment.id, :disposition => "simulate"}
     @job = SimulateJob.first(options)
     @date = Time.now.in_time_zone(@master.time_zone)
     @time = @date
@@ -23,11 +24,11 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     @loginUrl = api_master_deployment_simulate_path(@master, @deployment)
     @updateUrl = partial_status_master_deployment_simulate_path(@master, @deployment)
 
-    if @deployment.is_active?
+    if false && @deployment.is_active?
       flash[:error] = "You cannot simulate this deployment. It is set up as active."
       redirect_to master_deployments_path(@master)
     else
-      @disable_start = @job && @job.is_processing
+      @disable_start = @job && @job.is_processing?
       @disable_stop  = @job.nil? || @job.is_processing?
     end
 
@@ -35,7 +36,7 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
 
   def status
     authorize_muni_admin!(:edit, @deployment)
-    options = {:master_id => @master.id, :deployment_id => @deployment.id}
+    options = {:master_id => @master.id, :deployment_id => @deployment.id, :disposition => "simulate"}
     @job = SimulateJob.first(options)
     if @job.nil?
       flash[:error] = "There is no simulation running for #{@deployment.name}."
@@ -44,12 +45,12 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
 
   def start
     authorize_muni_admin!(:edit, @deployment)
-    if (@deployment.is_active?)
+    if false && (@deployment.is_active?)
       @status = "You cannot simulate a deployment that is set up as active."
       return
     end
 
-    options = {:master_id => @master.id, :deployment_id => @deployment.id}
+    options = {:master_id => @master.id, :deployment_id => @deployment.id, :disposition => "simulate"}
     @date = Time.now.in_time_zone(@master.time_zone)
     @time = @date
     @status = ""
@@ -109,7 +110,7 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     end
     job = Delayed::Job.enqueue(:queue => @master.slug,
                                :payload_object => VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
-                                                                                @clock, @mult, @duration, options))
+                                                                                @clock, @mult, @duration))
     @job.delayed_job = job
     @job.save!
     @status = "Simulation for #{@deployment.name} has been started."
@@ -117,10 +118,10 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
 
   def stop
     authorize_muni_admin!(:edit, @deployment)
-    options = {:master_id => @master.id, :deployment_id => @deployment.id}
+    options = {:master_id => @master.id, :deployment_id => @deployment.id, :disposition => "simulate"}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
-    if @job && @job.processing_status == "Running"
+    if @job && @job.processing_status != "Stopped"
       @job.set_processing_status!("StopRequested")
       @status = "The simulation for #{@deployment.name} will stop shortly."
     else
@@ -150,7 +151,7 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
   def partial_status
     authorize_muni_admin!(:edit, @deployment)
 
-    options = {:master_id => @master.id, :deployment_id => @deployment.id}
+    options = {:master_id => @master.id, :deployment_id => @deployment.id, :disposition => "simulate"}
     @job = SimulateJob.first(options)
     if @job
       @last_log = params[:log].to_i
@@ -163,7 +164,7 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
       resp[:start] = true
       resp[:stop] = false
 
-      if @deployment.is_active?
+      if false && @deployment.is_active?
         # This message doesn't display anywhere yet.
         resp[:message] = "Deployment is currently active and cannot be simulated."
         resp[:start] = false

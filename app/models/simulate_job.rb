@@ -17,11 +17,14 @@ class SimulateJob
   key :clock_mult, Integer
   key :duration, Integer
   key :time_zone, String
+  key :disposition, String # "active", "test", "simulate"
 
   belongs_to :delayed_job, :class_name => "Delayed::Job"
 
   key :please_stop, Boolean
 
+  many :journey_locations
+  many :reported_journey_locations
 
   attr_accessible :master, :master_id
   attr_accessible :deployment, :deployment_id
@@ -38,16 +41,29 @@ class SimulateJob
   def initialize(options)
     super
     self.update_attributes(options)
+    if activement
+      @disposition  = "active"
+      @master        = activement.master
+      @master_id     = activement.master.id
+      @deployment    = activement.deployment
+      @deployment_id = activement.deployment.id
+    elsif testament
+      @disposition = "test"
+      @master        = testament.master
+      @master_id     = testament.master.id
+      @deployment    = testament.deployment
+      @deployment_id = testament.deployment.id
+    else
+      @disposition = "simulate"
+      @master    = deployment.master
+      @master_id = deployment.master.id
+    end
     self.reinitialize()
   end
 
   def name
-    name1 = self.master.name if self.master
-    name1 ||= self.testament.master.name if self.testament
-    name1 ||= self.activement.master.name if self.activement
-    name2 = self.deployment.name if self.deployment
-    name2 ||= self.testament.deployment.name if self.testament
-    name2 ||= self.activement.deployment.name if self.activement
+    name1 = self.master.name
+    name2 = self.deployment.name
     "#{name1} - #{name2}"
   end
 
@@ -67,11 +83,25 @@ class SimulateJob
 
   def set_processing_status(status)
     case processing_status
+      when "Enqueued"
+        case status
+          when "Starting"
+          when "Running"
+            self.processing_status= status
+          when "StopRequested"
+            self.processing_status= status
+            self.please_stop = true
+          when "Stopping"
+            self.processing_status= status
+          when "Stopped"
+            self.processing_status= status
+          else
+        end
       when "Starting"
         case status
           when "Starting"
           when "Running"
-             self.processing_status= status
+            self.processing_status= status
           when "StopRequested"
             self.processing_status= status
             self.please_stop = true
@@ -127,6 +157,18 @@ class SimulateJob
         end
       else
     end
+  end
+
+  after_destroy :destroy_delayed_job, :destroy_journey_locations
+
+  def destroy_delayed_job
+    delayed_job.destroy() if delayed_job
+    delayed_job = nil;
+  end
+
+  def destroy_journey_locations
+    journey_locations.all.each { |jl| jl.destroy }
+    reported_journey_locations.all.each { |rjl| rjl.destroy }
   end
 
   def set_processing_status!(status)

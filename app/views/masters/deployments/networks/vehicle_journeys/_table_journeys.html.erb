@@ -42,9 +42,9 @@
                 <td><%=  s.day_class %></td>
                 <td><%=  vj.service.direction  %></td>
                 <!--- TODO: Internatialize Time -->
-                <td><%=  to_time_literal(vj.time_start) %></td>
-                <td><%=  to_time_literal(vj.time_end) %></td>
-                <td><%=  vj.journey_pattern_timing_links.count %></td>
+                <td><%= vj.time_start_lit %></td>
+                <td><%= vj.time_end_lit %></td>
+                <td><%= vj.journey_pattern_timing_links.count %></td>
                 <td><%= link_to "Map", map_master_deployment_network_vehicle_journey_path(@master, @deployment, @network, vj), :class => "btn" %></td>
               </tr>
           <% end %></tbody>

@@ -240,18 +240,28 @@ class ServiceTable
         raise "Bad Time Format on #{timeliteral}"
       end
       # works even if hours is negative.  -1.23 means 11:23pm the previous day.
-      time = Time.parse("0:00") + h.hours + m.minutes
+      time = Time.parse("0:00 UTC") + h.hours + m.minutes
+      return h*60 + m
     rescue Exception => boom
       raise ProcessingError.new("#{boom}")
     end
   end
 
+  def self.minutesToTimelit(timem, sep = ":")
+    # If time is greater than 24 hours, we need to add 24 hours to time.
+    dtime = (timem/(60*24)).to_i.abs*24 # hours to add
+    hours = (Time.parse("0:00 UTC") + timem.minutes).hour + dtime
+    mins  = (Time.parse("0:00 UTC") + timem.minutes).min
+    (timem < 0 ? "~" : "") + ("%02i" % hours) + sep + ("%02i" % mins)
+  end
+
+
   def self.toTimelit(time, sep = ":")
-    timem = (time - Time.parse("0:00"))/60  # could be negative
+    timem = (time - Time.parse("0:00 UTC"))/60  # could be negative
     # If time is greater than 24 hours, we need to add 24 hours to time.
     dtime = (timem/(60*24)).to_i.abs*24  # hours to add
-    hours = (Time.parse("0:00") + timem.minutes).hour + dtime
-    mins  = (Time.parse("0:00") + timem.minutes).min
+    hours = (Time.parse("0:00 UTC") + timem.minutes).hour + dtime
+    mins  = (Time.parse("0:00 UTC") + timem.minutes).min
     (timem < 0 ? "~" : "") + ("%02i" % hours) + sep + ("%02i" % mins)
   end
 
@@ -303,6 +313,8 @@ class ServiceTable
 
 
   def self.generateJPTLs(cache, network, dir, file, progress)
+    time_zone = ActiveSupport::TimeZone.new(network.master.time_zone).now.formatted_offset
+
     service = nil
 
     jptl_dir = File.dirname(file)
@@ -575,7 +587,9 @@ class ServiceTable
         for i in 0..indexNOTE-1 do
           parsed_times << ((times[i] && !times[i].strip.blank?) ? parseTime(times[i]) : nil)
         end
-        progress.log("#{parsed_times.map {|t| toTimelit(t) }.inspect}")
+        progress.log("#{times.inspect}")
+        progress.log("#{parsed_times.inspect}")
+        progress.log("#{parsed_times.map { |t| minutesToTimelit(t) }.inspect}")
         progress.commit()
 
         # The last column of the stop_point_names
@@ -602,7 +616,7 @@ class ServiceTable
               # This is the beginning point. The first time found.
               current_time  = parsed_times[i]
               start_time    = current_time
-              timelit       = toTimelit(current_time)
+              timelit       = minutesToTimelit(current_time)
 
               # There is a VehicleJourney and a JourneyPattern
               # for each line associated with this service.
@@ -615,7 +629,7 @@ class ServiceTable
               if !service.route
                 raise "WTF 3 Route nil, Service #{service.name} #{i} #{stop_point_names[i]} #{times[i]}"
               end
-              time_minutes = (start_time - Time.parse("0:00"))/60 # can be negative
+              time_minutes = start_time # can be negative
               journey_pattern = service.get_journey_pattern(timelit, journey_index, table_file, file_line)
               vehicle_journey = create_vehicle_journey(network, service, journey_pattern, timelit, time_minutes)
               journey_pattern = vehicle_journey.journey_pattern
@@ -668,10 +682,10 @@ class ServiceTable
 
               current_time = parsed_times[i]
               # time is stored in minutes the link takes to travel
-              jptl.time = (current_time-last_time)/60
+              jptl.time = current_time-last_time
 
               if jptl.time < 0
-                jptl.time_issue = "#{table_file}:#{file_line}: Time issue: The time of #{toTimelit(last_time)} in column #{spreadsheet_column(column-1)} is after the time of #{toTimelit(current_time)} in column #{(spreadsheet_column(column))}."
+                jptl.time_issue = "#{table_file}:#{file_line}: Time issue: The time of #{minutesToTimelit(last_time)} in column #{spreadsheet_column(column-1)} is after the time of #{minutesToTimelit(current_time)} in column #{(spreadsheet_column(column))}."
                 progress.error(jptl.time_issue)
                 progress.commit()
               end
@@ -1060,7 +1074,7 @@ class ServiceTable
           index += 1
           vjrow << ""
         end
-        vjrow << toTimelit(Time.parse("0:00")+time, ".")
+        vjrow << toTimelit(time, ".")
         time += jptls[0].time
         for jptl in jptls do
           index += 1
@@ -1069,7 +1083,7 @@ class ServiceTable
             vjrow << ""
           end
           if index < stop_points.length
-            vjrow << toTimelit(Time.parse("0:00")+time, ".")
+            vjrow << toTimelit(time, ".")
             time = time + jptl.time
           end
         end

@@ -10,6 +10,13 @@ class Masters::Deployments::NetworksController < Masters::Deployments::Deploymen
   def new
     authenticate_muni_admin!
     authorize_muni_admin!(:create, Network)
+
+    if @deployment.is_active?
+      flash[:error] = "Deployment is active. You cannot create a new Network in it until that deployment is deactivated."
+      redirect_to(:back)
+      return
+    end
+
     @network = Network.new
   end
 

@@ -20,12 +20,12 @@
                 <!--- TODO: Internatialize Time -->
                 <td><%= check_box_tag 'timing_links[]', "#{vj.id},#{tl.id}", same_path,
                             :class => "#{same_path ? 'same' : ''} #{same_note ? 'note' : ''} #{same_route ? 'one' : ''} all" %>
-                  &nbsp;<%= link_to to_time_literal(vj.time_start(0)), master_deployment_network_vehicle_journey_journey_pattern_timing_link_path(@master, @deployment, @network, vj, tl)  %></td>
+                  &nbsp;<%= link_to vj.time_start_lit, master_deployment_network_vehicle_journey_journey_pattern_timing_link_path(@master, @deployment, @network, vj, tl)  %></td>
                 <td><%=  tl.position+1  %></td>
-                <td><%=  to_time_literal(vj.time_start(tl.position)) %></td>
+                <td><%=  vj.time_start_lit(tl.position) %></td>
                 <td><%=  tl.from.common_name  %><br /> <%= tl.from.location.coordinates['LonLat'] %></td>
                 <td><%=  tl.to.common_name  %><br /> <%= tl.to.location.coordinates['LonLat'] %></td>
-                <td><%=  to_time_literal(vj.time_end(tl.position)) %></td>
+                <td><%=  (vj.time_end_lit(tl.position) %></td>
                 <td><%=  tl.time %></td>
                 <td><%=  vj.note %></td>
                 <td><%=  same_path %></td>

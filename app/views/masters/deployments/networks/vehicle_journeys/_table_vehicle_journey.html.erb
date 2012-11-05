@@ -19,8 +19,8 @@
     <td><%=  @vehicle_journey.service.day_class  %></td>
     <td><%=  @vehicle_journey.service.direction  %></td>
     <!--- TODO: Internatialize Time -->
-    <td><%=  to_time_literal(@vehicle_journey.time_start) %></td>
-    <td><%=  to_time_literal(@vehicle_journey.time_end) %></td>
+    <td><%=  @vehicle_journey.time_start_lit %></td>
+    <td><%=  @vehicle_journey.time_end_lit %></td>
     <td><%=  @vehicle_journey.journey_pattern_timing_links.count %></td>
   </tr>
   </tbody>

@@ -253,11 +253,11 @@ class JourneyPattern
     cols << route.code
     cols << ServiceTable.getNormalizedDayClass(service)
     cols << vehicle_journey.display_name
-    time = Time.parse("0:00") + vehicle_journey.start_time
-    cols << ServiceTable.toTimelit(time)
+    time = vehicle_journey.departure_time
+    cols << ServiceTable.minutesToTimelit(time)
     journey_pattern_timing_links.each do |jptl|
       time += jptl.time
-      cols << ServiceTable.toTimelit(time)
+      cols << ServiceTable.minutesToTimelit(time)
     end
     cols << vehicle_journey.note
     if default_kml.nil?
