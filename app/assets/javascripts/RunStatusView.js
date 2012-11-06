@@ -1,8 +1,6 @@
 /**
  * RunStatusView
  *
- * **NOT_USED**
- *
  * @param options
  * @constructor
  */

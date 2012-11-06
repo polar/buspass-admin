@@ -134,6 +134,13 @@ BusPass.ActivePlanBasketController.prototype = {
         this.activePlanBackButton.click(this.onBackClick);
     },
 
+    reset : function () {
+        this.basket.empty();
+        this.activePlanController.reset();
+        this.activePlanAllRoutesButton[0].checked = true;
+        this.activePlanController.setOnlyActive(false);
+    },
+
 
     /**
      * This function initializes this object after all options have been merged.

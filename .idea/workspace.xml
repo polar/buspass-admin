@@ -6,34 +6,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/deployments/simulate.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/masters/active.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/active.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments/networks_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/RoutesMapController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/RoutesMapController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/deployment.rb" afterPath="$PROJECT_DIR$/app/models/deployment.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/journey_location.rb" afterPath="$PROJECT_DIR$/app/models/journey_location.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/journey_pattern.rb" afterPath="$PROJECT_DIR$/app/models/journey_pattern.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/reported_journey_location.rb" afterPath="$PROJECT_DIR$/app/models/reported_journey_location.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_csv_file.rb" afterPath="$PROJECT_DIR$/app/models/service_csv_file.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_table.rb" afterPath="$PROJECT_DIR$/app/models/service_table.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/simulate_job.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/planner_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/planner_role_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_service_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_service_journeys.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_services.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_services.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_table_journeys.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_journeys.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_timing_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_timing_links.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_vehicle_journey.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_vehicle_journey.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_jptls.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_jptls.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_services_route_jptls.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_services_route_jptls.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -65,26 +52,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="vehicle_journey.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
+      <file leaf-file-name="ActivePlanBasketController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="594" column="90" selection-start="20455" selection-end="20455" vertical-scroll-proportion="0.84156376">
+            <state line="159" column="42" selection-start="5336" selection-end="5336" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webmap_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb">
+      <file leaf-file-name="JourneyBasket.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="71" column="0" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.0">
+            <state line="554" column="8" selection-start="19218" selection-end="19229" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="timezone.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/timezone-0.1.5/lib/timezone.rb">
+      <file leaf-file-name="_map_script.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="28" selection-start="286" selection-end="286" vertical-scroll-proportion="-5.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RunStatusView.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -92,10 +88,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zone.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/timezone-0.1.5/lib/timezone/zone.rb">
+      <file leaf-file-name="_status.html.erb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="69" column="37" selection-start="2616" selection-end="2616" vertical-scroll-proportion="0.75359344">
               <folding />
             </state>
           </provider>
@@ -104,16 +100,7 @@
       <file leaf-file-name="simulate_job.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vehicle_journey_simulate_job.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="84" column="11" selection-start="2485" selection-end="2485" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -122,86 +109,34 @@
       <file leaf-file-name="simulate_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="50" selection-start="1056" selection-end="1056" vertical-scroll-proportion="0.0">
+            <state line="168" column="53" selection-start="5141" selection-end="5141" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb">
+      <file leaf-file-name="active_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/active_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="81" selection-start="332" selection-end="332" vertical-scroll-proportion="-4.375">
-              <folding>
-                <marker date="1352081965000" expanded="true" signature="398:2166" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="420:2156" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="463:2067" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="540:1730" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="557:743" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="576:725" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="598:705" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="793:811" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="828:1012" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="847:994" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="869:974" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1029:1712" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1048:1341" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1070:1321" placeholder="..." />
-                <marker date="1352081965000" expanded="false" signature="1169:1191" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1360:1694" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1382:1674" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1594:1651" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1761:1896" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1779:1797" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="1943:2052" placeholder="..." />
-                <marker date="1352081965000" expanded="false" signature="2128:2138" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="2173:4892" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="2543:3079" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="2614:2675" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="2708:3068" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="2721:2798" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="2811:2887" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="2900:2966" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="2979:3056" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="3351:3484" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="3867:4438" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="3940:4007" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="4042:4425" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="4057:4138" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="4153:4230" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="4245:4315" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="4330:4411" placeholder="..." />
-                <marker date="1352081965000" expanded="true" signature="4720:4872" placeholder="..." />
-              </folding>
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_table_journeys.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_journeys.html.erb">
+      <file leaf-file-name="onUpdateStatus.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="31" selection-start="2489" selection-end="2489" vertical-scroll-proportion="-31.25">
-              <folding>
-                <marker date="1352082020000" expanded="true" signature="41:171" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="372:1242" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="390:608" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="394:600" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="626:1225" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="630:1217" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="1346:2488" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="1364:1614" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="1368:1606" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="1632:2471" placeholder="..." />
-                <marker date="1352082020000" expanded="true" signature="1688:2443" placeholder="..." />
-              </folding>
+            <state line="18" column="40" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service_table.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
+      <file leaf-file-name="ActivePlanController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="267" column="11" selection-start="7512" selection-end="7512" vertical-scroll-proportion="-1.08">
+            <state line="315" column="4" selection-start="10995" selection-end="10995" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -222,28 +157,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/_edit.html.erb" />
-        <option value="$PROJECT_DIR$/app/models/journey_pattern.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/services/_table_journeys.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_vehicle_journey.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_services.html.erb" />
-        <option value="$PROJECT_DIR$/app/models/service_table.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_service_journeys.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_timing_links.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_jptls.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_services_route_jptls.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_journeys.html.erb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/masters/deployments/simulate.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/RoutesMapController.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" />
+        <option value="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" />
+        <option value="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" />
         <option value="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
+        <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js" />
+        <option value="$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb" />
       </list>
     </option>
   </component>
@@ -308,6 +240,16 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="RailsProjectView">
         <subPane>
           <PATH>
@@ -597,6 +539,102 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deployments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deployments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulate" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -697,36 +735,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="deployments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="deployments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulate" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -896,31 +904,21 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="256" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="265" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="260" />
-    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="260" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../comatose" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="269" />
     <property name="RakeTaksPopup.undocumentedIncluded" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="808" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="269" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="812" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="808" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="269" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="265" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -934,9 +932,9 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="org.jetbrains.plugins.ruby.settings.RubyIdeSdkConfigurable" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="Ruby.ViewRefParam.DefaultExtension" value="html.erb" />
+    <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -954,7 +952,7 @@
       <recent name="$PROJECT_DIR$/app/views/layouts" />
     </key>
   </component>
-  <component name="RunManager" selected="IRB console.Rails console: buspass.admin">
+  <component name="RunManager" selected="Rails.Development">
     <configuration default="false" name="Network should create routes" type="RSpecRunConfigurationType" factoryName="RSpec" temporary="true">
       <predefined_log_file id="RUBY_RSPEC" enabled="true" />
       <module name="buspass.admin" />
@@ -1097,9 +1095,7 @@
       <IRB_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$PROJECT_DIR$/script/rails" />
       <IRB_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="console" />
       <IRB_RUN_CONFIG NAME="IS_RAILS_CONSOLE" VALUE="true" />
-      <RunnerSettings RunnerId="RubyCover" />
       <RunnerSettings RunnerId="RubyRunner" />
-      <ConfigurationWrapper RunnerId="RubyCover" />
       <ConfigurationWrapper RunnerId="RubyRunner" />
       <method />
     </configuration>
@@ -1265,13 +1261,6 @@
       <RUBY_REMOTE_DEBUG_CONFIG NAME="LOCAL_ROOT" VALUE="$PROJECT_DIR$/spec" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
-      <JSRemoteDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSRemoteDebuggerConfigurationSettings>
-      <method />
-    </configuration>
     <configuration default="true" type="CucumberRunConfigurationType" factoryName="Cucumber">
       <predefined_log_file id="RUBY_CUCUMBER" enabled="true" />
       <module name="" />
@@ -1303,6 +1292,13 @@
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="CUCUMBER_RUNNER_PATH" VALUE="" />
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_RUNNER" VALUE="false" />
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="SETTINGS_VERSION" VALUE="2" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
@@ -1787,18 +1783,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="-3" width="1284" height="1031" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32671082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32339954" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28518972" sideWeight="0.6761042" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24635333" sideWeight="0.67660046" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25769854" sideWeight="0.67660046" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31677705" sideWeight="0.3610771" order="3" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31898454" sideWeight="0.6346389" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="true" weight="0.32339954" sideWeight="0.46017158" order="1" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32339954" sideWeight="0.46017158" order="1" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289183" sideWeight="0.32802936" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1868,143 +1864,17 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_routes.html.erb">
+    <entry file="file://$PROJECT_DIR$/lib/page_utils.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_services.html.erb">
+    <entry file="file://$PROJECT_DIR$/lib/master_scaler.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="37" selection-start="2070" selection-end="2070" vertical-scroll-proportion="-14.375">
-          <folding />
-        </state>
+        <state line="18" column="0" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_service_journeys.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="22" selection-start="817" selection-end="817" vertical-scroll-proportion="-11.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_timing_links.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="57" selection-start="506" selection-end="506" vertical-scroll-proportion="-11.291667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_jptls.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="46" selection-start="908" selection-end="908" vertical-scroll-proportion="-12.166667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/_table_services_route_jptls.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="53" selection-start="1274" selection-end="1274" vertical-scroll-proportion="-12.541667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/journey_pattern_timing_links/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="81" selection-start="332" selection-end="332" vertical-scroll-proportion="-4.375">
-          <folding>
-            <marker date="1352081965000" expanded="true" signature="398:2166" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="420:2156" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="463:2067" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="540:1730" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="557:743" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="576:725" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="598:705" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="793:811" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="828:1012" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="847:994" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="869:974" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1029:1712" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1048:1341" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1070:1321" placeholder="..." />
-            <marker date="1352081965000" expanded="false" signature="1169:1191" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1360:1694" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1382:1674" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1594:1651" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1761:1896" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1779:1797" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="1943:2052" placeholder="..." />
-            <marker date="1352081965000" expanded="false" signature="2128:2138" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="2173:4892" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="2543:3079" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="2614:2675" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="2708:3068" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="2721:2798" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="2811:2887" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="2900:2966" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="2979:3056" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="3351:3484" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="3867:4438" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="3940:4007" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="4042:4425" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="4057:4138" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="4153:4230" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="4245:4315" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="4330:4411" placeholder="..." />
-            <marker date="1352081965000" expanded="true" signature="4720:4872" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/networks/vehicle_journeys/_table_journeys.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="31" selection-start="2489" selection-end="2489" vertical-scroll-proportion="-31.25">
-          <folding>
-            <marker date="1352082020000" expanded="true" signature="41:171" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="372:1242" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="390:608" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="394:600" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="626:1225" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="630:1217" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="1346:2488" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="1364:1614" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="1368:1606" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="1632:2471" placeholder="..." />
-            <marker date="1352082020000" expanded="true" signature="1688:2443" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="267" column="11" selection-start="7512" selection-end="7512" vertical-scroll-proportion="-1.08">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/timezone-0.1.5/lib/timezone/zone.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/timezone-0.1.5/lib/timezone.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="50" selection-start="1056" selection-end="1056" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
+    <entry file="file://$PROJECT_DIR$/lib/websites_pages.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -2013,21 +1883,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="0" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.0">
+        <state line="18" column="17" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="594" column="90" selection-start="20455" selection-end="20455" vertical-scroll-proportion="0.84156376">
+        <state line="593" column="139" selection-start="20452" selection-end="20452" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="251" column="83" selection-start="9587" selection-end="9587" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="315" column="4" selection-start="10995" selection-end="10995" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/active_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="159" column="42" selection-start="5336" selection-end="5336" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="554" column="8" selection-start="19218" selection-end="19229" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="11" selection-start="2485" selection-end="2485" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="40" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="168" column="53" selection-start="5141" selection-end="5141" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="28" selection-start="286" selection-end="286" vertical-scroll-proportion="-5.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="37" selection-start="2616" selection-end="2616" vertical-scroll-proportion="0.75359344">
           <folding />
         </state>
       </provider>

@@ -24,14 +24,8 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     @loginUrl = api_master_deployment_simulate_path(@master, @deployment)
     @updateUrl = partial_status_master_deployment_simulate_path(@master, @deployment)
 
-    if false && @deployment.is_active?
-      flash[:error] = "You cannot simulate this deployment. It is set up as active."
-      redirect_to master_deployments_path(@master)
-    else
-      @disable_start = @job && @job.is_processing?
-      @disable_stop  = @job.nil? || @job.is_processing?
-    end
-
+    @disable_start = @job && @job.is_processing?
+    @disable_stop  = @job.nil? || !@job.is_stopped?
   end
 
   def status
@@ -102,16 +96,17 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     end
     @job.save!
     if @mult == 1
-      @find_interval = 60
+      @find_interval = 20
       @time_interval = 10
     else
-      @find_interval = 60 / @mult
-      @time_interval = 10 / @mult
+      @find_interval = 20.0 / @mult
+      @time_interval = 10.0 / @mult
     end
-    job = Delayed::Job.enqueue(:queue => @master.slug,
-                               :payload_object => VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
-                                                                                @clock, @mult, @duration))
-    @job.delayed_job = job
+    @job.processing_log << "Submitting simulation job #{@job.name} to system."
+    djob = Delayed::Job.enqueue(:queue          => @master.slug,
+                                :payload_object =>
+                                    VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
+                                                                  @clock, @mult, @duration))
     @job.save!
     @status = "Simulation for #{@deployment.name} has been started."
   end
@@ -121,8 +116,20 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     options = {:master_id => @master.id, :deployment_id => @deployment.id, :disposition => "simulate"}
     @job = SimulateJob.first(options)
     # TODO: Simultaneous solution needed
-    if @job && @job.processing_status != "Stopped"
-      @job.set_processing_status!("StopRequested")
+    if @job
+      case @job.processing_status
+        when "StopRequested"
+          @job.delayed_job = nil
+          @job.set_processing_status("Stopping")
+          @status = "Attempting to abort job"
+          @job.save
+        when "Stopping"
+          @job.destroy
+          @status = "Aborting job"
+        else
+          @job.set_processing_status!("StopRequested")
+          @job.save
+      end
       @status = "The simulation for #{@deployment.name} will stop shortly."
     else
       @status = "There is no simulation for #{@deployment.name} to stop."
@@ -159,29 +166,10 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
 
       @logs   = @job.processing_log.drop(@last_log).take(@limit)
 
-      resp                  = { :logs => @logs, :last_log => @last_log }
+      resp = { :logs => @logs, :last_log => @last_log }
 
-      resp[:start] = true
-      resp[:stop] = false
-
-      if false && @deployment.is_active?
-        # This message doesn't display anywhere yet.
-        resp[:message] = "Deployment is currently active and cannot be simulated."
-        resp[:start] = false
-        resp[:stop] = false
-      else
-        if (@job.is_processing?)
-          resp[:status] = @job.processing_status
-          if (@job.processing_status != "Stopped")
-            resp[:start] = false
-            resp[:stop] = true
-          end
-          if (@job.processing_status == "StopRequested")
-            resp[:start] = false
-            resp[:stop] = false
-          end
-        end
-      end
+      resp[:start] = !@job.is_processing?
+      resp[:stop] = !["Stopped"].include?(@job.processing_status)
 
       if (@job.processing_status)
         resp[:status] = @job.processing_status

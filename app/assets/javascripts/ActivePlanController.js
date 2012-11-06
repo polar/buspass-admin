@@ -23,7 +23,7 @@ BusPass.ActivePlanController = function(options) {
         scope : this,
         onRouteSelected : this._onMapRouteSelect,
         onRouteHighlighted : this._onMapRouteHighlight,
-        onRouteUnhighlighted : this._onMapRouteunhighlight,
+        onRouteUnhighlighted : this._onMapRouteunhighlight
     });
     var rctrl = this;
     this._listViewC = new BusPass.ListViewController({
@@ -33,7 +33,7 @@ BusPass.ActivePlanController = function(options) {
         onRouteUnhighlighted : this._onListRouteUnhighlight,
         onRouteClicked : function (ctrl, route) {
             rctrl._onListRouteClicked(ctrl,route);
-        },
+        }
     });
     this._locationC = new BusPass.LocationController({
         busAPI : this.busAPI,
@@ -114,6 +114,25 @@ BusPass.ActivePlanController.prototype = {
         this._listViewC.removeRoute(route);
         this._mapViewC.removeRoute(route);
         this._locationC.removeRoute(route);
+    },
+
+    removeAllRoutes : function () {
+        var rs = [];
+        for (var r = 0; r < this._routes.length; r++) {
+            rs.push(this._routes[r]);
+        }
+        this._routes = [];
+        for (var r = 0; r < rs.length; r++) {
+            this._listViewC.removeRoute(rs[r]);
+            this._mapViewC.removeRoute(rs[r]);
+            this._locationC.removeRoute(rs[r]);
+        }
+        this._updateActiveJourneys();
+    },
+
+    reset : function () {
+        this._stateStack = [];
+        this._stateStack.push(new BusPass.ActivePlanController.VisualState())
     },
 
     // For testing rightnow

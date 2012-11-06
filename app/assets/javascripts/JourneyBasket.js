@@ -20,7 +20,7 @@
  */
 BusPass.JourneyBasket = function (options) {
     $.extend(this, options);
-    this._pollTime = 60000;
+    this._pollTime = 10000;
 
     // Internal list of journey definitions.
     this._journeys = [];

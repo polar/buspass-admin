@@ -404,7 +404,7 @@ BusPass.RoutesMapController = OpenLayers.Class({
     },
 
     /**
-     * Method: unselectAllRoutesr
+     * Method: unselectAllRoutes
      * This method unselects the selected routes in this View.
      */
     unselectAllRoutes : function () {
@@ -475,13 +475,21 @@ BusPass.RoutesMapController = OpenLayers.Class({
     },
 
     mapView : function (jquery) {
-        this.map = new OpenLayers.Map($(jquery)[0].id);
-        this.map.projection = "EPSG:900913"; // Need by OSM
-        this.map.displayProjection = new OpenLayers.Projection("EPSG:4326");
-        var mapnik = new OpenLayers.Layer.OSM("OpenStreetMap (Mapnik)");
-        this.map.addLayers([mapnik]);
-        this.map.addControl(new OpenLayers.Control.LayerSwitcher());
-        this.map.addControl(new OpenLayers.Control.MousePosition());
+        this.map = new OpenLayers.Map($(jquery)[0].id, {
+            controls:[
+                new OpenLayers.Control.Navigation(),
+                new OpenLayers.Control.PanZoomBar(),
+                new OpenLayers.Control.LayerSwitcher(),
+                new OpenLayers.Control.MousePosition()
+            ],
+            layers:[new OpenLayers.Layer.OSM("OpenStreetMap (Mapnik)")],
+            maxExtent:new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
+            maxResolution:156543.0399,
+            numZoomLevels:20,
+            units:'m',
+            projection:new OpenLayers.Projection("EPSG:900913"),
+            displayProjection:new OpenLayers.Projection("EPSG:4326")
+        });
         this.map.setCenter(new OpenLayers.LonLat(-76.146669, 43.050952).transform(
             new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
             new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection

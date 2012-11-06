@@ -2,15 +2,6 @@
 
     <script type="text/javascript">
         var debug = false;
-
-        /*
-         * This function enable/disables the start and stop buttons
-         * based on the run status.
-         */
-        function onUpdateStatus(data) {
-            $("#start").prop("disabled", !data['start']);
-            $("#stop").prop("disabled", !data['stop']);
-        }
         var runStatusView;
         $(function () {
             $("body").layout({ applyDefaultStyles:true });
@@ -29,6 +20,7 @@
             // When the form is submitted we clear the status.
             $("#start").parents("form").submit(function(ev) {
                 console.log("Submit start");
+                activePlanView.reset();
                 runStatusView.clearAll();
             });
 

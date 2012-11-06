@@ -499,13 +499,13 @@ class VehicleJourney
 
         journey_location.save!
         distance = ans[:distance]
-        logger.info "Journey '#{self.name}' location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M %Z")}"
+        logger.info "Journey '#{self.name}' location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")}"
       end
       tm_last = tm_now
       sleep interval
       tm_now = clock.now
       #logger.info("VehicleJourney '#{self.name}' tick #{tm_now} tm_start #{tm_start}")
-      if @please_stop_simulating || (job && SimulateJob.find(job.id).nil? || job.delayed_job.nil?)
+      if @please_stop_simulating || (job && SimulateJob.find(job.id).nil? || job.please_stop || job.delayed_job.nil?)
         logger.info "Stopping #{self.name}"
         break
       end
@@ -585,7 +585,7 @@ class VehicleJourney
       while (x = SimulateJob.find(job_id)) && !x.please_stop && (duration < 0 || (clock.now - logical_start_time) <= duration.minutes) do
         date = time = clock.now
         journeys = VehicleJourney.find_by_date_time(date, time, {:master_id => job.master.id, :deployment_id => job.deployment.id})
-        logger.info "Found #{journeys.length} journeys at #{date.in_time_zone(job.master.time_zone).strftime("%m-%d-%Y")} #{time.in_time_zone(job.master.time_zone).strftime("%H:%M %Z")}"
+        logger.info "Found #{journeys.length} journeys at #{date.in_time_zone(job.master.time_zone).strftime("%m-%d-%Y")} #{time.in_time_zone(job.master.time_zone).strftime("%H:%M:%S %Z")}"
         # Create Journey Runners for new Journeys.
         for j in journeys do
           if !runners.keys.include?(j.id)
@@ -595,13 +595,19 @@ class VehicleJourney
         sleep find_interval
       end
     rescue Exception => boom
-      job.set_processing_status!("Stopping")
-      logger.info "Ending because #{html_escape(boom)}"
-      #logger.info boom.backtrace.join("\n")
+      job = SimulateJob.find(job_id)
+      if job
+        job.set_processing_status!("Stopping")
+        logger.info "Ending because #{html_escape(boom)}"
+        #logger.info boom.backtrace.join("\n")
+      end
     ensure
-      job.set_processing_status!("Stopping")
-      logger.info "Stopping for #{job.name} with #{runners.keys.size} Runners"
-      keys = runners.keys.clone
+      job = SimulateJob.find(job_id)
+      if job
+        job.set_processing_status!("Stopping")
+        logger.info "Stopping #{job.name} with #{runners.keys.size} Runners"
+        keys = runners.keys.clone
+      end
       for k in keys do
         runner = runners[k]
         if runner != nil
@@ -611,14 +617,18 @@ class VehicleJourney
           end
         end
       end
-      logger.info "Waiting"
-      while !runners.empty? do
-        logger.info "#{runners.keys.size} Runners"
-        sleep time_interval
+      if job
+        logger.info "Waiting for journey runners to end gracefully." if runners.keys.size > 0
+        while !runners.empty? do
+          logger.info "#{runners.keys.size} Runners"
+          sleep time_interval
+        end
+        logger.info "All stopped"
+        job.processing_completed_at = Time.now
+        job.set_processing_status!("Stopped")
+      else
+        raise "Aborted!"
       end
-      logger.info "All stopped"
-      job.processing_completed_at = Time.now
-      job.set_processing_status!("Stopped")
     end
   end
 

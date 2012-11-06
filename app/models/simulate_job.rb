@@ -81,11 +81,18 @@ class SimulateJob
     return delayed_job != nil && !["Stopped"].include?(processing_status)
   end
 
+  def is_stopped?
+    return ["Stopped"].include?(processing_status)
+  end
+
   def set_processing_status(status)
     case processing_status
-      when "Enqueued"
+      when "Starting"
         case status
           when "Starting"
+            # nothing
+          when "Enqueued"
+            self.processing_status= status
           when "Running"
             self.processing_status= status
           when "StopRequested"
@@ -97,14 +104,14 @@ class SimulateJob
             self.processing_status= status
           else
         end
-      when "Starting"
+      when "Enqueued"
         case status
           when "Starting"
+            self.processing_status= status
           when "Running"
             self.processing_status= status
           when "StopRequested"
-            self.processing_status= status
-            self.please_stop = true
+            self.kill
           when "Stopping"
             self.processing_status= status
           when "Stopped"
@@ -114,6 +121,9 @@ class SimulateJob
       when "Running"
         case status
           when "Starting"
+            # nothing
+          when "Enqueued"
+            # nothing
           when "Running"
             processing_status= status
           when "StopRequested"
@@ -128,8 +138,13 @@ class SimulateJob
       when "StopRequested"
         case status
           when "Starting"
+            # nothing
+          when "Enqueued"
+            # nothing
           when "Running"
+            # nothing
           when "StopRequested"
+             # nothing
           when "Stopping"
             self.processing_status= status
           when "Stopped"
@@ -139,6 +154,7 @@ class SimulateJob
       when "Stopping"
         case status
           when "Starting"
+          when "Enqueued"
           when "Running"
           when "StopRequested"
           when "Stopping"
@@ -149,6 +165,7 @@ class SimulateJob
       when "Stopped"
         case status
           when "Starting"
+          when "Enqueued"
           when "Running"
           when "StopRequested"
           when "Stopping"
@@ -157,6 +174,11 @@ class SimulateJob
         end
       else
     end
+  end
+
+  def kill
+    destroy_delayed_job()
+    self.processing_status= "Stopped"
   end
 
   after_destroy :destroy_delayed_job, :destroy_journey_locations

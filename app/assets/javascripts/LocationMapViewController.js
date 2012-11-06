@@ -247,7 +247,7 @@ BusPass.LocationMapViewController = OpenLayers.Class(BusPass.RoutesMapController
     _removeMapFeatures : function (route) {
         console.log("LocationMapViewController.r_removeMapFeatures: " + route.name);
         if (route.__marker) {
-            this._locationMarkers.removeFeatures(marker);
+            this._locationMarkers.removeFeatures(route.__marker);
             route.__marker.__route = null;
             delete route.__marker;
         }
