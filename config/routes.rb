@@ -129,6 +129,7 @@ BuspassAdmin::Application.routes.draw do
         post :stop
         get :partial_status
         post :deactivate
+        get :admin
       end
     end
 

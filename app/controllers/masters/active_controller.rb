@@ -27,6 +27,11 @@ class Masters::ActiveController < ApplicationController
     end
   end
 
+  def admin
+    show
+    render "admin"
+  end
+
   def status
     get_context
 
