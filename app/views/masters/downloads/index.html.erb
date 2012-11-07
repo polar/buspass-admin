@@ -1,7 +1,7 @@
 <%=
     begin
       site = @master.main_site
-      page = site.pages.find_by_full_path("/")
+      page = site.pages.find_by_full_path("/downloads")
       page.render(self, :status => 200, :content_type => 'text/html')
     rescue => boom
       logger.detailed_error(boom)

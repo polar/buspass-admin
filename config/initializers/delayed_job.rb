@@ -11,6 +11,8 @@ Delayed::Worker.backend= :mongo_mapper
 #
 # This number means max "retry" attempts.
 Delayed::Worker.max_attempts=1
+# We don't want long running jobs dying. The default is 4.hours.
+Delayed::Worker.max_run_time = 2.years
 
 #
 # Workless 1.0.1 Gem

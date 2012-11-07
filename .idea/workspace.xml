@@ -6,21 +6,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/masters/downloads_controller.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/active/_admin.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/active/_admin_map.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/active/_admin_script.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/active/admin.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/downloads/_index.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/downloads/index.html.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_main_items.html.builder" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.erb" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.builder" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/RoutesMapController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/RoutesMapController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/masters/active.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/active.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/activements_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/activements_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/simulate_job.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/active/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/active/_map.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/active/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/active/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/delayed_job.rb" afterPath="$PROJECT_DIR$/config/initializers/delayed_job.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_main_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_main_template_pages.rb" />
     </list>
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
@@ -52,64 +59,73 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ActivePlanBasketController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
+      <file leaf-file-name="_main_items.html.builder" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/navigation/_main_items.html.builder">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="159" column="42" selection-start="5336" selection-end="5336" vertical-scroll-proportion="0.0">
+            <state line="35" column="75" selection-start="980" selection-end="980" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JourneyBasket.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js">
+      <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/downloads/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="554" column="8" selection-start="19218" selection-end="19229" vertical-scroll-proportion="0.0">
+            <state line="9" column="52" selection-start="309" selection-end="309" vertical-scroll-proportion="-5.625">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_map_script.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb">
+      <file leaf-file-name="master_main_template_pages.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/master_main_template_pages.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="28" selection-start="286" selection-end="286" vertical-scroll-proportion="-5.0">
+            <state line="115" column="92" selection-start="4602" selection-end="4602" vertical-scroll-proportion="0.6880734">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RunStatusView.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js">
+      <file leaf-file-name="_index.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/_index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="3" column="40" selection-start="0" selection-end="121" vertical-scroll-proportion="-1.875">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_status.html.erb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb">
+      <file leaf-file-name="_index.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/downloads/_index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="37" selection-start="2616" selection-end="2616" vertical-scroll-proportion="0.75359344">
+            <state line="0" column="18" selection-start="18" selection-end="18" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="simulate_job.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
+      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/routes.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="11" selection-start="2485" selection-end="2485" vertical-scroll-proportion="0.0">
+            <state line="183" column="69" selection-start="4445" selection-end="4445" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="simulate_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb">
+      <file leaf-file-name="downloads_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/downloads_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="168" column="53" selection-start="5141" selection-end="5141" vertical-scroll-proportion="0.0">
+            <state line="3" column="4" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="deployments_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="85" selection-start="37" selection-end="68" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -124,19 +140,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="onUpdateStatus.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js">
+      <file leaf-file-name="activements_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/activements_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="40" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActivePlanController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="315" column="4" selection-start="10995" selection-end="10995" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="51" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -160,22 +167,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/masters/deployments/simulate.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/RoutesMapController.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js" />
-        <option value="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" />
-        <option value="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
-        <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js" />
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/activements_controller.rb" />
+        <option value="$PROJECT_DIR$/config/initializers/delayed_job.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_admin.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_map.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_admin_script.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_main_nav.html.builder" />
+        <option value="$PROJECT_DIR$/lib/master_main_template_pages.rb" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_main_nav.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_main_items.html.builder" />
+        <option value="$PROJECT_DIR$/app/views/masters/downloads/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/downloads/_index.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/downloads_controller.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/downloads_controller.rb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
       </list>
     </option>
   </component>
@@ -323,6 +330,104 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="timezone (v0.1.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="delayed_job (v3.0.3@c5d005, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="recipes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="delayed_job (v3.0.3@c5d005, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="delayed_job (v3.0.3@c5d005, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="delayed" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="delayed_job (v3.0.3@c5d005, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="delayed" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="delayed_job (v3.0.3@c5d005, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -562,6 +667,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="navigation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="masters" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -588,7 +715,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="deployments" />
+              <option name="myItemId" value="downloads" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -603,72 +730,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="deployments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulate" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="permits" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -709,196 +770,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="deployments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tools" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="deployments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="deployments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="networks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vehicle_journeys" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -938,18 +809,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/views/masters/downloads" />
+      <recent name="$PROJECT_DIR$/app/views/navigation" />
+      <recent name="$PROJECT_DIR$/app/views/masters/active" />
+      <recent name="$PROJECT_DIR$/app/views/masters/deployments/simulate" />
       <recent name="$PROJECT_DIR$/app/assets/javascripts/masters/deployments" />
-      <recent name="$PROJECT_DIR$/app/assets/javascripts" />
-      <recent name="$PROJECT_DIR$/app/views/masters/municipalities/simulate" />
-      <recent name="$PROJECT_DIR$/app/views/masters/municipalities" />
-      <recent name="$PROJECT_DIR$/app/views/masters/municipalities/networks" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/controllers/masters" />
       <recent name="$PROJECT_DIR$/app/assets/stylesheets/masters/municipalities" />
       <recent name="$PROJECT_DIR$/app/assets/javascripts/masters" />
       <recent name="$PROJECT_DIR$/app/views/navigation" />
       <recent name="$PROJECT_DIR$/app/views/layouts/sites" />
-      <recent name="$PROJECT_DIR$/app/views/layouts" />
     </key>
   </component>
   <component name="RunManager" selected="Rails.Development">
@@ -1758,7 +1629,11 @@
       <created>1351636519806</created>
       <updated>1351636519807</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Progress">
+      <created>1352242209781</created>
+      <updated>1352242209781</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1785,6 +1660,7 @@
     <frame x="-2" y="-3" width="1284" height="1031" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24613686" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32671082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32339954" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
@@ -1800,7 +1676,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24613686" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1864,14 +1739,18 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/page_utils.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_admin_nav.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="184" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/master_scaler.rb">
+    <entry file="file://$PROJECT_DIR$/lib/master_admin_template_pages.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="509" selection-end="509" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/websites_pages.rb">
@@ -1881,30 +1760,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_main_nav.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="17" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0">
+        <state line="3" column="64" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="593" column="139" selection-start="20452" selection-end="20452" vertical-scroll-proportion="0.0">
+        <state line="7" column="14" selection-start="181" selection-end="181" vertical-scroll-proportion="-4.375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/LocationMapViewController.js">
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_admin_items.html.builder">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="251" column="83" selection-start="9587" selection-end="9587" vertical-scroll-proportion="0.0">
+        <state line="19" column="75" selection-start="576" selection-end="589" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
+    <entry file="file://$PROJECT_DIR$/app/views/navigation/_main_items.html.builder">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="315" column="4" selection-start="10995" selection-end="10995" vertical-scroll-proportion="0.0">
+        <state line="35" column="75" selection-start="980" selection-end="980" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/downloads/index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="52" selection-start="309" selection-end="309" vertical-scroll-proportion="-5.625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/_index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="40" selection-start="0" selection-end="121" vertical-scroll-proportion="-1.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/downloads/_index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="18" selection-start="18" selection-end="18" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/activements_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="51" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1916,58 +1823,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="42" selection-start="5336" selection-end="5336" vertical-scroll-proportion="0.0">
+        <state line="0" column="85" selection-start="37" selection-end="68" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/downloads_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="554" column="8" selection-start="19218" selection-end="19229" vertical-scroll-proportion="0.0">
+        <state line="3" column="4" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="11" selection-start="2485" selection-end="2485" vertical-scroll-proportion="0.0">
+        <state line="183" column="69" selection-start="4445" selection-end="4445" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js">
+    <entry file="file://$PROJECT_DIR$/lib/master_main_template_pages.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="40" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="53" selection-start="5141" selection-end="5141" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="28" selection-start="286" selection-end="286" vertical-scroll-proportion="-5.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/RunStatusView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/simulate/_status.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="37" selection-start="2616" selection-end="2616" vertical-scroll-proportion="0.75359344">
+        <state line="115" column="92" selection-start="4602" selection-end="4602" vertical-scroll-proportion="0.6880734">
           <folding />
         </state>
       </provider>

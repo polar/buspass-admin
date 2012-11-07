@@ -24,10 +24,10 @@ class ActivementsController < ApplicationController
   end
 
   def api
-    authenticate_muni_admin!
+   # authenticate_muni_admin!
     @activement = Activement.find(params[:id])
 
-    authorize_muni_admin!(:read, @activement)
+   # authorize_muni_admin!(:read, @activement)
 
     @deployment = @activement.deployment
     @master = @deployment.master

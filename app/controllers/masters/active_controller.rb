@@ -67,7 +67,7 @@ class Masters::ActiveController < ApplicationController
     @job = SimulateJob.first(options)
     if @job
       if @job.is_processing?
-        @status += "Run of #{@master.name}'s #{@deployment.name} is still running."
+        @status += "Active Run of #{@master.name}'s #{@deployment.name} is still running."
         return
       else
         @job.reinitialize()
@@ -79,19 +79,18 @@ class Masters::ActiveController < ApplicationController
       @job.time_zone = @master.time_zone
     end
     @job.save!
-    if @mult == 1
-      @find_interval = 60
-      @time_interval = 10
-    else
-      @find_interval = 60 / @mult
-      @time_interval = 10 / @mult
-    end
 
-    # Schedule the job with delayed_job
-    job = VehicleJourney.delay(:queue => @master.slug).simulate_all(@job.id, @find_interval, @time_interval, @clock, @mult, @duration)
-    @job.delayed_job = job
+    # We may parameterize these parameters.
+    @find_interval = 20
+    @time_interval = 10
+
+    @job.processing_log << "Submitting Active Deployment job #{@job.name} to system."
+    djob = Delayed::Job.enqueue(:queue          => @master.slug,
+                                :payload_object =>
+                                    VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
+                                                                  @clock, @mult, @duration))
     @job.save!
-    @status = "Run of #{@master.name}'s #{@deployment.name} has been started."
+    @status = "Active Run for #{@deployment.name} has been started."
   end
 
   def stop
@@ -100,20 +99,23 @@ class Masters::ActiveController < ApplicationController
     #authorize!(:deploy, @deployment)
     options = {:activement_id => @activement.id}
     @job = SimulateJob.first(options)
-    # TODO: Simultaneous solution needed
     if @job
-      if @job.processing_status == "Starting"
-        @job.destroy
-        @job = nil
-        @status = "Job removed."
-      elsif @job.processing_status == "Running"
-        @job.set_processing_status!("StopRequested")
-        @status =  "The run of #{@master.name}'s '#{@deployment.name} will stop shortly."
-      else
-        @status = "The run of #{@master.name}'s '#{@deployment.name} is stopping."
+      case @job.processing_status
+        when "StopRequested"
+          @job.delayed_job = nil
+          @job.set_processing_status("Stopping")
+          @status = "Attempting to abort job"
+          @job.save
+        when "Stopping"
+          @job.destroy
+          @status = "Aborting job"
+        else
+          @job.set_processing_status!("StopRequested")
+          @job.save
       end
+      @status = "The simulation for #{@deployment.name} will stop shortly."
     else
-      @status =  "There is no run for #{@master.name}'s '#{@deployment.name}  to stop."
+      @status = "There is no simulation for #{@deployment.name} to stop."
     end
   end
 
@@ -131,41 +133,28 @@ class Masters::ActiveController < ApplicationController
       @last_log = params[:log].to_i
       @limit    = (params[:limit] || 10000000).to_i # makes take(@limit) work if no limit.
 
-      @logs   = @job.processing_log.drop(@last_log).take(@limit)
+      @logs       = @job.processing_log.drop(@last_log).take(@limit)
 
-      resp                  = { :logs => @logs, :last_log => @last_log }
+      resp = { :logs => @logs, :last_log => @last_log }
 
-      resp[:start] = true
-      resp[:stop] = false
+      resp[:start] = !@job.is_processing?
+      resp[:stop] = !["Stopped"].include?(@job.processing_status)
 
       if (@job.processing_status)
         resp[:status] = @job.processing_status
-        if (@job.processing_status != "Stopped")
-          resp[:start] = false
-          resp[:stop] = true
-        end
-        if (@job.processing_status == "StopRequested")
-          resp[:start] = false
-          resp[:stop] = false
-        end
       end
-
       if (@job.clock_mult)
         resp[:clock_mult] = @job.clock_mult
       end
       if (@job.sim_time)
-        resp[:sim_time] = @job.sim_time.in_time_zone(@job.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:sim_time] = @job.sim_time.in_time_zone(@master.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
       if (@job.processing_completed_at)
-        resp[:completed_at] = @job.processing_completed_at.in_time_zone(@job.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:completed_at] = @job.processing_completed_at.in_time_zone(@master.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
       if (@job.processing_started_at)
-        resp[:started_at] = @job.processing_started_at.in_time_zone(@job.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
+        resp[:started_at] = @job.processing_started_at.in_time_zone(@master.time_zone).strftime("%Y-%m-%d %H:%M:%S %Z")
       end
-    else
-      resp = {}
-      resp[:start] = true
-      resp[:stop] = false
     end
 
     respond_to do |format|

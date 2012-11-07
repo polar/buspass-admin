@@ -115,7 +115,6 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     authorize_muni_admin!(:edit, @deployment)
     options = {:master_id => @master.id, :deployment_id => @deployment.id, :disposition => "simulate"}
     @job = SimulateJob.first(options)
-    # TODO: Simultaneous solution needed
     if @job
       case @job.processing_status
         when "StopRequested"

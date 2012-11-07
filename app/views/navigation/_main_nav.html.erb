@@ -1,0 +1,5 @@
+<% if muni_admin_signed_in? %>
+    <%= render(:partial => "navigation/main_items").html_safe %>
+<% else %>
+    <%= render(:partial => "navigation/main_items").html_safe %>
+<% end %>

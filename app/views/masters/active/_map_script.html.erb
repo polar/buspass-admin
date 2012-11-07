@@ -1,42 +1,20 @@
 <% content_for :head do %>
 
-<script type="text/javascript">
-  var debug = false;
+    <script type="text/javascript">
+        var debug = false;
+        var runStatusView;
+        $(function () {
+            $("body").layout({ applyDefaultStyles:true });
 
-  /*
-   * This function enable/disables the start and stop buttons
-   * based on the run status.
-   */
-  function onUpdateStatus(data) {
-      $("#start").prop("disabled", !data['start']);
-      $("#stop").prop("disabled", !data['stop']);
-  }
-    var runStatusView;
-    $(function () {
-        $("body").layout({ applyDefaultStyles:true });
-        runStatusView = new BusPass.RunStatusView();
-        runStatusView.statusView("#processing_status", {
-            updateUrl : "<%= @updateUrl %>",
-            onUpdateStatus : onUpdateStatus
+            activePlanView = new BusPass.ActivePlanBasketController();
+
+            activePlanView.activePlanView("#activePlanView", {
+                loginUrl:'<%= @loginUrl %>'
+            });
+            // Start the show!
+            activePlanView.onCreate();
+            activePlanView.onStart();
+            activePlanView.onResume();
         });
-
-        activePlanView = new BusPass.ActivePlanBasketController();
-
-        activePlanView.activePlanView("#activePlanView", {
-            loginUrl : '<%= @loginUrl %>'
-        });
-
-        // When the form is submitted we clear the status.
-        $("#start").parents("form").submit(function(ev) {
-            console.log("Submit start");
-            runStatusView.clearAll();
-        });
-
-        // Start the show!
-        activePlanView.onCreate();
-        activePlanView.onStart();
-        activePlanView.onResume();
-    });
-</script>
-
+    </script>
 <% end %>

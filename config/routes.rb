@@ -178,6 +178,11 @@ BuspassAdmin::Application.routes.draw do
       end
     end
 
+    resources :downloads, :controller => "masters/downloads" do
+      member do
+      end
+    end
+
     resource :home, :controller => "masters/home" do
       member do
       end

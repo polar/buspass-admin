@@ -51,7 +51,7 @@ of the layout regardless of where it appears here.
         :controller_path   => "/masters/:master_id/active",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:render:masters/deployments/active/show }}"
+                                   :content    => "{{ cms:bus:render:masters/active/show }}"
                                },
                                {
                                    :identifier => "left",

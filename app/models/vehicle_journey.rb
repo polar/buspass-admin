@@ -599,7 +599,7 @@ class VehicleJourney
       if job
         job.set_processing_status!("Stopping")
         logger.info "Ending because #{html_escape(boom)}"
-        #logger.info boom.backtrace.join("\n")
+        logger.info boom.backtrace.take(10).join("\n")
       end
     ensure
       job = SimulateJob.find(job_id)
