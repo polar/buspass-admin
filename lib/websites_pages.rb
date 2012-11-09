@@ -170,15 +170,55 @@ of the layout regardless of where it appears here.
                                }])
 
     admin = site.pages.create!(
-        :slug              => "websites-admin",
-        :label             => "Sites Admin",
+        :slug              => "admin",
+        :label             => "Admin",
         :layout            => normal_layout,
         :parent            => root,
+        :is_protected      => true,
+        :controller_path   => "/admin",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:render:admin/index }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
+                               }])
+
+    sites_admin = site.pages.create!(
+        :slug              => "websites",
+        :label             => "Sites",
+        :layout            => normal_layout,
+        :parent            => admin,
         :is_protected      => true,
         :controller_path   => "/websites/admin",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "{{ cms:bus:render:websites/admin }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
+                               }])
+
+    pages_admin = site.pages.create!(
+        :slug              => "pages",
+        :label             => "Pages",
+        :layout            => normal_layout,
+        :parent            => admin,
+        :is_protected      => true,
+        :controller_path   => "/cms-admin")
+
+    customers_admin = site.pages.create!(
+        :slug              => "customers",
+        :label             => "Customers",
+        :layout            => normal_layout,
+        :parent            => admin,
+        :is_protected      => true,
+        :controller_path   => "/customers",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:render:customers/index }}"
                                },
                                {
                                    :identifier => "left",

@@ -3,6 +3,7 @@ BuspassAdmin::Application.routes.draw do
   #root :to => "/"
   #
   match "/auth/:provider/callback" => "sessions#create"
+  match "/:siteslug/auth/:provider/callback" => "sessions#create", :constraints => { :host => "busme.us" }
   match "/masters/:master_id/auth/:provider/callback" => "sessions#create"
 
   match "/masters/:master_id/signout" => "sessions#destroy", :as => :signout
@@ -21,6 +22,8 @@ BuspassAdmin::Application.routes.draw do
       delete :destroy_muni_admin
     end
   end
+
+  resources :admin
 
   resources :customer_authentications
   resources :customer_registrations,
@@ -56,6 +59,7 @@ BuspassAdmin::Application.routes.draw do
   resources :websites do
     collection do
       get :my_index
+      get :admin
     end
   end
 
@@ -366,7 +370,6 @@ BuspassAdmin::Application.routes.draw do
 
   root :to =>  "cms_content#render_html", :constraints => { :host => "busme.us" }
   root :to =>  "cms_content#render_html", :constraints => { :host => "localhost" }
-  root :to => "masters/active#show"
   match "/transport.php" => "transport#transport"
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"

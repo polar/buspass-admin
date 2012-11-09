@@ -21,6 +21,7 @@ class CmsAdmin::BaseController  < CmsBaseController
     @service = Route.find(params[:service_id]) if params[:service_id]
     @vehicle_journey = Route.find(params[:vehicle_journey_id]) if params[:vehicle_journey_id]
     @site = Cms::Site.find(params[:site_id]) if params[:site_id]
+    @master ||= @site.master if @site
   end
 
   def jump

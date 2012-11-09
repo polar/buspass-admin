@@ -3,7 +3,7 @@ class CmsContentController < CmsBaseController
   helper ComfortableMexicanSofa.config.preview_helpers
 
   # Authentication module must have #authenticate method
-  include ComfortableMexicanSofa.config.public_auth.to_s.constantize
+  #include ComfortableMexicanSofa.config.public_auth.to_s.constantize
   
   before_filter :load_cms_site
   
@@ -57,15 +57,25 @@ protected
       else
         # http://syracuse.busme.us/path
         @cms_site = Cms::Site.find_site(host, path)
+        @cms_path ||= "/"
         if @cms_site
           @cms_path.gsub!(/^\/#{@cms_site.path}/, '')
           @cms_path.to_s.gsub!(/^\//, '')
         end
       end
+
+      # if the path == "admin" then we cross over.
+      if @cms_path == "admin" && @cms_site && @cms_site.master
+        @cms_site = @cms_site.master.admin_site
+        @cms_path = ""
+      end
     end
 
     @cms_site ||= Cms::Site.find_by_identifier("busme-main")
     I18n.locale = @cms_site.locale
+    puts "LOAD_CMS_SITE"
+    puts "cms_site = #{@cms_site.inspect}"
+    puts "cms_path = #{@cms_path}"
     return @cms_site
   end
   

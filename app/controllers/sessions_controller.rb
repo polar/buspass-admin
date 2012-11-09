@@ -5,6 +5,8 @@ class SessionsController < ApplicationController
   # This gets called from /auth/:provider/callback
   #
   def create
+    get_context
+
     # This session variable is set by new_[customer, muni_admin, user, admin]
     case session[:tpauth]
       when :customer
@@ -24,15 +26,17 @@ class SessionsController < ApplicationController
 
   #
   # Set up a new Customer Session
+  # There is no @master for Customer.
   #
   def new_customer
     # We are going to auth a muni_admin. We indicate that in the session
     if current_customer
       redirect_to edit_customer_registration_path(current_customer), :notice => "You are already signed in."
+    else
+      @providers = BuspassAdmin::Application.oauth_providers
+      session[:tpauth] = :customer
+      # We will render new_muni_admin and then that will redirect to sessions#create on /auth/;provider/callback
     end
-    @providers = BuspassAdmin::Application.oauth_providers
-    session[:tpauth] = :customer
-    # We will render new_muni_admin and then that will redirect to sessions#create on /auth/;provider/callback
   end
 
   def destroy_customer
@@ -42,7 +46,7 @@ class SessionsController < ApplicationController
   end
 
   #
-  # Set up a new Customer Session
+  # Set up a new MuniAdmin Session. The @master should be assigned.
   #
   def new_muni_admin
     # We are going to auth a muni_admin. We indicate that in the session
@@ -51,9 +55,8 @@ class SessionsController < ApplicationController
     else
       @providers = BuspassAdmin::Application.oauth_providers
       session[:tpauth] = :muni_admin
-      session[:master_id] = params[:master_id]
+      session[:master_id] = @master.id
       # We will render new_muni_admin and then that will redirect to sessions#create on /auth/;provider/callback
-      @master = Master.find(params[:master_id])
       render :layout => "masters/normal-layout"
     end
 
@@ -132,7 +135,8 @@ class SessionsController < ApplicationController
   def create_muni_admin
     auth  = request.env["omniauth.auth"]
 
-    oauth = Authentication.find_by_provider_and_uid_and_master_id(auth["provider"], auth["uid"], session[:master_id])
+    oauth = Authentication.find_by_provider_and_uid_and_master_id(auth["provider"], auth["uid"], @master.id)
+    session[:master_id] = @master.id
     if oauth
       muni_admin = oauth.muni_admin
       session[:tpauth_id] = oauth.id
@@ -142,12 +146,12 @@ class SessionsController < ApplicationController
         oauth.save
         redirect_to master_path(muni_admin.master), :notice => "Signed in!"
       else
-        redirect_to new_master_muni_admin_registration_path(:master_id => session[:master_id]),
+        redirect_to new_master_muni_admin_registration_path(:master_id => @master.id),
                     :notice => "Could not find you. Please create an account."
       end
     else
       session[:tpauth_id] = Authentication.create_with_omniauth(auth).id
-      redirect_to new_master_muni_admin_registration_path(:master_id => session[:master_id]),
+      redirect_to new_master_muni_admin_registration_path(:master_id => @master.id),
                   :notice => "Need to create an account."
     end
   end
@@ -188,6 +192,25 @@ class SessionsController < ApplicationController
     else
       redirect_to master_muni_admin_sign_in_path(:master_id => params[:master_id]),
                   :notice => "Need to sign in first."
+    end
+  end
+
+  def get_context
+    # Ex. http://busme.us/auth/google?master_id=22342342234
+    @master_id = params[:master_id]
+    @master = Master.find(@master_id)
+    if ! @master  && params[:siteslug]
+      # Ex. http://busme.us/syracuse/auth/google
+      slug = params[:siteslug]
+      @master = Master.where(:slug => slug).first
+    end
+    if ! @master
+      # Ex. http://syracuse.busme.us/auth/google
+      match = /^([a-zA-Z0-9\-\\.]+)\.busme\.us$/.match(request.host)
+      if match
+        slug = match[1]
+        @master = Master.where(:slug => slug).first
+      end
     end
   end
 

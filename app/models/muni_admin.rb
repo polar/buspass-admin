@@ -53,6 +53,7 @@ class MuniAdmin
             roles = [roles]
         end
         rs = (self.role_symbols) - (roles.map {|x| x.to_s})
+        self.role_symbols = rs
     end
 
     def remove_roles!(roles)

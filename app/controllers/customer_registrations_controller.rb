@@ -38,6 +38,10 @@ class CustomerRegistrationsController < ApplicationController
     tpauth = Authentication.find session[:tpauth_id]
     if tpauth
       @customer = Customer.new(params[:customer])
+      if Customer.count == 0
+        # The first customer has administrative privileges.
+        @customer.add_roles([:admin, :super])
+      end
       @customer.authentications << tpauth
       @customer.save
       session[:customer_id] = @customer.id

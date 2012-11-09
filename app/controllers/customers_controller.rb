@@ -2,6 +2,9 @@ class CustomersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
+    authenticate_customer!
+    authorize_customer!(:manage, Customer)
+
     @roles = Customer::ROLE_SYMBOLS
     @customers = Customer.search(params[:search]).order(sort_column => sort_direction).paginate(:page => params[:page], :per_page => 4)
 
@@ -13,6 +16,8 @@ class CustomersController < ApplicationController
   end
 
   def show
+    authenticate_customer!
+    authorize_customer!(:manage, Customer)
     @customer = Customer.find(params[:id])
 
     respond_to do |format|
@@ -22,6 +27,8 @@ class CustomersController < ApplicationController
   end
 
   def new
+    authenticate_customer!
+    authorize_customer!(:manage, Customer)
     @customer = Customer.new
 
     respond_to do |format|
@@ -31,7 +38,9 @@ class CustomersController < ApplicationController
   end
 
   def edit
+    authenticate_customer!
     @customer = Customer.find(params[:id])
+    authorize_customer!(:edit, @customer)
   end
 
   def create
@@ -49,8 +58,11 @@ class CustomersController < ApplicationController
   end
 
   def update
-    @roles = Customer::ROLE_SYMBOLS
+    authenticate_customer!
     @customer = Customer.find(params[:id])
+    authorize_customer!(:edit, @customer)
+
+    @roles = Customer::ROLE_SYMBOLS
 
     if current_customer == @customer
       # We don't want you to alter your own roles.
@@ -71,7 +83,10 @@ class CustomersController < ApplicationController
   end
 
   def destroy
+    authenticate_customer!
     @customer = Customer.find(params[:id])
+    authorize_customer!(:destroy, @customer)
+
     @customer.destroy
 
     respond_to do |format|

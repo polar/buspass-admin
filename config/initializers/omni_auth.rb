@@ -25,7 +25,8 @@ BuspassAdmin::Application.oauth_providers += ["twitter", "facebook", "linkedin",
 #   relative paths for a redirect_url.
 #
 # NOTE: 2012-08-22: Not sure how this would be handled on Heroku.
+# NOTE: 2012-11-09: We do not set the full_host. The full_host, when not set here, will be determined
+#       by OmniAuth tfrom Request.uri to /auth/:provider, which is what we want.
+#       A request for syracuse.busme.us:3000/auth/google  will get a callback of syracuse:busme.us:30000/auth/google/callback
+#       To get the masterid in the call back we use /auth/:provider?master_id=23424234234234
 #
-if ENV['RAILS_ENV'] == "development"
-  OmniAuth.config.full_host = "http://busme.us:3000"
-end

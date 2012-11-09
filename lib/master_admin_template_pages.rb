@@ -137,7 +137,7 @@ of the layout regardless of where it appears here.
         :label => "Active Deployment",
         :layout => normal_layout,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/active",
+        :controller_path => "/masters/:master_id/active/admin",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:render:masters/active/admin }}"

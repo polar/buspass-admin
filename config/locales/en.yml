@@ -8,3 +8,29 @@ en:
   errors:
     messages:
       date: is not a valid date.
+
+
+  # -- Views ----------------------------------------------------------------
+  cms_admin:
+    base:
+      sites: Pages
+      layouts: Layouts
+      pages: Pages
+      snippets: Snippets
+      files: Files
+
+    sites:
+      index:
+        title: Pages
+        new_link: Create New Pages
+        select: Select Pages
+        edit: Edit
+        delete: Delete
+        are_you_sure: Are you sure you want to delete these pages?
+      new:
+        title: New Pages
+      edit:
+        title: Editing Pages
+      form:
+        create: Create Pages
+        update: Update Pages

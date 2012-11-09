@@ -1,28 +1,48 @@
 
 @site = Cms::Site.find_by_identifier("busme-main")
-exclude_links = []
-exclude_matches = [/\-template$/]
+
+def exclude_links
+  []
+end
+
+def exclude_matches
+  [/\-template$/]
+end
+
+def excluded?(page)
+  exclude_links.include?(page.slug) || exclude_matches.reduce(false) { |v, m| v || page.slug.match(m) }
+end
+
+def subpages(page)
+  page.children.order(:position).all.reduce([]) { |v, p| !excluded?(p) && p.is_published ? v + [p] : v }
+end
 
 def do_page(page, xml)
   if page.is_published
     xml.li {
-      xml.a page.label, :href =>  page.controller_path ? page.redirect_path :  "/#{@site.path}/#{page.full_path}".squeeze("/")
-    }
-    xml.ul do
-      page.children.order(:position).all.each do |chpage|
-        do_page(chpage, xml)
+      xml.a page.label, :href => page.controller_path ? page.redirect_path : "#{@site.path}/#{page.full_path}".squeeze("/")
+      subpages(page).tap do |pages|
+        xml.ul do
+          pages.each do |chpage|
+            do_page(chpage, xml)
+          end
+        end if pages.size > 0
       end
-    end
+    }
   end
 end
 
 xml.ul(:id => "sitemap") {
   page = @site.pages.root
-  xml.li {
-    xml.a page.label, :href =>  page.controller_path ? page.redirect_path :  "/#{@site.path}/#{page.full_path}".squeeze("/")
-  }
+  if page
+    xml.li() {
+      xml.a page.label, :href => page.controller_path ? page.redirect_path : "#{@site.path}/#{page.full_path}".squeeze("/")
 
-  page.children.order(:position).all.each do |page|
-    do_page(page, xml) if !exclude_links.include?(page.slug) && !exclude_matches.reduce(false) {|v,m| v || page.slug.match(m)}
+    }
+    subpages(page).tap do |pages|
+      pages.each do |chpage|
+        do_page(chpage, xml)
+      end if pages.size > 0
+    end
   end
 }

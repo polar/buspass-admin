@@ -24,6 +24,13 @@ class Cms::Page <
   attr_accessible :master_path
   attr_accessible :controller_path
 
+  # Full url for a page
+  # TODO: SSL
+  def url_with_port(port = nil)
+    port_literal = port ? ":#{port}" : ""
+    "http://" + "#{self.site.hostname}#{port_literal}/#{site.path}/#{self.full_path}".squeeze("/")
+  end
+
   def website
     return master
   end

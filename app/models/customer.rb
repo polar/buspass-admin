@@ -47,8 +47,8 @@ class Customer
     if !roles.is_a? Array
       roles = [roles]
     end
-    rs           = (role_symbols + roles).uniq
-    role_symbols = rs
+    rs           = (self.role_symbols + roles.map { |x| x.to_s }).uniq
+    self.role_symbols = rs
   end
 
   def add_roles!(roles)
@@ -60,7 +60,8 @@ class Customer
     if !roles.is_a? Array
       roles = [roles]
     end
-    rs = (role_symbols) - roles
+    rs = (self.role_symbols) - roles
+    self.role_symbols = rs
   end
 
   def remove_roles!(roles)
@@ -68,12 +69,14 @@ class Customer
     save!
   end
 
-  def roles_list
-    role_symbols
+  # This needs an optional argument. Who knew?
+  def roles_list(role = nil)
+    self.role_symbols
   end
 
   def has_role?(role)
-    roles_list.include?(role.to_s)
+    self.role_symbols.include?(role.to_s)
   end
+
 end
 

@@ -11,7 +11,7 @@
   </thead>
   <tbody>
   <tr>
-    <th><%=  link_to "Active Deployment", master_active_path(@master) %></th>
+    <th><%=  link_to "Active Deployment", admin_master_active_path(@master) %></th>
     <% if @master.activement %>
         <td><%= @master.activement.deployment.name %></td>
         <td><%= @master.activement.deployment.owner.name %></td>

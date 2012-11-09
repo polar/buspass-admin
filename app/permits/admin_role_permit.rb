@@ -12,6 +12,7 @@ class AdminRolePermit < CanTango::RolePermit
   end
 
   def permit_rules
+    can(:manage, Website)
     can(:manage, Customer)
     can(:create, Master)
   end

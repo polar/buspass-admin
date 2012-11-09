@@ -3,9 +3,9 @@
 <% end %>
 
 <h2>Sign in</h2>
-
+<% master_param = @master ? "?master_id=#{@master.id}" : "" %>
 <% for provider in @providers do %>
-    <a href="/auth/<%= provider %>" class="auth_provider">
+    <a href="/auth/<%= "#{provider}#{master_param}" %>" class="auth_provider">
       <%= image_tag "auth/#{provider}_64.png", :size => "64x64", :alt => "#{provider.titleize}" %>
       <%= provider.titleize %>
     </a>

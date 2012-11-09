@@ -40,8 +40,12 @@ class ApplicationController < ActionController::Base
 
   def authenticate_customer!
     if ! current_customer
-      throw(:warden, :path => new_customer_sessions_path, :notice => "Please sign in." )
+      throw(:warden, :path => main_app.new_customer_sessions_path, :notice => "Please sign in." )
     end
+  end
+
+  def authorize_customer!(action, obj)
+    raise CanCan::AccessDenied if customer_cannot?(action, obj)
   end
 
   helper_method :current_muni_admin, :muni_admin_signed_in?
@@ -56,8 +60,13 @@ class ApplicationController < ActionController::Base
 
   def authenticate_muni_admin!
     if ! current_muni_admin
-      throw(:warden, :path => new_muni_admin_sessions_path(:master_id => @master.id), :notice => "Please sign in." )
+      ActionController::RoutingError
+      throw(:warden, :path => main_app.new_muni_admin_sessions_path(:master_id => @master.id), :notice => "Please sign in." )
     end
+  end
+
+  def authorize_muni_admin!(action, obj)
+    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
   end
 
   def current_authentication

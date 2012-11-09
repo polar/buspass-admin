@@ -6,10 +6,6 @@ class WebsitesController < ApplicationController
   include PageUtils
   layout "empty"
 
-  def authorize_customer!(action, obj)
-    raise CanCan::AccessDenied if customer_cannot?(action, obj)
-  end
-
   def index
     if customer_signed_in?
       @masters = case params[:purpose]
@@ -23,6 +19,13 @@ class WebsitesController < ApplicationController
     else
       @masters = Master.all
     end
+    @site = get_front_site()
+  end
+
+  def admin
+    authenticate_customer!
+    authorize_customer!(:manage, Master)
+    @masters = Master.all
     @site = get_front_site()
   end
 

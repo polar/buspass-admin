@@ -11,6 +11,13 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
     @site = Cms::Site.find_by_id(session[:site_id])
     ## BUSME: THIS IS THE ONLY CHANGE TO THE SITES CONTROLLER
     @sites = @master ? @master.sites : Cms::Site.all
+    if @master
+      authenticate_muni_admin!
+      authorize_muni_admin!(:manage, Cms::Site)
+    else
+      authenticate_customer!
+      authorize_customer!(:manage, Customer)
+    end
   end
 
   def new
