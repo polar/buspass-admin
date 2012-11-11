@@ -1,9 +1,12 @@
 class CustomersController < ApplicationController
+  layout "empty"
+
   helper_method :sort_column, :sort_direction
 
   def index
     authenticate_customer!
-    authorize_customer!(:manage, Customer)
+    authorize_customer!(:read, Customer)
+    @site = Cms::Site.find_by_identifier("busme-main")
 
     @roles = Customer::ROLE_SYMBOLS
     @customers = Customer.search(params[:search]).order(sort_column => sort_direction).paginate(:page => params[:page], :per_page => 4)
@@ -17,22 +20,12 @@ class CustomersController < ApplicationController
 
   def show
     authenticate_customer!
-    authorize_customer!(:manage, Customer)
+    authorize_customer!(:read, Customer)
     @customer = Customer.find(params[:id])
+    @site = Cms::Site.find_by_identifier("busme-main")
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @customer }
-    end
-  end
-
-  def new
-    authenticate_customer!
-    authorize_customer!(:manage, Customer)
-    @customer = Customer.new
-
-    respond_to do |format|
-      format.html # new.html.erb
       format.json { render json: @customer }
     end
   end
@@ -41,20 +34,7 @@ class CustomersController < ApplicationController
     authenticate_customer!
     @customer = Customer.find(params[:id])
     authorize_customer!(:edit, @customer)
-  end
-
-  def create
-    @customer = Customer.new(params[:customer])
-
-    respond_to do |format|
-      if @customer.save
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
-        format.json { render json: @customer, status: :created, location: @customer }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
-    end
+    @site = Cms::Site.find_by_identifier("busme-main")
   end
 
   def update
@@ -85,7 +65,7 @@ class CustomersController < ApplicationController
   def destroy
     authenticate_customer!
     @customer = Customer.find(params[:id])
-    authorize_customer!(:destroy, @customer)
+    authorize_customer!(:delete, @customer)
 
     @customer.destroy
 

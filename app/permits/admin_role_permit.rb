@@ -9,6 +9,9 @@ class AdminRolePermit < CanTango::RolePermit
     can(:edit, Customer) do |cust|
       cust != user
     end
+    cannot :delete, Customer do |cust|
+      cust === user
+    end
   end
 
   def permit_rules

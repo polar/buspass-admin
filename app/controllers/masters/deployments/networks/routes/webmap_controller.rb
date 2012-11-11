@@ -25,7 +25,11 @@ class Masters::Deployments::Networks::Routes::WebmapController < Masters::Deploy
   def route_journeys
     @route = Route.find(params[:route_id])
     @service = Service.find(params[:service_id])
-    @vehicle_journeys = @service.vehicle_journeys
+    if @service
+      @vehicle_journeys = @service.vehicle_journeys
+    else
+      @vehicle_journeys = VehicleJourney.where(:route_id => @route.id).all
+    end
 
     specs = []
     specs += @vehicle_journeys.map {|x| getJourneySpecAsRoute(x) }

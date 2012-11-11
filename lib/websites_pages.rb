@@ -224,6 +224,22 @@ of the layout regardless of where it appears here.
                                    :identifier => "left",
                                    :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
+
+    edit_customer = site.pages.create!(
+        :slug              => "edit-customer",
+        :label             => "Edit Customer",
+        :layout            => normal_layout,
+        :parent            => customers_admin,
+        :is_protected      => true,
+        :controller_path   => "/customers/:customer_id/edit",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:render:customers/edit }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
+                               }])
     return site
   end
 end

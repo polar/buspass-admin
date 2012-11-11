@@ -12,21 +12,15 @@ class Masters::Deployments::Networks::RoutesController  <
   def show
     @route = Route.find(params[:route_id])
     @route ||= Route.find(params[:id])
-    if @route.network != @network
-      error  = "not owned by network"
-      @route = nil
-    end
     @services = @route.services
-
   end
 
   def map
     @route = Route.find(params[:route_id])
     @route ||= Route.find(params[:id])
     @service = Service.find(params[:service_id])
-    if @route.network != @network
-      error  = "not owned by network"
-      @route = nil
+    if @service.nil?
+      @services = @route.services
     end
   end
 
@@ -37,14 +31,25 @@ class Masters::Deployments::Networks::RoutesController  <
     if @route.network != @network
       raise "wrong network"
     end
-    @api = {
-        :majorVersion => 1,
-        :minorVersion => 0,
-        "getRoutePath" => route_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route, :service_id => @service.id),
-        "getRouteJourneyIds" => route_journeys_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route, :service_id => @service.id),
-        "getRouteDefinition" => routedef_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route, :service_id => @service.id),
-        "getJourneyLocation" => curloc_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route, :service_id => @service.id)
-    }
+    if @service
+      @api = {
+          :majorVersion => 1,
+          :minorVersion => 0,
+          "getRoutePath" => route_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route, :service_id => @service.id),
+          "getRouteJourneyIds" => route_journeys_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route, :service_id => @service.id),
+          "getRouteDefinition" => routedef_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route, :service_id => @service.id),
+          "getJourneyLocation" => curloc_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route, :service_id => @service.id)
+      }
+    else
+      @api = {
+          :majorVersion  => 1,
+          :minorVersion  => 0,
+          "getRoutePath" => route_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route),
+          "getRouteJourneyIds" => route_journeys_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route),
+          "getRouteDefinition" => routedef_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route),
+          "getJourneyLocation" => curloc_master_deployment_network_route_webmap_path(@master, @deployment, @network, @route)
+      }
+    end
 
     respond_to do |format|
       format.json { render :json => @api }

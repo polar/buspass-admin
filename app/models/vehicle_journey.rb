@@ -23,6 +23,7 @@ class VehicleJourney
   # Searchable indicator if path has been updated manually.
   key :path_changed, Boolean, :default => false
 
+  belongs_to :route
   belongs_to :service
   belongs_to :network
   belongs_to :master
@@ -46,7 +47,8 @@ class VehicleJourney
                   :master, :master_id,
                   :deployment, :deployment_id,
                   :network, :network_id,
-                  :service, :service_id
+                  :service, :service_id,
+                  :route, :route_id
 
   before_validation :ensure_slug
 
@@ -85,10 +87,6 @@ class VehicleJourney
 
     ret.save!(:safe => true)
     ret
-  end
-
-  def route
-    service.route
   end
 
   def self.find_by_routes(routes)

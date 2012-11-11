@@ -14,8 +14,8 @@
           <tr>
             <td><%=  link_to vj.route.code, master_deployment_network_route_path(@master, @deployment, @network, @route)  %></td>
             <td><%=  link_to vj.display_name, master_deployment_network_vehicle_journey_path(@master, @deployment, @network, vj)  %></td>
-            <td><%=  @service.direction  %></td>
-            <td><%=  @service.day_class %></td>
+            <td><%=  vj.service.direction  %></td>
+            <td><%=  vj.service.day_class %></td>
             <!--- TODO: Internationalize Time -->
             <td><%= vj.time_start_lit %></td>
             <td><%= vj.time_end_lit %></td>

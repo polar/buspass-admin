@@ -1,4 +1,6 @@
 <h2><%= link_to @network.name, master_deployment_network_path(@master, @deployment, @network) %></h2>
 <h3><%= link_to "Route #{@route.name}",
                 master_deployment_network_route_path(@master, @deployment, @network, @route) %></h3>
+<% if @service %>
 <h3><%= link_to "Service #{@service.name}", master_deployment_network_service_path(@master, @deployment, @network, @service)  %></h3>
+<% end %>

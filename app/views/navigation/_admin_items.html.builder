@@ -15,18 +15,20 @@ def subpages(page)
 end
 
 def do_page(page, xml)
+  expand = false
   if page.is_published
     xml.li {
       xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
       subpages(page).tap do |pages|
         xml.ul do
           pages.each do |chpage|
-            do_page(chpage, xml)
+            expand ||= do_page(chpage, xml)
           end
         end if pages.size > 0
       end
     }
   end
+  expand
 end
 
 xml.ul(:id => "sitemap") {

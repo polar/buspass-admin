@@ -286,6 +286,7 @@ class ServiceTable
         :deployment      => network.deployment,
         :network         => network,
         :service         => service,
+        :route           => service.route,   # needed for indexing.
         :name            => name,
         :departure_time  => departure_time,
         :persistentid    => pid,

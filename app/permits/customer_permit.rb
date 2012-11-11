@@ -9,9 +9,6 @@ class CustomerPermit < CanTango::UserPermit
     can([:edit, :delete], Master) do |master|
       master.owner === user
     end
-    cannot :delete, Customer do |cust|
-      cust === user
-    end
   end
 
   def permit_rules
