@@ -1,5 +1,6 @@
 class Master
   include MongoMapper::Document
+  plugin MongoMapper::Plugins::IdentityMap
 
   # Problem with the "sweetloader"?
   # The submodule Scope will not "autoload", we force it by including it here.

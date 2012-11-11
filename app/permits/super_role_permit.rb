@@ -47,6 +47,7 @@ class SuperRolePermit < CanTango::RolePermit
   end
 
   def permit_rules
+    can(:manage, Cms::Site)
     can(:create, Network)
     can(:create, Deployment)
     can(:create, MuniAdmin)

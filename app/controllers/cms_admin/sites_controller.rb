@@ -20,20 +20,32 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
     end
   end
 
+  # This doesn't really get used by anybody
   def new
     if @master
       flash[:error] = "Cannot create new site"
       redirect_to cms_admin_sites_path(:master_id => @master.id)
     else
+      authenticate_customer!
+      authorize_customer!(:create, Cms::Site)
       render
     end
   end
 
   def edit
+    if @master
+      authenticate_muni_admin!
+      authorize_muni_admin!(:edit, Cms::Site)
+    else
+      authenticate_customer!
+      authorize_customer!(:edit, Cms::Site)
+    end
     render
   end
 
   def create
+    authenticate_customer!
+    authorize_customer!(:create, Cms::Site)
     @site.save!
     flash[:notice] = I18n.t('cms.sites.created')
     redirect_to cms_admin_site_layouts_path(@site)
@@ -44,7 +56,19 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   end
 
   def update
+    if @master
+      authenticate_muni_admin!
+      authorize_muni_admin!(:edit, Cms::Site)
+    else
+      authenticate_customer!
+      authorize_customer!(:edit, Cms::Site)
+    end
+
     @site.update_attributes!(params[:site])
+    if @master
+      authorize_muni_admin!(:edit, @master)
+    end
+
     flash[:notice] = I18n.t('cms.sites.updated')
     redirect_to edit_cms_admin_site_path(@site)
   rescue ComfortableMexicanSofa.ModelInvalid
@@ -53,7 +77,10 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
     render :action => :edit
   end
 
+  # This doesn't get used by a MuniAdmin.
   def destroy
+    authenticate_customer!
+    authorize_customer!(:delete, Cms::Site)
     @site.destroy
     flash[:notice] = I18n.t('cms.sites.deleted')
     redirect_to cms_admin_sites_path
@@ -68,6 +95,9 @@ protected
 
   def load_site
     @site = Cms::Site.find(params[:id])
+    if @site
+      @master = @site.master
+    end
     raise ComfortableMexicanSofa.ModelNotFound if @site.nil?
     I18n.locale = ComfortableMexicanSofa.config.admin_locale || @site.locale
   rescue ComfortableMexicanSofa.ModelNotFound
