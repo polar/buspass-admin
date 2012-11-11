@@ -25,8 +25,10 @@ function init(coordinates) {
             function (data) {
                 var resp = JSON.parse(data) ;
                 console.log("answer from GOENAMES " + resp.timezoneId);
-                $("#master_timezone").val(resp.timezoneId);
-            });
+                if (resp.timezoneId) {
+                    $("#master_timezone").val(resp.timezoneId);
+                }
+            });                               Ruby
 
     }
 

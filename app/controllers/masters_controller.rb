@@ -62,7 +62,9 @@ class MastersController < ApplicationController
 
     # Security Integrity Check.
     master_attributes = params[:master].slice(*MASTER_ALLOWABLE_UPDATE_ATTRIBUTES)
-
+    if master_attributes[:timezone] && master_attributes[:timezone].blank?
+      master_attributes.delete(:timezone)
+    end
     error = false
     if @master == nil
       flash[:error] = "Master #{params[:id]} doesn't exist"
