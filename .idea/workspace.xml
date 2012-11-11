@@ -5,18 +5,15 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="" />
+    <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="Fixed Network Tables  to display multiple services also fixes issue 3 [#3 state:resolved]&#10;" />
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
-    <list id="d8afba18-3df8-437d-8912-308d1ad2c9d6" name="Customer Index" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/customers/_edit.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/customers/index.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/_index.html.erb" />
+    <list id="d8afba18-3df8-437d-8912-308d1ad2c9d6" name="Customer Index" comment="Customer Index">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/index.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/index.html.erb" />
     </list>
     <ignored path="buspass.admin.iws" />
     <ignored path=".idea/workspace.xml" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="a091cd98-7d8c-4b79-a74f-21296ef3fdda" time="1352652712526" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +97,7 @@
       <file leaf-file-name="service_table.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="288" column="67" selection-start="8468" selection-end="8468" vertical-scroll-proportion="0.6152882">
+            <state line="288" column="67" selection-start="8468" selection-end="8468" vertical-scroll-proportion="0.8450947">
               <folding />
             </state>
           </provider>
@@ -2431,7 +2428,7 @@
     <frame x="1278" y="-3" width="1684" height="1008" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24575311" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24575311" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32671082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3227633" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
@@ -2487,7 +2484,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Network Tables  to display multiple services also fixes issue 3 [#3 state:resolved]&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Customer Index" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -2506,6 +2503,7 @@
     <MESSAGE value="Fixing Cantanog misunderstandings.&#10;" />
     <MESSAGE value="Progress" />
     <MESSAGE value="Fixed Network Tables  to display multiple services also fixes issue 3 [#3 state:resolved]&#10;" />
+    <MESSAGE value="Customer Index" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -2618,7 +2616,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="288" column="67" selection-start="8468" selection-end="8468" vertical-scroll-proportion="0.6152882">
+        <state line="288" column="67" selection-start="8468" selection-end="8468" vertical-scroll-proportion="0.8450947">
           <folding />
         </state>
       </provider>
