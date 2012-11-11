@@ -1,5 +1,10 @@
-<h1>Editing Customer</h1>
-
-<%= render 'form' %>
-
-<%= link_to "Customers", customers_path %>
+<%=
+    begin
+      site = @site
+      page = site.pages.find_by_full_path("/admin/customers/edit-customer")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue => boom
+      logger.detailed_error(boom)
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

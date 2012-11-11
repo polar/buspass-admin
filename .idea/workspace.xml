@@ -5,34 +5,16 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="">
+    <list default="true" id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="" />
+    <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
+    <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
+    <list id="d8afba18-3df8-437d-8912-308d1ad2c9d6" name="Customer Index" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/customers/_edit.html.erb" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/customers/index.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/_index.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/customers_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/customers_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/routes/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/routes/webmap_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/routes_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/networks/routes_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_table.rb" afterPath="$PROJECT_DIR$/app/models/service_table.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/admin_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/admin_role_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/customer_permit.rb" afterPath="$PROJECT_DIR$/app/permits/customer_permit.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/admin/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/admin/_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/admin/_websites_admin_link.html.erb" afterPath="$PROJECT_DIR$/app/views/admin/_websites_admin_link.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/_customer_row.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/_customer_row.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/_form.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/_form.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/edit.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/index.html.erb" afterPath="$PROJECT_DIR$/app/views/customers/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_links.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_links.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_map.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_map.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_map_script.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_service_journeys.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/routes/_table_route_service_journeys.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_admin_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_admin_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_websites_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_websites_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/websites_pages.rb" afterPath="$PROJECT_DIR$/lib/websites_pages.rb" />
     </list>
-    <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
-    <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <ignored path="buspass.admin.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -118,7 +100,7 @@
       <file leaf-file-name="service_table.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="288" column="67" selection-start="8468" selection-end="8468" vertical-scroll-proportion="0.8450947">
+            <state line="288" column="67" selection-start="8468" selection-end="8468" vertical-scroll-proportion="0.6152882">
               <folding />
             </state>
           </provider>
@@ -2122,9 +2104,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <option name="associatedChangelistId" value="d8afba18-3df8-437d-8912-308d1ad2c9d6" />
       <changelist id="a091cd98-7d8c-4b79-a74f-21296ef3fdda" name="Default" comment="" />
       <changelist id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
       <changelist id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
+      <changelist id="d8afba18-3df8-437d-8912-308d1ad2c9d6" name="Customer Index" comment="" />
       <created>1329837685912</created>
       <updated>1329837685912</updated>
     </task>
@@ -2416,7 +2400,11 @@
       <created>1352499737769</created>
       <updated>1352499737769</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Fixed Network Tables  to display multiple services also fixes issue 3 [#3 state:resolved]&#10;">
+      <created>1352652601686</created>
+      <updated>1352652601686</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2443,7 +2431,7 @@
     <frame x="1278" y="-3" width="1684" height="1008" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24575311" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24575311" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32671082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3227633" sideWeight="0.46813726" order="2" side_tool="false" content_ui="tabs" />
@@ -2630,7 +2618,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="288" column="67" selection-start="8468" selection-end="8468" vertical-scroll-proportion="0.8450947">
+        <state line="288" column="67" selection-start="8468" selection-end="8468" vertical-scroll-proportion="0.6152882">
           <folding />
         </state>
       </provider>
