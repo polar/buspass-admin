@@ -28,7 +28,7 @@ function init(coordinates) {
                 if (resp.timezoneId) {
                     $("#master_timezone").val(resp.timezoneId);
                 }
-            });                               Ruby
+            });
 
     }
 
