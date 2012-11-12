@@ -113,4 +113,12 @@ class MastersController < ApplicationController
     end
   end
 
+  def destroy
+    authenticate_customer!
+    @master = Master.find(params[:id])
+    authorize_customer!(:delete, @master)
+    @master.destroy
+    redirect_to :back
+  end
+
 end

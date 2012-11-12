@@ -1,0 +1,10 @@
+<h1><%= @master.name %> Site Administration</h1>
+<p>
+  This is the portal for the administration of the <%= @master.name %> Busme general site.
+</p>
+
+<h2><%= @master.name %> Page Sets</h2>
+<p><%= render :partial => "masters/admin/pages_admin_link" %></p>
+
+<h2>Admins</h2>
+<p><%= render :partial => "masters/admin/muni_admins_admin_link" %></p>

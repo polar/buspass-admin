@@ -2,6 +2,7 @@ class Masters::Tools::StopPointsFinderController < Masters::MasterBaseController
   layout "masters/map-layout"
 
   def show
+    get_master_context
     authenticate_muni_admin!
 
     @csv_file = ServiceCSVFile.new();
@@ -14,6 +15,7 @@ class Masters::Tools::StopPointsFinderController < Masters::MasterBaseController
   # work. If we return a bad file, Excel will notice it.
   #
   def download
+    get_master_context
     authenticate_muni_admin!
 
     @csv_file = ServiceCSVFile.new(params[:service_csv_file])

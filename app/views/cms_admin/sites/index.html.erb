@@ -1,7 +1,7 @@
 <% if !@master %>
    <%= link_to span_tag(t('.new_link')), new_cms_admin_site_path, :class => 'big button' %>
 <% end %>
-<h1>Busme <%= @master.name if @master %> <%= t('.title') %></h1>
+<h1>Busme <%= @master.name if @master %> Page Sets</h1>
 
 <ul class='list'>
   <% @sites.each do |site| %>
@@ -9,7 +9,8 @@
       <div class='item'>
         <div class='icon'></div>
         <div class='action_links'>
-          <%= link_to t('.select'),  cms_admin_site_pages_path(site) %>
+          <%= link_to t('.delete'), cms_admin_site_path(site), :method => :delete, :confirm => "Are you sure?" if !site.is_protected? && customer_can?(:delete, site) %>
+          <%= link_to t('.select'), cms_admin_site_pages_path(site) %>
           <%= link_to t('.edit'), edit_cms_admin_site_path(site) %>
         </div>
         <div class='label'>

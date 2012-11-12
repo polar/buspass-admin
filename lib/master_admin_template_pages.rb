@@ -4,11 +4,12 @@ module PageUtils
 
     return site unless site.nil?
 
-    site = Cms::Site.create!(   # All info here will be replaced on copy
-        :path => "admin",
+    site = Cms::Site.create!(# All info here will be replaced on copy
+        :path       => "admin",
         :identifier => "busme-admin-template",
-        :label => "Master Administration Pages Template",
-        :hostname => "busme.us"
+        :label      => "Master Administration Pages Template",
+        :hostname   => "busme.us",
+        :protected  => true
     )
     layout_content = "<!--
 The layout puts left block of page goes into left side of the layout regardless of where it appears here
@@ -176,12 +177,27 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
+    admin = site.pages.create!(
+        :slug              => "admin",
+        :label             => "Admin",
+        :layout            => normal_layout,
+        :is_protected      => true,
+        :controller_path   => "/masters/:master_id/admin",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:/masters/admin/show }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
 
     muni_admins = site.pages.create!(
         :slug => "muni_admins",
         :label => "Adminstrators",
         :layout => normal_layout,
-        :parent => root,
+        :parent => admin,
         :is_protected => true,
         :controller_path => "/masters/:master_id/muni_admins",
         :blocks_attributes => [{
@@ -197,7 +213,7 @@ of the layout regardless of where it appears here.
         :slug => "users",
         :label => "Users",
         :layout => normal_layout,
-        :parent => root,
+        :parent => admin,
         :is_protected => true,
         :controller_path => "/masters/:master_id/users/admin",
         :blocks_attributes => [{
@@ -213,7 +229,7 @@ of the layout regardless of where it appears here.
         :slug              => "pages",
         :label             => "Pages Admin",
         :layout            => normal_layout,
-        :parent            => root,
+        :parent            => admin,
         :is_protected      => true,
         :controller_path   => "/cms-admin/sites?master_id=:master_id")
 

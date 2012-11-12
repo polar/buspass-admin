@@ -2,8 +2,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Main Site</th>
-      <th>Administration Site</th>
+      <th>Website</th>
+      <th>Customer</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -12,8 +12,8 @@
           <tr>
             <td><%= link_to master.name, website_path(master) %></td>
             <td><%= link_to "#{master.siteurl}", master_active_path(master) %></td>
-            <td><%= link_to "#{master.siteurl}/admin", master_path(master) %></td>
-            <td><%= link_to "Delete", master_path(master), :confirm => "Are you sure?", :method => :delete if customer_can?(:delete, master) %></td>
+            <td><%= link_to "#{master.owner.name}", customer_path(master.owner) %></td>
+            <td><%= link_to "Delete", master_path(master), :class => "btn", :confirm => "Are you sure?", :method => :delete if customer_can?(:delete, master)%></td>
           </tr>
       <% end %>
   </tbody>

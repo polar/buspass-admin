@@ -3,6 +3,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   helper_method :sort_column, :sort_direction
 
   def index
+    get_master_context
     authenticate_muni_admin!
     authorize_muni_admin!(:read, MuniAdmin)
 
@@ -20,6 +21,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def admin
+    get_master_context
     authorize_muni_admin!(:read, MuniAdmin)
 
     @roles       = MuniAdmin::ROLE_SYMBOLS
@@ -36,11 +38,13 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def edit
+    get_master_context
     @muni_admin = MuniAdmin.find(params[:id])
     authorize_muni_admin!(:edit, @muni_admin)
   end
 
   def show
+    get_master_context
     @muni_admin = MuniAdmin.find(params[:id])
     authorize_muni_admin!(:read, @muni_admin)
 
@@ -50,6 +54,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def new
+    get_master_context
     authorize_muni_admin!(:create, MuniAdmin)
     @muni_admin        = MuniAdmin.new()
     @muni_admin.master = @master
@@ -61,6 +66,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def create
+    get_master_context
     authorize_muni_admin!(:create, MuniAdmin)
 
     # Security, don't let anything other than these keys get assigned.
@@ -82,6 +88,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def update
+    get_master_context
     attrs       = params[:muni_admin]
     @muni_admin = MuniAdmin.find(params[:id])
     if !@muni_admin || @muni_admin.master != @master
@@ -114,6 +121,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def destroy_confirm
+    get_master_context
     @muni_admin = MuniAdmin.find(params[:id])
     authorize_muni_admin!(:delete, @muni_admin)
     if @muni_admin
@@ -135,6 +143,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
   end
 
   def destroy
+    get_master_context
     authenticate_muni_admin!
     @muni_admin = MuniAdmin.find(params[:id])
     authorize_muni_admin!(:delete, @muni_admin)

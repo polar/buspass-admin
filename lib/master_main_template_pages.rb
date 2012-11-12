@@ -8,7 +8,8 @@ module PageUtils
         :path       => "main",
         :identifier => "busme-main-template",
         :label      => "Master Main Pages Template",
-        :hostname   => "busme.us"
+        :hostname   => "busme.us",
+        :protected  => true
     )
 
     layout_content = "<!--

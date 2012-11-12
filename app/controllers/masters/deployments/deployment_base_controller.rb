@@ -3,6 +3,7 @@ class Masters::Deployments::DeploymentBaseController < Masters::MasterBaseContro
   append_before_filter :set_deployment
 
   def set_deployment
+    get_master_context
     @deployment  = Deployment.find(params[:deployment_id])
     if @deployment.nil?
       raise "Deployment Not Found"

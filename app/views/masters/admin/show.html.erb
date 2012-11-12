@@ -1,7 +1,7 @@
 <%=
     begin
-      site = @master.admin_site
-      page = site.pages.find_by_full_path("/admin/muni_admins")
+      site = @site
+      page = site.pages.find_by_full_path("/masters/admin")
       page.render(self, :status => 200, :content_type => 'text/html')
     rescue => boom
       logger.detailed_error(boom)

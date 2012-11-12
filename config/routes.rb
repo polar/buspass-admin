@@ -23,7 +23,7 @@ BuspassAdmin::Application.routes.draw do
     end
   end
 
-  resources :admin
+  resource :admin, :only => [:show], :controller => :admin
 
   resources :customer_authentications
   resources :customer_registrations,
@@ -125,6 +125,8 @@ BuspassAdmin::Application.routes.draw do
     resources :muni_admin_authentications,
               :only => [:create, :destroy],
               :controller => "masters/muni_admin_authentications"
+
+    resource "admin", :only => [:show], :controller => "masters/admin"
 
     resource "active", :only => [:show], :controller => "masters/active" do
       member do

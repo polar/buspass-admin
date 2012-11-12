@@ -13,7 +13,7 @@ en:
   # -- Views ----------------------------------------------------------------
   cms_admin:
     base:
-      sites: Pages
+      sites: Page Sets
       layouts: Layouts
       pages: Pages
       snippets: Snippets

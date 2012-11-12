@@ -1,6 +1,7 @@
 class Masters::MuniAdminAuthenticationsController < Masters::MasterBaseController
 
   def create
+    get_master_context
     auth = request.env["rack.auth"]
     current_muni_admin.authentications.find_or_create_by_provider_and_uid(auth['provider'], auth['uid'])
     flash[:notice] = "Authentication successful."
@@ -8,6 +9,7 @@ class Masters::MuniAdminAuthenticationsController < Masters::MasterBaseControlle
   end
 
   def destroy
+    get_master_context
     @authentication = current_muni_admin.authentications.find(params[:id])
     @authentication.destroy
     flash[:notice] = "Successfully destroyed authentication."

@@ -24,7 +24,7 @@ class WebsitesController < ApplicationController
 
   def admin
     authenticate_customer!
-    authorize_customer!(:manage, Master)
+    authorize_customer!(:edit, Cms::Site)
     @masters = Master.all
     @site = get_front_site()
   end

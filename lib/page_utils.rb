@@ -14,6 +14,7 @@ module PageUtils
         :identifier => "#{master.slug}-admin",
         :label      => "#{master.name} Administration Pages",
         :hostname   => "#{master.slug}.busme.us",
+        :protected  => true,
         :master     => master
     )
 
@@ -56,6 +57,7 @@ module PageUtils
         :identifier => "#{master.slug}-main",
         :label      => "#{master.name} Active Deployment Pages",
         :hostname   => "#{master.slug}.busme.us",
+        :protected  => true,
         :master     => master
     )
 

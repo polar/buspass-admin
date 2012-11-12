@@ -2,6 +2,7 @@ class Masters::UsersController < Masters::MasterBaseController
   helper_method :sort_column, :sort_direction
 
   def index
+    get_master_context
     authorize_muni_admin!(:read, User)
 
     @roles = User::ROLE_SYMBOLS
@@ -18,6 +19,7 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def admin
+    get_master_context
     authorize_muni_admin!(:read, User)
 
     @roles = User::ROLE_SYMBOLS
@@ -34,11 +36,13 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def edit
+    get_master_context
     @user = User.find(params[:id])
     authorize_muni_admin!(:edit, @user)
   end
 
   def show
+    get_master_context
     @user = User.find(params[:id])
     authorize_muni_admin!(:read, @user)
 
@@ -48,6 +52,7 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def new
+    get_master_context
     authorize_muni_admin!(:create, User)
     @user = User.new()
     @user.master = @master
@@ -59,6 +64,7 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def create
+    get_master_context
     authorize_muni_admin!(:create, User)
     # Security, don't let anything other than these keys get assigned.
     # We don't want some bogon changing the master_id, etc.
@@ -79,6 +85,7 @@ class Masters::UsersController < Masters::MasterBaseController
 
 
   def update
+    get_master_context
     attrs = params[:user]
     @user = User.find(params[:id])
     if !@user || @user.master != @master
@@ -107,6 +114,7 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def destroy_confirm
+    get_master_context
     @user = User.find(params[:id])
     authorize_muni_admin!(:delete, @user)
     if @user
@@ -118,6 +126,7 @@ class Masters::UsersController < Masters::MasterBaseController
   end
 
   def destroy
+    get_master_context
     @user = User.find(params[:id])
     authorize_muni_admin!(:delete, @user)
     @user.destroy

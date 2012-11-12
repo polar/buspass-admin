@@ -2,11 +2,13 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   include PageUtils
 
   def index
+    get_master_context
     authenticate_muni_admin!
     @deployments = Deployment.where(:master_id => @master.id).all
   end
 
   def show
+    get_master_context
     authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     @show_actions = !@deployment.is_active? && muni_admin_can?(:edit, @deployment)
@@ -22,12 +24,14 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   end
 
   def new
+    get_master_context
     authenticate_muni_admin!
     authorize_muni_admin!(:create, Deployment)
     @deployment = Deployment.new
   end
 
   def edit
+    get_master_context
     authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:create, @deployment)
@@ -36,6 +40,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   MUNICIPALITY_UPDATE_ALLOWED_ATTRIBUTES = [ :name, :note ]
 
   def create
+    get_master_context
     authorize_muni_admin!(:create, Deployment)
 
     muni_attributes = params[:deployment].slice(*MUNICIPALITY_UPDATE_ALLOWED_ATTRIBUTES)
@@ -64,6 +69,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   end
 
   def update
+    get_master_context
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:edit, @deployment)
 
@@ -100,6 +106,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   end
 
   def check
+    get_master_context
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:read, @deployment)
     @status = @deployment.activement_check
@@ -115,6 +122,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   end
 
   def destroy
+    get_master_context
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:delete, @deployment)
     @deployment.destroy
@@ -122,6 +130,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   end
 
   def map
+    get_master_context
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:read, @deployment)
     @routes = @deployment.routes
@@ -129,6 +138,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   end
 
   def deploy
+    get_master_context
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:deploy, @deployment)
     @status = []
@@ -159,6 +169,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   end
   
   def testit
+    get_master_context
     authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:deploy, @master)
@@ -177,11 +188,13 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   end
 
   def map
+    get_master_context
     @deployment = Deployment.find(params[:id])
     @networks = @deployment.networks
   end
 
   def api
+    get_master_context
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:read, @deployment)
     @api = {

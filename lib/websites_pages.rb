@@ -8,8 +8,9 @@ module PageUtils
     site = Cms::Site.create!(
         :path       => "/",
         :identifier => "busme-main",
-        :label      => "Sites Pages",
-        :hostname   => "busme.us"
+        :label      => "Busme Main Page Set",
+        :hostname   => "busme.us",
+        :protected  => true
     )
 
     layout = site.layouts.create!(
@@ -178,7 +179,7 @@ of the layout regardless of where it appears here.
         :controller_path   => "/admin",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:render:admin/index }}"
+                                   :content    => "{{ cms:bus:render:admin/show }}"
                                },
                                {
                                    :identifier => "left",

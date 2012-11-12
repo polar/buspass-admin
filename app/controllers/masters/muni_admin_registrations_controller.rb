@@ -2,6 +2,7 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
 
 
   def new
+    get_master_context
     @authentication = Authentication.find session[:tpauth_id]
     if @authentication
       muni_admin = MuniAdmin.find_by_authentication_id(@authentication.id)
@@ -21,6 +22,7 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
   end
 
   def edit
+    get_master_context
     authenticate_muni_admin!
 
     @muni_admin = current_muni_admin
@@ -37,6 +39,7 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
   # This gets called from a redirect from new_registration
   #
   def create
+    get_master_context
     tpauth = Authentication.find session[:tpauth_id]
     if tpauth
       @muni_admin = MuniAdmin.new(params[:muni_admin])
@@ -53,6 +56,7 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
   #
   # This gets called from a redirect from edit_registration
   def update
+    get_master_context
     authenticate_muni_admin!
     # We put this in the session in case the user adds an authentication.
     session[:tpauth] = nil

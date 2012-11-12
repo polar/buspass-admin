@@ -15,9 +15,9 @@ class AdminRolePermit < CanTango::RolePermit
   end
 
   def permit_rules
+    can(:delete, Master)
     can(:manage, Website)
     can(:manage, Customer)
-    can(:create, Master)
   end
 
   module Cached

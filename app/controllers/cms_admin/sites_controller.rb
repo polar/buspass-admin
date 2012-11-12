@@ -80,7 +80,7 @@ class CmsAdmin::SitesController < CmsAdmin::BaseController
   # This doesn't get used by a MuniAdmin.
   def destroy
     authenticate_customer!
-    authorize_customer!(:delete, Cms::Site)
+    authorize_customer!(:delete, @site)
     @site.destroy
     flash[:notice] = I18n.t('cms.sites.deleted')
     redirect_to cms_admin_sites_path

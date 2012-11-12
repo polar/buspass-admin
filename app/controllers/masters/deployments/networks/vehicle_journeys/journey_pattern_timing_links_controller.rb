@@ -8,7 +8,7 @@ class Masters::Deployments::Networks::VehicleJourneys::JourneyPatternTimingLinks
   end
 
   def get_context
-    # We should already have master
+    get_master_context
     @vehicle_journey = VehicleJourney.find(params[:vehicle_journey_id])
     if @vehicle_journey
       @deployment = @vehicle_journey.deployment
