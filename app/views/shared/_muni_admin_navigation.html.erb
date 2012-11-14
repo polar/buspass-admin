@@ -1,28 +1,21 @@
 <div class="user_nav">
 
-    <% if muni_admin_signed_in? %>
-      <%= link_to('Logout',
+  <% if current_muni_admin? %>
+      <span class="signed-in">
+        <div>
+            <%= link_to current_muni_admin.name,
+                  edit_registration_master_muni_admins_path(:master_id => @master.id) %>
+            <%= link_to 'Logout',
                   destroy_muni_admin_sessions_path(:master_id => @master.id),
-                  :method=>'delete',
-                  :class => "logout") %>
-    <% else %>
-      <%= link_to('Admin Login',
-                  new_muni_admin_sessions_path(:master_id => @master.id),
-                  :class => "login")  %>
-    <% end %>
+                  :method=>'delete' %>
+        </div>
+        <%= image_tag("silhouette36.png") %>
+      </span>
+  <% else %>
+      <span class="signed-out">
+          <%= link_to('Sign in', customer_sign_in_path, :class => "btn") %>
+      </span>
+  <% end %>
 
-    <% if muni_admin_signed_in? %>
-      <%= link_to('Edit Admin Account',
-                  edit_registration_master_muni_admins_path(:master_id => @master.id),
-                  :class => "edit_account") %>
-    <% else %>
-      <%= link_to('Sign up as Admin',
-                  new_registration_master_muni_admins_path(:master_id => @master.id),
-                  :class => "sign_up")  %>
-    <% end %>
-
-    <%= link_to( "Admin #{current_muni_admin.name}",
-                 edit_registration_master_muni_admins_path(:master_id => @master.id),
-                :class => "name") if current_muni_admin %>
 
 </div>

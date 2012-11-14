@@ -1,10 +1,18 @@
 <div class="user_nav">
 
-  <% if customer_signed_in? %>
-      <%= link_to('Logout', destroy_customer_sessions_path, :method=>'delete',
-                  :class => "logout") %>
-      <%= link_to current_customer.name, edit_customer_registration_path(current_customer) %>
+  <% if current_customer %>
+      <span class="signed-in">
+        <div>
+          <%= link_to current_customer.name, edit_customer_registration_path(current_customer) %>
+          <%= link_to('Logout', destroy_customer_sessions_path,
+                      :method => 'delete',
+                      :class  => "lnk") %>
+        </div>
+        <%= image_tag("silhouette36.png") %>
+      </span>
   <% else %>
-      <%= link_to('Customer Login', customer_sign_in_path, :class => "login")  %>
+      <span class="signed-out">
+          <%= link_to('Sign in', customer_sign_in_path, :class => "btn")  %>
+      </span>
   <% end %>
 </div>

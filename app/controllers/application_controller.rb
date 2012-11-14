@@ -28,14 +28,10 @@ class ApplicationController < ActionController::Base
       @sites = Cms::Site.where(:master_id => @master.id).all  if @master && @site.nil?
   end
 
-  helper_method :current_customer, :customer_signed_in?
+  helper_method :current_customer
 
   def current_customer
     @current_customer ||= Customer.find(session[:customer_id]) if session[:customer_id]
-  end
-
-  def customer_signed_in?
-    ! @current_customer.nil?
   end
 
   def authenticate_customer!
@@ -48,14 +44,10 @@ class ApplicationController < ActionController::Base
     raise CanCan::AccessDenied if customer_cannot?(action, obj)
   end
 
-  helper_method :current_muni_admin, :muni_admin_signed_in?
+  helper_method :current_muni_admin
 
   def current_muni_admin
     @current_muni_admin ||= MuniAdmin.find(session[:muni_admin_id]) if session[:muni_admin_id]
-  end
-
-  def muni_admin_signed_in?
-    ! @current_muni_admin.nil?
   end
 
   def authenticate_muni_admin!
@@ -67,6 +59,22 @@ class ApplicationController < ActionController::Base
 
   def authorize_muni_admin!(action, obj)
     raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
+  end
+
+  helper_method :current_user
+
+  def current_user
+    @current_user ||= Customer.find(session[:user_id]) if session[:user_id]
+  end
+
+  def authenticate_user!
+    if !current_user
+      throw(:warden, :path => main_app.new_user_sessions_path, :notice => "Please sign in.")
+    end
+  end
+
+  def authorize_user!(action, obj)
+    raise CanCan::AccessDenied if user_cannot?(action, obj)
   end
 
   def current_authentication

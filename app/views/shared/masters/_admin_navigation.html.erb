@@ -1,10 +1,21 @@
 <div class="user_nav">
 
-  <% if muni_admin_signed_in? %>
-      <%= link_to('Logout', destroy_muni_admin_sessions_path(:master_id => @master.id), :method=>'delete',
-                  :class => "logout") %>
-      <%= link_to current_muni_admin.name, edit_master_muni_admin_registration_path(@master, current_muni_admin) %>
+  <% if current_muni_admin %>
+      <span class="signed-in">
+        <div>
+          <%= link_to current_muni_admin.name,
+                      edit_master_muni_admin_registration_path(@master, current_muni_admin) %>
+          <%= link_to 'Logout',
+                      destroy_muni_admin_sessions_path(:master_id => @master.id),
+                      :method => 'delete' %>
+        </div>
+        <%= image_tag("silhouette36.png") %>
+      </span>
   <% else %>
-      <%= link_to('Admin Login', master_muni_admin_sign_in_path(@master), :class => "login")  %>
+      <span class="signed-out">
+          <%= link_to('Sign in', master_muni_admin_sign_in_path(@master), :class => "btn") %>
+      </span>
   <% end %>
+
+
 </div>

@@ -1,0 +1,21 @@
+<h1>Import Export Sites</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Page Set</th>
+      <th>Label</th>
+      <th>Operations</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @sites.each do |site| %>
+    <tr>
+      <td><%= site.identifier %></td>
+      <td><%= site.label %></td>
+      <td><%= button_to "Export", export_import_export_site_path(site), :class => "btn" %></td>
+      <td><%= button_to "Import", import_import_export_site_path(site), :class => "btn" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

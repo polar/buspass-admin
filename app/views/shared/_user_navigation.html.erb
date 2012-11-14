@@ -1,6 +1,6 @@
 <div class="user_nav">
 
-  <% if user_signed_in? %>
+  <% if current_user %>
       <%= link_to('Logout',
                   destroy_user_session_path(:master_id => @master.id),
                   :method=>'delete',
@@ -11,7 +11,7 @@
                   :class => "login")  %>
   <% end %>
 
-  <% if user_signed_in? %>
+  <% if current_user %>
       <%= link_to('Edit account',
                   edit_user_registration_path(:master_id => @master.id),
                   :class => "edit_account") %>

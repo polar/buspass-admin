@@ -29,13 +29,13 @@ class SessionsController < ApplicationController
   # There is no @master for Customer.
   #
   def new_customer
-    # We are going to auth a muni_admin. We indicate that in the session
+    # We are going to auth a customer. We indicate that in the session
     if current_customer
       redirect_to edit_customer_registration_path(current_customer), :notice => "You are already signed in."
     else
       @providers = BuspassAdmin::Application.oauth_providers
       session[:tpauth] = :customer
-      # We will render new_muni_admin and then that will redirect to sessions#create on /auth/;provider/callback
+      # We will render new_customer and then that will redirect to sessions#create on /auth/;provider/callback
     end
   end
 

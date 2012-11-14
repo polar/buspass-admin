@@ -45,10 +45,14 @@ header nav ul li {
 }
 
 #flash_inert {
+  background-color: white;
+  border: 0px
 }
 
 #notices {
   margin-top: 5px;
+  margin-left: 20%;
+  width: 60%;
 }
 
 #application-header {
@@ -97,4 +101,34 @@ input.btn[type=submit] {
 
 .user_nav {
   float: right;
+  font-size: 12px;
+  margin-top : -1px;
+}
+.user_nav .signed-in {
+  vertical-align: baseline;
+}
+
+.user_nav .signed-in > div {
+  float: left;
+}
+
+.user_nav .signed-in a {
+  display: block;
+  text-align: right;
+  line-height: 130%;
+  color: gray;
+  text-decoration: none;
+}
+
+.user_nav .signed-in a:hover {
+  text-decoration: underline;
+}
+
+.user_nav .signed-in img {
+  vertical-align: middle;
+  border: 1p solid #ACACAC;
+  margin-left: 8px;
+  border-radius: 2px;
+  width: 30px;
+  height: 30px;
 }

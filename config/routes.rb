@@ -365,9 +365,11 @@ BuspassAdmin::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
-  resource :main, :controller => "main" do
-    post :import
-    post :export
+  resources "import_export_sites", :controller => "import_export_sites" do
+    member do
+      post :import
+      post :export
+    end
   end
 
   root :to =>  "cms_content#render_html", :constraints => { :host => "busme.us" }

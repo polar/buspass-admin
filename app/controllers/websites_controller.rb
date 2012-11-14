@@ -7,7 +7,7 @@ class WebsitesController < ApplicationController
   layout "empty"
 
   def index
-    if customer_signed_in?
+    if current_customer
       @masters = case params[:purpose]
         when "edit" then
           Master.editable_by(current_customer)
