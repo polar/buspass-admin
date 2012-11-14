@@ -1,0 +1,11 @@
+<%= form_for @importer,
+             :url => import_import_export_site_path(site),
+             :method => "put",
+             :html => {:multipart => true} do |f| %>
+    <p>
+      <% error_messages!(@importer) %>
+      <%= f.label :zipfile, "Zip File" %>
+      <%= f.file_field :zipfile %>
+    </p>
+    <p><%=  f.submit :class => "btn" %></p>
+<% end %>

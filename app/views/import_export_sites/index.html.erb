@@ -14,8 +14,22 @@
       <td><%= site.identifier %></td>
       <td><%= site.label %></td>
       <td><%= button_to "Export", export_import_export_site_path(site), :class => "btn" %></td>
-      <td><%= button_to "Import", import_import_export_site_path(site), :class => "btn" %></td>
+      <td><%= link_to "Import", "#site_#{site.id}", :class => "btn", :data => { :toggle => "modal" }%></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+
+<%= content_for :modals do %>
+    <% @sites.each do |site| %>
+      <div id='<%= "site_#{site.id}" %>' class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 id="myModalLabel">Upload Import File for '<%= site.identifier %>' </h3>
+        </div>
+        <div class="modal-body">
+          <%= render :partial => "form_upload", :locals => { :site => site } %>
+        </div>
+      </div>
+    <% end %>
+<% end %>

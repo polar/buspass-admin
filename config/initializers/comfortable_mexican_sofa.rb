@@ -101,6 +101,11 @@ ComfortableMexicanSofa.configure do |config|
 ## BUSPASS
    config.backend = :mongo_mapper
   # config.backend = :active_record
+
+  config.upload_file_options = {
+      :path => ":rails_root/public/system/:master/:fileid/:style/:filename",
+      :url  => "/system/:master/:fileid/:style/:filename"
+  }
 end
 
 # Default credentials for ComfortableMexicanSofa::HttpAuth

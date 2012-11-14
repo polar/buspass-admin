@@ -22,6 +22,10 @@ class ZipfileImporter
       @id = self.class.next_id
     end
 
+    def persisted?
+      false
+    end
+
     def update_attributes(args = { })
       args.each_pair do |k, v|
         self.send("#{k}=", v)
@@ -52,12 +56,10 @@ class ZipfileImporter
     @@id_counter = Time.now.to_i
 
     def expand(path)
-      self.unzip(zipfile, path, false)
+      unzip(zipfile.path, path, false)
     end
 
-    private
-
-    def self.unzip(zip, unzip_dir, remove_after = false)
+    def unzip(zip, unzip_dir, remove_after = false)
       Zip::Archive.open(zip) do |zip_file|
         zip_file.each do |f|
           f_path = File.join(unzip_dir, f.name)

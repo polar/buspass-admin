@@ -367,7 +367,7 @@ BuspassAdmin::Application.routes.draw do
 
   resources "import_export_sites", :controller => "import_export_sites" do
     member do
-      post :import
+      put :import
       post :export
     end
   end

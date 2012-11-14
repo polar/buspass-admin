@@ -3,6 +3,7 @@ class ImportExportSitesController < ApplicationController
 
   def index
     @sites = [Cms::Site.find_by_identifier("busme-main")]
+    @importer = ZipfileImporter.new
   end
 
   def show
@@ -37,14 +38,14 @@ class ImportExportSitesController < ApplicationController
     begin
       @site = Cms::Site.find(params[:id])
       if @site
-        @importer = ZipfileImporter.new(params[:xipfile_importer])
-        @importer.save!
-        if @importer.zipfile && @importer.zipfile.url && File.exists?(@importer.zipfile.url)
+        @importer = ZipfileImporter.new(params[:zipfile_importer])
+        @importer.save
+        if @importer.zipfile && @importer.zipfile.path && File.exists?(@importer.zipfile.path)
           dir = Dir.mktmpdir()
           @importer.expand(dir)
           import_all(@site, dir)
           @importer.destroy
-          dir.delete!
+          FileUtils.rm_r(dir)
         else
           raise "Cannot access file."
         end
@@ -56,7 +57,7 @@ class ImportExportSitesController < ApplicationController
       logger.detailed_error(boom)
       flash[:error] = "Site could not be imported due to error. Check logs"
     end
-    redirect_to :index
+    redirect_to import_export_sites_path
   end
 
   protected
@@ -78,12 +79,14 @@ class ImportExportSitesController < ApplicationController
       import_layouts site, File.join(path, "layouts")
       import_pages site, File.join(path, "pages")
       import_snippets site, File.join(path, "snippets")
+      import_files site, File.join(path, "files")
     end
 
     def export_all(site, path)
       export_layouts site, File.join(path, "layouts")
       export_pages site, File.join(path, "pages")
       export_snippets site, File.join(path, "snippets")
+      export_files site, File.join(path, "files")
     end
 
     def import_layouts(site, path, root = true, parent = nil, layout_ids = [])
@@ -99,7 +102,6 @@ class ImportExportSitesController < ApplicationController
             layout.label      = attributes[:label] || identifier.titleize
             layout.app_layout = attributes[:app_layout] || parent.try(:app_layout)
             layout.position = attributes[:position] if attributes[:position]
-            layout.import_attributes(attributes)
           end
         elsif layout.new_record?
           layout.label      = identifier.titleize
@@ -171,7 +173,6 @@ class ImportExportSitesController < ApplicationController
             page.target_page  = site.pages.find_by_full_path(attributes[:target_page])
             page.is_published = attributes[:is_published].present? ? attributes[:is_published] : true
             page.position = attributes[:position] if attributes[:position]
-            page.import_attributes(attributes)
           end
         elsif page.new_record?
           page.label = slug.titleize
@@ -238,7 +239,6 @@ class ImportExportSitesController < ApplicationController
           if snippet.new_record? || File.mtime(file_path) > snippet.updated_at
             attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
             snippet.label = attributes[:label] || identifier.titleize
-            snippet.import_attributes(attributes)
           end
         elsif snippet.new_record?
           snippet.label = identifier.titleize
@@ -266,6 +266,35 @@ class ImportExportSitesController < ApplicationController
       # removing all db entries that are not in fixtures
       site.snippets.excluded(snippet_ids).each { |s| s.destroy }
       ComfortableMexicanSofa.logger.warn('Imported Snippets!')
+    end
+
+    def import_files(site, path)
+      file_ids = []
+      Dir.glob("#{path}/*").select { |f| File.directory?(f) }.each do |filedir|
+        pid = File.basename(filedir)
+        file = site.files.find_by_persistentid(pid) || site.files.create(:persistent_id => pid)
+
+        # updating attributes
+        if File.exists?(file_path = File.join(filedir, "_.yml"))
+          attributes = YAML.load_file(file_path).try(:symbolize_keys!) || { }
+          file.update_attributes(attributes)
+        end
+
+        if site.master
+          dest = File.join(Rails.root, "public", "system", "#{site.master.id}", pid)
+        else
+          dest = File.join(Rails.root, "public", "system", "main", pid)
+        end
+        FileUtils.rm_r(dest)
+        FileUtils.cp_r(filedir, dest)
+        FileUtils.rm(File.join(dest, "_.yml"))
+        ComfortableMexicanSofa.logger.warn("[Fixtures] Saved File {#{file.label}}")
+        file_ids << file.id
+      end
+
+      # removing all db entries that are not in fixtures
+      site.files.where(:id.nin => file_ids).each { |s| s.destroy }
+      ComfortableMexicanSofa.logger.warn('Imported Files!')
     end
 
     def export_layouts(site, path)
@@ -337,6 +366,30 @@ class ImportExportSitesController < ApplicationController
         open(File.join(snippet_path, 'content.html'), 'w') do |f|
           f.write(snippet.content)
         end
+      end
+    end
+
+    def export_files(site, path)
+      FileUtils.rm_rf(path)
+      FileUtils.mkdir_p(path)
+
+      site.files.each do |file|
+        filedir = File.dirname(file.file.path)
+        filedir = File.dirname(filedir)
+        dest = File.join(path, file.persistentid)
+        FileUtils.cp_r(filedir, dest)
+        open(File.join(dest, "_.yml"), 'w') do |f|
+          f.write({
+                      'label' => file.label,
+                      "persistentid" => file.persistentid,
+                      "file_file_name" => file.file_file_name,
+                      "file_content_type" => file.file_content_type,
+                      "file_file_size" => file.file_file_name,
+                      "description" => file.description,
+                      "position" => file.position
+                  }.to_yaml)
+        end
+        puts "Eat shit"
       end
     end
 
