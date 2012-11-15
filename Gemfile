@@ -122,6 +122,10 @@ group :development do
   gem "debugger"  unless ENV["RM_INFO"]
 end
 
+group :production do
+  gem 'aws-sdk'
+end
+
 #
 # Deployment Gems
 #
