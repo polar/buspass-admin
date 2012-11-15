@@ -23,7 +23,7 @@ class Masters::ActiveController < ApplicationController
       @loginUrl = api_activement_path(@activement, :format => :json)
     else
       @updateUrl = partial_status_master_active_path(@master, :format => :json)
-      flash[:notice] = "The #{@master.name} is not active."
+      flash[:error] = "The #{@master.name} is not active."
     end
   end
 

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="description" content="">
+  <meta name="author" content="">
   <title>Webmap for Busme</title>
-  <%= stylesheet_link_tag "normal-layout", :media => "all", :debug => true %>
+  <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
   <%= javascript_include_tag "normal-layout", :debug => true %>
   <%= stylesheet_link_tag "webmap" %>
   <%= javascript_include_tag "webmap" %>
@@ -15,11 +18,16 @@
   <%= javascript_include_tag "#{controller_path}/#{params[:action]}" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
-      $(function() {
+      // This displays the flash messages.
+      $(function () {
           <%- flash.each do |name, msg| -%>
           <%= "setFlash('#{name}', '#{msg}');"  %>
           <%- end -%>
-      }) ;
+          // Set the click on the buttons to clear the flash message
+          $("#notices .alert").on("click", ".close", function () {
+              clearFlash();
+          })
+      });
   </script>
   <%= yield :head %>
 </head>
@@ -30,10 +38,15 @@
           <ul class="hmenu">
             <%= render 'shared/muni_admin_navigation' %>
           </ul>
+          <div id="notices">
+            <!-- We need this because it is used to calculate the height
+              -- of the flash window to set the North Layout to the size
+              -- when an actual flash message does appear after the DOM is set..
+              -->
+            <div id='flash_inert' class='alert'>&nbsp;</div>
+          </div>
           <div id="application-header">Busme <%= @master ? @master.name : "US" %></div>
         </nav>
-        <div id="notices">
-        </div>
       </header>
     </div>
     <div class="ui-layout-west">
