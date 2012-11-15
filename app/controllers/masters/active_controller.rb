@@ -23,13 +23,34 @@ class Masters::ActiveController < ApplicationController
       @loginUrl = api_activement_path(@activement, :format => :json)
     else
       @updateUrl = partial_status_master_active_path(@master, :format => :json)
-      flash[:error] = "The #{@master.name} is not active."
+      flash[:error] = "Busme #{@master.name} is not active."
     end
   end
 
   def admin
-    show
-    render "admin"
+    get_context
+
+    if @activement
+      options = { :master_id => @master.id, :deployment_id => @deployment.id }
+      @job    = SimulateJob.first(:activement_id => @activement.id)
+      #authorize!(:deploy, @deployment)
+      @date   = Time.now
+      @time   = @date
+      if params[:date]
+        @date = Time.parse(params[:date])
+      end
+      if params[:time]
+        @time = Time.parse(params[:time])
+      end
+      @mult   = @job && @job.clock_mult || 1
+      @duration = @job && @job.duration || 30
+      @processing_status_label = "Run"
+      @updateUrl = partial_status_master_active_path(@master, :format => :json)
+      @loginUrl = api_activement_path(@activement, :format => :json)
+    else
+      flash[:error] = "There is no deployment for #{@master.name} that is active."
+      redirect_to master_path(@master)
+    end
   end
 
   def status

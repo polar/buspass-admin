@@ -9,32 +9,35 @@
   <meta name="author" content="">
   <title><%= "Busme #{@master.name}" %></title>
   <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
-  <%= javascript_include_tag "normal-layout", :debug => true  %>
+  <%= javascript_include_tag "normal-layout", :debug => true %>
+  <%= stylesheet_link_tag "webmap" %>
+  <%= javascript_include_tag "webmap" %>
   <%= stylesheet_link_tag "#{controller_path}" %>
   <%= javascript_include_tag "#{controller_path}" %>
-  <%= stylesheet_link_tag "#{controller_path}/#{@render_action || params[:action]}" %>
-  <%= javascript_include_tag "#{controller_path}/#{@render_action || params[:action]}" %>
+  <%= stylesheet_link_tag "#{controller_path}/#{params[:action]}" %>
+  <%= javascript_include_tag "#{controller_path}/#{params[:action]}" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
       // This displays the flash messages.
-      $(function() {
+      $(function () {
           <%- flash.each do |name, msg| -%>
           <%= "setFlash('#{name}', '#{msg}');"  %>
           <%- end -%>
           // Set the click on the buttons to clear the flash message
-          $("#notices .alert").on("click", ".close", function() {
+          $("#notices .alert").on("click", ".close", function () {
               clearFlash();
           })
-      }) ;
+      });
   </script>
-  <%=  yield :head %>
+  <%= yield :head %>
 </head>
 <body class="<%= params[:controller] %>">
     <div class="ui-layout-north">
       <header>
         <nav>
-          <%= render 'shared/masters/admin_navigation' %>
-        </nav>
+          <ul class="hmenu">
+            <%= render 'shared/masters/user_navigation' %>
+          </ul>
           <div id="notices">
             <!-- We need this because it is used to calculate the height
               -- of the flash window to set the North Layout to the size
@@ -43,6 +46,7 @@
             <div id='flash_inert' class='alert'>&nbsp;</div>
           </div>
           <div id="application-header"><%= link_to "Busme #{@master.name}", master_active_path(@master) %></div>
+        </nav>
       </header>
     </div>
     <div class="ui-layout-west">

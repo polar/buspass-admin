@@ -33,7 +33,7 @@
     <div class="ui-layout-north">
       <header>
         <nav>
-          <%= render 'shared/masters/admin_navigation' %>
+          <%= render 'shared/masters/user_navigation' %>
         </nav>
           <div id="notices">
             <!-- We need this because it is used to calculate the height
@@ -42,7 +42,7 @@
               -->
             <div id='flash_inert' class='alert'>&nbsp;</div>
           </div>
-          <div id="application-header"><%= link_to "Busme #{@master.name}", master_active_path(@master) %></div>
+        <div id="application-header"><%= link_to "Busme #{@master.name}", master_active_path(@master) %></div>
       </header>
     </div>
     <div class="ui-layout-west">

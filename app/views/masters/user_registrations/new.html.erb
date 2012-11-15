@@ -1,7 +1,8 @@
 <%= content_for :left do %>
-    <%= render :partial => "navigation/websites_nav" %>
+    <%= render :partial => "navigation/main_nav" %>
 <% end %>
-<h1>We welcome you as a new customer!</h1>
+
+<h1>We welcome you as a new user for <%= @master.name %>!</h1>
 
 <p>You are currently signed with using</p>
 <div class="authentications">
@@ -17,4 +18,4 @@
 
 <p>Please edit account information and supply an email address and choose a different name if you like:</p>
 
-<%= render 'customer_registrations/form_registration' %>
+<%= render 'masters/user_registrations/form_registration' %>

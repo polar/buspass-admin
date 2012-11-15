@@ -1,0 +1,20 @@
+<div class="user_nav">
+
+  <% if current_user %>
+      <span class="signed-in">
+        <div>
+          <%= link_to current_user.name,
+                      edit_master_user_registration_path(@master, current_user) %>
+          <%= link_to 'Logout',
+                      destroy_user_sessions_path(:master_id => @master.id),
+                      :method => 'delete' %>
+        </div>
+        <%= image_tag("silhouette36.png") %>
+      </span>
+  <% else %>
+      <span class="signed-out">
+          <%= link_to('Sign in', master_user_sign_in_path(@master), :class => "btn") %>
+      </span>
+  <% end %>
+
+</div>

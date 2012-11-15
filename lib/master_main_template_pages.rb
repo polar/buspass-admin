@@ -36,12 +36,12 @@ of the layout regardless of where it appears here.
 
     normal_layout = site.layouts.create!(
         :identifier => "normal-layout",
-        :app_layout => "masters/normal-layout",
+        :app_layout => "masters/active/normal-layout",
         :content => layout_content)
 
     map_layout = site.layouts.create!(
         :identifier => "map-layout",
-        :app_layout => "masters/map-layout",
+        :app_layout => "masters/active/map-layout",
         :content => layout_content)
 
     root = site.pages.create!(
@@ -73,32 +73,16 @@ of the layout regardless of where it appears here.
                                    :content    => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
 
-    user_sign_up = site.pages.create!(
-        :slug              => "sign-up",
-        :label             => "Sign Up",
-        :layout            => normal_layout,
-        :is_protected      => true,
-        :parent            => root,
-        :controller_path   => "/masters/:master_id/users/sign_up",
-        :blocks_attributes => [{
-                                   :identifier => "content",
-                                   :content    => "{{ cms:bus:render:masters/users/sign_up }}"
-                               },
-                               {
-                                   :identifier => "left",
-                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
-                               }])
-
     user_sign_in = site.pages.create!(
         :slug              => "sign-in",
         :label             => "Sign In",
         :layout            => normal_layout,
         :is_protected      => true,
         :parent            => root,
-        :controller_path   => "/masters/:master_id/users/sign_in",
+        :controller_path   => "/masters/:master_id/user_sign_in",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:render:masters/users/sign_in }}"
+                                   :content    => "{{ cms:bus:render:masters/user_registrations/edit }}"
                                },
                                {
                                    :identifier => "left",

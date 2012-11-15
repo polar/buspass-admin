@@ -2,8 +2,8 @@ class ActivementsController < ApplicationController
 
   # May should more if user is logged in.
   def index
-    authenticate_muni_admin!
-    authorize_muni_admin!(:read, Activement)
+    authenticate_customer!
+    authorize_customer!(:read, Activement)
 
     @activements = Activement.all
     if @activements.size == 1
@@ -12,13 +12,13 @@ class ActivementsController < ApplicationController
   end
 
   def show
-    authenticate_muni_admin!
     @activement = Activement.find(params[:id])
-
-    authorize_muni_admin!(:read, @activement)
-
     @deployment = @activement.deployment
     @master = @deployment.master
+
+    authenticate_muni_admin!
+    authorize_muni_admin!(:read, @activement)
+
     @loginUrl = api_activement_path(@activement)
     render :layout => "webmap"
   end
@@ -45,10 +45,5 @@ class ActivementsController < ApplicationController
     end
   end
 
-  protected
-
-  def authorize_muni_admin!(action, obj)
-    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
-  end
 
 end

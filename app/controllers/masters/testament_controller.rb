@@ -26,7 +26,7 @@ class Masters::TestamentController < ApplicationController
       @partialStatusUrl = partial_status_master_testament_path(@master, :format => :json)
     else
       flash[:error] = "You have not selected a Deployment for testing."
-      redirect_to master_deployments_path(@master)
+      redirect_to master_path(@master)
     end
   end
 

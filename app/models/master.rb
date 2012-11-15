@@ -93,7 +93,7 @@ class Master
     MuniAdmin.where(:master_id => self.id).all.each { |m| m.destroy }
     User.where(:master_id => self.id).all.each { |m| m.destroy }
     # We will get rid of the customer if this was his only master
-    if self.owner.masters.count == 1
+    if self.owner && self.owner.masters.count == 1
       self.owner.destroy
     end
   end

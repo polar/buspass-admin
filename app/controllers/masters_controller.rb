@@ -31,6 +31,7 @@ class MastersController < ApplicationController
   end
 
   def show
+    @master = Master.find(params[:id])
     #
     # This action is the entry point. If we cannot read the Master then, we may be somebody
     # else. We take the liberty to log them out, and reauthenticate them.

@@ -7,8 +7,13 @@ class User
   key :uid, String
 
   key :name, String
+  key :email, String
 
   belongs_to :master
+  many :authentications, :dependent => :destroy
+
+  validates_presence_of :name
+  validates :email, :presence => true, :email => true
 
   def self.create_with_omniauth(auth)
     create! do |cust|

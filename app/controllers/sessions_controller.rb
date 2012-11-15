@@ -13,10 +13,14 @@ class SessionsController < ApplicationController
         create_customer()
       when :muni_admin
         create_muni_admin()
+      when :user
+        create_user()
       when :amend_customer
         amend_customer()
       when :amend_muni_admin
         amend_muni_admin()
+      when :amend_user
+        amend_user()
       else
         redirect_to root_url, :notice => "Internal Problem. Could not get tpauth."
 
@@ -62,13 +66,37 @@ class SessionsController < ApplicationController
 
   end
 
-  def destroy_muni_admin
-    master = current_muni_admin.master
-    session[:muni_admin_id] = nil
+  def destroy_user
+    master = current_user.master
+    session[:user_id] = nil
     session[:tpauth_id] = nil
     redirect_to master_path(master), :notice => "Signed out!"
   end
 
+  #
+  # Set up a new User Session. The @master should be assigned.
+  #
+  def new_user
+    # We are going to auth a muni_admin. We indicate that in the session
+    if current_user
+      redirect_to edit_master_user_registration_path(current_user.master, current_user), :notice => "You are already signed in."
+    else
+      @providers       = BuspassAdmin::Application.oauth_providers
+      session[:tpauth] = :user
+      session[:master_id] = @master.id
+      # We will render new_muni_admin and then that will redirect to sessions#create on /auth/;provider/callback
+      render :layout => "masters/active/normal-layout"
+    end
+
+  end
+
+  def destroy_user
+    master              = current_user.master
+    session[:user_id] = nil
+    session[:tpauth_id] = nil
+    redirect_to master_path(master), :notice => "Signed out!"
+  end
+  
   private
 
   #
@@ -195,6 +223,72 @@ class SessionsController < ApplicationController
     end
   end
 
+  #
+  # Called directly from sessions#create
+  #
+  def create_user
+    auth = request.env["omniauth.auth"]
+
+    oauth = Authentication.find_by_provider_and_uid_and_master_id(auth["provider"], auth["uid"], @master.id)
+    session[:master_id] = @master.id
+    if oauth
+      user = oauth.user
+      session[:tpauth_id] = oauth.id
+      if user != nil
+        session[:user_id] = user.id
+        oauth.last_info = auth["info"]
+        oauth.save
+        redirect_to master_path(user.master), :notice => "Signed in!"
+      else
+        redirect_to new_master_user_registration_path(:master_id => @master.id),
+                    :notice => "Could not find you. Please create an account."
+      end
+    else
+      session[:tpauth_id] = Authentication.create_with_omniauth(auth).id
+      redirect_to new_master_user_registration_path(:master_id => @master.id),
+                  :notice => "Need to create an account."
+    end
+  end
+
+  #
+  # This method gets called after the user wants to add an authentication.
+  #
+  def amend_user
+    session[:tpauth] = nil
+    # we should have a current user.
+    user = current_user
+    if (user)
+      auth  = request.env["omniauth.auth"]
+      oauth = Authentication.find_by_provider_and_uid(auth["provider"], auth["uid"])
+      if oauth
+        if oauth.user.nil?
+          oauth.user = user
+          oauth.save
+          redirect_to edit_master_user_registration_path(user.master, user),
+                      :notice => "This authentication has been accepted"
+        elsif user == oauth.user
+          # Already added
+          redirect_to edit_master_user_registration_path(user.master, user),
+                      :notice => "This authentication has been accepted"
+        else
+          session[:user_id] = nil
+          session[:tpauth_id] = nil
+          redirect_to master_user_sign_in_path(user),
+                      :notice => "Authentication belongs to another Admin!"
+        end
+      else
+        oauth = Authentication.create_with_omniauth(auth)
+        user.authentications << oauth
+        user.save
+        redirect_to edit_master_user_registration_path(user.master, user),
+                    :notice => "Authentication failed."
+      end
+    else
+      redirect_to master_user_sign_in_path(:master_id => params[:master_id]),
+                  :notice => "Need to sign in first."
+    end
+  end
+
   def get_context
     # Ex. http://busme.us/auth/google?master_id=22342342234
     @master_id = params[:master_id]
@@ -211,6 +305,9 @@ class SessionsController < ApplicationController
         slug = match[1]
         @master = Master.where(:slug => slug).first
       end
+    end
+    if ! @master
+      @master = Master.find(session[:master_id])
     end
   end
 

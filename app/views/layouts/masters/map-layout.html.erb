@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Webmap for Busme</title>
+  <title><%= "Busme #{@master.name}" %></title>
   <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
   <%= javascript_include_tag "normal-layout", :debug => true %>
   <%= stylesheet_link_tag "webmap" %>
@@ -45,7 +45,7 @@
               -->
             <div id='flash_inert' class='alert'>&nbsp;</div>
           </div>
-          <div id="application-header">Busme <%= @master ? @master.name : "US" %></div>
+          <div id="application-header"><%= link_to "Busme #{@master.name}", master_active_path(@master) %></div>
         </nav>
       </header>
     </div>

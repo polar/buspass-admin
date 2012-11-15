@@ -64,12 +64,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    @current_user ||= Customer.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
   def authenticate_user!
     if !current_user
-      throw(:warden, :path => main_app.new_user_sessions_path, :notice => "Please sign in.")
+      throw(:warden, :path => main_app.new_user_sessions_path(:master_id => @master.id), :notice => "Please sign in.")
     end
   end
 

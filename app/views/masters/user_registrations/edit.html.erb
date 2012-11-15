@@ -1,0 +1,56 @@
+<%= content_for :left do %>
+   <%= render :partial => "navigation/main_nav" %>
+<% end %>
+
+<h1>Edit Account</h1>
+
+<p>You are currently signed in using:
+<p/>
+<div class="authentications">
+  <div class="authentication">
+    <%= image_tag "auth/#{@authentication.provider}_32.png", :size => "32x32" %>
+    <div class="provider"><%= @authentication.provider.titleize %></div>
+    <div class="uid"><%= @authentication.uid %></div>
+  </div>
+</div>
+<% if @authentications && !@authentications.empty? %>
+    <br />
+    <br />
+
+    <p>You have the following other authentication capabilities</p>
+    <div class="authentications">
+      <% for authentication in @authentications %>
+          <div class="authentication">
+            <%= image_tag "auth/#{authentication.provider}_32.png", :size => "32x32" %>
+            <div class="provider"><%= authentication.provider.titleize %></div>
+            <div class="uid"><%= authentication.uid %></div>
+            <%= button_to "x", master_user_authentication_path(@master, authentication),
+                        :method => :delete, :class => "remove btn-link" %>
+          </div>
+      <% end %>
+    </div>
+    <div class="clear" style="clear:both"></div>
+<% end %>
+<br />
+<br />
+
+<p>Please edit account information:<p/>
+
+
+<%= render 'masters/user_registrations/form_registration' %>
+
+
+<% if @providers && !@providers.empty? %>
+    <br />
+    <br />
+
+    <p>You may also add these to this account so that you may login with those as well.</p>
+    <div class="authentications">
+      <% for provider in @providers %>
+          <a href='<%= "/auth/#{provider}" %>' class="auth_provider">
+          <%= image_tag "auth/#{provider}_64.png", :size => "64x64", :alt => "#{provider.titleize}" %>
+          <%= provider.titleize %>
+          </a>
+      <% end %>
+    </div>
+<% end %>

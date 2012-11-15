@@ -20,6 +20,10 @@ BuspassAdmin::Application.routes.draw do
       get :new_muni_admin
       post :create_muni_admin
       delete :destroy_muni_admin
+
+      get :new_user
+      post :create_user
+      delete :destroy_user
     end
   end
 
@@ -117,6 +121,8 @@ BuspassAdmin::Application.routes.draw do
 
     match "sign_in" => "sessions#new_muni_admin", :as => :muni_admin_sign_in
     match "signout" => "sessions#destroy_muni_admin", :as => :muni_admin_signout
+    match "user_sign_in" => "sessions#new_user", :as => :user_sign_in
+    match "user_signout" => "sessions#destroy_user", :as => :user_signout
 
     resources :muni_admin_registrations,
               :only => [:new, :edit, :create, :update],
@@ -125,6 +131,14 @@ BuspassAdmin::Application.routes.draw do
     resources :muni_admin_authentications,
               :only => [:create, :destroy],
               :controller => "masters/muni_admin_authentications"
+
+    resources :user_registrations,
+              :only => [:new, :edit, :create, :update],
+              :controller => "masters/user_registrations"
+
+    resources :user_authentications,
+              :only => [:create, :destroy],
+              :controller => "masters/user_authentications"
 
     resource "admin", :only => [:show], :controller => "masters/admin"
 

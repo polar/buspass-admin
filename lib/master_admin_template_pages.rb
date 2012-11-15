@@ -102,22 +102,6 @@ of the layout regardless of where it appears here.
                                    :identifier => "left",
                                    :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
-
-    edit = site.pages.create!(
-        :slug => "edit",
-        :label => "Edit",
-        :layout => map_layout,
-        :is_protected => true,
-        :controller_path => "/masters/:master_id/edit",
-        :blocks_attributes => [{
-                                   :identifier => "content",
-                                   :content => "{{ cms:bus:render:masters/edit }}"
-                               },
-                               {
-                                   :identifier => "left",
-                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
-                               }])
-
     new_deployment = site.pages.create!(
         :slug => "new-deployment",
         :label => "New Deployment",
@@ -186,6 +170,22 @@ of the layout regardless of where it appears here.
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:render:/masters/admin/show }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
+    edit = site.pages.create!(
+        :slug              => "edit",
+        :label             => "Edit Info",
+        :layout            => map_layout,
+        :parent            => admin,
+        :is_protected      => true,
+        :controller_path   => "/masters/:master_id/edit",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:masters/edit }}"
                                },
                                {
                                    :identifier => "left",

@@ -10,6 +10,9 @@ class MuniAdminPermit < CanTango::UserPermit
       puts "---------Networ Rules? #{user.id}"
       network.processing_lock == user
     end
+    can(:read, Master) do |master|
+      master == user.master
+    end
   end
 
   def permit_rules

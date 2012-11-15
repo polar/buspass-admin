@@ -1,6 +1,9 @@
 class TestamentsController < ApplicationController
 
   def index
+    authenticate_customer!
+    authorize_customer!(:read, Testament)
+
     @testaments = Testament.all
     if @testaments.size == 1
       redirect_to :action => :show, :id => @testaments[0].id
@@ -8,24 +11,26 @@ class TestamentsController < ApplicationController
   end
 
   def show
-    authenticate_muni_admin!
     @testament = Testament.find(params[:id])
-
-    authorize_muni_admin!(:read, @testament)
 
     @deployment = @testament.deployment
     @master = @deployment.master
+
+    authenticate_muni_admin!
+    authorize_muni_admin!(:read, @testament)
+
     @loginUrl = api_testament_path(@testament)
   end
 
   def api
-    authenticate_muni_admin!
     @testament = Testament.find(params[:id])
-
-    authorize_muni_admin!(:read, @testament)
 
     @deployment = @testament.deployment
     @master = @deployment.master
+
+    authenticate_muni_admin!
+    authorize_muni_admin!(:read, @testament)
+
     @api = {
         "majorVersion"=> 1,
         "minorVersion"=> 0,
@@ -40,9 +45,4 @@ class TestamentsController < ApplicationController
     end
   end
 
-  protected
-
-  def authorize_muni_admin!(action, obj)
-    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
-  end
 end
