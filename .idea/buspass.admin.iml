@@ -30,7 +30,6 @@
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.2.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cancan (v1.6.8, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cantango (v0.9.4.7, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="capistrano (v2.13.3, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="capybara (v1.1.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="carrierwave (v0.6.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="childprocess (v0.3.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
@@ -70,7 +69,6 @@
     <orderEntry type="library" scope="PROVIDED" name="fssm (v0.2.9, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gherkin (v2.11.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashie (v1.2.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="highline (v1.6.14, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hike (v1.2.1, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hpricot (v0.8.6, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="httpauth (v0.1, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
@@ -91,10 +89,6 @@
     <orderEntry type="library" scope="PROVIDED" name="mongo_mapper (v0.11.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.3.6, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multipart-post (v1.1.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="net-scp (v1.0.4, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="net-sftp (v2.0.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="net-ssh (v2.5.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="net-ssh-gateway (v1.1.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.5.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oauth (v0.4.7, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oauth2 (v0.8.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />

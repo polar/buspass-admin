@@ -12,6 +12,8 @@ if ENV['MONGOLAB_URI']
   # We are on Heroku and using MONGOLAB for a MongoDB
 
   uri  = URI.parse(ENV['MONGOLAB_URI'])
+  Rails.logger.info "Connecting to MONGOLAB_URI #{Rails.env["MONGOLAB_URI"]}"
+  Rails.logger.info "MONGOLAB Database Name #{uri.path.gsub(/^\//, '')}"
   MongoMapper.connection = conn = Mongo::Connection.from_uri(ENV['MONGOLAB_URI'])
   MongoMapper.database = (uri.path.gsub(/^\//, ''))
 
