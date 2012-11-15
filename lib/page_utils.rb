@@ -40,10 +40,12 @@ module PageUtils
 
     from_site.snippets.order(:position).all.each do |snippet|
       new_snippet = copy_snippet(site, snippet)
-
       new_snippet.master = site.master
-
       new_snippet.save!
+    end
+
+    from_site.files.order(:position).all.each do |file|
+      new_file = copy_file(site, file)
     end
   end
 
@@ -62,7 +64,7 @@ module PageUtils
     )
 
     copy_layouts(site, from_site)
-    seed_master_main_pages_snippets(site, from_site)
+    seed_master_main_pages_snippets_files(site, from_site)
     return site
   rescue => boom
     Rails.logger.detailed_error(boom)
@@ -71,7 +73,7 @@ module PageUtils
   end
 
   # Site must have master assigned.
-  def seed_master_main_pages_snippets(site, from_site)
+  def seed_master_main_pages_snippets_files(site, from_site)
     master = site.master
     from_root = from_site.pages.root
 
@@ -84,6 +86,10 @@ module PageUtils
       new_snippet = copy_snippet(site, snippet)
       new_snippet.master = site.master
       new_snippet.save!
+    end
+
+    from_site.files.order(:position).all.each do |file|
+      new_file = copy_file(site, file)
     end
   end
 
@@ -187,10 +193,31 @@ module PageUtils
 
   def copy_snippet(site, snippet)
     news = site.snippets.create!(
-        :label => snippet.label,
+        :label     => snippet.label,
         :identifier => snippet.identifier,
         :is_shared => snippet.is_shared,
-        :content => snippet.content
+        :content   => snippet.content
     )
+  end
+
+  def copy_file(site, file)
+    newf = site.files.create!(
+        'label'             => file.label,
+        "persistentid"      => file.persistentid,
+        "file_file_name"    => file.file_file_name,
+        "file_content_type" => file.file_content_type,
+        "file_file_size"    => file.file_file_name,
+        "description"       => file.description
+    )
+    pid  = file.persistentid
+    if file.site.master
+      filedir = File.join(Rails.root, "public", "system", "#{file.site.master.id}", pid)
+    else
+      filedir = File.join(Rails.root, "public", "system", "main", pid)
+    end
+    dest = File.join(Rails.root, "public", "system", "#{site.master.id}", pid)
+    FileUtils.mkdir_p(dest)
+    FileUtils.rm_r(dest, :force => true)
+    FileUtils.cp_r(filedir, dest)
   end
 end

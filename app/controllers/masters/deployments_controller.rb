@@ -160,7 +160,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
       @activement.deployment = @deployment
       if @activement.save
         flash[:notice] = "Deployment successfully submitted for activation. You need to explicitly start it."
-        redirect_to master_active_path(@master)
+        redirect_to master_path(@master)
       else
         flash[:error] = "Could not activate deployment"
         render :show

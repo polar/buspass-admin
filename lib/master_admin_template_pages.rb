@@ -51,7 +51,7 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "<h1>Welcome to Administration Pages</h1>{{ cms:bus:master }}"
+                                   :content => "<h1>Administration</h1>{{ cms:bus:render:masters/show }}"
                                },
                                {
                                    :identifier => "left",
@@ -66,6 +66,22 @@ of the layout regardless of where it appears here.
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "Help for your Master"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
+    sitemap = site.pages.create!(
+        :slug              => "sitemap",
+        :label             => "Sitemap",
+        :layout            => normal_layout,
+        :is_protected      => true,
+        :parent            => help,
+        :controller_path => "/masters/:master_id/sitemap/admin",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "<h1>Sitemap for {{ cms:bus:master:name }}</h1>\n{{ cms:bus:render:masters/sitemap/admin }}"
                                },
                                {
                                    :identifier => "left",
@@ -120,7 +136,7 @@ of the layout regardless of where it appears here.
     active_deployment = site.pages.create!(
         :slug => "active-deployment",
         :label => "Active Deployment",
-        :layout => normal_layout,
+        :layout => map_layout,
         :is_protected => true,
         :controller_path => "/masters/:master_id/active/admin",
         :blocks_attributes => [{

@@ -73,6 +73,22 @@ of the layout regardless of where it appears here.
                                    :content    => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
 
+    sitemap = site.pages.create!(
+        :slug              => "sitemap",
+        :label             => "Sitemap",
+        :layout            => normal_layout,
+        :is_protected      => true,
+        :parent            => help,
+        :controller_path => "/masters/:master_id/sitemap/main",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "<h1>Sitemap for {{ cms:bus:master:name }}</h1>\n{{ cms:bus:render:masters/sitemap/main }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/main_nav }}"
+                               }])
+
     user_sign_in = site.pages.create!(
         :slug              => "sign-in",
         :label             => "Sign In",

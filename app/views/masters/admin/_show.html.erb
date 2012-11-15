@@ -3,8 +3,14 @@
   This is the portal for the administration of the <%= @master.name %> Busme general site.
 </p>
 
+<h2><%= @master.name %> Information</h2>
+<p><%= render :partial => "masters/admin/edit_link" %></p>
+
 <h2><%= @master.name %> Page Sets</h2>
 <p><%= render :partial => "masters/admin/pages_admin_link" %></p>
 
-<h2>Admins</h2>
+<h2>Manage Administators</h2>
 <p><%= render :partial => "masters/admin/muni_admins_admin_link" %></p>
+
+<h2>Manage Users</h2>
+<p><%= render :partial => "masters/admin/users_admin_link" %></p>

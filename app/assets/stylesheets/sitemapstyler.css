@@ -26,7 +26,7 @@
 
 #sitemap li a{padding-left:28px;}
 #sitemap li span{float:left;position:absolute;top:5px;left:5px;width:13px;height:13px;cursor:auto;font-size:0;}
-#sitemap li span, #sitemap li span.collapsed{background:url(collapsed.gif) no-repeat 0 0;} 
+#sitemap li span, #sitemap li span.collapsed{background:url(collapsed.gif) no-repeat 0 0;}
 #sitemap li span.expanded{background:url(expanded.gif) no-repeat 0 0;}
 
 /* second level */

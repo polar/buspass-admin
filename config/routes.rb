@@ -140,6 +140,13 @@ BuspassAdmin::Application.routes.draw do
               :only => [:create, :destroy],
               :controller => "masters/user_authentications"
 
+    resource "sitemap", :controller => "masters/sitemap" do
+      member do
+        get :admin
+        get :main
+      end
+    end
+
     resource "admin", :only => [:show], :controller => "masters/admin"
 
     resources "import_export_sites", :controller => "import_export_sites"

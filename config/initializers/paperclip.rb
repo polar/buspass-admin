@@ -1,8 +1,8 @@
 module Paperclip
   module Interpolations
     def master attachment, style_name
-      if (attachment.instance.master)
-        attachment.master.id.to_s
+      if (attachment.instance.is_a?(Cms::File) && attachment.instance.master)
+        attachment.instance.master.id.to_s
       else
         "main"
       end

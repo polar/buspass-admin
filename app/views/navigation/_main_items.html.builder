@@ -17,7 +17,7 @@ end
 def do_page(page, xml)
   if page.is_published
     xml.li {
-      xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+      xml.a page.label, :href => (!page.controller_path.nil? && !page.controller_path.blank?) ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
       subpages(page).tap do |pages|
         xml.ul do
           pages.each do |chpage|
@@ -33,7 +33,7 @@ xml.ul(:id => "sitemap") {
   page = @site.pages.root
   if page
     xml.li() {
-      xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+      xml.a page.label, :href => (!page.controller_path.nil? && !page.controller_path.blank?) ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
 
     }
     subpages(page).tap do |pages|

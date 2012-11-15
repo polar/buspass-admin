@@ -92,8 +92,8 @@ class Master
     # It should destroy the sites. We will get rid of all the accounts associated with the Master as well.
     MuniAdmin.where(:master_id => self.id).all.each { |m| m.destroy }
     User.where(:master_id => self.id).all.each { |m| m.destroy }
-    # We will get rid of the customer if this was his only master
-    if self.owner && self.owner.masters.count == 1
+    # We will get rid of the customer if this was his only master and the customer isn't a Busme Administrator.
+    if self.owner && self.owner.masters.count == 1 && ! self.owner.has_role?(:super)
       self.owner.destroy
     end
   end

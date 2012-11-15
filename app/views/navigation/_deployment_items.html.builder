@@ -17,7 +17,7 @@ end
 def do_page(page, xml)
   if page.is_published
     xml.li {
-      xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+      xml.a page.label, :href => (!page.controller_path.nil? && !page.controller_path.blank?) ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
       subpages(page).tap do |pages|
         xml.ul do
           pages.each do |chpage|
@@ -32,12 +32,12 @@ end
 xml.ul(:id => "sitemap") {
   page = @site.pages.find_by_full_path("/")
   xml.li() {
-    xml.a "#{@master.name} Top", :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+    xml.a "#{@master.name} Top", :href => (!page.controller_path.nil? && !page.controller_path.blank?) ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
   }
   page = @site.pages.find_by_full_path("/tools")
   if page
     xml.li() {
-      xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+      xml.a page.label, :href => (!page.controller_path.nil? && !page.controller_path.blank?) ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
       subpages(page).tap do |pages|
         xml.ul() do
           pages.each do |chpage|
@@ -49,7 +49,7 @@ xml.ul(:id => "sitemap") {
   end
   page = @site.pages.find_by_full_path("/deployments/#{@deployment.slug}")
   xml.li() {
-    xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+    xml.a page.label, :href => (!page.controller_path.nil? && !page.controller_path.blank?) ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
     subpages(page).tap do |pages|
       xml.ul(:class => "expanded") do
         pages.each do |chpage|

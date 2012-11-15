@@ -1,4 +1,4 @@
-@site = @cms_site || @master.admin_site
+@site = @mcs_site || @master.main_site
 @prefix = request.host == "busme.us" || request.host == "localhost" ? "/#{@master.slug}" : ""
 def exclude_links
   []
@@ -17,7 +17,7 @@ end
 def do_page(page, xml)
   if page.is_published
     xml.li {
-      xml.a page.label, :href => (!page.controller_path.nil? && !page.controller_path.blank?) ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+      xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
       subpages(page).tap do |pages|
         xml.ul do
           pages.each do |chpage|
@@ -29,16 +29,16 @@ def do_page(page, xml)
   end
 end
 
-xml.ul(:id => "sitemap") {
+xml.ul(:class => "sitemap2") {
   page = @site.pages.root
   if page
     xml.li() {
-      xml.a page.label, :href => (!page.controller_path.nil? && !page.controller_path.blank?)? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
+      xml.a page.label, :href =>  page.controller_path ? page.redirect_path : "#{@prefix}/#{@site.path}/#{page.full_path}".squeeze("/")
 
     }
     subpages(page).tap do |pages|
       pages.each do |chpage|
-        do_page(chpage, xml) if chpage.slug == "help"
+        do_page(chpage, xml)
       end if pages.size > 0
     end
   end

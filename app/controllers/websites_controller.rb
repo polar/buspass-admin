@@ -144,7 +144,7 @@ class WebsitesController < ApplicationController
     flash[:notice] = "Site #{master.name} created with default deployment and default network"
 
     if current_customer.has_role?(:admin) || current_customer.has_role?(:super)
-      redirect_to websites_path
+      redirect_to my_index_websites_path
     else
       # We are going to switch from the Customer site to the Master site
       @customer = current_customer

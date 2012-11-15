@@ -5,6 +5,7 @@
 *= require bootstrap
 *= require bootstrap-responsive
 *= require sitemapstyler
+*= require sitemap2
 *= require_self
 */
 
@@ -31,7 +32,7 @@ header nav ul li {
 
 #flash_notice, #flash_alert, #flash_error, #flash_inert {
   padding: 5px 8px;
-  margin: 10px 1px;
+  margin: 0px 0px;
 }
 
 #flash_notice {
@@ -44,13 +45,16 @@ header nav ul li {
   border: solid 1px #C66;
 }
 
+// This holds the place. Padding is +1 of notice, alert, and error
+// because the border is zero. I guess we could just make the border color white.
 #flash_inert {
   background-color: white;
-  border: 0px
+  border: 0px;
+  padding: 6px 8px;
 }
 
 #notices {
-  margin-top: 5px;
+  margin: 10px;
   margin-left: 20%;
   width: 60%;
 }

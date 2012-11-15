@@ -4,7 +4,7 @@ class Masters::AdminController < Masters::MasterBaseController
   def show
     get_master_context
     authenticate_muni_admin!
-    authorize_muni_admin!(:manage, @master)
+    authorize_muni_admin!(:edit, @master)
   end
 
 end
