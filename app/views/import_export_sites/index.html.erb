@@ -1,3 +1,11 @@
+<%= content_for :left do %>
+    <% if @master %>
+        <%= render :partial => "navigation/admin_nav" %>
+    <% else %>
+       <%= render :partial => "navigation/websites_nav" %>
+    <% end %>
+<% end %>
+
 <h1>Import Export Sites</h1>
 
 <table class="table table-bordered">
@@ -11,8 +19,8 @@
   <tbody>
   <% @sites.each do |site| %>
     <tr>
-      <td><%= site.identifier %></td>
-      <td><%= site.label %></td>
+      <td><%= link_to site.identifier, cms.cms_admin_site_pages_path(site) %></td>
+      <td><%= link_to site.label, cms.cms_admin_site_pages_path(site) %></td>
       <td><%= button_to "Export", export_import_export_site_path(site), :class => "btn" %></td>
       <td><%= link_to "Import", "#site_#{site.id}", :class => "btn", :data => { :toggle => "modal" }%></td>
     </tr>

@@ -210,6 +210,14 @@ of the layout regardless of where it appears here.
         :is_protected      => true,
         :controller_path   => "/cms-admin")
 
+    pages_import_export = site.pages.create!(
+        :slug            => "pages",
+        :label           => "Import/Export",
+        :layout          => normal_layout,
+        :parent          => pages_admin,
+        :is_protected    => true,
+        :controller_path => "/import_export_sites")
+
     customers_admin = site.pages.create!(
         :slug              => "customers",
         :label             => "Customers",

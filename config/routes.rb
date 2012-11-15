@@ -128,6 +128,8 @@ BuspassAdmin::Application.routes.draw do
 
     resource "admin", :only => [:show], :controller => "masters/admin"
 
+    resources "import_export_sites", :controller => "import_export_sites"
+
     resource "active", :only => [:show], :controller => "masters/active" do
       member do
         get :api

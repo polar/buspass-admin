@@ -226,12 +226,20 @@ of the layout regardless of where it appears here.
                                }])
 
     pages_admin = site.pages.create!(
-        :slug              => "pages",
-        :label             => "Pages Admin",
-        :layout            => normal_layout,
-        :parent            => admin,
-        :is_protected      => true,
-        :controller_path   => "/cms-admin/sites?master_id=:master_id")
+        :slug            => "pages",
+        :label           => "Pages Admin",
+        :layout          => normal_layout,
+        :parent          => admin,
+        :is_protected    => true,
+        :controller_path => "/cms-admin/sites?master_id=:master_id")
+
+    pages_import_export = site.pages.create!(
+        :slug            => "pages",
+        :label           => "Import/Export",
+        :layout          => normal_layout,
+        :parent          => pages_admin,
+        :is_protected    => true,
+        :controller_path => "/:master_id/import_export_sites")
 
     deployment_template = site.pages.create!(
         :slug => "deployment-template",

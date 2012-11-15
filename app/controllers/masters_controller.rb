@@ -2,10 +2,6 @@ class MastersController < ApplicationController
   include PageUtils
   layout "empty"
 
-  def authorize_muni_admin!(action, obj)
-    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
-  end
-
   def activement
     @master = Master.find(params[:id])
     if @master
@@ -35,7 +31,18 @@ class MastersController < ApplicationController
   end
 
   def show
+    #
+    # This action is the entry point. If we cannot read the Master then, we may be somebody
+    # else. We take the liberty to log them out, and reauthenticate them.
+    #
+    authenticate_muni_admin!
     @master = Master.find(params[:id])
+    if muni_admin_cannot?(:read, @master)
+      sign_out(current_muni_admin)
+      authenticate_muni_admin!
+    end
+    authorize_muni_admin!(:read, @master)
+
     # The DeviseFailureApp needs :master_id
     params[:master_id] = @master.id if @master
     authenticate_muni_admin!

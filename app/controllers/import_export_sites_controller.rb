@@ -2,15 +2,29 @@ class ImportExportSitesController < ApplicationController
   layout "websites/normal-layout"
 
   def index
-    @sites = [Cms::Site.find_by_identifier("busme-main")]
+    if @master
+      authenticate_muni_admin!
+      @sites = Cms::Site.where(:master_id => @master.id).all
+      authorize_muni_admin!(:edit, @master)
+    else
+      authenticate_customer!
+      @sites = Cms::Site.where(:master_id => nil).all
+      authorize_customer!(:edit, Cms::Site)
+    end
     @importer = ZipfileImporter.new
   end
 
   def show
-    @site = Cms::Site.find(params[:id])
   end
 
   def export
+    if @master
+      authenticate_muni_admin!
+      authorize_muni_admin!(:edit, @master)
+    else
+      authenticate_customer!
+      authorize_customer!(:edit, Cms::Site)
+    end
     @site = Cms::Site.find(params[:id])
     begin
       if @site
@@ -35,6 +49,14 @@ class ImportExportSitesController < ApplicationController
   end
 
   def import
+    if @master
+      authenticate_muni_admin!
+      authorize_muni_admin!(:edit, @master)
+    else
+      authenticate_customer!
+      authorize_customer!(:edit, Cms::Site)
+    end
+    @site = Cms::Site.find(params[:id])
     begin
       @site = Cms::Site.find(params[:id])
       if @site

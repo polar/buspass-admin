@@ -94,9 +94,7 @@ BusPass.ActivePlanBasketController.prototype = {
         if (this.activePlanOnlyBusesButton) { this.activePlanOnlyBusesButton = $(this.activePlanOnlyBusesButton); }
         if (this.activePlanAllRoutesButton) { this.activePlanAllRoutesButton = $(this.activePlanAllRoutesButton); }
 
-        if (options['loginUrl']) {
-            this.initialize();
-        }
+        this.initialize();
         var ctrl = this;
 
         this.activePlanAllRoutesButton[0].checked = true;
@@ -227,7 +225,9 @@ BusPass.ActivePlanBasketController.prototype = {
      * the basket lifecycle.
      */
     onResume: function () {
-        this.api.login(this.onLogin);
+        if (this.api) {
+            this.api.login(this.onLogin);
+        }
     },
 
     /**
