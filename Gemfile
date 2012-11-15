@@ -126,7 +126,7 @@ end
 # Deployment Gems
 #
 
-gem 'capistrano'
+#gem 'capistrano'
 gem 'passenger'
 gem 'rvm'
 
