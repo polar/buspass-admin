@@ -1,3 +1,12 @@
+<script type="text/javascript">
+    $(function () {
+        $(".file_name").live("dragstart", function (e) {
+            console.log("dragstart");
+            e.originalEvent.dataTransfer.setData("Text", $(this).attr("data-value"));
+        });
+        //$(".file_name").live("click", onDrag);
+    });
+</script>
 <%= link_to span_tag(pluralize(@page.revisions.count, t('.revision'))), cms_admin_site_page_revisions_path(@site, @page), :class => 'big button' %>
 
 <h1><%= t('.title') %></h1>

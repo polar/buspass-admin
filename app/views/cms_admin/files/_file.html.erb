@@ -1,0 +1,23 @@
+<div class='file <%= dom_id(file) %> <%= file.is_image?? 'image' : nil %>'>
+  <% if Cms::File::IMAGE_MIMETYPES.include?(file.file_content_type)
+       data_text = "{{cms:file:#{file.file_file_name}:image}}"
+     else
+       data_text = "{{cms:file:#{file.file_file_name}:link}}"
+     end
+  %>
+    <div class='file_name' draggable="true" data-value='<%= data_text %>'>
+      <%= file.file_file_name %>
+      <%= link_to span_tag('x'), cms_admin_site_file_path(@site, file), :method => :delete, :remote => true, :confirm => t('.are_you_sure'), :class => 'delete' %>
+    </div>
+
+  <div class='file_info' data-url='<%= file.file.url %>' data-value='<%= data_text %>'>
+    <div class='thumb'>
+      <%= image_tag file.file.url(:cms_thumb) if file.is_image? %>
+    </div>
+    <div class='details'>
+      <input type='text' value='<%= file.file.url %>'/>
+      <div class='file_type'><%= file.file_content_type %></div>
+      <div class='file_size'><%= number_to_human_size(file.file_file_size, :locale => :en) %></div>
+    </div>
+  </div>
+</div>

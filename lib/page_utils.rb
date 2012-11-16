@@ -5,7 +5,7 @@ module PageUtils
   # It creates the master's administration pages, by copying the
   # "busme-admin-template" site elements and configuring them appropriately.
   #
-  def create_master_admin_site(master)
+  def create_master_admin_site(master, s3_bucket = nil)
 
     from_site = Cms::Site.find_by_identifier("busme-admin-template")
 
@@ -20,6 +20,7 @@ module PageUtils
 
     copy_layouts(site, from_site)
     seed_master_admin_pages_snippets(site, from_site)
+    copy_files(site, from_site, s3_bucket)
     return site
   rescue => boom
     Rails.logger.detailed_error(boom)
@@ -43,14 +44,10 @@ module PageUtils
       new_snippet.master = site.master
       new_snippet.save!
     end
-
-    from_site.files.order(:position).all.each do |file|
-      new_file = copy_file(site, file)
-    end
   end
 
   # Called from Controller creating a Master.
-  def create_master_main_site(master)
+  def create_master_main_site(master, s3_bucket = nil)
 
     from_site = Cms::Site.find_by_identifier("busme-main-template")
 
@@ -64,7 +61,8 @@ module PageUtils
     )
 
     copy_layouts(site, from_site)
-    seed_master_main_pages_snippets_files(site, from_site)
+    seed_master_main_pages_snippets(site, from_site)
+    copy_files(site, from_site, s3_bucket)
     return site
   rescue => boom
     Rails.logger.detailed_error(boom)
@@ -73,7 +71,7 @@ module PageUtils
   end
 
   # Site must have master assigned.
-  def seed_master_main_pages_snippets_files(site, from_site)
+  def seed_master_main_pages_snippets(site, from_site)
     master = site.master
     from_root = from_site.pages.root
 
@@ -86,10 +84,6 @@ module PageUtils
       new_snippet = copy_snippet(site, snippet)
       new_snippet.master = site.master
       new_snippet.save!
-    end
-
-    from_site.files.order(:position).all.each do |file|
-      new_file = copy_file(site, file)
     end
   end
 
@@ -121,6 +115,7 @@ module PageUtils
     new_page.destroy if new_page && new_page.persisted?
     raise boom
   end
+
   # Called from Controller creating a Master. We only copy the
   # network-template. All pages lower than the network level, i.e.
   # routes, services, and journeys will be gotten via the Master's
@@ -200,6 +195,20 @@ module PageUtils
     )
   end
 
+  def copy_files(site, from_site, s3_bucket = nil)
+    if s3_bucket
+      from_site.files.order(:position).all.each do |file|
+        s3_copy_file(s3_bucket, site, file)
+      end
+
+    else
+      from_site.files.order(:position).all.each do |file|
+        new_file = copy_file(site, file)
+      end
+    end
+  end
+
+
   def copy_file(site, file)
     newf = site.files.create!(
         'label'             => file.label,
@@ -219,5 +228,27 @@ module PageUtils
     FileUtils.mkdir_p(dest)
     FileUtils.rm_r(dest, :force => true)
     FileUtils.cp_r(filedir, dest)
+  end
+
+  def s3_copy_file(s3_bucket, site, file)
+    newf = site.files.create!(
+        'label'             => file.label,
+        "persistentid"      => file.persistentid,
+        "file_file_name"    => file.file_file_name,
+        "file_content_type" => file.file_content_type,
+        "file_file_size"    => file.file_file_name,
+        "description"       => file.description
+    )
+    pid  = file.persistentid
+    if file.site.master
+      filedir = "#{file.site.master.id}/#{pid}"
+    else
+      filedir = "main/#{pid}"
+    end
+    dest = "#{site.master.id}/#{pid}"
+    files = s3_bucket.objects.with_prefix(filedir).each do |file|
+      suffix = "#{file.key}".gsub(filedir, '')
+      file.copy_to("#{dest}/#{suffix}".squeeze("/"))
+    end
   end
 end

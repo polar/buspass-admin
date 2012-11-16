@@ -13,10 +13,6 @@ class ApplicationController < ActionController::Base
   def base_database
       @database            = "#Busme-#{Rails.env}"
 
-      PageUtils.ensure_sites_pages_site
-      PageUtils.ensure_master_admin_site_template
-      PageUtils.ensure_master_main_site_template
-
       @master = Master.find_by_host(request.host)
       #MongoMapper.database = @database
       # We try to fill all of these out just in case. Pretty wasteful at this point
@@ -24,6 +20,11 @@ class ApplicationController < ActionController::Base
       @master = Master.find(params[:master_id]) if params[:master_id]
       @deployment = Deployment.find(params[:deployment_id]) if params[:deployment_id]
       @activement = Activement.find(params[:activement_id]) if params[:activement_id]
+
+      PageUtils.ensure_sites_pages_site
+      PageUtils.ensure_master_admin_site_template
+      PageUtils.ensure_master_main_site_template
+
       @site = Cms::Site.find(params[:site_id]) if params[:site_id]
       @sites = Cms::Site.where(:master_id => @master.id).all  if @master && @site.nil?
   end

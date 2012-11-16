@@ -54,9 +54,15 @@ class CmsAdmin::FilesController < CmsAdmin::BaseController
           :type     => request.env['CONTENT_TYPE'],
           :head     => request.headers # Not really needed
         )
+        begin
         @file = @site.files.create!(
           (params[:file] || { }).merge(:file => upload)
         )
+        rescue Exception => boom
+          logger.detailed_error(boom)
+          raise boom
+        end
+
       end
     end
   rescue ComfortableMexicanSofa.ModelInvalid

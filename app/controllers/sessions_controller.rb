@@ -66,9 +66,9 @@ class SessionsController < ApplicationController
 
   end
 
-  def destroy_user
-    master = current_user.master
-    session[:user_id] = nil
+  def destroy_muni_admin
+    master = current_muni_admin.master
+    session[:muni_admin_id] = nil
     session[:tpauth_id] = nil
     redirect_to master_path(master), :notice => "Signed out!"
   end

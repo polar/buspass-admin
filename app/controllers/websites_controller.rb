@@ -60,6 +60,13 @@ class WebsitesController < ApplicationController
 
   MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone, :slug]
 
+  def s3_bucket
+    s3 = AWS::S3.new(
+         :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+         :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
+    s3.buckets[ENV['S3_BUCKET_NAME']]
+  end
+
   def create
     authorize_customer!(:create, Master)
 
@@ -85,9 +92,11 @@ class WebsitesController < ApplicationController
     @master.dbname = dbname
     @master.save!
 
+    @s3_bucket = s3_bucket()
+
     # Creating the modifiable administrator pages for the Master.
-    @admin_site = create_master_admin_site(@master)
-    @main_site  = create_master_main_site(@master)
+    @admin_site = create_master_admin_site(@master, @s3_bucket)
+    @main_site  = create_master_main_site(@master, @s3_bucket)
 
     logger.info("Creating New Deployment Database #{dbname} for Master #{@master.name}")
 
@@ -158,6 +167,7 @@ class WebsitesController < ApplicationController
     end
 
   rescue Exception => boom
+    Rails.logger.detailed_error(boom)
     @admin_site.destroy if @admin_site
     @main_site.destroy if @main_site
     @master.destroy if @master
