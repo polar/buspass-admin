@@ -77,14 +77,14 @@ class SessionsController < ApplicationController
   # Set up a new User Session. The @master should be assigned.
   #
   def new_user
-    # We are going to auth a muni_admin. We indicate that in the session
+    # We are going to auth a general user. We indicate that in the session
     if current_user
       redirect_to edit_master_user_registration_path(current_user.master, current_user), :notice => "You are already signed in."
     else
       @providers       = BuspassAdmin::Application.oauth_providers
       session[:tpauth] = :user
       session[:master_id] = @master.id
-      # We will render new_muni_admin and then that will redirect to sessions#create on /auth/;provider/callback
+      # We will render new_user and then that will redirect to sessions#create on /auth/;provider/callback
       render :layout => "masters/active/normal-layout"
     end
 

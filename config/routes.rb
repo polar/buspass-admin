@@ -11,6 +11,10 @@ BuspassAdmin::Application.routes.draw do
   match "/customers/sign_in" => "sessions#new_customer", :as => :customer_sign_in
   match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout
 
+  # This route is for the image links held in pages for use with the Wyswig editor.
+  # It redirects paths to the
+  match "s3image/(*id)" => "s3_images#show"
+
   resources :sessions do
     collection do
       get :new_customer
@@ -34,6 +38,7 @@ BuspassAdmin::Application.routes.draw do
             :only => [ :new, :edit, :create, :update ]
 
   resources :customers
+
 
 
 =begin
