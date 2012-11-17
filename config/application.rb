@@ -19,6 +19,15 @@ module BuspassAdmin
   class Application < Rails::Application
 
 
+    def run_initializers(group=:default, *args)
+      return if instance_variable_defined?(:@ran)
+      initializers.tsort.each do |initializer|
+        puts "Running Initializer #{initializer.inspect}"
+        initializer.run(*args) if initializer.belongs_to?(group)
+      end
+      @ran = true
+    end
+
     @@oauthProviders = []
     def self.oauth_providers
       @@oauthProviders
