@@ -22,7 +22,7 @@ module BuspassAdmin
     def run_initializers(group=:default, *args)
       return if instance_variable_defined?(:@ran)
       initializers.tsort.each do |initializer|
-        puts "Running Initializer #{initializer.inspect}"
+        puts "Running Initializer #{initializer.name}" if initializer.belongs_to?(group)
         initializer.run(*args) if initializer.belongs_to?(group)
       end
       @ran = true
