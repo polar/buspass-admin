@@ -53,10 +53,17 @@ gem 'stringex'
 
 gem 'cantango'
 
-# The following gems are used to handle file uploads
+# The following gems are used to handle file uploads. We use Carrierwave
+# to handle the uploads of PlanFiles, so they get uploaded directly (on Heroku)
+# and go away later as we do not keep them.
 
 gem "carrierwave"
 gem "mm-carrierwave"   # Using the MongoMapper ORM
+
+# This is needed for Paperclip. We use Paperclip for images and other
+# files for the CMS part and upload them to S3.
+
+gem 'aws-sdk'
 
 # The following gems are required for handling zip files.
 
@@ -122,9 +129,6 @@ group :development do
   gem "debugger"  unless ENV["RM_INFO"]
 end
 
-group :production do
-  gem 'aws-sdk'
-end
 
 #
 # Deployment Gems

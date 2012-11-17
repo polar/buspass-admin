@@ -6,10 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Adding Import/Export of CmsSites. Progress.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/s3_images_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
     </list>
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
@@ -77,10 +76,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="s3_images_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="s3_images_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/s3_images_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="71" selection-start="539" selection-end="539" vertical-scroll-proportion="0.24150269">
+            <state line="9" column="71" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gemfile" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Gemfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="51" selection-start="1503" selection-end="1503" vertical-scroll-proportion="0.7316637">
               <folding />
             </state>
           </provider>
@@ -109,17 +117,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/bundler/gems/comfortable-mexican-sofa-17703629a3bf/app/assets/javascripts/comfortable_mexican_sofa/application.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="195" column="53" selection-start="7110" selection-end="7110" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -154,7 +151,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/config/environments/development.rb" />
         <option value="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
         <option value="$PROJECT_DIR$/lib/page_utils.rb" />
         <option value="$PROJECT_DIR$/app/views/cms_admin/pages/index.html.erb" />
@@ -170,6 +166,7 @@
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/s3_images_controller.rb" />
+        <option value="$PROJECT_DIR$/Gemfile" />
       </list>
     </option>
   </component>
@@ -1734,7 +1731,11 @@
       <created>1353109484661</created>
       <updated>1353109484661</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Adding Import/Export of CmsSites. Progress.">
+      <created>1353168699751</created>
+      <updated>1353168699752</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="7868393abb3dd2ff5f2d196f68f8e3884bbe7646" />
@@ -1858,13 +1859,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/elrte.sofa_image.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/bundler/gems/comfortable-mexican-sofa-17703629a3bf/lib/comfortable_mexican_sofa/tag.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="119" column="0" selection-start="3542" selection-end="3542" vertical-scroll-proportion="0.0">
@@ -1967,7 +1961,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/s3_images_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="71" selection-start="539" selection-end="539" vertical-scroll-proportion="0.24150269">
+        <state line="9" column="71" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="51" selection-start="1503" selection-end="1503" vertical-scroll-proportion="0.7316637">
           <folding />
         </state>
       </provider>
