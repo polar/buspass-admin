@@ -35,9 +35,9 @@ gem "mongo_mapper"
 
 # The following gems handle users and the login registration process
 
-#gem "devise", ">= 2.0.0"
+gem "devise", ">= 2.0.0"
 #gem 'devise-mongo_mapper', :path => "/home/polar/src/devise-mongo_mapper"
-#gem 'devise-mongo_mapper', :git => "git://github.com/polar/devise-mongo_mapper"
+gem 'devise-mongo_mapper', :git => "git://github.com/polar/devise-mongo_mapper"
 gem "warden"
 gem "omniauth-linkedin"
 gem "omniauth-openid"
