@@ -4,7 +4,7 @@
     <div><%= f.label :name, "Name" %>
       <%= f.text_field :name %></div>
 
-    <div><%= f.label :slug, "http://busme.us/" %>
+    <div><%= f.label :slug, "http://#{BuspassAdmin::Application.base_host}/" %>
       <%= f.text_field :slug %></div>
 
     <div><%= f.label :longitude, "Longitude (-180 to 180)" %>

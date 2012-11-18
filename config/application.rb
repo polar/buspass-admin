@@ -26,6 +26,11 @@ module BuspassAdmin
       @@oauthProviders = arg
     end
 
+    @@base_host = ENV["BUSME_BASEHOST"] || "busme.us"
+    def self.base_host
+      @@base_host
+    end
+
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
       g.view_specs false

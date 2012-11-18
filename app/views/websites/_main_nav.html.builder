@@ -1,6 +1,6 @@
 
 @site = @master.main_site
-@prefix = request.host == "busme.us" || request.host == "localhost" ? "#{@master.slug}/" : ""
+@prefix = request.host == "#{BuspassAdmin::Application.base_host}" || request.host == "localhost" ? "#{@master.slug}/" : ""
 
 def do_page(page, xml)
   if page.is_published

@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     "Busme"
   end
 
+  def base_host
+    Rails.application.base_host
+  end
+
   def base_database
       @database            = "#Busme-#{Rails.env}"
 

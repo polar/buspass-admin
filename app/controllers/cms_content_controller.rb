@@ -33,6 +33,7 @@ class CmsContentController < CmsBaseController
 protected
   
   def load_cms_site
+    base_host = ENV['BUSME_BASEHOST'] || "busme.us"
     @cms_path = params[:cms_path]
     @cms_site ||= Cms::Site.find_by_id(params[:cms_site_id]) if params[:cms_site_id]
     if !@cms_site
@@ -40,12 +41,12 @@ protected
       path = @cms_path
       # http://syracuse.busme.us/path
       # http://busme.us/syracuse/path
-      if (host == "busme.us" || host == "localhost")
+      if (host == base_host || host == "localhost")
         # http://busme.us/syracuse/path
         match = "/#{path}/".squeeze("/").match(/^\/([\w\-]+)(\/.*)?\//)
         if match
           master_slug = match[1]
-          host = master_slug + ".busme.us"
+          host = master_slug + ".#{base_host}"
           path = match[2]
           @cms_site = Cms::Site.find_site(host, path)
           if @cms_site

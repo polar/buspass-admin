@@ -63,12 +63,14 @@ class Master
     sites << site
   end
 
+  # TODO: ssl
   def hosturl
-    "http://#{self.slug}.busme.us/"
+    "http://#{self.slug}.#{BuspassAdmin::Application.base_host}/"
   end
 
+  # TODO: ssl
   def siteurl
-    "http://busme.us/#{self.slug}."
+    "http://#{BuspassAdmin::Application.base_host}/#{self.slug}."
   end
 
   # TODO: TimeZones by location.   http://earthtools.org

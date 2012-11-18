@@ -206,7 +206,7 @@ class WebsitesController < ApplicationController
           @master.admin_site.update_attributes(
               :identifier => "#{@master.slug}-admin",
               :label      => "#{@master.name} Administration Pages",
-              :hostname   => "#{@master.slug}.busme.us"
+              :hostname   => "#{@master.slug}.#{base_host}"
           )
           @master.admin_site.pages.root.update_attributes(
               :label => "#{@master.name} Information"
@@ -214,7 +214,7 @@ class WebsitesController < ApplicationController
           @master.main_site.update_attributes(
               :identifier => "#{@master.slug}-main",
               :label      => "#{@master.name} Active Deployment Pages",
-              :hostname   => "#{@master.slug}.busme.us"
+              :hostname   => "#{@master.slug}.#{base_host}"
           )
           @master.main_site.pages.root.update_attributes(
               :label => "#{@master.name} Main Page"
