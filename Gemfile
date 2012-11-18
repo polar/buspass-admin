@@ -108,6 +108,7 @@ gem 'will_paginate-bootstrap'
 gem "client_side_validations" #, :git => "https://github.com/bcardarella/client_side_validations.git"
 
 
+gem 'newrelic_rpm'
 #
 # Testing Framework gems.
 #

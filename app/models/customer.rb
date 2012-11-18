@@ -9,6 +9,8 @@ class Customer
   key :name, String
   key :email, String
 
+  timestamps!
+
   many :authentications, :dependent => :destroy
 
   many :masters, :foreign_key => :owner_id

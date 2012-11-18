@@ -58,8 +58,46 @@
       <%= yield :modals %>
       <div id="modals" >
       </div>
+      <script type="text/javascript" charset="utf-8" src="https://d2nvy5xhcrv86v.cloudfront.net/assets/pusher-0b0316a9decf2a4642c4829c3af8a0d6.js"></script>
+      <a id="Intercom" href="#" style="visibility: visible;" class="closing_modal cmodal_open">Feedback</a>
     </div>
-    <div class="ui-layout-south">South</div>
-    <div id="modals"></div>
+    <div class="ui-layout-south">
+      <span class="pull-left">(C) 2009-2012. All Rights Reserved by Adiron, LLC</span>
+    </div>
+    <script id="IntercomSettingsScriptTag">
+        var intercomSettings = {
+            app_id:'i6xnzxqx',
+            name:<%= current_customer ? "'#{current_customer.name}'" : "'Joe Guest'" %>,
+            user_id: <%= current_customer ? "'Customer_#{current_customer.id}'" : "'Customer Joe Guest'" %>,
+            email: <%= current_customer ? "'#{current_customer.email}'" : "'guest@adiron.com'" %>,
+            created_at: <%= current_customer ? "#{current_customer.created_at.to_i}" : Time.now.to_i %>
+        };
+    </script>
+    <script>
+        (function () {
+            var i = function () {
+                i.c(arguments)
+            };
+            i.q = [];
+            i.c = function (args) {
+                i.q.push(args)
+            };
+            window.Intercom = i;
+            function async_load() {
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = 'https://api.intercom.io/api/js/library.js';
+                var x = document.getElementsByTagName('script')[0];
+                x.parentNode.insertBefore(s, x);
+            }
+
+            if (window.attachEvent) {
+                window.attachEvent('onload', async_load);
+            } else {
+                window.addEventListener('load', async_load, false);
+            }
+        })();
+    </script>
 </body>
 </html>
