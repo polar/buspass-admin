@@ -9,40 +9,40 @@ class SuperRolePermit < CanTango::RolePermit
     # User is MuniAdmin
 
     can([:read, :edit], Master) do |master|
-      user.master == master
+      user.master == master if user.is_a? MuniAdmin
     end
     can([:delete], Activement) do |activement|
-      user.master == activement.master
+      user.master == activement.master if user.is_a? MuniAdmin
     end
     can([:delete], Testament) do |testament|
-      user.master == testament.master
+      user.master == testament.master if user.is_a? MuniAdmin
     end
     can([:read], Deployment) do |deployment|
-      master == deployment.master
+      master == deployment.master if user.is_a? MuniAdmin
     end
     can([:edit, :delete, :deploy], Deployment) do |deployment|
-      !deployment.is_active? && user.master == deployment.master
+      !deployment.is_active? && user.master == deployment.master if user.is_a? MuniAdmin
     end
     can([:read], Network) do |network|
-      user.master == network.master
+      user.master == network.master if user.is_a? MuniAdmin
     end
     can([:edit, :delete, :abort], Network) do |network|
-      !network.deployment.is_active? && user.master == network.master
+      !network.deployment.is_active? && user.master == network.master if user.is_a? MuniAdmin
     end
     can([:edit, :delete], Testament) do |testament|
-      user.master == testament.master
+      user.master == testament.master if user.is_a? MuniAdmin
     end
     can([:edit, :delete], Activement) do |activement|
-      user.master == activement.master
+      user.master == activement.master if user.is_a? MuniAdmin
     end
     can([:read, :edit], MuniAdmin) do |muni_admin|
-      user.master == muni_admin.master
+      user.master == muni_admin.master if user.is_a? MuniAdmin
     end
     can([:delete], MuniAdmin) do |muni_admin|
-      muni_admin != user && user.master == muni_admin.master
+      muni_admin != user && user.master == muni_admin.master if user.is_a? MuniAdmin
     end
     can([:read, :edit, :delete], User) do |user1|
-      user.master == user1.master
+      user.master == user1.master if user.is_a? MuniAdmin
     end
   end
 

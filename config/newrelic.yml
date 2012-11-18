@@ -23,7 +23,7 @@ common: &default_settings
   # it from running with Rake or the console.  Set to false to
   # completely turn the agent off regardless of the other settings.
   # Valid values are true, false and auto.
-  # agent_enabled: auto
+  agent_enabled: auto
 
   # Application Name
   # Set this to be the name of your application as you'd like it show
@@ -33,7 +33,7 @@ common: &default_settings
   # "All UI" then specify a semicolon-separated list of up to three
   # distinct names.  If you comment this out, it defaults to the
   # capitalized RAILS_ENV (i.e., Production, Staging, etc)
-  app_name: My Application
+  app_name: Busme
 
   # When "true", the agent collects performance data about your
   # application and reports this data to the New Relic service at
@@ -43,12 +43,12 @@ common: &default_settings
 
   # Developer mode should be off in every environment but
   # development as it has very high overhead in memory.
-  developer_mode: false
+  developer_mode: true
 
   # The newrelic agent generates its own log file to keep its logging
   # information separate from that of your application.  Specify its
   # log level here.
-  log_level: info
+  log_level: debug
 
   # The newrelic agent communicates with the New Relic service via http by
   # default.  If you want to communicate via https to increase
@@ -156,10 +156,10 @@ common: &default_settings
   # If you aren't interested in visibility in these areas, you can
   # disable the instrumentation to reduce overhead.
   #
-  # disable_view_instrumentation: true
-  # disable_activerecord_instrumentation: true
-  # disable_memcache_instrumentation: true
-  # disable_dj: true
+  disable_view_instrumentation: true
+  disable_activerecord_instrumentation: true
+  disable_memcache_instrumentation: true
+  disable_dj: true
 
   # Certain types of instrumentation such as GC stats will not work if
   # you are running multi-threaded.  Please let us know.

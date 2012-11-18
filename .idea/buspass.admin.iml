@@ -95,6 +95,7 @@
     <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.3.6, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_xml (v0.5.1, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multipart-post (v1.1.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="newrelic_rpm (v3.5.2.17, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.5.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oauth (v0.4.7, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oauth2 (v0.8.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
