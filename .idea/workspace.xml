@@ -5,7 +5,9 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress." />
+    <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/newrelic.yml" afterPath="$PROJECT_DIR$/config/newrelic.yml" />
+    </list>
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
     <ignored path="buspass.admin.iws" />
@@ -120,7 +122,7 @@
       <file leaf-file-name="newrelic.yml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/config/newrelic.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="12" selection-start="1639" selection-end="1639" vertical-scroll-proportion="0.08035714">
+            <state line="50" column="17" selection-start="2232" selection-end="2232" vertical-scroll-proportion="0.48214287">
               <folding />
             </state>
           </provider>
@@ -1792,7 +1794,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/newrelic.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="12" selection-start="1639" selection-end="1639" vertical-scroll-proportion="0.08035714">
+        <state line="50" column="17" selection-start="2232" selection-end="2232" vertical-scroll-proportion="0.48214287">
           <folding />
         </state>
       </provider>
