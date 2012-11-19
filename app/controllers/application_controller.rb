@@ -111,6 +111,48 @@ class ApplicationController < ActionController::Base
     oauth ||= user.authentications.first
     session[:tpauth_id] = oauth.id
   end
+
+  helper_method :email_for_intercom, :user_id_for_intercom, :name_for_intercom, :app_id_for_intercom
+
+  def email_for_intercom
+    if current_customer
+      email = current_customer.email
+    elsif current_muni_admin
+      email = current_muni_admin.email
+    elsif current_user
+      email = current_user.email
+    else
+      email = "guest@busme.com"
+    end
+  end
+
+  def user_id_for_intercom
+    if current_customer
+      id = "Customer_#{current_customer.id}"
+    elsif current_muni_admin
+      id = "MuniAdmin_#{current_muni_admin.id}"
+    elsif current_user
+      id = "User_#{current_user.id}"
+    else
+      id = "guest"
+    end
+  end
+
+  def name_for_intercom
+    if current_customer
+      id = "Customer_#{current_customer.name}"
+    elsif current_muni_admin
+      id = "MuniAdmin_#{current_muni_admin.name}"
+    elsif current_user
+      id = "User_#{current_user.name}"
+    else
+      id = "John Doe"
+    end
+  end
+
+  def app_id_for_intercom
+    'i6xnzxqx'
+  end
   #
   #def default_url_options
   #  puts "default_url_options called"

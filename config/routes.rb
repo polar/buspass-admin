@@ -15,6 +15,8 @@ BuspassAdmin::Application.routes.draw do
   # It redirects paths to the
   match "s3image/(*id)" => "s3_images#show"
 
+  resources :feedbacks
+
   resources :sessions do
     collection do
       get :new_customer

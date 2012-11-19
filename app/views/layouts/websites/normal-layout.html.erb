@@ -27,6 +27,7 @@
           })
       }) ;
   </script>
+
 </head>
 <body class="<%= params[:controller] %>">
     <div class="ui-layout-north">
@@ -49,6 +50,9 @@
     </div>
     <div class="ui-layout-center">
         <%= yield %>
+      <div class="feedback">
+        <%= link_to "Feedback", "#FeedbackModal", :data => { :toggle => "modal" }%>
+      </div>
     </div>
     <%
     # Twitter Bootstrap and Layout Center do not play well together
@@ -56,6 +60,7 @@
     %>
     <div id="container"  class="container">
       <%= yield :modals %>
+      <%= render :partial => "shared/intercom_message_modal" %>
       <div id="modals" >
       </div>
     </div>
