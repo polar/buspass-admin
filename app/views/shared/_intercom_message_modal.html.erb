@@ -9,7 +9,7 @@
           <div class="header">
             <div class="color_tab"></div>
           </div>
-          <%= form_for Feedback.new, :remote => true do |f| %>
+          <%= form_for Feedback.new, :class => "form", :remote => true do |f| %>
               <div style="margin:0;padding:0;display:inline">
                 <input name="utf8" type="hidden" value="✓">
               </div>
@@ -17,6 +17,9 @@
               <%= f.hidden_field "muni_admin_id", :value => current_muni_admin.id if current_muni_admin %>
               <%= f.hidden_field "user_id", :value => current_user.id if current_user %>
               <%= f.hidden_field "master_id", :value => @master.id if @master %>
+              <%= f.hidden_field "request_url", :value => request.url %>
+              <%= f.label "subject" %>
+              <%= f.text_field "subject" %>
               <%= f.text_area "message" %>
               <%= f.submit "Send", :class => "btn" %>
           <% end %>

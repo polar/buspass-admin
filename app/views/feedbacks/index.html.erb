@@ -1,0 +1,32 @@
+<h1>Feedback</h1>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Sender</th>
+    <th>Email</th>
+    <th>Received</th>
+    <th>Subject</th>
+  </tr>
+  Page <%= @feedbacks.current_page %>
+  <%= link_to("Prev", feedbacks_path(:page => @feedbacks.previous_page)) if @feedbacks.previous_page %>
+  <%= link_to("Next", feedbacks_path(:page => @feedbacks.next_page)) if @feedbacks.next_page %>
+  </thead>
+  <tbody>
+  <% for f in @feedbacks do %>
+  <tr>
+    <td>
+      <%= f.sender.name %>
+    </td>
+    <td>
+      <%= f.sender.email %>
+    </td>
+    <td>
+      <%= f.created_at %>
+    </td>
+    <td>
+      <%= link_to f.subject, feedback_path(f) %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
