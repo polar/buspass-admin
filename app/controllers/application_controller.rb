@@ -112,7 +112,8 @@ class ApplicationController < ActionController::Base
     session[:tpauth_id] = oauth.id
   end
 
-  helper_method :email_for_intercom, :user_id_for_intercom, :name_for_intercom, :app_id_for_intercom
+  helper_method :email_for_intercom, :user_id_for_intercom, :name_for_intercom, :app_id_for_intercom,
+                :created_at_for_intercom
 
   def email_for_intercom
     if current_customer
@@ -147,6 +148,18 @@ class ApplicationController < ActionController::Base
       id = "User_#{current_user.name}"
     else
       id = "John Doe"
+    end
+  end
+
+  def created_at_for_intercom
+    if current_customer
+      id = "#{current_customer.created_at}"
+    elsif current_muni_admin
+      id = "#{current_muni_admin.created_at}"
+    elsif current_user
+      id = "#{current_user.created_at}"
+    else
+      id = "#{Time.now.to_i}"
     end
   end
 

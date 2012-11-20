@@ -30,8 +30,20 @@
       });
   </script>
   <%= yield :head %>
+
+  <script id="IntercomSettingsScriptTag">
+      // This is picked up by Intercom Integration in normal-layout.js
+      var intercomSettings = {
+          app_id:'<%= appid_for_intercom %>',
+          name:'<%= name_for_intercom %>',
+          user_id:'<%= user_id_for_intercom %>',
+          email:'<%= email_for_intercom %>',
+          created_at:'<%= created_at_for_intercom %>'
+      };
+  </script>
 </head>
 <body class="<%= params[:controller] %>">
+<div id="ui-layout-container">
     <div class="ui-layout-north">
       <header>
         <nav>
@@ -59,7 +71,12 @@
       <%= yield :bottom %>
       <span class="pull-left">(C) 2009-2012. All Rights Reserved by Adiron, LLC</span>
       <span class="pull-right">Thanks to <a href="http://openstreetmap.org">Open Street Maps</a></span>
+
+      <div class="feedback">
+        <%= link_to "Feedback", "#FeedbackModal", :class => "btn feedback-btn", :data => { :toggle => "modal" } %>
+      </div>
     </div>
+</div>
     <%
        # Twitter Bootstrap and Layout Center do not play well together
        # Twitter needs modals within "container" class outside of the "ui-layout-center". %>

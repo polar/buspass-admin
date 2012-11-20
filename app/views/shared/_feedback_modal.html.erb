@@ -1,0 +1,48 @@
+<div id="FeedbackModalResponse" class="modal fade" role=dialog>
+  <div class="modal-header">
+    <h1>Thanks for your feedback
+    <button type="button" class="close pull-right" data-dismiss="modal">&times;</button>
+    </h1>
+  </div>
+  <div class="modal-body">
+    <div class="header">
+      <div class="color_tab"></div>
+    </div>
+    <p>
+      Your feedback has been sent.
+    </p>
+    <button type="button" class="btn pull-right" data-dismiss="modal">Close</button>
+  </div>
+</div>
+<div id="FeedbackModal" class="modal fade" role="dialog">
+      <div class="modal-header">
+        <h1>Send feedback for <strong>Busme</strong>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </h1>
+      </div>
+        <div class="modal-body">
+          <div class="header">
+            <div class="color_tab"></div>
+          </div>
+          <%= form_for Feedback.new, :remote => true, :html => { :multipart => true }  do |f| %>
+              <%= f.hidden_field "customer_id", :value => current_customer.id if current_customer %>
+              <%= f.hidden_field "muni_admin_id", :value => current_muni_admin.id if current_muni_admin %>
+              <%= f.hidden_field "user_id", :value => current_user.id if current_user %>
+              <%= f.hidden_field "master_id", :value => @master.id if @master %>
+              <%= f.hidden_field "request_url", :value => request.url %>
+              <%
+                 # Screenshot_data value will get filled in by a click event on the form_feedback_submit in
+                 # normal-layout.js.
+              %>
+              <%= f.hidden_field "screenshot_data" %>
+              <%= f.label "subject" %>
+              <%= f.text_field "subject" %>
+              <label class="checkbox">
+                 <%= f.check_box "include_screenshot" %>Include Screen Shot
+              </label>
+
+              <%= f.text_area "message" %>
+              <%= f.submit "Send", :id => "form_feedback_submit", :class => "btn pull-right" %>
+          <% end %>
+        </div>
+</div>

@@ -1,3 +1,6 @@
+<%= content_for :left do %>
+    <%= render :partial => "navigation/websites_nav" %>
+<% end %>
 <h1>Feedback</h1>
 <table class="table table-striped">
   <thead>
@@ -24,7 +27,7 @@
       <%= f.created_at %>
     </td>
     <td>
-      <%= link_to f.subject, feedback_path(f) %>
+      <%= link_to (f.subject.blank? ? "No Subject" : f.subject), feedback_path(f) %>
     </td>
   </tr>
   <% end %>

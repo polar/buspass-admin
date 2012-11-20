@@ -10,6 +10,9 @@ def exclude_matches
 end
 
 def excluded?(page)
+  if page.full_path == "/admin" && customer_cannot?(:manage, Website)
+    return true
+  end
   exclude_links.include?(page.slug) || exclude_matches.reduce(false) { |v, m| v || page.slug.match(m) }
 end
 

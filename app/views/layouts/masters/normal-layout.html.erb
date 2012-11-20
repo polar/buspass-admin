@@ -28,40 +28,59 @@
       }) ;
   </script>
   <%=  yield :head %>
+
+  <script id="IntercomSettingsScriptTag">
+      // This is picked up by Intercom Integration in normal-layout.js
+      var intercomSettings = {
+          app_id: '<%= appid_for_intercom %>',
+          name: '<%= name_for_intercom %>',
+          user_id:'<%= user_id_for_intercom %>',
+          email:'<%= email_for_intercom %>',
+          created_at:'<%= created_at_for_intercom %>'
+      };
+  </script>
+
 </head>
 <body class="<%= params[:controller] %>">
-    <div class="ui-layout-north">
-      <header>
-        <nav>
-          <%= render 'shared/masters/admin_navigation' %>
-        </nav>
-          <div id="notices">
-            <!-- We need this because it is used to calculate the height
-              -- of the flash window to set the North Layout to the size
-              -- when an actual flash message does appear after the DOM is set..
-              -->
-            <div id='flash_inert' class='alert'>&nbsp;</div>
-          </div>
-          <div id="application-header"><%= link_to "Busme #{@master.name}", master_active_path(@master) %></div>
-      </header>
-    </div>
-    <div class="ui-layout-west">
-      <%= yield :left %>
-    </div>
-    <div class="ui-layout-center">
-      <%= yield %>
-    </div>
-    <div class="ui-layout-south">
-      <%= yield :bottom %>
-      <div>(C) 2009-2012. All Rights Reserved by Adiron, LLC</div>
-    </div>
-    <%
-       # Twitter Bootstrap and Layout Center do not play well together
-       # Twitter needs modals within "container" class outside of the "ui-layout-center". %>
-    <div id="container"  class="container">
-      <%= yield :modals %>
-      <div id="modals" >
+<div id="ui-layout-container">
+  <div class="ui-layout-north">
+    <header>
+      <nav>
+        <%= render 'shared/masters/admin_navigation' %>
+      </nav>
+      <div id="notices">
+        <!-- We need this because it is used to calculate the height
+        -- of the flash window to set the North Layout to the size
+        -- when an actual flash message does appear after the DOM is set..
+        -->
+        <div id='flash_inert' class='alert'>&nbsp;</div>
       </div>
+      <div id="application-header"><%= link_to "Busme #{@master.name}", master_active_path(@master) %></div>
+    </header>
+  </div>
+  <div class="ui-layout-west">
+    <%= yield :left %>
+  </div>
+  <div class="ui-layout-center">
+    <%= yield %>
+  </div>
+  <div class="ui-layout-south">
+    <span class="pull-left">(C) 2009-2012. All Rights Reserved by Adiron, LLC</span>
+
+    <div class="feedback">
+      <%= link_to "Feedback", "#FeedbackModal", :data => { :toggle => "modal" } %>
     </div>
+  </div>
+</div>
+<%
+   # Twitter Bootstrap and Layout Center do not play well together
+   # Twitter needs modals within "container" class outside of the "ui-layout-center".
+%>
+<div id="container" class="container">
+  <%= yield :modals %>
+  <%= render :partial => "shared/feedback_modal" %>
+  <div id="modals">
+  </div>
+</div>
 </body>
 </html>

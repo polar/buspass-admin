@@ -1,3 +1,6 @@
+<%= content_for :left do %>
+    <%= render :partial => "navigation/websites_nav" %>
+<% end %>
 <h1>Message from <%= @feedback.sender.name %></h1>
 <p>
   From <%= mail_to @feedback.sender.email %>
@@ -8,4 +11,7 @@ Request Url: <%= @feedback.request_url %>
 <h3>Message</h3>
 <p>
   <%= @feedback.message %>
+</p>
+<p>
+  <%= image_tag(@feedback.screenshot.url) if @feedback.screenshot_file_name %>
 </p>

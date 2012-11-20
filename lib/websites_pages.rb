@@ -249,6 +249,15 @@ of the layout regardless of where it appears here.
                                    :identifier => "left",
                                    :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
+
+    feedback = site.pages.create!(
+        :slug            => "feedback",
+        :label           => "Feedback",
+        :layout          => normal_layout,
+        :parent          => admin,
+        :is_protected    => true,
+        :controller_path => "/feedbacks")
+
     return site
   end
 end

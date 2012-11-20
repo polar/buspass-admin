@@ -13,76 +13,59 @@
   <%= javascript_include_tag "#{controller_path}" %>
   <%= csrf_meta_tags %>
   <%=  yield :head %>
+
+  <script id="IntercomSettingsScriptTag">
+      // This is picked up by Intercom Integration in normal-layout.js
+      var intercomSettings = {
+          app_id:'<%= app_id_for_intercom %>',
+          name:'<%= name_for_intercom %>',
+          user_id:'<%= user_id_for_intercom %>',
+          email:'<%= email_for_intercom %>',
+          created_at:'<%= created_at_for_intercom %>'
+      };
+  </script>
 </head>
 <body class="<%= params[:controller] %>">
-    <div class="ui-layout-north">
-      <header>
-        <nav>
-          <ul class="hmenu">
-            <%= render 'shared/customer_navigation' %>
-          </ul>
-          <div id="application-header">Busme US</div>
-        </nav>
-        <div id="notices">
-          <!-- We need this because it is used to calculate the height
-          -- of the flash window to set the North Layout to the size
-          -- when an actual flash message does appear after the DOM is set..
-          -->
-          <div id='flash_inert' class='alert'>&nbsp;</div>
-        </div>
-      </header>
-    </div>
-    <div class="ui-layout-west">
-      <%= yield :left %>
-    </div>
-    <div class="ui-layout-center">
-      <%= yield %>
-    </div>
-    <div class="ui-layout-south">
-      <%= yield :bottom %>
-      <div>(C) 2009-2012. All Rights Reserved by Adiron, LLC</div>
-    </div>
-    <%
-       # Twitter Bootstrap and Layout Center do not play well together
-       # Twitter needs modals within "container" class outside of the "ui-layout-center". %>
-    <div id="container"  class="container">
-      <%= yield :modals %>
-      <div id="modals" >
+<div id="ui-layout-container">
+  <div class="ui-layout-north">
+    <header>
+      <nav>
+        <%= render 'shared/customer_navigation' %>
+      </nav>
+      <div id="notices">
+        <!-- We need this because it is used to calculate the height
+        -- of the flash window to set the North Layout to the size
+        -- when an actual flash message does appear after the DOM is set..
+        -->
+        <div id='flash_inert' class='alert'>&nbsp;</div>
       </div>
+      <div id="application-header">Busme US</div>
+    </header>
+  </div>
+  <div class="ui-layout-west">
+    <%= yield :left %>
+  </div>
+  <div class="ui-layout-center">
+    <%= yield %>
+  </div>
+  <div class="ui-layout-south">
+    <span class="pull-left">(C) 2009-2012. All Rights Reserved by Adiron, LLC</span>
+
+    <div class="feedback">
+      <%= link_to "Feedback", "#FeedbackModal", :class => "btn feedback-btn", :data => { :toggle => "modal" } %>
     </div>
+  </div>
+</div>
+<%
+   # Twitter Bootstrap and Layout Center do not play well together
+   # Twitter needs modals within "container" class outside of the "ui-layout-center".
+%>
+<div id="container" class="container">
+  <%= yield :modals %>
+  <%= render :partial => "shared/feedback_modal" %>
+  <div id="modals">
+  </div>
+</div>
 
-    <script id="IntercomSettingsScriptTag">
-        var intercomSettings = {
-            app_id:'i6xnzxqx',
-            email:'polar@adiron.com', // TODO: User's e-mail address
-            created_at:1353261241 // TODO: User's sign-up date, Unix timestamp
-        };
-    </script>
-    <script>
-        (function () {
-            var i = function () {
-                i.c(arguments)
-            };
-            i.q = [];
-            i.c = function (args) {
-                i.q.push(args)
-            };
-            window.Intercom = i;
-            function async_load() {
-                var s = document.createElement('script');
-                s.type = 'text/javascript';
-                s.async = true;
-                s.src = 'https://api.intercom.io/api/js/library.js';
-                var x = document.getElementsByTagName('script')[0];
-                x.parentNode.insertBefore(s, x);
-            }
-
-            if (window.attachEvent) {
-                window.attachEvent('onload', async_load);
-            } else {
-                window.addEventListener('load', async_load, false);
-            }
-        })();
-    </script>
 </body>
 </html>

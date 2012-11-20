@@ -1,1 +1,1 @@
-$("#FeedbackModal").modal("hide");
+$("#FeedbackModalResponse").modal("show");
