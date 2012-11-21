@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
   def index
     authenticate_customer!
     authorize_customer!(:read, Customer)
-    @site = Cms::Site.find_by_identifier("busme-main")
+    get_front_site()
 
     @roles = Customer::ROLE_SYMBOLS
     @customers = Customer.search(params[:search]).order(sort_column => sort_direction).paginate(:page => params[:page], :per_page => 4)
@@ -22,7 +22,8 @@ class CustomersController < ApplicationController
     authenticate_customer!
     authorize_customer!(:read, Customer)
     @customer = Customer.find(params[:id])
-    @site = Cms::Site.find_by_identifier("busme-main")
+    get_front_site()
+    raise NotFoundError if @customer.nil?
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,8 +34,10 @@ class CustomersController < ApplicationController
   def edit
     authenticate_customer!
     @customer = Customer.find(params[:id])
+    get_front_site()
+    raise NotFoundError if @customer.nil?
+
     authorize_customer!(:edit, @customer)
-    @site = Cms::Site.find_by_identifier("busme-main")
   end
 
   def update
@@ -65,9 +68,11 @@ class CustomersController < ApplicationController
   def destroy
     authenticate_customer!
     @customer = Customer.find(params[:id])
-    authorize_customer!(:delete, @customer)
+    if @customer
+      authorize_customer!(:delete, @customer)
 
-    @customer.destroy
+      @customer.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to customers_url }
@@ -77,6 +82,12 @@ class CustomersController < ApplicationController
   end
 
   private
+
+  def get_front_site
+    @site = Cms::Site.find_by_identifier("busme-main")
+    @error_site = Cms::Site.find_by_identifier("busme-main-error")
+    return @site
+  end
 
   def sort_column
     Customer.keys.keys.include?(params[:sort]) ? params[:sort] : "name"

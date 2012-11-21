@@ -46,6 +46,53 @@ module PageUtils
     end
   end
 
+  #
+  # This method is called from the Controller that creates the Master.
+  # It creates the master's administration pages, by copying the
+  # "busme-admin-template" site elements and configuring them appropriately.
+  #
+  def create_master_error_site(master, s3_bucket = nil)
+
+    from_site = Cms::Site.find_by_identifier("busme-master-error-template")
+
+    site = master.error_site = Cms::Site.create!(
+        :path       => "errors",
+        :identifier => "#{master.slug}-error",
+        :label      => "#{master.name} Error Page Set",
+        :hostname   => "#{master.slug}.busme.us",
+        :protected  => true,
+        :master     => master
+    )
+
+    copy_layouts(site, from_site)
+    seed_master_error_pages_snippets(site, from_site)
+    copy_files(site, from_site, s3_bucket)
+    return site
+  rescue => boom
+    Rails.logger.detailed_error(boom)
+    site.destroy if site && site.persisted?
+    raise boom
+  end
+
+  # Site must have master assigned.
+  def seed_master_error_pages_snippets(site, from_site)
+    master    = site.master
+    from_root = from_site.pages.root
+
+    new_root        = copy_page(site, nil, from_root, true)
+    new_root.label  = "#{master.name} Error Pages"
+    new_root.master = master
+
+    new_root.save!
+
+    from_site.snippets.order(:position).all.each do |snippet|
+      new_snippet = copy_snippet(site, snippet)
+      new_snippet.master = site.master
+      new_snippet.save!
+    end
+  end
+
+
   # Called from Controller creating a Master.
   def create_master_main_site(master, s3_bucket = nil)
 

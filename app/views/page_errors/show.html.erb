@@ -1,0 +1,68 @@
+<%= content_for :left do %>
+    <%= render :partial => "navigation/websites_nav" %>
+<% end %>
+<h1>Page Error</h1>
+<div class="pagination">
+  <ul>
+    <li>
+      <% if @page_error.higher_item %>
+          <%= link_to("Newer", page_error_path(@page_error.higher_item, :page => @page)) %>
+      <% else %>
+          <%= link_to("Newer", "#", :class => "disabled") %>
+      <% end %>
+    </li>
+    <li class="active">
+      <%= link_to "Error #{@page_error.position}", page_error_path(@page_error, :page => @page) %>
+    </li>
+    <li>
+      <% if @page_error.lower_item %>
+          <%= link_to("Older", page_errors_path(:page => @page_error.lower_item, :page => @page)) %>
+      <% else %>
+          <%= link_to("Older", "#", :class => "disabled") %>
+      <% end %>
+    </li>
+  </ul>
+</div>
+<%= link_to "Back to list", page_errors_path(:page => @page) %>
+<table class="table table-bordered">
+  <tbody>
+  <tr>
+    <th>Error</th>
+    <td><pre><%= @page_error.error %></pre></td>
+  </tr>
+    <tr>
+      <th>Url</th>
+      <td><pre><%= @page_error.request_url %></pre></td>
+    </tr>
+  <tr>
+    <th>Time</th>
+    <td>
+      <pre><%= @page_error.created_at %></pre>
+    </td>
+  </tr>
+  <tr>
+    <th>Master</th>
+    <td><%= "#{@page_error.master.id} #{@page_error.master.name}" if @page_error.master %></td>
+  </tr>
+  <tr>
+    <th>Customer</th>
+    <td><%= "#{@page_error.customer.id} #{@page_error.customer.name}" if @page_error.customer %></td>
+  </tr>
+  <tr>
+    <th>Muni Admin</th>
+    <td><%= "#{@page_error.muni_admin.id} #{@page_error.muni_admin.name}" if @page_error.muni_admin %></td>
+  </tr>
+  <tr>
+    <th>User</th>
+    <td><%= "#{@page_error.user.id} #{@page_error.user.name }"if @page_error.user %></td>
+  </tr>
+  <tr>
+    <th>Params</th>
+    <td><%=  debug @page_error.request_params %></td>
+  </tr>
+  <tr>
+    <th colspan="2">Backtrace</th>
+  </tr>
+  <td colspan="2"><%= debug @page_error.backtrace.map {|d| d.gsub(/((^[\w\.\-\@\/]*)((\/app\/)|(\/gems\/)))/,"/")} %></td>
+  </tbody>
+</table>

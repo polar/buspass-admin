@@ -27,6 +27,7 @@
     <%= form.select :target_page_id, [["---- #{t('.select_target_page')} ----", nil]] + options %>
   <% end %>
   <%= form.text_field :controller_path, { :id => 'controller_path' } %>
+  <%= form.text_field :error_status, { :id => 'error_status' } %>
   <%= cms_hook :page_form, :object => form %>
   <%= render :partial => 'cms_admin/categories/form', :object => form %>
 </div>

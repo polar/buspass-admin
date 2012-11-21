@@ -258,6 +258,14 @@ of the layout regardless of where it appears here.
         :is_protected    => true,
         :controller_path => "/feedbacks")
 
+    page_errors = site.pages.create!(
+        :slug            => "page_errors",
+        :label           => "Page Errors",
+        :layout          => normal_layout,
+        :parent          => admin,
+        :is_protected    => true,
+        :controller_path => "/page_errors")
+
     return site
   end
 end

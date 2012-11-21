@@ -53,13 +53,24 @@ class Master
   def admin_site
     sites.find_by_identifier(/-admin/)
   end
+
   def main_site
     sites.find_by_identifier(/-main/)
   end
+
+  def error_site
+    sites.find_by_identifier(/-error/)
+  end
+
   def admin_site=(site)
     sites << site
   end
+
   def main_site=(site)
+    sites << site
+  end
+
+  def error_site=(site)
     sites << site
   end
 

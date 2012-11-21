@@ -1,1 +1,3 @@
-$("#<%= "edit_customer_#{@customer.id}" %>").remove();
+<% if @customer %>
+ $("#<%= "edit_customer_#{@customer.id}" %>").remove();
+<% end %>

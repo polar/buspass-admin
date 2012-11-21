@@ -92,6 +92,7 @@
     <orderEntry type="library" scope="PROVIDED" name="mm-carrierwave (v0.0.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mongo (v1.7.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mongo_mapper (v0.11.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mongo_mapper_acts_as_list (v0.3.4, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.3.6, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_xml (v0.5.1, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multipart-post (v1.1.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />

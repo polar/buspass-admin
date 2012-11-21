@@ -4,7 +4,6 @@
 #
 class WebsitesController < ApplicationController
   include PageUtils
-  layout "empty"
 
   def index
     if current_customer
@@ -19,58 +18,61 @@ class WebsitesController < ApplicationController
     else
       @masters = Master.all
     end
-    @site = get_front_site()
   end
 
   def admin
     authenticate_customer!
     authorize_customer!(:edit, Cms::Site)
     @masters = Master.all
-    @site = get_front_site()
   end
 
   def my_index
     authenticate_customer!
     @masters = Master.owned_by(current_customer).all
-    @site = get_front_site()
   end
 
   def show
     authenticate_customer!
     @master = Master.find(params[:id])
+    raise NotFoundError if @master.nil?
+
     authorize_customer!(:read, Master)
-    @site = Cms::Site.find_by_identifier("busme-main")
   end
 
   def new
     authenticate_customer!
     authorize_customer!(:create, Master)
+    if current_customer.masters.count >= current_customer.masters_limit
+      flash[:error] = "You have exhausted your limit on creating sites. Please contact customer service."
+      redirect_to my_index_websites_path
+      return
+    end
     @master = Master.new
-    @site = get_front_site()
     # submits to create
   end
 
   def edit
     authenticate_customer!
     @master = Master.find(params[:id])
-    @site = get_front_site()
+    raise NotFoundError if @master.nil?
+
     authorize_customer!(:edit, @master)
     # submits to update
   end
 
   MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone, :slug]
 
-  def s3_bucket
-    s3 = AWS::S3.new(
-         :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-         :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
-    s3.buckets[ENV['S3_BUCKET_NAME']]
-  end
 
   def create
     authorize_customer!(:create, Master)
 
-    @site = get_front_site()
+    # Make sure Customer isn't going nuts creating new Masters. Allow him three mas.
+
+    if current_customer.masters.count >= current_customer.masters_limit
+      flash[:error] = "You have exhausted your limit on creating sites."
+      redirect_to my_index_websites_path
+      return
+    end
 
     # Security Integrity Check, ignoring any unwanted inserted attributes
     master_attributes = params[:master].slice(*MASTER_ALLOWABLE_UPDATE_ATTRIBUTES)
@@ -97,6 +99,7 @@ class WebsitesController < ApplicationController
     # Creating the modifiable administrator pages for the Master.
     @admin_site = create_master_admin_site(@master, @s3_bucket)
     @main_site  = create_master_main_site(@master, @s3_bucket)
+    @error_site = create_master_error_site(@master, @s3_bucket)
 
     logger.info("Creating New Deployment Database #{dbname} for Master #{@master.name}")
 
@@ -167,9 +170,22 @@ class WebsitesController < ApplicationController
     end
 
   rescue Exception => boom
+    page_error = PageError.new({
+                                   :request_url => request.url,
+                                   :params     => params,
+                                   :error      => boom.to_s,
+                                   :backtrace  => boom.backtrace,
+                                   :master     => @master,
+                                   :customer   => current_customer,
+                                   :muni_admin => current_muni_admin,
+                                   :user       => current_user
+                               })
+    page_error.save
+
     Rails.logger.detailed_error(boom)
     @admin_site.destroy if @admin_site
     @main_site.destroy if @main_site
+    @error_site.destroy if @error_site
     @master.destroy if @master
     @deployment.destroy if @deployment
     @muni_admin.destroy if @muni_admin
@@ -179,12 +195,12 @@ class WebsitesController < ApplicationController
 
     flash[:error] = "Could not create the site for your deployment."
     @render_action = "new"  # This is needed for the layout.
+    @master = Master.new
     render :action => :new
   end
 
   def update
     @master = Master.find(params[:id])
-    @site = get_front_site()
 
     authorize_customer!(:edit, @master)
 
@@ -219,6 +235,11 @@ class WebsitesController < ApplicationController
           @master.main_site.pages.root.update_attributes(
               :label => "#{@master.name} Main Page"
           )
+          @master.error_site.update_attributes(
+              :identifier => "#{@master.slug}-error",
+              :label      => "#{@master.name} Error Page Set",
+              :hostname   => "#{@master.slug}.#{base_host}"
+          )
         end
 
         flash[:notice] = "You have successfully updated your deployment."
@@ -244,18 +265,18 @@ class WebsitesController < ApplicationController
 
   def delete
     @master = Master.find(params[:id])
-    @site = get_front_site()
 
     authorize_customer!(:delete, @master)
 
     if @master == nil
-      flash[:error] = "Deployment #{params[:id]} doesn't exist"
+      flash[:error] = "Site #{params[:id]} doesn't exist"
       error         = true
     elsif customer_cannot?(:delete, @master)
       flash[:error] = "You do not have permission to delete the #{@master.name} Deployment."
       error = true
     else
       @master.destroy()
+      flash[:notice] = "Site #{@master.name} has been deleted."
     end
     respond_to do |format|
       format.html {
@@ -271,7 +292,4 @@ class WebsitesController < ApplicationController
 
   private
 
-  def get_front_site
-    Cms::Site.find_by_identifier("busme-main")
-  end
 end

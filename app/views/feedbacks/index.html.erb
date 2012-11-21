@@ -10,9 +10,27 @@
     <th>Received</th>
     <th>Subject</th>
   </tr>
-  Page <%= @feedbacks.current_page %>
-  <%= link_to("Prev", feedbacks_path(:page => @feedbacks.previous_page)) if @feedbacks.previous_page %>
-  <%= link_to("Next", feedbacks_path(:page => @feedbacks.next_page)) if @feedbacks.next_page %>
+  <div class="pagination">
+    <ul>
+      <li>
+        <% if @feedbacks.previous_page %>
+            <%= link_to("Newer", feedbacks_path(:page => @feedbacks.previous_page)) %>
+        <% else %>
+            <%= link_to("Newer", "#", :class => "disabled") %>
+        <% end %>
+      </li>
+      <li class="active">
+        <%= link_to @feedbacks.current_page, feedbacks_path(:page => @feedbacks.current_page) %>
+      </li>
+      <li>
+        <% if @feedbacks.next_page %>
+            <%= link_to("Older", feedbacks_path(:page => @feedbacks.next_page)) %>
+        <% else %>
+            <%= link_to("Older", "#", :class => "disabled") %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
   </thead>
   <tbody>
   <% for f in @feedbacks do %>

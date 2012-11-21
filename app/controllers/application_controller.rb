@@ -4,7 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :base_database
 
-  layout "application"
+  #
+  # Since we are using the CMS and we direct to the CMS from
+  # the standard templates that are correlated to the action name, we must have an empty layout.
+  # This is because the ActionView::TemplateRenderer chooses the designated layout before
+  # evaluation of the template, as it is evaluating the template *within* the layout. Therefore,
+  # we use an empty layout. The selected CMS page will choose the application layout.
+  #
+  layout false
 
   def app_name
     "Busme"
@@ -26,8 +33,10 @@ class ApplicationController < ActionController::Base
       @activement = Activement.find(params[:activement_id]) if params[:activement_id]
 
       PageUtils.ensure_sites_pages_site
+      PageUtils.ensure_main_error_pages_site
       PageUtils.ensure_master_admin_site_template
       PageUtils.ensure_master_main_site_template
+      PageUtils.ensure_master_error_site_template
 
       @site = Cms::Site.find(params[:site_id]) if params[:site_id]
       @sites = Cms::Site.where(:master_id => @master.id).all  if @master && @site.nil?
@@ -57,7 +66,6 @@ class ApplicationController < ActionController::Base
 
   def authenticate_muni_admin!
     if ! current_muni_admin
-      ActionController::RoutingError
       throw(:warden, :path => main_app.new_muni_admin_sessions_path(:master_id => @master.id), :notice => "Please sign in." )
     end
   end
@@ -164,8 +172,16 @@ class ApplicationController < ActionController::Base
   end
 
   def app_id_for_intercom
-    'i6xnzxqx'
+    ENV['INTERCOM_APPID']
   end
+
+  def s3_bucket
+    s3 = AWS::S3.new(
+        :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+        :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'])
+    s3.buckets[ENV['S3_BUCKET_NAME']]
+  end
+
   #
   #def default_url_options
   #  puts "default_url_options called"

@@ -107,6 +107,7 @@ gem 'will_paginate-bootstrap'
 
 gem "client_side_validations" #, :git => "https://github.com/bcardarella/client_side_validations.git"
 
+gem "mongo_mapper_acts_as_list"
 
 gem 'newrelic_rpm'
 #

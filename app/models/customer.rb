@@ -8,6 +8,7 @@ class Customer
 
   key :name, String
   key :email, String
+  key :masters_limit, Integer, :default => 1
 
   timestamps!
 

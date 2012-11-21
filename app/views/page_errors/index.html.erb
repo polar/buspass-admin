@@ -1,0 +1,57 @@
+<%= content_for :left do %>
+    <%= render :partial => "navigation/websites_nav" %>
+<% end %>
+<h1>Page Errors</h1>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Number</th>
+    <th>Url</th>
+    <th>Error</th>
+    <th>Time</th>
+    <th>Operations</th>
+  </tr>
+  <div class="pagination">
+    <ul>
+      <li>
+        <% if @page_errors.previous_page %>
+            <%= link_to("Newer", page_errors_path(:page => @page_errors.previous_page)) %>
+        <% else %>
+            <%= link_to("Newer", "#", :class => "disabled") %>
+        <% end %>
+      </li>
+      <li class="active">
+        <%= link_to @page_errors.current_page, page_errors_path(:page => @page_errors.current_page)  %>
+      </li>
+      <li>
+        <% if @page_errors.next_page %>
+            <%= link_to("Older", page_errors_path(:page => @page_errors.next_page)) %>
+        <% else %>
+            <%= link_to("Older", "#", :class => "disabled") %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  </thead>
+  <tbody>
+  <% for f in @page_errors do %>
+      <tr>
+        <td>
+          <%= f.position %>
+        </td>
+        <td>
+          <%= f.request_url %>
+        </td>
+        <td>
+          <%= f.created_at %>
+        </td>
+        <td>
+          <%= f.error %>
+        </td>
+        <td>
+          <%= link_to "Show", page_error_path(f, :page => params[:page]) %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

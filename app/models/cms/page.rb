@@ -5,6 +5,7 @@ class Cms::Page <
   key :controller, String
   key :master_path, String
   key :controller_path, String
+  key :error_status, Integer
 
   # Context for pages
   belongs_to :master

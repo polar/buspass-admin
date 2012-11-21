@@ -16,6 +16,7 @@ BuspassAdmin::Application.routes.draw do
   match "s3image/(*id)" => "s3_images#show"
 
   resources :feedbacks
+  resources :page_errors
 
   resources :sessions do
     collection do
