@@ -231,10 +231,10 @@ of the layout regardless of where it appears here.
         :layout => normal_layout,
         :parent => admin,
         :is_protected => true,
-        :controller_path => "/masters/:master_id/users/admin",
+        :controller_path => "/masters/:master_id/users",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:render:masters/users/admin }}"
+                                   :content => "{{ cms:bus:render:masters/users/index }}"
                                },
                                {
                                    :identifier => "left",

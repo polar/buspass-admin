@@ -125,7 +125,7 @@ BuspassAdmin::Application.routes.draw do
     end
   end
 
-  resources :masters do
+  resources :masters, :only => [:show, :edit, :update] do
 
     match "sign_in" => "sessions#new_muni_admin", :as => :muni_admin_sign_in
     match "signout" => "sessions#destroy_muni_admin", :as => :muni_admin_signout
@@ -193,14 +193,7 @@ BuspassAdmin::Application.routes.draw do
       end
     end
 
-    resources :users, :controller => "masters/users" do
-      collection do
-        get :admin
-      end
-      member do
-        post :destroy_confirm
-      end
-    end
+    resources :users, :only => [:index, :update, :destroy], :controller => "masters/users"
 
     member do
       get :activement
@@ -208,7 +201,6 @@ BuspassAdmin::Application.routes.draw do
     end
 
     resource :tools, :controller => "masters/tools" do
-      resource :pathfinder, :controller => "masters/tools/pathfinder", :only => [:show]
       resource :stop_points_finder, :controller => "masters/tools/stop_points_finder", :only => [:show] do
         member do
           post :download

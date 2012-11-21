@@ -1,6 +1,4 @@
 class MastersController < ApplicationController
-  include PageUtils
-  layout "empty"
 
   def activement
     @master = Master.find(params[:id])
@@ -32,28 +30,31 @@ class MastersController < ApplicationController
 
   def show
     @master = Master.find(params[:id])
+
+    # The WardenFailureApp needs :master_id
+    params[:master_id] = @master.id if @master
+
     #
     # This action is the entry point. If we cannot read the Master then, we may be somebody
     # else. We take the liberty to log them out, and reauthenticate them.
     #
     authenticate_muni_admin!
-    @master = Master.find(params[:id])
     if muni_admin_cannot?(:read, @master)
       sign_out(current_muni_admin)
       authenticate_muni_admin!
     end
+
     authorize_muni_admin!(:read, @master)
 
     # The DeviseFailureApp needs :master_id
     params[:master_id] = @master.id if @master
-    authenticate_muni_admin!
     @activement = Activement.where(:master_id => @master.id).first
     @testament = Testament.where(:master_id => @master.id).first
   end
 
   def edit
     @master = Master.find(params[:id])
-    # The DeviseFailureApp needs :master_id
+    # The WardenFailureApp needs :master_id
     params[:master_id] = @master.id if @master
     authenticate_muni_admin!
     authorize_muni_admin!(:edit, @master)
@@ -64,7 +65,7 @@ class MastersController < ApplicationController
 
   def update
     @master = Master.find(params[:id])
-    # The DeviseFailureApp needs :master_id
+    # The WardenFailureApp needs :master_id
     params[:master_id] = @master.id if @master
     authorize_muni_admin!(:edit, @master)
 
@@ -119,14 +120,6 @@ class MastersController < ApplicationController
         render :text => text, :status => :ok
       end
     end
-  end
-
-  def destroy
-    authenticate_customer!
-    @master = Master.find(params[:id])
-    authorize_customer!(:delete, @master)
-    @master.destroy
-    redirect_to :back
   end
 
 end

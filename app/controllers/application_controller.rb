@@ -120,7 +120,7 @@ class ApplicationController < ActionController::Base
     session[:tpauth_id] = oauth.id
   end
 
-  helper_method :email_for_intercom, :user_id_for_intercom, :name_for_intercom, :app_id_for_intercom,
+  helper_method :email_for_intercom, :user_id_for_intercom, :name_for_intercom, :appid_for_intercom,
                 :created_at_for_intercom
 
   def email_for_intercom
@@ -171,7 +171,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def app_id_for_intercom
+  def appid_for_intercom
     ENV['INTERCOM_APPID']
   end
 
