@@ -92,6 +92,12 @@ class WebsitesController < ApplicationController
 
     # Currently not used until we start shifting masters to their own databases.
     @master.dbname = dbname
+    for i in 0..10 do
+      @master.muni_admin_auth_codes.build(:planner => true, :operator => true)
+      @master.muni_admin_auth_codes.build(:operator => true)
+      @master.muni_admin_auth_codes.build(:planner => true)
+    end
+
     @master.save!
 
     @s3_bucket = s3_bucket()

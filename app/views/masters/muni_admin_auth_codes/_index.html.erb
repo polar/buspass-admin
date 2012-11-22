@@ -1,0 +1,25 @@
+<h1>Authorization Codes</h1>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Planner and Operator</th>
+    <th>Planner Only</th>
+    <th>Operator Only</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%- for i in 0..9 do %>
+    <tr>
+      <td>
+        <%= @planner_operators[i] if i < @planner_operators.length %>
+      </td>
+      <td>
+        <%= @planners[i] if i < @planners.length %>
+      </td>
+      <td>
+        <%= @operators[i] if i < @operators.length %>
+      </td>
+    </tr>
+  <%- end %>
+  </tbody>
+</table>

@@ -1,3 +1,6 @@
+<%= content_for :left do %>
+  <%= render :partial => "navigation/admin_nav" %>
+<% end %>
 <h2>Delete Administrator</h2>
 <p>
   You want to delete <%= @muni_admin.name %> = <%= @muni_admin.email %>, but the administrator owns the following
@@ -6,8 +9,9 @@
 <% for d in @deployments do %>
     <%= link_to d.name, master_deployment_path(@master, d) %><br />
 <% end %>
+<br />
 <p>
   You will take ownership of these deployments.
 </p>
-<%= link_to "Delete", master_muni_admin_path(@master, @muni_admin, :confirmed => "#{current_muni_admin.id}"), :method => "delete" %>
-<%= link_to "Cancel", master_muni_admins_path(@master) %>
+<%= link_to "Delete", destroy_confirmed_master_muni_admin_path(@master, @muni_admin, :confirmed => "#{current_muni_admin.id}"), :method => "delete", :class => "btn"%>
+<%= link_to "Cancel", master_muni_admins_path(@master), :class => "btn" %>

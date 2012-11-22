@@ -9,6 +9,7 @@ clearFlash();
 <% if @redirect %>
     window.location = '<%= @redirect %>';
 <% elsif @error %>
+   <% # TODO: Maybe pull a jquery animation on the muni admin %>
 <% else %>
     $("#<%= "edit_muni_admin_#{@muni_admin.id}" %>").remove();
 <% end %>

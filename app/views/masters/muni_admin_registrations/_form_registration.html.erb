@@ -18,6 +18,10 @@
   <%= f.text_field :name %>
   <%= f.label :email %>
   <%= f.email_field :email %>
+  <% if @muni_admin.new? %>
+        <%= f.label :auth_code, "Auth Code" %>
+        <%= f.text_field :auth_code %>
+  <% end %>
     <br />
     <br />
   <div class="actions">

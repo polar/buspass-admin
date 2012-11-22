@@ -183,7 +183,8 @@ BuspassAdmin::Application.routes.draw do
 
     resources :muni_admins, :controller => "masters/muni_admins" do
       member do
-        post :destroy_confirm
+        get :destroy_confirm
+        delete :destroy_confirmed
       end
       collection do
         get  :new_registration
@@ -192,6 +193,8 @@ BuspassAdmin::Application.routes.draw do
         put :update_registration
       end
     end
+
+    resources :muni_admin_auth_codes, :only => [:index], :controller => "masters/muni_admin_auth_codes"
 
     resources :users, :only => [:index, :update, :destroy], :controller => "masters/users"
 

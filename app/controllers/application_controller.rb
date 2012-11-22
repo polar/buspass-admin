@@ -226,8 +226,10 @@ class ApplicationController < ActionController::Base
   #
   def rescue_master_admin_error_page(boom)
     @error_site = @master.error_site
-    @error_controller = "#{boom}"
+    @error_in_controller = "#{boom}"
     @error_page = rescue_process_error(@error_site, boom)
+    # if there is an error in the controller and we do not have a "render_master_admin_page"
+    # in the template, we are screwed.
     render
   end
 

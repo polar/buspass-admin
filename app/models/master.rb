@@ -23,6 +23,17 @@ class Master
   one :activement, :dependent => :destroy
   one :testament, :dependent => :destroy
 
+  # embedded
+  many :muni_admin_auth_codes, :autosave => false do
+    def destroy(auth_code)
+      if auth_code.is_a? MuniAdminAuthCode
+        proxy_owner.pull(:muni_admin_auth_codes => { :_id => auth_code.id })
+      else
+        proxy_owner.pull(:muni_admin_auth_codes => { :_id => auth_code })
+      end
+    end
+  end
+
   attr_accessible :name, :slug, :owner, :dbname
   attr_accessible :longitude, :latitude, :timezone
 

@@ -20,6 +20,8 @@ class MuniAdmin
 
     key :role_symbols, Array, :default => []
 
+    attr_accessor :auth_code
+
     def self.search(search)
       if search
         words = search.split(" ")

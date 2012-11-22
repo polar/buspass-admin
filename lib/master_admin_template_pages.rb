@@ -218,7 +218,23 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/muni_admins",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:render:masters/muni_admins/admin }}"
+                                   :content => "{{ cms:bus:render:masters/muni_admins/index }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
+    muni_admins_auth_codes = site.pages.create!(
+        :slug              => "auth_codes",
+        :label             => "Auth Codes",
+        :layout            => normal_layout,
+        :parent            => muni_admins,
+        :is_protected      => true,
+        :controller_path   => "/masters/:master_id/muni_admin_auth_codes",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:masters/muni_admin_auth_codes/index }}"
                                },
                                {
                                    :identifier => "left",

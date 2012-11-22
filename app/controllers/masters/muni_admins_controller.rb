@@ -114,6 +114,51 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     authorize_muni_admin!(:delete, @muni_admin)
     if @muni_admin
       @deployments = Deployment.where(:owner_id => @muni_admin.id).all
+      render :layout => "masters/normal-layout"
+    else
+      flash[:error] = "Administrator #{params[:id]} does not exist."
+      redirect_to master_muni_admins_path(@master)
+    end
+  end
+
+  # Only comes in via HTML from destroy_confirm
+  def destroy_confirmed
+    get_master_context
+    authenticate_muni_admin!
+    @muni_admin = MuniAdmin.find(params[:id])
+
+    if (current_muni_admin == @muni_admin)
+      flash[:error] = "You cannot delete yourself."
+      redirect_to master_muni_admins_path(@master)
+      return
+    end
+
+    authorize_muni_admin!(:delete, @muni_admin)
+
+    if @muni_admin
+      if !@muni_admin.deployments.empty?
+        @deployments = @muni_admin.deployments
+        # TODO: Could we use a better confirmation token?
+        if params[:confirmed] == "#{current_muni_admin.id}"
+          @deployments.each do |deployment|
+            deployment.owner = current_muni_admin
+            deployment.save
+          end
+          # We must reload or we will destroy the deployments.
+          @muni_admin.reload
+          flash[:notice] = "Administrator #{@muni_admin.name} #{@muni_admin.email} has been removed."
+          @muni_admin.destroy
+          # THis was an HTML call from destroy_confirm
+          redirect_to master_muni_admins_path(@master)
+        else
+          flash[:error] = "Confirm token invalid. Please go back to Administrators Page and retry."
+          redirect_to master_muni_admins_path(@master)
+        end
+      else
+        flash[:notice] = "Administrator #{@muni_admin.name} #{@muni_admin.email} has been removed."
+        @muni_admin.destroy
+        redirect_to master_muni_admins_path(@master)
+      end
     else
       flash[:error] = "Administrator #{params[:id]} does not exist."
       redirect_to master_muni_admins_path(@master)
@@ -135,21 +180,10 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     authorize_muni_admin!(:delete, @muni_admin)
 
     if @muni_admin
-      @deployments = Deployment.where(:owner_id => @muni_admin.id).all
       if !@muni_admin.deployments.empty?
-        if params[:confirmed] == "#{current_muni_admin.id}"
-          @deployments.each do |deployment|
-            deployment.owner = current_muni_admin
-            deployment.save
-          end
-          @muni_admin.reload
-          @muni_admin.destroy
-          @redirect = master_muni_admins_path(@master)
-        else
-          @redirect = destroy_confirm_master_muni_admin_path(@master, @muni_admin)
-        end
+        @redirect = destroy_confirm_master_muni_admin_path(@master, @muni_admin)
       else
-        @notice = "Administrator #{@muni_admin.email} has been removed."
+        flash[:notice] = "Administrator #{@muni_admin.email} has been removed."
         @muni_admin.destroy
       end
     end
