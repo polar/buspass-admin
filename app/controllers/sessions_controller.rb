@@ -67,10 +67,15 @@ class SessionsController < ApplicationController
   end
 
   def destroy_muni_admin
-    master = current_muni_admin.master
-    session[:muni_admin_id] = nil
-    session[:tpauth_id] = nil
-    redirect_to master_path(master), :notice => "Signed out!"
+    get_context
+    if current_muni_admin
+      master = current_muni_admin.master
+      session[:muni_admin_id] = nil
+      session[:tpauth_id] = nil
+      redirect_to master_path(master), :notice => "Signed out!"
+    else
+      redirect_to master_path(@master), :notice => "You weren't signed in."
+    end
   end
 
   #

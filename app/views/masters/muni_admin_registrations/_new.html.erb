@@ -1,0 +1,10 @@
+<h1>We welcome you as a new administrator for <%= @master.name %>!</h1>
+
+<p>You are currently signed with using</p>
+<%= render :partial => 'masters/muni_admin_registrations/authentications' %>
+<br />
+<br />
+
+<p>Please edit account information and supply an email address and choose a different name if you like:</p>
+
+<%= render 'masters/muni_admin_registrations/form_registration' %>

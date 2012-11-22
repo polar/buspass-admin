@@ -6,6 +6,7 @@ class MuniAdmin
     key :uid, String
     key :email, String
     key :name, String
+    timestamps!
 
     validates_presence_of :name
     validates :email, :presence => true, :email => true

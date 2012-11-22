@@ -13,8 +13,6 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
         @muni_admin.name = @authentication.name
         @muni_admin.email = @authentication.last_info["email"]
         @muni_admin.master = @master
-        # render form that posts to create_registration
-        render :layout => "masters/normal-layout"
       end
     else
       redirect_to muni_admin_sign_in_path(:master_id => @master.id), :notice => "You need to authenticate first."
@@ -33,7 +31,6 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
 
       # We put this in the session in case the user adds an authentication.
       session[:tpauth] = :amend_muni_admin
-      render :layout => "masters/normal-layout"
     else
       raise NotFoundError
     end
@@ -64,14 +61,14 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
         @muni_admin.save
 
         @master.muni_admin_auth_codes.build(auth_code.attributes.except(:code))
-        @master.muni_admin_auth_codes.destroy(auth_code)
-        @master.save
+        @master.muni_admin_auth_codes.destroy!(auth_code)
+        # destroy! will reload the instance so that the identity map will get the update
         session[:muni_admin_id] = @muni_admin.id
         redirect_to edit_master_muni_admin_registration_path(@master, @muni_admin), :notice => "Registered and Signed In!"
       else
         @muni_admin.errors.add(:auth_code, "Invalid Authorization Code")
         flash[:error] = "Invalid Authorization Code. Please see your Super Administrator"
-        render :new, :layout => "masters/normal-layout"
+        render :new
       end
     else
       redirect_to master_muni_admin_sign_in_path( @master), "You need to authenticate first."

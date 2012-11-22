@@ -32,6 +32,14 @@ class Master
         proxy_owner.pull(:muni_admin_auth_codes => { :_id => auth_code })
       end
     end
+    def destroy!(auth_code)
+      if auth_code.is_a? MuniAdminAuthCode
+        proxy_owner.pull(:muni_admin_auth_codes => { :_id => auth_code.id })
+      else
+        proxy_owner.pull(:muni_admin_auth_codes => { :_id => auth_code })
+      end
+      proxy_owner.reload
+    end
   end
 
   attr_accessible :name, :slug, :owner, :dbname

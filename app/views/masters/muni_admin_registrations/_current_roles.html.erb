@@ -1,0 +1,6 @@
+<% if @muni_admin.roles_list.empty? %>
+    You have no roles.
+<% else %>
+    You have the roles of :
+    <strong><%= @muni_admin.roles_list.map {|r| r.capitalize}.join(", ") %></strong>
+<% end %>

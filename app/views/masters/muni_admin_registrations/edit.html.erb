@@ -1,62 +1,6 @@
-<%= content_for :left do %>
-   <%= render :partial => "navigation/admin_nav" %>
-<% end %>
-
-<h1>Edit Administrator Account</h1>
-
-<p>You are currently signed in using:
-<p/>
-<div class="authentications">
-  <div class="authentication">
-    <%= image_tag "auth/#{@authentication.provider}_32.png", :size => "32x32" %>
-    <div class="provider"><%= @authentication.provider.titleize %></div>
-    <div class="uid"><%= @authentication.uid %></div>
-  </div>
-</div>
-<br />
-<% if @muni_admin.roles_list.empty? %>
-    You have no roles.
-<% else %>
-  You have the roles of :
-    <strong><%= @muni_admin.roles_list.map {|r| r.capitalize}.join(", ") %></strong>
-<% end %>
-<% if @authentications && !@authentications.empty? %>
-    <br />
-
-    <p>You have the following other authentication capabilities</p>
-    <div class="authentications">
-      <% for authentication in @authentications %>
-          <div class="authentication">
-            <%= image_tag "auth/#{authentication.provider}_32.png", :size => "32x32" %>
-            <div class="provider"><%= authentication.provider.titleize %></div>
-            <div class="uid"><%= authentication.uid %></div>
-            <%= button_to "x", master_muni_admin_authentication_path(@master, authentication),
-                        :method => :delete, :class => "remove btn-link" %>
-          </div>
-      <% end %>
-    </div>
-    <div class="clear" style="clear:both"></div>
-<% end %>
-<br />
-<br />
-
-<p>Please edit account information:<p/>
+<%=
+    master_admin_render_page("/admin/muni_admins/edit")
+%>
 
 
-<%= render 'masters/muni_admin_registrations/form_registration' %>
 
-
-<% if @providers && !@providers.empty? %>
-    <br />
-    <br />
-
-    <p>You may also add these to this account so that you may login with those as well.</p>
-    <div class="authentications">
-      <% for provider in @providers %>
-          <a href='<%= "/auth/#{provider}" %>' class="auth_provider">
-          <%= image_tag "auth/#{provider}_64.png", :size => "64x64", :alt => "#{provider.titleize}" %>
-          <%= provider.titleize %>
-          </a>
-      <% end %>
-    </div>
-<% end %>

@@ -217,7 +217,12 @@ class ApplicationController < ActionController::Base
     @error_in_controller = "#{boom}"
     @error_page = rescue_process_error(@error_site, boom)
     # Render function inside the template will render @error_page (we hope)
-    render
+    # if we couldn't find an error page, then we render a standard error page
+    if @error_page
+      render
+    else
+      render :status => 500
+    end
   end
 
   #
@@ -230,7 +235,12 @@ class ApplicationController < ActionController::Base
     @error_page = rescue_process_error(@error_site, boom)
     # if there is an error in the controller and we do not have a "render_master_admin_page"
     # in the template, we are screwed.
-    render
+    # if we couldn't find an error page, then we render a standard error page
+    if @error_page
+      render
+    else
+      render :status => 500
+    end
   end
 
   #
@@ -241,7 +251,12 @@ class ApplicationController < ActionController::Base
     @error_site = @master.error_site
     @error_in_controller = "#{boom}"
     @error_page = rescue_process_error(@error_site, boom)
-    render
+    # if we couldn't find an error page, then we render a standard error page
+    if @error_page
+      render
+    else
+      render :status => 500
+    end
   end
 
   #

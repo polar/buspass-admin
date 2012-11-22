@@ -241,6 +241,40 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
+    muni_admins_edit = site.pages.create!(
+        :slug              => "edit",
+        :label             => "Edit",
+        :layout            => normal_layout,
+        :parent            => muni_admins,
+        :is_protected      => true,
+        :is_published      => false, # Won't go into menu
+        :controller_path   => "/masters/:master_id/muni_admin_registrations/:muni_admin_id/edit",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:masters/muni_admin_registrations/edit }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
+    muni_admins_new = site.pages.create!(
+        :slug              => "new",
+        :label             => "New",
+        :layout            => normal_layout,
+        :parent            => muni_admins,
+        :is_protected      => true,
+        :is_published      => false, # Won't go into menu
+        :controller_path   => "/masters/:master_id/muni_admin_registrations/new",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:masters/muni_admin_registrations/new }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
     users = site.pages.create!(
         :slug => "users",
         :label => "Users",
