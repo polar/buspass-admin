@@ -61,78 +61,94 @@ module ApplicationHelper
         return location
     end
 
+  def render_error_page(error_site, exception)
+    case exception.class
+      when CanCan::AccessDenied
+        error_page = error_site.pages.find_by_slug("permission_denied")
+      when NotFoundError
+        error_page = error_site.pages.find_by_slug("not_found")
+      else
+        # We record this error since it is so unexpected
+        page_error = PageError.new({
+                                       :request_url => request.url,
+                                       :params     => params,
+                                       :error      => exception.to_s,
+                                       :backtrace  => exception.backtrace,
+                                       :master     => @master,
+                                       :customer   => current_customer,
+                                       :muni_admin => current_muni_admin,
+                                       :user       => current_user
+                                   })
+        page_error.save
+        error_page = error_site.pages.find_by_slug("internal_error")
+    end
+    if error_page
+      result = error_page.render(self, :status => error_page.error_status, :content_type => "text/html")
+    else
+      # This is really bad.
+      page_error = PageError.new({
+                                     :request_url => request.url,
+                                     :params     => params,
+                                     :error      => "Could not find any error pages #{exception}",
+                                     :backtrace  => exception ? exception.backtrace : [],
+                                     :master     => @master,
+                                     :customer   => current_customer,
+                                     :muni_admin => current_muni_admin,
+                                     :user       => current_user
+                                 })
+      page_error.save
+      logger.detailed_error(exception)
+      result = render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+  end
+
+
   def render_page(site, error_site, path)
     error_page = nil
-    error = true
+    error     = true
     exception = nil
+    result    = nil
     begin
       page = site.pages.find_by_full_path(path)
       if page
         result = page.render(self, :status => 200, :content_type => 'text/html')
-        error = false
         result
       else
         raise "Could not find page for path: #{path}"
       end
-    rescue CanCan::AccessDenied => boom
-      exception = boom
-      error_page = error_site.pages.find_by_slug("permission_denied")
-    rescue NotFoundError => boom
-      exception = boom
-      error_page = error_site.pages.find_by_slug("not_found")
-    rescue => boom
-      exception = boom
-      page_error = PageError.new({
-          :request_url => request.url,
-          :params => params,
-          :error => boom.to_s,
-          :backtrace => boom.backtrace,
-          :master => @master,
-          :customer => current_customer,
-          :muni_admin => current_muni_admin,
-          :user => current_user
-      })
-      page_error.save
-      logger.detailed_error(boom)
-      error_page = error_site.pages.find_by_slug("internal_error")
-    ensure
-      if error
-        if error_page
-          result = error_page.render(self, :status => error_page.error_status, :content_type => "text/html")
-        else
-          page_error = PageError.new({
-                                         :request_url => request.url,
-                                         :params     => params,
-                                         :error      => "Could not find any error pages #{exception}",
-                                         :backtrace  => exception ? exception.backtrace : [],
-                                         :master     => @master,
-                                         :customer   => current_customer,
-                                         :muni_admin => current_muni_admin,
-                                         :user       => current_user
-                                     })
-          page_error.save
-          result = render :text => I18n.t('cms.content.page_not_found'), :status => 404
-        end
-      end
+    rescue Exception => boom
+      result = render_error_page(error_site, boom)
     end
     return result
   end
 
   def main_render_page(path)
-    @site = Cms::Site.find_by_identifier("busme-main")
-    @error_site = Cms::Site.find_by_identifier("busme-main-error")
-    render_page(@site, @error_site, path)
+    if @error_page
+      @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
+    else
+      @site = Cms::Site.find_by_identifier("busme-main")
+      @error_site = Cms::Site.find_by_identifier("busme-main-error")
+      render_page(@site, @error_site, path)
+    end
   end
 
   def master_admin_render_page(path)
-    @site = @master.admin_site
-    @error_site = @master.error_site
-    render_page(@site, @error_site, path)
+    if @error_page
+      @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
+    else
+      @site = @master.admin_site
+      @error_site = @master.error_site
+      render_page(@site, @error_site, path)
+    end
   end
 
   def master_render_page(path)
-    @site = @master.main_site
-    @error_site = @master.error_site
-    render_page(@site, @error_site, path)
+    if @error_page
+      @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
+    else
+      @site = @master.main_site
+      @error_site = @master.error_site
+      render_page(@site, @error_site, path)
+    end
   end
 end

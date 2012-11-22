@@ -1,0 +1,3 @@
+<% if @user %>
+  $("#<%= "edit_user_#{@user.id}" %>").html("<%= escape_javascript(render("user_row", :user => @user, :alt => @alt)) %>");
+<% end %>

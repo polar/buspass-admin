@@ -192,4 +192,81 @@ class ApplicationController < ActionController::Base
   #  options.merge!(:site_id => @site.id) if @site
   #  options
   #end
+
+  #
+  # Rescue Strategy.
+  #
+  # If the controller experiences an exception before it renders the
+  # template, we rescue the error with one of the following functions
+  # depending on the context.
+  # The way our CMS works, the page must be rendered within a template.
+  # However at this point, we don't have one, since it was the controller
+  # that raised the error before it handed it off to the render.
+  #
+  # To rectify, we assign @error_page with the proper page for the error
+  # then we render the intended template, and our render function will
+  # pick that up and render the specfied CMS page.
+  #
+
+  #
+  # This rescue function is for the context of a controller handing the
+  # main busme.us site. (i.e. website and cutomer managment.)
+  #
+  def rescue_with_main_error_page(exception)
+    @error_site = Cms::Site.find_by_identifier("busme-main-error")
+    @error_page = rescue_process_error(@error_site, exception)
+    # Render function inside the template will render @error_page (we hope)
+    render
+  end
+
+  #
+  # This rescue handler is for the context of a controller handing the
+  # administration of a particular master.
+  #
+  def rescue_master_admin_error_page(exception)
+    @error_site = @master.error_site
+    @error_page = rescue_process_error(@error_site, exception)
+    render
+  end
+
+  #
+  # This resuce handler is for the context of a controller handling the
+  # front user facing site of a particular master.
+  #
+  def rescue_master_error_page(exception)
+    @error_site = @master.error_site
+    @error_page = rescue_process_error(@error_site, exception)
+    render
+  end
+
+  #
+  # This function finds the correct page according to the exception
+  # from the given CMS (error pages) site. We log a PageError if
+  # we do not find it, and hopefully te "internal_error" page
+  # is there.
+  #
+  def rescue_process_error(error_site, boom)
+    error_page = nil
+    if boom.is_a? CanCan::AccessDenied
+        error_page = error_site.pages.find_by_slug("permission_denied")
+    elsif boom.is_a? NotFoundError
+        error_page = error_site.pages.find_by_slug("not_found")
+    else
+        # We record this error since it is so unexpected
+        page_error = PageError.new({
+                                       :request_url => request.url,
+                                       :params     => params,
+                                       :error      => boom.to_s,
+                                       :backtrace  => boom.backtrace,
+                                       :master     => @master,
+                                       :customer   => current_customer,
+                                       :muni_admin => current_muni_admin,
+                                       :user       => current_user
+                                   })
+        page_error.save
+        error_page = error_site.pages.find_by_slug("internal_error")
+    end
+    return error_page
+  end
+
 end

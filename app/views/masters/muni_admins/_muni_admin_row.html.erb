@@ -1,9 +1,13 @@
-
+<%
+   # Locals
+   #    muni_admin
+   #    alt
+%>
 <%= form_for muni_admin, :url => master_muni_admin_path(@master, muni_admin), :remote => true do |form| %>
     <%= hidden_field_tag "alt", alt %>
     <div <%= "class= 'row-fluid #{alt ? "alt" : ""}'" %> >
-      <div class="span2"><%= link_to muni_admin.name, edit_master_muni_admin_path(@master, muni_admin) %></div>
-      <div class="span2"><%= link_to muni_admin.email, edit_master_muni_admin_path(@master, muni_admin) %></div>
+      <div class="span2"><%= muni_admin.name %></div>
+      <div class="span2"><%= muni_admin.email %></div>
       <% for role in @roles do %>
           <div class="span1">
             <%= check_box_tag "muni_admin[role_symbols][]", role, muni_admin.has_role?(role),
@@ -16,9 +20,13 @@
           <%= link_to muni.name, master_deployment_path(@master, muni) %>
         <% end %>
       </div>
+      <%
+         # This is a link instead of a button because we cannot have the form inside a form.
+         # TODO: Security. This is a potential security risk because there is no cross-site scripting protection.
+      %>
       <% if muni_admin_can?(:delete, muni_admin) %>
-        <div class="span1"><%= button_to 'Destroy', master_muni_admin_path(@master, muni_admin),
-                                       :confirm => 'Are you sure?',
+        <div class="span1"><%= link_to 'Delete', master_muni_admin_path(@master, muni_admin),
+                                       :data => {:confirm => 'Are you sure?'},
                                        :remote => true,
                                        :method => :delete,
                                        :class => "btn btn-mini" %></div>

@@ -178,7 +178,10 @@ class SessionsController < ApplicationController
                     :notice => "Could not find you. Please create an account."
       end
     else
-      session[:tpauth_id] = Authentication.create_with_omniauth(auth).id
+      oauth = Authentication.create_with_omniauth(auth)
+      oauth.master = @master
+      oauth.save
+      session[:tpauth_id] = oauth.id
       redirect_to new_master_muni_admin_registration_path(:master_id => @master.id),
                   :notice => "Need to create an account."
     end
@@ -244,7 +247,10 @@ class SessionsController < ApplicationController
                     :notice => "Could not find you. Please create an account."
       end
     else
-      session[:tpauth_id] = Authentication.create_with_omniauth(auth).id
+      oauth = Authentication.create_with_omniauth(auth)
+      oauth.master = @master
+      oauth.save
+      session[:tpauth_id] = oauth.id
       redirect_to new_master_user_registration_path(:master_id => @master.id),
                   :notice => "Need to create an account."
     end

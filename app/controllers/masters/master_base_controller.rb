@@ -1,6 +1,6 @@
 class Masters::MasterBaseController < ApplicationController
 
-    layout "empty"
+  rescue_from Exception, :with => :rescue_master_admin_error_page
 
     def get_master_context
       @master = Master.find(params[:master_id])

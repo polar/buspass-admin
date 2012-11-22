@@ -20,3 +20,7 @@
   <% end %>
 </div>
 <%= will_paginate @users, :renderer => BootstrapPagination::Rails %>
+
+<% @users.each do |user| %>
+    <%= render "password_modal", :user => user %>
+<% end %>

@@ -13,7 +13,7 @@
             <td><%= link_to master.name, website_path(master) %></td>
             <td><%= link_to "#{master.siteurl}", master_active_path(master) %></td>
             <td><%= link_to "#{master.siteurl}/admin", master_path(master) %></td>
-            <td><%= link_to "Delete", master_path(master), :confirm => "Are you sure?", :method => :delete if customer_can?(:delete, master) %></td>
+            <td><%= link_to "Delete", website_path(master), :confirm => "Are you sure?", :method => :delete if customer_can?(:delete, master) %></td>
           </tr>
       <% end %>
   </tbody>

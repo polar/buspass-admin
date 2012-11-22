@@ -263,7 +263,7 @@ class WebsitesController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     @master = Master.find(params[:id])
 
     authorize_customer!(:delete, @master)

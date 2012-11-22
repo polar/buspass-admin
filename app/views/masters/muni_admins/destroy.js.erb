@@ -1,1 +1,14 @@
-$("#<%= "edit_muni_admin_#{@muni_admin.id}" %>").remove();
+clearFlash();
+<% if flash[:notice] %>
+    setFlash("notice", "<%= escape_javascript(render :text => flash[:notice]) %>");
+<% end %>
+<% if flash[:error] %>
+    setFlash("error", "<%= escape_javascript(render :text => flash[:error]) %>");
+<% end %>
+
+<% if @redirect %>
+    window.location = '<%= @redirect %>';
+<% elsif @error %>
+<% else %>
+    $("#<%= "edit_muni_admin_#{@muni_admin.id}" %>").remove();
+<% end %>

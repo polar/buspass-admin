@@ -11,24 +11,7 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     @muni_admins = MuniAdmin.where(:master_id => @master.id)
                             .search(params[:search])
                             .order(sort_column => sort_direction)
-                            .paginate(:page => params[:page], :per_page => 4)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @muni_admins }
-      format.js # render index.js.erb
-    end
-  end
-
-  def admin
-    get_master_context
-    authorize_muni_admin!(:read, MuniAdmin)
-
-    @roles       = MuniAdmin::ROLE_SYMBOLS
-    @muni_admins = MuniAdmin.where(:master_id => @master.id)
-                            .search(params[:search])
-                            .order(sort_column => sort_direction)
-                            .paginate(:page => params[:page], :per_page => 4)
+                            .paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -92,15 +75,20 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     attrs       = params[:muni_admin]
     @muni_admin = MuniAdmin.find(params[:id])
     if !@muni_admin || @muni_admin.master != @master
-      raise "Not Found"
+      raise NotFoundError.new("Administrator #{params[:id]} does not exist.")
     end
     authorize_muni_admin!(:edit, @muni_admin)
 
     @roles = MuniAdmin::ROLE_SYMBOLS
 
+    params[:muni_admin] ||= { }
+    params[:muni_admin][:role_symbols] ||= { }
+
+    @alt = params[:muni_admin][:alt]
+
     # Security, don't let anything other than these keys get assigned.
     # We don't want some bogon changing the master_id, etc.
-    params[:muni_admin].slice!(:password, :password_confirmation, :email, :name, :role_symbols)
+    params[:muni_admin].slice!(:email, :name, :role_symbols)
 
     if current_muni_admin == @muni_admin
       # We don't want you to alter your own roles.
@@ -126,51 +114,44 @@ class Masters::MuniAdminsController < Masters::MasterBaseController
     authorize_muni_admin!(:delete, @muni_admin)
     if @muni_admin
       @deployments = Deployment.where(:owner_id => @muni_admin.id).all
-      if @muni_admin.deployments.empty?
-        @muni_admin.destroy
-        redirect_to master_muni_admins_path(@master)
-      else
-        @deployments.each do |deployment|
-          deployment.owner = current_muni_admin
-          deployment.save
-        end
-        @muni_admin.reload
-        @muni_admin.destroy
-      end
     else
-      redirect_to master_muni_admin_path(:master_id => @master.id)
+      flash[:error] = "Administrator #{params[:id]} does not exist."
+      redirect_to master_muni_admins_path(@master)
     end
   end
 
+  # Only comes in via JS
   def destroy
     get_master_context
     authenticate_muni_admin!
     @muni_admin = MuniAdmin.find(params[:id])
-    authorize_muni_admin!(:delete, @muni_admin)
 
     if (current_muni_admin == @muni_admin)
-      raise "Cannot delete self"
+      flash[:error] = "You cannot delete yourself."
+      @error = true
+      return
     end
+
+    authorize_muni_admin!(:delete, @muni_admin)
 
     if @muni_admin
       @deployments = Deployment.where(:owner_id => @muni_admin.id).all
-      if @muni_admin.deployments.empty?
-        @muni_admin.destroy
-        redirect_to master_muni_admins_path(@master)
-      else
-        @deployments.each do |deployment|
-          deployment.owner = current_muni_admin
-          deployment.save
+      if !@muni_admin.deployments.empty?
+        if params[:confirmed] == "#{current_muni_admin.id}"
+          @deployments.each do |deployment|
+            deployment.owner = current_muni_admin
+            deployment.save
+          end
+          @muni_admin.reload
+          @muni_admin.destroy
+          @redirect = master_muni_admins_path(@master)
+        else
+          @redirect = destroy_confirm_master_muni_admin_path(@master, @muni_admin)
         end
-        @muni_admin.reload
+      else
+        @notice = "Administrator #{@muni_admin.email} has been removed."
         @muni_admin.destroy
       end
-    end
-
-    respond_to do |format|
-      format.html { redirect_to master_muni_admins_path(@master) }
-      format.json { head :no_content }
-      format.js # destroy.htm.erb
     end
   end
 
