@@ -212,9 +212,10 @@ class ApplicationController < ActionController::Base
   # This rescue function is for the context of a controller handing the
   # main busme.us site. (i.e. website and cutomer managment.)
   #
-  def rescue_with_main_error_page(exception)
+  def rescue_with_main_error_page(boom)
     @error_site = Cms::Site.find_by_identifier("busme-main-error")
-    @error_page = rescue_process_error(@error_site, exception)
+    @error_in_controller = "#{boom}"
+    @error_page = rescue_process_error(@error_site, boom)
     # Render function inside the template will render @error_page (we hope)
     render
   end
@@ -223,9 +224,10 @@ class ApplicationController < ActionController::Base
   # This rescue handler is for the context of a controller handing the
   # administration of a particular master.
   #
-  def rescue_master_admin_error_page(exception)
+  def rescue_master_admin_error_page(boom)
     @error_site = @master.error_site
-    @error_page = rescue_process_error(@error_site, exception)
+    @error_controller = "#{boom}"
+    @error_page = rescue_process_error(@error_site, boom)
     render
   end
 
@@ -233,9 +235,10 @@ class ApplicationController < ActionController::Base
   # This resuce handler is for the context of a controller handling the
   # front user facing site of a particular master.
   #
-  def rescue_master_error_page(exception)
+  def rescue_master_error_page(boom)
     @error_site = @master.error_site
-    @error_page = rescue_process_error(@error_site, exception)
+    @error_in_controller = "#{boom}"
+    @error_page = rescue_process_error(@error_site, boom)
     render
   end
 

@@ -6,39 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/destroy_confirm.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/_index.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/_password_modal.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/_search_params.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/_user_row.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/_users.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/admin.js.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/destroy.js.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/index.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/archive/views/users/update.js.erb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/_admin.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/admin.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/admin.js.erb" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/users/_show.html.erb" afterPath="$PROJECT_DIR$/archive/views/users/_show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/users/admin.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/users/index.js.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/master_base_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/master_base_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admins_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/users_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/users_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/websites_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/application_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/application_helper.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/_index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/_muni_admin_row.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/_muni_admin_row.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/destroy.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/destroy.js.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/index.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/update.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/update.js.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/users/_user_row.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/users/_user_row.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/users/_users.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/users/_users.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/_table_my_index.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_table_my_index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/index.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/index.html.erb" />
     </list>
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
@@ -70,10 +40,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="application_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="application_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="248" column="0" selection-start="7398" selection-end="7398" vertical-scroll-proportion="0.22321428">
+            <state line="239" column="36" selection-start="7137" selection-end="7137" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -88,10 +58,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application_helper.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="application_helper.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/helpers/application_helper.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="135" column="0" selection-start="4753" selection-end="4753" vertical-scroll-proportion="0.0">
+            <state line="172" column="4" selection-start="6086" selection-end="6086" vertical-scroll-proportion="0.35714287">
               <folding />
             </state>
           </provider>
@@ -194,9 +164,9 @@
         <option value="$PROJECT_DIR$/app/controllers/masters/muni_admin_registrations_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/deployments/new.html.erb" />
-        <option value="$PROJECT_DIR$/app/helpers/application_helper.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/master_base_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
+        <option value="$PROJECT_DIR$/app/helpers/application_helper.rb" />
       </list>
     </option>
   </component>
@@ -1972,7 +1942,11 @@
       <created>1353516802103</created>
       <updated>1353516802103</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="Progress.">
+      <created>1353546765728</created>
+      <updated>1353546765728</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="7868393abb3dd2ff5f2d196f68f8e3884bbe7646" />
@@ -2213,16 +2187,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/application_helper.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="0" selection-start="4753" selection-end="4753" vertical-scroll-proportion="0.0">
+        <state line="239" column="36" selection-start="7137" selection-end="7137" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/helpers/application_helper.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="248" column="0" selection-start="7398" selection-end="7398" vertical-scroll-proportion="0.22321428">
+        <state line="172" column="4" selection-start="6086" selection-end="6086" vertical-scroll-proportion="0.35714287">
           <folding />
         </state>
       </provider>

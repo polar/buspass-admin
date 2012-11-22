@@ -61,19 +61,21 @@ module ApplicationHelper
         return location
     end
 
-  def render_error_page(error_site, exception)
-    case exception.class
-      when CanCan::AccessDenied
+  ##
+  # This function renders a particular error page given the exception.
+  #
+  def render_error_page(error_site, boom)
+    if boom.is_a? CanCan::AccessDenied
         error_page = error_site.pages.find_by_slug("permission_denied")
-      when NotFoundError
+    elsif boom.is_a? NotFoundError
         error_page = error_site.pages.find_by_slug("not_found")
-      else
+    else
         # We record this error since it is so unexpected
         page_error = PageError.new({
                                        :request_url => request.url,
                                        :params     => params,
-                                       :error      => exception.to_s,
-                                       :backtrace  => exception.backtrace,
+                                       :error      => boom.to_s,
+                                       :backtrace  => boom.backtrace,
                                        :master     => @master,
                                        :customer   => current_customer,
                                        :muni_admin => current_muni_admin,
@@ -89,20 +91,24 @@ module ApplicationHelper
       page_error = PageError.new({
                                      :request_url => request.url,
                                      :params     => params,
-                                     :error      => "Could not find any error pages #{exception}",
-                                     :backtrace  => exception ? exception.backtrace : [],
+                                     :error      => "Could not find any error pages #{boom}",
+                                     :backtrace  => boom ? boom.backtrace : [],
                                      :master     => @master,
                                      :customer   => current_customer,
                                      :muni_admin => current_muni_admin,
                                      :user       => current_user
                                  })
       page_error.save
-      logger.detailed_error(exception)
+      logger.detailed_error(boom)
       result = render :text => I18n.t('cms.content.page_not_found'), :status => 404
     end
   end
 
-
+  ##
+  # Renders a particular page noted by the path in the given site, or an error page from the
+  # error site if an error in rendering occurs. This page is rendered within the context of
+  # the current view template.
+  #
   def render_page(site, error_site, path)
     error_page = nil
     error     = true
@@ -122,33 +128,63 @@ module ApplicationHelper
     return result
   end
 
+  #
+  # These functions are called from the view template and work in conjunction with
+  # the rescue handlers in the application controller. They may set @error_in_controller
+  # and may set @error_page if it is found for the particular @error_site.
+  #
+
+  ##
+  # This function is called in templates emanating from controllers that handle the main
+  # busme site (i.e. websites and customer managment).
+  #
   def main_render_page(path)
     if @error_page
       @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
     else
-      @site = Cms::Site.find_by_identifier("busme-main")
-      @error_site = Cms::Site.find_by_identifier("busme-main-error")
-      render_page(@site, @error_site, path)
+      if @error_in_controller
+        render :text => I18n.t('cms.content.page_not_found'), :status => 404
+      else
+        @site = Cms::Site.find_by_identifier("busme-main")
+        @error_site = Cms::Site.find_by_identifier("busme-main-error")
+        render_page(@site, @error_site, path)
+      end
     end
   end
 
+  ##
+  # This function is called in templates emanating from controllers that handle the administration
+  # of a particular master.
+  #
   def master_admin_render_page(path)
     if @error_page
       @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
     else
-      @site = @master.admin_site
-      @error_site = @master.error_site
-      render_page(@site, @error_site, path)
+      if @error_in_controller
+        render :text => I18n.t('cms.content.page_not_found'), :status => 404
+      else
+        @site = @master.admin_site
+        @error_site = @master.error_site
+        render_page(@site, @error_site, path)
+      end
     end
   end
 
+  ##
+  # This function is called in templates emanating from controllers that handle the user facing site
+  # of a particular master.
+  #
   def master_render_page(path)
     if @error_page
       @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
     else
-      @site = @master.main_site
-      @error_site = @master.error_site
-      render_page(@site, @error_site, path)
+      if @error_in_controller
+        render :text => I18n.t('cms.content.page_not_found'), :status => 404
+      else
+        @site = @master.main_site
+        @error_site = @master.error_site
+        render_page(@site, @error_site, path)
+      end
     end
   end
 end
