@@ -19,6 +19,8 @@ class SessionsController < ApplicationController
           else
             create_customer()
           end
+        else
+          redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
         end
       when :muni_admin
         if params[:muni_admin_auth] == session[:session_id]
@@ -27,6 +29,8 @@ class SessionsController < ApplicationController
           else
             create_muni_admin()
           end
+        else
+          redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
         end
       when :user
         if params[:user_auth] == session[:session_id]
@@ -35,6 +39,8 @@ class SessionsController < ApplicationController
           else
             create_user()
           end
+        else
+          redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
         end
       when :amend_customer
         if params[:customer_auth] == session[:session_id]
@@ -43,6 +49,8 @@ class SessionsController < ApplicationController
           else
             create_customer()
           end
+        else
+          redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
         end
       when :amend_muni_admin
         if params[:muni_admin_auth] == session[:session_id]
@@ -51,6 +59,8 @@ class SessionsController < ApplicationController
           else
             create_muni_admin()
           end
+        else
+          redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
         end
       when :amend_user
         if params[:user_auth] == session[:session_id]
@@ -59,6 +69,8 @@ class SessionsController < ApplicationController
           else
             create_user()
           end
+        else
+          redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
         end
       else
         redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."

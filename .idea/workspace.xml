@@ -6,47 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/user_registrations.css.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/customer_registrations/_edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/customer_registrations/_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/user_registrations/_edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/user_registrations/_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_admin_signin_items.html.builder" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_admin_signin_nav.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_user_signin_items.html.builder" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/navigation/_user_signin_nav.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sessions/_new_customer.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sessions/_new_muni_admin.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/sessions/_new_user.html.erb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/sessions/_new.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/sessions/new.html.erb" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/customer_registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/customer_registrations_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admin_registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admin_registrations_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user.rb" afterPath="$PROJECT_DIR$/app/models/user.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customer_registrations/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/customer_registrations/edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customer_registrations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/customer_registrations/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/active/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/active/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_alternate_authentications.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_alternate_authentications.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/user_registrations/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/user_registrations/edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/user_registrations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/user_registrations/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.erb" afterPath="$PROJECT_DIR$/app/views/navigation/_main_nav.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_signin_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_signin_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/sessions/new_customer.html.erb" afterPath="$PROJECT_DIR$/app/views/sessions/new_customer.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/sessions/new_muni_admin.html.erb" afterPath="$PROJECT_DIR$/app/views/sessions/new_muni_admin.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/sessions/new_user.html.erb" afterPath="$PROJECT_DIR$/app/views/sessions/new_user.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_error_pages.rb" afterPath="$PROJECT_DIR$/lib/master_error_pages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_main_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_main_template_pages.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/websites_pages.rb" afterPath="$PROJECT_DIR$/lib/websites_pages.rb" />
     </list>
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
@@ -78,10 +39,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="sessions_controller.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="sessions_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="138" selection-end="138" vertical-scroll-proportion="0.0">
+            <state line="72" column="114" selection-start="2493" selection-end="2493" vertical-scroll-proportion="0.57761735">
               <folding />
             </state>
           </provider>
@@ -105,7 +66,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="customer_registrations.css.scss" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="customer_registrations.css.scss" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/customer_registrations.css.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -2245,7 +2206,11 @@
       <created>1353716169101</created>
       <updated>1353716169102</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="Progress.">
+      <created>1353744947756</created>
+      <updated>1353744947756</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="7868393abb3dd2ff5f2d196f68f8e3884bbe7646" />
@@ -2455,13 +2420,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="138" selection-end="138" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/muni_admins.css.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -2493,6 +2451,13 @@
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/customer_registrations.css.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="114" selection-start="2493" selection-end="2493" vertical-scroll-proportion="0.57761735">
           <folding />
         </state>
       </provider>
