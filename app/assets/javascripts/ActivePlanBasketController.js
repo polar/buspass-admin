@@ -225,7 +225,7 @@ BusPass.ActivePlanBasketController.prototype = {
      * the basket lifecycle.
      */
     onResume: function () {
-        if (this.api) {
+        if (this.api && this.api.loginUrl && this.api.loginUrl != "") {
             this.api.login(this.onLogin);
         }
     },

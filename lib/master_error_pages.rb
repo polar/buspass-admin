@@ -39,9 +39,9 @@ of the layout regardless of where it appears here.
 -->
 {{ cms:layout:bottom }}")
 
-    map_layout = site.layouts.create!(
-        :identifier => "map-layout",
-        :app_layout => "masters/map-layout",
+    normal_active_layout = site.layouts.create!(
+        :identifier => "normal-active-layout",
+        :app_layout => "masters/active/normal-layout",
         :content    =>
             "<!--
 The layout puts left block of page goes into left side of the layout regardless of where it appears here
@@ -139,7 +139,7 @@ of the layout regardless of where it appears here.
     users = site.pages.create!(
         :slug              => "users",
         :label             => "User Error Pages",
-        :layout            => normal_layout,
+        :layout            => normal_active_layout,
         :is_protected      => true,
         :parent            => root,
         :error_status      => 500,
@@ -155,7 +155,7 @@ of the layout regardless of where it appears here.
     notfound = site.pages.create!(
         :slug              => "not_found",
         :label             => "Page Not Found",
-        :layout            => normal_layout,
+        :layout            => normal_active_layout,
         :is_protected      => true,
         :error_status      => 404,
         :parent            => users,
@@ -172,7 +172,7 @@ of the layout regardless of where it appears here.
     permission = site.pages.create!(
         :slug              => "permission_denied",
         :label             => "Permission Denied",
-        :layout            => normal_layout,
+        :layout            => normal_active_layout,
         :is_protected      => true,
         :parent            => users,
         :error_status      => 403,
@@ -188,7 +188,7 @@ of the layout regardless of where it appears here.
     internal = site.pages.create!(
         :slug              => "internal_error",
         :label             => "Internal Error",
-        :layout            => normal_layout,
+        :layout            => normal_active_layout,
         :is_protected      => true,
         :parent            => users,
         :error_status      => 500,

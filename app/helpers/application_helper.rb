@@ -64,11 +64,11 @@ module ApplicationHelper
   ##
   # This function renders a particular error page given the exception.
   #
-  def render_error_page(error_site, boom)
+  def render_error_page(error_site, prefix, boom)
     if boom.is_a? CanCan::AccessDenied
-        error_page = error_site.pages.find_by_slug("permission_denied")
+        error_page = error_site.pages.find_by_full_path("#{prefix}/permission_denied".squeeze("/"))
     elsif boom.is_a? NotFoundError
-        error_page = error_site.pages.find_by_slug("not_found")
+        error_page = error_site.pages.find_by_full_path("#{prefix}/not_found".squeeze("/"))
     else
         # We record this error since it is so unexpected
         page_error = PageError.new({
@@ -82,7 +82,7 @@ module ApplicationHelper
                                        :user       => current_user
                                    })
         page_error.save
-        error_page = error_site.pages.find_by_slug("internal_error")
+        error_page = error_site.pages.find_by_full_path("#{prefix}/internal_error".squeeze("/"))
     end
     if error_page
       result = error_page.render(self, :status => error_page.error_status, :content_type => "text/html")
@@ -109,7 +109,7 @@ module ApplicationHelper
   # error site if an error in rendering occurs. This page is rendered within the context of
   # the current view template.
   #
-  def render_page(site, error_site, path)
+  def render_page(site, error_site, error_prefix, path)
     error_page = nil
     error     = true
     exception = nil
@@ -123,7 +123,7 @@ module ApplicationHelper
         raise "Could not find page for path: #{path}"
       end
     rescue Exception => boom
-      result = render_error_page(error_site, boom)
+      result = render_error_page(error_site, error_prefix, boom)
     end
     return result
   end
@@ -141,7 +141,7 @@ module ApplicationHelper
   def main_render_page(path)
     @site = Cms::Site.find_by_identifier("busme-main")
     @error_site = Cms::Site.find_by_identifier("busme-main-error")
-    render_page(@site, @error_site, path)
+    render_page(@site, @error_site, "/", path)
   end
 
   ##
@@ -152,7 +152,7 @@ module ApplicationHelper
     puts "Start render page"
     @site = @master.admin_site
     @error_site = @master.error_site
-    render_page(@site, @error_site, path).tap do
+    render_page(@site, @error_site, "/admins", path).tap do
       puts "End Render Page"
     end
   end
@@ -164,7 +164,7 @@ module ApplicationHelper
   def master_render_page(path)
     @site = @master.main_site
     @error_site = @master.error_site
-    render_page(@site, @error_site, path)
+    render_page(@site, @error_site, "/users", path)
   end
 
   def conditional_stylesheet_link_tag(*sources)

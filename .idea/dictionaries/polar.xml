@@ -2,7 +2,10 @@
   <dictionary name="polar">
     <words>
       <w>activement</w>
+      <w>busme</w>
       <w>geolocation</w>
+      <w>muni</w>
+      <w>programatically</w>
       <w>waypoint</w>
     </words>
   </dictionary>

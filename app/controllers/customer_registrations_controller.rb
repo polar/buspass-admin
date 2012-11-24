@@ -1,7 +1,7 @@
 class CustomerRegistrationsController < ApplicationController
 
   def new
-    @authentication = Authentication.find session[:tpauth_id]
+    @authentication = Authentication.find session[:customer_oauth_id]
     if @authentication
       cust = Customer.find_by_authentication_id(@authentication.id)
       if cust
@@ -31,9 +31,6 @@ class CustomerRegistrationsController < ApplicationController
       @authentications = @customer.authentications - [@authentication]
       @providers = BuspassAdmin::Application.oauth_providers - @customer.authentications.map {|a| a.provider.to_s }
       @oauth_options = "?tpauth=amend_customer&customer_auth=#{session[:session_id]}&failure_path=#{edit_customer_path}"
-
-      # We put this in the session in case the user adds an authentication.
-      session[:tpauth] = :amend_customer
       render
     else
       sign_out(current_customer)
@@ -46,7 +43,7 @@ class CustomerRegistrationsController < ApplicationController
   # This gets called from a redirect from new_registration
   #
   def create
-    tpauth = Authentication.find session[:tpauth_id]
+    tpauth = Authentication.find session[:customer_oauth_id]
     if tpauth
       @customer = Customer.new(params[:customer])
       if Customer.count == 0
@@ -67,8 +64,7 @@ class CustomerRegistrationsController < ApplicationController
   def update
     authenticate_customer!
     # We put this in the session in case the user adds an authentication.
-    session[:tpauth] = nil
-    tpauth = Authentication.find session[:tpauth_id]
+    tpauth = Authentication.find session[:customer_oauth_id]
     if tpauth
       @customer = current_customer
       @customer.update_attributes(params[:customer])

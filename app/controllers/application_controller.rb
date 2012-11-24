@@ -45,7 +45,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_customer
 
   def current_customer
-    @current_customer ||= Customer.find(session[:customer_id]) if session[:customer_id]
+    if !@current_customer || @current_customer.id != session[:customer_id]
+      @current_customer = Customer.find(session[:customer_id]) if session[:customer_id]
+    end
+    @current_customer
   end
 
   def authenticate_customer!
@@ -61,7 +64,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_muni_admin
 
   def current_muni_admin
-    @current_muni_admin ||= MuniAdmin.find(session[:muni_admin_id]) if session[:muni_admin_id]
+    if !@current_muni_admin || @current_muni_admin.id != session[:muni_admin_id]
+      @current_muni_admin = MuniAdmin.find(session[:muni_admin_id]) if session[:muni_admin_id]
+    end
     @current_muni_admin
   end
 
@@ -78,7 +83,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    if !@current_user || @current_user.id != session[:user_id]
+      @current_user = User.find(session[:user_id]) if session[:user_id]
+    end
+    @current_user
   end
 
   def authenticate_user!
@@ -91,34 +99,62 @@ class ApplicationController < ActionController::Base
     raise CanCan::AccessDenied if user_cannot?(action, obj)
   end
 
-  def current_authentication
-    @current_authentication ||= Authentication.find(session[:tpauth_id]) if session[:tpauth_id]
+  def current_customer_authentication
+    Authentication.find(session[:customer_oauth_id])
+  end
+
+  def current_muni_admin_authentication
+    Authentication.find(session[:muni_admin_oauth_id])
+  end
+
+  def current_user_authentication
+    Authentication.find(session[:user_oauth_id])
   end
 
   def sign_out(user)
     if user.is_a? Customer
-        session[:customer_id] = nil
-    elsif user.is_a?  MuniAdmin
-        session[:muni_admin_id] = nil
-    elsif user.is_a?  User
-        session[:user_id] = nil
+      session[:customer_id]       = nil
+      session[:customer_oauth_id] = nil
+    elsif user.is_a? MuniAdmin
+      session[:muni_admin_oauth_id] = nil
+      session[:muni_admin_id]       = nil
+    elsif user.is_a? User
+      session[:user_oauth_id] = nil
+      session[:user_id]       = nil
     else
+      raise ArgumentError.new("sign_our: user")
     end
-    session[:tpauth_id] = nil
   end
 
-
+  #
+  # Programatically signs a user in, and just chooses an arbitrary authentication
+  # if nil.
+  #
   def sign_in(user, oauth = nil)
     if user.is_a? Customer
-      session[:customer_id] = user.id
-    elsif user.is_a?  MuniAdmin
-      session[:muni_admin_id] = user.id
-    elsif user.is_a?  User
-      session[:user_id] = user.id
+      oauth                       ||= user.authentications.first
+      if (oauth.customer != user)
+        raise ArgumentError.new("Authentication does not match user")
+      end
+      session[:customer_oauth_id] = oauth.id
+      session[:customer_id]       = user.id
+    elsif user.is_a? MuniAdmin
+      oauth                         ||= user.authentications.first
+      if (oauth.muni_admin != user)
+        raise ArgumentError.new("Authentication does not match user")
+      end
+      session[:muni_admin_oauth_id] = oauth.id
+      session[:muni_admin_id]       = user.id
+    elsif user.is_a? User
+      oauth                   ||= user.authentications.first
+      if (oauth.user != user)
+        raise ArgumentError.new("Authentication does not match user")
+      end
+      session[:user_oauth_id] = oauth.id
+      session[:user_id]       = user.id
     else
+      raise ArgumentError.new("sign_in: user")
     end
-    oauth ||= user.authentications.first
-    session[:tpauth_id] = oauth.id
   end
 
   helper_method :email_for_intercom, :user_id_for_intercom, :name_for_intercom, :appid_for_intercom,
@@ -233,24 +269,28 @@ class ApplicationController < ActionController::Base
   # administration of a particular master.
   #
   def rescue_master_admin_error_page(boom)
-    @error_site = @master.error_site
-    @error_page = rescue_master_admin_process_error(@error_site, boom)
-    if @error_page
-      render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
+    if @master
+      @error_site = @master.error_site
+      @error_page = rescue_master_admin_process_error(@error_site, boom)
+      if @error_page
+        render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
+      else
+        # We record this error since it is so unexpected
+        page_error = PageError.new({
+                                       :request_url => request.url,
+                                       :params     => params,
+                                       :error      => "rescue_master_admin_error_page: Could not find error page for #{boom}",
+                                       :backtrace  => boom.backtrace,
+                                       :master     => @master,
+                                       :customer   => current_customer,
+                                       :muni_admin => current_muni_admin,
+                                       :user       => current_user
+                                   })
+        page_error.save
+        render "public/500.html", :status => 500
+      end
     else
-      # We record this error since it is so unexpected
-      page_error = PageError.new({
-                                     :request_url => request.url,
-                                     :params     => params,
-                                     :error      => "rescue_master_admin_error_page: Could not find error page for #{boom}",
-                                     :backtrace  => boom.backtrace,
-                                     :master     => @master,
-                                     :customer   => current_customer,
-                                     :muni_admin => current_muni_admin,
-                                     :user       => current_user
-                                 })
-      page_error.save
-      render "public/500.html", :status => 500
+      render "public/404.html", :status => 404
     end
   end
 
@@ -259,25 +299,28 @@ class ApplicationController < ActionController::Base
   # front user facing site of a particular master.
   #
   def rescue_master_error_page(boom)
-    @error_site = @master.error_site
-    @error_in_controller = "#{boom}"
-    @error_page = rescue_master_process_error(@error_site, boom)
-    if @error_page
-      render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
+    if @master
+      @error_site = @master.error_site
+      @error_page = rescue_master_process_error(@error_site, boom)
+      if @error_page
+        render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
+      else
+        # We record this error since it is so unexpected
+        page_error = PageError.new({
+                                       :request_url => request.url,
+                                       :params     => params,
+                                       :error      => "rescue_master_error_page: Could not find error page for #{boom}",
+                                       :backtrace  => boom.backtrace,
+                                       :master     => @master,
+                                       :customer   => current_customer,
+                                       :muni_admin => current_muni_admin,
+                                       :user       => current_user
+                                   })
+        page_error.save
+        render "public/500.html", :status => 500
+      end
     else
-      # We record this error since it is so unexpected
-      page_error = PageError.new({
-                                     :request_url => request.url,
-                                     :params     => params,
-                                     :error      => "rescue_master_error_page: Could not find error page for #{boom}",
-                                     :backtrace  => boom.backtrace,
-                                     :master     => @master,
-                                     :customer   => current_customer,
-                                     :muni_admin => current_muni_admin,
-                                     :user       => current_user
-                                 })
-      page_error.save
-      render "public/500.html", :status => 500
+      render "public/404.html", :status => 404
     end
   end
 

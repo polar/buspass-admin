@@ -2,7 +2,7 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
 
   def new
     get_master_context
-    @authentication = Authentication.find session[:tpauth_id]
+    @authentication = Authentication.find session[:muni_admin_oauth_id]
     if @authentication
       muni_admin = MuniAdmin.find_by_authentication_id(@authentication.id)
       if muni_admin
@@ -23,14 +23,13 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
     authenticate_muni_admin!
 
     @muni_admin = current_muni_admin
+    # Note: This authentication is the new one that the MuniAdmin just created.
+    # we use it as it is the most recent. So, the MuniAdmin switched authentications.
     @authentication = @muni_admin.authentications.find session[:muni_admin_oauth_id]
     if @authentication
       @authentications = @muni_admin.authentications - [@authentication]
       @providers = BuspassAdmin::Application.oauth_providers - @muni_admin.authentications.map {|a| a.provider.to_s }
       @oauth_options = "?tpauth=amend_muni_admin&master_id=#{@master.id}&muni_admin_auth=#{session[:session_id]}&failure_path=#{edit_master_muni_admin_registration_path(@master, @muni_admin)}"
-
-      # We put this in the session in case the user adds an authentication.
-      session[:tpauth] = :amend_muni_admin
     else
       raise NotFoundError
     end
@@ -48,7 +47,7 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
       return
     end
 
-    @authentication = Authentication.find session[:tpauth_id]
+    @authentication = Authentication.find session[:muni_admin_oauth_id]
     if @authentication
       @muni_admin = MuniAdmin.new(params[:muni_admin])
       icode = @muni_admin.auth_code.to_i
@@ -80,9 +79,7 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
   def update
     get_master_context
     authenticate_muni_admin!
-    # We put this in the session in case the user adds an authentication.
-    session[:tpauth] = nil
-    tpauth = Authentication.find session[:tpauth_id]
+    tpauth = Authentication.find session[:muni_admin_oauth_id]
     if tpauth
       @muni_admin = current_muni_admin
       @muni_admin.update_attributes(params[:muni_admin])

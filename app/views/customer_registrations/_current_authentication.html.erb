@@ -1,0 +1,7 @@
+<div class="authentications">
+  <div class="authentication">
+    <%= image_tag "auth/#{@authentication.provider}_32.png", :size => "32x32" %>
+    <div class="provider"><%= @authentication.provider.titleize %></div>
+    <div class="uid"><%= @authentication.uid %></div>
+  </div>
+</div>

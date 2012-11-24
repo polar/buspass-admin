@@ -1,18 +1,13 @@
 class Masters::MuniAdminAuthenticationsController < Masters::MasterBaseController
 
-  def create
-    get_master_context
-    auth = request.env["rack.auth"]
-    current_muni_admin.authentications.find_or_create_by_provider_and_uid(auth['provider'], auth['uid'])
-    flash[:notice] = "Authentication successful."
-    redirect_to edit_master_muni_admin_registration_path(@master, current_muni_admin)
-  end
-
+  # This only gets called from masters/muni_admin_registrations/edit
   def destroy
     get_master_context
     @authentication = current_muni_admin.authentications.find(params[:id])
-    @authentication.destroy
-    flash[:notice] = "Successfully destroyed authentication."
+    if @authentication
+      @authentication.destroy
+      flash[:notice] = "Successfully destroyed authentication."
+    end
     redirect_to edit_master_muni_admin_registration_path(@master, current_muni_admin)
   end
 

@@ -8,6 +8,9 @@ class Masters::MasterBaseController < ApplicationController
       # CSc
       @master.reload
       @site = @master.admin_site
+      if !@master
+        raise NotFoundError.new "Cannot find master."
+      end
     end
 
 end

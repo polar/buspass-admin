@@ -36,7 +36,7 @@ BuspassAdmin::Application.routes.draw do
 
   resource :admin, :only => [:show], :controller => :admin
 
-  resources :customer_authentications
+  resources :customer_authentications, :only => [:destroy]
   resources :customer_registrations,
             :only => [ :new, :edit, :create, :update ]
 
@@ -137,7 +137,7 @@ BuspassAdmin::Application.routes.draw do
               :controller => "masters/muni_admin_registrations"
 
     resources :muni_admin_authentications,
-              :only => [:create, :destroy],
+              :only => [:destroy],
               :controller => "masters/muni_admin_authentications"
 
     resources :user_registrations,
@@ -145,7 +145,7 @@ BuspassAdmin::Application.routes.draw do
               :controller => "masters/user_registrations"
 
     resources :user_authentications,
-              :only => [:create, :destroy],
+              :only => [:destroy],
               :controller => "masters/user_authentications"
 
     resource "sitemap", :controller => "masters/sitemap" do

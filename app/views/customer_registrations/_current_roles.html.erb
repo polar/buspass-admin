@@ -1,0 +1,4 @@
+<% if !@customer.roles_list.empty? %>
+    You have the special privileged roles of :
+    <strong><%= @customer.roles_list.map {|r| r.capitalize}.join(", ")+"." %></strong>
+<% end %>

@@ -151,10 +151,10 @@ class WebsitesController < ApplicationController
     create_master_deployment_page(@master, @deployment)
 
     # Creating the first Network in the first Deployment, which is a courtesy.
-    @network              = Network.new
-    @network.master       = @master
+    @network            = Network.new
+    @network.master     = @master
     @network.deployment = @deployment
-    @network.name         = "Network 1"
+    @network.name       = "Network 1"
     @network.ensure_slug
     @network.save!
     create_master_deployment_network_page(@master, @deployment, @network)
@@ -166,7 +166,7 @@ class WebsitesController < ApplicationController
     else
       # We are going to switch from the Customer site to the Master site
       @customer = current_customer
-      @old_auth = current_authentication
+      @old_auth = current_customer_authentication
       sign_out(current_customer)
       # We have copied over all the authentications to the MuniAdmin
       # We will just say that he is still authenticated with the one from the

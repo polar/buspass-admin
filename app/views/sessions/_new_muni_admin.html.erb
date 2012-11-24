@@ -1,8 +1,2 @@
 <h2>Sign in as Administrator</h2>
-<% for provider in @providers do %>
-    <a href="/auth/<%= "#{provider}#{@options}" %>" class="auth_provider">
-      <%= image_tag "auth/#{provider}_64.png", :size => "64x64", :alt => "#{provider.titleize}" %>
-      <%= provider.titleize %>
-    </a>
-<% end %>
-<div class="clear"></div>
+<%= render :partial => 'sessions/provider_link_list' %>

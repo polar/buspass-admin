@@ -1,0 +1,15 @@
+<% if @authentications && !@authentications.empty? %>
+    <p>You have the following other authentication capabilities</p>
+    <div class="authentications">
+      <% for authentication in @authentications %>
+          <div class="authentication">
+            <%= image_tag "auth/#{authentication.provider}_32.png", :size => "32x32" %>
+            <div class="provider"><%= authentication.provider.titleize %></div>
+            <div class="uid"><%= authentication.uid %></div>
+            <%= button_to "x", customer_authentication_path(authentication),
+                          :method => :delete, :class => "remove btn-link" %>
+          </div>
+      <% end %>
+    </div>
+    <div class="clear" style="clear:both"></div>
+<% end %>

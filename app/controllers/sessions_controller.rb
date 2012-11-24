@@ -10,11 +10,13 @@ class SessionsController < ApplicationController
       return
     end
 
-    # This session variable is set by new_[customer, muni_admin, user, admin]
+    # This parameter variable is set by /edit_[customer, muni_admin, user, admin]
     case params[:tpauth].to_sym
+      # From sessions#new_customer
       when :customer
         if params[:customer_auth] == session[:session_id]
           if Customer.find(session[:customer_id])
+            # We are already signed in for some reason. Out of sync calls by another page. Just amend.
             amend_customer()
           else
             create_customer()
@@ -25,6 +27,7 @@ class SessionsController < ApplicationController
       when :muni_admin
         if params[:muni_admin_auth] == session[:session_id]
           if MuniAdmin.find(session[:muni_admin_id])
+            # We are already signed in for some reason. Out of sync calls by another page. Just amend.
             amend_muni_admin()
           else
             create_muni_admin()
@@ -35,6 +38,7 @@ class SessionsController < ApplicationController
       when :user
         if params[:user_auth] == session[:session_id]
           if User.find(session[:user_id])
+            # We are already signed in for some reason. Out of sync calls by another page. Just amend.
             amend_user()
           else
             create_user()
@@ -47,6 +51,7 @@ class SessionsController < ApplicationController
           if Customer.find(session[:customer_id])
             amend_customer()
           else
+            # Hmm, we are no longer signed in or user has been deleted. Just try to create.
             create_customer()
           end
         else
@@ -57,6 +62,7 @@ class SessionsController < ApplicationController
           if MuniAdmin.find(session[:muni_admin_id])
             amend_muni_admin()
           else
+            # Hmm, we are no longer signed in or user has been deleted. Just try to create.
             create_muni_admin()
           end
         else
@@ -67,6 +73,7 @@ class SessionsController < ApplicationController
           if User.find(session[:user_id])
             amend_user()
           else
+            # Hmm, we are no longer signed in or user has been deleted. Just try to create.
             create_user()
           end
         else
@@ -97,8 +104,7 @@ class SessionsController < ApplicationController
 
   def destroy_customer
     session[:customer_id] = nil
-    sessopm[:customer_oauth_id] = nil
-    session[:tpauth_id] = nil
+    session[:customer_oauth_id] = nil
     redirect_to root_path, :notice => "Signed out!"
   end
 
@@ -111,7 +117,6 @@ class SessionsController < ApplicationController
       redirect_to edit_master_muni_admin_registration_path(current_muni_admin.master, current_muni_admin), :notice => "You are already signed in."
     else
       @providers = BuspassAdmin::Application.oauth_providers
-      session[:tpauth] = :muni_admin
       session[:master_id] = @master.id
       @options = "?tpauth=muni_admin&master_id=#{@master.id}&muni_admin_auth=#{session[:session_id]}&failure_path=#{new_muni_admin_sessions_path(:master_id => @master.id)}"
     end
@@ -119,14 +124,18 @@ class SessionsController < ApplicationController
   end
 
   def destroy_muni_admin
-    get_context
     if current_muni_admin
       master = current_muni_admin.master
       session[:muni_admin_id] = nil
-      session[:tpauth] = nil
       redirect_to master_path(master), :notice => "Signed out!"
     else
-      redirect_to master_path(@master), :notice => "You weren't signed in."
+      get_context
+      if @master
+        redirect_to master_path(@master), :notice => "You weren't signed in."
+      else
+        flash[:notice] = "You signed out, but we don't know where from."
+        render "public/404.html", :status => 404
+      end
     end
   end
 
@@ -139,7 +148,6 @@ class SessionsController < ApplicationController
       redirect_to edit_master_user_registration_path(current_user.master, current_user), :notice => "You are already signed in."
     else
       @providers       = BuspassAdmin::Application.oauth_providers
-      session[:tpauth] = :user
       session[:master_id] = @master.id
       @options = "?tpauth=user&master_id=#{@master.id}&user_auth=#{session[:session_id]}&failure_path=#{new_user_sessions_path(:master_id => @master.id)}"
     end
@@ -147,26 +155,46 @@ class SessionsController < ApplicationController
   end
 
   def destroy_user
-    master              = current_user.master
-    session[:user_id] = nil
-    session[:user_oauth_id] = nil
-    session[:tpauth_id] = nil
-    redirect_to master_path(master), :notice => "Signed out!"
+    if current_user
+      master              = current_user.master
+      session[:user_id] = nil
+      session[:user_oauth_id] = nil
+      redirect_to master_active_path(master), :notice => "Signed out!"
+    else
+      # Attemp to get the master
+      get_context
+      if @master
+        redirect_to master_active_path(master), :notice => "Signed out!"
+      else
+        flash[:notice] = "You signed out, but we don't know where from."
+        render "public/404.html", :status => 404
+      end
+    end
   end
   
   private
 
   #
-  # Called directly from sessions#create
+  # Create a Customer session. There is no current Customer session, or an invalid one.
   #
   def create_customer
+    session[:customer_id] = nil
+    session[:customer_oauth_id] = nil
+
     auth  = request.env["omniauth.auth"]
-    oauth = Authentication.find_by_provider_and_uid_and_master_id(auth["provider"], auth["uid"], nil)
+    # We should only have one of these.
+    oauths = Authentication.where(:provider => auth["provider"],
+                                  :uid => auth["uid"],
+                                  :master_id => nil).order("created_at desc").all
+    oauth = oauths.first
+    oauths.drop(1).each do |oa|
+      logger.error "sessions#create_customer: Removing extra authentications"
+      oa.destroy()
+    end
     if oauth
+      session[:customer_oauth_id] = oauth.id
       cust = oauth.customer
-      session[:tpauth_id] = oauth.id
       if cust != nil
-        session[:customer_oauth_id] = oauth.id
         session[:customer_id] = cust.id
         oauth.last_info = auth["info"]
         oauth.save
@@ -175,40 +203,39 @@ class SessionsController < ApplicationController
         redirect_to new_customer_registration_path, :notice => "Could not find you. Please create an account."
       end
     else
-      session[:tpauth_id] = Authentication.create_with_omniauth(auth).id
+      oauth = Authentication.create_with_omniauth(auth)
+      session[:customer_oauth_id] = oauth.id
       redirect_to new_customer_registration_path, :notice => "Need to create an account."
     end
   end
 
   #
-  # This method gets called after the user wants to add an authentication.
+  # This when we already have a valid customer session.
   #
   def amend_customer
-    session[:tpauth] = nil
     # we should have a current customer.
     cust = current_customer
     if (cust)
       auth  = request.env["omniauth.auth"]
-      oauth = Authentication.find_by_provider_and_uid(auth["provider"], auth["uid"])
+      # We should only have one of these.
+      oauths = Authentication.where(:provider => auth["provider"],
+                                    :uid => auth["uid"],
+                                    :customer_id => cust.id,
+                                    :master => nil).order("created_at desc").all
+      oauth = oauths.first
+      oauths.drop(1).each do |oa|
+        logger.error "sessions#amend_customer: Removing extra authentications"
+        oa.destroy()
+      end
       if oauth
-        if oauth.customer.nil?
-          oauth.customer = cust
-          oauth.save
-          redirect_to edit_customer_registration_path(cust), :notice => "This authentication already exists"
-        elsif cust == oauth.customer
           # Already added
           redirect_to edit_customer_registration_path(cust), :notice => "This authentication already exists"
-        else
-          session[:customer_id] = nil
-          session[:customer_oauth_id] = nil
-          session[:tpauth_id] = nil
-          redirect_to customer_sign_in_path, :notice => "Authentication belongs to another customer!"
-        end
       else
         oauth = Authentication.create_with_omniauth(auth)
         cust.authentications << oauth
         cust.save
-        redirect_to edit_customer_registration_path(cust), :notice => "Authentication failed."
+        # We do not change the current_customer_authentication.
+        redirect_to edit_customer_registration_path(cust), :notice => "Authentication Added."
       end
     else
       redirect_to customer_sign_in_path, :notice => "Need to sign in first."
@@ -220,29 +247,39 @@ class SessionsController < ApplicationController
   # Called directly from sessions#create
   #
   def create_muni_admin
+    session[:muni_admin_id] = nil
+    session[:muni_admin_oauth_id] = nil
+
     auth  = request.env["omniauth.auth"]
 
-    oauth = Authentication.find_by_provider_and_uid_and_master_id(auth["provider"], auth["uid"], @master.id)
+    # We should only have one of these.
+    oauths = Authentication.where(:provider => auth["provider"],
+                                  :uid => auth["uid"],
+                                  :master_id => @master.id).order("created_at desc").all
+    oauth = oauths.first
+    oauths.drop(1).each do |oa|
+      logger.error "sessions#create_muni_admin: Removing extra authentications"
+      oa.destroy()
+    end
     session[:master_id] = @master.id
     if oauth
+      session[:muni_admin_oauth_id] = oauth.id
       muni_admin = oauth.muni_admin
-      session[:tpauth_id] = oauth.id
       if muni_admin != nil
-        session[:muni_admin_oauth_id] = oauth.id
-        session[:muni_admin_id] = muni_admin.id
         oauth.last_info = auth["info"]
         oauth.save
+        session[:muni_admin_id] = muni_admin.id
         redirect_to master_path(muni_admin.master), :notice => "Signed in!"
       else
-        redirect_to new_master_muni_admin_registration_path(:master_id => @master.id),
+        redirect_to new_master_muni_admin_registrations_path(@master),
                     :notice => "Could not find you. Please create an account."
       end
     else
       oauth = Authentication.create_with_omniauth(auth)
       oauth.master = @master
       oauth.save
-      session[:tpauth_id] = oauth.id
-      redirect_to new_master_muni_admin_registration_path(:master_id => @master.id),
+      session[:muni_admin_oauth_id] = oauth.id
+      redirect_to new_master_muni_admin_registrations_path( @master),
                   :notice => "Need to create an account."
     end
   end
@@ -251,39 +288,35 @@ class SessionsController < ApplicationController
   # This method gets called after the user wants to add an authentication.
   #
   def amend_muni_admin
-    session[:tpauth] = nil
-    # we should have a current muni_admin.
+    # we should have a current muni_admin. And we are going to the new authentication if
+    # it is not there already.
     muni_admin = current_muni_admin
     if (muni_admin)
       auth  = request.env["omniauth.auth"]
-      oauth = Authentication.find_by_provider_and_uid(auth["provider"], auth["uid"])
+      oauths = Authentication.where(:provider      => auth["provider"],
+                                    :uid           => auth["uid"],
+                                    :muni_admin_id => muni_admin.id,
+                                    :master_id     => @master.id).order("created_at desc").all
+      oauth = oauths.first
+      oauths.drop(1).each do |oa|
+        logger.error "sessions#amend_muni_admin: Removing extra authentications"
+        oa.destroy()
+      end
       if oauth
-        if oauth.muni_admin.nil?
-          oauth.muni_admin = muni_admin
-          oauth.save
-          redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
-                      :notice => "This authentication has been accepted"
-        elsif muni_admin == oauth.muni_admin
-          # Already added
-          redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
-                      :notice => "This authentication has been accepted"
-        else
-          session[:muni_admin_id] = nil
-          session[:muni_admin_oauth_id] = nil
-          session[:tpauth_id] = nil
-          redirect_to master_muni_admin_sign_in_path(muni_admin),
-                      :notice => "Authentication belongs to another Admin!"
-        end
+        # Already added
+        redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
+                    :notice => "This authentication has already been added."
       else
         oauth = Authentication.create_with_omniauth(auth)
+        oauth.master = @master
         muni_admin.authentications << oauth
         muni_admin.save
         redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
-                    :notice => "Authentication failed."
+                    :error => "Authentication failed."
       end
     else
       redirect_to master_muni_admin_sign_in_path(:master_id => params[:master_id]),
-                  :notice => "Need to sign in first."
+                  :error => "Need to sign in first."
     end
   end
 
@@ -291,20 +324,38 @@ class SessionsController < ApplicationController
   # Called directly from sessions#create
   #
   def create_user
+    session[:user_id] = nil
+    session[:user_oauth_id] = nil
+
     auth = request.env["omniauth.auth"]
 
-    oauth = Authentication.find_by_provider_and_uid_and_master_id(auth["provider"], auth["uid"], @master.id)
+    oauths = Authentication.where(:provider  => auth["provider"],
+                                  :uid       => auth["uid"],
+                                  :master_id => @master.id).order("created_at desc").all
+    oauth  = oauths.first
+    oauths.drop(1).each do |oa|
+      logger.error "sessions#create_user: Removing extra authentications"
+      oa.destroy()
+    end
+
     session[:master_id] = @master.id
     if oauth
       user = oauth.user
-      session[:tpauth_id] = oauth.id
       if user != nil
+        if @master != user.master
+          # This is really bad.
+          logger.error "sessions#create_user: Authentication has mismatched master for user. Removing."
+          oauth.destroy()
+          redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please retry to sign in."
+          return
+        end
         session[:user_oauth_id] = oauth.id
         session[:user_id] = user.id
         oauth.last_info = auth["info"]
         oauth.save
-        redirect_to master_path(user.master), :notice => "Signed in!"
+        redirect_to master_active_path(user.master), :notice => "Signed in!"
       else
+        session[:user_oauth_id] = oauth.id
         redirect_to new_master_user_registration_path(:master_id => @master.id),
                     :notice => "Could not find you. Please create an account."
       end
@@ -312,53 +363,55 @@ class SessionsController < ApplicationController
       oauth = Authentication.create_with_omniauth(auth)
       oauth.master = @master
       oauth.save
-      session[:tpauth_id] = oauth.id
+      session[:user_oauth_id] = oauth.id
       redirect_to new_master_user_registration_path(:master_id => @master.id),
                   :notice => "Need to create an account."
     end
   end
 
   #
-  # This method gets called after the user wants to add an authentication.
+  # We are adding an authentication.
   #
   def amend_user
-    session[:tpauth] = nil
     # we should have a current user.
     user = current_user
     if (user)
       auth  = request.env["omniauth.auth"]
-      oauth = Authentication.find_by_provider_and_uid(auth["provider"], auth["uid"])
+      # We should have at most one of these.
+      oauths = Authentication.where(:provider  => auth["provider"],
+                                    :uid       => auth["uid"],
+                                    :master_id => @master.id,
+                                    :user_id   => user.id).order("create_at desc").all
+      oauth = oauths.first
+      oauths.drop(1).each do |oa|
+        logger.error "sessions#amend_user: Removing extra authentications"
+        oa.destroy()
+      end
       if oauth
-        if oauth.user.nil?
-          oauth.user = user
-          oauth.save
-          redirect_to edit_master_user_registration_path(user.master, user),
-                      :notice => "This authentication has been accepted"
-        elsif user == oauth.user
-          # Already added
-          redirect_to edit_master_user_registration_path(user.master, user),
-                      :notice => "This authentication has been accepted"
-        else
-          session[:user_id] = nil
-          session[:user_oauth_id] = nil
-          session[:tpauth_id] = nil
-          redirect_to master_user_sign_in_path(user),
-                      :notice => "Authentication belongs to another Admin!"
+        if @master != oauth.user.master
+          # This is really bad. Attempt a fix.
+          logger.error "sessions#amend_user: Authentication has mismatched master for user. Removing."
+          oauth.destroy()
         end
+        redirect_to edit_master_user_registration_path(user.master, user),
+                    :notice => "This authentication has already been added."
       else
-        oauth = Authentication.create_with_omniauth(auth)
+        oauth        = Authentication.create_with_omniauth(auth)
+        oauth.master = @master
         user.authentications << oauth
         user.save
         redirect_to edit_master_user_registration_path(user.master, user),
                     :notice => "Authentication failed."
       end
     else
-      redirect_to master_user_sign_in_path(:master_id => params[:master_id]),
+      redirect_to master_user_sign_in_path(@master),
                   :notice => "Need to sign in first."
     end
   end
 
   def get_context
+    #TODO: Fix parsing of :siteslug in face of api.syracuse.busme.us in routes.rb
+    #                          |-------------------^^^^^^^^
     # Ex. http://busme.us/auth/google?master_id=22342342234
     @master_id = params[:master_id]
     @master = Master.find(@master_id)
@@ -369,7 +422,9 @@ class SessionsController < ApplicationController
     end
     if ! @master
       # Ex. http://syracuse.busme.us/auth/google
-      match = /^([a-zA-Z0-9\-\\.]+)\.busme\.us$/.match(request.host)
+      #TODO: Fix parsing of :siteslug in face of api.syracuse.busme.us here
+      basehost_regex =base_host.gsub(".", "\\.")
+      match = /^([a-zA-Z0-9\-\\.]+)\.#{basehost_regex}$/.match(request.host)
       if match
         slug = match[1]
         @master = Master.where(:slug => slug).first
