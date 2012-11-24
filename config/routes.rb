@@ -3,6 +3,7 @@ BuspassAdmin::Application.routes.draw do
   #root :to => "/"
   #
   match "/auth/:provider/callback" => "sessions#create"
+  match "/auth/failure" => "auth#failure"
   match "/:siteslug/auth/:provider/callback" => "sessions#create", :constraints => { :host => "busme.us" }
   match "/masters/:master_id/auth/:provider/callback" => "sessions#create"
 
