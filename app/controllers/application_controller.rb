@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
 
   def current_muni_admin
     @current_muni_admin ||= MuniAdmin.find(session[:muni_admin_id]) if session[:muni_admin_id]
+    @current_muni_admin
   end
 
   def authenticate_muni_admin!
@@ -207,8 +208,7 @@ class ApplicationController < ActionController::Base
   #
   def rescue_main_error_page(boom)
     @error_site = Cms::Site.find_by_identifier("busme-main-error")
-    @error_in_controller = "#{boom}"
-    @error_page = rescue_process_error(@error_site, boom)
+    @error_page = rescue_main_process_error(@error_site, boom)
     if @error_page
       render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
     else
@@ -234,7 +234,7 @@ class ApplicationController < ActionController::Base
   #
   def rescue_master_admin_error_page(boom)
     @error_site = @master.error_site
-    @error_page = rescue_process_error(@error_site, boom)
+    @error_page = rescue_master_admin_process_error(@error_site, boom)
     if @error_page
       render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
     else
@@ -261,7 +261,7 @@ class ApplicationController < ActionController::Base
   def rescue_master_error_page(boom)
     @error_site = @master.error_site
     @error_in_controller = "#{boom}"
-    @error_page = rescue_process_error(@error_site, boom)
+    @error_page = rescue_master_process_error(@error_site, boom)
     if @error_page
       render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
     else
@@ -281,18 +281,30 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def rescue_main_process_error(error_site, boom)
+    rescue_process_error(error_site, "/", boom)
+  end
+
+  def rescue_master_admin_process_error(error_site, boom)
+    rescue_process_error(error_site, "/admins", boom)
+  end
+
+  def rescue_master_process_error(error_site, boom)
+    rescue_process_error(error_site, "/users", boom)
+  end
+  
   #
   # This function finds the correct page according to the exception
   # from the given CMS (error pages) site. We log a PageError if
   # we do not find it, and hopefully te "internal_error" page
   # is there.
   #
-  def rescue_process_error(error_site, boom)
+  def rescue_process_error(error_site, prefix, boom)
     error_page = nil
     if boom.is_a? CanCan::AccessDenied
-        error_page = error_site.pages.find_by_slug("permission_denied")
+        error_page = error_site.pages.find_by_fullpath("/#{prefix}/permission_denied".squeeze("/"))
     elsif boom.is_a? NotFoundError
-        error_page = error_site.pages.find_by_slug("not_found")
+        error_page = error_site.pages.find_by_fullpath("/#{prefix}/not_found".squeeze("/"))
     else
         # We record this error since it is so unexpected
         page_error = PageError.new({
@@ -306,7 +318,7 @@ class ApplicationController < ActionController::Base
                                        :user       => current_user
                                    })
         page_error.save
-        error_page = error_site.pages.find_by_slug("internal_error")
+        error_page = error_site.pages.find_by_fullpath("/#{prefix}/internal_error".squeeze("/"))
     end
     return error_page
   end

@@ -1,0 +1,18 @@
+<h1>We welcome you as a new customer!</h1>
+
+<p>You are currently signed with using</p>
+<div class="authentications">
+  <div class="authentication">
+    <%= image_tag "auth/#{@authentication.provider}_32.png", :size => "32x32" %>
+    <div class="provider"><%= @authentication.provider.titleize %></div>
+    <div class="uid"><%= @authentication.uid %></div>
+  </div>
+  <div class="clear"></div>
+</div>
+<br />
+<br />
+
+<p>Please edit account information and supply an email address and choose a different name if you like:</p>
+
+<%= render 'customer_registrations/form_registration' %>
+<p></p>

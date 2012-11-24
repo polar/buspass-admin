@@ -1,13 +1,3 @@
-<% content_for :left do %>
-    <%=  render :partial => "navigation/signin_nav" %>
-<% end %>
-
-<h2>Sign in as Adminstrator</h2>
-<% master_param = @master ? "?master_id=#{@master.id}" : "" %>
-<% for provider in @providers do %>
-    <a href="/auth/<%= "#{provider}#{master_param}" %>" class="auth_provider">
-      <%= image_tag "auth/#{provider}_64.png", :size => "64x64", :alt => "#{provider.titleize}" %>
-      <%= provider.titleize %>
-    </a>
-<% end %>
-<div class="clear"></div>
+<%=
+    master_admin_render_page("/muni_admin_registrations/sign-in")
+%>

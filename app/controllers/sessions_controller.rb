@@ -1,28 +1,67 @@
 class SessionsController < ApplicationController
-  layout "main-layout"
 
   #
   # This gets called from /auth/:provider/callback
   #
   def create
     get_context
+    if params[:tpauth].nil?
+      redirect_to root_path, :notice => "Invalid Authentication Request."
+      return
+    end
 
     # This session variable is set by new_[customer, muni_admin, user, admin]
-    case session[:tpauth]
+    case params[:tpauth].to_sym
       when :customer
-        create_customer()
+        if params[:customer_auth] == session[:session_id]
+          if Customer.find(session[:customer_id])
+            amend_customer()
+          else
+            create_customer()
+          end
+        end
       when :muni_admin
-        create_muni_admin()
+        if params[:muni_admin_auth] == session[:session_id]
+          if MuniAdmin.find(session[:muni_admin_id])
+            amend_muni_admin()
+          else
+            create_muni_admin()
+          end
+        end
       when :user
-        create_user()
+        if params[:user_auth] == session[:session_id]
+          if User.find(session[:user_id])
+            amend_user()
+          else
+            create_user()
+          end
+        end
       when :amend_customer
-        amend_customer()
+        if params[:customer_auth] == session[:session_id]
+          if Customer.find(session[:customer_id])
+            amend_customer()
+          else
+            create_customer()
+          end
+        end
       when :amend_muni_admin
-        amend_muni_admin()
+        if params[:muni_admin_auth] == session[:session_id]
+          if MuniAdmin.find(session[:muni_admin_id])
+            amend_muni_admin()
+          else
+            create_muni_admin()
+          end
+        end
       when :amend_user
-        amend_user()
+        if params[:user_auth] == session[:session_id]
+          if User.find(session[:user_id])
+            amend_user()
+          else
+            create_user()
+          end
+        end
       else
-        redirect_to root_url, :notice => "Internal Problem. Could not get tpauth."
+        redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
 
     end
     session[:tpauth] = nil
@@ -39,12 +78,14 @@ class SessionsController < ApplicationController
     else
       @providers = BuspassAdmin::Application.oauth_providers
       session[:tpauth] = :customer
+      @options = "?tpauth=customer&customer_auth=#{session[:session_id]}&failure_path=#{root_path}"
       # We will render new_customer and then that will redirect to sessions#create on /auth/;provider/callback
     end
   end
 
   def destroy_customer
     session[:customer_id] = nil
+    sessopm[:customer_oauth_id] = nil
     session[:tpauth_id] = nil
     redirect_to root_path, :notice => "Signed out!"
   end
@@ -60,8 +101,7 @@ class SessionsController < ApplicationController
       @providers = BuspassAdmin::Application.oauth_providers
       session[:tpauth] = :muni_admin
       session[:master_id] = @master.id
-      # We will render new_muni_admin and then that will redirect to sessions#create on /auth/;provider/callback
-      render :layout => "masters/normal-layout"
+      @options = "?tpauth=muni_admin&master_id=#{@master.id}&muni_admin_auth=#{session[:session_id]}&failure_path=#{new_muni_admin_sessions_path(:master_id => @master.id)}"
     end
 
   end
@@ -71,7 +111,7 @@ class SessionsController < ApplicationController
     if current_muni_admin
       master = current_muni_admin.master
       session[:muni_admin_id] = nil
-      session[:tpauth_id] = nil
+      session[:tpauth] = nil
       redirect_to master_path(master), :notice => "Signed out!"
     else
       redirect_to master_path(@master), :notice => "You weren't signed in."
@@ -89,8 +129,7 @@ class SessionsController < ApplicationController
       @providers       = BuspassAdmin::Application.oauth_providers
       session[:tpauth] = :user
       session[:master_id] = @master.id
-      # We will render new_user and then that will redirect to sessions#create on /auth/;provider/callback
-      render :layout => "masters/active/normal-layout"
+      @options = "?tpauth=user&master_id=#{@master.id}&user_auth=#{session[:session_id]}&failure_path=#{new_user_sessions_path(:master_id => @master.id)}"
     end
 
   end
@@ -98,6 +137,7 @@ class SessionsController < ApplicationController
   def destroy_user
     master              = current_user.master
     session[:user_id] = nil
+    session[:user_oauth_id] = nil
     session[:tpauth_id] = nil
     redirect_to master_path(master), :notice => "Signed out!"
   end
@@ -114,6 +154,7 @@ class SessionsController < ApplicationController
       cust = oauth.customer
       session[:tpauth_id] = oauth.id
       if cust != nil
+        session[:customer_oauth_id] = oauth.id
         session[:customer_id] = cust.id
         oauth.last_info = auth["info"]
         oauth.save
@@ -147,6 +188,7 @@ class SessionsController < ApplicationController
           redirect_to edit_customer_registration_path(cust), :notice => "This authentication already exists"
         else
           session[:customer_id] = nil
+          session[:customer_oauth_id] = nil
           session[:tpauth_id] = nil
           redirect_to customer_sign_in_path, :notice => "Authentication belongs to another customer!"
         end
@@ -174,6 +216,7 @@ class SessionsController < ApplicationController
       muni_admin = oauth.muni_admin
       session[:tpauth_id] = oauth.id
       if muni_admin != nil
+        session[:muni_admin_oauth_id] = oauth.id
         session[:muni_admin_id] = muni_admin.id
         oauth.last_info = auth["info"]
         oauth.save
@@ -214,6 +257,7 @@ class SessionsController < ApplicationController
                       :notice => "This authentication has been accepted"
         else
           session[:muni_admin_id] = nil
+          session[:muni_admin_oauth_id] = nil
           session[:tpauth_id] = nil
           redirect_to master_muni_admin_sign_in_path(muni_admin),
                       :notice => "Authentication belongs to another Admin!"
@@ -243,6 +287,7 @@ class SessionsController < ApplicationController
       user = oauth.user
       session[:tpauth_id] = oauth.id
       if user != nil
+        session[:user_oauth_id] = oauth.id
         session[:user_id] = user.id
         oauth.last_info = auth["info"]
         oauth.save
@@ -283,6 +328,7 @@ class SessionsController < ApplicationController
                       :notice => "This authentication has been accepted"
         else
           session[:user_id] = nil
+          session[:user_oauth_id] = nil
           session[:tpauth_id] = nil
           redirect_to master_user_sign_in_path(user),
                       :notice => "Authentication belongs to another Admin!"

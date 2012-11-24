@@ -44,7 +44,7 @@ class VehicleJourneySimulateJob < Struct.new(:simulate_job_id, :find_interval, :
           job.save
         end
       else
-        logger.info("Submitted Job has been removed before exeuction.")
+        logger.info("Submitted Job has been removed before execution.")
       end
     rescue Exception => boom
       job = SimulateJob.find(simulate_job_id)

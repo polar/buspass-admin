@@ -121,6 +121,70 @@ of the layout regardless of where it appears here.
                                    :content    => "{{ cms:bus:render:navigation/websites_nav }}"
                                }])
 
+    customer_registrations = site.pages.create!(
+        :slug              => "customer_registrations",
+        :label             => "Customer Registration Pages",
+        :layout            => normal_layout,
+        :parent            => root,
+        :is_protected      => true,
+        :is_published      => false, # will not show up in menu
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "This page should not be displayed"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
+                               }])
+
+    customer_signin_page = site.pages.create!(
+        :slug              => "sign_in",
+        :label             => "Sign in",
+        :layout            => normal_layout,
+        :parent            => customer_registrations,
+        :is_protected      => true,
+        :is_published      => false, # will not show up in menu
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:render:sessions/new_customer }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
+                               }])
+
+    customer_new = site.pages.create!(
+        :slug              => "new",
+        :label             => "New",
+        :layout            => normal_layout,
+        :parent            => customer_registrations,
+        :is_protected      => true,
+        :is_published      => false, # will not show up in menu
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:render:customer_registrations/new }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
+                               }])
+
+    customer_edit = site.pages.create!(
+        :slug              => "edit",
+        :label             => "Edit",
+        :layout            => normal_layout,
+        :parent            => customer_registrations,
+        :is_protected      => true,
+        :is_published      => false, # will not show up in menu
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:render:customer_registrations/edit }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
+                               }])
+
     new_site      = site.pages.create!(
         :slug              => "new-website",
         :label             => "New Site",
@@ -211,7 +275,7 @@ of the layout regardless of where it appears here.
         :controller_path   => "/cms-admin")
 
     pages_import_export = site.pages.create!(
-        :slug            => "pages",
+        :slug            => "import-export",
         :label           => "Import/Export",
         :layout          => normal_layout,
         :parent          => pages_admin,

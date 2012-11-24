@@ -9,6 +9,8 @@ class User
   key :name, String
   key :email, String
 
+  timestamps!
+
   belongs_to :master
   many :authentications, :dependent => :destroy
 

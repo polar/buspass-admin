@@ -1,7 +1,5 @@
 class CustomerRegistrationsController < ApplicationController
 
-  layout "main-layout"
-
   def new
     @authentication = Authentication.find session[:tpauth_id]
     if @authentication
@@ -21,14 +19,27 @@ class CustomerRegistrationsController < ApplicationController
 
   def edit
     authenticate_customer!
+    @customer = Customer.find(params[:id])
 
-    @customer = current_customer
-    @authentication = @customer.authentications.find session[:tpauth_id]
-    @authentications = @customer.authentications - [@authentication]
-    @providers = BuspassAdmin::Application.oauth_providers - @customer.authentications.map {|a| a.provider.to_s }
+    if @customer != current_customer
+      flash[:error] = "Customer mismatch. Please logout and log back in."
+      redirect :new
+      return
+    end
+    @authentication = @customer.authentications.find session[:customer_oauth_id]
+    if @authentication
+      @authentications = @customer.authentications - [@authentication]
+      @providers = BuspassAdmin::Application.oauth_providers - @customer.authentications.map {|a| a.provider.to_s }
+      @oauth_options = "?tpauth=amend_customer&customer_auth=#{session[:session_id]}&failure_path=#{edit_customer_path}"
 
-    # We put this in the session in case the user adds an authentication.
-    session[:tpauth] = :amend_customer
+      # We put this in the session in case the user adds an authentication.
+      session[:tpauth] = :amend_customer
+      render
+    else
+      sign_out(current_customer)
+      redirect_to customer_sign_in_path, :notice => "You need to authenticate."
+    end
+
   end
 
   #

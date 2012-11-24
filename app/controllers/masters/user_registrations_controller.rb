@@ -1,6 +1,5 @@
 class Masters::UserRegistrationsController < Masters::MasterBaseController
 
-
   def new
     get_master_context
     @authentication = Authentication.find session[:tpauth_id]
@@ -13,8 +12,6 @@ class Masters::UserRegistrationsController < Masters::MasterBaseController
         @user.name = @authentication.name
         @user.email = @authentication.last_info["email"]
         @user.master = @master
-        # render form that posts to create_registration
-        render :layout => "masters/active/normal-layout"
       end
     else
       redirect_to user_sign_in_path(:master_id => @master.id), :notice => "You need to authenticate first."
@@ -29,10 +26,11 @@ class Masters::UserRegistrationsController < Masters::MasterBaseController
     @authentication = @user.authentications.find session[:tpauth_id]
     @authentications = @user.authentications - [@authentication]
     @providers = BuspassAdmin::Application.oauth_providers - @user.authentications.map {|a| a.provider.to_s }
+    @oauth_options = "?tpauth=amend_user&master_id=#{@master.id}&user_auth=#{session[:session_id]}&failure_path=#{edit_master_user_registration_path(@master, @user)}"
+
 
     # We put this in the session in case the user adds an authentication.
     session[:tpauth] = :amend_user
-    render :layout => "masters/active/normal-layout"
   end
 
   #

@@ -241,17 +241,33 @@ of the layout regardless of where it appears here.
                                    :content => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
 
-    muni_admins_edit = site.pages.create!(
-        :slug              => "edit",
-        :label             => "Edit",
+    muni_admins_registrations = site.pages.create!(
+        :slug              => "muni_admin_registrations",
+        :label             => "Administrator Registrations",
         :layout            => normal_layout,
-        :parent            => muni_admins,
+        :parent            => root,
         :is_protected      => true,
-        :is_published      => false, # Won't go into menu
-        :controller_path   => "/masters/:master_id/muni_admin_registrations/:muni_admin_id/edit",
+        :is_published      => false, # won't show up in menu
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:render:masters/muni_admin_registrations/edit }}"
+                                   :content => "This page is not meant to be displayed"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
+    muni_admins_signin = site.pages.create!(
+        :slug              => "sign-in",
+        :label             => "Sign In",
+        :layout            => normal_layout,
+        :parent            => muni_admins_registrations,
+        :is_protected      => true,
+        :is_published      => false, # Won't go into menu
+        :controller_path   => "/masters/:master_id/user_sign_in",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:sessions/new_muni_admin }}"
                                },
                                {
                                    :identifier => "left",
@@ -262,13 +278,30 @@ of the layout regardless of where it appears here.
         :slug              => "new",
         :label             => "New",
         :layout            => normal_layout,
-        :parent            => muni_admins,
+        :parent            => muni_admins_registrations,
         :is_protected      => true,
         :is_published      => false, # Won't go into menu
         :controller_path   => "/masters/:master_id/muni_admin_registrations/new",
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content => "{{ cms:bus:render:masters/muni_admin_registrations/new }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
+    muni_admins_edit = site.pages.create!(
+        :slug              => "edit",
+        :label             => "Edit",
+        :layout            => normal_layout,
+        :parent            => muni_admins_registrations,
+        :is_protected      => true,
+        :is_published      => false, # Won't go into menu
+        :controller_path   => "/masters/:master_id/muni_admin_registrations/:muni_admin_id/edit",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:masters/muni_admin_registrations/edit }}"
                                },
                                {
                                    :identifier => "left",

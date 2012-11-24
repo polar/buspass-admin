@@ -90,7 +90,7 @@ of the layout regardless of where it appears here.
                                }])
 
     user_sign_in = site.pages.create!(
-        :slug              => "sign-in",
+        :slug              => "user-sign-in",
         :label             => "Sign In",
         :layout            => normal_layout,
         :is_protected      => true,
@@ -98,11 +98,61 @@ of the layout regardless of where it appears here.
         :controller_path   => "/masters/:master_id/user_sign_in",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content    => "{{ cms:bus:render:masters/user_registrations/edit }}"
+                                   :content    => "{{ cms:bus:render:sessions/new_user }}"
                                },
                                {
                                    :identifier => "left",
                                    :content    => "{{ cms:bus:render:navigation/main_nav }}"
+                               }])
+
+    user_registrations = site.pages.create!(
+        :slug              => "user_registrations",
+        :label             => "User Registrations",
+        :layout            => normal_layout,
+        :parent            => root,
+        :is_protected      => true,
+        :is_published      => false, # Won't go into menu
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "This page is not meant to be displayed}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/main_nav }}"
+                               }])
+
+    user_new = site.pages.create!(
+        :slug              => "new",
+        :label             => "New User",
+        :layout            => normal_layout,
+        :parent            => user_registrations,
+        :is_protected      => true,
+        :is_published      => false, # Won't go into menu
+        :controller_path   => "/masters/:master_id/user_registrations/new",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:masters/user_registrations/new }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/main_nav }}"
+                               }])
+
+    user_edit = site.pages.create!(
+        :slug              => "edit",
+        :label             => "Edit User",
+        :layout            => normal_layout,
+        :parent            => user_registrations,
+        :is_protected      => true,
+        :is_published      => false, # Won't go into menu
+        :controller_path   => "/masters/:master_id/user_registrations/:user_id/edit",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content => "{{ cms:bus:render:masters/user_registrations/edit }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
 
     downloads = site.pages.create!(

@@ -1,5 +1,4 @@
 class Masters::ActiveController < ApplicationController
-  layout "empty"
 
   def show
     get_context
@@ -232,10 +231,6 @@ class Masters::ActiveController < ApplicationController
     @master ||= Master.find(params[:master_id])
     @activement ||= Activement.where(:master_id => params[:master_id]).first
     @deployment = @activement.deployment if @activement
-  end
-
-  def authorize_muni_admin!(action, obj)
-    raise CanCan::AccessDenied if muni_admin_cannot?(action, obj)
   end
 
 end

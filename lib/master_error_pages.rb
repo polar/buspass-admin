@@ -73,6 +73,19 @@ of the layout regardless of where it appears here.
                                    :identifier => "left",
                                    :content    => "{{ cms:bus:render:navigation/admin_nav }}"
                                }])
+    admins = site.pages.create!(
+        :slug              => "admin",
+        :label             => "Admin Error Pages",
+        :layout            => normal_layout,
+        :is_protected      => true,
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "The is the root page for standard errors. This page will never be displayed."
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
 
     notfound = site.pages.create!(
         :slug              => "not_found",
@@ -80,7 +93,7 @@ of the layout regardless of where it appears here.
         :layout            => normal_layout,
         :is_protected      => true,
         :error_status      => 404,
-        :parent => root,
+        :parent            => admins,
         :blocks_attributes => [{
                                    :identifier => "content",
                                    :content    => "The page you were looking for doesn't exist"
@@ -96,7 +109,7 @@ of the layout regardless of where it appears here.
         :label             => "Permission Denied",
         :layout            => normal_layout,
         :is_protected      => true,
-        :parent => root,
+        :parent            => admins,
         :error_status      => 403,
         :blocks_attributes => [{
                                    :identifier => "content",
@@ -112,7 +125,7 @@ of the layout regardless of where it appears here.
         :label             => "Internal Error",
         :layout            => normal_layout,
         :is_protected      => true,
-        :parent            => root,
+        :parent            => admins,
         :error_status      => 500,
         :blocks_attributes => [{
                                    :identifier => "content",
@@ -121,6 +134,71 @@ of the layout regardless of where it appears here.
                                {
                                    :identifier => "left",
                                    :content    => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
+    users = site.pages.create!(
+        :slug              => "users",
+        :label             => "User Error Pages",
+        :layout            => normal_layout,
+        :is_protected      => true,
+        :parent            => root,
+        :error_status      => 500,
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "These are the standard error pages. This page is not meant to be displayed."
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
+    notfound = site.pages.create!(
+        :slug              => "not_found",
+        :label             => "Page Not Found",
+        :layout            => normal_layout,
+        :is_protected      => true,
+        :error_status      => 404,
+        :parent            => users,
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "The page you were looking for doesn't exist"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
+                               }])
+
+
+    permission = site.pages.create!(
+        :slug              => "permission_denied",
+        :label             => "Permission Denied",
+        :layout            => normal_layout,
+        :is_protected      => true,
+        :parent            => users,
+        :error_status      => 403,
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "You are not allowed to access the requested page"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
+                               }])
+
+    internal = site.pages.create!(
+        :slug              => "internal_error",
+        :label             => "Internal Error",
+        :layout            => normal_layout,
+        :is_protected      => true,
+        :parent            => users,
+        :error_status      => 500,
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "We have experienced an internal error. Our staff has been notified."
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/main_nav }}"
                                }])
   end
 
