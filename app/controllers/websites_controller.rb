@@ -13,10 +13,10 @@ class WebsitesController < ApplicationController
         when "read" then
           Master.readable_by(current_customer)
         else
-          Master.all()
+          Activement.all.map {|a| a.master }
       end
     else
-      @masters = Master.all
+      @masters = Activement.all.map { |a| a.master }
     end
   end
 

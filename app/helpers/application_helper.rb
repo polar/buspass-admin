@@ -139,17 +139,9 @@ module ApplicationHelper
   # busme site (i.e. websites and customer managment).
   #
   def main_render_page(path)
-    if @error_page
-      @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
-    else
-      if @error_in_controller
-        render :text => I18n.t('cms.content.page_not_found'), :status => 404
-      else
-        @site = Cms::Site.find_by_identifier("busme-main")
-        @error_site = Cms::Site.find_by_identifier("busme-main-error")
-        render_page(@site, @error_site, path)
-      end
-    end
+    @site = Cms::Site.find_by_identifier("busme-main")
+    @error_site = Cms::Site.find_by_identifier("busme-main-error")
+    render_page(@site, @error_site, path)
   end
 
   ##
@@ -157,16 +149,11 @@ module ApplicationHelper
   # of a particular master.
   #
   def master_admin_render_page(path)
-    if @error_page
-      @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
-    else
-      if @error_in_controller
-        render :text => I18n.t('cms.content.page_not_found'), :status => 404
-      else
-        @site = @master.admin_site
-        @error_site = @master.error_site
-        render_page(@site, @error_site, path)
-      end
+    puts "Start render page"
+    @site = @master.admin_site
+    @error_site = @master.error_site
+    render_page(@site, @error_site, path).tap do
+      puts "End Render Page"
     end
   end
 
@@ -175,16 +162,26 @@ module ApplicationHelper
   # of a particular master.
   #
   def master_render_page(path)
-    if @error_page
-      @error_page.render(self, :status => @error_page.error_status, :content_type => "text/html")
-    else
-      if @error_in_controller
-        render :text => I18n.t('cms.content.page_not_found'), :status => 404
-      else
-        @site = @master.main_site
-        @error_site = @master.error_site
-        render_page(@site, @error_site, path)
-      end
+    @site = @master.main_site
+    @error_site = @master.error_site
+    render_page(@site, @error_site, path)
+  end
+
+  def conditional_stylesheet_link_tag(*sources)
+    puts "conditional_stylesheet_link_tag #{sources.inspect}"
+    options = sources.extract_options!
+    sources.delete_if do |source|
+      Dir.glob(File.join(Rails.root, "app", "assets", "stylesheets", "#{source}.css*")).empty? && Dir.glob(File.join(Rails.root, "public", "assets", "#{source}.css*")).empty?
     end
+    stylesheet_link_tag(*(sources + [options])) if !sources.empty?
+  end
+
+  def conditional_javascript_include_tag(*sources)
+    puts "conditional_javascript_include_tag #{sources.inspect}"
+    options = sources.extract_options!
+    sources.delete_if do |source|
+      Dir.glob(File.join(Rails.root, "app", "assets", "javascripts", "#{source}.js*")).empty? && Dir.glob(File.join(Rails.root, "public", "assets", "#{source}.js*")).empty?
+    end
+    javascript_include_tag(*(sources + [options])) if !sources.empty?
   end
 end

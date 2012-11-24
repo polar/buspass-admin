@@ -21,7 +21,7 @@ class SuperRolePermit < CanTango::RolePermit
       user.master == testament.master if user.is_a? MuniAdmin
     end
     can([:read], Deployment) do |deployment|
-      master == deployment.master if user.is_a? MuniAdmin
+      user.master == deployment.master if user.is_a? MuniAdmin
     end
     can([:edit, :delete, :deploy], Deployment) do |deployment|
       !deployment.is_active? && user.master == deployment.master if user.is_a? MuniAdmin

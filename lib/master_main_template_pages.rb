@@ -8,7 +8,7 @@ module PageUtils
         :path       => "main",
         :identifier => "busme-main-template",
         :label      => "Master Main Pages Template",
-        :hostname   => "busme.us",
+        :hostname   => "#{Rails.application.base_host}",
         :protected  => true
     )
 

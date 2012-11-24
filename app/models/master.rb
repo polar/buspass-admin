@@ -15,6 +15,11 @@ class Master
   key :max_workers, Integer, :default => 3
   key :date_format, String, :default => "%Y-%m-%d"
 
+  key :base_host, :default => Rails.application.base_host
+  key :admin_host
+  key :main_host
+  key :api_host
+
   # This will be used if we shard the Master off to its own Database.
   key :dbname, String #, :unique => true, :allow_nil => true
 
@@ -116,7 +121,18 @@ class Master
   end
 
   def ensure_slug
-    self.slug = self.name.to_url() if !self.slug
+    self.slug       ||= self.name.to_url()
+    self.base_host  ||= Rails.application.base_host
+    self.admin_host ||= "#{self.slug}.#{self.base_host}"
+    self.main_host  ||= "#{self.slug}.#{self.base_host}"
+    self.api_host   ||= "#{self.slug}.#{self.base_host}"
+  end
+
+  def assign_base_host(bhost)
+    self.base_host  = bhost
+    self.admin_host = "#{self.slug}.#{self.base_host}"
+    self.main_host  = "#{self.slug}.#{self.base_host}"
+    self.api_host   = "#{self.slug}.#{self.base_host}"
   end
 
   before_destroy :destroy_related

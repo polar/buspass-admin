@@ -4,6 +4,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
   def index
     get_master_context
     authenticate_muni_admin!
+    authorize_muni_admin!(:read, Deployment)
     @deployments = Deployment.where(:master_id => @master.id).all
   end
 
@@ -11,6 +12,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
     get_master_context
     authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
+    authorize_muni_admin!(:read, @deployment)
     @show_actions = !@deployment.is_active? && muni_admin_can?(:edit, @deployment)
     @status = []
     if @deployment.is_active?
@@ -34,13 +36,14 @@ class Masters::DeploymentsController < Masters::MasterBaseController
     get_master_context
     authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
-    authorize_muni_admin!(:create, @deployment)
+    authorize_muni_admin!(:edit, @deployment)
   end
 
   MUNICIPALITY_UPDATE_ALLOWED_ATTRIBUTES = [ :name, :note ]
 
   def create
     get_master_context
+    authenticate_muni_admin!
     authorize_muni_admin!(:create, Deployment)
 
     muni_attributes = params[:deployment].slice(*MUNICIPALITY_UPDATE_ALLOWED_ATTRIBUTES)
@@ -70,6 +73,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
 
   def update
     get_master_context
+    authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:edit, @deployment)
 
@@ -107,6 +111,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
 
   def check
     get_master_context
+    authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:read, @deployment)
     @status = @deployment.activement_check
@@ -123,6 +128,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
 
   def destroy
     get_master_context
+    authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:delete, @deployment)
     @deployment.destroy
@@ -131,6 +137,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
 
   def map
     get_master_context
+    authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:read, @deployment)
     @routes = @deployment.routes
@@ -139,6 +146,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
 
   def deploy
     get_master_context
+    authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:deploy, @deployment)
     @status = []
@@ -160,7 +168,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
       @activement.deployment = @deployment
       if @activement.save
         flash[:notice] = "Deployment successfully submitted for activation. You need to explicitly start it."
-        redirect_to master_path(@master)
+        redirect_to admin_master_active_path(@master)
       else
         flash[:error] = "Could not activate deployment"
         render :show
@@ -189,12 +197,15 @@ class Masters::DeploymentsController < Masters::MasterBaseController
 
   def map
     get_master_context
+    authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
+    authorize_muni_admin!(:read, @deployment)
     @networks = @deployment.networks
   end
 
   def api
     get_master_context
+    authenticate_muni_admin!
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:read, @deployment)
     @api = {

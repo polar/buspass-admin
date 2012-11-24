@@ -4,7 +4,6 @@
         var debug = false;
         var runStatusView;
         $(function () {
-            $("body").layout({ applyDefaultStyles:true });
             runStatusView = new BusPass.RunStatusView();
             runStatusView.statusView("#processing_status", {
                 updateUrl : "<%= @updateUrl %>",

@@ -31,6 +31,10 @@ module BuspassAdmin
       @@base_host
     end
 
+    def base_host
+      @@base_host
+    end
+
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
       g.view_specs false

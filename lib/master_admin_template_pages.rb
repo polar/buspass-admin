@@ -8,7 +8,7 @@ module PageUtils
         :path       => "admin",
         :identifier => "busme-admin-template",
         :label      => "Master Administration Pages Template",
-        :hostname   => "busme.us",
+        :hostname   => "#{Rails.application.base_host}",
         :protected  => true
     )
     layout_content = "<!--

@@ -1,5 +1,7 @@
 class MastersController < ApplicationController
 
+  rescue_from Exception, :with => :rescue_master_admin_error_page
+
   def activement
     @master = Master.find(params[:id])
     if @master
@@ -61,7 +63,7 @@ class MastersController < ApplicationController
     # submits to update
   end
 
-  MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone]
+  MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :slug, :longitude, :latitude, :timezone]
 
   def update
     @master = Master.find(params[:id])
@@ -80,13 +82,16 @@ class MastersController < ApplicationController
       error         = true
     else
       slug_was = @master.slug
+      name_was = @master.name
       success = @master.update_attributes(master_attributes)
       if success
-        if slug_was != @master.slug
+        if slug_was != @master.slug  || name_was != @master.name
+          @master.assign_base_host(@master.base_host)
+          @master.save
           @master.admin_site.update_attributes(
               :identifier => "#{@master.slug}-admin",
               :label      => "#{@master.name} Administration Pages",
-              :hostname   => "#{@master.slug}.#{base_host}"
+              :hostname   => "#{@master.admin_host}"
           )
           @master.admin_site.pages.root.update_attributes(
               :label => "#{@master.name} Information"
@@ -94,10 +99,18 @@ class MastersController < ApplicationController
           @master.main_site.update_attributes(
               :identifier => "#{@master.slug}-main",
               :label      => "#{@master.name} Active Deployment Pages",
-              :hostname   => "#{@master.slug}.#{base_host}"
+              :hostname   => "#{@master.main_host}"
           )
           @master.main_site.pages.root.update_attributes(
-              :label => "#{@master.name} Main Page"
+              :label => "#{@master.name}"
+          )
+          @master.error_site.update_attributes(
+              :identifier => "#{@master.slug}-error",
+              :label      => "#{@master.name} Error Page Set",
+              :hostname   => "errors.#{@master.admin_host}"
+          )
+          @master.error_site.pages.root.update_attributes(
+              :label => "#{@master.name} Error Pages"
           )
         end
 

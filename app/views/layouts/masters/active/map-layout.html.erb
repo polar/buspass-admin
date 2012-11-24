@@ -12,10 +12,10 @@
   <%= javascript_include_tag "normal-layout", :debug => true %>
   <%= stylesheet_link_tag "webmap" %>
   <%= javascript_include_tag "webmap" %>
-  <%= stylesheet_link_tag "#{controller_path}" %>
-  <%= javascript_include_tag "#{controller_path}" %>
-  <%= stylesheet_link_tag "#{controller_path}/#{params[:action]}" %>
-  <%= javascript_include_tag "#{controller_path}/#{params[:action]}" %>
+  <%= conditional_stylesheet_link_tag "#{controller_path}" %>
+  <%= conditional_javascript_include_tag "#{controller_path}" %>
+  <%= conditional_stylesheet_link_tag "#{controller_path}/#{@render_action || params[:action]}" %>
+  <%= conditional_javascript_include_tag "#{controller_path}/#{@render_action || params[:action]}" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript">
       // This displays the flash messages.
@@ -32,6 +32,7 @@
   <%= yield :head %>
 </head>
 <body class="<%= params[:controller] %>">
+<div id="ui-layout-container">
     <div class="ui-layout-north">
       <header>
         <nav>
@@ -60,6 +61,7 @@
       <span class="pull-left">(C) 2009-2012. All Rights Reserved by Adiron, LLC</span>
       <span class="pull-right">Thanks to <a href="http://openstreetmap.org">Open Street Maps</a></span>
     </div>
+</div>
     <%
        # Twitter Bootstrap and Layout Center do not play well together
        # Twitter needs modals within "container" class outside of the "ui-layout-center". %>

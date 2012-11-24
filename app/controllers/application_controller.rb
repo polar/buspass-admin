@@ -199,63 +199,85 @@ class ApplicationController < ActionController::Base
   # If the controller experiences an exception before it renders the
   # template, we rescue the error with one of the following functions
   # depending on the context.
-  # The way our CMS works, the page must be rendered within a template.
-  # However at this point, we don't have one, since it was the controller
-  # that raised the error before it handed it off to the render.
-  #
-  # To rectify, we assign @error_page with the proper page for the error
-  # then we render the intended template, and our render function will
-  # pick that up and render the specfied CMS page.
   #
 
-  #
+  ##
   # This rescue function is for the context of a controller handing the
-  # main busme.us site. (i.e. website and cutomer managment.)
+  # main busme.us site. (i.e. website and customer management.)
   #
-  def rescue_with_main_error_page(boom)
+  def rescue_main_error_page(boom)
     @error_site = Cms::Site.find_by_identifier("busme-main-error")
     @error_in_controller = "#{boom}"
     @error_page = rescue_process_error(@error_site, boom)
-    # Render function inside the template will render @error_page (we hope)
-    # if we couldn't find an error page, then we render a standard error page
     if @error_page
-      render
+      render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
     else
-      render :status => 500
+      # We record this error since it is so unexpected
+      page_error = PageError.new({
+                                     :request_url => request.url,
+                                     :params     => params,
+                                     :error      => "rescue_with_main_error_page: Could not find error page for #{boom}",
+                                     :backtrace  => boom.backtrace,
+                                     :master     => @master,
+                                     :customer   => current_customer,
+                                     :muni_admin => current_muni_admin,
+                                     :user       => current_user
+                                 })
+      page_error.save
+      render "public/500.html", :status => 500
     end
   end
 
-  #
+  ##
   # This rescue handler is for the context of a controller handing the
   # administration of a particular master.
   #
   def rescue_master_admin_error_page(boom)
     @error_site = @master.error_site
-    @error_in_controller = "#{boom}"
     @error_page = rescue_process_error(@error_site, boom)
-    # if there is an error in the controller and we do not have a "render_master_admin_page"
-    # in the template, we are screwed.
-    # if we couldn't find an error page, then we render a standard error page
     if @error_page
-      render
+      render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
     else
-      render :status => 500
+      # We record this error since it is so unexpected
+      page_error = PageError.new({
+                                     :request_url => request.url,
+                                     :params     => params,
+                                     :error      => "rescue_master_admin_error_page: Could not find error page for #{boom}",
+                                     :backtrace  => boom.backtrace,
+                                     :master     => @master,
+                                     :customer   => current_customer,
+                                     :muni_admin => current_muni_admin,
+                                     :user       => current_user
+                                 })
+      page_error.save
+      render "public/500.html", :status => 500
     end
   end
 
-  #
-  # This resuce handler is for the context of a controller handling the
+  ##
+  # This rescue handler is for the context of a controller handling the
   # front user facing site of a particular master.
   #
   def rescue_master_error_page(boom)
     @error_site = @master.error_site
     @error_in_controller = "#{boom}"
     @error_page = rescue_process_error(@error_site, boom)
-    # if we couldn't find an error page, then we render a standard error page
     if @error_page
-      render
+      render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
     else
-      render :status => 500
+      # We record this error since it is so unexpected
+      page_error = PageError.new({
+                                     :request_url => request.url,
+                                     :params     => params,
+                                     :error      => "rescue_master_error_page: Could not find error page for #{boom}",
+                                     :backtrace  => boom.backtrace,
+                                     :master     => @master,
+                                     :customer   => current_customer,
+                                     :muni_admin => current_muni_admin,
+                                     :user       => current_user
+                                 })
+      page_error.save
+      render "public/500.html", :status => 500
     end
   end
 

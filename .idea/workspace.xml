@@ -6,24 +6,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_alternate_authentications.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_authentications.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_current_authentication.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_current_roles.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_edit.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_new.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_other_authentications.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/application_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admin_auth_codes_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admin_auth_codes_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/muni_admin_registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/muni_admin_registrations_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/websites_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/helpers/application_helper.rb" afterPath="$PROJECT_DIR$/app/helpers/application_helper.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/cms/page.rb" afterPath="$PROJECT_DIR$/app/models/cms/page.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/cms/site.rb" afterPath="$PROJECT_DIR$/app/models/cms/site.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/master.rb" afterPath="$PROJECT_DIR$/app/models/master.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/muni_admin.rb" afterPath="$PROJECT_DIR$/app/models/muni_admin.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/edit.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/new.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/muni_admins/destroy_confirm.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/muni_admins/destroy_confirm.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/permits/super_role_permit.rb" afterPath="$PROJECT_DIR$/app/permits/super_role_permit.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/cms_admin/sites/index.html.erb" afterPath="$PROJECT_DIR$/app/views/cms_admin/sites/index.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/active/map-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/active/map-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/active/normal-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/active/normal-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/active/_admin_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/active/_admin_script.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/admin/_show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/admin/_show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/admin/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/admin/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_admin_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_admin_items.html.builder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_main_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_main_items.html.builder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_websites_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_websites_items.html.builder" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/application.rb" afterPath="$PROJECT_DIR$/config/application.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/main_error_pages.rb" afterPath="$PROJECT_DIR$/lib/main_error_pages.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_error_pages.rb" afterPath="$PROJECT_DIR$/lib/master_error_pages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/master_main_template_pages.rb" afterPath="$PROJECT_DIR$/lib/master_main_template_pages.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/page_utils.rb" afterPath="$PROJECT_DIR$/lib/page_utils.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/websites_pages.rb" afterPath="$PROJECT_DIR$/lib/websites_pages.rb" />
     </list>
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
@@ -55,10 +67,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="edit.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admin_registrations/edit.html.erb">
+      <file leaf-file-name="_admin_script.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_admin_script.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="56" selection-start="66" selection-end="66" vertical-scroll-proportion="-3.75">
+            <state line="6" column="73" selection-start="198" selection-end="198" vertical-scroll-proportion="-3.75">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_map_script.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="23" selection-start="141" selection-end="141" vertical-scroll-proportion="-3.125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="websites_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/websites_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="0" selection-start="432" selection-end="432" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="super_role_permit.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/permits/super_role_permit.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="11" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -67,79 +106,52 @@
       <file leaf-file-name="master.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/master.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="0" selection-start="1026" selection-end="1026" vertical-scroll-proportion="0.0">
+            <state line="27" column="18" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="persistence.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo_mapper-0.11.2/lib/mongo_mapper/plugins/persistence.rb">
+      <file leaf-file-name="masters_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="0" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0">
+            <state line="108" column="74" selection-start="3712" selection-end="3712" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="db.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo-1.7.0/lib/mongo/db.rb">
+      <file leaf-file-name="deployments_controller.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="320" column="0" selection-start="11546" selection-end="11546" vertical-scroll-proportion="0.0">
+            <state line="45" column="28" selection-start="1162" selection-end="1162" vertical-scroll-proportion="1.1904762">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="collection.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo-1.7.0/lib/mongo/collection.rb">
+      <file leaf-file-name="master_base_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/master_base_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="451" column="0" selection-start="19919" selection-end="19919" vertical-scroll-proportion="0.0">
+            <state line="4" column="8" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="muni_admin_registrations_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admin_registrations_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="8" selection-start="2272" selection-end="2272" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sessions_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="56" selection-start="2379" selection-end="2379" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="destroy_confirm.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins/destroy_confirm.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="25" selection-start="636" selection-end="636" vertical-scroll-proportion="-10.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="application_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="239" column="0" selection-start="7254" selection-end="7254" vertical-scroll-proportion="0.33214286">
+            <state line="291" column="0" selection-start="9770" selection-end="9770" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="muni_admin_auth_codes_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admin_auth_codes_controller.rb">
+      <file leaf-file-name="_links.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/_links.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="16" selection-start="538" selection-end="538" vertical-scroll-proportion="0.0">
+            <state line="7" column="0" selection-start="319" selection-end="319" vertical-scroll-proportion="-4.375">
               <folding />
             </state>
           </provider>
@@ -162,26 +174,29 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/models/muni_admin_auth_code.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_form_registration.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/websites/_table_my_index.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/cms_admin/sites/index.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/admin/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/admin/_show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_admin_items.html.builder" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_main_items.html.builder" />
+        <option value="$PROJECT_DIR$/app/views/navigation/_websites_items.html.builder" />
+        <option value="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/masters/active/normal-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/layouts/masters/active/map-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_admin_script.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_edit.html.erb" />
-        <option value="$PROJECT_DIR$/lib/master_admin_template_pages.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/_new.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/new.html.erb" />
-        <option value="$PROJECT_DIR$/app/models/muni_admin.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/muni_admin_registrations/edit.html.erb" />
-        <option value="$PROJECT_DIR$/app/models/master.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/muni_admin_registrations_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/muni_admins/destroy_confirm.html.erb" />
+        <option value="$PROJECT_DIR$/app/permits/super_role_permit.rb" />
         <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/muni_admin_auth_codes_controller.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/deployments_controller.rb" />
       </list>
     </option>
   </component>
@@ -246,16 +261,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -451,6 +456,62 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="mongo_mapper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mongo_mapper (v0.11.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mongo_mapper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mongo_mapper (v0.11.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mongo_mapper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="associations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -684,6 +745,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="actionpack (v3.2.7, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="buspass.admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -726,7 +805,89 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="initializers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="environments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -768,6 +929,34 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="masters" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -1797,7 +1986,11 @@
       <created>1353604962284</created>
       <updated>1353604962284</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="Progress.">
+      <created>1353619048439</created>
+      <updated>1353619048439</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="7868393abb3dd2ff5f2d196f68f8e3884bbe7646" />
@@ -1835,14 +2028,12 @@
     <frame x="1278" y="-3" width="1684" height="1008" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24575311" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272933" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32616082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3227633" sideWeight="0.46813726" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28518972" sideWeight="0.6761042" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2760098" sideWeight="0.6874292" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31257078" sideWeight="0.3610771" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26009792" sideWeight="0.6953567" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30464327" sideWeight="0.3610771" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31823328" sideWeight="0.66952264" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.3238958" sideWeight="0.46017158" order="5" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
@@ -1851,6 +2042,8 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3227633" sideWeight="0.46813726" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24575311" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249694" sideWeight="0.6772367" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1922,136 +2115,121 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="ruby-line">
-          <url>file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/bundler/gems/comfortable-mexican-sofa-17703629a3bf/app/controllers/cms_admin/files_controller.rb</url>
-          <line>16</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/app/views/websites/show.html.erb</url>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/app/models/master.rb</url>
-          <line>28</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/app/controllers/application_controller.rb</url>
-          <line>232</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app/assets/javascripts/feedback.js</url>
-          <line>427</line>
+          <url>file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo_mapper-0.11.2/lib/mongo_mapper/plugins/associations/single_association.rb</url>
+          <line>9</line>
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/models/muni_admin.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/active/admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="15" selection-start="203" selection-end="203" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="0" selection-start="1630" selection-end="1630" vertical-scroll-proportion="-7.1666665">
+        <state line="24" column="66" selection-start="1261" selection-end="1261" vertical-scroll-proportion="-5.625">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/master_admin_template_pages.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="259" column="4" selection-start="11283" selection-end="11283" vertical-scroll-proportion="0.0">
+        <state line="78" column="12" selection-start="3136" selection-end="3143" vertical-scroll-proportion="-22.5">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admin_registrations/new.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/active/map-layout.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="59" selection-end="59" vertical-scroll-proportion="-1.25">
+        <state line="63" column="6" selection-start="2584" selection-end="2584" vertical-scroll-proportion="-30.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo_mapper-0.11.2/lib/mongo_mapper/plugins/keys.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/masters/active/normal-layout.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="233" column="0" selection-start="6419" selection-end="6419" vertical-scroll-proportion="0.0">
+        <state line="60" column="13" selection-start="2373" selection-end="2380" vertical-scroll-proportion="-20.625">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo_mapper-0.11.2/lib/mongo_mapper/plugins/modifiers.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/active.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="0" selection-start="2190" selection-end="2190" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo_mapper-0.11.2/lib/mongo_mapper/plugins/persistence.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_admin_script.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0">
+        <state line="6" column="73" selection-start="198" selection-end="198" vertical-scroll-proportion="-3.75">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo-1.7.0/lib/mongo/db.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="320" column="0" selection-start="11546" selection-end="11546" vertical-scroll-proportion="0.0">
+        <state line="5" column="23" selection-start="141" selection-end="141" vertical-scroll-proportion="-3.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/mongo-1.7.0/lib/mongo/collection.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="451" column="0" selection-start="19919" selection-end="19919" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admin_registrations/edit.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="56" selection-start="66" selection-end="66" vertical-scroll-proportion="-3.75">
+        <state line="108" column="74" selection-start="3712" selection-end="3712" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/master.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="1026" selection-end="1026" vertical-scroll-proportion="0.0">
+        <state line="27" column="18" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admin_registrations_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/websites_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="8" selection-start="2272" selection-end="2272" vertical-scroll-proportion="0.0">
+        <state line="15" column="0" selection-start="432" selection-end="432" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/permits/super_role_permit.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="56" selection-start="2379" selection-end="2379" vertical-scroll-proportion="0.0">
+        <state line="23" column="11" selection-start="653" selection-end="653" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/muni_admins/destroy_confirm.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/deployments/_links.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="25" selection-start="636" selection-end="636" vertical-scroll-proportion="-10.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/muni_admin_auth_codes_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="16" selection-start="538" selection-end="538" vertical-scroll-proportion="0.0">
+        <state line="7" column="0" selection-start="319" selection-end="319" vertical-scroll-proportion="-4.375">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="0" selection-start="7254" selection-end="7254" vertical-scroll-proportion="0.33214286">
+        <state line="291" column="0" selection-start="9770" selection-end="9770" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/master_base_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="8" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="28" selection-start="1162" selection-end="1162" vertical-scroll-proportion="1.1904762">
           <folding />
         </state>
       </provider>

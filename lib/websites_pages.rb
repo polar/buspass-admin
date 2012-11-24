@@ -9,7 +9,7 @@ module PageUtils
         :path       => "/",
         :identifier => "busme-main",
         :label      => "Busme Main Page Set",
-        :hostname   => "busme.us",
+        :hostname   => "#{Rails.application.base_host}",
         :protected  => true
     )
 

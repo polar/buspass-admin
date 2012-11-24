@@ -16,7 +16,7 @@
         <div class='label'>
           <%= link_to site.label, cms_admin_site_pages_path(site) %>
           <div class='sublabel'>
-            <%= link_to "http://#{site.hostname}/#{site.path}", "http://#{site.hostname}/#{site.path}", :target => '_blank' %>
+            <%= link_to site.url_with_port(request.port), site.url_with_port(request.port), :target => '_blank' %>
           </div>
         </div>
       </div>

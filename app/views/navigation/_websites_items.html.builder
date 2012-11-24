@@ -20,17 +20,20 @@ def subpages(page)
   page.children.order(:position).all.reduce([]) { |v, p| !excluded?(p) && p.is_published ? v + [p] : v }
 end
 
-# we only expand if we have children that match.
-def traverse(page, expanded = [])
-  expand = false
-  subpages(page).each do |chpage|
-    expand ||= chpage.redirect_path == controller.request.fullpath
-    expand ||= traverse(chpage, expanded)
+def collect_expanded_pages()
+  expanded = []
+  pages = @site.pages
+  pages.each do |page|
+    if page.is_published && !expanded.include?(page) && !excluded?(page) && page.redirect_path == controller.request.fullpath
+      expanded << page
+      parent = page.parent
+      while (parent) do
+        expanded << parent
+        parent = parent.parent
+      end
+    end
   end
-  if expand
-    expanded << page
-  end
-  return expand
+  return expanded
 end
 
 def do_page(page, xml, expanded)
@@ -52,8 +55,7 @@ xml.ul(:id => "sitemap") {
   page = @site.pages.root
   if page
     # Look for pages that may need to be expanded.
-    expanded = []
-    expand = traverse(page, expanded)
+    expanded = collect_expanded_pages()
     xml.li() {
       xml.a page.label, :href => (!page.controller_path.nil? && !page.controller_path.blank?) ? page.redirect_path : "#{@site.path}/#{page.full_path}".squeeze("/")
     }

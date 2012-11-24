@@ -29,7 +29,8 @@ class Cms::Page <
   # TODO: SSL
   def url_with_port(port = nil)
     port_literal = port ? ":#{port}" : ""
-    "http://" + "#{self.site.hostname}#{port_literal}/#{site.path}/#{self.full_path}".squeeze("/")
+    "http://" + "#{master.base_host}#{port_literal}/#{master.slug}/#{site.path}/#{self.full_path}".squeeze("/")
+    #"http://" + "#{self.site.hostname}#{port_literal}/#{site.path}/#{self.full_path}".squeeze("/")
   end
 
   def website
@@ -97,5 +98,12 @@ class Cms::Page <
     self.is_protected    = attributes[:is_protected] || false
     self.controller_path = attributes[:controller_path]
     self.master_path     = attributes[:master_path]
+  end
+
+  def render(*arguments)
+    puts "Start CMS Page render"
+    ret = super
+    puts "End CMS Page Render"
+    ret
   end
 end

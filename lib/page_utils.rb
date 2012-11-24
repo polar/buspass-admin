@@ -13,7 +13,7 @@ module PageUtils
         :path       => "admin",
         :identifier => "#{master.slug}-admin",
         :label      => "#{master.name} Administration Pages",
-        :hostname   => "#{master.slug}.busme.us",
+        :hostname   => "#{master.admin_host}",
         :protected  => true,
         :master     => master
     )
@@ -59,7 +59,7 @@ module PageUtils
         :path       => "errors",
         :identifier => "#{master.slug}-error",
         :label      => "#{master.name} Error Page Set",
-        :hostname   => "#{master.slug}.busme.us",
+        :hostname   => "errors.#{master.admin_host}",   # needs to be different
         :protected  => true,
         :master     => master
     )
@@ -102,7 +102,7 @@ module PageUtils
         :path       => "",
         :identifier => "#{master.slug}-main",
         :label      => "#{master.name} Active Deployment Pages",
-        :hostname   => "#{master.slug}.busme.us",
+        :hostname   => "#{master.main_host}",
         :protected  => true,
         :master     => master
     )

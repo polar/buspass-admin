@@ -9,7 +9,7 @@ module PageUtils
         :path       => "/",
         :identifier => "busme-main-error",
         :label      => "Busme Main Error Page Set",
-        :hostname   => "errors.busme.us",    # We just need something different.
+        :hostname   => "errors.#{Rails.application.base_host}",    # We just need something different.
         :protected  => true
     )
 
