@@ -41,8 +41,7 @@ BusPass.MapLocationController = OpenLayers.Class({
         this.Map = new OpenLayers.Map ("map", {
             controls: [
                 new OpenLayers.Control.Navigation(),
-                new OpenLayers.Control.PanZoomBar(),
-                new OpenLayers.Control.Attribution()
+                new OpenLayers.Control.PanZoomBar()
             ],
             /*eventListeners: {
              //"moveend": mapEvent,
