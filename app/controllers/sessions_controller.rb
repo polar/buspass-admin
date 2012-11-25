@@ -83,7 +83,6 @@ class SessionsController < ApplicationController
         redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
 
     end
-    session[:tpauth] = nil
   end
 
   #
@@ -185,6 +184,7 @@ class SessionsController < ApplicationController
     # We should only have one of these.
     oauths = Authentication.where(:provider => auth["provider"],
                                   :uid => auth["uid"],
+                                  :customer_id.ne => nil,
                                   :master_id => nil).order("created_at desc").all
     oauth = oauths.first
     oauths.drop(1).each do |oa|
@@ -220,12 +220,22 @@ class SessionsController < ApplicationController
       # We should only have one of these.
       oauths = Authentication.where(:provider => auth["provider"],
                                     :uid => auth["uid"],
-                                    :customer_id => cust.id,
+                                    :customer_id.ne => nil,
                                     :master => nil).order("created_at desc").all
-      oauth = oauths.first
-      oauths.drop(1).each do |oa|
-        logger.error "sessions#amend_customer: Removing extra authentications"
-        oa.destroy()
+      oauth = nil
+      oauths.each do |oa|
+        if oa.customer == cust
+          if oauth.nil?
+            oauth = oa
+          else
+            # Be proactive resilience here and get rid of this one. We should not have multiples
+            logger.error("sessions#ammend_customer: getting rid of multiple customer authentications.")
+            oa.destroy()
+          end
+        else
+          redirect_to edit_customer_registration_path(cust), :alert => "This authentication belongs to different customer."
+          return
+        end
       end
       if oauth
           # Already added
@@ -255,6 +265,7 @@ class SessionsController < ApplicationController
     # We should only have one of these.
     oauths = Authentication.where(:provider => auth["provider"],
                                   :uid => auth["uid"],
+                                  :muni_admin_id.ne => nil,
                                   :master_id => @master.id).order("created_at desc").all
     oauth = oauths.first
     oauths.drop(1).each do |oa|
@@ -295,12 +306,23 @@ class SessionsController < ApplicationController
       auth  = request.env["omniauth.auth"]
       oauths = Authentication.where(:provider      => auth["provider"],
                                     :uid           => auth["uid"],
-                                    :muni_admin_id => muni_admin.id,
+                                    :muni_admin_id.ne => nil,
                                     :master_id     => @master.id).order("created_at desc").all
-      oauth = oauths.first
-      oauths.drop(1).each do |oa|
-        logger.error "sessions#amend_muni_admin: Removing extra authentications"
-        oa.destroy()
+      oauth = nil
+      oauths.each do |oa|
+        if oa.muni_admin == muni_admin
+          if oauth.nil?
+            oauth = oa
+          else
+            # Be proactive resilience here and get rid of this one. We should not have multiples
+            logger.error("sessions#ammend_customer: getting rid of multiple administrator authentications.")
+            oa.destroy()
+          end
+        else
+          redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
+                      :alert => "This authentication belongs to different administrator."
+          return
+        end
       end
       if oauth
         # Already added
@@ -312,11 +334,11 @@ class SessionsController < ApplicationController
         muni_admin.authentications << oauth
         muni_admin.save
         redirect_to edit_master_muni_admin_registration_path(muni_admin.master, muni_admin),
-                    :error => "Authentication failed."
+                    :notice => "Authentication added."
       end
     else
       redirect_to master_muni_admin_sign_in_path(:master_id => params[:master_id]),
-                  :error => "Need to sign in first."
+                  :alert => "Need to sign in first."
     end
   end
 
@@ -331,6 +353,7 @@ class SessionsController < ApplicationController
 
     oauths = Authentication.where(:provider  => auth["provider"],
                                   :uid       => auth["uid"],
+                                  :user_id.ne => nil,
                                   :master_id => @master.id).order("created_at desc").all
     oauth  = oauths.first
     oauths.drop(1).each do |oa|
@@ -380,12 +403,23 @@ class SessionsController < ApplicationController
       # We should have at most one of these.
       oauths = Authentication.where(:provider  => auth["provider"],
                                     :uid       => auth["uid"],
-                                    :master_id => @master.id,
-                                    :user_id   => user.id).order("create_at desc").all
-      oauth = oauths.first
-      oauths.drop(1).each do |oa|
-        logger.error "sessions#amend_user: Removing extra authentications"
-        oa.destroy()
+                                    :user_id.ne => nil,
+                                    :master_id => @master.id).order("create_at desc").all
+      oauth = nil
+      oauths.each do |oa|
+        if oa.user == user
+          if oauth.nil?
+            oauth = oa
+          else # masters should all be the same
+            # Be proactive resilience here and get rid of this one. We should not have multiples
+            logger.error("sessions#ammend_customer: getting rid of multiple administrator authentications.")
+            oa.destroy()
+          end
+        else
+          redirect_to edit_master_user_registration_path(user.master, user),
+                      :alert => "This authentication belongs to different user."
+          return
+        end
       end
       if oauth
         if @master != oauth.user.master
@@ -401,11 +435,11 @@ class SessionsController < ApplicationController
         user.authentications << oauth
         user.save
         redirect_to edit_master_user_registration_path(user.master, user),
-                    :notice => "Authentication failed."
+                    :notice => "Authentication added."
       end
     else
       redirect_to master_user_sign_in_path(@master),
-                  :notice => "Need to sign in first."
+                  :alert => "Need to sign in first."
     end
   end
 
