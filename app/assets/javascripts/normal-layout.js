@@ -29,11 +29,11 @@ $(function () {
     // We need to use a separate div for the page because of html2canvas getting
     // a psuedo-screenshot without the modal dialog. Therefore, we need to to
     // resize with the browser.
-    $("#ui-layout-container").height($(document).height());
+    $("#ui-layout-container").height($(window).height());
     $(window).resize(function() {
-        $("#ui-layout-container").height($(document).height());
+        $("#ui-layout-container").height($(window).height());
     });
-    $("#ui-layout-container").layout({ applyDefaultStyles: true });
+    $("#ui-layout-container").layout();
 
     // This is the feedback modal form submit. We get a screen shot of the "ui-layout-container"
     // It modifies the form control with the data of the screen shot.

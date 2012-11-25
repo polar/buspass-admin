@@ -70,7 +70,7 @@
     <div class="ui-layout-south">
       <%= yield :bottom %>
       <span class="pull-left">(C) 2009-2012. All Rights Reserved by Adiron, LLC</span>
-      <span class="pull-right">Thanks to <a href="http://openstreetmap.org">Open Street Maps</a></span>
+      <span class="offset2 span4">Thanks to <a href="http://openstreetmap.org">Open Street Maps</a></span>
 
       <div class="feedback">
         <%= link_to "Feedback", "#FeedbackModal", :class => "btn feedback-btn", :data => { :toggle => "modal" } %>
@@ -82,6 +82,7 @@
        # Twitter needs modals within "container" class outside of the "ui-layout-center". %>
     <div id="container"  class="container">
       <%= yield :modals %>
+      <%= render :partial => "shared/feedback_modal" %>
       <div id="modals" >
       </div>
     </div>
