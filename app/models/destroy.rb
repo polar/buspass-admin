@@ -13,6 +13,8 @@ class Destroy
     if m
       # This should destroy related Cms::Sites, MuniAdmin, and Users
       m.destroy
+    else
+      Master.destroy_all
     end
   end
 

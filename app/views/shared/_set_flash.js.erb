@@ -1,0 +1,11 @@
+clearFlash();
+// Wait 1/2 second so we can see it.
+setTimeout(function() {
+    <%- flash.each do |name, msg| -%>
+    <%= "setFlash('#{name}', '#{msg}');"  %>
+    <%- end -%>
+}, 500);
+// Set the click on the buttons to clear the flash message
+$("#notices .alert").on("click", ".close", function () {
+    clearFlash();
+});

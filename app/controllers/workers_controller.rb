@@ -27,6 +27,7 @@ class WorkersController < ApplicationController
     @master = Master.find(params[:id])
     if @master
       @master.delayed_job_start_workers
+      flash[:notice] = "Starting Delayed::Job workers in #{@master.name}."
     end
     respond_to do |format|
       format.html { redirect_to workers_path }
@@ -38,7 +39,8 @@ class WorkersController < ApplicationController
   def stop
     @master = Master.find(params[:id])
     if @master
-      @master.delayed_job_start_workers
+      @master.delayed_job_stop_workers
+      flash[:notice] = "Stopping Delayed::Job workers in #{@master.name}."
     end
     respond_to do |format|
       format.html { redirect_to workers_path }
@@ -74,6 +76,7 @@ class WorkersController < ApplicationController
     @master = Master.find(params[:id])
     if @master
       @master.delayed_jobs.each {|job| job.destroy }
+      flash[:notice] = "Removed Delayed::Jobs in #{@master.name}"
     end
     respond_to do |format|
       format.html { redirect_to workers_path }

@@ -171,6 +171,16 @@ BuspassAdmin::Application.routes.draw do
 
     resources "import_export_sites", :controller => "import_export_sites"
 
+    resources :workers, :controller => "masters/workers" do
+      member do
+        post :start
+        delete :stop
+        delete :remove_jobs
+        post :up_limit
+        post :down_limit
+      end
+    end
+
     resource "active", :only => [:show], :controller => "masters/active" do
       member do
         get :api

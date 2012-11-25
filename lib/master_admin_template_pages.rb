@@ -340,6 +340,22 @@ of the layout regardless of where it appears here.
         :is_protected    => true,
         :controller_path => "/:master_id/import_export_sites")
 
+    workers = site.pages.create!(
+        :slug            => "workers",
+        :label           => "Workers",
+        :layout          => normal_layout,
+        :parent          => admin,
+        :is_protected    => true,
+        :controller_path => "/masters/:master_id/workers",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:render:masters/workers/index }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/admin_nav }}"
+                               }])
+
     deployment_template = site.pages.create!(
         :slug => "deployment-template",
         :label => "Deployment Template",

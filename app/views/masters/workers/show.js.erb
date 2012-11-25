@@ -1,0 +1,2 @@
+
+$('<%= "#master_#{@master.id}" -%>').html('<%= escape_javascript(render :partial => "masters/workers/master_row_content", :locals => {:master => @master, :counts => @counts}) -%>')

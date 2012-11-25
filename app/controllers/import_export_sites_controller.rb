@@ -189,11 +189,13 @@ class ImportExportSitesController < ApplicationController
         # updating attributes
         if File.exists?(file_path = File.join(path, "_#{slug}.yml"))
           if page.new_record? || File.mtime(file_path) > page.updated_at
-            attributes        = YAML.load_file(file_path).try(:symbolize_keys!) || { }
-            page.label        = attributes[:label] || slug.titleize
-            page.layout       = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
-            page.target_page  = site.pages.find_by_full_path(attributes[:target_page])
-            page.is_published = attributes[:is_published].present? ? attributes[:is_published] : true
+            attributes           = YAML.load_file(file_path).try(:symbolize_keys!) || { }
+            page.label           = attributes[:label] || slug.titleize
+            page.layout          = site.layouts.find_by_identifier(attributes[:layout]) || parent.try(:layout)
+            page.target_page     = site.pages.find_by_full_path(attributes[:target_page])
+            page.is_published    = attributes[:is_published].present? ? attributes[:is_published] : true
+            page.is_protected    = attributes[:is_protected].present? ? attributes[:is_protected] : false
+            page.controller_path = attributes[:controller_path].present? ? attributes[:controller_path] : nil
             page.position = attributes[:position] if attributes[:position]
           end
         elsif page.new_record?

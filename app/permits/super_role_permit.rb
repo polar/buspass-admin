@@ -8,6 +8,9 @@ class SuperRolePermit < CanTango::RolePermit
   def dynamic_rules
     # User is MuniAdmin
 
+    can(:manage, Master) do |master|
+      user.master == master if user.is_a? MuniAdmin
+    end
     can([:read], MuniAdminAuthCode) do |code|
       code.master == master if user.is_a? MuniAdmin
     end

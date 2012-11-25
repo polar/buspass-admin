@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    $(function() {
+        <%- @masters.each_key do |master| -%>
+        $.get('<%= master_worker_path(master, master, :format => :js) -%>');
+        <%- end -%>
+        var spin_opts = {
+            lines:12, // The number of lines to draw
+            length:5, // The length of each line
+            width:2, // The line thickness
+            radius:5, // The radius of the inner circle
+            color:'#342233', // #rgb or #rrggbb
+            speed:1, // Rounds per second
+            trail:60, // Afterglow percentage
+            top:-3,
+            left: -5,
+            shadow:false // Whether to render a shadow
+        };
+        $("tr .btn").live("click", function() {
+            $(this).parents("tr").find(".master_spinner").spin(spin_opts);
+        });
+        $("tr a.master_spinner").spin(spin_opts);
+        $("tr a.master_spinner").live("click", function() {
+            $(this).spin(spin_opts);
+        });
+    });
+</script>

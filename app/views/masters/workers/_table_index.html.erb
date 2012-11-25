@@ -1,0 +1,19 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Master</th>
+    <th>Queue</th>
+    <th>Workers</th>
+    <th>Max Workers</th>
+    <th>Jobs</th>
+    <th>Simulate</th>
+    <th>Compile</th>
+    <th>Operations</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%- @masters.each_pair do |master, counts| -%>
+      <%= render :partial => 'masters/workers/master_row_init', :locals => {:master => master, :counts => counts} %>
+  <%- end -%>
+  </tbody>
+</table>
