@@ -9,7 +9,24 @@ require 'carrierwave/orm/mongomapper'
 # This class represents a serializable object that gets passed to
 # Delayed Job.
 #
-class CompileServiceTableJob < Struct.new(:network_id, :token)
+class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_job_id)
+
+  def self.to_mongo(value)
+    value.nil? ||
+        !value.is_a?(self) ?
+        value :
+        value.to_array_for_mongo
+  end
+
+  def to_array_for_mongo
+    [network_id, token, service_table_job_id]
+  end
+
+  def self.from_mongo(value)
+    value.is_a?(self) ? value : CompileServiceTableJob.new(*value)
+  end
+
+  attr_accessor :service_table_job
 
   def logger
     @logger ||= ::ActiveSupport::BufferedLogger.new(
@@ -22,22 +39,45 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
     logger.add level, "#{Time.now.strftime('%FT%T%z')}: #{text}" if logger
   end
 
+  # If we loose it, we stop.
+  def find_service_table_job
+    self.service_table_job = ServiceTableJob.find(service_table_job_id)
+  end
+
   def enqueue(job)
     say "Queued: Network.id #{network_id} token #{token}"
     net = Network.find(network_id)
     net.processing_job = job
     net.save
+    if find_service_table_job
+      service_table_job.status!("Enqueued")
+    end
+  end
+
+  def check!(status)
+    if !find_service_table_job || ! Network.find(network_id)
+      raise "Abort"
+    else
+      service_table_job.status!(status)
+    end
   end
 
   def perform
-    say "Perform: Network.id #{network_id} token #{token}"
+    say "Perform: Network.id #{network_id} token #{token} service_table_job #{service_table_job_id}"
     net = Network.find(network_id)
+    if (find_service_table_job.nil? || net.nil?)
+      say "Network job aborted."
+      return
+    end
+    check!("Perform")
+
     say "Network.file #{net.file_path} Network.token #{net.processing_token}"
 
     if net.processing_token != token
       # This job is currently being processed by some other entity.
       # Don't touch, just leave
       dont_touch = true
+      check!("Conflict")
       return
     end
 
@@ -65,9 +105,13 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
       return
     end
 
+    check!("Processing")
+
     say "Begin process network"
     ServiceTable.processNetwork(net, dir)
     say "End process network"
+
+    check!("Finished")
 
     begin
       say "Creating Zip file #{net.file_path}"
@@ -93,6 +137,9 @@ class CompileServiceTableJob < Struct.new(:network_id, :token)
       net.save
     else
       say "Ignoring Job: Network.id #{network_id} token #{token} One is currently running"
+    end
+    if find_service_table_job
+      service_table_job.destroy
     end
   end
 

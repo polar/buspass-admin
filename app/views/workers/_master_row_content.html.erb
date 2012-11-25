@@ -1,0 +1,15 @@
+<td><%= link_to tag("i", :class => "icon-refresh"), worker_path(master), :class => "master_spinner", :remote => true -%>
+  <%= link_to "#{master.name}", master_admin_path(master) -%></td>
+<td><%= master.delayed_job_queue -%></td>
+<td><%= counts[:workers] -%></td>
+<td>
+  <%= master.max_workers -%>
+  <%= link_to "-", down_limit_worker_path(master), :remote => true, :method => :post, :class => "btn btn-mini" -%>
+  <%= link_to "+", up_limit_worker_path(master), :remote => true, :method => :post, :class => "btn btn-mini" -%>
+</td>
+<td><%= counts[:jobs] -%></td>
+<td><%= counts[:simulate] -%></td>
+<td><%= counts[:compile] -%></td>
+<td><%= button_to "Remove Jobs", remove_jobs_worker_path(master), :remote => true, :method => :delete, :class => "btn", :data => { :confirm => "Are you sure?" } -%></td>
+<td><%= button_to "Start Workers", start_worker_path(master), :remote => true, :class => "btn" -%></td>
+<td><%= button_to "Stop Workers", stop_worker_path(master), :remote => true, :method => :delete, :class => "btn", :data => {:confirm => "Are you sure?"}-%></td>

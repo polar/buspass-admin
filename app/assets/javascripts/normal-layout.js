@@ -7,6 +7,7 @@
 //= require jquery.jscrollpane.min
 //= require jquery.mousewheel
 //= require jquery-ui
+//= require jquery.spin
 //= require sitemapstyler
 //= require rails.validations
 //= require flash

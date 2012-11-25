@@ -13,6 +13,7 @@ gem 'compass-rails'
 # I'm not sure if this gem is needed with Rails 3.2.3
 
 gem 'jquery-rails'
+gem 'spinjs-rails'
 
 # Validates email addresses
 

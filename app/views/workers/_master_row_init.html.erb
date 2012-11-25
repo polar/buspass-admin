@@ -1,0 +1,8 @@
+<tr id='<%= "master_#{master.id}" -%>'>
+  <td><%= link_to "<i class='icon-refresh'></i>".html_safe,
+                  worker_path(master), :class => "master_spinner", :remote => true -%>
+    <%= link_to "#{master.name}", master_admin_path(master) -%></td>
+
+  <td><%= master.delayed_job_queue -%></td>
+  <td colspan="9"></td>
+</tr>

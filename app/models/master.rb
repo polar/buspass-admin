@@ -28,6 +28,44 @@ class Master
   one :activement, :dependent => :destroy
   one :testament, :dependent => :destroy
 
+  many :service_table_jobs
+  many :simulate_jobs
+
+  def delayed_job_queue
+    self.slug
+  end
+
+  def delayed_jobs
+    Delayed::Job.where(:queue => self.delayed_job_queue, :failed_at => nil).all
+  end
+
+  def delayed_job_count
+    Delayed::Job.where(:queue => self.delayed_job_queue, :failed_at => nil).count
+  end
+
+  def delayed_job_start_workers
+    jcount = delayed_job_count # This count includes this job
+    wcount = delayed_job_worker_count
+    if jcount > wcount && wcount < max_workers
+      Rush::Box.new[Rails.root].bash("script/delayed_job start -i workless-#{self.delayed_job_queue}-#{Time.now.to_i} --queues=#{self.delayed_job_queue} --exit_on_zero", :background => true)
+      sleep 1
+    end
+    true
+  end
+
+  def delayed_job_stop_workers
+    Rush::Box.new.processes.filter(:cmdline => /delayed_job start -i workless-#{self.delayed_job_queue}|delayed_job.workless-#{self.delayed_job_queue}/).each do |p|
+      p.kill
+    end
+
+  end
+
+  # TODO Integrate with Delayed::Job
+  def delayed_job_worker_count
+    # We count the number of matching lines
+    Rush::Box.new.processes.filter(:cmdline => /delayed_job start -i workless-#{self.delayed_job_queue}|delayed_job.workless-#{self.delayed_job_queue}/).size
+  end
+
   # embedded
   many :muni_admin_auth_codes, :autosave => false do
     def destroy(auth_code)

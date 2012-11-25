@@ -296,6 +296,8 @@ GEM
       rubyzip
     session (3.1.0)
       fattr
+    spinjs-rails (0.0.4)
+      rails (>= 3.1)
     spreadsheet (0.6.9)
       ruby-ole (>= 1.0)
     sprockets (2.1.3)
@@ -390,6 +392,7 @@ DEPENDENCIES
   rush
   rvm
   sass-rails (~> 3.2.4)
+  spinjs-rails
   statistics2
   statsample
   stringex

@@ -132,9 +132,9 @@ class Masters::Deployments::Networks::PlanController < Masters::Deployments::Net
       @network.processing_progress     = 0.0
       @network.save!
 
-      # TODO: Will change Queue to ID
-      Delayed::Job.enqueue(:queue => @master.slug,
-                           :payload_object => CompileServiceTableJob.new(@network.id, @network.processing_token))
+      job = ServiceTableJob.new(@network, current_muni_admin)
+      job.save
+      job.enqueue
 
       flash[:notice] = "Your job is currently scheduled for processing."
       redirect_to master_deployment_network_plan_path(@master, @deployment, @network)

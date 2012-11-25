@@ -43,6 +43,17 @@ BuspassAdmin::Application.routes.draw do
 
   resources :customers
 
+  resources :jobs
+  resources :workers do
+    member do
+      post :start
+      delete :stop
+      delete :remove_jobs
+      post :up_limit
+      post :down_limit
+    end
+  end
+
 
 
 =begin

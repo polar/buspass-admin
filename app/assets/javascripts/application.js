@@ -5,6 +5,7 @@
 //= require jshashtable-2.1
 //= require bootstrap
 //= require sitemapstyler
+//= require jquery.spin
 //= require_self
 
 function setFlash(type, msg) {

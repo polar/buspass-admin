@@ -330,6 +330,21 @@ of the layout regardless of where it appears here.
         :is_protected    => true,
         :controller_path => "/page_errors")
 
+    workers = site.pages.create!(
+        :slug            => "workers",
+        :label           => "Workers",
+        :layout          => normal_layout,
+        :parent          => admin,
+        :is_protected    => true,
+        :controller_path => "/workers",
+        :blocks_attributes => [{
+                                   :identifier => "content",
+                                   :content    => "{{ cms:bus:render:workers/index }}"
+                               },
+                               {
+                                   :identifier => "left",
+                                   :content    => "{{ cms:bus:render:navigation/websites_nav }}"
+                               }])
     return site
   end
 end
