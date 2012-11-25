@@ -48,7 +48,7 @@ class CustomerRegistrationsController < ApplicationController
       @customer = Customer.new(params[:customer])
       if Customer.count == 0
         # The first customer has administrative privileges.
-        @customer.add_roles([:admin, :super])
+        @customer.add_roles([:admin])
       end
       @customer.authentications << tpauth
       @customer.save

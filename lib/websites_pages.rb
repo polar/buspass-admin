@@ -91,7 +91,7 @@ of the layout regardless of where it appears here.
 
     index = site.pages.create!(
         :slug              => "all-websites",
-        :label             => "All Sites",
+        :label             => "Active Sites",
         :layout            => normal_layout,
         :parent            => root,
         :is_protected      => true,

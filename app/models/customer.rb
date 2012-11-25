@@ -4,7 +4,7 @@ class Customer
 
   #tango_user
 
-  ROLE_SYMBOLS = [:admin, :super]
+  ROLE_SYMBOLS = [:admin]
 
   key :name, String
   key :email, String

@@ -137,6 +137,7 @@
     <orderEntry type="library" scope="PROVIDED" name="sass-rails (v3.2.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v2.25.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="session (v3.1.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="spinjs-rails (v0.0.4, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="spreadsheet (v0.6.9, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v2.1.3, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="statistics2 (v0.54, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />

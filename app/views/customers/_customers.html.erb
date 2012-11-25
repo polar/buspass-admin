@@ -2,14 +2,14 @@
 <div  class="pretty">
   <div class="row-fluid header">
     <div class="span2 header"><%= sortable "name", "Name" %></div>
-    <div class="span2 header"><%= sortable "email" %></div>
+    <div class="span3 header"><%= sortable "email" %></div>
     <div class="span<%=@roles.length%> header"><%= "Roles" %></div>
     <div class="span3 header"><%= "Owns" %></div>
     <div class="span3 header"><%= "Operations" %></div>
   </div>
   <div class="row-fluid header">
     <div class="span2 header">&nbsp;</div>
-    <div class="span2 header">&nbsp;</div>
+    <div class="span3 header">&nbsp;</div>
     <% for role in @roles do %>
         <div class="span1 header"><%= role.to_s.titleize %></div>
     <% end %>

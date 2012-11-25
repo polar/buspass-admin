@@ -7,7 +7,7 @@ class AdminRolePermit < CanTango::RolePermit
 
   def dynamic_rules
     can(:edit, Customer) do |cust|
-      cust != user
+      cust != user && user.is_a?(Customer)
     end
     cannot :delete, Customer do |cust|
       cust === user
@@ -15,6 +15,8 @@ class AdminRolePermit < CanTango::RolePermit
   end
 
   def permit_rules
+    can(:manage, Cms::Site)
+    can(:manage, Cms::Page)
     can(:delete, Master)
     can(:manage, Website)
     can(:manage, Customer)

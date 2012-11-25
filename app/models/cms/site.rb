@@ -14,12 +14,24 @@ class Cms::Site <
     self.protected
   end
 
-  # Full url for a page
-  # TODO: SSL
-  def url_with_port(port = nil)
+  def base_path(port)
     port_literal = port ? ":#{port}" : ""
-    "http://" + "#{master.base_host}#{port_literal}/#{master.slug}/#{self.path}".squeeze("/")
+    host = master.base_host if master
+    host ||= Rails.application.base_host
+    prefix = master.slug if master
+    prefix ||= ""
+    "#{host}#{port_literal}/#{prefix}"
+  end
+
+  # TODO: SSL
+  def site_url(port)
+    "http://" + "#{base_path(port)}/#{self.path}"
     #"http://" + "#{self.site.hostname}#{port_literal}/#{site.path}".squeeze("/")
+  end
+
+  # Full url for a page
+  def site_url_with_port(port = nil)
+    "#{site_url(port)}".squeeze("/")
   end
 
 end

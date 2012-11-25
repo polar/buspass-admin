@@ -1,9 +1,36 @@
+<script type="text/javascript">
+
+    $.CMS.enable_page_save_widget = function () {
+        $('#page_save input#is_published').attr('checked', $('input#page_is_published').is(':checked'));
+        $('#page_save input#is_protected').attr('checked', $('input#page_is_protected').is(':checked'));
+        $('#page_save button').html($('input#cms_page_submit').val());
+
+        $('#page_save input').bind('click', function () {
+            $('input#page_is_published').attr('checked', $(this).is(':checked'));
+            $('input#page_is_protected').attr('checked', $(this).is(':checked'));
+        })
+        $('input#page_is_published').bind('click', function () {
+            $('#page_save input#is_published').attr('checked', $(this).is(':checked'));
+        })
+        $('input#page_is_protected').bind('click', function () {
+            $('#page_save input#is_protected').attr('checked', $(this).is(':checked'));
+        })
+        $('#page_save button').bind('click', function () {
+            $('input#cms_page_submit').click();
+        })
+    }
+
+</script>
 <% content_for :right_column do %>
   <div id='page_save' class='box'>
-    <label>
-      <input type='checkbox'/>
-      <%= Cms::Page.human_attribute_name(:is_published) %>
-    </label>
+        <label>
+          <input id="is_published" type='checkbox' disabled='<%= @page.is_protected ? "disabled" : "false" %>'/>
+          <%= Cms::Page.human_attribute_name(:is_published) %>
+        </label>
+        <label>
+          <input id="is_protected" type='checkbox' disabled='<%= @page.is_protected || !(customer_can?(:edit, @page) || muni_admin_can?(:edit, @page))? "disabled" : "false" %>'/>
+          <%= Cms::Page.human_attribute_name(:is_protected) %>
+        </label>
     <button></button>
   </div>
   <%= render :partial => 'cms_admin/files/index' %>
@@ -35,8 +62,10 @@
 <%= render :partial => 'form_blocks' %>
 
 <%= form.simple_field nil, nil, :class => 'submit_element' do %>
-  <%= form.check_box :is_published, :disable_builder => true %>
-  <%= form.label_for :is_published %>
+    <%= form.check_box :is_published, :disable_builder => true, :disabled => @page.is_protected %>
+    <%= form.label_for :is_published %>
+    <%= form.check_box :is_protected, :disable_builder => true, :disabled => @page.is_protected %>
+    <%= form.label_for :is_protected %>
   <%= form.submit t('.preview'), :name => 'preview', :id => nil, :disable_builder => true %>
   <%= form.submit t(@page.new_record?? '.create' : '.update'), :id => 'cms_page_submit', :disable_builder => true %>
 <% end %>

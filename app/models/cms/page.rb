@@ -25,12 +25,23 @@ class Cms::Page <
   attr_accessible :master_path
   attr_accessible :controller_path
 
+  # Once a page is protected, it cannot be unprotected or have its publishing status changed.
+  def save(safe)
+    if is_protected_changed? && is_protected_was
+      self.is_protected = true
+    end
+    if !new_record? && is_protected
+      if is_published_changed?
+        self.is_published = is_published_was
+      end
+    end
+
+    super(safe)
+  end
+
   # Full url for a page
-  # TODO: SSL
   def url_with_port(port = nil)
-    port_literal = port ? ":#{port}" : ""
-    "http://" + "#{master.base_host}#{port_literal}/#{master.slug}/#{site.path}/#{self.full_path}".squeeze("/")
-    #"http://" + "#{self.site.hostname}#{port_literal}/#{site.path}/#{self.full_path}".squeeze("/")
+    "#{site.site_url_with_port(port)}/#{self.full_path}".squeeze("/")
   end
 
   def website
