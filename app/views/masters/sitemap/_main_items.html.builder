@@ -1,5 +1,5 @@
 @site = @mcs_site || @master.main_site
-@prefix = request.host == "#{BuspassAdmin::Application.base_host}" || request.host == "localhost" ? "/#{@master.slug}" : ""
+@prefix = request.host == "#{Rails.application.base_host}" || request.host == "localhost" ? "/#{@master.slug}" : ""
 def exclude_links
   []
 end
