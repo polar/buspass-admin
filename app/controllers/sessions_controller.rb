@@ -290,7 +290,7 @@ class SessionsController < ApplicationController
       oauth.master = @master
       oauth.save
       session[:muni_admin_oauth_id] = oauth.id
-      redirect_to new_master_muni_admin_registrations_path( @master),
+      redirect_to new_master_muni_admin_registrations_path(@master),
                   :notice => "Need to create an account."
     end
   end

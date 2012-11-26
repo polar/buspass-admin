@@ -33,7 +33,7 @@ class CmsContentController < CmsBaseController
 protected
   
   def load_cms_site
-    base_host = ENV['BUSME_BASEHOST'] || "busme.us"
+    base_host = ENV['BUSME_BASEHOST'] || Rails.application.base_host || "busme.us"
     @cms_path = params[:cms_path]
     @cms_site ||= Cms::Site.find_by_id(params[:cms_site_id]) if params[:cms_site_id]
     if !@cms_site

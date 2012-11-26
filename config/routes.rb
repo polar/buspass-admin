@@ -12,6 +12,21 @@ BuspassAdmin::Application.routes.draw do
   match "/customers/sign_in" => "sessions#new_customer", :as => :customer_sign_in
   match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout
 
+  #match "/:master_id/apis/:version/:action", :controller => "apis#host", :constraints => { :host => Rails.application.base_host }
+  #match "/:master_id/:version/:action", :controller => "apis#apis_host", :constraints => { :host => /^apis.#{Rails.application.base_host}$/ }
+  #match "/apis/:version/:action", :controller => "apis#master_host", :constraints => { :host => /^[\w\-]+\.#{Rails.application.base_host}$/ }
+  #match "/:version/:action", :controller => "apis#apis_master_host", :constraints => { :host => /^apis\.[\w\-]+\.#{Rails.application.base_host}$/ }
+
+
+  match "/:version/:call" => "apis#apis_master_host", :as => "apis_master_host_apis",
+        :constraints => { :host => /^apis\.(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/ }
+  match "/apis/:version/:call" => "apis#master_host", :as => "master_host_apis",
+        :constraints => { :host => /^(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/ }
+  match "/:master_id/apis/:version/:call" => "apis#host", :as => "host_apis",
+        :constraints => { :host => Rails.application.base_host }
+  match "/:master_id/:version/:call" => "apis#apis_host", :as => "apis_host_apis",
+        :constraints => { :host => "apis.#{Rails.application.base_host}" }
+
   # This route is for the image links held in pages for use with the Wyswig editor.
   # It redirects paths to the
   match "s3image/(*id)" => "s3_images#show"

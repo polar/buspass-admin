@@ -151,7 +151,7 @@ of the layout regardless of where it appears here.
     active_testament = site.pages.create!(
         :slug => "active-testament",
         :label => "Active Testament",
-        :layout => normal_layout,
+        :layout => map_layout,
         :is_protected => true,
         :controller_path => "/masters/:master_id/testament",
         :blocks_attributes => [{
@@ -211,7 +211,7 @@ of the layout regardless of where it appears here.
 
     muni_admins = site.pages.create!(
         :slug => "muni_admins",
-        :label => "Adminstrators",
+        :label => "Administrators",
         :layout => normal_layout,
         :parent => admin,
         :is_protected => true,

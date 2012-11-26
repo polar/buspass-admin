@@ -49,7 +49,7 @@ class JourneyLocation
   end
 
   def self.find_by_routes(routes)
-    routes = [routes] if !routes.is_a? Array
+    routes = [routes] if routes.is_a? Route
     JourneyLocation.where(:route_id.in => routes.map { |x| x.id }).all
   end
 

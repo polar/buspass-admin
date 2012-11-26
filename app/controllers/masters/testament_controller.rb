@@ -1,5 +1,4 @@
 class Masters::TestamentController < ApplicationController
-  layout "empty"
 
   def show
     get_context

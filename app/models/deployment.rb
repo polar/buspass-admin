@@ -68,6 +68,10 @@ class Deployment
       networks.reduce([]) { |v,n| v + n.routes }
     end
 
+    def vehicle_journeys
+      networks.reduce([]) { |v,n| v + n.vehicle_journeys }
+    end
+
     def service_dates
       dates = networks.reduce([]) {|v,n| v + [n.service_dates]}
       dates.reduce do |v,d|

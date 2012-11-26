@@ -29,6 +29,8 @@ class VehicleJourney
   belongs_to :master
   belongs_to :deployment
 
+  many :reported_journey_locations, :dependent => :delete
+
   one :active_journey_location,   :class_name => "JourneyLocation", :dependent => :delete
   one :test_journey_location,     :class_name => "JourneyLocation", :dependent => :delete
   one :simulate_journey_location, :class_name => "JourneyLocation", :dependent => :delete
@@ -273,13 +275,13 @@ class VehicleJourney
         day_field.to_sym => true
         })
     services = Service.where(options).all
-    all = services.reduce([]) {|t,v| t + v.vehicle_journeys }
+    ret = services.reduce([]) {|t,v| t + v.vehicle_journeys }
   end
 
   # Time is in minutes of midnight of the date. Be careful of TimeZone.
   def self.find_by_date_time(date, time, options = {})
-    all = self.find_by_date(date, options)
-    all.select { |vj| vj.is_scheduled?(time) }
+    ret = self.find_by_date(date, options)
+    ret.select { |vj| vj.is_scheduled?(time) }
   end
 
   def self.find_or_initialize(options)
@@ -373,8 +375,8 @@ class VehicleJourney
       estimate[:ti_diff] = ti_diff
 
       #Look for ReportedJourneyLocation
-      rjls = ReportedJourneyLocation.where(:vehicle_journey_id => self.id,
-                                           :disposition => disposition).order(:reported_time, :recorded_time).all
+      rjls = reported_journey_locations.where(:disposition => disposition).order(:reported_time, :recorded_time).all
+
       if (rjls == nil)
         return estimate
       end
