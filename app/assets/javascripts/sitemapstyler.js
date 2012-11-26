@@ -31,7 +31,7 @@ this.sitemapstyler = function(){
 		
 		var items = sitemap.getElementsByTagName("li");
 		for(var i=0;i<items.length;i++){
-			listItem(items[i]);
+			this.listItem(items[i]);
 		};
 		
 	};	
