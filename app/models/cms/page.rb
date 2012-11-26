@@ -39,6 +39,12 @@ class Cms::Page <
     super(safe)
   end
 
+  # We are not going cache content, because the page gets saved before it has any context variables.
+  # Will have to fix that.
+  def set_cached_content
+    @content_cache = nil # self.content(true)
+  end
+
   # Full url for a page
   def url_with_port(port = nil)
     "#{site.site_url_with_port(port)}/#{self.full_path}".squeeze("/")
