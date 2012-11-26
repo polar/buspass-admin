@@ -5,7 +5,7 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Workers Progress">
+    <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="API Progress">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/apis_controller.rb" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/apis/base.rb" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/apis/v1.rb" />
@@ -64,7 +64,7 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="vehicle_journey.rb" pinned="false" current="false" current-in-tab="true">
+            <file leaf-file-name="vehicle_journey.rb" pinned="false" current="true" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
                 <provider selected="true" editor-type-id="text-editor">
                   <state line="277" column="76" selection-start="8150" selection-end="8150" vertical-scroll-proportion="0.49636364">
@@ -141,7 +141,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kernel.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="kernel.rb" pinned="false" current="false" current-in-tab="true">
         <entry file="file://$APPLICATION_HOME_DIR$/rubystubs193/kernel.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state line="493" column="8" selection-start="19010" selection-end="19010" vertical-scroll-proportion="1.0322967">
@@ -2209,7 +2209,11 @@
       <created>1353872653903</created>
       <updated>1353872653903</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="API Progress">
+      <created>1353897973592</created>
+      <updated>1353897973593</updated>
+    </task>
+    <option name="localTasksCounter" value="123" />
     <option name="createChangelist" value="false" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
@@ -2304,7 +2308,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Workers Progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="API Progress" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -2337,6 +2341,7 @@
     <MESSAGE value="Authentication Progress" />
     <MESSAGE value="Pages Progress" />
     <MESSAGE value="Workers Progress" />
+    <MESSAGE value="API Progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2460,9 +2465,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
+    <entry file="file://$APPLICATION_HOME_DIR$/rubystubs193/kernel.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="277" column="76" selection-start="8150" selection-end="8150" vertical-scroll-proportion="0.49636364">
+        <state line="493" column="8" selection-start="19010" selection-end="19010" vertical-scroll-proportion="1.0322967">
           <folding />
         </state>
       </provider>
@@ -2474,9 +2479,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/rubystubs193/kernel.rb">
+    <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="493" column="8" selection-start="19010" selection-end="19010" vertical-scroll-proportion="1.0322967">
+        <state line="277" column="76" selection-start="8150" selection-end="8150" vertical-scroll-proportion="0.49636364">
           <folding />
         </state>
       </provider>
