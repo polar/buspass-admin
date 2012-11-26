@@ -68,6 +68,18 @@ class Masters::Deployments::NetworksController < Masters::Deployments::Deploymen
       redirect_to master_deployment_network_path(@master, @deployment, @network)
     end
   rescue Exception => boom
+    page_error = PageError.new({
+                                   :request_url => request.url,
+                                   :params     => params,
+                                   :error      => boom.to_s,
+                                   :backtrace  => boom.backtrace,
+                                   :master     => @master,
+                                   :deployment => @deployment,
+                                   :customer   => current_customer,
+                                   :muni_admin => current_muni_admin,
+                                   :user       => current_user
+                               })
+    page_error.save
     @network.destroy if @network
     flash[:error] = "Cannot create network."
     logger.detailed_error(boom)

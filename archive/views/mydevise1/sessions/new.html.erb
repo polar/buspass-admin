@@ -1,10 +1,3 @@
 <%=
-    begin
-      site = Cms::Site.find_by_identifier("busme-main")
-      page = site.pages.find_by_full_path("/sign-in")
-      page.render(self, :status => 200, :content_type => 'text/html')
-    rescue => boom
-      logger.detailed_error(boom)
-      render :text => I18n.t('cms.content.page_not_found'), :status => 404
-    end
+    main_render_page("/sign-in")
 %>

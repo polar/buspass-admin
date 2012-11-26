@@ -9,6 +9,7 @@ class PageError
 
 
   belongs_to :master
+  belongs_to :deployment
   belongs_to :customer
   belongs_to :muni_admin
   belongs_to :user

@@ -188,7 +188,7 @@ class WebsitesController < ApplicationController
                                })
     page_error.save
 
-    Rails.logger.detailed_error(boom)
+    logger.detailed_error(boom)
     @admin_site.destroy if @admin_site
     @main_site.destroy if @main_site
     @error_site.destroy if @error_site
