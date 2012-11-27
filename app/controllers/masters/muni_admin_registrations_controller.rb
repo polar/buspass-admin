@@ -6,7 +6,7 @@ class Masters::MuniAdminRegistrationsController < Masters::MasterBaseController
     if @authentication
       muni_admin = MuniAdmin.find_by_authentication_id(@authentication.id)
       if muni_admin
-        redirect_to edit_registration_master_muni_admins_path(:master_id => @master.id), :notice => "edit"
+        redirect_to edit_master_muni_admin_registration_path(@master, muni_admin), :notice => "edit"
       else
         @muni_admin = MuniAdmin.new()
         @muni_admin.name = @authentication.name

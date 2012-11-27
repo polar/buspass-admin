@@ -9,8 +9,24 @@ BuspassAdmin::Application.routes.draw do
 
   match "/masters/:master_id/signout" => "sessions#destroy", :as => :signout
 
-  match "/customers/sign_in" => "sessions#new_customer", :as => :customer_sign_in
-  match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout
+  match "/admin/sign_in" => "sessions#new_muni_admin", :as => :host_master_muni_admin_sign_in,
+        :constraints => { :host => /^(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/ }
+  match "/:master_id/admin/sign_in" => "sessions#new_muni_admin", :as => :master_muni_admin_sign_in,
+        :constraints => { :host => Rails.application.base_host }
+  match "/:master_id/sign_in" => "sessions#new_user", :as => :master_user_sign_in,
+        :constraints => { :host => Rails.application.base_host }
+  match "/sign_in" => "sessions#new_user", :as => :host_master_user_sign_in,
+        :constraints => { :host => /^(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/ }
+  match "/sign_in" => "sessions#new_customer", :as => :customer_sign_in,
+        :constraints => { :host => Rails.application.base_host }
+
+  match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout,
+        :constraints => { :host => Rails.application.base_host }
+
+  match "/customers/sign_in" => "sessions#new_customer", :as => :customer_sign_in,
+        :constraints => { :host => Rails.application.base_host }
+  match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout,
+        :constraints => { :host => Rails.application.base_host }
 
   #match "/:master_id/apis/:version/:action", :controller => "apis#host", :constraints => { :host => Rails.application.base_host }
   #match "/:master_id/:version/:action", :controller => "apis#apis_host", :constraints => { :host => /^apis.#{Rails.application.base_host}$/ }
@@ -441,7 +457,12 @@ BuspassAdmin::Application.routes.draw do
   match "/busme-admin" => "masters#index"
   match "/cms-admin" => "cms_admin/sites#index"
   match "/:master_id/cms-admin" => "cms_admin/sites#index"
-  mount ComfortableMexicanSofa::Engine => "/", :as => :cms
   match "/(*cms_path)/sitemap" => "cms_content#render_sitemap"
+
+  match "/(*cms_path)" => "cms_content#master_host_render_cms", :as => "master_host_remder_cms",
+        :constraints => { :host => /^(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/ }
+  match "/:master_id/(*cms_path)" => "cms_content#master_render_cms", :as => "master_render_cms",
+        :constraints => { :host => Rails.application.base_host }
   match "/(*cms_path)" => "cms_content#render_html"
+  mount ComfortableMexicanSofa::Engine => "/", :as => :cms
 end

@@ -111,6 +111,7 @@ class SessionsController < ApplicationController
   # Set up a new MuniAdmin Session. The @master should be assigned.
   #
   def new_muni_admin
+    get_context
     # We are going to auth a muni_admin. We indicate that in the session
     if current_muni_admin
       redirect_to edit_master_muni_admin_registration_path(current_muni_admin.master, current_muni_admin), :notice => "You are already signed in."
@@ -142,6 +143,7 @@ class SessionsController < ApplicationController
   # Set up a new User Session. The @master should be assigned.
   #
   def new_user
+    get_context
     # We are going to auth a general user. We indicate that in the session
     if current_user
       redirect_to edit_master_user_registration_path(current_user.master, current_user), :notice => "You are already signed in."
@@ -282,7 +284,7 @@ class SessionsController < ApplicationController
         session[:muni_admin_id] = muni_admin.id
         redirect_to master_path(muni_admin.master), :notice => "Signed in!"
       else
-        redirect_to new_master_muni_admin_registrations_path(@master),
+        redirect_to new_master_muni_admin_registration_path(@master),
                     :notice => "Could not find you. Please create an account."
       end
     else
@@ -290,7 +292,7 @@ class SessionsController < ApplicationController
       oauth.master = @master
       oauth.save
       session[:muni_admin_oauth_id] = oauth.id
-      redirect_to new_master_muni_admin_registrations_path(@master),
+      redirect_to new_master_muni_admin_registration_path(@master),
                   :notice => "Need to create an account."
     end
   end
@@ -379,7 +381,7 @@ class SessionsController < ApplicationController
         redirect_to master_active_path(user.master), :notice => "Signed in!"
       else
         session[:user_oauth_id] = oauth.id
-        redirect_to new_master_user_registration_path(:master_id => @master.id),
+        redirect_to new_master_user_registration_path( @master),
                     :notice => "Could not find you. Please create an account."
       end
     else
@@ -387,7 +389,7 @@ class SessionsController < ApplicationController
       oauth.master = @master
       oauth.save
       session[:user_oauth_id] = oauth.id
-      redirect_to new_master_user_registration_path(:master_id => @master.id),
+      redirect_to new_master_user_registration_path( @master),
                   :notice => "Need to create an account."
     end
   end

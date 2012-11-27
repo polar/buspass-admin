@@ -8,7 +8,7 @@ class Masters::UserRegistrationsController < Masters::MasterBaseController
     if @authentication
       user = User.find_by_authentication_id(@authentication.id)
       if user
-        redirect_to edit_registration_master_users_path(:master_id => @master.id), :notice => "edit"
+        redirect_to edit_master_user_registration_path(@master, user), :notice => "edit"
       else
         @user = User.new()
         @user.name = @authentication.name
