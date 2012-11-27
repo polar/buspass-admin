@@ -162,7 +162,7 @@ class SessionsController < ApplicationController
       session[:user_oauth_id] = nil
       redirect_to master_active_path(master), :notice => "Signed out!"
     else
-      # Attemp to get the master
+      # Attempt to get the master
       get_context
       if @master
         redirect_to master_active_path(master), :notice => "Signed out!"
@@ -449,13 +449,8 @@ class SessionsController < ApplicationController
     #TODO: Fix parsing of :siteslug in face of api.syracuse.busme.us in routes.rb
     #                          |-------------------^^^^^^^^
     # Ex. http://busme.us/auth/google?master_id=22342342234
-    @master_id = params[:master_id]
-    @master = Master.find(@master_id)
-    if ! @master  && params[:siteslug]
-      # Ex. http://busme.us/syracuse/auth/google
-      slug = params[:siteslug]
-      @master = Master.where(:slug => slug).first
-    end
+    @master_id = params[:master_id] || params[:siteslug]
+    @master = Master.find(@master_id) || Master.find_by_slug(@master_id)
     if ! @master
       # Ex. http://syracuse.busme.us/auth/google
       #TODO: Fix parsing of :siteslug in face of api.syracuse.busme.us here
