@@ -12,6 +12,18 @@ class SessionsController < ApplicationController
 
     # This parameter variable is set by /edit_[customer, muni_admin, user, admin]
     case params[:tpauth].to_sym
+      when :mobile_user
+        if params[:user_auth] == session[:session_id]
+          if User.find(session[:user_id])
+            # We are already signed in for some reason. Out of sync calls by another page. Just amend.
+            amend_mobile_user()
+          else
+            create_mobile_user()
+          end
+        else
+          redirect_to params[:failure_path] || root_path, :notice => "Session Expired or Invalid. Please sign in."
+        end
+
       # From sessions#new_customer
       when :customer
         if params[:customer_auth] == session[:session_id]
@@ -344,10 +356,22 @@ class SessionsController < ApplicationController
     end
   end
 
+  def create_mobile_user
+    create_user(true)
+  end
+
+  def amend_mobile_user
+    if current_user
+      redirect_to "busme://oauthresponse?access_token=#{current_user.get_access_token}&master=#{@master.slug}"
+    else
+      redirect_to new_user_mobile_sessions_path(@master)
+    end
+  end
+
   #
   # Called directly from sessions#create
   #
-  def create_user
+  def create_user(mobile = nil)
     session[:user_id] = nil
     session[:user_oauth_id] = nil
 
@@ -378,10 +402,14 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
         oauth.last_info = auth["info"]
         oauth.save
-        redirect_to master_active_path(user.master), :notice => "Signed in!"
+        if mobile
+          redirect_to "busme://oauthresponse?access_token=#{current_user.get_access_token}&master=#{@master.slug}"
+        else
+          redirect_to master_active_path(user.master), :notice => "Signed in!"
+        end
       else
         session[:user_oauth_id] = oauth.id
-        redirect_to new_master_user_registration_path( @master),
+        redirect_to new_master_user_registration_path(@master, :mobile => mobile),
                     :notice => "Could not find you. Please create an account."
       end
     else
@@ -389,7 +417,7 @@ class SessionsController < ApplicationController
       oauth.master = @master
       oauth.save
       session[:user_oauth_id] = oauth.id
-      redirect_to new_master_user_registration_path( @master),
+      redirect_to new_master_user_registration_path( @master, :mobile => mobile),
                   :notice => "Need to create an account."
     end
   end

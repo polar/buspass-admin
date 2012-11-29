@@ -1,0 +1,7 @@
+<% for provider in @providers do %>
+    <a href="/auth/<%= "#{provider}#{@options}" %>" class="auth_provider">
+      <%= image_tag "auth/#{provider}_32.png", :size => "32x32", :alt => "#{provider.titleize}" %>
+      <%= provider.titleize %>
+    </a>
+<% end %>
+<div class="clear"></div>

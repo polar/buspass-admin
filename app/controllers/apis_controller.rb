@@ -17,6 +17,39 @@ class ApisController < ApplicationController
 
   attr_accessor :api
 
+  # http://busme.us/apis/1
+  def show
+    case params[:version]
+      when "d1"
+        params[:api_url_for] = lambda { |version, verb| api_host_url(version, verb) }
+        d = Apis::Discovery1.new(params[:api_url_for])
+        d.get(self)
+      else
+        render :nothing => true, :status => 500
+    end
+  end
+
+  def discover
+    case params[:id]
+      when "d1"
+        params[:api_url_for] = lambda { |master, version, verb| host_apis_url(master.slug, version, verb) }
+        d = Discovery1.new(params[:api_url_for])
+        d.login(self)
+      else
+        render :nothing => true, :status => 500
+    end
+  end
+
+  #
+  # http://busme.us/syracuse/apis/1.0/routes
+  #
+  def api_host
+    get_master_context
+    params[:api_url_for] = lambda { |master, version, verb| host_apis_url(master.slug, version, verb) }
+    get_api_context
+    process_call
+  end
+
   #
   # http://busme.us/syracuse/apis/1.0/routes
   #
@@ -103,13 +136,8 @@ class ApisController < ApplicationController
   private
 
   def process_call
-    if api.allowable_calls.include?(params[:call])
-      text = api.send(params[:call].to_sym, self)
-      if text
-        render :text => text, :status => 200
-      else
-        render :nothing => true, :status => 404
-      end
+    if api && api.allowable_calls.include?(params[:call])
+      api.send(params[:call].to_sym, self)
     else
       render :nothing => true, :status => 404
     end
@@ -123,16 +151,17 @@ class ApisController < ApplicationController
   end
 
   def get_api_context
-    @activement = @master.activement
     @api = get_api
   end
 
   def get_api
-    active = @master.activement
-
     case params[:version]
       when "1"
-        api = Apis::V1.new(active, params[:api_url_for])
+        api = Apis::V1.new(@master, "active", params[:api_url_for])
+      when "t1"
+        api = Apis::V1.new(@master, "test", params[:api_url_for])
+      when "d1"
+        api = Apis::Discovery1.new(params[:api_url_for])
       else
         nil
     end

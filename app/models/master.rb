@@ -1,6 +1,7 @@
 class Master
   include MongoMapper::Document
   plugin MongoMapper::Plugins::IdentityMap
+  include LocationBoxing
 
   # Problem with the "sweetloader"?
   # The submodule Scope will not "autoload", we force it by including it here.
@@ -20,6 +21,13 @@ class Master
   key :main_host
   key :api_host
 
+
+  key :nw_lat, Float
+  key :nw_lon, Float
+  key :se_lat, Float
+  key :se_lon, Float
+  key :nw_lon_lte_se_lon, Boolean
+
   # This will be used if we shard the Master off to its own Database.
   key :dbname, String #, :unique => true, :allow_nil => true
 
@@ -30,6 +38,51 @@ class Master
 
   many :service_table_jobs
   many :simulate_jobs
+
+  before_validation :set_box
+
+  def set_box
+    coords = [self.longitude.to_f, self.latitude.to_f]
+    box = getBox(coords, coords)
+    box = enlargeBox(box, 50 * FEET_PER_KM) # 50k
+    self.nw_lon= box[0][0]
+    self.nw_lat= box[0][1]
+    self.se_lon= box[1][0]
+    self.se_lat= box[1][1]
+    # This is for querying in MongoDB, since it's really difficult to compare two fields.
+    # we just do that comparison here and store it.
+    self.nw_lon_lte_se_lon = self.nw_lon <= self.se_lon
+  end
+
+  def self.by_location(lon, lat)
+    where(LocationBoxing.getWithinQueryPlucky(lon, lat))
+  end
+
+  def locatedBy(coord)
+    inBox(theBox, coord)
+  end
+
+  def theBox
+    [[nw_lon, nw_lat], [se_lon, se_lat]]
+  end
+
+  # Store the locator box
+  def assign_lon_lat_locator_fields
+    self.coordinates_cache = get_geometry()
+
+    if (!journey_pattern_timing_links.empty?)
+      box = journey_pattern_timing_links.reduce(journey_pattern_timing_links.first.theBox) { |v, jptl| combineBoxes(v, jptl.theBox) }
+      self.nw_lon= box[0][0]
+      self.nw_lat= box[0][1]
+      self.se_lon= box[1][0]
+      self.se_lat= box[1][1]
+    else
+      self.nw_lon= 0
+      self.nw_lat= 0
+      self.se_lon= 0
+      self.se_lat= 0
+    end
+  end
 
   def delayed_job_queue
     self.slug

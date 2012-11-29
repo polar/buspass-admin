@@ -47,7 +47,7 @@ class Masters::ActiveController < ApplicationController
       @updateUrl = partial_status_master_active_path(@master, :format => :json)
       @loginUrl = api_activement_path(@activement, :format => :json)
     else
-      flash[:error] = "There is no deployment for #{@master.name} that is active."
+      flash[:error] = "There is no active deployment here."
       redirect_to master_path(@master)
     end
   end

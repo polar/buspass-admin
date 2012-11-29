@@ -9,6 +9,8 @@ class User
   key :name, String
   key :email, String
 
+  key :access_token
+
   timestamps!
 
   belongs_to :master
@@ -69,6 +71,12 @@ class User
 
   def has_role?(role)
     self.role_symbols.include?(role.to_s)
+  end
+
+  def get_access_token()
+    self.access_token = (100000000000000 * Random.rand()).to_i.to_s
+    save
+    access_token
   end
 
   def self.search(search)

@@ -78,7 +78,7 @@ class CmsContentController < CmsBaseController
       @cms_site = Cms::Site.find_by_identifier("busme-main")
     end
     @cms_page = @cms_site.pages.find_by_full_path(@cms_path)
-    if @cms_page.redirect_path
+    if @cms_page && @cms_page.redirect_path
       redirect_to @cms_page.redirect_path
     else
       render :render_html

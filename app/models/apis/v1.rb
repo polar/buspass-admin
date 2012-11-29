@@ -1,39 +1,58 @@
 class Apis::V1 < Apis::Base
 
-  ALLOWABLE_CALLS = ["login", "route_journey", "route_journeys", "curloc", "postloc"]
+  ALLOWABLE_CALLS = ["get", "login", "auth", "route_journey", "route_journeys", "curloc", "postloc", "message"]
 
-  def initialize(active, api_url_for)
-    @api_url_for      = api_url_for
-    @active           = active
-    @master           = active.master
-    @deployment       = active.deployment
-    if @active.is_a(Activement)
-      @disposition = "active"
-    elsif @active.is_a(Testament)
-      @disposition = "test"
+  def initialize(master, mode, api_url_for)
+    @api_url_for = api_url_for
+    @mode        = mode
+    @master      = master
+    @disposition = mode
+    @active = master.activement if mode == "active"
+    @active = master.testament if mode == "test"
+    @deployment = @active.deployment if @active
+    if @deployment
+      @routes           = @deployment.routes
+      @vehicle_journeys = @deployment.vehicle_journeys
     end
-    @routes           = @deployment.routes
-    @vehicle_journeys = @deployment.vehicle_journeys
   end
 
   def version
-    return "1"
+    return @mode == "test" ? "t1" : "1"
   end
 
   def allowable_calls
     ALLOWABLE_CALLS
   end
 
-  def login(controller)
+  def get(controller)
     text = "<API\n"
     text += "majorVersion='#{version}'\n"
     text += "minorVersion='0'\n"
-    text += "user='1'\n"
+    text += "mode='#{@mode}'\n"
+    text += "name='#{@master.name}'\n"
+    text += "auth='#{@api_url_for.call("auth")}'\n"
+    text += "login='#{@api_url_for.call("login")}'\n"
+    text += "lon='#{@master.longitude}'\n"
+    text += "lat='#{@master.latitude}'\n"
+    text += "timezone='#{@master.timezone}'\n"
+    text += "time='#{Time.now.to_i}'\n"
+    text += "timeoffset='#{Time.now.in_time_zone(@master.timezone).utc_offset}'\n"
+    text += "datefmt='#{@master.date_format}'\n"
     text += "getRouteJourneyIds='#{@api_url_for.call("route_journeys")}'\n"
     text += "getRouteDefinition='#{@api_url_for.call("route_journey")}'\n"
     text += "getJourneyLocation='#{@api_url_for.call("curloc")}'\n"
+    text += "postJourneyLocation='#{@api_url_for.call("postloc")}'\n"
+    text += "getMessage='#{@api_url_for.call("message")}'\n"
     text += "/>"
-    return text
+    controller.render :xml => text
+  end
+
+  def login(controller)
+    controller.redirect_to controller.master_mobile_user_sign_in_url(@master)
+  end
+
+  def auth(controller)
+    controller.redirect_to controller.master_app_sign_in(@master)
   end
 
   # We are going return two types, Routes and Active VehicleJourneys.
@@ -59,7 +78,7 @@ class Apis::V1 < Apis::Base
       text << "\n"
     end
     text << query_routes.map { |x| route_spec(x) }.join("\n")
-    return text
+    controller.render :text => text
   end
 
   def route_journey(controller)
@@ -71,7 +90,7 @@ class Apis::V1 < Apis::Base
       else
         ret = nil
       end
-      return ret
+      controller.render :text => ret
     end
 
     if params[:type] == "R"
@@ -81,10 +100,10 @@ class Apis::V1 < Apis::Base
       else
         ret = nil
       end
-      return ret
+      controller.render :text => ret
     end
   rescue
-    return nil
+    controller.render :nothing => true, :status => 404
   end
 
 
@@ -104,9 +123,9 @@ class Apis::V1 < Apis::Base
       on_route  = vehicle_journey.journey_location.on_route?
       ret       = "<JP lon='#{lon}' lat='#{lat}' reported_time='#{reported}' recorded_time='#{recorded}' timediff='#{timediff}' direction='#{direction}' onroute='#{on_route}'/>"
     end
-    return ret
+    controller.render :text => ret
   rescue
-    return nil
+    controller.render :nothing => true, :status => 404
   end
 
   def postloc(controller)
@@ -132,7 +151,7 @@ class Apis::V1 < Apis::Base
       loc.save
       ret = "OK"
     end
-    return ret
+    controller.render :text => ret
   end
 
   private

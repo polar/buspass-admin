@@ -12,6 +12,39 @@ module LocationBoxing
     query = "(" + lateq + " AND " + loneq + ")"
   end
 
+  def self.getWithinQueryMongo(lon, lat)
+    lateq = "{ $and: [nw_lat : { $lt:#{lat} }, se_lat : { $gt:#{lat} }] }"
+    cond = "{ nw_lon_lte_se_lon : true }"
+    thenq = "{ $and : [{ nw_lon : { $lt: #{lon} }, { se_lon: { $gt: #{lon} } }] }"
+    if (0 < lon)
+      elseq = "{ se_lon : { $gt: #{lon} } }"
+    else
+      elseq = "{ se_lon : { $lt: #{lon} } }"
+    end
+    cond1 = "{ $or : [{ $not : #{cond} }, #{thenq}] }"
+    cond2 = "{ $or : [ #{cond}, #{elseq} ]}"
+    lonq = "{ $and: [#{cond1}, #{cond2}] }"
+    query = "{ $and : [ #{lateq}, #{lonq} ] }"
+  end
+
+  def self.getWithinQueryPlucky(lon, lat)
+    lateq = { :$and => [ {:nw_lat.lt => lat}, {:se_lat.gt => lat} ] }
+    cond = { :nw_lon_lte_se_lon => true }
+    thenq =  { :$and => [ {:nw_lon.lt => lon,}, {:se_lon.gt => lon}] }
+    if (0 < lon)
+      elseq = { :se_lon.gt => lon }
+    else
+      elseq = { :se_lon.lt => lon }
+    end
+    cond1 = "{ $or : [{ $not : #{cond} }, #{thenq}] }"
+    cond1 = { :$or => [ {:$not => cond}, thenq] }
+    cond2 = "{ $or : [ #{cond}, #{elseq} ]}"
+    cond2 = { :$or => [ cond, elseq] }
+    lonq = "{ $and: [#{cond1}, #{cond2}] }"
+    lonq = { :$and => [ cond1, cond2 ]}
+    query = "{ $and : [ #{lateq}, #{lonq} ] }"
+    query = { :$and => [ lateq, lonq ] }
+  end
   #
   # Returns the absolute value
   #

@@ -9,30 +9,38 @@ BuspassAdmin::Application.routes.draw do
 
   match "/masters/:master_id/signout" => "sessions#destroy", :as => :signout
 
+  match "/customers/sign_in" => "sessions#new_customer", :as => :customer_sign_in,
+        :constraints => { :host => Rails.application.base_host }
+  match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout,
+        :constraints => { :host => Rails.application.base_host }
+
   match "/admin/sign_in" => "sessions#new_muni_admin", :as => :host_master_muni_admin_sign_in,
         :constraints => { :host => /^(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/ }
   match "/:master_id/admin/sign_in" => "sessions#new_muni_admin", :as => :master_muni_admin_sign_in,
         :constraints => { :host => Rails.application.base_host }
   match "/:master_id/sign_in" => "sessions#new_user", :as => :master_user_sign_in,
         :constraints => { :host => Rails.application.base_host }
+  match "/:master_id/mobile_sign_in" => "mobile_sessions#new_user", :as => :master_mobile_user_sign_in,
+        :constraints => { :host => Rails.application.base_host }
+  match "/:master_id/app_sign_in" => "mobile_sessions#app_sign_in", :as => :master_app_sign_in,
+        :constraints => { :host => Rails.application.base_host }
   match "/sign_in" => "sessions#new_user", :as => :host_master_user_sign_in,
         :constraints => { :host => /^(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/ }
   match "/sign_in" => "sessions#new_customer", :as => :customer_sign_in,
         :constraints => { :host => Rails.application.base_host }
 
-  match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout,
-        :constraints => { :host => Rails.application.base_host }
 
-  match "/customers/sign_in" => "sessions#new_customer", :as => :customer_sign_in,
-        :constraints => { :host => Rails.application.base_host }
-  match "/customers/signout" => "sessions#destroy_customer", :as => :customer_signout,
-        :constraints => { :host => Rails.application.base_host }
 
   #match "/:master_id/apis/:version/:action", :controller => "apis#host", :constraints => { :host => Rails.application.base_host }
   #match "/:master_id/:version/:action", :controller => "apis#apis_host", :constraints => { :host => /^apis.#{Rails.application.base_host}$/ }
   #match "/apis/:version/:action", :controller => "apis#master_host", :constraints => { :host => /^[\w\-]+\.#{Rails.application.base_host}$/ }
   #match "/:version/:action", :controller => "apis#apis_master_host", :constraints => { :host => /^apis\.[\w\-]+\.#{Rails.application.base_host}$/ }
 
+
+  match "/apis/:version" => "apis#show", :as => "show_api",
+        :constraints => { :host => Rails.application.base_host }
+  match "/apis/:version/:call" => "apis#api_host", :as => "api_host",
+        :constraints => { :host => Rails.application.base_host }
 
   match "/:version/:call" => "apis#apis_master_host", :as => "apis_master_host_apis",
         :constraints => { :host => /^apis\.(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/ }
@@ -46,7 +54,6 @@ BuspassAdmin::Application.routes.draw do
   # This route is for the image links held in pages for use with the Wyswig editor.
   # It redirects paths to the
   match "s3image/(*id)" => "s3_images#show"
-
   resources :feedbacks
   resources :page_errors
 
@@ -63,6 +70,11 @@ BuspassAdmin::Application.routes.draw do
       get :new_user
       post :create_user
       delete :destroy_user
+    end
+  end
+  resources :mobile_sessions do
+    collection do
+      get :new_user
     end
   end
 
