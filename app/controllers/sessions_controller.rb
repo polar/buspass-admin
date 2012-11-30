@@ -5,6 +5,12 @@ class SessionsController < ApplicationController
   #
   def create
     get_context
+    if params[:provider] == "facebook"
+      state_urldata = params[:state]
+      state_data = CGI::unescape(state_urldata)
+      state = JSON.parse(state_data)
+      params.merge! state
+    end
     if params[:tpauth].nil?
       redirect_to root_path, :notice => "Invalid Authentication Request."
       return
@@ -110,6 +116,9 @@ class SessionsController < ApplicationController
       session[:tpauth] = :customer
       @options = "?tpauth=customer&customer_auth=#{session[:session_id]}&failure_path=#{root_path}"
       # We will render new_customer and then that will redirect to sessions#create on /auth/;provider/callback
+      state_data  = { :tpauth => :customer, :customer_auth => session[:session_id], :failure_path => root_path }
+      state_urldata = CGI::escape(state_data.to_json)
+      @fb_options = "?state=#{state_urldata}"
     end
   end
 
@@ -131,6 +140,10 @@ class SessionsController < ApplicationController
       @providers = BuspassAdmin::Application.oauth_providers
       session[:master_id] = @master.id
       @options = "?tpauth=muni_admin&master_id=#{@master.id}&muni_admin_auth=#{session[:session_id]}&failure_path=#{new_muni_admin_sessions_path(:master_id => @master.id)}"
+
+      state_data = { :tpauth => :muni_admin, :master_id => @master.id.to_s, :muni_admin_auth => session[:session_id],:failure_path => new_muni_admin_sessions_path(:master_id => @master.id) }
+      state_urldata = CGI::escape(state_data.to_json)
+      @fb_options = "?state=#{state_urldata}"
     end
 
   end
@@ -163,6 +176,9 @@ class SessionsController < ApplicationController
       @providers       = BuspassAdmin::Application.oauth_providers
       session[:master_id] = @master.id
       @options = "?tpauth=user&master_id=#{@master.id}&user_auth=#{session[:session_id]}&failure_path=#{new_user_sessions_path(:master_id => @master.id)}"
+      state_data = { :tpauth => :user, :master_id => @master.id.to_s, :user_auth => session[:session_id], :failure_path => new_user_sessions_path(:master_id => @master.id) }
+      state_urldata = CGI::escape(state_data.to_json)
+      @fb_options = "?state=#{state_urldata}"
     end
 
   end
