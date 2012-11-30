@@ -301,7 +301,7 @@ class ApplicationController < ActionController::Base
   def rescue_master_error_page(boom)
     if @master
       @error_site = @master.error_site
-      @error_page = rescue_master_process_error(@error_site, boom)
+      @error_page = rescue_master_main_process_error(@error_site, boom)
       if @error_page
         render :inline => @error_page.render(view_context, :status => @error_page.error_status, :content_type => "content/html")
       else
@@ -332,7 +332,7 @@ class ApplicationController < ActionController::Base
     rescue_process_error(error_site, "/admins", boom)
   end
 
-  def rescue_master_process_error(error_site, boom)
+  def rescue_master_main_process_error(error_site, boom)
     rescue_process_error(error_site, "/users", boom)
   end
   

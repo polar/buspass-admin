@@ -1,0 +1,26 @@
+<%= form_for @user,
+             :url => @user.new? ? create_mobile_master_user_registrations_path(@master) :
+                     update_mobile_master_user_registration_path(@master, @user),
+             :validate => true do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this admin from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+    <br />
+    <br />
+  <div class="actions">
+    <%= f.submit (@user.new? ? "Create Account" : "Update Info"), :class => "btn" %>
+  </div>
+<% end %>

@@ -1,6 +1,6 @@
 class Masters::UserRegistrationsController < Masters::MasterBaseController
 
-  rescue_from Exception, :with => :rescue_master_process_error
+  rescue_from Exception, :with => :rescue_master_error_page
 
   def new
     get_master_context
@@ -8,15 +8,48 @@ class Masters::UserRegistrationsController < Masters::MasterBaseController
     if @authentication
       user = User.find_by_authentication_id(@authentication.id)
       if user
-        redirect_to edit_master_user_registration_path(@master, user), :notice => "edit"
+        if params[:mobile]
+          signin(user)
+          redirect_to "busme://oauthresponse?access_token=#{current_user.get_access_token}&master=#{@master.slug}"
+        else
+          redirect_to edit_master_user_registration_path(@master, user), :notice => "edit"
+        end
       else
         @user = User.new()
         @user.name = @authentication.name
         @user.email = @authentication.last_info["email"]
         @user.master = @master
+        if params[:mobile]
+          render :new_mobile
+        else
+          render
+        end
       end
     else
-      redirect_to user_sign_in_path(:master_id => @master.id), :notice => "You need to authenticate first."
+      if params[:mobile]
+        redirect_to master_mobile_user_sign_in_path(@master), :notice => "You need to authenticate first."
+      else
+        redirect_to user_sign_in_path(:master_id => @master.id), :notice => "You need to authenticate first."
+      end
+    end
+  end
+
+  def new_mobile
+    get_master_context
+    @authentication = Authentication.find session[:user_oauth_id]
+    if @authentication
+      user = User.find_by_authentication_id(@authentication.id)
+      if user
+        signin(user)
+        redirect_to "busme://oauthresponse?access_token=#{current_user.get_access_token}&master=#{@master.slug}"
+      else
+        @user       = User.new()
+        @user.name  = @authentication.name
+        @user.email = @authentication.last_info["email"]
+        @user.master = @master
+      end
+    else
+      redirect_to master_mobile_user_sign_in_path(:master_id => @master.id), :notice => "You need to authenticate first."
     end
   end
 
@@ -41,11 +74,35 @@ class Masters::UserRegistrationsController < Masters::MasterBaseController
       @user = User.new(params[:user])
       @user.authentications << tpauth
       @user.master = @master
-      @user.save
-      session[:user_id] = @user.id
-      redirect_to edit_master_user_registration_path(@master, @user), :notice => "Signed In!"
+      if @user.save
+        session[:user_id] = @user.id
+        redirect_to edit_master_user_registration_path(@master, @user), :notice => "Signed In!"
+      else
+        render :new
+      end
     else
       redirect_to master_user_sign_in_path( @master), "You need to authenticate first."
+    end
+  end
+
+  #
+  # This gets called from a redirect from new_registration
+  #
+  def create_mobile
+    get_master_context
+    tpauth = Authentication.find session[:user_oauth_id]
+    if tpauth
+      @user = User.new(params[:user])
+      @user.authentications << tpauth
+      @user.master = @master
+      if @user.save
+        session[:user_id] = @user.id
+        redirect_to "busme://oauthresponse?access_token=#{current_user.get_access_token}&master=#{@master.slug}"
+      else
+        render edit_master_mobile_user_registrations_path(@master), :error => "Fix"
+      end
+    else
+      redirect_to master_mobile_user_sign_in_path(@master), :notice => "You need to authenticate first."
     end
   end
 

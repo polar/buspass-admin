@@ -168,8 +168,10 @@ class Apis::V1 < Apis::Base
     box = route.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
 
     text = "<Route id='#{route.persistentid}'\n"
+    text += "      type='route'\n"
     text += "      name='#{route.display_name}'\n"
     text += "      routeCode='#{route.code}'\n"
+    text += "      sort='#{route.sort}'\n"
     text += "      version='#{route.version}'\n"
     text += "      nw_lon='#{box[0][0]}'\n"
     text += "      nw_lat='#{box[0][1]}'\n"
@@ -208,6 +210,8 @@ class Apis::V1 < Apis::Base
     coords = vehicle_journey.journey_pattern.view_path_coordinates["LonLat"]
     text   = "<Route curloc='#{@api_url_for.call(vehicle_journey.persistentid)}'\n"
     text   += "      id='#{vehicle_journey.persistentid}'\n"
+    text   += "      type='journey'\n"
+    text   += "      sort='#{vehicle_journey.service.route.sort}'\n"
     text   += "      routeCode='#{vehicle_journey.service.route.code}'\n"
     text   += "      version='#{vehicle_journey.service.route.version}'\n"
     text   += "      name='#{vehicle_journey.display_name}'\n"

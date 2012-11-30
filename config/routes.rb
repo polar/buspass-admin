@@ -197,7 +197,16 @@ BuspassAdmin::Application.routes.draw do
 
     resources :user_registrations,
               :only => [:new, :edit, :create, :update],
-              :controller => "masters/user_registrations"
+              :controller => "masters/user_registrations" do
+      collection do
+        get :new_mobile
+        post :create_mobile
+      end
+      member do
+        get :edit_mobile
+        put  :update_mobile
+      end
+    end
 
     resources :user_authentications,
               :only => [:destroy],
