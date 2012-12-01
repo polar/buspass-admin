@@ -1015,6 +1015,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         this.Route.clear();
         this.StopPoints = [];
         $("#stop_points_list").html("");
+        this.setDrawLines(true);
         this.addStopPoint();
         this.addStopPoint();
         this.Controls.click.activate();
