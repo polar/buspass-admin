@@ -447,13 +447,18 @@ BusPass.StopPointsController = OpenLayers.Class({
                                 ctrl.notice("", "clear");
                             }
                             function errorNotice() {
-                                ctrl.notice("Autoroute failed", "error");
+                                ctrl.notice("Autoroute failed", "error", "fade");
                                 ctrl.Route.draw();
                             }
                             ctrl.notice("Calculating Route", "waiting");
-                            wp.updateLonLat(lonlat, true, clearNotice, errorNotice);
+                            wp.setLonLat(lonlat);
+                            ctrl.Route.draw();
+                            // TODO: Name this something else, since it actually tries to autoroute the link.
+                            wp.onLinkUpdated(clearNotice, errorNotice);
                         } else {
-                            wp.updateLonLat(lonlat, true);
+                            wp.setLonLat(lonlat);
+                            ctrl.Route.draw();
+                            wp.onLinkUpdated(clearNotice, errorNotice);
                         }
                         var sp = wp.StopPoint;
                         // StopPoint may be undefined if just a waypoint.
@@ -1004,13 +1009,17 @@ BusPass.StopPointsController = OpenLayers.Class({
                 route.notice("", "clear");
             }
             function errorNotice() {
-                ctrl.notice("Autoroute failed", "error");
+                ctrl.notice("Autoroute failed", "error", "fade");
                 ctrl.Route.draw();
             }
             this.notice("Calculating route", "waiting");
-            wp.updateLonLat(lonlat, true, clearNotice, errorNotice);
+            wp.setLonLat(lonlat);
+            ctrl.Route.draw();
+            wp.onLinkUpdated(clearNotice, errorNotice);
         } else {
-            wp.updateLonLat(lonlat, true);
+            wp.setLonLat(lonlat);
+            ctrl.Route.draw();
+            wp.onLinkUpdated(clearNotice, errorNotice);
         }
         if (wp == this.Route.getWaypoint("selected") && wp.StopPoint) {
             var next_stop_point = this.StopPoints[wp.StopPoint.position+1];
