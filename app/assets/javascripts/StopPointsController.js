@@ -1058,7 +1058,7 @@ BusPass.StopPointsController = OpenLayers.Class({
                 ctrl.Controls.click.deactivate();
             }
             if (wp.StopPoint) {
-                ctrl.updateStopPointLocationUI(wp.StopPoint);
+                ctrl.updateUI();
             }
         }
 
