@@ -910,7 +910,7 @@ BusPass.StopPointsController = OpenLayers.Class({
 
     setAutoRoute : function (turnon) {
         this.Route.autoroute = turnon;
-        $("#autoroute").attr("disabled",turnon ? "disabled" : "")
+        $("#autoroute").attr("active", turnon ? "active" : "")
     },
 
     setDrawLines : function (turnon) {
