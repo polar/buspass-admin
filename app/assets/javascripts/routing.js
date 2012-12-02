@@ -1125,43 +1125,59 @@ BusPass.Route.Waypoint = OpenLayers.Class({
     triggerUpdate : function (onCompleteCB, onErrorCB) {
         var backreturned = false;
         var forwreturned = false;
+        var waypoint = this;
 
         function completeBacklink() {
             backreturned = true;
             if (forwreturned && forwreturned != "error") {
-                onCompleteCB();
+                if (onCompleteCB) {
+                    onCompleteCB();
+                    if (waypoint.onWaypointUpdated !== undefined) {
+                        waypoint.onWaypointUpdated(this);
+                    }
+                }
             } else {
-                onErrorCB();
+                if (onErrorCB) {
+                    onErrorCB();
+                }
             }
         }
         function completeForwardLink() {
             forwreturned = true;
             if (backreturned && backreturned != "error") {
-                onCompleteCB();
+                if (onCompleteCB) {
+                    onCompleteCB();
+                    if (waypoint.onWaypointUpdated !== undefined) {
+                        waypoint.onWaypointUpdated(this);
+                    }
+                }
             } else {
-                onErrorCB();
+                if (onErrorCB) {
+                    onErrorCB();
+                }
             }
         }
         function errorBacklink() {
             backreturned = "error";
             if (!forwreturned) {
-                onErrorCB();
+                if (onErrorCB) {
+                    onErrorCB();
+                }
             }
         }
         function errorForwardlink() {
             forwreturned = "error";
             if (!backreturned) {
-                onErrorCB();
+                if (onErrorCB) {
+                    onErrorCB();
+                }
             }
         }
         if (this.backLink) {
-            this.backLink.endWaypointUpdated(this.backLink, this, completeBacklink(), errorBacklink());
+            this.backLink.endWaypointUpdated(this.backLink, this, completeBacklink, errorBacklink);
         }
         if (this.forwardLink) {
-            this.forwardLink.startWaypointUpdated(this.forwardLink, this, completeForwardLink(), errorBacklink());
-        }
-        if (this.onWaypointUpdated !== undefined) {
-            this.onWaypointUpdated(this);
+            this.forwardLink.startWaypointUpdated(this.forwardLink, this, completeForwardLink, errorBacklink);
         }
     },
 
