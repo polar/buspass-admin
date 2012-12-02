@@ -363,6 +363,7 @@ BusPass.StopPointsController = OpenLayers.Class({
             click: new BusPass.ClickLocationControl({
                 onLocationClick : function(lonlat) {
                     var sp = ctrl.onMapClick(lonlat);
+                    // TODO: This may be redundant
                     if (sp) {
                         ctrl.updateStopPointLocationUI(sp);
                         ctrl.triggerOnLocationUpdated(sp);
@@ -445,10 +446,22 @@ BusPass.StopPointsController = OpenLayers.Class({
                         if (ctrl.Route.autoroute) {
                             function clearNotice() {
                                 ctrl.notice("", "clear");
+                                var sp = wp.StopPoint;
+                                // StopPoint may be undefined if just a waypoint.
+                                if (sp) {
+                                    ctrl.updateStopPointLocationUI(sp);
+                                    ctrl.triggerOnLocationUpdated(sp);
+                                }
                             }
                             function errorNotice() {
                                 ctrl.notice("Autoroute failed", "error", "fade");
                                 ctrl.Route.draw();
+                                var sp = wp.StopPoint;
+                                // StopPoint may be undefined if just a waypoint.
+                                if (sp) {
+                                    ctrl.updateStopPointLocationUI(sp);
+                                    ctrl.triggerOnLocationUpdated(sp);
+                                }
                             }
                             ctrl.notice("Calculating Route", "waiting");
                             wp.setLonLat(lonlat);
@@ -459,12 +472,12 @@ BusPass.StopPointsController = OpenLayers.Class({
                             wp.setLonLat(lonlat);
                             ctrl.Route.draw();
                             wp.onLinkUpdated(clearNotice, errorNotice);
-                        }
-                        var sp = wp.StopPoint;
-                        // StopPoint may be undefined if just a waypoint.
-                        if (sp) {
-                            ctrl.updateStopPointLocationUI(sp);
-                            ctrl.triggerOnLocationUpdated(sp);
+                            var sp = wp.StopPoint;
+                            // StopPoint may be undefined if just a waypoint.
+                            if (sp) {
+                                ctrl.updateStopPointLocationUI(sp);
+                                ctrl.triggerOnLocationUpdated(sp);
+                            }
                         }
                     }
                 }
