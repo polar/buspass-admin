@@ -777,6 +777,7 @@ BusPass.Route.Link = OpenLayers.Class({
     },
 
     startWaypointUpdated : function (link, wp, completeCallback, errorCallback) {
+        this.connectEndpoints();
         if (this.route.autoroute) {
             this.launchGetRoute(
                 function (link) {
@@ -801,6 +802,7 @@ BusPass.Route.Link = OpenLayers.Class({
     },
 
     endWaypointUpdated : function (link, wp, completeCallback, errorCallback) {
+        this.connectEndpoints();
         if (this.route.autoroute) {
             this.launchGetRoute(
                 function (link) {
