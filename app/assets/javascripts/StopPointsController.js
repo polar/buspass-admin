@@ -448,16 +448,13 @@ BusPass.StopPointsController = OpenLayers.Class({
                             }
                             function errorNotice() {
                                 ctrl.notice("Autoroute failed", "error", "fade");
-                                ctrl.Route.draw();
                             }
                             ctrl.notice("Calculating Route", "waiting");
                             wp.setLonLat(lonlat);
-                            ctrl.Route.draw();
                             // TODO: Name this something else, since it actually tries to autoroute the link.
                             wp.onLinkUpdated(clearNotice, errorNotice);
                         } else {
                             wp.setLonLat(lonlat);
-                            ctrl.Route.draw();
                             wp.onLinkUpdated(clearNotice, errorNotice);
                         }
                         var sp = wp.StopPoint;
@@ -1010,15 +1007,12 @@ BusPass.StopPointsController = OpenLayers.Class({
             }
             function errorNotice() {
                 ctrl.notice("Autoroute failed", "error", "fade");
-                ctrl.Route.draw();
             }
             this.notice("Calculating route", "waiting");
             wp.setLonLat(lonlat);
-            ctrl.Route.draw();
             wp.onLinkUpdated(clearNotice, errorNotice);
         } else {
             wp.setLonLat(lonlat);
-            ctrl.Route.draw();
             wp.onLinkUpdated(clearNotice, errorNotice);
         }
         if (wp == this.Route.getWaypoint("selected") && wp.StopPoint) {
