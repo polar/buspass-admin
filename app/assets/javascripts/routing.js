@@ -914,6 +914,7 @@ BusPass.Route.Link = OpenLayers.Class({
             self.PendingRoute = true;
             self.route.RouteApi.getRoute(self.startWaypoint.lonlat, self.endWaypoint.lonlat,
                 function (xml) {
+                    delete self.PendingRoute;
                     try {
                         // Since this is an Ajax return, this link may have already been
                         // destroyed. If it doesn't have a route, it's gone. We will
@@ -927,7 +928,6 @@ BusPass.Route.Link = OpenLayers.Class({
                                 self.lineString = features[0];
                                 self.connectEndpoints();
                             }
-                            delete self.PendingRoute;
                         }
                     } catch (err) {
                         console.log("Route Error: bad line string.");
@@ -938,18 +938,7 @@ BusPass.Route.Link = OpenLayers.Class({
                     }
                 },
                 function(jqXHR, textStatus, errorThrown) {
-                    try {
-                        // Since this is an Ajax return, this link may have already been
-                        // destroyed. If it doesn't have a route, it's gone. We will
-                        // still maintain callback integrity, but the callback should
-                        // notice.
-                        if (!self.isDestroyed()){
-                            delete self.PendingRoute;
-                        }
-                    } catch (err) {
-                        console.log("Route Error: bad line string.");
-                        self.RoutingError = err;
-                    }
+                    delete self.PendingRoute;
                     if (errorCallback !== undefined) {
                         errorCallback(self, jqXHR, textStatus, errorThrown);
                     }

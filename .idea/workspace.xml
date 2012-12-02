@@ -7,7 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Auth Route Fixes">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routing.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
     </list>
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
@@ -57,10 +57,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StopPointsController.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="StopPointsController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="459" column="63" selection-start="15369" selection-end="15416" vertical-scroll-proportion="-0.38075313">
+            <state line="1017" column="15" selection-start="36323" selection-end="36323" vertical-scroll-proportion="-50.057144">
               <folding>
                 <element signature="e#0#162#0" expanded="false" />
                 <element signature="e#245#492#0" expanded="false" />
@@ -85,7 +85,6 @@
                 <element signature="e#2614#2685#0" expanded="false" />
                 <element signature="e#2716#2809#0" expanded="false" />
                 <element signature="e#2837#2877#0" expanded="false" />
-                <element signature="e#2906#3018#0" expanded="false" />
                 <element signature="e#3075#3184#0" expanded="false" />
                 <element signature="e#3233#3626#0" expanded="false" />
                 <element signature="e#4767#5661#0" expanded="false" />
@@ -190,8 +189,6 @@
                 <element signature="e#27154#27209#0" expanded="false" />
                 <element signature="e#27572#27696#0" expanded="false" />
                 <element signature="e#28558#28684#0" expanded="false" />
-                <element signature="e#28738#28892#0" expanded="false" />
-                <element signature="e#28827#28886#0" expanded="false" />
                 <element signature="e#28899#29348#0" expanded="false" />
                 <element signature="e#29409#29843#0" expanded="false" />
                 <element signature="e#29505#29556#0" expanded="false" />
@@ -286,10 +283,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routing.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="routing.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="779" column="32" selection-start="26977" selection-end="26977" vertical-scroll-proportion="-118.828575">
+            <state line="940" column="45" selection-start="32893" selection-end="32893" vertical-scroll-proportion="1.3913978">
               <folding />
             </state>
           </provider>
@@ -363,8 +360,8 @@
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/models/apis/v1.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
       </list>
     </option>
   </component>
@@ -1775,7 +1772,11 @@
       <created>1354424347325</created>
       <updated>1354424347325</updated>
     </task>
-    <option name="localTasksCounter" value="150" />
+    <task id="LOCAL-00150" summary="Auth Route Fixes">
+      <created>1354424448740</created>
+      <updated>1354424448740</updated>
+    </task>
+    <option name="localTasksCounter" value="151" />
     <option name="createChangelist" value="false" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
@@ -2040,16 +2041,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="779" column="32" selection-start="26977" selection-end="26977" vertical-scroll-proportion="-118.828575">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="459" column="63" selection-start="15369" selection-end="15416" vertical-scroll-proportion="-0.38075313">
+        <state line="1017" column="15" selection-start="36323" selection-end="36323" vertical-scroll-proportion="-50.057144">
           <folding>
             <element signature="e#0#162#0" expanded="false" />
             <element signature="e#245#492#0" expanded="false" />
@@ -2074,7 +2068,6 @@
             <element signature="e#2614#2685#0" expanded="false" />
             <element signature="e#2716#2809#0" expanded="false" />
             <element signature="e#2837#2877#0" expanded="false" />
-            <element signature="e#2906#3018#0" expanded="false" />
             <element signature="e#3075#3184#0" expanded="false" />
             <element signature="e#3233#3626#0" expanded="false" />
             <element signature="e#4767#5661#0" expanded="false" />
@@ -2179,8 +2172,6 @@
             <element signature="e#27154#27209#0" expanded="false" />
             <element signature="e#27572#27696#0" expanded="false" />
             <element signature="e#28558#28684#0" expanded="false" />
-            <element signature="e#28738#28892#0" expanded="false" />
-            <element signature="e#28827#28886#0" expanded="false" />
             <element signature="e#28899#29348#0" expanded="false" />
             <element signature="e#29409#29843#0" expanded="false" />
             <element signature="e#29505#29556#0" expanded="false" />
@@ -2250,6 +2241,13 @@
             <element signature="e#50780#50967#0" expanded="false" />
             <element signature="e#51119#51376#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="940" column="45" selection-start="32893" selection-end="32893" vertical-scroll-proportion="1.3913978">
+          <folding />
         </state>
       </provider>
     </entry>
