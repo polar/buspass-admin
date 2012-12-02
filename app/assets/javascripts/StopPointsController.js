@@ -1016,26 +1016,23 @@ BusPass.StopPointsController = OpenLayers.Class({
         if (wp.hasLink() && !wp.isCurrentLonLat(lonlat)) {
             function clearNotice() {
                 ctrl.notice("", "clear");
-                finish_it();
+                ctrl.Route.draw();
             }
             function errorNotice() {
                 ctrl.notice("Autoroute failed", "error", "fade");
                 ctrl.Route.draw();
-                finish_it();
             }
             this.notice("Calculating route", "waiting");
             wp.setLonLat(lonlat);
+            advance();
             ctrl.Route.draw();
             wp.onLinkUpdated(clearNotice, errorNotice);
         } else {
             wp.setLonLat(lonlat);
+            advance();
             ctrl.Route.draw();
-            finish_it();
         }
-        function finish_it() {
-            if (wp.StopPoint) {
-                ctrl.updateStopPointLocationUI(wp.StopPoint);
-            }
+        function advance() {
             if (wp == ctrl.Route.getWaypoint("selected") && wp.StopPoint) {
                 var next_stop_point = this.StopPoints[wp.StopPoint.position+1];
                 if (next_stop_point !== undefined) {
@@ -1061,6 +1058,9 @@ BusPass.StopPointsController = OpenLayers.Class({
                 // unselect
                 ctrl.Route.selectWaypoint();
                 ctrl.Controls.click.deactivate();
+            }
+            if (wp.StopPoint) {
+                ctrl.updateStopPointLocationUI(wp.StopPoint);
             }
         }
 
