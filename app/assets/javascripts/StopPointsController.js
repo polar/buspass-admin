@@ -503,6 +503,8 @@ BusPass.StopPointsController = OpenLayers.Class({
             console.log("Auto Routes Button " + $(this).hasClass("active"));
             ctrl.setAutoRoute(!$(this).hasClass("active"));
         });
+        $("#autoroute").addClass("active");
+
         $("#route_waiting").hide();
 
         // Deal with the buttons that flip between names and locations.
@@ -910,7 +912,11 @@ BusPass.StopPointsController = OpenLayers.Class({
 
     setAutoRoute : function (turnon) {
         this.Route.autoroute = turnon;
-        $("#autoroute").attr("active", turnon ? "active" : "")
+        if (turnon) {
+         $("#autoroute").removeClass("active");
+        } else {
+         $("#autoroute").addClass("active");
+        }
     },
 
     setDrawLines : function (turnon) {
