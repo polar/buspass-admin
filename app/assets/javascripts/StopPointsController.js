@@ -1052,8 +1052,6 @@ BusPass.StopPointsController = OpenLayers.Class({
                     ctrl.Route.selectWaypoint();
                     ctrl.Controls.click.deactivate();
                 }
-                // This might return undefined.
-                return wp.StopPoint;
             } else {
                 // unselect
                 ctrl.Route.selectWaypoint();
