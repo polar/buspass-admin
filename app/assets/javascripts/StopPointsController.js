@@ -1029,9 +1029,6 @@ BusPass.StopPointsController = OpenLayers.Class({
             wp.onLinkUpdated(clearNotice, errorNotice);
         } else {
             wp.setLonLat(lonlat);
-            if (wp.StopPoint) {
-                ctrl.updateStopPointLocationUI(wp.StopPoint);
-            }
             ctrl.Route.draw();
             finish_it();
         }
@@ -1039,7 +1036,7 @@ BusPass.StopPointsController = OpenLayers.Class({
             if (wp.StopPoint) {
                 ctrl.updateStopPointLocationUI(wp.StopPoint);
             }
-            if (wp == this.Route.getWaypoint("selected") && wp.StopPoint) {
+            if (wp == ctrl.Route.getWaypoint("selected") && wp.StopPoint) {
                 var next_stop_point = this.StopPoints[wp.StopPoint.position+1];
                 if (next_stop_point !== undefined) {
                     // We ask the route, just in case the Waypoint got deleted.
