@@ -1154,6 +1154,9 @@ BusPass.Route.Waypoint = OpenLayers.Class({
             } else {
                 if (onErrorCB) {
                     onErrorCB();
+                    if (waypoint.onWaypointUpdated !== undefined) {
+                        waypoint.onWaypointUpdated(this);
+                    }
                 }
             }
         }
@@ -1162,6 +1165,9 @@ BusPass.Route.Waypoint = OpenLayers.Class({
             if (!forwreturned) {
                 if (onErrorCB) {
                     onErrorCB();
+                    if (waypoint.onWaypointUpdated !== undefined) {
+                        waypoint.onWaypointUpdated(this);
+                    }
                 }
             }
         }
@@ -1170,6 +1176,9 @@ BusPass.Route.Waypoint = OpenLayers.Class({
             if (!backreturned) {
                 if (onErrorCB) {
                     onErrorCB();
+                    if (waypoint.onWaypointUpdated !== undefined) {
+                        waypoint.onWaypointUpdated(this);
+                    }
                 }
             }
         }

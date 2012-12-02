@@ -325,7 +325,7 @@
       <file leaf-file-name="routing.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1150" column="32" selection-start="39372" selection-end="39372" vertical-scroll-proportion="-0.53745073">
+            <state line="1180" column="21" selection-start="40395" selection-end="40395" vertical-scroll-proportion="2.1274638">
               <folding />
             </state>
           </provider>
@@ -1762,7 +1762,11 @@
       <created>1354417982071</created>
       <updated>1354417982071</updated>
     </task>
-    <option name="localTasksCounter" value="140" />
+    <task id="LOCAL-00140" summary="Auth Route Fixes">
+      <created>1354418362727</created>
+      <updated>1354418362727</updated>
+    </task>
+    <option name="localTasksCounter" value="141" />
     <option name="createChangelist" value="false" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
@@ -2262,7 +2266,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1150" column="32" selection-start="39372" selection-end="39372" vertical-scroll-proportion="-0.53745073">
+        <state line="1180" column="21" selection-start="40395" selection-end="40395" vertical-scroll-proportion="2.1274638">
           <folding />
         </state>
       </provider>
