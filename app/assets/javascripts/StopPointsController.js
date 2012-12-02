@@ -499,6 +499,10 @@ BusPass.StopPointsController = OpenLayers.Class({
             ctrl.setDrawLines(!$(this).hasClass("active"));
         });
 
+        $("#autoroute").click(function () {
+            console.log("Auto Routes Button " + $(this).hasClass("active"));
+            ctrl.setAutoRoute(!$(this).hasClass("active"));
+        });
         $("#route_waiting").hide();
 
         // Deal with the buttons that flip between names and locations.
@@ -753,10 +757,8 @@ BusPass.StopPointsController = OpenLayers.Class({
      * so that the user can click them down.
      */
     initializeFromOptions : function () {
-        this.Route.autoroute = false;
         this.addStopPoint();
         this.addStopPoint();
-        $("#drawlines").attr("disabled",false);
         this.selectStopPoint(this.StopPoints[0]);
         this.Controls.click.activate();
     },
@@ -906,13 +908,15 @@ BusPass.StopPointsController = OpenLayers.Class({
         }
     },
 
+    setAutoRoute : function (turnon) {
+        this.Route.autoroute = turnon;
+    },
+
     setDrawLines : function (turnon) {
         var turnoff = !turnon;
         var drawlines = this.Controls.modify.active;
         // If we are already drawlines and the Route is in auto route mode,
         if (drawlines && turnoff) {
-            // We go to Autoroute.
-            this.Route.autoroute = true;
             // Unselect the modified feature.
             var lineString = this.Controls.modify.feature;
             this.Controls.modify.unselectFeature();
