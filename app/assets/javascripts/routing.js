@@ -766,39 +766,51 @@ BusPass.Route.Link = OpenLayers.Class({
     },
 
     startWaypointUpdated : function (link, wp, completeCallback, errorCallback) {
-        this.launchGetRoute(
-            function (link) {
-                if (!link.isDestroyed()) {
-                    link.triggerUpdate();
+        if (this.route.autoroute) {
+            this.launchGetRoute(
+                function (link) {
+                    if (!link.isDestroyed()) {
+                        link.triggerUpdate();
+                    }
                     if (completeCallback){
                         completeCallback(link, wp);
                     }
+                },
+                function (self, jqXHR, textStatus, errorThrown) {
+                    if (errorCallback) {
+                        errorCallback.call(self, jqXHR, textStatus, errorThrown);
+                    }
                 }
-            },
-            function (self, jqXHR, textStatus, errorThrown) {
-                if (errorCallback) {
-                    errorCallback.call(self, jqXHR, textStatus, errorThrown);
-                }
+            );
+        } else {
+            if (completeCallback){
+                completeCallback(link, wp);
             }
-        );
+        }
     },
 
     endWaypointUpdated : function (link, wp, completeCallback, errorCallback) {
-        this.launchGetRoute(
-            function (link) {
-                if (!link.isDestroyed()) {
-                    link.triggerUpdate();
+        if (this.route.autoroute) {
+            this.launchGetRoute(
+                function (link) {
+                    if (!link.isDestroyed()) {
+                        link.triggerUpdate();
+                    }
+                    if (completeCallback) {
+                        completeCallback(link, wp);
+                    }
+                },
+                function (self, jqXHR, textStatus, errorThrown) {
+                    if (errorCallback) {
+                        errorCallback.call(self, jqXHR, textStatus, errorThrown);
+                    }
                 }
-                if (completeCallback) {
-                    completeCallback(link, wp);
-                }
-            },
-            function (self, jqXHR, textStatus, errorThrown) {
-                if (errorCallback) {
-                    errorCallback.call(self, jqXHR, textStatus, errorThrown);
-                }
+            );
+        } else {
+            if (completeCallback) {
+                completeCallback(link,wp);
             }
-        );
+        }
     },
 
     reroute : function (draw) {
@@ -813,7 +825,7 @@ BusPass.Route.Link = OpenLayers.Class({
 
     lineString : null,
 
-    triggerUpdate : function () {
+    linkUpdated : function () {
         if (this.onLinkUpdated) {
             this.onLinkUpdated(this);
         }
@@ -1122,7 +1134,7 @@ BusPass.Route.Waypoint = OpenLayers.Class({
         }
     },
 
-    triggerUpdate : function (onCompleteCB, onErrorCB) {
+    onLinkUpdated : function (onCompleteCB, onErrorCB) {
         var backreturned = false;
         var forwreturned = false;
         var waypoint = this;
@@ -1190,9 +1202,12 @@ BusPass.Route.Waypoint = OpenLayers.Class({
         }
     },
 
-    updateLonLat : function (lonlat) {
+    updateLonLat : function (lonlat, doDraw,  completeCB, errorCB) {
         this.setLonLat(lonlat);
-        this.triggerUpdate();
+        if (doDraw) {
+            this.draw();
+        }
+        this.onLinkUpdated(completeCB, errorCB);
     },
 
     CLASS_NAME : "BusPass.Route.Waypoint"
