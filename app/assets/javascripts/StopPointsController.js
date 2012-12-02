@@ -362,12 +362,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         this.Controls = {
             click: new BusPass.ClickLocationControl({
                 onLocationClick : function(lonlat) {
-                    var sp = ctrl.onMapClick(lonlat);
-                    // TODO: This may be redundant
-                    if (sp) {
-                        ctrl.updateStopPointLocationUI(sp);
-                        ctrl.triggerOnLocationUpdated(sp);
-                    }
+                    ctrl.onMapClick(lonlat);
                 }
             }),
             drag: new OpenLayers.Control.DragFeature(this.MarkersLayer, {

@@ -737,25 +737,14 @@ BusPass.Route.Link = OpenLayers.Class({
                 this.connectEndpoints();
             }
         } else {
-            if (this.startWaypoint.lonlat && this.endWaypoint.lonlat) {
-                this.lineString = new OpenLayers.Feature.Vector(
-                    new OpenLayers.Geometry.LineString([
+            this.lineString = new OpenLayers.Feature.Vector(
+                new OpenLayers.Geometry.LineString([
                     this.startWaypoint.geometry,
                     this.endWaypoint.geometry])
-                );
-                this.connectEndpoints();
+            );
+            this.connectEndpoints();
+            if (this.startWaypoint.lonlat && this.endWaypoint.lonlat) {
                 this.draw();
-            } else if (this.startWaypoint.lonlat) {
-                this.lineString =  new OpenLayers.Feature.Vector(
-                    new OpenLayers.Geometry.LineString([
-                        this.startWaypoint.geometry]));
-            } else if (this.endWaypoint.lonlat) {
-                this.lineString =  new OpenLayers.Feature.Vector(
-                    new OpenLayers.Geometry.LineString([
-                        this.startWaypoint.geometry]));
-            } else {
-                this.lineString =  new OpenLayers.Feature.Vector(
-                    new OpenLayers.Geometry.LineString([]));
             }
         }
     },
