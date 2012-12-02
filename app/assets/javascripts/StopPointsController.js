@@ -996,9 +996,6 @@ BusPass.StopPointsController = OpenLayers.Class({
         if (wp !== undefined) {
             console.log("onMapClick(" + lonlat + ") = " + wp);
             this.updateWayPointLonlatAndSelection(wp, lonlat);
-            if (wp.StopPoint) {
-                this.updateStopPointLocationUI(wp.StopPoint);
-            }
         } else {
             console.log("onMapClick without selected waypoint.");
             return null;
@@ -1014,16 +1011,17 @@ BusPass.StopPointsController = OpenLayers.Class({
      */
     updateWayPointLonlatAndSelection : function (wp, lonlat) {
         console.log("updateWayPointLonlat(" + lonlat + ") = " + wp);
-
+        var ctrl = this;
         // If the waypoint has a link and the location has changed.
         if (wp.hasLink() && !wp.isCurrentLonLat(lonlat)) {
-            var route = this;
             function clearNotice() {
-                route.notice("", "clear");
+                ctrl.notice("", "clear");
+                finish_it();
             }
             function errorNotice() {
                 ctrl.notice("Autoroute failed", "error", "fade");
                 ctrl.Route.draw();
+                finish_it();
             }
             this.notice("Calculating route", "waiting");
             wp.setLonLat(lonlat);
@@ -1031,34 +1029,42 @@ BusPass.StopPointsController = OpenLayers.Class({
             wp.onLinkUpdated(clearNotice, errorNotice);
         } else {
             wp.setLonLat(lonlat);
+            if (wp.StopPoint) {
+                ctrl.updateStopPointLocationUI(wp.StopPoint);
+            }
             ctrl.Route.draw();
-            wp.onLinkUpdated(clearNotice, errorNotice);
+            finish_it();
         }
-        if (wp == this.Route.getWaypoint("selected") && wp.StopPoint) {
-            var next_stop_point = this.StopPoints[wp.StopPoint.position+1];
-            if (next_stop_point !== undefined) {
-                // We ask the route, just in case the Waypoint got deleted.
-                var next = this.Route.getWaypoint(next_stop_point.Waypoint.position);
-                if (next !== undefined && !next.isLonLatSet()) {
-                    if (this.Route.selectWaypoint(next.position) === undefined) {
+        function finish_it() {
+            if (wp.StopPoint) {
+                ctrl.updateStopPointLocationUI(wp.StopPoint);
+            }
+            if (wp == this.Route.getWaypoint("selected") && wp.StopPoint) {
+                var next_stop_point = this.StopPoints[wp.StopPoint.position+1];
+                if (next_stop_point !== undefined) {
+                    // We ask the route, just in case the Waypoint got deleted.
+                    var next = ctrl.Route.getWaypoint(next_stop_point.Waypoint.position);
+                    if (next !== undefined && !next.isLonLatSet()) {
+                        if (ctrl.Route.selectWaypoint(next.position) === undefined) {
+                            ctrl.Controls.click.deactivate();
+                        }
+                    } else {
+                        // unselect
+                        this.Route.selectWaypoint();
                         this.Controls.click.deactivate();
                     }
                 } else {
                     // unselect
-                    this.Route.selectWaypoint();
-                    this.Controls.click.deactivate();
+                    ctrl.Route.selectWaypoint();
+                    ctrl.Controls.click.deactivate();
                 }
+                // This might return undefined.
+                return wp.StopPoint;
             } else {
                 // unselect
-                this.Route.selectWaypoint();
-                this.Controls.click.deactivate();
+                ctrl.Route.selectWaypoint();
+                ctrl.Controls.click.deactivate();
             }
-            // This might return undefined.
-            return wp.StopPoint;
-        } else {
-            // unselect
-            this.Route.selectWaypoint();
-            this.Controls.click.deactivate();
         }
 
     },
