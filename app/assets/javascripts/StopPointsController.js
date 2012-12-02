@@ -1034,7 +1034,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         }
         function advance() {
             if (wp == ctrl.Route.getWaypoint("selected") && wp.StopPoint) {
-                var next_stop_point = this.StopPoints[wp.StopPoint.position+1];
+                var next_stop_point = ctrl.StopPoints[wp.StopPoint.position+1];
                 if (next_stop_point !== undefined) {
                     // We ask the route, just in case the Waypoint got deleted.
                     var next = ctrl.Route.getWaypoint(next_stop_point.Waypoint.position);
@@ -1044,8 +1044,8 @@ BusPass.StopPointsController = OpenLayers.Class({
                         }
                     } else {
                         // unselect
-                        this.Route.selectWaypoint();
-                        this.Controls.click.deactivate();
+                        ctrl.Route.selectWaypoint();
+                        ctrl.Controls.click.deactivate();
                     }
                 } else {
                     // unselect

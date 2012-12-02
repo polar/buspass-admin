@@ -60,7 +60,7 @@
       <file leaf-file-name="StopPointsController.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1018" column="34" selection-start="36726" selection-end="36726" vertical-scroll-proportion="0.1382429">
+            <state line="1045" column="55" selection-start="37924" selection-end="37924" vertical-scroll-proportion="0.74289405">
               <folding>
                 <element signature="e#0#162#0" expanded="false" />
                 <element signature="e#245#492#0" expanded="false" />
@@ -201,7 +201,6 @@
                 <element signature="e#32229#32471#0" expanded="false" />
                 <element signature="e#32389#32461#0" expanded="false" />
                 <element signature="e#32478#32564#0" expanded="false" />
-                <element signature="e#37887#38057#0" expanded="false" />
                 <element signature="e#38630#38972#0" expanded="false" />
                 <element signature="e#39533#39974#0" expanded="false" />
                 <element signature="e#39640#39968#0" expanded="false" />
@@ -1790,7 +1789,11 @@
       <created>1354427531079</created>
       <updated>1354427531079</updated>
     </task>
-    <option name="localTasksCounter" value="156" />
+    <task id="LOCAL-00156" summary="Auth Route Fixes">
+      <created>1354427979969</created>
+      <updated>1354427979969</updated>
+    </task>
+    <option name="localTasksCounter" value="157" />
     <option name="createChangelist" value="false" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
@@ -2064,7 +2067,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1018" column="34" selection-start="36726" selection-end="36726" vertical-scroll-proportion="0.1382429">
+        <state line="1045" column="55" selection-start="37924" selection-end="37924" vertical-scroll-proportion="0.74289405">
           <folding>
             <element signature="e#0#162#0" expanded="false" />
             <element signature="e#245#492#0" expanded="false" />
@@ -2205,7 +2208,6 @@
             <element signature="e#32229#32471#0" expanded="false" />
             <element signature="e#32389#32461#0" expanded="false" />
             <element signature="e#32478#32564#0" expanded="false" />
-            <element signature="e#37887#38057#0" expanded="false" />
             <element signature="e#38630#38972#0" expanded="false" />
             <element signature="e#39533#39974#0" expanded="false" />
             <element signature="e#39640#39968#0" expanded="false" />
