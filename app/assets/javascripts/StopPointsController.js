@@ -913,9 +913,9 @@ BusPass.StopPointsController = OpenLayers.Class({
     setAutoRoute : function (turnon) {
         this.Route.autoroute = turnon;
         if (turnon) {
-         $("#autoroute").removeClass("active");
-        } else {
          $("#autoroute").addClass("active");
+        } else {
+         $("#autoroute").removeClass("active");
         }
     },
 
