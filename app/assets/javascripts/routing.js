@@ -782,7 +782,7 @@ BusPass.Route.Link = OpenLayers.Class({
             this.launchGetRoute(
                 function (link) {
                     if (!link.isDestroyed()) {
-                        link.triggerUpdate();
+                        link.onLinkUpdated(link);
                     }
                     if (completeCallback){
                         completeCallback(link, wp);
@@ -807,7 +807,7 @@ BusPass.Route.Link = OpenLayers.Class({
             this.launchGetRoute(
                 function (link) {
                     if (!link.isDestroyed()) {
-                        link.triggerUpdate();
+                        link.onLinkUpdated(link);
                     }
                     if (completeCallback) {
                         completeCallback(link, wp);
