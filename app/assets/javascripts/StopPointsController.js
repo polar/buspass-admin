@@ -446,9 +446,14 @@ BusPass.StopPointsController = OpenLayers.Class({
                             ctrl.notice("");
                             return false;
                         }
-                        wp.updateLonLat(lonlat, true);
                         if (ctrl.Route.autoroute) {
+                            function clearNotice() {
+                                ctrl.notice("", "clear");
+                            }
                             ctrl.notice("Calculating Route", "waiting");
+                            wp.updateLonLat(lonlat, true, clearNotice, clearNotice);
+                        } else {
+                            wp.updateLonLat(lonlat, true);
                         }
                         var sp = wp.StopPoint;
                         // StopPoint may be undefined if just a waypoint.
@@ -994,9 +999,15 @@ BusPass.StopPointsController = OpenLayers.Class({
 
         // If the waypoint has a link and the location has changed.
         if (wp.hasLink() && !wp.isCurrentLonLat(lonlat)) {
+            var route = this;
+            function clearNotice() {
+                route.notice("", "clear");
+            }
             this.notice("Calculating route", "waiting");
+            wp.updateLonLat(lonlat, true, clearNotice, clearNotice);
+        } else {
+            wp.updateLonLat(lonlat, true);
         }
-        wp.updateLonLat(lonlat, true);
         if (wp == this.Route.getWaypoint("selected") && wp.StopPoint) {
             var next_stop_point = this.StopPoints[wp.StopPoint.position+1];
             if (next_stop_point !== undefined) {
