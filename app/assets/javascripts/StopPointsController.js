@@ -1239,6 +1239,7 @@ BusPass.StopPointsController = OpenLayers.Class({
             }
         });
         marker_image.addClass("marker");
+        stop_point.Waypoint.draw();
 
         var location = $(document.createElement("input"));
         location[0].StopPoint = stop_point;
