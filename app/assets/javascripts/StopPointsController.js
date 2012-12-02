@@ -503,7 +503,6 @@ BusPass.StopPointsController = OpenLayers.Class({
             console.log("Auto Routes Button " + $(this).hasClass("active"));
             ctrl.setAutoRoute(!$(this).hasClass("active"));
         });
-        $("#autoroute").addClass("active");
 
         $("#route_waiting").hide();
 
@@ -577,10 +576,12 @@ BusPass.StopPointsController = OpenLayers.Class({
             Controls : this.Controls,
             RouteLayer : this.RouteLayer,
             MarkersLayer : this.MarkersLayer,
+            autoroute : true,
             onRouteUpdated : function (route) {
                 ctrl.routeUpdated(route);
             }
         });
+        $("#autoroute").addClass("active");
 
         // configure the keyboard handler so that we can get Waypoint deletes when
         // mouse is over waypoint and user hits a delete key.

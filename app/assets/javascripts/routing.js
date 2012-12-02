@@ -765,28 +765,38 @@ BusPass.Route.Link = OpenLayers.Class({
         }
     },
 
-    startWaypointUpdated : function (link, wp) {
+    startWaypointUpdated : function (link, wp, completeCallback, errorCallback) {
         this.launchGetRoute(
             function (link) {
                 if (!link.isDestroyed()) {
                     link.triggerUpdate();
+                    if (completeCallback){
+                        completeCallback(link, wp);
+                    }
                 }
             },
             function (self, jqXHR, textStatus, errorThrown) {
-
+                if (errorCallback) {
+                    errorCallback.call(self, jqXHR, textStatus, errorThrown);
+                }
             }
         );
     },
 
-    endWaypointUpdated : function (link, wp) {
+    endWaypointUpdated : function (link, wp, completeCallback, errorCallback) {
         this.launchGetRoute(
             function (link) {
                 if (!link.isDestroyed()) {
                     link.triggerUpdate();
                 }
+                if (completeCallback) {
+                    completeCallback(link, wp);
+                }
             },
             function (self, jqXHR, textStatus, errorThrown) {
-
+                if (errorCallback) {
+                    errorCallback.call(self, jqXHR, textStatus, errorThrown);
+                }
             }
         );
     },
@@ -903,6 +913,18 @@ BusPass.Route.Link = OpenLayers.Class({
                     }
                 },
                 function(jqXHR, textStatus, errorThrown) {
+                    try {
+                        // Since this is an Ajax return, this link may have already been
+                        // destroyed. If it doesn't have a route, it's gone. We will
+                        // still maintain callback integrity, but the callback should
+                        // notice.
+                        if (!self.isDestroyed()){
+                            delete self.PendingRoute;
+                        }
+                    } catch (err) {
+                        console.log("Route Error: bad line string.");
+                        self.RoutingError = err;
+                    }
                     if (errorCallback !== undefined) {
                         errorCallback(self, jqXHR, textStatus, errorThrown);
                     }
@@ -1100,12 +1122,43 @@ BusPass.Route.Waypoint = OpenLayers.Class({
         }
     },
 
-    triggerUpdate : function (result) {
+    triggerUpdate : function (onCompleteCB, onErrorCB) {
+        var backreturned = false;
+        var forwreturned = false;
+
+        function completeBacklink() {
+            backreturned = true;
+            if (forwreturned && forwreturned != "error") {
+                onCompleteCB();
+            } else {
+                onErrorCB();
+            }
+        }
+        function completeForwardLink() {
+            forwreturned = true;
+            if (backreturned && backreturned != "error") {
+                onCompleteCB();
+            } else {
+                onErrorCB();
+            }
+        }
+        function errorBacklink() {
+            backreturned = "error";
+            if (!forwreturned) {
+                onErrorCB();
+            }
+        }
+        function errorForwardlink() {
+            forwreturned = "error";
+            if (!backreturned) {
+                onErrorCB();
+            }
+        }
         if (this.backLink) {
-            this.backLink.endWaypointUpdated(this.backLink, this);
+            this.backLink.endWaypointUpdated(this.backLink, this, completeBacklink(), errorBacklink());
         }
         if (this.forwardLink) {
-            this.forwardLink.startWaypointUpdated(this.forwardLink, this);
+            this.forwardLink.startWaypointUpdated(this.forwardLink, this, completeForwardLink(), errorBacklink());
         }
         if (this.onWaypointUpdated !== undefined) {
             this.onWaypointUpdated(this);
