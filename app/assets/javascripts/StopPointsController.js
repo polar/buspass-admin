@@ -161,10 +161,6 @@ BusPass.StopPointsController = OpenLayers.Class({
      * @param fade   {Boolean}
      */
     notice : function (message, type, fade) {
-        if (message == "")  {
-            $("#status").html("");
-            return;
-        }
         switch (type) {
             case 'waiting':
                 $("#route_waiting").show();
