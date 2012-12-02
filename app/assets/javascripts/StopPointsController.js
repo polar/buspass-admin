@@ -910,6 +910,7 @@ BusPass.StopPointsController = OpenLayers.Class({
 
     setAutoRoute : function (turnon) {
         this.Route.autoroute = turnon;
+        $("#autoroute").attr("disabled",turnon ? "disabled" : "")
     },
 
     setDrawLines : function (turnon) {
@@ -935,21 +936,24 @@ BusPass.StopPointsController = OpenLayers.Class({
             this.updateUI();
             $("#drawlines").removeClass("active");
         } else if (!drawlines && turnon) {
-            $("#add_stoppoint").attr("disabled", "disabled");
-            $(".add_waypoint").attr("disabled", "disabled");
+            if (this.Route.isComplete()) {
+                $("#add_stoppoint").attr("disabled", "disabled");
+                $(".add_waypoint").attr("disabled", "disabled");
 
-            // Rebuild from the single LineString, results in one Link.
-            var lineString = this.Route.createWaypointModifyLineString();
-            this.ModifyLayer.removeAllFeatures();
-            this.ModifyLayer.addFeatures(lineString);
+                // Rebuild from the single LineString, results in one Link.
+                var lineString = this.Route.createWaypointModifyLineString();
+                this.ModifyLayer.removeAllFeatures();
+                this.ModifyLayer.addFeatures(lineString);
 
-            this.Map.removeLayer(this.RouteLayer);
-            this.Map.removeLayer(this.MarkersLayer);
-            this.Map.addLayers([this.ModifyLayer]);
-            this.Controls.modify.activate();
-            this.Controls.modify.selectFeature(lineString);
-            this.routeUpdated(this.Route);
-            $("#drawlines").addClass("active");
+                this.Map.removeLayer(this.RouteLayer);
+                this.Map.removeLayer(this.MarkersLayer);
+                this.Map.addLayers([this.ModifyLayer]);
+                this.Controls.modify.activate();
+                this.Controls.modify.selectFeature(lineString);
+                this.routeUpdated(this.Route);
+                $("#drawlines").addClass("active");
+            }
+
         }
     },
 
