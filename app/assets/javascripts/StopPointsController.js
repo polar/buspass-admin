@@ -753,8 +753,10 @@ BusPass.StopPointsController = OpenLayers.Class({
      * so that the user can click them down.
      */
     initializeFromOptions : function () {
+        this.Route.autoroute = false;
         this.addStopPoint();
         this.addStopPoint();
+        $("#drawlines").attr("disabled",false);
         this.selectStopPoint(this.StopPoints[0]);
         this.Controls.click.activate();
     },
@@ -1015,7 +1017,6 @@ BusPass.StopPointsController = OpenLayers.Class({
         this.Route.clear();
         this.StopPoints = [];
         $("#stop_points_list").html("");
-        this.setDrawLines(true);
         this.addStopPoint();
         this.addStopPoint();
         this.Controls.click.activate();
