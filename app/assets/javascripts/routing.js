@@ -803,11 +803,12 @@ BusPass.Route.Link = OpenLayers.Class({
     /**
      * A link is valid if both it's waypoints have their lonlat set.
      * We can have "phantom" waypoints that are merely geometry holders
-     * waiting to be set.
+     * waiting to be set. Also links may have their lonlat's set, but there geometry is
+     * different due to a drag. Still a valid structured link.
      */
     isValid : function () {
-        return this.startWaypoint && this.startWaypoint.isLonLatSet() && this.startWaypoint.isValid() &&
-            this.endWaypoint && this.endWaypoint.isLonLatSet() && this.endWaypoint.isValid();
+        return this.startWaypoint && this.startWaypoint.isLonLatSet() &&
+            this.endWaypoint && this.endWaypoint.isLonLatSet();
     },
 
     reverse : function() {

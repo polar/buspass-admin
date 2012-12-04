@@ -7,6 +7,8 @@
  *= require NameFinder
  *= require_self
  */
+var ESCAPE_KEYCODE = 27;
+
 BusPass.StopPoint = OpenLayers.Class({
 
     initialize : function(name, lon, lat) {
@@ -549,29 +551,18 @@ BusPass.StopPointsController = OpenLayers.Class({
         });
 
         $("#clear_route").click(function () {
-            ctrl.clear();
+            ctrl.clearButton();
         });
 
         $("#reverse_route").click(function () {
-            ctrl.reverse();
+            ctrl.reverseButton();
         });
         $("#revert").click(function () {
-            ctrl.revert();
+            ctrl.revertButton();
         });
 
         $("#reroute").click(function () {
-            var previous = ctrl.Route.autoroute;
-            ctrl.setAutoRoute(true);
-            ctrl.notice("Calculating Route", "waiting");
-            function completeCB() {
-                ctrl.setAutoRoute(previous);
-                ctrl.notice("Route Updated", "success");
-            }
-            function errorCB() {
-                ctrl.setAutoRoute(previous);
-                ctrl.notice("Reroute Failed", "error", "fade");
-            }
-            ctrl.Route.reroute(completeCB, errorCB);
+            ctrl.rerouteButton();
         });
 
         $("#copybox_field").change(function () {
@@ -768,8 +759,9 @@ BusPass.StopPointsController = OpenLayers.Class({
     handleKeypress: function(evt) {
         var code = evt.keyCode;
 
-        if (code == 27) {
+        if (code == ESCAPE_KEYCODE) {
             this.setAddStopPoints(false);
+            this.setDrawLines(false);
         }
 
         // check for delete key
@@ -985,6 +977,8 @@ BusPass.StopPointsController = OpenLayers.Class({
             $("#drawlines").attr("disabled", "disabled");
             $("#reroute").attr("disabled", "disabled");
             $("#revert").attr("disabled", "disabled");
+            $("#clear_route").attr("disabled", "disabled");
+            $("#reverse_route").attr("disabled", "disabled");
             this.auto_add_stoppoints = true;
             if (!dontadd) {
                 var sp = this.addStopPoint();
@@ -1001,6 +995,8 @@ BusPass.StopPointsController = OpenLayers.Class({
                 $("#drawlines").removeAttr("disabled");
                 $("#reroute").removeAttr("disabled");
                 $("#revert").removeAttr("disabled");
+                $("#clear_route").removeAttr("disabled");
+                $("#reverse_route").removeAttr("disabled");
                 this.auto_add_stoppoints = false;
                 var wp = this.Route.SelectedWaypoint;
                 this.Route.selectWaypoint(); // unselect
@@ -1162,19 +1158,22 @@ BusPass.StopPointsController = OpenLayers.Class({
 
     },
 
-    clear : function () {
+    clearRoute : function () {
         this.Route.clear();
         this.StopPoints = [];
         $("#stop_points_list").html("");
+        this.Route.selectWaypoint();
+    },
+
+    clearButton : function () {
+        this.routeModified();
+        this.clearRoute();
         this.addStopPoint();
         this.addStopPoint();
-        this.auto_add_stoppoints = true;
-        $("#add_stops").addClass("active").removeAttr("disabled");
-        this.Controls.click.activate();
-        this.Route.selectWaypoint("start");
+        this.setAddStopPoints(true, "dontadd");
+        this.Route.selectWaypoint(this.StopPoints[0].Waypoint);
         this.updateUI();
         this.notice("Route Cleared");
-        this.routeModified();
         $("#copybox").val("");
     },
 
@@ -1185,15 +1184,16 @@ BusPass.StopPointsController = OpenLayers.Class({
 
     history : [],
 
-    revert : function () {
+    revertButton: function () {
         if (this.history.length > 1 && this.Route.isComplete()) {
-            this.clear();
+            this.clearRoute();
             this.notice("Route reverted one step", "success", "fade");
             // The top is always the current if the route is complete.
             var kml = this.history.splice(0, 1);
             // So, get the next one.
             kml = this.history.splice(0, 1);
             this.initializeFromKMLString(kml);  // Causes a routeModified
+            this.setAddStopPoints(false)
         } else {
             this.notice("No Modification History", "info", "fade");
         }
@@ -1255,7 +1255,25 @@ BusPass.StopPointsController = OpenLayers.Class({
         }
     },
 
-    reverse : function () {
+    rerouteButton : function () {
+        var ctrl = this;
+        var previous = this.Route.autoroute;
+        ctrl.setAutoRoute(true);
+        ctrl.notice("Calculating Route", "waiting");
+        function completeCB() {
+            ctrl.setAutoRoute(previous);
+            ctrl.notice("Route Updated", "success");
+        }
+
+        function errorCB() {
+            ctrl.setAutoRoute(previous);
+            ctrl.notice("Reroute Failed", "error", "fade");
+        }
+
+        ctrl.Route.reroute(completeCB, errorCB);
+    },
+
+    reverseButton : function () {
         if (this.Route.isComplete()) {
             this.StopPoints = this.StopPoints.reverse();
             this.Route.reverse();
