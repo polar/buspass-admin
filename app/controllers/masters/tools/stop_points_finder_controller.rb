@@ -5,6 +5,8 @@ class Masters::Tools::StopPointsFinderController < Masters::MasterBaseController
     get_master_context
     authenticate_muni_admin!
 
+    @center = [@master.longitude.to_f, @master.latitude.to_f]
+
     @csv_file = ServiceCSVFile.new();
 
   end

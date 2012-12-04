@@ -6,7 +6,9 @@
             <% if ! @isConsistent %>
                 $("#autoroute").addClass("active");
             <% end %>
-            ctrl = new BusPass.StopPointsController();
+            ctrl = new BusPass.StopPointsController({
+                center : <%= @center.to_s %>
+            });
 
             function resizeUI() {
                 var height = $("div .ui-layout-center").height();
