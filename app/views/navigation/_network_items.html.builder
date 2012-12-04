@@ -1,5 +1,5 @@
 @site = @cms_site || @master.admin_site
-@prefix = request.host == "#{@master.admin_host}" || request.host == "localhost" ? "/#{@master.slug}" : ""
+@prefix = request.host == "#{@master.base_host}" || request.host == "localhost" ? "/#{@master.slug}" : ""
 def exclude_links
   []
 end

@@ -228,6 +228,15 @@ BuspassAdmin::Application.routes.draw do
       end
     end
 
+    namespace :cms_admin, :path => "cms-admin" do
+      resources :sites do
+        resources :layouts
+        resources :pages
+        resources :snippets
+        resources :files
+      end
+    end
+
     resource "admin", :only => [:show], :controller => "masters/admin"
 
     resources "import_export_sites", :controller => "import_export_sites"
