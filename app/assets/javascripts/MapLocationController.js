@@ -237,9 +237,9 @@ BusPass.MapLocationController.Waypoint = OpenLayers.Class({
 
     update : function (result) {
         if (result == 'OK') {
-            if (this.onWaypointUpdated !== undefined) {
+            if (this.onLinksGeometryUpdated !== undefined) {
                 var that = this;
-                this.onWaypointUpdated(that);
+                this.onLinksGeometryUpdated(that);
             }
         }
     },

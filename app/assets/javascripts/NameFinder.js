@@ -24,6 +24,7 @@ BusPass.NameFinder = OpenLayers.Class({
                 callback(result);
             },
             "text");
+        console.log("getNameFromLocation: sent " + parameters);
     },
 
     getLocationFromName : function (name, callback) {

@@ -6,9 +6,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Auth Route Fixes">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/NameFinderWorker.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.generators" afterPath="$PROJECT_DIR$/.idea/.generators" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/buspass.admin.iml" afterPath="$PROJECT_DIR$/.idea/buspass.admin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/MapLocationController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/MapLocationController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/NameFinder.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/NameFinder.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/routing.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
     </list>
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
@@ -40,195 +49,73 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/routes.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="205" column="24" selection-start="7037" selection-end="7037" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="StopPointsController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="224" column="22" selection-start="6219" selection-end="6219" vertical-scroll-proportion="80.48572">
-              <folding>
-                <element signature="e#0#162#0" expanded="false" />
-                <element signature="e#245#492#0" expanded="false" />
-                <element signature="e#307#370#0" expanded="false" />
-                <element signature="e#499#529#0" expanded="false" />
-                <element signature="e#552#587#0" expanded="false" />
-                <element signature="e#612#660#0" expanded="false" />
-                <element signature="e#769#847#0" expanded="false" />
-                <element signature="e#798#841#0" expanded="false" />
-                <element signature="e#875#955#0" expanded="false" />
-                <element signature="e#906#949#0" expanded="false" />
-                <element signature="e#985#1020#0" expanded="false" />
-                <element signature="e#1027#1196#0" expanded="false" />
-                <element signature="e#1225#1274#0" expanded="false" />
-                <element signature="e#1281#1446#0" expanded="false" />
-                <element signature="e#1667#1776#0" expanded="false" />
-                <element signature="e#1804#2231#0" expanded="false" />
-                <element signature="e#1814#2225#0" expanded="false" />
-                <element signature="e#2310#2395#0" expanded="false" />
-                <element signature="e#2429#2500#0" expanded="false" />
-                <element signature="e#2614#2685#0" expanded="false" />
-                <element signature="e#2837#2877#0" expanded="false" />
-                <element signature="e#3075#3184#0" expanded="false" />
-                <element signature="e#3233#3626#0" expanded="false" />
-                <element signature="e#4767#5661#0" expanded="false" />
-                <element signature="e#4798#4998#0" expanded="false" />
-                <element signature="e#5031#5455#0" expanded="false" />
-                <element signature="e#5206#5439#0" expanded="false" />
-                <element signature="e#5461#5651#0" expanded="false" />
-                <element signature="e#5805#5926#0" expanded="false" />
-                <element signature="e#6108#6194#0" expanded="false" />
-                <element signature="e#6239#6356#0" expanded="false" />
-                <element signature="e#6539#6625#0" expanded="false" />
-                <element signature="e#6672#6823#0" expanded="false" />
-                <element signature="e#6877#7111#0" expanded="false" />
-                <element signature="e#7156#7273#0" expanded="false" />
-                <element signature="e#7895#8519#0" expanded="false" />
-                <element signature="e#7942#8491#0" expanded="false" />
-                <element signature="e#7966#8086#0" expanded="false" />
-                <element signature="e#8526#8563#0" expanded="false" />
-                <element signature="e#8833#8997#0" expanded="false" />
-                <element signature="e#9028#9080#0" expanded="false" />
-                <element signature="e#9109#9218#0" expanded="false" />
-                <element signature="e#9249#9309#0" expanded="false" />
-                <element signature="e#10699#10850#0" expanded="false" />
-                <element signature="e#11150#11236#0" expanded="false" />
-                <element signature="e#11748#13015#0" expanded="false" />
-                <element signature="e#11946#12997#0" expanded="false" />
-                <element signature="e#12013#12082#0" expanded="false" />
-                <element signature="e#12127#12579#0" expanded="false" />
-                <element signature="e#12226#12362#0" expanded="false" />
-                <element signature="e#12411#12553#0" expanded="false" />
-                <element signature="e#12604#12668#0" expanded="false" />
-                <element signature="e#12777#12852#0" expanded="false" />
-                <element signature="e#12897#12975#0" expanded="false" />
-                <element signature="e#13115#13377#0" expanded="false" />
-                <element signature="e#13141#13222#0" expanded="false" />
-                <element signature="e#13399#13490#0" expanded="false" />
-                <element signature="e#13973#14345#0" expanded="false" />
-                <element signature="e#16516#16673#0" expanded="false" />
-                <element signature="e#16752#16871#0" expanded="false" />
-                <element signature="e#17836#17984#0" expanded="false" />
-                <element signature="e#18334#18376#0" expanded="false" />
-                <element signature="e#18427#18473#0" expanded="false" />
-                <element signature="e#18521#18558#0" expanded="false" />
-                <element signature="e#18608#18647#0" expanded="false" />
-                <element signature="e#18689#18727#0" expanded="false" />
-                <element signature="e#18771#18873#0" expanded="false" />
-                <element signature="e#19593#19743#0" expanded="false" />
-                <element signature="e#20219#20334#0" expanded="false" />
-                <element signature="e#20647#20704#0" expanded="false" />
-                <element signature="e#20770#20844#0" expanded="false" />
-                <element signature="e#20937#20989#0" expanded="false" />
-                <element signature="e#21016#21104#0" expanded="false" />
-                <element signature="e#21641#25942#0" expanded="false" />
-                <element signature="e#21861#25585#0" expanded="false" />
-                <element signature="e#21911#22048#0" expanded="false" />
-                <element signature="e#22112#22914#0" expanded="false" />
-                <element signature="e#22171#22900#0" expanded="false" />
-                <element signature="e#22378#22882#0" expanded="false" />
-                <element signature="e#22404#22431#0" expanded="false" />
-                <element signature="e#22572#22819#0" expanded="false" />
-                <element signature="e#22658#22793#0" expanded="false" />
-                <element signature="e#23018#23638#0" expanded="false" />
-                <element signature="e#23122#23595#0" expanded="false" />
-                <element signature="e#23208#23269#0" expanded="false" />
-                <element signature="e#23301#23552#0" expanded="false" />
-                <element signature="e#23461#23530#0" expanded="false" />
-                <element signature="e#23714#25388#0" expanded="false" />
-                <element signature="e#23799#25252#0" expanded="false" />
-                <element signature="e#24051#24738#0" expanded="false" />
-                <element signature="e#24300#24535#0" expanded="false" />
-                <element signature="e#24398#24509#0" expanded="false" />
-                <element signature="e#25258#25374#0" expanded="false" />
-                <element signature="e#25398#25546#0" expanded="false" />
-                <element signature="e#25591#25936#0" expanded="false" />
-                <element signature="e#25949#26157#0" expanded="false" />
-                <element signature="e#26294#26506#0" expanded="false" />
-                <element signature="e#26541#27468#0" expanded="false" />
-                <element signature="e#26710#27462#0" expanded="false" />
-                <element signature="e#26850#27452#0" expanded="false" />
-                <element signature="e#26937#27438#0" expanded="false" />
-                <element signature="e#27010#27226#0" expanded="false" />
-                <element signature="e#27232#27420#0" expanded="false" />
-                <element signature="e#27475#27673#0" expanded="false" />
-                <element signature="e#27710#27765#0" expanded="false" />
-                <element signature="e#28128#28252#0" expanded="false" />
-                <element signature="e#29114#29240#0" expanded="false" />
-                <element signature="e#29455#29904#0" expanded="false" />
-                <element signature="e#31233#32670#0" expanded="false" />
-                <element signature="e#31243#31369#0" expanded="false" />
-                <element signature="e#31410#31441#0" expanded="false" />
-                <element signature="e#31603#31655#0" expanded="false" />
-                <element signature="e#31695#31939#0" expanded="false" />
-                <element signature="e#31856#31929#0" expanded="false" />
-                <element signature="e#31998#32240#0" expanded="false" />
-                <element signature="e#32158#32230#0" expanded="false" />
-                <element signature="e#32247#32333#0" expanded="false" />
-                <element signature="e#39375#39506#0" expanded="false" />
-                <element signature="e#39421#39492#0" expanded="false" />
-                <element signature="e#39666#39753#0" expanded="false" />
-                <element signature="e#39849#39962#0" expanded="false" />
-                <element signature="e#39890#39952#0" expanded="false" />
-                <element signature="e#39968#40074#0" expanded="false" />
-                <element signature="e#40007#40064#0" expanded="false" />
-                <element signature="e#40260#40565#0" expanded="false" />
-                <element signature="e#41600#41691#0" expanded="false" />
-                <element signature="e#41814#42044#0" expanded="false" />
-                <element signature="e#42050#42277#0" expanded="false" />
-                <element signature="e#42309#42506#0" expanded="false" />
-                <element signature="e#42351#42418#0" expanded="false" />
-                <element signature="e#42424#42496#0" expanded="false" />
-                <element signature="e#42512#42706#0" expanded="false" />
-                <element signature="e#42551#42618#0" expanded="false" />
-                <element signature="e#42624#42696#0" expanded="false" />
-                <element signature="e#43666#43809#0" expanded="false" />
-                <element signature="e#43868#43993#0" expanded="false" />
-                <element signature="e#43999#44120#0" expanded="false" />
-                <element signature="e#44436#44563#0" expanded="false" />
-                <element signature="e#44809#44851#0" expanded="false" />
-                <element signature="e#44857#44903#0" expanded="false" />
-                <element signature="e#46266#46435#0" expanded="false" />
-                <element signature="e#47521#47593#0" expanded="false" />
-                <element signature="e#48464#48559#0" expanded="false" />
-                <element signature="e#49197#49365#0" expanded="false" />
-                <element signature="e#49401#49640#0" expanded="false" />
-                <element signature="e#49680#50121#0" expanded="false" />
-                <element signature="e#49731#50115#0" expanded="false" />
-                <element signature="e#49805#49849#0" expanded="false" />
-                <element signature="e#49914#49958#0" expanded="false" />
-                <element signature="e#50024#50068#0" expanded="false" />
-                <element signature="e#50147#52097#0" expanded="false" />
-                <element signature="e#50182#50332#0" expanded="false" />
-                <element signature="e#50393#50838#0" expanded="false" />
-                <element signature="e#50882#51343#0" expanded="false" />
-                <element signature="e#51032#51290#0" expanded="false" />
-                <element signature="e#51383#51570#0" expanded="false" />
-                <element signature="e#51722#51979#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapLocationController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/MapLocationController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="120" column="21" selection-start="4428" selection-end="4428" vertical-scroll-proportion="0.0">
+            <state line="639" column="46" selection-start="22627" selection-end="22627" vertical-scroll-proportion="-4.9148936">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stop_points_finder_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/tools/stop_points_finder_controller.rb">
+      <file leaf-file-name="stop_points_finder.css.scss" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0">
+            <state line="38" column="28" selection-start="532" selection-end="532" vertical-scroll-proportion="0.19769357">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActivePlanBasketController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorkerBusPassAPI.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/WorkerBusPassAPI.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="15" selection-start="166" selection-end="186" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RouteWebWorker.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/RouteWebWorker.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="14" selection-start="1287" selection-end="1287" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NameFinderWorker.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/NameFinderWorker.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JourneyBasket.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="241" column="13" selection-start="7228" selection-end="7228" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NameFinder.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/NameFinder.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="14" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -237,55 +124,18 @@
       <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="58" selection-start="1062" selection-end="1062" vertical-scroll-proportion="-6.868421">
+            <state line="18" column="12" selection-start="686" selection-end="686" vertical-scroll-proportion="-6.25">
               <folding>
-                <marker date="1354409050412" expanded="true" signature="90:155" placeholder="do ... end" />
-                <marker date="1354409050412" expanded="true" signature="2120:3160" placeholder="do ... end" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routing.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="routing.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="747" column="13" selection-start="25688" selection-end="25688" vertical-scroll-proportion="0.5124836">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PathFinderController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="289" column="31" selection-start="9671" selection-end="9671" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Route.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/Route.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BusPass.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/BusPass.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActivePlanController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="1133" column="11" selection-start="38356" selection-end="38363" vertical-scroll-proportion="-7.76">
               <folding />
             </state>
           </provider>
@@ -309,9 +159,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/mobile_sessions_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/sessions_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/apis_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
         <option value="$PROJECT_DIR$/app/models/apis/discovery1.rb" />
         <option value="$PROJECT_DIR$/app/views/navigation/_main_items.html.builder" />
@@ -322,9 +169,12 @@
         <option value="$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/models/apis/v1.rb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/MapLocationController.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/NameFinder.js" />
         <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
+        <option value="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" />
       </list>
     </option>
   </component>
@@ -336,10 +186,10 @@
     <option name="CUSTOM_FILTER" value="token" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-5" />
-    <option name="y" value="-5" />
-    <option name="width" value="1930" />
-    <option name="height" value="1028" />
+    <option name="x" value="1278" />
+    <option name="y" value="-23" />
+    <option name="width" value="1684" />
+    <option name="height" value="1077" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -389,16 +239,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="RailsProjectView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="org.jetbrains.plugins.ruby.rails.projectView.v2.nodes.RailsProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -413,7 +253,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="buspass-admin" />
+              <option name="myItemId" value="buspass.admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -423,11 +263,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="buspass-admin" />
+              <option name="myItemId" value="buspass.admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -437,25 +281,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="buspass-admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
               <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass-admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -463,7 +289,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -477,7 +303,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="buspass-admin" />
+              <option name="myItemId" value="buspass.admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -485,7 +311,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -503,7 +329,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="buspass-admin" />
+              <option name="myItemId" value="buspass.admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -511,7 +337,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stop_points_finder" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -521,7 +359,21 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="buspass-admin" />
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -533,7 +385,81 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
+              <option name="myItemId" value="stylesheets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stylesheets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="stylesheets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -545,6 +471,16 @@
             <PATH_ELEMENT USER_OBJECT="Root">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="RailsProjectView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="org.jetbrains.plugins.ruby.rails.projectView.v2.nodes.RailsProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -583,11 +519,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/assets/javascripts" />
       <recent name="$PROJECT_DIR$/app/views/masters/user_registrations" />
       <recent name="$PROJECT_DIR$/app/views/layouts" />
       <recent name="$PROJECT_DIR$/app/views" />
       <recent name="$PROJECT_DIR$/app/views/masters" />
-      <recent name="$PROJECT_DIR$/app/views/masters/users" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/models/apis" />
@@ -754,6 +690,30 @@
       <RAKE_RUN_CONFIG_SETTINGS_ID NAME="RAKE_TASK_OPTION_PREREQS" VALUE="false" />
       <method />
     </configuration>
+    <configuration default="true" type="RailsRunConfigurationType" factoryName="Rails">
+      <predefined_log_file id="RUBY_RAILS_SERVER" enabled="true" />
+      <module name="" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SCRIPT_ARGS" VALUE="" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="3000" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="DUMMY_APP" VALUE="test/dummy" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="Default" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ENVIRONMENT_TYPE" VALUE="development" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="CapistranoRunConfigurationType" factoryName="Capistrano">
       <module name="" />
       <CAPISTRANO_RUN_CONFIGURATION NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -843,66 +803,6 @@
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
       <method />
     </configuration>
-    <configuration default="true" type="RubyRemoteDebugConfigurationType" factoryName="Ruby remote debug">
-      <RUBY_REMOTE_DEBUG_CONFIG NAME="REMOTE_HOST" VALUE="localhost" />
-      <RUBY_REMOTE_DEBUG_CONFIG NAME="PORT" VALUE="1234" />
-      <RUBY_REMOTE_DEBUG_CONFIG NAME="DISPATCHER_PORT" VALUE="26162" />
-      <RUBY_REMOTE_DEBUG_CONFIG NAME="REMOTE_ROOT" VALUE="" />
-      <RUBY_REMOTE_DEBUG_CONFIG NAME="LOCAL_ROOT" VALUE="$PROJECT_DIR$/spec" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
-      <JSRemoteDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSRemoteDebuggerConfigurationSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="RackRunConfigurationType" factoryName="Rack">
-      <module name="" />
-      <RACK_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
-      <RACK_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="C:\Users\Polar\src\buspass-admin" />
-      <RACK_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
-      <RACK_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
-      <RACK_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
-      <envs />
-      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
-        <COVERAGE_PATTERN ENABLED="true">
-          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
-        </COVERAGE_PATTERN>
-      </EXTENSION>
-      <RACK_CONFIG_SETTINGS_ID NAME="PORT" VALUE="9292" />
-      <RACK_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
-      <RACK_CONFIG_SETTINGS_ID NAME="CONFIG_FILE" VALUE="config.ru" />
-      <RACK_CONFIG_SETTINGS_ID NAME="RACK_SERVER_TYPE" VALUE="Default" />
-      <RACK_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="RailsRunConfigurationType" factoryName="Rails">
-      <predefined_log_file id="RUBY_RAILS_SERVER" enabled="true" />
-      <module name="" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
-      <envs />
-      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
-        <COVERAGE_PATTERN ENABLED="true">
-          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
-        </COVERAGE_PATTERN>
-      </EXTENSION>
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SCRIPT_ARGS" VALUE="" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="PORT" VALUE="3000" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="DUMMY_APP" VALUE="test/dummy" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RAILS_SERVER_TYPE" VALUE="Default" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ENVIRONMENT_TYPE" VALUE="development" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
-      <method />
-    </configuration>
     <configuration default="true" type="IrbRunConfigurationType" factoryName="IRB console">
       <module name="" />
       <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -920,6 +820,14 @@
       <IRB_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="" />
       <IRB_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
       <IRB_RUN_CONFIG NAME="IS_RAILS_CONSOLE" VALUE="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="RubyRemoteDebugConfigurationType" factoryName="Ruby remote debug">
+      <RUBY_REMOTE_DEBUG_CONFIG NAME="REMOTE_HOST" VALUE="localhost" />
+      <RUBY_REMOTE_DEBUG_CONFIG NAME="PORT" VALUE="1234" />
+      <RUBY_REMOTE_DEBUG_CONFIG NAME="DISPATCHER_PORT" VALUE="26162" />
+      <RUBY_REMOTE_DEBUG_CONFIG NAME="REMOTE_ROOT" VALUE="" />
+      <RUBY_REMOTE_DEBUG_CONFIG NAME="LOCAL_ROOT" VALUE="$PROJECT_DIR$/spec" />
       <method />
     </configuration>
     <configuration default="true" type="CucumberRunConfigurationType" factoryName="Cucumber">
@@ -955,11 +863,39 @@
       <CUCUMBER_RUN_CONFIG_SETTINGS_ID NAME="SETTINGS_VERSION" VALUE="2" />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
       <JSDebuggerConfigurationSettings>
         <option name="engineId" value="embedded" />
         <option name="fileUrl" />
       </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="RackRunConfigurationType" factoryName="Rack">
+      <module name="" />
+      <RACK_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RACK_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
+      <RACK_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RACK_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RACK_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <RACK_CONFIG_SETTINGS_ID NAME="PORT" VALUE="9292" />
+      <RACK_CONFIG_SETTINGS_ID NAME="IP" VALUE="0.0.0.0" />
+      <RACK_CONFIG_SETTINGS_ID NAME="CONFIG_FILE" VALUE="config.ru" />
+      <RACK_CONFIG_SETTINGS_ID NAME="RACK_SERVER_TYPE" VALUE="Default" />
+      <RACK_CONFIG_SETTINGS_ID NAME="LAUNCH_JS" VALUE="false" />
       <method />
     </configuration>
     <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
@@ -1003,8 +939,8 @@
       <module name="buspass.admin" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="true" />
-      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="ruby-1.9.3-p194" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
       <RAILS_SERVER_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
       <envs />
       <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
@@ -1075,14 +1011,14 @@
       <method />
     </configuration>
     <list size="9">
-      <item index="0" class="java.lang.String" itemvalue="Rails.Production" />
-      <item index="1" class="java.lang.String" itemvalue="Rails.Development" />
-      <item index="2" class="java.lang.String" itemvalue="Rake.testament" />
-      <item index="3" class="java.lang.String" itemvalue="Rake.spec" />
-      <item index="4" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admins" />
-      <item index="5" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
-      <item index="6" class="java.lang.String" itemvalue="RSpec.NetworkModel should create routes" />
-      <item index="7" class="java.lang.String" itemvalue="RSpec.Network should have one routes" />
+      <item index="0" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admins" />
+      <item index="1" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
+      <item index="2" class="java.lang.String" itemvalue="RSpec.NetworkModel should create routes" />
+      <item index="3" class="java.lang.String" itemvalue="RSpec.Network should have one routes" />
+      <item index="4" class="java.lang.String" itemvalue="Rails.Production" />
+      <item index="5" class="java.lang.String" itemvalue="Rails.Development" />
+      <item index="6" class="java.lang.String" itemvalue="Rake.testament" />
+      <item index="7" class="java.lang.String" itemvalue="Rake.spec" />
       <item index="8" class="java.lang.String" itemvalue="Rake.routes" />
     </list>
     <recent_temporary>
@@ -1811,17 +1747,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-5" y="-5" width="1930" height="1028" extended-state="6" />
+    <frame x="1278" y="-23" width="1684" height="1077" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2445465" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272933" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32616082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33789954" sideWeight="0.46572828" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3130252" sideWeight="0.46572828" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28518972" sideWeight="0.6761042" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17168999" sideWeight="0.66210043" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3561644" sideWeight="0.35924113" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20930232" sideWeight="0.68697476" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3556059" sideWeight="0.35924113" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3578709" sideWeight="0.6364749" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3652968" sideWeight="0.46017158" order="5" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
@@ -1830,6 +1765,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2445465" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249694" sideWeight="0.6772367" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1939,75 +1875,16 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="359" column="0" selection-start="13557" selection-end="13557" vertical-scroll-proportion="0.0">
+        <state line="289" column="31" selection-start="9671" selection-end="9671" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/user_registrations/new_mobile.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="46" selection-start="590" selection-end="590" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="300" column="30" selection-start="9841" selection-end="9865" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="59" selection-start="135" selection-end="135" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/active_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/apis/v1.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="212" column="38" selection-start="6873" selection-end="6873" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/tools/stop_points_finder_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="58" selection-start="1062" selection-end="1062" vertical-scroll-proportion="-6.868421">
-          <folding>
-            <marker date="1354409050412" expanded="true" signature="90:155" placeholder="do ... end" />
-            <marker date="1354409050412" expanded="true" signature="2120:3160" placeholder="do ... end" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/Route.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="18" column="52" selection-start="292" selection-end="292" vertical-scroll-proportion="0.49723756">
           <folding />
         </state>
       </provider>
@@ -2019,16 +1896,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/PathFinderController.js">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="289" column="31" selection-start="9671" selection-end="9671" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/MapLocationController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="21" selection-start="4428" selection-end="4428" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -2040,174 +1910,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/MapLocationController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="224" column="22" selection-start="6219" selection-end="6219" vertical-scroll-proportion="80.48572">
-          <folding>
-            <element signature="e#0#162#0" expanded="false" />
-            <element signature="e#245#492#0" expanded="false" />
-            <element signature="e#307#370#0" expanded="false" />
-            <element signature="e#499#529#0" expanded="false" />
-            <element signature="e#552#587#0" expanded="false" />
-            <element signature="e#612#660#0" expanded="false" />
-            <element signature="e#769#847#0" expanded="false" />
-            <element signature="e#798#841#0" expanded="false" />
-            <element signature="e#875#955#0" expanded="false" />
-            <element signature="e#906#949#0" expanded="false" />
-            <element signature="e#985#1020#0" expanded="false" />
-            <element signature="e#1027#1196#0" expanded="false" />
-            <element signature="e#1225#1274#0" expanded="false" />
-            <element signature="e#1281#1446#0" expanded="false" />
-            <element signature="e#1667#1776#0" expanded="false" />
-            <element signature="e#1804#2231#0" expanded="false" />
-            <element signature="e#1814#2225#0" expanded="false" />
-            <element signature="e#2310#2395#0" expanded="false" />
-            <element signature="e#2429#2500#0" expanded="false" />
-            <element signature="e#2614#2685#0" expanded="false" />
-            <element signature="e#2837#2877#0" expanded="false" />
-            <element signature="e#3075#3184#0" expanded="false" />
-            <element signature="e#3233#3626#0" expanded="false" />
-            <element signature="e#4767#5661#0" expanded="false" />
-            <element signature="e#4798#4998#0" expanded="false" />
-            <element signature="e#5031#5455#0" expanded="false" />
-            <element signature="e#5206#5439#0" expanded="false" />
-            <element signature="e#5461#5651#0" expanded="false" />
-            <element signature="e#5805#5926#0" expanded="false" />
-            <element signature="e#6108#6194#0" expanded="false" />
-            <element signature="e#6239#6356#0" expanded="false" />
-            <element signature="e#6539#6625#0" expanded="false" />
-            <element signature="e#6672#6823#0" expanded="false" />
-            <element signature="e#6877#7111#0" expanded="false" />
-            <element signature="e#7156#7273#0" expanded="false" />
-            <element signature="e#7895#8519#0" expanded="false" />
-            <element signature="e#7942#8491#0" expanded="false" />
-            <element signature="e#7966#8086#0" expanded="false" />
-            <element signature="e#8526#8563#0" expanded="false" />
-            <element signature="e#8833#8997#0" expanded="false" />
-            <element signature="e#9028#9080#0" expanded="false" />
-            <element signature="e#9109#9218#0" expanded="false" />
-            <element signature="e#9249#9309#0" expanded="false" />
-            <element signature="e#10699#10850#0" expanded="false" />
-            <element signature="e#11150#11236#0" expanded="false" />
-            <element signature="e#11748#13015#0" expanded="false" />
-            <element signature="e#11946#12997#0" expanded="false" />
-            <element signature="e#12013#12082#0" expanded="false" />
-            <element signature="e#12127#12579#0" expanded="false" />
-            <element signature="e#12226#12362#0" expanded="false" />
-            <element signature="e#12411#12553#0" expanded="false" />
-            <element signature="e#12604#12668#0" expanded="false" />
-            <element signature="e#12777#12852#0" expanded="false" />
-            <element signature="e#12897#12975#0" expanded="false" />
-            <element signature="e#13115#13377#0" expanded="false" />
-            <element signature="e#13141#13222#0" expanded="false" />
-            <element signature="e#13399#13490#0" expanded="false" />
-            <element signature="e#13973#14345#0" expanded="false" />
-            <element signature="e#16516#16673#0" expanded="false" />
-            <element signature="e#16752#16871#0" expanded="false" />
-            <element signature="e#17836#17984#0" expanded="false" />
-            <element signature="e#18334#18376#0" expanded="false" />
-            <element signature="e#18427#18473#0" expanded="false" />
-            <element signature="e#18521#18558#0" expanded="false" />
-            <element signature="e#18608#18647#0" expanded="false" />
-            <element signature="e#18689#18727#0" expanded="false" />
-            <element signature="e#18771#18873#0" expanded="false" />
-            <element signature="e#19593#19743#0" expanded="false" />
-            <element signature="e#20219#20334#0" expanded="false" />
-            <element signature="e#20647#20704#0" expanded="false" />
-            <element signature="e#20770#20844#0" expanded="false" />
-            <element signature="e#20937#20989#0" expanded="false" />
-            <element signature="e#21016#21104#0" expanded="false" />
-            <element signature="e#21641#25942#0" expanded="false" />
-            <element signature="e#21861#25585#0" expanded="false" />
-            <element signature="e#21911#22048#0" expanded="false" />
-            <element signature="e#22112#22914#0" expanded="false" />
-            <element signature="e#22171#22900#0" expanded="false" />
-            <element signature="e#22378#22882#0" expanded="false" />
-            <element signature="e#22404#22431#0" expanded="false" />
-            <element signature="e#22572#22819#0" expanded="false" />
-            <element signature="e#22658#22793#0" expanded="false" />
-            <element signature="e#23018#23638#0" expanded="false" />
-            <element signature="e#23122#23595#0" expanded="false" />
-            <element signature="e#23208#23269#0" expanded="false" />
-            <element signature="e#23301#23552#0" expanded="false" />
-            <element signature="e#23461#23530#0" expanded="false" />
-            <element signature="e#23714#25388#0" expanded="false" />
-            <element signature="e#23799#25252#0" expanded="false" />
-            <element signature="e#24051#24738#0" expanded="false" />
-            <element signature="e#24300#24535#0" expanded="false" />
-            <element signature="e#24398#24509#0" expanded="false" />
-            <element signature="e#25258#25374#0" expanded="false" />
-            <element signature="e#25398#25546#0" expanded="false" />
-            <element signature="e#25591#25936#0" expanded="false" />
-            <element signature="e#25949#26157#0" expanded="false" />
-            <element signature="e#26294#26506#0" expanded="false" />
-            <element signature="e#26541#27468#0" expanded="false" />
-            <element signature="e#26710#27462#0" expanded="false" />
-            <element signature="e#26850#27452#0" expanded="false" />
-            <element signature="e#26937#27438#0" expanded="false" />
-            <element signature="e#27010#27226#0" expanded="false" />
-            <element signature="e#27232#27420#0" expanded="false" />
-            <element signature="e#27475#27673#0" expanded="false" />
-            <element signature="e#27710#27765#0" expanded="false" />
-            <element signature="e#28128#28252#0" expanded="false" />
-            <element signature="e#29114#29240#0" expanded="false" />
-            <element signature="e#29455#29904#0" expanded="false" />
-            <element signature="e#31233#32670#0" expanded="false" />
-            <element signature="e#31243#31369#0" expanded="false" />
-            <element signature="e#31410#31441#0" expanded="false" />
-            <element signature="e#31603#31655#0" expanded="false" />
-            <element signature="e#31695#31939#0" expanded="false" />
-            <element signature="e#31856#31929#0" expanded="false" />
-            <element signature="e#31998#32240#0" expanded="false" />
-            <element signature="e#32158#32230#0" expanded="false" />
-            <element signature="e#32247#32333#0" expanded="false" />
-            <element signature="e#39375#39506#0" expanded="false" />
-            <element signature="e#39421#39492#0" expanded="false" />
-            <element signature="e#39666#39753#0" expanded="false" />
-            <element signature="e#39849#39962#0" expanded="false" />
-            <element signature="e#39890#39952#0" expanded="false" />
-            <element signature="e#39968#40074#0" expanded="false" />
-            <element signature="e#40007#40064#0" expanded="false" />
-            <element signature="e#40260#40565#0" expanded="false" />
-            <element signature="e#41600#41691#0" expanded="false" />
-            <element signature="e#41814#42044#0" expanded="false" />
-            <element signature="e#42050#42277#0" expanded="false" />
-            <element signature="e#42309#42506#0" expanded="false" />
-            <element signature="e#42351#42418#0" expanded="false" />
-            <element signature="e#42424#42496#0" expanded="false" />
-            <element signature="e#42512#42706#0" expanded="false" />
-            <element signature="e#42551#42618#0" expanded="false" />
-            <element signature="e#42624#42696#0" expanded="false" />
-            <element signature="e#43666#43809#0" expanded="false" />
-            <element signature="e#43868#43993#0" expanded="false" />
-            <element signature="e#43999#44120#0" expanded="false" />
-            <element signature="e#44436#44563#0" expanded="false" />
-            <element signature="e#44809#44851#0" expanded="false" />
-            <element signature="e#44857#44903#0" expanded="false" />
-            <element signature="e#46266#46435#0" expanded="false" />
-            <element signature="e#47521#47593#0" expanded="false" />
-            <element signature="e#48464#48559#0" expanded="false" />
-            <element signature="e#49197#49365#0" expanded="false" />
-            <element signature="e#49401#49640#0" expanded="false" />
-            <element signature="e#49680#50121#0" expanded="false" />
-            <element signature="e#49731#50115#0" expanded="false" />
-            <element signature="e#49805#49849#0" expanded="false" />
-            <element signature="e#49914#49958#0" expanded="false" />
-            <element signature="e#50024#50068#0" expanded="false" />
-            <element signature="e#50147#52097#0" expanded="false" />
-            <element signature="e#50182#50332#0" expanded="false" />
-            <element signature="e#50393#50838#0" expanded="false" />
-            <element signature="e#50882#51343#0" expanded="false" />
-            <element signature="e#51032#51290#0" expanded="false" />
-            <element signature="e#51383#51570#0" expanded="false" />
-            <element signature="e#51722#51979#0" expanded="false" />
-          </folding>
+        <state line="183" column="4" selection-start="6896" selection-end="6896" vertical-scroll-proportion="0.33273703">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/ActivePlanBasketController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/WorkerBusPassAPI.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="15" selection-start="166" selection-end="186" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/JourneyBasket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="241" column="13" selection-start="7228" selection-end="7228" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/RouteWebWorker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="14" selection-start="1287" selection-end="1287" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/NameFinderWorker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/NameFinder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="14" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/routing.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="747" column="13" selection-start="25688" selection-end="25688" vertical-scroll-proportion="0.5124836">
+        <state line="1133" column="11" selection-start="38356" selection-end="38363" vertical-scroll-proportion="-7.76">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="12" selection-start="686" selection-end="686" vertical-scroll-proportion="-6.25">
+          <folding>
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="639" column="46" selection-start="22627" selection-end="22627" vertical-scroll-proportion="-4.9148936">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="28" selection-start="532" selection-end="532" vertical-scroll-proportion="0.19769357">
           <folding />
         </state>
       </provider>
