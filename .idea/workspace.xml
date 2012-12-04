@@ -5,12 +5,7 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Journey Builder Fixes">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_deployment_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" afterPath="$PROJECT_DIR$/app/views/navigation/_network_items.html.builder" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
-    </list>
+    <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Journey Builder Fixes" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
     <ignored path="buspass.admin.iws" />
@@ -1723,7 +1718,11 @@
       <created>1354662382115</created>
       <updated>1354662382115</updated>
     </task>
-    <option name="localTasksCounter" value="168" />
+    <task id="LOCAL-00168" summary="Journey Builder Fixes">
+      <created>1354662700620</created>
+      <updated>1354662700621</updated>
+    </task>
+    <option name="localTasksCounter" value="169" />
     <option name="createChangelist" value="false" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
@@ -1760,14 +1759,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1278" y="-3" width="1684" height="1008" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2445465" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272933" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32616082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28518972" sideWeight="0.6761042" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28212973" sideWeight="0.6457607" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28212973" sideWeight="0.6457607" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35423926" sideWeight="0.35924113" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3578709" sideWeight="0.6364749" order="10" side_tool="true" content_ui="tabs" />
