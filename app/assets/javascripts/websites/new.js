@@ -35,3 +35,14 @@ function init(coordinates) {
         onLocationUpdated : updateLocationCallback
     });
 }
+
+// Layout Stuff. Keeps Map and Navigation to full size.
+$(function () {
+    $("#map").height($("div .ui-layout-center").height());
+    $("#navigation").height($("div .ui-layout-center").height());
+    $(window).on("resize", function () {
+        console.log("Resizing to" + $(".ui-layout-center").height());
+        $("#map").height($("div .ui-layout-center").height());
+        $("#navigation").height($("div .ui-layout-center").height());
+    });
+});

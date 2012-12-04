@@ -3221,7 +3221,8 @@ debugData( test, pane );
 		,	oldH	= sC.innerHeight
 		;
 		// cannot size layout when 'container' is hidden or collapsed
-		if (!$N.is(":visible:") ) return;
+            // POLAR: 2012-12-03 -- Changed this to ":visible" from ":visible:".
+		if (!$N.is(":visible") ) return;
 		$.extend( state.container, elDims( $N ) ); // UPDATE container dimensions
 		if (!sC.outerHeight) return;
 

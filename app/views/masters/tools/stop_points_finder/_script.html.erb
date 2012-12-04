@@ -7,6 +7,18 @@
                 $("#autoroute").addClass("active");
             <% end %>
             ctrl = new BusPass.StopPointsController();
+
+            function resizeUI() {
+                var height = $("div .ui-layout-center").height();
+                var mapheight = $("#map").height();
+                var newheight = Math.max(mapheight, height *0.75);
+                $("#map").height(newheight);
+                $("#navigation").height(newheight);
+            }
+            resizeUI();
+            $(window).on("resize", function () {
+                resizeUI();
+            });
         });
     </script>
 

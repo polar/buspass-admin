@@ -1,35 +1,18 @@
-
-.left {
-  float: left;
-  position: relative;
-  width: 280px;
-  background-color: red;
-}
-
-.right {
-  position: relative;
-  text-align: left;
-  margin-left: 280px;
-  background-color: yellow;
-}
-
-
 #navigation {
   padding-left: 5px;
   padding-right: 5px;
-  margin-left: 15px;
-  margin-right: -5px;
+  float: left;
+  width: 240px;
   overflow-x: hidden;
-  background-color:#EEE;
+  background-color: #EEE;
   border-bottom: 1px solid #DDD;
   border-top: 1px solid #DDD;
 }
 
 #map {
-  height:320px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color:#EEE;
+  min-height: 320px;
+  margin-left: 250px !important;
+  background-color: #EEE;
   border-bottom: 1px solid #DDD;
   border-top: 1px solid #DDD;
 }

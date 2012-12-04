@@ -6,8 +6,7 @@
 
 <h1>Journey Builder</h1>
 <div>
-  <div class="row">
-    <div id="navigation" class="left">
+    <div id="navigation" class="">
       <div class="btn-group" data-toggle="buttons-radio" >
       <button id="show_names" type="button" class="btn" data-toggle="button">Names</button>
       <button id="show_locations" type="button" class="btn" data-toggle="button">Locations</button>
@@ -44,9 +43,8 @@
         </button>
       </div>
     </div>
-    <div id="map" class="right"></div>
+    <div id="map" class=""></div>
     <div style="clear:both"></div>
-  </div>
 </div>
 <div class="content">
     <%= form_for @csv_file, :url => download_master_tools_stop_points_finder_path(@master), :validate => true, :remote => false do |form| %>
