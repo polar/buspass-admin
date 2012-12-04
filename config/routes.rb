@@ -57,6 +57,15 @@ BuspassAdmin::Application.routes.draw do
   resources :feedbacks
   resources :page_errors
 
+  namespace :cms_admin, :path => "cms-admin" do
+    resources :sites do
+      resources :layouts
+      resources :pages
+      resources :snippets
+      resources :files
+    end
+  end
+
   resources :sessions do
     collection do
       get :new_customer
