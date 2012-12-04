@@ -185,6 +185,10 @@ BusPass.StopPointsController = OpenLayers.Class({
                 $("#route_waiting").hide();
                 message = '<span class="alert alert-success">' + message + '</span>';
                 break;
+            case 'info':
+                $("#route_waiting").hide();
+                message = '<span class="alert alert-info">' + message + '</span>';
+                break;
             default:
                 $("#route_waiting").hide();
                 message = '<span class="alert alert-info">' + message + '</span>';
@@ -528,15 +532,26 @@ BusPass.StopPointsController = OpenLayers.Class({
             console.log("Autoadd Stops Button " + $(this).hasClass("active"));
             ctrl.setAddStopPoints(!$(this).hasClass("active"));
         });
+        $("#add_stops").popover({
+            title:
+                "When toggled you are adding Stops to the route. You may end this mode by toggling this button or hitting the ESC key."
+
+        });
 
         $("#drawlines").click(function () {
             console.log("Draw Lines Button " + $(this).hasClass("active"));
             ctrl.setDrawLines(!$(this).hasClass("active"));
         });
+        $("#drawlines").popover({
+            title:"When toggled you may move individual points in the route regardless of streets. You may end this mode by toggling this button or hitting the ESC key."
+        });
 
         $("#autoroute").click(function () {
             console.log("Auto Routes Button " + $(this).hasClass("active"));
             ctrl.setAutoRoute(!$(this).hasClass("active"));
+        });
+        $("#autoroute").popover({
+            title:"When toggled every placement of a Stop or Intermediate Waypoint will discover a route through the streets. When toggled off, it connects with adjacent Stops or Waypoints using straight lines."
         });
 
         $("#route_waiting").hide();
@@ -549,20 +564,30 @@ BusPass.StopPointsController = OpenLayers.Class({
         $("#show_locations").click(function () {
             ctrl.show_locations();
         });
+        $("#show_names")[0].title = "Shows the names of the stops.";
+        $("#show_locations")[0].title = "Shows the GPS locations of the stops."
 
         $("#clear_route").click(function () {
             ctrl.clearButton();
         });
+        $("#clear_route")[0].title = "Clears the route.";
 
         $("#reverse_route").click(function () {
             ctrl.reverseButton();
         });
+        $("#reverse_route").popover({
+            title:"Reverses the route. However, it does not reroute. Caution. You may have draw down one way streets."
+        });
         $("#revert").click(function () {
             ctrl.revertButton();
         });
+        $("#revert")[0].title = "Reverts one back in the modification history.";
 
         $("#reroute").click(function () {
             ctrl.rerouteButton();
+        });
+        $("#reroute").popover({
+            title:"Discovers new routes for all segments between <strong>Unlocked</strong> Stops."
         });
 
         $("#copybox_field").change(function () {
@@ -595,6 +620,10 @@ BusPass.StopPointsController = OpenLayers.Class({
 
         $("#refresh_kml").click(function () {
             ctrl.routeModified();
+        });
+
+        $("#copybox").popover({
+            title: "You may input a KML string that was produced by this tool from an earlier file, if you want to modify a route."
         });
 
         this.show_names();
@@ -634,6 +663,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         // We want the UI to be aligned at the bottom with the map.
         $("#map").height(Math.max(this.minMapHeight, $("#navigation").height()));
         this.Map.updateSize();
+        this.notice("Please click on the location of your first stop!", "info");
     },
 
     /**
@@ -1292,12 +1322,12 @@ BusPass.StopPointsController = OpenLayers.Class({
         lock_button = $(lock_button);
         if (stop_point.Locked) {
             lock_button.attr("data-locked", "true");
-            lock_button.attr("alt", "Unlock " + stop_point.name + " on the map");
-            lock_button.attr("title", "Unlock " + stop_point.name + " on the map");
+            lock_button.attr("alt", "Unlock this Stop on the map");
+            lock_button.attr("title", "Unlock this Stop on the map");
         } else {
             lock_button.attr("data-locked", "false");
-            lock_button.attr("alt", "Lock " + stop_point.name + " on the map");
-            lock_button.attr("title", "Lock " + stop_point.name + " on the map");
+            lock_button.attr("alt", "Lock this Stop on the map");
+            lock_button.attr("title", "Lock this Stop on the map");
         }
         if (stop_point.Locked) {
             if (stop_point.Unlockable)  {
@@ -1394,7 +1424,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         marker_image[0].StopPoint = stop_point;
         marker_image[0].Route = this.Route;
         marker_image.attr("alt", "SP:");
-        marker_image.attr("title", "Click to position " + stop_point.name + " on the map");
+        marker_image.attr("title", "Click to position this Stop on the map");
         marker_image.bind("click", function () {
             var wp = this.Route.getWaypoint("selected");
             if (wp !== undefined && wp.StopPoint == this.StopPoint) {
@@ -1440,8 +1470,8 @@ BusPass.StopPointsController = OpenLayers.Class({
         del_button[0].StopPoint = stop_point;
         del_button.attr("type", "button");
         del_button.attr("name", "via_del_image");
-        del_button.attr("alt", "Remove " + stop_point.name + " from the map");
-        del_button.attr("title", "Remove " + stop_point.name + " from the map");
+        del_button.attr("alt", "Remove this Stop from the map");
+        del_button.attr("title", "Remove this Stop from the map");
         del_button.bind("click", function () {
             this.Controller.removeStopPoint(this.StopPoint);
         });

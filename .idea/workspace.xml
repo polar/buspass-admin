@@ -7,16 +7,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Journey Builder Fixes">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/jquery.layout-latest.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/jquery.layout-latest.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/websites/edit.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/websites/edit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/websites/new.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/websites/new.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/websites/edit.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/websites/edit.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/websites/new.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/websites/new.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/websites/map-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/websites/map-layout.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/websites/_new.html.erb" afterPath="$PROJECT_DIR$/app/views/websites/_new.html.erb" />
     </list>
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list id="93706ba7-c9fb-4bf5-b347-c982e13dfe9d" name="99045-6 Master/edit Website/new Timezone" comment="99045-6 Master/edit Website/new Timezone [#6 state:resolved]" />
@@ -66,17 +58,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="normal-layout.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="3" selection-start="976" selection-end="976" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="new.css.scss" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/websites/new.css.scss">
           <provider selected="true" editor-type-id="text-editor">
@@ -116,10 +97,19 @@
       <file leaf-file-name="show.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="34" selection-start="1745" selection-end="1745" vertical-scroll-proportion="0.77348065">
+            <state line="144" column="67" selection-start="6662" selection-end="6662" vertical-scroll-proportion="0.88081723">
               <folding>
-                <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#1772#1790#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StopPointsController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="660" column="25" selection-start="23855" selection-end="23855" vertical-scroll-proportion="-1.68">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -168,7 +158,6 @@
         <option value="$PROJECT_DIR$/app/assets/javascripts/MapLocationController.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/NameFinder.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/routing.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/jquery.layout-latest.js" />
         <option value="$PROJECT_DIR$/app/views/layouts/websites/map-layout.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
@@ -179,6 +168,7 @@
         <option value="$PROJECT_DIR$/app/assets/stylesheets/websites/edit.css.scss" />
         <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb" />
         <option value="$PROJECT_DIR$/app/assets/stylesheets/masters/tools/stop_points_finder.css.scss" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js" />
         <option value="$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb" />
       </list>
     </option>
@@ -513,6 +503,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javascripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1772,7 +1784,11 @@
       <created>1354630974414</created>
       <updated>1354630974415</updated>
     </task>
-    <option name="localTasksCounter" value="162" />
+    <task id="LOCAL-00162" summary="Journey Builder Fixes">
+      <created>1354644789725</created>
+      <updated>1354644789725</updated>
+    </task>
+    <option name="localTasksCounter" value="163" />
     <option name="createChangelist" value="false" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
@@ -1818,7 +1834,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28518972" sideWeight="0.6761042" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20930232" sideWeight="0.64495796" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.355042" sideWeight="0.35924113" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.355042" sideWeight="0.35924113" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3578709" sideWeight="0.6364749" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3652968" sideWeight="0.46017158" order="5" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
@@ -1933,13 +1949,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="997" column="25" selection-start="36643" selection-end="36643" vertical-scroll-proportion="-13.64">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/websites/_new_script.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -1965,8 +1974,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="3223" column="36" selection-start="111099" selection-end="111099" vertical-scroll-proportion="-7.56">
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1354639055000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1354644788000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -2019,13 +2027,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="64" selection-start="486" selection-end="486" vertical-scroll-proportion="-8.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/websites/new.css.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="9" selection-start="0" selection-end="351" vertical-scroll-proportion="0.0">
@@ -2047,11 +2048,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/_script.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="64" selection-start="486" selection-end="486" vertical-scroll-proportion="-8.125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/StopPointsController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="660" column="25" selection-start="23855" selection-end="23855" vertical-scroll-proportion="-1.68">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/masters/tools/stop_points_finder/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="34" selection-start="1745" selection-end="1745" vertical-scroll-proportion="0.77348065">
+        <state line="144" column="67" selection-start="6662" selection-end="6662" vertical-scroll-proportion="0.88081723">
           <folding>
-            <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#1772#1790#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -4,7 +4,7 @@
     <%= render :partial => "navigation/admin_nav" %>
 <% end %>
 
-<h1>Journey Builder</h1>
+<h1>Journey Builder <a href="#Instructions" data-toggle="modal">[?]</a></h1>
 <div>
     <div id="navigation" class="">
       <div class="btn-group" data-toggle="buttons-radio" >
@@ -85,3 +85,67 @@
     <% end %>
 
 </div>
+<%= content_for :modals do %>
+<div id="Instructions" class="modal hide fade" role="alert">
+  <div class="modal-header">
+    <h3>Instructions</h3>
+    <div class="modal-body">
+      <p>
+        Welcome to the Journey Builder. Here is where you will start your route planning.
+        <h3>1. Give locations to your Stops</h3>
+        <p>
+          You will start in <em>Add Stops</em> and <em>Autoroute</em> mode.
+        In this mode, you will successively click positions
+        on the map and the link between each stop will be discovered by a street routing service.
+        You must exit <em>Add Stops</em> mode to do anything else. You may exit <em>Add Stops</em> mode
+        by toggling the <span class="btn">Add Stops</span> button your by hitting the ESC key.
+        <h3>2. Enter Names for your Stops</h3>
+      <p>
+        The street routing service will try to find a suitable name for your Stop location. However, that
+      may not be feasible, and you probably already know what you want it to be. Just type it in, but be
+      sure to hit the TAB key.
+
+      <h3>3. Add Route and Service information</h3>
+      <p>
+        Below the map there are six fields for you to fill in about this route:
+      <dl>
+        <dt>Route Name</dt>
+        <dd>This is the name of the route that will be displayed on the mobile devices. Keep it short and distinctive</dd>
+        <dt>Route Code</dt>
+        <dd>This is a short, usually 3-5 characters, number. Ex <b>334</b> <b>1034C</b></dd>
+        <dt>Route Sort</dt>
+        <dd>This is an integer that specifies the order in which you want the route to show up against other routes.
+        Some companies sort by the last two numbers, Ex 43, 343, 543, are of the same route system, but different than
+        the 245, 345. In order to sort these routes according to the last two numbers in the Route Code, you would
+        use something like 430,433, 435, 452, 453 to sort them in that order.</dd>
+        <dt>Direction</dt>
+        <dd>This is one word of your choice to describe the direction of the route. Ex. <b>Inbound</b>, <b>Outbound</b></dd>
+        <dt>Start Date</dt>
+        <dd>This is the Start Date of the Service for this route.</dd>
+        <dt>End Date</dt>
+        <dd>This is the End Date of the Service inclusive, i.e. the last day of operation, for this route.</dd>
+        </dl>
+      <p>
+      You will be able to add exception dates to the downloaded file.
+      <h3>4. Download the Service File</h3>
+      <p>
+      This tool helps you create a Service File that you will use to add times to your bus stops. You must download
+      this file and open it up in your favorite spreadsheet program (LibreOffice, Excel, etc.). After you have filled
+      in all the fields correctly, have left <em>Add Stops</em> mode, verified your information, you may hit
+      the <span class="btn">Download Service CSV File</span> button.
+      <h3>Beyond The Journey Builder Tool</h3>
+      <p>
+        The Journey Builder Tool helps you build the Service Files you need to plan out your Network. Beyond this, you
+      fill in the times for your Route(s) in this file, and put this file in a folder. At some point you will create
+        a ZIP File from that
+      folder and upload this ZIP file, which contains all your Service CVS Files, to the Network Planning Page
+        <h3>Feedback</h3>
+      If you have feed back you may contact us by hitting the <span class="btn">Feedback</span> button in the lower
+      right corner. You may opt to include a screen shot, but unfortunately, it has difficulty grabbing the
+      map image at the moment. Please leave a descriptive narrative of any problems you encounter..
+    </div>
+    <div class='modal-footer'>
+    <button class="btn btn-primary" data-dismiss="modal">Close</button>
+    </div>
+</div>
+<% end %>
