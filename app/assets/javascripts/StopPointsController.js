@@ -100,6 +100,104 @@ BusPass.StopPoint = OpenLayers.Class({
 
 });
 
+
+BusPass.StopPointsRoute = OpenLayers.Class(BusPass.Route, {
+
+    /**
+     * This function replaces the reroute function so that it only reroutes
+     * the links that are not between locked StopPoints.
+     *
+     * @param onCompleteCB
+     * @param onErrorCB
+     */
+    reroute : function (onCompleteCB, onErrorCB) {
+        var returns = [];
+        var nreturns = 0;
+        var nlinks = this.Links.length;
+        var route = this;
+
+        if (nlinks == 0) {
+            if (onCompleteCB) {
+                onCompleteCB(route);
+                return;
+            }
+        }
+
+        var links = this.Links;
+        var rerouteLinks = [];
+        var startStopPoint = links[0].startWaypoint.StopPoint; // It had better be a StopPoint.
+        for(var i = 0; i < nlinks; i++) {
+            // Find the next StopPoint
+            var ilinks = [];
+            var endStopPoint = null;
+            for(var j = i; j < nlinks && ! endStopPoint; j++) {
+                ilinks.push(links[j]);
+                if (links[j].endWaypoint.StopPoint) {
+                    endStopPoint = links[j].endWaypoint.StopPoint;
+                }
+            }
+            if (startStopPoint && startStopPoint.Locked && endStopPoint && endStopPoint.Locked) {
+                // We are between Locked StopPoints, so we ignore these links
+                startStopPoint = endStopPoint;
+                continue;
+            }
+            // We are between a Locked StopPoint and an Unlocked StopPoint. we reroute it.
+            for(var k = 0; k < ilinks.length; k++) {
+                rerouteLinks.push(ilinks[k]);
+            }
+            startStopPoint = endStopPoint;
+        }
+
+        function linkReroute(link) {
+            returns[link.position] = "ok";
+            nreturns += 1;
+            if (nreturns == rerouteLinks.length) {
+                for (var i = 0; i < rerouteLinks.length; i++) {
+                    if (returns[i] != "ok") {
+                        if (onCompleteCB) {
+                            onCompleteCB(route);
+                        }
+                        return;
+                    }
+                }
+                if (onErrorCB) {
+                    onErrorCB(route);
+                }
+            }
+        }
+
+        function linkError(link) {
+            returns[link.position] = "error";
+            nreturns += 1;
+            if (nreturns == rerouteLinks.length) {
+                for (var i = 0; i < rerouteLinks.length; i++) {
+                    if (returns[i] != "ok") {
+                        if (onCompleteCB) {
+                            onCompleteCB(route);
+                        }
+                        return;
+                    }
+                }
+                if (onErrorCB) {
+                    onErrorCB(route);
+                }
+            }
+        }
+
+        if (rerouteLinks.length == 0) {
+            if (onCompleteCB) {
+                onCompleteCB(route);
+                return;
+            }
+        }
+
+        for (var i = 0; i < rerouteLinks.length; i++) {
+            var link = rerouteLinks[i];
+            link.update(linkReroute, linkError);
+        }
+    }
+});
+
 BusPass.StopPointsController = OpenLayers.Class({
 
     id : "map",
@@ -633,7 +731,7 @@ BusPass.StopPointsController = OpenLayers.Class({
             apiProjection : this.Map.displayProjection
         });
 
-        this.Route = new BusPass.Route({
+        this.Route = new BusPass.StopPointsRoute({
             Map : this.Map,
             RouteApi : this.RouteApi,
             Controls : this.Controls,
@@ -644,6 +742,7 @@ BusPass.StopPointsController = OpenLayers.Class({
                 ctrl.routeUpdated(route);
             }
         });
+
         // configure the keyboard handler so that we can get Waypoint deletes when
         // mouse is over waypoint and user hits a delete key.
         var keyboardOptions = {
@@ -787,6 +886,7 @@ BusPass.StopPointsController = OpenLayers.Class({
      *     be deleted.
      */
     handleKeypress: function(evt) {
+        var ctrl = this;
         var code = evt.keyCode;
 
         if (code == ESCAPE_KEYCODE) {
@@ -803,11 +903,35 @@ BusPass.StopPointsController = OpenLayers.Class({
                 if (wp) {
                     var sp = wp.StopPoint;
                     if (sp) {
-                        console.log("Delete: Stopoint " + sp.position + ", Waypoint "+ wp.position);
-                        this.removeStopPoint(waypointMarker.attributes.waypoint.StopPoint);
+                        if (sp.Locked) {
+                            this.notice("Cannot delete locked Stop", "error", "fade");
+                        } else {
+                            console.log("Delete: Stopoint " + sp.position + ", Waypoint "+ wp.position);
+                            this.removeStopPoint(waypointMarker.attributes.waypoint.StopPoint,
+                                this.autoroute,
+                                function () {
+                                    ctrl.notice("Route Updated", "success", "fade");
+                                    ctrl.routeUpdated();
+                                },
+                                function () {
+                                    ctrl.notice("Autoroute Failed", "error", "fade");
+                                    ctrl.routeUpdated();
+                                });
+                            this.SelectedFeature = null;
+                        }
                     } else {
                         console.log("Delete: Waypoint " + wp.position);
-                        this.Route.removeWaypoint(waypointMarker.attributes.waypoint, true);
+                        this.Route.removeWaypoint(waypointMarker.attributes.waypoint,
+                            this.Controller.autoroute,
+                            function () {
+                                ctrl.notice("Route Updated", "success", "fade");
+                                ctrl.routeUpdated();
+                            },
+                            function () {
+                                ctrl.notice("Autoroute Failed", "error", "fade");
+                                ctrl.routeUpdated();
+                            });
+                        this.SelectedFeature = null;
                     }
                 }
             }
@@ -829,8 +953,8 @@ BusPass.StopPointsController = OpenLayers.Class({
      * so that the user can click them down.
      */
     initializeFromOptions : function () {
-        this.addStopPoint();
-        this.addStopPoint();
+        this.appendStopPoint();
+        this.appendStopPoint();
         this.selectStopPoint(this.StopPoints[0]);
         this.Controls.click.activate();
     },
@@ -905,14 +1029,14 @@ BusPass.StopPointsController = OpenLayers.Class({
         ul.append(sp_li);
     },
 
-    addStopPoint : function () {
+    appendStopPoint : function () {
         /*
          * Create a new DOM element to enter waypoint info
          * We always add before the last one.
          */
         var sp = new BusPass.StopPoint("new bus stop",0,0);
         this.StopPoints.splice(this.StopPoints.length,0,sp);
-        var wp = this.Route.insertWaypoint("last");
+        var wp = this.Route.insertWaypoint("last"); // Will create a new WP, will not auto route.
         sp.setWaypoint(wp);
 
         var sp_li = this.createStopPointDOMElement(sp);
@@ -932,7 +1056,7 @@ BusPass.StopPointsController = OpenLayers.Class({
         return sp;
     },
 
-    removeStopPoint : function (stop_point) {
+    removeStopPoint : function (stop_point, reroute, onCompleteCB, onErrorCB) {
         /*
          * Remove a waypoint from the UI and the route object
          * We always keep at least two StopPoints
@@ -960,7 +1084,7 @@ BusPass.StopPointsController = OpenLayers.Class({
                 this.Route.removeWaypoint("end", false);
             }
         }  else {
-            this.Route.removeWaypoint(stop_point.Waypoint.position, true);
+            this.Route.removeWaypoint(stop_point.Waypoint.position, true, onCompleteCB, onErrorCB);
         }
 
         // Delete waypoint
@@ -977,13 +1101,21 @@ BusPass.StopPointsController = OpenLayers.Class({
     },
 
     addWaypoint : function (sp) {
+        var ctrl = this;
         if (this.Route.isComplete()) {
             var wp = this.Route.newWaypoint({
                 markerUrl : function () {
                     return "/assets/yours/markers/yellow.png";
                 }
             });
-            this.Route.insertWaypoint(sp.Waypoint.position+1, wp);
+            this.Route.insertWaypoint(sp.Waypoint.position+1, wp,
+                this.autoroute,
+                function() {
+                    ctrl.notice("Route Updated", "success", "fade");
+                },
+                function() {
+                    ctrl.notice("Autoroute failed", "error", "fade");
+                });
             if (wp) {
                 //this.Route.selectWaypoint(wp.position);
                 //this.Controls.click.activate();
@@ -1011,7 +1143,7 @@ BusPass.StopPointsController = OpenLayers.Class({
             $("#reverse_route").attr("disabled", "disabled");
             this.auto_add_stoppoints = true;
             if (!dontadd) {
-                var sp = this.addStopPoint();
+                var sp = this.appendStopPoint();
                 this.Route.selectWaypoint(sp.Waypoint);
                 this.Controls.click.activate();
             }
@@ -1033,7 +1165,7 @@ BusPass.StopPointsController = OpenLayers.Class({
                 this.Controls.click.deactivate();
                 if (wp && wp.StopPoint) {
                     if (!wp.isLonLatSet()) {
-                        this.removeStopPoint(wp.StopPoint);
+                        this.removeStopPoint(wp.StopPoint, false);
                     }
                 }
                 this.routeModified();
@@ -1171,7 +1303,7 @@ BusPass.StopPointsController = OpenLayers.Class({
                     }
                 } else {
                     if (ctrl.auto_add_stoppoints) {
-                        var sp = ctrl.addStopPoint();
+                        var sp = ctrl.appendStopPoint();
                         ctrl.Route.selectWaypoint(sp.Waypoint);
                     } else {
                         // unselect
@@ -1198,8 +1330,8 @@ BusPass.StopPointsController = OpenLayers.Class({
     clearButton : function () {
         this.routeModified();
         this.clearRoute();
-        this.addStopPoint();
-        this.addStopPoint();
+        this.appendStopPoint();
+        this.appendStopPoint();
         this.setAddStopPoints(true, "dontadd");
         this.Route.selectWaypoint(this.StopPoints[0].Waypoint);
         this.updateUI();
@@ -1473,7 +1605,16 @@ BusPass.StopPointsController = OpenLayers.Class({
         del_button.attr("alt", "Remove this Stop from the map");
         del_button.attr("title", "Remove this Stop from the map");
         del_button.bind("click", function () {
-            this.Controller.removeStopPoint(this.StopPoint);
+            this.Controller.removeStopPoint(this.StopPoint,
+                this.Controller.autoroute,
+                function() {
+                    this.Controller.notice("Route Updated", "success", "fade");
+                    this.Controller.routeUpdated();
+                },
+                function() {
+                    this.Controller.notice("Autoroute Failed", "error", "fade");
+                    this.Controller.routeUpdated();
+                });
         });
         del_button.attr("value", "");
         del_button.attr("disabled", "disabled");

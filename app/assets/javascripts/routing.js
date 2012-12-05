@@ -213,7 +213,7 @@ BusPass.Route = OpenLayers.Class({
     // WP.length > 1, Links.length == WP.length -1
     // forall i . 0 <= i < WP.length-1, WP[i] == Link[i].start
     // forall i . 0 < i < WP.length, WP[1] == Link[i-1].end
-    insertWaypoint : function (index, wp) {
+    insertWaypoint : function (index, wp, reroute, onCompleteCB, onErrorCB) {
         if (this.Waypoints.length == 0) {
             index = 0;
         }
@@ -298,7 +298,6 @@ BusPass.Route = OpenLayers.Class({
                     if (link.lineString) {
                         wp.setLonLat(link.getMidpoint());
                         // Make sure it has a marker geometry that can be moved around.
-                        wp.draw();
                     }
                 }
                 var links = this.splitLinkToLinks(link, wp);
@@ -306,10 +305,19 @@ BusPass.Route = OpenLayers.Class({
                 link.destroy();
             }
         }
+        wp.draw();
+        wp.drawValidLinks();
+        if (reroute) {
+            wp.updateValidLinks(onCompleteCB, onErrorCB);
+        } else {
+            if (onCompleteCB) {
+                onCompleteCB(wp);
+            }
+        }
         return wp;
     },
 
-    removeWaypoint:function (id, reroute) {
+    removeWaypoint:function (id, reroute, onCompleteCB, onErrorCB) {
         console.log("removeWaypoint " + id + " reroute " + reroute);
         var index = 0;
         var wp;
@@ -350,6 +358,7 @@ BusPass.Route = OpenLayers.Class({
         console.log("RemoveWaypoint wp " + index + " of " + this.Waypoints.length + "/" + this.Links.length + " at " + wp.backLink + " forward " + wp.forwardLink);
         this.Waypoints.splice(index, 1);
         this._updateWaypointsState();
+        var linkToBeRerouted = undefined;
         if (wp.backLink && wp.forwardLink) {
             var link1 = this.Links[index - 1];
             if (wp.backLink != link1) {
@@ -363,9 +372,7 @@ BusPass.Route = OpenLayers.Class({
             this.Links.splice(index - 1, 2, link);
             link1.destroy();
             link2.destroy();
-            if (reroute) {
-                link.reroute();
-            }
+            linkToBeRerouted = link;
         } else {
             // Destroying the first or last Waypoint.
             if (wp.backLink) {
@@ -381,6 +388,9 @@ BusPass.Route = OpenLayers.Class({
             }
         }
         wp.destroy();
+        if (reroute && linkToBeRerouted) {
+            linkToBeRerouted.reroute(onCompleteCB, onErrorCB);
+        }
     },
 
     appendNewWaypoint : function (lonlat, lineString) {
