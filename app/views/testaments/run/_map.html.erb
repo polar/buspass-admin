@@ -24,7 +24,9 @@
 
           activePlanView.activePlanView("#activePlanView", {
               // The route helpers don't seem to be available here.
-              loginUrl : '<%= @loginUrl %>'
+              loginUrl : '<%= @loginUrl %>',
+              center: <%= @center %>,
+              initialZoom:13
           });
 
           // When the form is submitted we clear the status.

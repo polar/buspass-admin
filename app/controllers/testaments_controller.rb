@@ -20,6 +20,7 @@ class TestamentsController < ApplicationController
     authorize_muni_admin!(:read, @testament)
 
     @loginUrl = api_testament_path(@testament)
+    @center = [@master.longitude.to_f, @master.latitude.to_f]
   end
 
   def api

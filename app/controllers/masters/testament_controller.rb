@@ -20,6 +20,7 @@ class Masters::TestamentController < ApplicationController
       @processing_status_label = "Run"
       @updateUrl = partial_status_master_testament_path(@master, :format => :json)
       @loginUrl = api_testament_path(@testament, :format => :json)
+      @center = [@master.longitude.to_f, @master.latitude.to_f]
       @startUrl = start_master_testament_path(@master, :format => :js)
       @stopUrl = stop_master_testament_path(@master, :format => :js)
       @partialStatusUrl = partial_status_master_testament_path(@master, :format => :json)

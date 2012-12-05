@@ -22,6 +22,7 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     @duration = @job && @job.duration || 30
 
     @loginUrl = api_master_deployment_simulate_path(@master, @deployment)
+    @center = [@master.longitude.to_f, @master.latitude.to_f]
     @updateUrl = partial_status_master_deployment_simulate_path(@master, @deployment)
 
     @disable_start = @job && @job.is_processing?

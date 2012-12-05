@@ -20,8 +20,10 @@ class Masters::ActiveController < ApplicationController
       @processing_status_label = "Run"
       @updateUrl = partial_status_master_active_path(@master, :format => :json)
       @loginUrl = api_activement_path(@activement, :format => :json)
+      @center = [@master.longitude.to_f, @master.latitude.to_f]
     else
       @updateUrl = partial_status_master_active_path(@master, :format => :json)
+      @center = [@master.longitude.to_f, @master.latitude.to_f]
       flash[:error] = "Busme #{@master.name} is not active."
     end
   end
@@ -46,8 +48,9 @@ class Masters::ActiveController < ApplicationController
       @processing_status_label = "Run"
       @updateUrl = partial_status_master_active_path(@master, :format => :json)
       @loginUrl = api_activement_path(@activement, :format => :json)
+      @center = [@master.longitude.to_f, @master.latitude.to_f]
     else
-      flash[:error] = "There is no active deployment here."
+      flash[:error] = "You have not selected a Deployment to be the Active one."
       redirect_to master_path(@master)
     end
   end

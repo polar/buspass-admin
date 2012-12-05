@@ -490,10 +490,18 @@ BusPass.RoutesMapController = OpenLayers.Class({
             projection:new OpenLayers.Projection("EPSG:900913"),
             displayProjection:new OpenLayers.Projection("EPSG:4326")
         });
-        this.map.setCenter(new OpenLayers.LonLat(-76.146669, 43.050952).transform(
+        var center = [-76.146669, 43.050952];
+        if (this.center) {
+            center = this.center;
+        }
+        var zoomLevel = 13;
+        if (this.initialZoom) {
+            zoomLevel = this.initialZoom;
+        }
+        this.map.setCenter(new OpenLayers.LonLat(center[0], center[1]).transform(
             new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
             new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-            ), 13 // Zoom level
+            ), zoomLevel
             );
 
         this._routeVectors = this._constructRoutesLayer();

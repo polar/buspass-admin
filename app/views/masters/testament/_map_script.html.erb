@@ -23,7 +23,9 @@
         activePlanView = new BusPass.ActivePlanBasketController();
 
         activePlanView.activePlanView("#activePlanView", {
-            loginUrl : '<%= @loginUrl %>'
+            loginUrl : '<%= @loginUrl %>',
+            center: <%= @center %>,
+            initialZoom:13
         });
 
         // When the form is submitted we clear the status.

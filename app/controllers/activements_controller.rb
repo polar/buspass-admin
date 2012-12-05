@@ -20,6 +20,7 @@ class ActivementsController < ApplicationController
     authorize_muni_admin!(:read, @activement)
 
     @loginUrl = api_activement_path(@activement)
+    @center = [@master.longitude.to_f, @master.latitude.to_f]
     render :layout => "webmap"
   end
 

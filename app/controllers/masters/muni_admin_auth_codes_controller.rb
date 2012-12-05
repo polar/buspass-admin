@@ -18,7 +18,6 @@ class Masters::MuniAdminAuthCodesController < Masters::MasterBaseController
         @operators << ac.code.to_s
       end
     end
-    raise "Eatme"
   end
 
 end

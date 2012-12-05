@@ -35,6 +35,10 @@ class CmsContentController < CmsBaseController
   # http://syracuse.busme.us/admin/deployments/deployment-1/networks/network-1
   #        ^-- :master_id    ^---  :cms-path
   def master_host_render_cms
+    match = /^(?<master_id>[\w\-]+)\.#{Rails.application.base_host}$/.match(request.host)
+    if match
+      params[:master_id] ||= match[:master_id]
+    end
     get_master_context
     if @master
       @cms_path = params[:cms_path]
@@ -90,6 +94,10 @@ protected
   def get_master_context
     @master = Master.find_by_slug(params[:master_id])
     @master ||= Master.find(params[:master_id])
+  end
+
+  def get_master_host_context
+
   end
 
 

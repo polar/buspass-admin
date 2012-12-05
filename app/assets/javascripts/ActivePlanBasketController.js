@@ -94,7 +94,7 @@ BusPass.ActivePlanBasketController.prototype = {
         if (this.activePlanOnlyBusesButton) { this.activePlanOnlyBusesButton = $(this.activePlanOnlyBusesButton); }
         if (this.activePlanAllRoutesButton) { this.activePlanAllRoutesButton = $(this.activePlanAllRoutesButton); }
 
-        this.initialize();
+        this.initialize(options);
         var ctrl = this;
 
         this.activePlanAllRoutesButton[0].checked = true;
@@ -143,13 +143,15 @@ BusPass.ActivePlanBasketController.prototype = {
     /**
      * This function initializes this object after all options have been merged.
      */
-    initialize : function () {
+    initialize : function (options) {
         this.api = new BusPassAPI( {
             loginUrl : this.loginUrl
         });
         this.activePlanController = new BusPass.ActivePlanController({
             scope:  this,    // This allows us to use "this" in the ba
-            busAPI: this.api
+            busAPI: this.api,
+            center : options.center,
+            initialZoom : options.initialZoom
         });
 
         this.activePlanController.mapView($(this.activePlanMapView));

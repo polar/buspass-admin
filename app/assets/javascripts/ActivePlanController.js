@@ -19,8 +19,11 @@ BusPass.ActivePlanController = function(options) {
         this._onListRouteClicked = function () {};
     }
 
+
     this._mapViewC = new BusPass.LocationMapViewController({
         scope : this,
+        center : this.center,
+        initialZoom : this.initialZoom,
         onRouteSelected : this._onMapRouteSelect,
         onRouteHighlighted : this._onMapRouteHighlight,
         onRouteUnhighlighted : this._onMapRouteunhighlight
