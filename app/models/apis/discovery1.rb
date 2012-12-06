@@ -44,7 +44,7 @@ class Apis::Discovery1 < Apis::Base
       masters = Master.by_location(lon, lat).all
       masters = Master.all if masters.empty?
       masters.each do |master|
-        if true || master.activement
+        if master.activement
           text += "<master "
           text += "name='#{master.name}' "
           text += "lon='#{master.longitude}' "
