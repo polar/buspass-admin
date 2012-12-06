@@ -512,7 +512,7 @@ class VehicleJourney
     end
     logger.info "Ending Journey '#{self.name}' at #{distance} at #{tm_now}"
   rescue Exception => boom
-    logger.info "Ending Journey '#{self.name}' because of #{html_escape(boom)}"
+    logger.info "Ending Journey '#{self.name}' because of #{VehicleJourney.html_escape(boom)}"
     #logger.info boom.backtrace
   ensure
     if journey_location != nil
@@ -598,7 +598,7 @@ class VehicleJourney
       job = SimulateJob.find(job_id)
       if job
         job.set_processing_status!("Stopping")
-        logger.info "Ending because #{html_escape(boom)}"
+        logger.info "Ending because #{VehicleJourney.html_escape(boom)}"
         logger.info boom.backtrace.take(10).join("\n")
       end
     ensure
