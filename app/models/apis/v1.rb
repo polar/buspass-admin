@@ -51,8 +51,27 @@ class Apis::V1 < Apis::Base
     controller.redirect_to controller.master_mobile_user_sign_in_url(@master)
   end
 
+  # This is a POST so, redirecting really screws it up.
+
   def auth(controller)
-    controller.redirect_to controller.master_app_sign_in(@master)
+    #controller.reset_session
+    token = controller.params[:access_token]
+    user = User.where(:access_token => token).first
+    if user
+      controller.sign_in(user)
+
+      ## TODO: We should change the token here.
+
+      data = "<login"
+      data += " name='#{user.name}'"
+      data += " email='#{user.email}'"
+      data += " roles='#{user.role_symbols.join(",")}'"
+      data += " authToken='#{token}'"
+      data += "/>"
+      controller.render :xml => data, :status => 200
+    else
+      controller.render :xml => "<NoWay/>", :status => 404
+    end
   end
 
   # We are going return two types, Routes and Active VehicleJourneys.

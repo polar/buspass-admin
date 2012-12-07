@@ -8,9 +8,18 @@ class MobileSessionsController < ApplicationController
     user = User.where(:access_token => token).first
     if user
       signin(user)
-      render :nothing => true, :status => 200
+
+      ## TODO: We should change the token here.
+
+      data = "<login"
+      data += " name='#{user.name}'"
+      data += " email='#{user.email}'"
+      data += " roles='#{user.role_symbols.join(",")}'"
+      data += " authToken='#{token}'"
+      data = "/>"
+      render :xml => data, :status => 200
     else
-      render :nothing => true, :status => 403
+      render :xml => "<NoWay/>", :status => 404
     end
   end
 
@@ -20,7 +29,7 @@ class MobileSessionsController < ApplicationController
   def new_user
     get_context
     # We are going to auth a general user. We indicate that in the session
-    if false && current_user
+    if current_user
       redirect_to "busme://oauthresponse?access_token=#{current_user.get_access_token}&master=#{@master.slug}"
     else
       @providers = BuspassAdmin::Application.oauth_providers
