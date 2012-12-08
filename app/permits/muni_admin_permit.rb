@@ -12,6 +12,9 @@ class MuniAdminPermit < CanTango::UserPermit
     can(:read, Master) do |master|
       master == user.master
     end
+    can([:read], Testament) do |testament|
+      user.master == testament.master
+    end
   end
 
   def permit_rules

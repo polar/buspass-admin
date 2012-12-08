@@ -34,11 +34,7 @@ class TestamentsController < ApplicationController
   end
 
   def api
-    authenticate_muni_admin
-    @testament = Testament.find(params[:id])
-    authorize_muni_admin!(:manage, @testament)
-
-    @testament = Testament.find(params[:id])
+    @testament = Testament.find(params[:testament_id] || params[:id])
 
     @deployment = @testament.deployment
     @master = @deployment.master

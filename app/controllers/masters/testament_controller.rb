@@ -77,19 +77,18 @@ class Masters::TestamentController < ApplicationController
       @job.time_zone = @master.time_zone
     end
     @job.save!
-    if @mult == 1
-      @find_interval = 60
-      @time_interval = 10
-    else
-      @find_interval = 60 / @mult
-      @time_interval = 10 / @mult
-    end
 
-    # Schedule the job with delayed_job
-    job = VehicleJourney.delay(:queue => @master.slug).simulate_all(@find_interval, @time_interval, @clock, @mult, @duration, options)
-    @job.delayed_job = job
+    # We may parameterize these parameters.
+    @find_interval = 20
+    @time_interval = 10
+
+    @job.processing_log << "Submitting Testing Deployment job #{@job.name} to system."
+    djob = Delayed::Job.enqueue(:queue          => @master.slug,
+                                :payload_object =>
+                                    VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
+                                                                  @clock, @mult, @duration))
     @job.save!
-    @status = "Run of #{@master.name}'s #{@deployment.name} has been started."
+    @status = "Testing Run for #{@deployment.name} has been started."
   end
 
   def stop

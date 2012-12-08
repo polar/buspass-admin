@@ -4,10 +4,10 @@ class Activements::WebmapController < ApplicationController
     get_context
 
     @object ||=
-        Route.where(:persistentid => params[:ref],
-                    :master_id => @master.id,
+        Route.where(:persistentid  => params[:ref],
+                    :master_id     => @master.id,
                     :deployment_id => @deployment.id).first
-    data =  getRouteGeoJSON(@object)
+    data    = getRouteGeoJSON(@object)
     respond_to do |format|
       format.json { render :json => data }
     end
@@ -17,11 +17,11 @@ class Activements::WebmapController < ApplicationController
     get_context
 
     @object ||=
-        VehicleJourney.where(:persistentid => params[:ref],
-                             :master_id => @master.id,
+        VehicleJourney.where(:persistentid  => params[:ref],
+                             :master_id     => @master.id,
                              :deployment_id => @deployment.id).first
 
-    data =  getRouteGeoJSON(@object)
+    data = getRouteGeoJSON(@object)
     respond_to do |format|
       format.json { render :json => data }
     end
@@ -30,14 +30,14 @@ class Activements::WebmapController < ApplicationController
   def routedef
     get_context
 
-    @object   = params[:type] == "V" &&
-                 VehicleJourney.where(:persistentid => params[:ref],
-                                      :master_id => @master.id,
-                                      :deployment_id => @deployment.id).first
-    @object ||= params[:type] == "R" &&
-                 Route.where(:persistentid => params[:ref],
-                             :master_id => @master.id,
+    @object = params[:type] == "V" &&
+        VehicleJourney.where(:persistentid  => params[:ref],
+                             :master_id     => @master.id,
                              :deployment_id => @deployment.id).first
+    @object ||= params[:type] == "R" &&
+        Route.where(:persistentid  => params[:ref],
+                    :master_id     => @master.id,
+                    :deployment_id => @deployment.id).first
 
     respond_to do |format|
       format.json { render :json => getDefinitionJSON(@object) }
@@ -56,12 +56,12 @@ class Activements::WebmapController < ApplicationController
     if params[:route]
       rs << params[:route]
     end
-    if ! rs.empty?
+    if !rs.empty?
       @routes.select { |x| rs.include?(x.id) }
     end
 
-    @active_journeys = ActiveJourney.where(:journey_location_id.ne => nil, :disposition => "active", :deployment_id => @deployment.id).all
-    @vehicle_journeys = @active_journeys.map {|x| x.vehicle_journey }
+    @active_journeys  = ActiveJourney.where(:journey_location_id.ne => nil, :disposition => "active", :deployment_id => @deployment.id).all
+    @vehicle_journeys = @active_journeys.map { |x| x.vehicle_journey }
 
     specs = []
     specs += @vehicle_journeys.map { |x| getJourneySpec(x, @routes[0]) }
@@ -76,83 +76,83 @@ class Activements::WebmapController < ApplicationController
   def curloc
     get_context
 
-    # TODO: searching by :deployment_id should be sufficient.
-      @active_journey = ActiveJourney.where(:journey_location_id.ne => nil,
-                                              :disposition => "active",
-                                              :persistentid => params[:ref],
-                                              :deployment_id => @deployment.id).first
+    @active_journey = ActiveJourney.where(:journey_location_id.ne => nil,
+                                          :disposition            => "active",
+                                          :persistentid           => params[:ref],
+                                          :deployment_id          => @deployment.id).first
 
-      if @active_journey != nil && @active_journey.journey_location != nil
-          @journey_location = @active_journey.journey_location
-      end
+    if @active_journey != nil && @active_journey.journey_location != nil
+      @journey_location = @active_journey.journey_location
+    end
 
-
-      respond_to do |format|
-          format.html { render :nothing, :status => 403 } #forbidden
-          format.json {
-            if (@active_journey == nil)
-                render :nothing, :status => 505 # not found
-            end
-            render :json => getJourneyLocationJSON(@active_journey.vehicle_journey, @journey_location)
-            }
-      end
+    respond_to do |format|
+      format.html { render :nothing, :status => 403 } #forbidden
+      format.json {
+        if (@active_journey == nil)
+          render :nothing, :status => 505 # not found
+        end
+        render :json => getJourneyLocationJSON(@active_journey.vehicle_journey, @journey_location)
+      }
+    end
   end
 
 
   # We are going return two types, Routes and VehicleJourneys.
   def all_route_journeys
+    get_context
+
     # TODO: searching by :deployment_id should be sufficient.
     @routes = Route.where(:master_id => @master.id, :deployment_id => @deployment.id).all
 
-      # if we have a route or routes parameter, we are only looking for
-      # VehicleJourneys.
-      rs = []
-      if params[:routes] != nil
-          rs = params[:routes].split(',').map {|x| x.to_i}
-      end
-      if params[:route]
-          rs << params[:route].to_i
-      end
-      if !rs.empty?
-          @routes = @routes.select {|x| rs.include?(x.persistentid)}
-      end
+    # if we have a route or routes parameter, we are only looking for
+    # VehicleJourneys.
+    rs      = []
+    if params[:routes] != nil
+      rs = params[:routes].split(',').map { |x| x.to_i }
+    end
+    if params[:route]
+      rs << params[:route].to_i
+    end
+    if !rs.empty?
+      @routes = @routes.select { |x| rs.include?(x.persistentid) }
+    end
 
-      puts("WE HAVE #{rs.length} Routes Ids " + rs.inspect);
-      puts("WE HAVE #{@routes.length} Routes Selected");
-      specs = []
-      if (!rs.empty?)
-        @vehicle_journeys = VehicleJourney.find_by_routes(@routes)
-        specs += @vehicle_journeys.map {|x| getJourneySpec(x,x.journey_pattern.route)}
-      else
-        specs += @routes.map {|x| getRouteSpec(x)}
-      end
+    puts("WE HAVE #{rs.length} Routes Ids " + rs.inspect);
+    puts("WE HAVE #{@routes.length} Routes Selected");
+    specs = []
+    if (!rs.empty?)
+      @vehicle_journeys = VehicleJourney.find_by_routes(@routes)
+      specs             += @vehicle_journeys.map { |x| getJourneySpec(x, x.journey_pattern.route) }
+    else
+      specs += @routes.map { |x| getRouteSpec(x) }
+    end
 
-      puts("WE HAVE #{specs.length} RECORDS TO RETURN!");
-      respond_to do |format|
-          format.html { render :nothing, :status => 403 } #forbidden
-          format.json { render :json => specs }
-      end
+    puts("WE HAVE #{specs.length} RECORDS TO RETURN!");
+    respond_to do |format|
+      format.html { render :nothing, :status => 403 } #forbidden
+      format.json { render :json => specs }
+    end
   end
 
   private
 
   def getRouteSpec(route)
-    data = {}
-    data["name"] = route.name.tr(",","_")
-    data["id"] = route.persistentid
-    data["type"] = "R"
+    data            = { }
+    data["name"]    = route.name.tr(",", "_")
+    data["id"]      = route.persistentid
+    data["type"]    = "R"
     data["version"] = route.version
     return data
   end
 
   def getRouteSpecText(route)
-    "#{route.name.tr(",","_")},#{route.persistentid},R,#{route.version}"
+    "#{route.name.tr(",", "_")},#{route.persistentid},R,#{route.version}"
   end
 
   def getJourneySpec(journey, route)
-    data = {}
-    data["name"] = journey.display_name.tr(",","_")
-    data["id"] = journey.persistentid
+    data         = { }
+    data["name"] = journey.display_name.tr(",", "_")
+    data["id"]   = journey.persistentid
     data["type"] = "V";
     data["routeid"] = route.persistentid
     data["version"] = route.version
@@ -160,7 +160,7 @@ class Activements::WebmapController < ApplicationController
   end
 
   def getJourneySpecText(journey, route)
-    "#{journey.display_name.tr(",","_")},#{journey.persistentid},V,#{route.persistentid},#{route.version}"
+    "#{journey.display_name.tr(",", "_")},#{journey.persistentid},V,#{route.persistentid},#{route.version}"
   end
 
 
@@ -174,125 +174,125 @@ class Activements::WebmapController < ApplicationController
     end
   end
 
- def getRouteDefinitionJSON(route)
-   box = route.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
-   data = {}
-   data[:_id]="#{route.persistentid}"
-   data[:_type] = 'route'
-   data[:_name]="#{route.display_name}"
-   data[:_code]="#{route.code}"
-   data[:_version]="#{route.version}"
-   data[:_geoJSONUrl]= route_activement_webmap_path(:ref => route.persistentid, :format => :json)
-   data[:_nw_lon]="#{box[0][0]}"
-   data[:_nw_lat]="#{box[0][1]}"
-   data[:_se_lon]="#{box[1][0]}"
-   data[:_se_lat]="#{box[1][1]}"
-   return data
- end
+  def getRouteDefinitionJSON(route)
+    box               = route.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
+    data              = { }
+    data[:_id]        ="#{route.persistentid}"
+    data[:_type]      = 'route'
+    data[:_name]      ="#{route.display_name}"
+    data[:_code]      ="#{route.code}"
+    data[:_version]   ="#{route.version}"
+    data[:_geoJSONUrl]= route_activement_webmap_path(:ref => route.persistentid, :format => :json)
+    data[:_nw_lon]    ="#{box[0][0]}"
+    data[:_nw_lat]    ="#{box[0][1]}"
+    data[:_se_lon]    ="#{box[1][0]}"
+    data[:_se_lat]    ="#{box[1][1]}"
+    return data
+  end
 
- def getJourneyDefinitionJSON(journey)
-   box = journey.journey_pattern.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
-   data = {}
-   data[:_id]="#{journey.persistentid}"
-   data[:_type] = 'journey'
-   data[:_name]="#{journey.display_name}"
-   data[:_code]="#{journey.service.route.code}"
-   data[:_version]="#{journey.service.route.version}"
-   data[:_geoJSONUrl]= journey_activement_webmap_path(:ref => journey.persistentid, :format => :json)
-   data[:_startOffset] = "#{journey.start_time}"
-   data[:_duration] ="#{journey.duration}"
-   # TODO: TimeZone for Locality.
-   data[:_startTime] = (Time.parse("0:00") + journey.start_time.minutes).strftime("%H:%M %P")
-   data[:_endTime] = (Time.parse("0:00") + journey.start_time.minutes + journey.duration.minutes).strftime("%H:%M %P")
-   data[:_locationRefreshRate] = "10"
-   data[:_nw_lon]="#{box[0][0]}"
-   data[:_nw_lat]="#{box[0][1]}"
-   data[:_se_lon]="#{box[1][0]}"
-   data[:_se_lat]="#{box[1][1]}"
-   return data
- end
+  def getJourneyDefinitionJSON(journey)
+    box                         = journey.journey_pattern.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
+    data                        = { }
+    data[:_id]                  ="#{journey.persistentid}"
+    data[:_type]                = 'journey'
+    data[:_name]                ="#{journey.display_name}"
+    data[:_code]                ="#{journey.service.route.code}"
+    data[:_version]             ="#{journey.service.route.version}"
+    data[:_geoJSONUrl]          = journey_activement_webmap_path(:ref => journey.persistentid, :format => :json)
+    data[:_startOffset]         = "#{journey.start_time}"
+    data[:_duration]            ="#{journey.duration}"
+                                                                 # TODO: TimeZone for Locality.
+    data[:_startTime]           = (Time.parse("0:00") + journey.start_time.minutes).strftime("%H:%M %P")
+    data[:_endTime]             = (Time.parse("0:00") + journey.start_time.minutes + journey.duration.minutes).strftime("%H:%M %P")
+    data[:_locationRefreshRate] = "10"
+    data[:_nw_lon]              ="#{box[0][0]}"
+    data[:_nw_lat]              ="#{box[0][1]}"
+    data[:_se_lon]              ="#{box[1][0]}"
+    data[:_se_lat]              ="#{box[1][1]}"
+    return data
+  end
 
 
- # works for VehicleJourney or Route
- def getRouteDefinitionCoords(route)
-     if (route.is_a? VehicleJourney)
-         patterns = [route.journey_pattern]
-     else
-         patterns = route.journey_patterns
-     end
-     # Make the patterns unique.
-     cs = []
-     for pattern in patterns do
-         coords = pattern.view_path_coordinates["LonLat"]
-         unique = true
-         for c in cs do
-             if coords == c
-                 unique = false
-                 break
-             end
-         end
-         if unique
-             cs << coords
-         end
-     end
-     cs
- end
+  # works for VehicleJourney or Route
+  def getRouteDefinitionCoords(route)
+    if (route.is_a? VehicleJourney)
+      patterns = [route.journey_pattern]
+    else
+      patterns = route.journey_patterns
+    end
+    # Make the patterns unique.
+    cs = []
+    for pattern in patterns do
+      coords = pattern.view_path_coordinates["LonLat"]
+      unique = true
+      for c in cs do
+        if coords == c
+          unique = false
+          break
+        end
+      end
+      if unique
+        cs << coords
+      end
+    end
+    cs
+  end
 
- def makeGeoJSONGeometry(coords)
-     data = {
-            "type" => "LineString",
-            "coordinates" => coords
-            }
-     return data
- end
+  def makeGeoJSONGeometry(coords)
+    data = {
+        "type"        => "LineString",
+        "coordinates" => coords
+    }
+    return data
+  end
 
   def getRouteGeoJSON(route)
-      cs =  getRouteDefinitionCoords(route)
-      geometries = cs.map {|x| makeGeoJSONGeometry(x)}
-      data = {
-          "type" => "Feature",
-          "properties" => {},
-          "geometry" => {
-                         "type" => "GeometryCollection",
-                         "geometries" => geometries
-                        },
-          "crs" => {
-                    "type"=> "name",
-                    "properties" => {
-                                     "name" => "urn:ogc:def:crs:OGC:1.3:CRS84"
-                                    }
-                   }
-      }
-      return data
+    cs         = getRouteDefinitionCoords(route)
+    geometries = cs.map { |x| makeGeoJSONGeometry(x) }
+    data       = {
+        "type"       => "Feature",
+        "properties" => { },
+        "geometry"   => {
+            "type"       => "GeometryCollection",
+            "geometries" => geometries
+        },
+        "crs"        => {
+            "type"       => "name",
+            "properties" => {
+                "name" => "urn:ogc:def:crs:OGC:1.3:CRS84"
+            }
+        }
+    }
+    return data
   end
 
   def getJourneyLocationJSON(journey, journey_location)
-      data = {}
-      data[:id]="#{journey.persistentid}"
-      data[:type] = 'journey'
-      data[:name]="#{journey.display_name}"
-      data[:code]="#{journey.service.route.code}"
-      if (journey_location != nil)
-        data[:reported]  = journey_location.reported_time.to_i # secs from epoch
-        data[:recorded]  = journey_location.recorded_time.to_i # secs from epoch
-        data[:lonlat]    = journey_location.coordinates
-        data[:timediff]  = journey_location.timediff.to_i # minutes -early,+late
-        data[:direction] = journey_location.direction
-        data[:distance]  = journey_location.distance
-        data[:on_route]  = journey_location.on_route?
-      else
-        data[:gone] = true
-      end
-      return data
+    data        = { }
+    data[:id]   ="#{journey.persistentid}"
+    data[:type] = 'journey'
+    data[:name] ="#{journey.display_name}"
+    data[:code] ="#{journey.service.route.code}"
+    if (journey_location != nil)
+      data[:reported]  = journey_location.reported_time.to_i # secs from epoch
+      data[:recorded]  = journey_location.recorded_time.to_i # secs from epoch
+      data[:lonlat]    = journey_location.coordinates
+      data[:timediff]  = journey_location.timediff.to_i      # minutes -early,+late
+      data[:direction] = journey_location.direction
+      data[:distance]  = journey_location.distance
+      data[:on_route]  = journey_location.on_route?
+    else
+      data[:gone] = true
+    end
+    return data
   end
 
   def get_context
     @activement = Activement.find(params[:activement_id] || params[:id])
     # TODO: Find by slug
     if @activement == nil
-      raise "No Active Deployment Found"
+      raise NotFoundError
     end
-    @master       = @activement.master
+    @master     = @activement.master
     @deployment = @activement.deployment
   end
 end

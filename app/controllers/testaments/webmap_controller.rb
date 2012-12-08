@@ -4,8 +4,8 @@ class Testaments::WebmapController < ApplicationController
     get_context
 
     @object ||=
-        Route.where(:persistentid    => params[:ref],
-                    :master_id       => @master.id,
+        Route.where(:persistentid  => params[:ref],
+                    :master_id     => @master.id,
                     :deployment_id => @deployment.id).first
     data    = getRouteGeoJSON(@object)
     respond_to do |format|
@@ -17,8 +17,8 @@ class Testaments::WebmapController < ApplicationController
     get_context
 
     @object ||=
-        VehicleJourney.where(:persistentid    => params[:ref],
-                             :master_id       => @master.id,
+        VehicleJourney.where(:persistentid  => params[:ref],
+                             :master_id     => @master.id,
                              :deployment_id => @deployment.id).first
 
     data = getRouteGeoJSON(@object)
@@ -31,12 +31,12 @@ class Testaments::WebmapController < ApplicationController
     get_context
 
     @object = params[:type] == "V" &&
-        VehicleJourney.where(:persistentid    => params[:ref],
-                             :master_id       => @master.id,
+        VehicleJourney.where(:persistentid  => params[:ref],
+                             :master_id     => @master.id,
                              :deployment_id => @deployment.id).first
     @object ||= params[:type] == "R" &&
-        Route.where(:persistentid    => params[:ref],
-                    :master_id       => @master.id,
+        Route.where(:persistentid  => params[:ref],
+                    :master_id     => @master.id,
                     :deployment_id => @deployment.id).first
 
     respond_to do |format|
@@ -77,9 +77,9 @@ class Testaments::WebmapController < ApplicationController
     get_context
 
     @active_journey = ActiveJourney.where(:journey_location_id.ne => nil,
-                                          :disposition   => "test",
-                                          :persistentid  => params[:ref],
-                                          :deployment_id => @deployment.id).first
+                                          :disposition            => "test",
+                                          :persistentid           => params[:ref],
+                                          :deployment_id          => @deployment.id).first
 
     if @active_journey != nil && @active_journey.journey_location != nil
       @journey_location = @active_journey.journey_location
@@ -88,10 +88,10 @@ class Testaments::WebmapController < ApplicationController
     respond_to do |format|
       format.html { render :nothing, :status => 403 } #forbidden
       format.json {
-        if (@vehicle_journey == nil)
+        if (@active_journey == nil)
           render :nothing, :status => 505 # not found
         end
-        render :json => getJourneyLocationJSON(@vehicle_journey, @journey_location)
+        render :json => getJourneyLocationJSON(@active_journey.vehicle_journey, @journey_location)
       }
     end
   end
@@ -137,7 +137,7 @@ class Testaments::WebmapController < ApplicationController
   private
 
   def getRouteSpec(route)
-    data            = {}
+    data            = { }
     data["name"]    = route.name.tr(",", "_")
     data["id"]      = route.persistentid
     data["type"]    = "R"
@@ -150,7 +150,7 @@ class Testaments::WebmapController < ApplicationController
   end
 
   def getJourneySpec(journey, route)
-    data         = {}
+    data         = { }
     data["name"] = journey.display_name.tr(",", "_")
     data["id"]   = journey.persistentid
     data["type"] = "V";
@@ -176,7 +176,7 @@ class Testaments::WebmapController < ApplicationController
 
   def getRouteDefinitionJSON(route)
     box               = route.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
-    data              = {}
+    data              = { }
     data[:_id]        ="#{route.persistentid}"
     data[:_type]      = 'route'
     data[:_name]      ="#{route.display_name}"
@@ -192,7 +192,7 @@ class Testaments::WebmapController < ApplicationController
 
   def getJourneyDefinitionJSON(journey)
     box                         = journey.journey_pattern.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
-    data                        = {}
+    data                        = { }
     data[:_id]                  ="#{journey.persistentid}"
     data[:_type]                = 'journey'
     data[:_name]                ="#{journey.display_name}"
@@ -251,7 +251,7 @@ class Testaments::WebmapController < ApplicationController
     geometries = cs.map { |x| makeGeoJSONGeometry(x) }
     data       = {
         "type"       => "Feature",
-        "properties" => {},
+        "properties" => { },
         "geometry"   => {
             "type"       => "GeometryCollection",
             "geometries" => geometries
@@ -267,7 +267,7 @@ class Testaments::WebmapController < ApplicationController
   end
 
   def getJourneyLocationJSON(journey, journey_location)
-    data        = {}
+    data        = { }
     data[:id]   ="#{journey.persistentid}"
     data[:type] = 'journey'
     data[:name] ="#{journey.display_name}"
@@ -287,13 +287,12 @@ class Testaments::WebmapController < ApplicationController
   end
 
   def get_context
-    @testament = Testament.find(params[:testament_id])
-    @testament ||= Testament.find(params[:id])
+    @testament = Testament.find(params[:testament_id] || params[:id])
     # TODO: Find by slug
     if @testament == nil
-      raise "No Testing Deployment Found"
+      raise NotFoundError
     end
-    @master       = @testament.master
+    @master     = @testament.master
     @deployment = @testament.deployment
   end
 

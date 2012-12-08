@@ -251,6 +251,13 @@ BuspassAdmin::Application.routes.draw do
       end
     end
 
+    resource "active", :only => [:show], :controller => "masters/active" do
+      member do
+        get :api
+        get :partial_status
+      end
+    end
+
     resource "activement", :only => [:show], :controller => "masters/activement" do
       member do
         get :api
