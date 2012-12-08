@@ -42,7 +42,7 @@ class WebsitesController < ApplicationController
   def new
     authenticate_customer!
     authorize_customer!(:create, Master)
-    if current_customer.masters.count >= current_customer.masters_limit
+    if current_customer.masters.count >= current_customer.masters_limit && !current_customer.has_role?(:admin)
       flash[:error] = "You have exhausted your limit on creating sites. Please contact customer service."
       redirect_to my_index_websites_path
       return
@@ -68,7 +68,7 @@ class WebsitesController < ApplicationController
 
     # Make sure Customer isn't going nuts creating new Masters. Allow him three mas.
 
-    if current_customer.masters.count >= current_customer.masters_limit
+    if current_customer.masters.count >= current_customer.masters_limit && !current_customer.has_role?(:admin)
       flash[:error] = "You have exhausted your limit on creating sites."
       redirect_to my_index_websites_path
       return

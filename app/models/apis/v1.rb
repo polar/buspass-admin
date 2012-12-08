@@ -89,10 +89,13 @@ class Apis::V1 < Apis::Base
       query_routes = query_routes.select { |x| rs.include?(x.id) }
     end
 
-    journey_locations = JourneyLocation.find_by_routes(query_routes)
+    # Active Journeys may not have a current journey location, but are imminent to be scheduled
+    # with in some threshold around their scheduled running time.
+
+    active_journeys = ActiveJourney.find_by_routes(query_routes)
 
     text = ""
-    text << journey_locations.map { |x| journey_spec(x.vehicle_journey, x.route) }.join("\n")
+    text << active_journeys.map { |x| journey_spec(x.vehicle_journey, x.route) }.join("\n")
     if !text.empty?
       text << "\n"
     end

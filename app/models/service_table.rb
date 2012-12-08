@@ -222,7 +222,7 @@ class ServiceTable
             if (match[1] == "~")#negative time
               h = h - 24
             end
-            if (match[5] == "*") # next day
+            if (match[4] == "*") # next day
               h = h + 24
             end
           else

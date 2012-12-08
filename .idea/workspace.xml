@@ -8,10 +8,13 @@
     <list id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Journey Builder Fixes" />
     <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
     <list default="true" id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="99045-19 Run Log doesn't have html_escape on Heroku [#19 state:resolved]">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/active_journey.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/mobile_sessions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/mobile_sessions_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/websites_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/apis/v1.rb" afterPath="$PROJECT_DIR$/app/models/apis/v1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/service_table.rb" afterPath="$PROJECT_DIR$/app/models/service_table.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
     </list>
     <ignored path="buspass.admin.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,64 +44,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="content_length.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/rack-1.4.1/lib/rack/content_length.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="0" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="log_tailer.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/railties-3.2.7/lib/rails/rack/log_tailer.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="connection.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/thin-1.4.1/lib/thin/connection.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="0" selection-start="3005" selection-end="3005" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="v1.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/apis/v1.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="12" selection-start="2304" selection-end="2304" vertical-scroll-proportion="0.0">
+            <state line="95" column="72" selection-start="3075" selection-end="3075" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/apis_controller.rb">
+      <file leaf-file-name="service_table.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="144" column="0" selection-start="4484" selection-end="4484" vertical-scroll-proportion="0.0">
+            <state line="225" column="50" selection-start="5998" selection-end="5998" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/application_controller.rb">
+      <file leaf-file-name="journey_location.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/journey_location.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="53" column="62" selection-start="1409" selection-end="1565" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mobile_sessions_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="active_journey.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/active_journey.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="54" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vehicle_journey.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="334" column="50" selection-start="10459" selection-end="10459" vertical-scroll-proportion="0.8088235">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mobile_sessions_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/mobile_sessions_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="7" selection-start="803" selection-end="803" vertical-scroll-proportion="0.7338552">
+            <state line="31" column="7" selection-start="803" selection-end="803" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="aa_creds.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/aa_creds.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="45" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="discovery1.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/apis/discovery1.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="0" selection-start="1208" selection-end="1208" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="websites_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/websites_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="70" column="110" selection-start="1887" selection-end="1887" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -108,24 +129,6 @@
         <entry file="file://$PROJECT_DIR$/app/controllers/sessions_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="new_user.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/mobile_sessions/new_user.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="45" selection-start="57" selection-end="75" vertical-scroll-proportion="-0.625">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_provider_link_list.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/mobile_sessions/_provider_link_list.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -146,13 +149,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/masters/deployments/simulate/_map_script.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/testaments/show.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/testaments/run/_map.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/activements_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/testaments_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
@@ -162,9 +164,13 @@
         <option value="$PROJECT_DIR$/app/controllers/masters/muni_admin_auth_codes_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
         <option value="$PROJECT_DIR$/app/models/apis/discovery1.rb" />
-        <option value="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
-        <option value="$PROJECT_DIR$/app/models/apis/v1.rb" />
         <option value="$PROJECT_DIR$/app/controllers/mobile_sessions_controller.rb" />
+        <option value="$PROJECT_DIR$/config/aa_creds.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
+        <option value="$PROJECT_DIR$/app/models/apis/v1.rb" />
+        <option value="$PROJECT_DIR$/app/models/service_table.rb" />
+        <option value="$PROJECT_DIR$/app/models/active_journey.rb" />
+        <option value="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
       </list>
     </option>
   </component>
@@ -461,7 +467,7 @@
       <recent name="$PROJECT_DIR$/app/views" />
     </key>
   </component>
-  <component name="RunManager" selected="Rails.Development">
+  <component name="RunManager" selected="IRB console.Rails console: buspass.admin">
     <configuration default="false" name="Rails console: buspass.admins" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
       <module name="buspass.admin" />
       <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -478,27 +484,6 @@
       </EXTENSION>
       <IRB_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$PROJECT_DIR$/script/rails" />
       <IRB_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="console" />
-      <IRB_RUN_CONFIG NAME="IS_RAILS_CONSOLE" VALUE="true" />
-      <RunnerSettings RunnerId="RubyRunner" />
-      <ConfigurationWrapper RunnerId="RubyRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Rails console: buspass.admin" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
-      <module name="buspass.admin" />
-      <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
-      <IRB_RUN_CONFIG NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
-      <IRB_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
-      <IRB_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
-      <IRB_RUN_CONFIG NAME="myPassParentEnvs" VALUE="true" />
-      <envs />
-      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
-        <COVERAGE_PATTERN ENABLED="true">
-          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
-        </COVERAGE_PATTERN>
-      </EXTENSION>
-      <IRB_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$PROJECT_DIR$/script/rails" />
-      <IRB_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="console production" />
       <IRB_RUN_CONFIG NAME="IS_RAILS_CONSOLE" VALUE="true" />
       <RunnerSettings RunnerId="RubyRunner" />
       <ConfigurationWrapper RunnerId="RubyRunner" />
@@ -593,6 +578,27 @@
       <RunnerSettings RunnerId="RubyDebugRunner" />
       <RunnerSettings RunnerId="RubyRunner" />
       <ConfigurationWrapper RunnerId="RubyDebugRunner" />
+      <ConfigurationWrapper RunnerId="RubyRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Rails console: buspass.admin" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
+      <module name="buspass.admin" />
+      <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <IRB_RUN_CONFIG NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
+      <IRB_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
+      <IRB_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
+      <IRB_RUN_CONFIG NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <IRB_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$PROJECT_DIR$/script/rails" />
+      <IRB_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="console" />
+      <IRB_RUN_CONFIG NAME="IS_RAILS_CONSOLE" VALUE="true" />
+      <RunnerSettings RunnerId="RubyRunner" />
       <ConfigurationWrapper RunnerId="RubyRunner" />
       <method />
     </configuration>
@@ -944,17 +950,18 @@
       <item index="2" class="java.lang.String" itemvalue="Rake.testament" />
       <item index="3" class="java.lang.String" itemvalue="Rake.spec" />
       <item index="4" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admins" />
-      <item index="5" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
-      <item index="6" class="java.lang.String" itemvalue="RSpec.NetworkModel should create routes" />
-      <item index="7" class="java.lang.String" itemvalue="RSpec.Network should have one routes" />
-      <item index="8" class="java.lang.String" itemvalue="Rake.routes" />
+      <item index="5" class="java.lang.String" itemvalue="RSpec.NetworkModel should create routes" />
+      <item index="6" class="java.lang.String" itemvalue="RSpec.Network should have one routes" />
+      <item index="7" class="java.lang.String" itemvalue="Rake.routes" />
+      <item index="8" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admins" />
-        <item index="1" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
+        <item index="1" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admins" />
         <item index="2" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
         <item index="3" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
+        <item index="4" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
       </list>
     </recent_temporary>
   </component>
@@ -1733,23 +1740,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1278" y="-3" width="1684" height="1008" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272933" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32616082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3114383" sideWeight="0.46572828" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28518972" sideWeight="0.6761042" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28947368" sideWeight="0.64665914" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3533409" sideWeight="0.35924113" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28947368" sideWeight="0.6353341" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3533409" sideWeight="0.35924113" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3578709" sideWeight="0.6364749" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3646922" sideWeight="0.46017158" order="5" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36466593" sideWeight="0.46017158" order="5" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842582" sideWeight="0.3261934" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3124274" sideWeight="0.46572828" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2445465" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249694" sideWeight="0.6772367" order="2" side_tool="false" content_ui="combo" />
@@ -1849,55 +1856,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/actionpack-3.2.7/lib/action_dispatch/middleware/show_exceptions.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="0" selection-start="2658" selection-end="2658" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/railties-3.2.7/lib/rails/rack/logger.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="775" selection-end="775" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/actionpack-3.2.7/lib/action_dispatch/middleware/request_id.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="0" selection-start="1166" selection-end="1166" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/rack-1.4.1/lib/rack/runtime.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="662" selection-end="662" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/activesupport-3.2.7/lib/active_support/cache/strategy/local_cache.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="0" selection-start="2116" selection-end="2116" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/rack-1.4.1/lib/rack/lock.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/rack-1.4.1/lib/rack/content_length.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/gems/railties-3.2.7/lib/rails/rack/log_tailer.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="0" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0">
@@ -1947,16 +1905,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/apis/v1.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/mobile_sessions_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="12" selection-start="2304" selection-end="2304" vertical-scroll-proportion="0.0">
+        <state line="31" column="7" selection-start="803" selection-end="803" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/mobile_sessions_controller.rb">
+    <entry file="file://$PROJECT_DIR$/config/aa_creds.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="7" selection-start="803" selection-end="803" vertical-scroll-proportion="0.7338552">
+        <state line="7" column="45" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/websites_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="110" selection-start="1887" selection-end="1887" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/apis/discovery1.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="0" selection-start="1208" selection-end="1208" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/journey_location.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="62" selection-start="1409" selection-end="1565" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/apis/v1.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="72" selection-start="3075" selection-end="3075" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/service_table.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="225" column="50" selection-start="5998" selection-end="5998" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/active_journey.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="54" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="334" column="50" selection-start="10459" selection-end="10459" vertical-scroll-proportion="0.8088235">
           <folding />
         </state>
       </provider>
