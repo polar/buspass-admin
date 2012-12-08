@@ -1,7 +1,7 @@
 <div id="deploy-ui-buttons" class="row">
   <div class="span2">
     <%= button_to("Start Run",
-                  start_master_active_path(@master, :format => :js),
+                  start_master_activement_path(@master, :format => :js),
                   :id => "start",
                   :class => "btn",
                   :method => :post,
@@ -10,7 +10,7 @@
   </div>
   <div class="span3">
     <%= button_to( "Stop Run",
-                   stop_master_active_path(@master, :format => :js),
+                   stop_master_activement_path(@master, :format => :js),
                    :id => "stop",
                    :class => "btn",
                    :method => :post,
@@ -19,7 +19,7 @@
   </div>
   <div class="pull-right">
     <%= button_to("Deactivate",
-                  deactivate_master_active_path(@master),
+                  deactivate_master_activement_path(@master),
                   :id       => "deactivate",
                   :class    => "btn",
                   :method   => :post) %>

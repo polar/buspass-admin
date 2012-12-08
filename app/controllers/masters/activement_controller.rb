@@ -18,7 +18,7 @@ class Masters::ActivementController < ApplicationController
       @mult = @job && @job.clock_mult || 1
       @duration = @job && @job.duration || 30
       @processing_status_label = "Run"
-      @updateUrl = partial_status_master_active_path(@master, :format => :json)
+      @updateUrl = partial_status_master_activement_path(@master, :format => :json)
       @loginUrl = api_activement_path(@activement, :format => :json)
       @center = [@master.longitude.to_f, @master.latitude.to_f]
     else

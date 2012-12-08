@@ -3,3 +3,6 @@
   <%= link_to "Select as Active", deploy_master_deployment_path(@master, @deployment), :class=>"btn", :method => :post %>
   <%= link_to "Select as Testing", testit_master_deployment_path(@master, @deployment), :class=>"btn", :method => :post %>
 </div>
+<div id="deactivate_button">
+  <%= render :partial => @deactivate_button_partial if @deactivate_button_partial -%>
+</div>

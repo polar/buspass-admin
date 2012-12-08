@@ -10,3 +10,5 @@ if(show_deploy_button) {
 } else {
    $("#deploy_button").hide();
 }
+
+$("#deactivate_button").html("<%= escape_javascript(render(:partial => @deactivate_button_partial )) if @deactivate_button_partial -%>");

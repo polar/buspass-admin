@@ -18,10 +18,11 @@ class Masters::DeploymentsController < Masters::MasterBaseController
     if @deployment.is_active?
       if @deployment.activement
         @status = ["Deployment is active"]
+        @deactivate_button_partial = "masters/deployments/button_deactivate_activement" if muni_admin_can?(:deploy, Deployment)
       else
         @status = ["Deployment is active in testing."]
+        @deactivate_button_partial = "masters/deployments/button_deactivate_testament" if muni_admin_can?(:deploy, Deployment)
       end
-
     end
   end
 
@@ -123,6 +124,8 @@ class Masters::DeploymentsController < Masters::MasterBaseController
       @show_deploy_button = muni_admin_can?(:deploy, @deployment)
     else
       @status = ["This plan may not be deployed because of the following:"] + @status
+      @deactivate_button_partial = "masters/deployments/button_deactivate_activement" if @deployment.activement
+      @deactivate_button_partial = "masters/deployments/button_deactivate_testament" if @deployment.testament
     end
   end
 
@@ -163,12 +166,12 @@ class Masters::DeploymentsController < Masters::MasterBaseController
     end
     if @activement.is_processing?
       flash[:error] = "You must stop the active deployment first."
-      redirect_to master_active_path(@master)
+      redirect_to activement_master_path(@master)
     else
       @activement.deployment = @deployment
       if @activement.save
         flash[:notice] = "Deployment successfully submitted for activation. You need to explicitly start it."
-        redirect_to admin_master_active_path(@master)
+        redirect_to activement_master_path(@master)
       else
         flash[:error] = "Could not activate deployment"
         render :show

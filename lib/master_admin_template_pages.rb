@@ -141,7 +141,7 @@ of the layout regardless of where it appears here.
         :controller_path => "/masters/:master_id/active/admin",
         :blocks_attributes => [{
                                    :identifier => "content",
-                                   :content => "{{ cms:bus:render:masters/active/admin }}"
+                                   :content => "{{ cms:bus:render:masters/activement/show }}"
                                },
                                {
                                    :identifier => "left",
