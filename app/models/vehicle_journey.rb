@@ -372,6 +372,7 @@ class VehicleJourney
   #  tm_last         The time at distance
   #  tm_now          The time it is now
   #  tm_start        The time the route is supposed to start
+  #  location        The last reported or estimated location.
   # Returns Hash
   #  :coord => The point on the route
   #  :distance => The new distance traveled
@@ -380,85 +381,125 @@ class VehicleJourney
   #  :ti_diff => The time interval from the last distance time
   #  :ti_offschedule => The time off schedule.
   #
-  def figure_location(disposition, distance, tm_last, tm_now, tm_start)
+  def figure_location(disposition, distance, tm_last, tm_now, tm_start, location)
+    force_estimate = false
     #p [tm_last, tm_now, tm_start]
     if (tm_now > tm_start) # or we have a Good Reported JourneyLocation.
                            # Maybe the bus is OnRoute sitting there waiting to go.
                            # We are operating.
+      if (distance == 0)   # journey_location.nil? || journey_location.distance == 0
+        # We haven't started yet, we need first estimate
+        ti_diff = tm_now - tm_start
+      else
+        ti_diff = tm_now - tm_last
+      end
 
-      ti_diff = tm_now - tm_last
       estimate = journey_pattern.next_from(distance, ti_diff)
       estimate[:time] = tm_now
       estimate[:ti_diff] = ti_diff
 
-      #Look for ReportedJourneyLocation
-      rjls = reported_journey_locations.where(:disposition => disposition).order(:reported_time, :recorded_time).all
+      # We are into the schedule, force the estimate below if we have no reported locations.
+      force_estimate = true
+    else  # tm_now <= tm_start
+      # This whole branch deals with before the journey is supposed to start.
+      # We may have a reported location:
+      #   Driver on the way to the first stop
+      #   Passenger sitting on bus at stop before it moves.
+      if distance == 0
+        # Our estimate is merely sitting at the beginning of the route.
+        estimate = journey_pattern.next_from(0, 0)
+        estimate[:time] = tm_now
+        estimate[:ti_diff] = 0
+      elsif distance > 0 # ==> location != nil
+        # our estimate is that the bus isn't going to move. It just got started early, hope it will slow down
+        # from start
+        estimate = journey_pattern.next_from(distance,0)
+        estimate[:time] = tm_now
+        estimate[:ti_diff] = 0
+        # We've already started, location should be non-nul
+        force_estimate = true
 
-      if (rjls == nil)
-        return estimate
+        # We could be ahead of schedule here based on earlier reported locations
+      else # distance < 0
+        # Don't know if we should get here. We'll just estimate from the beginning.
+        estimate        = journey_pattern.next_from(0, 0)
+        estimate[:time] = tm_now
+        estimate[:ti_diff] = 0
       end
-      nrjls = []
-      for rjl in rjls do
-        ans = journey_pattern.get_possible(rjl.location, 60)
-        p ans
-        for a in ans do
-          #p [(tm_last-tm_start)-2.minutes, a[:ti_dist], (tm_now-tm_start)+1.minute]
-          if (tm_last-tm_start-2.minutes) <= a[:ti_dist] && a[:ti_dist] <= (tm_now-tm_start+1.minute)
-            rjl.location_info = a;
-            nrjls += [rjl]
-          end
-        end
-      end
-      count = nrjls.size
-      # Make two Vectors, reported_time and distance
-      a,b = nrjls.reduce([[tm_last.to_i],[distance]]) { |a,rjl| [a[0] += [rjl.reported_time.to_i], a[1] += [rjl.distance]] }
-      # Simply, right now we figure the correlation to reported times and distances.
-      # We'll get the one with the least variance from the line.
-      simple_regression = Statsample::Regression.simple(a.to_scale(),b.to_scale())
-      best = nil
-      #p estimate
-      for rjl in nrjls do
-        #p [distance, rjl.distance, estimate[:distance]]
-        if (distance < rjl.distance)
-          # We have a good confidence if the reported time is in line
-          # with the estimated time.
-          if (tm_last < rjl.reported_time && tm_now > rjl.reported_time)
-            # We check the recorded time.
-            rjl.variance = (simple_regression.x(rjl.reported_time.to_i)-rjl.distance)**2
-            # and something indicating closemess to the tm_now.
-            rjl.variance *= 1 + (tm_now - rjl.reported_time)
-            #p [best != nil ? best.variance : nil, rjl.variance]
-            if (best == nil || rjl.variance < best.variance)
-              best = rjl
-              best.off_schedule = best.reported_time - (tm_start + rjl.location_info[:ti_dist])
-            end
-          end
-        end
-      end
-      if (best != nil)
-        ans = {
-            :reported       => true,
-            :variance       => best.variance,
-            :distance       => best.distance,
-            :direction      => best.direction,
-            :coord          => best.location,
-            :speed          => best.speed,
-            :time           => best.reported_time,
-            :ti_offschedule => best.off_schedule,
-            :ti_diff        => tm_last - best.reported_time
-        }
-      else
-        estimate[:reported] = false;
-        estimate[:ti_offschedule] = tm_now - (tm_start + estimate[:ti_dist]),
-            estimate[:ti_diff] = tm_last - tm_now
-        ans = estimate
-      end
-      # Get rid of the processed reported journey locations.
-      rjls.each { |r| r.delete }
-      return ans
-    else
-      return nil
     end
+
+    #Look for ReportedJourneyLocation
+    rjls = reported_journey_locations.where(:disposition => disposition).order(:reported_time, :recorded_time).all
+
+    if (rjls.nil? || rjls.empty?)
+      # If we have not previously saved a journey location, we haven't started yet, so dont report out
+      # estimate up as a reported location.
+      if force_estimate
+        return estimate
+      else
+        return nil
+      end
+    end
+
+    nrjls = []
+    for rjl in rjls do
+      ans = journey_pattern.get_possible(rjl.location, 60)
+      p ans
+      for a in ans do
+        #p [(tm_last-tm_start)-2.minutes, a[:ti_dist], (tm_now-tm_start)+1.minute]
+        if (tm_last-tm_start-2.minutes) <= a[:ti_dist] && a[:ti_dist] <= (tm_now-tm_start+1.minute)
+          rjl.location_info = a;
+          nrjls += [rjl]
+        end
+      end
+    end
+    count = nrjls.size
+    # Make two Vectors, reported_time and distance
+    a,b = nrjls.reduce([[tm_last.to_i],[distance]]) { |a,rjl| [a[0] += [rjl.reported_time.to_i], a[1] += [rjl.distance]] }
+    # Simply, right now we figure the correlation to reported times and distances.
+    # We'll get the one with the least variance from the line.
+    simple_regression = Statsample::Regression.simple(a.to_scale(),b.to_scale())
+    best = nil
+    #p estimate
+    for rjl in nrjls do
+      #p [distance, rjl.distance, estimate[:distance]]
+      if (distance < rjl.distance)
+        # We have a good confidence if the reported time is in line
+        # with the estimated time.
+        if (tm_last < rjl.reported_time && tm_now > rjl.reported_time)
+          # We check the recorded time.
+          rjl.variance = (simple_regression.x(rjl.reported_time.to_i)-rjl.distance)**2
+          # and something indicating closemess to the tm_now.
+          rjl.variance *= 1 + (tm_now - rjl.reported_time)
+          #p [best != nil ? best.variance : nil, rjl.variance]
+          if (best == nil || rjl.variance < best.variance)
+            best = rjl
+            best.off_schedule = best.reported_time - (tm_start + rjl.location_info[:ti_dist])
+          end
+        end
+      end
+    end
+    if (best != nil)
+      ans = {
+          :reported       => true,
+          :variance       => best.variance,
+          :distance       => best.distance,
+          :direction      => best.direction,
+          :coord          => best.location,
+          :speed          => best.speed,
+          :time           => best.reported_time,
+          :ti_offschedule => best.off_schedule,
+          :ti_diff        => best.reported_time - tm_last
+      }
+    else
+      estimate[:reported] = false
+      estimate[:ti_offschedule] = tm_now - (tm_start + estimate[:ti_dist]),
+      estimate[:ti_diff] = tm_now - tm_last
+      ans = estimate
+    end
+    # Get rid of the processed reported journey locations.
+    rjls.each { |r| r.delete }
+    return ans
   end
 
   def simulate(interval, active_journey, base_time, job = nil, logger = VehicleJourney.logger, clock = Time)
@@ -486,17 +527,23 @@ class VehicleJourney
     distance = 0.0
     tm_last = tm_base
     tm_now = tm_base
-    save_active_journey = true
+    first_answer = true
+    journey_location = nil
     #
     # TODO: Loop should continue past target_distance See below;
     # We want to keep this simulation running until we get a verifiable report that the bus has stopped.
     # We may have simulated past the end of the route, but suddenly get a reported location as it is late.
     #
+    # What happens otherwise, is we get a FIRST location each time and the distance is past the target_distance
+    # and it ends normally, only to be picked up again by simulate_all, looking for actives.
+    # TOO: We should incorporate into ActiveJourney whether this route has completed its journey.
+    #
     while (distance < target_distance) do
-      ans = figure_location(disp, distance, tm_last, tm_now, tm_start)
+      ans = figure_location(disp, distance, tm_last, tm_now, tm_start, journey_location)
       if (ans != nil)
         #logger.info "Journey '#{self.name}' answer #{ans[:coord]}"
         if journey_location.nil?
+          logger.info "Journey '#{self.name}' FIRST location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")}"
           journey_location = active_journey.make_journey_location()
         else
           journey_location.last_coordinates   = journey_location.coordinates
@@ -513,15 +560,20 @@ class VehicleJourney
         journey_location.recorded_time = clock.now
 
         journey_location.save!
-        if save_active_journey
+        if first_answer
           # We do this here instead of when we create journey_location, because we don't want one
           # in the DB without any info. The active_journey.save would automatically save the
           # attached journey_location.
+          active_journey.time_start = ans[:time]
+          active_journey.time_on_route = ans[:ti_diff]
           active_journey.save
-          save_active_journey = false
+          first_answer = false
+        else
+          active_journey.time_on_route += ans[:ti_diff]
         end
+        active_journey.current_distance = ans[:distance]
         distance = ans[:distance]
-        logger.info "Journey '#{self.name}' location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")}"
+        logger.info "Journey '#{self.name}' location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")} time #{active_journey.time_on_route} dist #{distance.floor}"
       else
         logger.info("No answer #{self.name} -- tm_now #{tm_now} tm_start #{tm_start} = should get ans #{tm_now > tm_start}" )
       end
@@ -529,7 +581,7 @@ class VehicleJourney
       sleep interval
       tm_now = clock.now
       #logger.info("VehicleJourney '#{self.name}' tick #{tm_now} tm_start #{tm_start}")
-      if @please_stop_simulating || (job && SimulateJob.find(job.id).nil? || job.please_stop || job.delayed_job.nil?)
+      if @please_stop_simulating || (job && job = SimulateJob.find(job.id).nil? || job.please_stop || job.delayed_job.nil?)
         logger.info "Stopping #{self.name}"
         break
       end
@@ -562,9 +614,11 @@ class VehicleJourney
     attr_accessor :logger
     attr_accessor :clock
     attr_accessor :job
+    attr_accessor :key
 
-    def initialize(rs,job, bd, j,t, clk = Time, logger = VehicleJourney.logger)
+    def initialize(rs,key, job, bd, j,t, clk = Time, logger = VehicleJourney.logger)
       @base_date = bd
+      @key = key
       @runners = rs
       @journey = j
       @time_interval = t
@@ -594,7 +648,7 @@ class VehicleJourney
         ensure
           logger.info "Removing Journey #{journey.name}"
           active_journey.destroy
-          runners.delete(journey.id)
+          runners.delete(key)
         end
       end
       self
@@ -628,7 +682,7 @@ class VehicleJourney
         for j in b_journeys do
           key = "#{b_date}:#{j.id}"
           if !runners.keys.include?(key)
-            runners[key] = JourneyRunner.new(runners, job, b_date, j, time_interval, clock, logger).run
+            runners[key] = JourneyRunner.new(runners, key, job, b_date, j, time_interval, clock, logger).run
           end
         end
 
@@ -644,7 +698,7 @@ class VehicleJourney
         for j in journeys do
           key = "#{date}:#{j.id}"
           if !runners.keys.include?(key)
-            runners[key] = JourneyRunner.new(runners, job, date, j, time_interval, clock, logger).run
+            runners[key] = JourneyRunner.new(runners, key, job, date, j, time_interval, clock, logger).run
           end
         end
         sleep find_interval

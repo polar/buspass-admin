@@ -9,6 +9,10 @@ class ActiveJourney
   key :disposition, String # "active", "test", "simulate"
   key :persistentid, String
 
+  key :time_start, Time
+  key :time_on_route, Integer # minutes
+  key :current_distance, Integer # feet.
+
   belongs_to :vehicle_journey
   belongs_to :service
   belongs_to :route
