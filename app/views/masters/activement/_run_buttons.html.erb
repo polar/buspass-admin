@@ -17,4 +17,11 @@
                    :remote => true,
                    :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
   </div>
+  <div class="pull-right">
+    <%= button_to("Deactivate",
+                  deactivate_master_active_path(@master),
+                  :id       => "deactivate",
+                  :class    => "btn",
+                  :method   => :post) %>
+  </div>
 </div>

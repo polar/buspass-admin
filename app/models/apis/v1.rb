@@ -92,7 +92,7 @@ class Apis::V1 < Apis::Base
     # Active Journeys may not have a current journey location, but are imminent to be scheduled
     # with in some threshold around their scheduled running time.
 
-    active_journeys = ActiveJourney.find_by_routes(query_routes)
+    active_journeys = ActiveJourney.find_by_routes(@disposition, query_routes)
 
     text = ""
     text << active_journeys.map { |x| journey_spec(x.vehicle_journey, x.route) }.join("\n")
@@ -131,18 +131,23 @@ class Apis::V1 < Apis::Base
 
   def curloc(controller)
     params = controller.params
-    vehicle_journey = @vehicle_journeys.find { |vj| vj.persistentid == params[:id] }
-    if vehicle_journey.journey_location == nil
+
+    active_journey = ActiveJourney.where(:journey_location_id.ne => nil,
+                                         :disposition => @disposition,
+                                         :persistentid => params[:id],
+                                         :deployment_id => @deployment.id).first
+
+    if active_journey.nil?
       ret = "<NotInService/>"
     else
-      lon, lat  = vehicle_journey.journey_location.coordinates
-      reported  = vehicle_journey.journey_location.reported_time
-      recorded  = vehicle_journey.journey_location.recorded_time
-      timediff  = vehicle_journey.journey_location.timediff.to_i
+      lon, lat  = active_journey.journey_location.coordinates
+      reported  = active_journey.journey_location.reported_time
+      recorded  = active_journey.journey_location.recorded_time
+      timediff  = active_journey.journey_location.timediff.to_i
       recorded  = recorded.utc.strftime "%Y-%m-%d %H:%M:%S"
       reported  = reported.utc.strftime "%Y-%m-%d %H:%M:%S"
-      direction = vehicle_journey.journey_location.direction
-      on_route  = vehicle_journey.journey_location.on_route?
+      direction = active_journey.journey_location.direction
+      on_route  = active_journey.journey_location.on_route?
       ret       = "<JP lon='#{lon}' lat='#{lat}' reported_time='#{reported}' recorded_time='#{recorded}' timediff='#{timediff}' direction='#{direction}' onroute='#{on_route}'/>"
     end
     controller.render :text => ret

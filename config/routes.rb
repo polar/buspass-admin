@@ -251,7 +251,7 @@ BuspassAdmin::Application.routes.draw do
       end
     end
 
-    resource "active", :only => [:show], :controller => "masters/active" do
+    resource "activement", :only => [:show], :controller => "masters/activement" do
       member do
         get :api
         post :start

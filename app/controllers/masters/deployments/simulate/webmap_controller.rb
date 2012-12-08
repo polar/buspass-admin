@@ -53,8 +53,8 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
       @routes.select { |x| rs.include?(x.id) }
     end
 
-    @journey_locations = JourneyLocation.find_by_routes(@routes)
-    @vehicle_journeys = @journey_locations.map {|x| x.vehicle_journey }
+    @active_journeys  = ActiveJourney.where(:journey_location_id.ne => nil, :disposition => "", :deployment_id => @deployment.id).all
+    @vehicle_journeys = @active_journeys.map { |x| x.vehicle_journey }
 
     specs = []
     specs += @journey_locations.map { |x| getJourneySpec(x.vehicle_journey, x.route) }
@@ -67,10 +67,13 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
   end
 
   def curloc
-    @vehicle_journey = VehicleJourney.find(params[:ref])
+    @active_journey = ActiveJourney.where(:journey_location_id.ne => nil,
+                                          :disposition   => "simulate",
+                                          :persistentid  => params[:ref],
+                                          :deployment_id => @deployment.id).first
 
-    if @vehicle_journey != nil && @vehicle_journey.simulate_journey_location != nil
-      @journey_location = @vehicle_journey.simulate_journey_location
+    if @active_journey != nil && @active_journey.journey_location != nil
+      @journey_location = @active_journey.journey_location
     end
 
     respond_to do |format|

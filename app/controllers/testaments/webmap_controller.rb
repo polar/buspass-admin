@@ -60,8 +60,8 @@ class Testaments::WebmapController < ApplicationController
       @routes.select { |x| rs.include?(x.id) }
     end
 
-    @journey_locations = JourneyLocation.where(:deployment_id => @deployment.id).all
-    @vehicle_journeys  = @journey_locations.map { |x| x.vehicle_journey }
+    @active_journeys  = ActiveJourney.where(:journey_location_id.ne => nil, :disposition => "test", :deployment_id => @deployment.id).all
+    @vehicle_journeys = @active_journeys.map { |x| x.vehicle_journey }
 
     specs = []
     specs += @vehicle_journeys.map { |x| getJourneySpec(x, @routes[0]) }
@@ -76,15 +76,14 @@ class Testaments::WebmapController < ApplicationController
   def curloc
     get_context
 
-    # TODO: searching by :deployment_id should be sufficient.
-    @vehicle_journey = VehicleJourney.where(:persistentid    => params[:ref],
-                                            :master_id       => @master.id,
-                                            :deployment_id => @deployment.id).first
+    @active_journey = ActiveJourney.where(:journey_location_id.ne => nil,
+                                          :disposition   => "test",
+                                          :persistentid  => params[:ref],
+                                          :deployment_id => @deployment.id).first
 
-    if @vehicle_journey != nil && @vehicle_journey.journey_location != nil
-      @journey_location = @vehicle_journey.journey_location
+    if @active_journey != nil && @active_journey.journey_location != nil
+      @journey_location = @active_journey.journey_location
     end
-
 
     respond_to do |format|
       format.html { render :nothing, :status => 403 } #forbidden

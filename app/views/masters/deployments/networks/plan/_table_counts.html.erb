@@ -2,6 +2,10 @@
   <thead></thead>
   <tbody>
   <tr>
+    <th>Deployment</th>
+    <td><%= link_to @network.deployment.name, master_deployment_path(@master, @deployment) %></td>
+  </tr>
+  <tr>
     <th>Network</th>
     <td><%= link_to @network.name, master_deployment_network_path(@master, @deployment, @network) %></td>
   </tr>

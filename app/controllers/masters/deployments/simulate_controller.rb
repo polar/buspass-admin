@@ -41,7 +41,7 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
   def start
     authorize_muni_admin!(:edit, @deployment)
     if false && (@deployment.is_active?)
-      @status = "You cannot simulate a deployment that is set up as active."
+      @status = "You cannot simulate a deployment that is set up as active or in test."
       return
     end
 

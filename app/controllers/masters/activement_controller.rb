@@ -1,4 +1,4 @@
-class Masters::ActiveController < ApplicationController
+class Masters::ActivementController < ApplicationController
 
   def show
     get_context
@@ -22,9 +22,8 @@ class Masters::ActiveController < ApplicationController
       @loginUrl = api_activement_path(@activement, :format => :json)
       @center = [@master.longitude.to_f, @master.latitude.to_f]
     else
-      @updateUrl = partial_status_master_active_path(@master, :format => :json)
-      @center = [@master.longitude.to_f, @master.latitude.to_f]
-      flash[:error] = "Busme #{@master.name} is not active."
+      flash[:error] = "You have not selected a Deployment to be the Active one."
+      redirect_to master_path(@master)
     end
   end
 

@@ -1,40 +1,9 @@
-<head>
-  <script type="text/javascript">
-      var activePlanView;
-      $(function () {
-          $("body").layout({ applyDefaultStyles:true });
-
-          activePlanView = new BusPass.ActivePlanBasketController();
-
-          activePlanView.activePlanView("#activePlanView", {
-              loginUrl : '<%= @loginUrl %>',
-              center: <%= @center %>,
-              initialZoom:13
-          });
-
-          // Start the show!
-          activePlanView.onCreate();
-          activePlanView.onStart();
-          activePlanView.onResume();
-      });
-  </script>
-</head>
-
-<div class="ui-layout-north">
-  <%= render :partial => "shared/muni_admin_navigation" %>
-</div>
-
-<div class="ui-layout-center">
-  <div class="row">
-    <div class="span16">
-      <h2><%= link_to "#{@master.name}", master_path(@master) %>
-        Testing Deployment
-        <%= link_to @deployment.name, master_deployment_path(@deployment, :master_id => @master.id) %>
-      </h2>
-    </div>
-  </div>
-
-  <%=  render :partial => "shared/webmap_active_plan" %>
-</div>
-
-<div class="ui-layout-south">South</div>
+<%=
+    begin
+      site = @master.admin_site
+      page = site.pages.find_by_full_path("/active-testament")
+      page.render(self, :status => 200, :content_type => 'text/html')
+    rescue => boom
+      render :text => I18n.t('cms.content.page_not_found'), :status => 404
+    end
+%>

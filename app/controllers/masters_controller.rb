@@ -5,62 +5,80 @@ class MastersController < ApplicationController
   def activement
     @master = Master.find(params[:id])
     if @master
+      authenticate_muni_admin!
       @activement = Activement.where(:master_id => @master.id).first
       if @activement
+        authorize_muni_admin!(:manage, @activement)
         redirect_to activement_path(@activement)
       else
-        render :text => "Deployment's Active Deployment Not Found", :status => 404
+        flash[:error] = "#{@master.name} does not have an active deployment."
+        redirect_to master_path(@master)
       end
     else
-      render :text => "Deployment Not Found", :status => 404
+      flash[:error] = "Could not find your municipality."
+      redirect_to websites_path
     end
   end
 
   def testament
     @master = Master.find(params[:id])
     if @master
+      authenticate_muni_admin!
       @testament = Testament.where(:master_id => @master.id).first
       if @testament
+        authorize_muni_admin!(:manage, @testament)
         redirect_to master_testament_path(@master, @testament)
       else
-        render :text => "Deployment's Testing Deployment Not Found", :status => 404
+        flash[:error] = "#{@master.name} does not have an active test deployment."
+        redirect_to master_path(@master)
       end
     else
-      render :text => "Deployment Not Found", :status => 404
+      flash[:error] = "Could not find your municipality -- bad/outdated URL?"
+      redirect_to websites_path
     end
   end
 
   def show
     @master = Master.find(params[:id])
+    if @master
 
-    # The WardenFailureApp needs :master_id
-    params[:master_id] = @master.id if @master
+      # The WardenFailureApp needs :master_id
+      params[:master_id] = @master.id if @master
 
-    #
-    # This action is the entry point. If we cannot read the Master then, we may be somebody
-    # else. We take the liberty to log them out, and reauthenticate them.
-    #
-    authenticate_muni_admin!
-    if muni_admin_cannot?(:read, @master)
-      sign_out(current_muni_admin)
+      #
+      # This action is the entry point. If we cannot read the Master then, we may be somebody
+      # else. We take the liberty to log them out, and reauthenticate them.
+      #
       authenticate_muni_admin!
+      if muni_admin_cannot?(:read, @master)
+        sign_out(current_muni_admin)
+        authenticate_muni_admin!
+      end
+
+      authorize_muni_admin!(:read, @master)
+
+      # The DeviseFailureApp needs :master_id
+      params[:master_id] = @master.id if @master
+      @activement = Activement.where(:master_id => @master.id).first
+      @testament = Testament.where(:master_id => @master.id).first
+    else
+      flash[:error] = "Could not find your municipality -- bad/outdated URL?"
+      redirect_to websites_path
     end
-
-    authorize_muni_admin!(:read, @master)
-
-    # The DeviseFailureApp needs :master_id
-    params[:master_id] = @master.id if @master
-    @activement = Activement.where(:master_id => @master.id).first
-    @testament = Testament.where(:master_id => @master.id).first
   end
 
   def edit
     @master = Master.find(params[:id])
-    # The WardenFailureApp needs :master_id
-    params[:master_id] = @master.id if @master
-    authenticate_muni_admin!
-    authorize_muni_admin!(:edit, @master)
-    # submits to update
+    if @master
+      # The WardenFailureApp needs :master_id
+      params[:master_id] = @master.id if @master
+      authenticate_muni_admin!
+      authorize_muni_admin!(:edit, @master)
+      # submits to update
+    else
+      flash[:error] = "Could not find your municipality -- bad/outdated URL?"
+      redirect_to websites_path
+    end
   end
 
   MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :slug, :longitude, :latitude, :timezone]

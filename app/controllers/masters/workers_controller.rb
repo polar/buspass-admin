@@ -16,8 +16,8 @@ class Masters::WorkersController < Masters::MasterBaseController
     @counts = {
         :workers => @master.delayed_job_worker_count,
         :jobs    => @master.delayed_job_count,
-        :simulate => @master.simulate_jobs.count,
-        :compile => @master.service_table_jobs.count
+        :simulate => @master.simulate_jobs.select { |x| x.delayed_job }.count,
+        :compile  => @master.service_table_jobs.select { |x| x.delayed_job }.count
     }
     respond_to do |format|
       format.html # show.html.erb

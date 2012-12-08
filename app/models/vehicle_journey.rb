@@ -31,10 +31,6 @@ class VehicleJourney
 
   many :reported_journey_locations, :dependent => :delete
 
-  one :active_journey_location,   :class_name => "JourneyLocation", :dependent => :delete
-  one :test_journey_location,     :class_name => "JourneyLocation", :dependent => :delete
-  one :simulate_journey_location, :class_name => "JourneyLocation", :dependent => :delete
-
   # Embedded
   one :journey_pattern, :autosave => true
 
@@ -173,8 +169,8 @@ class VehicleJourney
   end
 
   # Time is a time of day.
-  def is_scheduled?(time)
-    diff = (time-base_time(time))
+  def is_scheduled?(base_time, time)
+    diff = (time-base_time)
     if (departure_time.minutes < diff && diff < departure_time.minutes + duration.minutes)
       return true
     else # it could be by a lot.
@@ -192,8 +188,8 @@ class VehicleJourney
   # It could also be late with passengers reporting on it theoretically after it finished
   # its simulation.  Time is the time of day, and thresholds are in minutes.
   #
-  def is_active?(time, before_threshold = 10, after_threshold = before_threshold)
-    is_scheduled?(time + before_threshold.minutes) || is_scheduled?(time - after_threshold.minutes)
+  def is_active?(base_time, time, before_threshold = 10, after_threshold = before_threshold)
+    is_scheduled?(base_time, time + before_threshold.minutes) || is_scheduled?(base_time, time - after_threshold.minutes)
   end
 
   def locatedBy(coord)
@@ -276,6 +272,7 @@ class VehicleJourney
 
   DATE_FIELDS = [ "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ]
 
+  #
   def self.find_by_date(date, options = {})
     date = date.to_date
 
@@ -283,8 +280,7 @@ class VehicleJourney
     options = options.merge({
         :operating_period_start_date.lte => date.to_mongo,
         :operating_period_end_date.gte => date.to_mongo,
-        day_field.to_sym => true
-        })
+        day_field.to_sym => true})
     services = Service.where(options).all
     ret = services.reduce([]) {|t,v| t + v.vehicle_journeys }
   end
@@ -292,14 +288,14 @@ class VehicleJourney
   # Time is in minutes of midnight of the date. Be careful of TimeZone.
   def self.find_by_date_time(date, time, options = { })
     ret = self.find_by_date(date, options)
-    ret.select { |vj| vj.is_scheduled?(time) }
+    ret.select { |vj| vj.is_scheduled?(date, time) }
   end
 
   # Time is in minutes of midnight of the date. Be careful of TimeZone.
   def self.find_actives_by_date_time(date, time, options = { })
     ret = self.find_by_date(date, options)
     # Looking for 10 minutes before start and 30 minutes late.
-    ret.select { |vj| vj.is_active?(time, 10, 20) }
+    ret.select { |vj| vj.is_active?(date, time, 10, 20) }
   end
 
   def self.find_or_initialize(options)
@@ -362,7 +358,7 @@ class VehicleJourney
   def simulate_self(time_interval)
     clock = BaseTime.new(base_time+departure_time.minutes-1.minutes)
     active_journey = ActiveJourney.new()
-    simulate( time_interval, active_journey, nil, AuditLogger.new(STDOUT), clock)
+    simulate( time_interval, active_journey, base_time, nil, AuditLogger.new(STDOUT), clock)
     # We didn't save the ActiveJourney.
   end
 
@@ -465,7 +461,7 @@ class VehicleJourney
     end
   end
 
-  def simulate(interval, active_journey, job = nil, logger = VehicleJourney.logger, clock = Time)
+  def simulate(interval, active_journey, base_time, job = nil, logger = VehicleJourney.logger, clock = Time)
     journey_location = nil
     disp = job ? job.disposition : "simulate"
 
@@ -490,6 +486,7 @@ class VehicleJourney
     distance = 0.0
     tm_last = tm_base
     tm_now = tm_base
+    save_active_journey = true
     #
     # TODO: Loop should continue past target_distance See below;
     # We want to keep this simulation running until we get a verifiable report that the bus has stopped.
@@ -500,9 +497,7 @@ class VehicleJourney
       if (ans != nil)
         #logger.info "Journey '#{self.name}' answer #{ans[:coord]}"
         if journey_location.nil?
-          fields = { :disposition => disp, :job => job, :service => service, :route => service.route }
-          journey_location = active_journey.journey_location.build(fields)
-          active_journey.save
+          journey_location = active_journey.make_journey_location()
         else
           journey_location.last_coordinates   = journey_location.coordinates
           journey_location.last_reported_time = journey_location.reported_time
@@ -518,6 +513,13 @@ class VehicleJourney
         journey_location.recorded_time = clock.now
 
         journey_location.save!
+        if save_active_journey
+          # We do this here instead of when we create journey_location, because we don't want one
+          # in the DB without any info. The active_journey.save would automatically save the
+          # attached journey_location.
+          active_journey.save
+          save_active_journey = false
+        end
         distance = ans[:distance]
         logger.info "Journey '#{self.name}' location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")}"
       else
@@ -552,6 +554,7 @@ class VehicleJourney
   # TODO: Make #puts calls to log
 
   class JourneyRunner
+    attr_accessor :base_date
     attr_accessor :journey
     attr_accessor :runners
     attr_accessor :thread
@@ -560,7 +563,8 @@ class VehicleJourney
     attr_accessor :clock
     attr_accessor :job
 
-    def initialize(rs,job, j,t, clk = Time, logger = VehicleJourney.logger)
+    def initialize(rs,job, bd, j,t, clk = Time, logger = VehicleJourney.logger)
+      @base_date = bd
       @runners = rs
       @journey = j
       @time_interval = t
@@ -571,18 +575,19 @@ class VehicleJourney
     end
 
     def run
-      logger.info "Starting Journey #{journey.name}"
+      logger.info "Starting Journey #{journey.name} for #{base_date}"
       thread = Thread.new do
         active_journey = ActiveJourney.new()
         begin
           active_journey.vehicle_journey = journey
+          active_journey.deployment = job.deployment
           active_journey.service = journey.service
           active_journey.route = journey.service.route
           active_journey.disposition = job.disposition
           active_journey.simulate_job = job
           active_journey.save
 
-          journey.simulate(time_interval, active_journey, job, logger, clock)
+          journey.simulate(time_interval, active_journey, base_date, job, logger, clock)
           logger.info "Journey ended normally #{journey.name}"
         rescue Exception => boom
           logger.info "Stopping Journey #{journey.name} on #{VehicleJourney.html_escape(boom)}"
@@ -611,16 +616,35 @@ class VehicleJourney
       job.processing_started_at = Time.now
       job.processing_completed_at = nil
       job.set_processing_status!("Running")
-      JourneyLocation.where(:job => job.id).all.each {|x| x.delete() }
+      ActiveJourney.where(:simulate_job => job.id).all.each {|x| x.delete() }
       runners = {}
       while (x = SimulateJob.find(job_id)) && !x.please_stop && (duration < 0 || (clock.now - logical_start_time) <= duration.minutes) do
-        date = time = clock.now
+        time = clock.now
+        date = job.master.base_time(time)
+
+        # Get all Journeys that might be on yesterdays base time.
+        b_date = date - 1.day
+        b_journeys = VehicleJourney.find_actives_by_date_time(b_date, time, { :master_id => job.master.id, :deployment_id => job.deployment.id }) # Create Journey Runners for new Journeys.
+        for j in b_journeys do
+          key = "#{b_date}:#{j.id}"
+          if !runners.keys.include?(key)
+            runners[key] = JourneyRunner.new(runners, job, b_date, j, time_interval, clock, logger).run
+          end
+        end
+
+        # And all the journeys from today. Note, it is quite possible to get the same journey for both dates.
+        # However, unless a journey runs for close to 24 hours, we'd end up with both. However, we prefix
+        # the index key with the base date. TODO: This could lead to problems with ActiveJourney since we'd
+        # end up with the same journey. However, the journey duration would have to be 7200 minutes or more.
+        # TODO: make sure duration cannot be that?
+
         journeys = VehicleJourney.find_actives_by_date_time(date, time, {:master_id => job.master.id, :deployment_id => job.deployment.id})
         logger.info "Found #{journeys.length} journeys at #{date.in_time_zone(job.master.time_zone).strftime("%m-%d-%Y")} #{time.in_time_zone(job.master.time_zone).strftime("%H:%M:%S %Z")}"
         # Create Journey Runners for new Journeys.
         for j in journeys do
-          if !runners.keys.include?(j.id)
-            runners[j.id] = JourneyRunner.new(runners, job, j, time_interval, clock, logger).run
+          key = "#{date}:#{j.id}"
+          if !runners.keys.include?(key)
+            runners[key] = JourneyRunner.new(runners, job, date, j, time_interval, clock, logger).run
           end
         end
         sleep find_interval

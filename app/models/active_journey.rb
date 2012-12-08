@@ -7,10 +7,12 @@ class ActiveJourney
   include MongoMapper::Document
 
   key :disposition, String # "active", "test", "simulate"
+  key :persistentid, String
 
   belongs_to :vehicle_journey
   belongs_to :service
   belongs_to :route
+
 
   belongs_to :journey_location, :dependent => :destroy # may be null
 
@@ -25,9 +27,25 @@ class ActiveJourney
   validates_presence_of :service
   validates_presence_of :route
 
-  def self.find_by_routes(routes)
-    routes = [routes] if routes.is_a? Route
-    self.where(:route_id.in => routes.map { |x| x.id }).all
+  before_validation :assign_persistentid
+
+  def assign_persistentid
+    self.persistentid = vehicle_journey.persistentid
   end
 
+
+  def self.find_by_routes(disp, routes)
+    routes = [routes] if routes.is_a? Route
+    self.where(:disposition => disp, :route_id.in => routes.map { |x| x.id }).all
+  end
+
+  def make_journey_location()
+    fields = {}
+    fields[:vehicle_journey] = vehicle_journey
+    fields[:disposition] = disposition
+    fields[:job] = simulate_job
+    fields[:route] = route
+    fields[:service] = service
+    return build_journey_location(fields)
+  end
 end

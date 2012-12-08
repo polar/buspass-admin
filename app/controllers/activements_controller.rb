@@ -1,6 +1,5 @@
 class ActivementsController < ApplicationController
 
-  # May should more if user is logged in.
   def index
     authenticate_customer!
     authorize_customer!(:read, Activement)
@@ -12,16 +11,28 @@ class ActivementsController < ApplicationController
   end
 
   def show
+    logger.debug "PATH======#{request.original_fullpath}"
+    logger.debug "FULLPATH=========#{request.fullpath}"
     @activement = Activement.find(params[:id])
-    @deployment = @activement.deployment
-    @master = @deployment.master
+    if @activement
+      @deployment = @activement.deployment
+      @master     = @activement.master
 
-    authenticate_muni_admin!
-    authorize_muni_admin!(:read, @activement)
+      authenticate_muni_admin!
+      authorize_muni_admin!(:manage, @activement)
 
-    @loginUrl = api_activement_path(@activement)
-    @center = [@master.longitude.to_f, @master.latitude.to_f]
-    render :layout => "webmap"
+      @loginUrl = api_activement_path(@activement)
+      @center = [@master.longitude.to_f, @master.latitude.to_f]
+    else
+      # See if we can get the master from the session
+      @master = Master.find(session[:master_id])
+      if @master
+        authenticate_muni_admin!
+        redirect_to master_path(@master)
+      else
+        raise NotFoundError
+      end
+    end
   end
 
   def api

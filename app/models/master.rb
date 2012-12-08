@@ -211,6 +211,11 @@ class Master
     time.in_time_zone(time_zone)
   end
 
+  def base_time(reference = Time.now)
+    timelit = tz(reference).strftime("%Y-%m-%d 0:00 %z")
+    return Time.parse(timelit)
+  end
+
   def ensure_slug
     self.slug       ||= self.name.to_url()
     self.base_host  ||= Rails.application.base_host
