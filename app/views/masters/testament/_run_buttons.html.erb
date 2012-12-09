@@ -17,6 +17,7 @@
                    :remote => true,
                    :disabled => (@job.nil? || @job.processing_status == "Stopped")) %>
   </div>
+  <%= render :partial => "masters/active/clock" %>
   <div class="pull-right">
     <%= button_to("Deactivate",
                   deactivate_master_testament_path(@master),

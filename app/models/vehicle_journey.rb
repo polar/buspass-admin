@@ -313,6 +313,11 @@ class VehicleJourney
 
   # This function sets a indication so that the simulation for the
   # this journey stops on the next wake up call.
+
+  def prepare_simulation
+    @please_stop_simulating = false;
+  end
+
   def stop_simulating
     logger.info "Being told to stop! #{name}"
     @please_stop_simulating = true
@@ -507,7 +512,7 @@ class VehicleJourney
     disp = job ? job.disposition : "simulate"
 
     tm_start = base_time + departure_time.minutes
-    logger.info("Start #{disp} Journey #{self.name} base #{base_time} start #{tm_start} at #{tz(clock.now)}")
+    logger.info("Start Journey #{self.name} base #{base_time.strftime("%Y-%m-%d")} start #{tm_start.strftime("%H:%M %Z")} at #{tz(clock.now)}")
 
     # Since we are working with time intervals, we get our current time base.
     tm_base = clock.now
@@ -541,9 +546,9 @@ class VehicleJourney
     while (distance < target_distance) do
       ans = figure_location(disp, distance, tm_last, tm_now, tm_start, journey_location)
       if (ans != nil)
-        #logger.info "Journey '#{self.name}' answer #{ans[:coord]}"
+        #logger.info "Journey #{self.name} answer #{ans[:coord]}"
         if journey_location.nil?
-          logger.info "Journey '#{self.name}' FIRST location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")}"
+          logger.info "Journey #{self.name} FIRST location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")}"
           journey_location = active_journey.make_journey_location()
         else
           journey_location.last_coordinates   = journey_location.coordinates
@@ -566,27 +571,29 @@ class VehicleJourney
           # attached journey_location.
           active_journey.time_start = ans[:time]
           active_journey.time_on_route = ans[:ti_diff]
+          active_journey.current_distance = ans[:distance]
           active_journey.save
           first_answer = false
         else
           active_journey.time_on_route += ans[:ti_diff]
+          active_journey.current_distance = ans[:distance]
+          active_journey.save
         end
-        active_journey.current_distance = ans[:distance]
         distance = ans[:distance]
-        logger.info "Journey '#{self.name}' location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")} time #{active_journey.time_on_route} dist #{distance.floor}"
+        logger.info "Journey #{self.name} location #{"%.5f, %.5f" % ans[:coord]} at #{tz(tm_now).strftime("%H:%M:%S %Z")} time #{active_journey.time_on_route} dist #{distance.floor}"
       else
-        logger.info("No answer #{self.name} -- tm_now #{tm_now} tm_start #{tm_start} = should get ans #{tm_now > tm_start}" )
+        logger.info("No answer #{self.name} -- tm_now #{tm_now} tm_start #{tm_start} = should get ans #{tm_now > tm_start}" )  if tm_now > tm_start
       end
       tm_last = tm_now
       sleep interval
       tm_now = clock.now
       #logger.info("VehicleJourney '#{self.name}' tick #{tm_now} tm_start #{tm_start}")
-      if @please_stop_simulating || (job && job = SimulateJob.find(job.id).nil? || job.please_stop || job.delayed_job.nil?)
-        logger.info "Stopping #{self.name}"
+      if @please_stop_simulating || (job && (job = job.reload).nil? || job.please_stop || job.delayed_job.nil?)
+        logger.info "Forced Stop #{self.name}"
         break
       end
     end
-    logger.info "Ending Journey '#{self.name}' at #{distance} at #{tm_now}"
+    logger.info "End Journey '#{self.name}' at #{distance.floor} at #{tm_now}"
   rescue Exception => boom
     logger.info "Ending Journey '#{self.name}' because of #{VehicleJourney.html_escape(boom)}"
     #logger.info boom.backtrace
@@ -628,25 +635,31 @@ class VehicleJourney
       #logger.info "Initializing Journey #{journey.name}"
     end
 
+    def stop
+      # Somebody may have removed the journey before they stopped the job
+      journey.stop_simulating if journey
+    end
+
     def run
-      logger.info "Starting Journey #{journey.name} for #{base_date}"
       thread = Thread.new do
+        journey.prepare_simulation
         active_journey = ActiveJourney.new()
         begin
+          logger.info "Begin Active Journey #{journey.name} dist #{journey.journey_pattern.path_distance.floor} start #{journey.start_time} dur #{journey.duration} at #{clock.now}"
           active_journey.vehicle_journey = journey
           active_journey.deployment = job.deployment
           active_journey.service = journey.service
           active_journey.route = journey.service.route
           active_journey.disposition = job.disposition
           active_journey.simulate_job = job
+          active_journey.master = job.master
           active_journey.save
 
           journey.simulate(time_interval, active_journey, base_date, job, logger, clock)
-          logger.info "Journey ended normally #{journey.name}"
         rescue Exception => boom
-          logger.info "Stopping Journey #{journey.name} on #{VehicleJourney.html_escape(boom)}"
+          logger.info "Error: Active Journey #{journey.name} ended because #{VehicleJourney.html_escape(boom)}"
         ensure
-          logger.info "Removing Journey #{journey.name}"
+          logger.info "End Active Journey #{journey.name}"
           active_journey.destroy
           runners.delete(key)
         end
@@ -663,28 +676,24 @@ class VehicleJourney
     logger = job = SimulateJob.find(job_id)
     clock = BaseTime.new(time, mult)
     logical_start_time = clock.now
-    logger.info "Starting for #{job.name} in #{job.master.name} at #{logical_start_time}"
+    # logger.info "Starting for #{job.name} in #{job.master.name} at #{logical_start_time}"
     begin
       job.sim_time = time
       job.clock_mult = mult
       job.processing_started_at = Time.now
       job.processing_completed_at = nil
       job.set_processing_status!("Running")
-      ActiveJourney.where(:simulate_job => job.id).all.each {|x| x.delete() }
+      # We need to delete any of this disposition.
+      if (job.disposition == "active" || job.disposition == "test")
+        # These can be left over from old jobs that got removed.
+        ActiveJourney.where(:master_id => job.master.id, :disposition => job.disposition).each {|x| x.destroy()}
+      end
+      # simulate will just be
+      ActiveJourney.where(:simulate_job => job.id).all.each {|x| x.destroy() }
       runners = {}
       while (x = SimulateJob.find(job_id)) && !x.please_stop && (duration < 0 || (clock.now - logical_start_time) <= duration.minutes) do
         time = clock.now
         date = job.master.base_time(time)
-
-        # Get all Journeys that might be on yesterdays base time.
-        b_date = date - 1.day
-        b_journeys = VehicleJourney.find_actives_by_date_time(b_date, time, { :master_id => job.master.id, :deployment_id => job.deployment.id }) # Create Journey Runners for new Journeys.
-        for j in b_journeys do
-          key = "#{b_date}:#{j.id}"
-          if !runners.keys.include?(key)
-            runners[key] = JourneyRunner.new(runners, key, job, b_date, j, time_interval, clock, logger).run
-          end
-        end
 
         # And all the journeys from today. Note, it is quite possible to get the same journey for both dates.
         # However, unless a journey runs for close to 24 hours, we'd end up with both. However, we prefix
@@ -692,8 +701,20 @@ class VehicleJourney
         # end up with the same journey. However, the journey duration would have to be 7200 minutes or more.
         # TODO: make sure duration cannot be that?
 
-        journeys = VehicleJourney.find_actives_by_date_time(date, time, {:master_id => job.master.id, :deployment_id => job.deployment.id})
-        logger.info "Found #{journeys.length} journeys at #{date.in_time_zone(job.master.time_zone).strftime("%m-%d-%Y")} #{time.in_time_zone(job.master.time_zone).strftime("%H:%M:%S %Z")}"
+        # Get all Journeys that might be on yesterdays base time.
+        b_date = date - 1.day
+        b_journeys = VehicleJourney.find_actives_by_date_time(b_date, time, { :master_id => job.master.id, :deployment_id => job.deployment.id })
+        journeys = VehicleJourney.find_actives_by_date_time(date, time, { :master_id => job.master.id, :deployment_id => job.deployment.id })
+        logger.info "Found #{b_journeys.length + journeys.length} Active Journeys at #{date.in_time_zone(job.master.time_zone).strftime("%Y-%m-%d")} #{time.in_time_zone(job.master.time_zone).strftime("%H:%M:%S %Z")}"
+
+        # Create Journey Runners for new Journeys.
+        for j in b_journeys do
+          key = "#{b_date}:#{j.id}"
+          if !runners.keys.include?(key)
+            runners[key] = JourneyRunner.new(runners, key, job, b_date, j, time_interval, clock, logger).run
+          end
+        end
+
         # Create Journey Runners for new Journeys.
         for j in journeys do
           key = "#{date}:#{j.id}"
@@ -707,7 +728,7 @@ class VehicleJourney
       job = SimulateJob.find(job_id)
       if job
         job.set_processing_status!("Stopping")
-        logger.info "Ending because #{VehicleJourney.html_escape(boom)}"
+        logger.info "Error: Ending Job because #{VehicleJourney.html_escape(boom)}"
         logger.info boom.backtrace.take(10).join("\n")
       end
     ensure
@@ -720,10 +741,7 @@ class VehicleJourney
       for k in keys do
         runner = runners[k]
         if runner != nil
-          #logger.info "Killing #{runner.journey.id} #{runner.journey.id} thread = #{runner.journey.id}"
-          if runner.journey != nil
-            runner.journey.stop_simulating
-          end
+          runner.stop
         end
       end
       if job

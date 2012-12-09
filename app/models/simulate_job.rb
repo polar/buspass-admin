@@ -25,6 +25,7 @@ class SimulateJob
 
   many :journey_locations
   many :reported_journey_locations
+  many :active_journeys, :dependent => :destroy
 
   attr_accessible :master, :master_id
   attr_accessible :deployment, :deployment_id
@@ -100,8 +101,10 @@ class SimulateJob
             self.please_stop = true
           when "Stopping"
             self.processing_status= status
+            self.please_stop = true
           when "Stopped"
             self.processing_status= status
+            self.please_stop = true
           else
         end
       when "Enqueued"
@@ -111,11 +114,14 @@ class SimulateJob
           when "Running"
             self.processing_status= status
           when "StopRequested"
+            self.please_stop = true
             self.kill
           when "Stopping"
             self.processing_status= status
+            self.please_stop = true
           when "Stopped"
             self.processing_status= status
+            self.please_stop = true
           else
         end
       when "Running"
@@ -131,8 +137,10 @@ class SimulateJob
             self.please_stop = true
           when "Stopping"
             self.processing_status= status
+            self.please_stop = true
           when "Stopped"
             self.processing_status= status
+            self.please_stop = true
           else
         end
       when "StopRequested"
@@ -144,11 +152,13 @@ class SimulateJob
           when "Running"
             # nothing
           when "StopRequested"
-             # nothing
+             self.please_stop = true
           when "Stopping"
             self.processing_status= status
+            self.please_stop = true
           when "Stopped"
             self.processing_status= status
+            self.please_stop = true
           else
         end
       when "Stopping"
@@ -157,9 +167,12 @@ class SimulateJob
           when "Enqueued"
           when "Running"
           when "StopRequested"
+            self.please_stop = true
           when "Stopping"
+            self.please_stop = true
           when "Stopped"
             self.processing_status= status
+            self.please_stop = true
           else
         end
       when "Stopped"
@@ -168,8 +181,11 @@ class SimulateJob
           when "Enqueued"
           when "Running"
           when "StopRequested"
+            self.please_stop = true
           when "Stopping"
+            self.please_stop = true
           when "Stopped"
+            self.please_stop = true
           else
         end
       else
@@ -178,6 +194,7 @@ class SimulateJob
 
   def kill
     destroy_delayed_job()
+    self.please_stop = true
     self.processing_status= "Stopped"
   end
 
@@ -185,10 +202,12 @@ class SimulateJob
 
   def destroy_delayed_job
     delayed_job.destroy() if delayed_job
+    self.please_stop = true
     delayed_job = nil;
   end
 
   def destroy_journey_locations
+    active_journeys.all.each {|a| a.destroy }
     journey_locations.all.each { |jl| jl.destroy }
     reported_journey_locations.all.each { |rjl| rjl.destroy }
   end

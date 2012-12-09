@@ -15,6 +15,12 @@
             activePlanView.onCreate();
             activePlanView.onStart();
             activePlanView.onResume();
+
+
+            $("#sim_clock").clock({format:"24"});
+            $("#sim_clock").show();
+            // jqClock floats to the left!
+            $("#sim_clock").css("float", "right");
         });
     </script>
 <% end %>

@@ -16,6 +16,7 @@ class ActiveJourney
   belongs_to :vehicle_journey
   belongs_to :service
   belongs_to :route
+  belongs_to :master
 
 
   belongs_to :journey_location, :dependent => :destroy # may be null

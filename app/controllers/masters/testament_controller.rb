@@ -68,7 +68,8 @@ class Masters::TestamentController < ApplicationController
         @status += "Run of #{@master.name}'s #{@deployment.name} is still running."
         return
       else
-        @job.reinitialize()
+        @job.destroy()
+        @job = SimulateJob.new(options)
         # User may have changed the time zone on the Master.
         @job.time_zone = @master.time_zone
       end
