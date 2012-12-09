@@ -5,51 +5,13 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/customers/_customers.html.erb" line="1" />
   </component>
   <component name="ChangeListManager">
-    <list id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
-    <list default="true" id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="Time issues">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/activement/show.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/testament/show.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/masters/activement_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/activement/_clock.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/activement/_map.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/activement/_mapview.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/masters/activement/show.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/testaments/_clock.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/testaments/_map.html.erb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/testaments/_show.html.erb" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/active/_admin_map.html.erb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/masters/active/admin.html.erb" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/javascripts/masters/active/admin.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/masters/active/show.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/active/_admin.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/activement/_show.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/active/_admin_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/activement/_map_script.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/active/_processing_status.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/activement/_processing_status.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/active/_run_buttons.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/activement/_run_buttons.html.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/active/start.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/activement/start.js.erb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/views/masters/active/stop.js.erb" afterPath="$PROJECT_DIR$/app/views/masters/activement/stop.js.erb" />
+    <list default="true" id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
+    <list id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="progress">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/activements/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/activements/webmap_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/activements_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/activements_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate/webmap_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/workers_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/workers_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/testaments/webmap_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/testaments/webmap_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/testaments_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/testaments_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/workers_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/workers_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/active_journey.rb" afterPath="$PROJECT_DIR$/app/models/active_journey.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/apis/v1.rb" afterPath="$PROJECT_DIR$/app/models/apis/v1.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/master.rb" afterPath="$PROJECT_DIR$/app/models/master.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vehicle_journey.rb" afterPath="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_table_counts.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/deployments/networks/plan/_table_counts.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/testament/_run_buttons.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/testament/_run_buttons.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/testaments/show.html.erb" afterPath="$PROJECT_DIR$/app/views/testaments/show.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <ignored path="buspass.admin.iws" />
     <ignored path=".idea/workspace.xml" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" time="1354988970528" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,18 +39,54 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="_mapview.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_mapview.html.erb">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_mapview.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="22" column="6" selection-start="657" selection-end="657" vertical-scroll-proportion="-13.75">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_processing_status.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_processing_status.html.erb">
+      <file leaf-file-name="_mapview.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_mapview.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="15" column="10" selection-start="483" selection-end="483" vertical-scroll-proportion="-9.375">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_show.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="87" selection-start="133" selection-end="133" vertical-scroll-proportion="-1.875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_show.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="20" selection-start="209" selection-end="209" vertical-scroll-proportion="-5.625">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_clock.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_clock.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="51" selection-start="45" selection-end="45" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_map_script.html.erb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="55" selection-start="686" selection-end="686" vertical-scroll-proportion="0.66728973">
               <folding />
             </state>
           </provider>
@@ -97,14 +95,14 @@
       <file leaf-file-name="show.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/active/show.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="1" column="38" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/testament/show.js">
+      <file leaf-file-name="webmap.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
@@ -112,55 +110,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/activement/show.js">
+      <file leaf-file-name="onUpdateStatus.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="23" selection-start="89" selection-end="89" vertical-scroll-proportion="0.0">
+            <state line="33" column="87" selection-start="1013" selection-end="1140" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_table_active_deployments.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb">
+      <file leaf-file-name="_run_buttons.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_run_buttons.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="42" selection-start="246" selection-end="246" vertical-scroll-proportion="-8.125">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/routes.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="253" column="79" selection-start="8172" selection-end="8172" vertical-scroll-proportion="-10.8">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="active_controller.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/active_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="5" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.23325358">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activement_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/activement_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="5" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/activement/show.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="17" selection-start="21" selection-end="21" vertical-scroll-proportion="-0.625">
+            <state line="19" column="54" selection-start="761" selection-end="812" vertical-scroll-proportion="-11.875">
               <folding />
             </state>
           </provider>
@@ -183,28 +145,26 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Rails console: buspass.admin" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/testaments_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/activements_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/masters/activement/show.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/activement/_admin_map.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/activement/_show.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/activement/_map.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/testament/_run_buttons.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/activement/_run_buttons.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/activement/_map_script.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="$PROJECT_DIR$/app/models/active_journey.rb" />
+        <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
+        <option value="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/activement_controller.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/masters/active_controller.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/activement/_show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/activement/_mapview.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/activement/_run_buttons.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/testament/_run_buttons.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/testament/_show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_mapview.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/masters/active/show.js" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_clock.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb" />
       </list>
     </option>
   </component>
@@ -317,87 +277,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="environments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="workers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testaments" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -446,32 +330,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="testament" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -540,14 +398,6 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -560,6 +410,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="permits" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -617,6 +471,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="masters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deployments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -666,36 +546,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buspass.admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="javascripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="masters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="testament" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -809,8 +659,8 @@
       <recent name="$PROJECT_DIR$/app/views" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="false" name="Rails console: buspass.shows" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
+  <component name="RunManager" selected="IRB console.Rails console: buspass.admin">
+    <configuration default="false" name="Rails console: buspass.admins" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
       <module name="buspass.admin" />
       <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
       <IRB_RUN_CONFIG NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
@@ -923,7 +773,7 @@
       <ConfigurationWrapper RunnerId="RubyRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="Rails console: buspass.show" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
+    <configuration default="false" name="Rails console: buspass.admin" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
       <module name="buspass.admin" />
       <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
       <IRB_RUN_CONFIG NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
@@ -1291,18 +1141,18 @@
       <item index="1" class="java.lang.String" itemvalue="Rails.Development" />
       <item index="2" class="java.lang.String" itemvalue="Rake.testament" />
       <item index="3" class="java.lang.String" itemvalue="Rake.spec" />
-      <item index="4" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.shows" />
+      <item index="4" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admins" />
       <item index="5" class="java.lang.String" itemvalue="RSpec.NetworkModel should create routes" />
       <item index="6" class="java.lang.String" itemvalue="RSpec.Network should have one routes" />
       <item index="7" class="java.lang.String" itemvalue="Rake.routes" />
-      <item index="8" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.show" />
+      <item index="8" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
-        <item index="1" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
-        <item index="2" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
-        <item index="3" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admins" />
+        <item index="1" class="java.lang.String" itemvalue="Rake.routes" />
+        <item index="2" class="java.lang.String" itemvalue="RSpec.Network should have one routes" />
+        <item index="3" class="java.lang.String" itemvalue="RSpec.NetworkModel should create routes" />
         <item index="4" class="java.lang.String" itemvalue="IRB console.Rails console: buspass.admin" />
       </list>
     </recent_temporary>
@@ -1328,12 +1178,11 @@
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
   <component name="TaskManager">
-    <task id="Default" summary="Default task">
+    <task active="true" id="Default" summary="Default task">
       <option name="associatedChangelistId" value="d8afba18-3df8-437d-8912-308d1ad2c9d6" />
-      <changelist id="9a0ef274-d4ca-4131-8837-b469a755c8af" name="Failed commit: Default" comment="Progress" />
       <changelist id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress" />
       <created>1329837685912</created>
-      <updated>1354954436189</updated>
+      <updated>1354986111717</updated>
     </task>
     <task id="LOCAL-00001" summary="Added tests for index&#10;">
       <created>1330393742941</created>
@@ -2033,14 +1882,14 @@
       <created>1354768086871</created>
       <updated>1354768086871</updated>
     </task>
-    <task active="true" id="99045-19" summary="Run Log doesn't have html_escape on Heroku">
+    <task id="99045-19" summary="Run Log doesn't have html_escape on Heroku">
       <option name="associatedChangelistId" value="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" />
       <changelist id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="" />
       <changelist id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="" />
       <created>1354263862000</created>
       <option name="issue" value="true" />
       <option name="type" value="BUG" />
-      <updated>1354954448712</updated>
+      <updated>1354986104980</updated>
     </task>
     <task id="LOCAL-00172" summary="99045-19 Run Log doesn't have html_escape on Heroku [#19 state:resolved]">
       <created>1354776235582</created>
@@ -2050,7 +1899,27 @@
       <created>1354937087737</created>
       <updated>1354937087738</updated>
     </task>
-    <option name="localTasksCounter" value="174" />
+    <task id="LOCAL-00174" summary="progress">
+      <created>1354986088460</created>
+      <updated>1354986088460</updated>
+    </task>
+    <task id="LOCAL-00175" summary="Progress">
+      <created>1354991849138</created>
+      <updated>1354991849139</updated>
+    </task>
+    <task id="LOCAL-00176" summary="Progress">
+      <created>1354995927908</created>
+      <updated>1354995927909</updated>
+    </task>
+    <task id="LOCAL-00177" summary="Progress">
+      <created>1355004163246</created>
+      <updated>1355004163246</updated>
+    </task>
+    <task id="LOCAL-00178" summary="Progress">
+      <created>1355082696964</created>
+      <updated>1355082696965</updated>
+    </task>
+    <option name="localTasksCounter" value="179" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="7868393abb3dd2ff5f2d196f68f8e3884bbe7646" />
@@ -2088,22 +1957,22 @@
     <frame x="1278" y="-3" width="1684" height="1008" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2445465" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272933" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32616082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3114383" sideWeight="0.46572828" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3114383" sideWeight="0.46572828" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28518972" sideWeight="0.6761042" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3004896" sideWeight="0.68856174" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2252142" sideWeight="0.68856174" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3533409" sideWeight="0.35924113" order="2" side_tool="false" content_ui="tabs" x="1630" y="343" width="1152" height="582" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2855392" sideWeight="0.21744055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3578709" sideWeight="0.6364749" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36240092" sideWeight="0.46017158" order="5" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3714609" sideWeight="0.46017158" order="5" side_tool="false" content_ui="tabs" x="1453" y="627" width="1063" height="563" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32842582" sideWeight="0.3261934" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32965687" sideWeight="0.67118645" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2445465" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249694" sideWeight="0.6772367" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39887005" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2144,7 +2013,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Time issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Progress" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -2157,7 +2026,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Added tests&#10;" />
     <MESSAGE value="Fixing Cantanog misunderstandings.&#10;" />
     <MESSAGE value="Fixed Network Tables  to display multiple services also fixes issue 3 [#3 state:resolved]&#10;" />
     <MESSAGE value="Customer Index" />
@@ -2171,7 +2039,6 @@
     <MESSAGE value="Authentication Progress. [#13 state:resolved]" />
     <MESSAGE value="99045-14 Busme and Municipality Management for Webworkers [#14 state:resolved]" />
     <MESSAGE value="99045-16 Fix Feedback location  Main Base Site [#16 state:resolved]" />
-    <MESSAGE value="Progress" />
     <MESSAGE value="Authentication Progress" />
     <MESSAGE value="Pages Progress" />
     <MESSAGE value="Workers Progress" />
@@ -2182,6 +2049,8 @@
     <MESSAGE value="Journey Builder Fixes" />
     <MESSAGE value="99045-19 Run Log doesn't have html_escape on Heroku [#19 state:resolved]" />
     <MESSAGE value="Time issues" />
+    <MESSAGE value="progress" />
+    <MESSAGE value="Progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2195,10 +2064,6 @@
           <line>6</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/app/controllers/activements/webmap_controller.rb</url>
-          <line>79</line>
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
           <url>file://$PROJECT_DIR$/app/controllers/workers_controller.rb</url>
           <line>11</line>
         </line-breakpoint>
@@ -2206,63 +2071,63 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_map.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/activement_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="48" selection-start="2078" selection-end="2245" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/testament_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="42" selection-start="2355" selection-end="2355" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="42" selection-start="2804" selection-end="2804" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_run_buttons.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="50" selection-start="810" selection-end="810" vertical-scroll-proportion="-11.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="88" selection-start="135" selection-end="135" vertical-scroll-proportion="-2.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_mapview.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_map_script.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="70" selection-start="0" selection-end="1096" vertical-scroll-proportion="-15.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_map_script.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="4" selection-start="27" selection-end="27" vertical-scroll-proportion="-0.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_clock.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_map.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="46" selection-start="46" selection-end="46" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="17" selection-start="21" selection-end="21" vertical-scroll-proportion="-0.625">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_mapview.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="15" column="10" selection-start="483" selection-end="483" vertical-scroll-proportion="-9.375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_processing_status.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_run_buttons.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="54" selection-start="761" selection-end="812" vertical-scroll-proportion="-11.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -2271,49 +2136,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/active/show.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="1" column="38" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/testament/show.js">
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="33" column="87" selection-start="1013" selection-end="1140" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/activement/show.js">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_mapview.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="23" selection-start="89" selection-end="89" vertical-scroll-proportion="0.0">
+        <state line="22" column="6" selection-start="657" selection-end="657" vertical-scroll-proportion="-13.75">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/_table_active_deployments.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_clock.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="42" selection-start="246" selection-end="246" vertical-scroll-proportion="-8.125">
+        <state line="0" column="51" selection-start="45" selection-end="45" vertical-scroll-proportion="-0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="253" column="79" selection-start="8172" selection-end="8172" vertical-scroll-proportion="-10.8">
+        <state line="3" column="87" selection-start="133" selection-end="133" vertical-scroll-proportion="-1.875">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/activement_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="5" selection-start="966" selection-end="966" vertical-scroll-proportion="0.0">
+        <state line="9" column="20" selection-start="209" selection-end="209" vertical-scroll-proportion="-5.625">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/active_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="5" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.23325358">
+        <state line="21" column="55" selection-start="686" selection-end="686" vertical-scroll-proportion="0.66728973">
           <folding />
         </state>
       </provider>
