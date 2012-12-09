@@ -7,6 +7,8 @@
   <component name="ChangeListManager">
     <list default="true" id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/user_registrations/_mobile_form_registration.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/user_registrations/_mobile_form_registration.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/masters/user_registrations/new_mobile.html.erb" afterPath="$PROJECT_DIR$/app/views/masters/user_registrations/new_mobile.html.erb" />
     </list>
     <list id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="progress" />
     <ignored path="buspass.admin.iws" />
@@ -82,10 +84,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_registrations_controller.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="user_registrations_controller.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="10" selection-start="3409" selection-end="3409" vertical-scroll-proportion="0.5882353">
+            <state line="36" column="0" selection-start="1181" selection-end="1181" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="new_mobile.html.erb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/user_registrations/new_mobile.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="32" selection-start="91" selection-end="91" vertical-scroll-proportion="0.05586592">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_mobile_form_registration.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/masters/user_registrations/_mobile_form_registration.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -100,28 +120,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webmap.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="onUpdateStatus.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="33" column="87" selection-start="1013" selection-end="1140" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_run_buttons.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_run_buttons.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="54" selection-start="761" selection-end="812" vertical-scroll-proportion="-11.875">
               <folding />
             </state>
           </provider>
@@ -148,8 +150,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
-        <option value="$PROJECT_DIR$/app/models/vehicle_journey.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/activement_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
@@ -164,6 +164,8 @@
         <option value="$PROJECT_DIR$/app/views/masters/active/_show.html.erb" />
         <option value="$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/masters/user_registrations/new_mobile.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/masters/user_registrations/_mobile_form_registration.html.erb" />
       </list>
     </option>
   </component>
@@ -1952,20 +1954,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/testament_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="42" selection-start="2355" selection-end="2355" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="42" selection-start="2804" selection-end="2804" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_run_buttons.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="50" selection-start="810" selection-end="810" vertical-scroll-proportion="-11.875">
@@ -2057,9 +2045,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/user_registrations/_mobile_form_registration.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="10" selection-start="3409" selection-end="3409" vertical-scroll-proportion="0.5882353">
+        <state line="36" column="0" selection-start="1181" selection-end="1181" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/masters/user_registrations/new_mobile.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="32" selection-start="91" selection-end="91" vertical-scroll-proportion="0.05586592">
           <folding />
         </state>
       </provider>
