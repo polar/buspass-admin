@@ -99,7 +99,7 @@ class Masters::UserRegistrationsController < Masters::MasterBaseController
         session[:user_id] = @user.id
         redirect_to "busme://oauthresponse?access_token=#{current_user.get_access_token}&master=#{@master.slug}"
       else
-        render edit_master_mobile_user_registrations_path(@master), :error => "Fix"
+        render new_master_mobile_user_registrations_path(@master), :error => "You need to fix your registration"
       end
     else
       redirect_to master_mobile_user_sign_in_path(@master), :notice => "You need to authenticate first."
