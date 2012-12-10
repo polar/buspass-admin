@@ -7,6 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/apis/v1.rb" afterPath="$PROJECT_DIR$/app/models/apis/v1.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/simulate_job.rb" afterPath="$PROJECT_DIR$/app/models/simulate_job.rb" />
     </list>
     <list id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="progress" />
     <ignored path="buspass.admin.iws" />
@@ -37,73 +38,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="_mapview.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_mapview.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="6" selection-start="657" selection-end="657" vertical-scroll-proportion="-13.75">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_show.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_show.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="87" selection-start="133" selection-end="133" vertical-scroll-proportion="-1.875">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_show.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_show.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="20" selection-start="209" selection-end="209" vertical-scroll-proportion="-5.625">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_clock.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_clock.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="51" selection-start="45" selection-end="45" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_map_script.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/active/_map_script.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="55" selection-start="686" selection-end="686" vertical-scroll-proportion="-13.730769">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_registrations_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/masters/user_registrations_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="0" selection-start="1181" selection-end="1181" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="new_mobile.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/user_registrations/new_mobile.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="32" selection-start="91" selection-end="91" vertical-scroll-proportion="-1.25">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="v1.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="v1.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/apis/v1.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="239" column="61" selection-start="7716" selection-end="7716" vertical-scroll-proportion="0.47080293">
+            <state line="147" column="64" selection-start="4725" selection-end="4725" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="simulate_job.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="5" selection-start="1317" selection-end="1317" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="workers_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/workers_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="27" selection-start="690" selection-end="715" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="master.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/master.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="98" column="6" selection-start="2596" selection-end="2596" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activement_controller.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/masters/activement_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="92" column="102" selection-start="2460" selection-end="2877" vertical-scroll-proportion="0.85561496">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/workers/index.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="show.js.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/workers/show.js.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="service_table_job.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/service_table_job.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vehicle_journey_simulate_job.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -113,15 +123,6 @@
         <entry file="file://$PROJECT_DIR$/app/models/service.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_mobile_form_registration.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/masters/user_registrations/_mobile_form_registration.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -148,7 +149,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/masters/testament_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/masters/deployments/simulate_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/masters/activement/_show.html.erb" />
         <option value="$PROJECT_DIR$/app/views/masters/activement/_mapview.html.erb" />
@@ -164,6 +164,7 @@
         <option value="$PROJECT_DIR$/app/views/masters/user_registrations/new_mobile.html.erb" />
         <option value="$PROJECT_DIR$/app/views/masters/user_registrations/_mobile_form_registration.html.erb" />
         <option value="$PROJECT_DIR$/app/models/apis/v1.rb" />
+        <option value="$PROJECT_DIR$/app/models/simulate_job.rb" />
       </list>
     </option>
   </component>
@@ -279,6 +280,24 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buspass.admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -312,7 +331,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -330,11 +349,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
+              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="apis" />
+              <option name="myItemId" value="masters" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1792,70 +1811,10 @@
           <url>file://$PROJECT_DIR$/app/controllers/customer_authentications_controller.rb</url>
           <line>6</line>
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="ruby-line">
-          <url>file://$PROJECT_DIR$/app/controllers/workers_controller.rb</url>
-          <line>11</line>
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/masters/testament/_mapview.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_mapview.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="10" selection-start="483" selection-end="483" vertical-scroll-proportion="-9.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_run_buttons.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="54" selection-start="761" selection-end="812" vertical-scroll-proportion="-11.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/masters/active/show.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="38" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/onUpdateStatus.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="87" selection-start="1013" selection-end="1140" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_mapview.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="6" selection-start="657" selection-end="657" vertical-scroll-proportion="-13.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/masters/active/_clock.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="51" selection-start="45" selection-end="45" vertical-scroll-proportion="-0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/masters/activement/_show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="87" selection-start="133" selection-end="133" vertical-scroll-proportion="-1.875">
@@ -1905,9 +1864,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/service_table_job.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/apis/v1.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="61" selection-start="7716" selection-end="7716" vertical-scroll-proportion="0.47080293">
+        <state line="147" column="64" selection-start="4725" selection-end="4725" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/vehicle_journey_simulate_job.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/simulate_job.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="5" selection-start="1317" selection-end="1317" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/workers/show.js.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/workers/index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/workers_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="27" selection-start="690" selection-end="715" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/master.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="6" selection-start="2596" selection-end="2596" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/masters/activement_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="102" selection-start="2460" selection-end="2877" vertical-scroll-proportion="0.85561496">
           <folding />
         </state>
       </provider>

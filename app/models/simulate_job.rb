@@ -19,6 +19,8 @@ class SimulateJob
   key :time_zone, String
   key :disposition, String # "active", "test", "simulate"
 
+  key :vehicle_journey_simulate_job, VehicleJourneySimulateJob
+
   belongs_to :delayed_job, :class_name => "Delayed::Job"
 
   key :please_stop, Boolean

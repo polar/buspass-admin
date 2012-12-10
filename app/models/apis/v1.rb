@@ -144,8 +144,8 @@ class Apis::V1 < Apis::Base
       reported  = active_journey.journey_location.reported_time
       recorded  = active_journey.journey_location.recorded_time
       timediff  = active_journey.journey_location.timediff.to_i
-      recorded  = recorded.utc.strftime "%Y-%m-%d %H:%M:%S"
-      reported  = reported.utc.strftime "%Y-%m-%d %H:%M:%S"
+      recorded  = recorded.to_i
+      reported  = reported.to_i
       direction = active_journey.journey_location.direction
       on_route  = active_journey.journey_location.on_route?
       ret       = "<JP lon='#{lon}' lat='#{lat}' reported_time='#{reported}' recorded_time='#{recorded}' timediff='#{timediff}' direction='#{direction}' onroute='#{on_route}'/>"
