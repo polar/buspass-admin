@@ -238,7 +238,7 @@ class Apis::V1 < Apis::Base
     text   = "<Route curloc='#{@api_url_for.call(vehicle_journey.persistentid)}'\n"
     text   += "id='#{vehicle_journey.persistentid}'\n"
     text   += "type='journey'\n"
-    text   += "dir='#{journey.service.direction}'\n"
+    text   += "dir='#{vehicle_journey.service.direction}'\n"
     text   += "sort='#{vehicle_journey.service.route.sort}'\n"
     text   += "routeCode='#{vehicle_journey.service.route.code}'\n"
     text   += "version='#{vehicle_journey.service.route.version}'\n"
