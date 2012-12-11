@@ -28,7 +28,7 @@ class CreateSiteJob < Struct.new(:customer_id, :master_id)
 
     # Creating the modifiable administrator pages for the Master.
     @admin_site = create_master_admin_site(@master, @s3_bucket)
-    @master.site_progress = 0.2
+    @master.site_progress = 0.3
     @master.save
     @main_site  = create_master_main_site(@master, @s3_bucket)
     @master.site_progress = 0.4
@@ -40,7 +40,7 @@ class CreateSiteJob < Struct.new(:customer_id, :master_id)
     muni_admin_attributes = @customer.attributes.slice("email", "name")
     @muni_admin           = MuniAdmin.new(muni_admin_attributes)
     @muni_admin.master    = @master
-    @master.site_progress = 0.55
+    @master.site_progress = 0.7
     @master.save
 
     auths      = @customer.authentications_copy(:master_id => @master.id)
@@ -48,7 +48,7 @@ class CreateSiteJob < Struct.new(:customer_id, :master_id)
 
     @muni_admin.add_roles([:super, :planner, :operator])
     @muni_admin.save!
-    @master.site_progress = 0.6
+    @master.site_progress = 0.8
     @master.save
 
     # Creating the first Deployment, which is a courtesy.
@@ -61,7 +61,7 @@ class CreateSiteJob < Struct.new(:customer_id, :master_id)
     @deployment.master       = @master
     @deployment.save!
     create_master_deployment_page(@master, @deployment)
-    @master.site_progress = 0.8
+    @master.site_progress = 0.95
     @master.save
 
     # Creating the first Network in the first Deployment, which is a courtesy.
@@ -72,9 +72,12 @@ class CreateSiteJob < Struct.new(:customer_id, :master_id)
     @network.ensure_slug
     @network.save!
     create_master_deployment_network_page(@master, @deployment, @network)
+    @master.site_progress = 1.0
+    @master.save
+
+    sleep 2
 
     @master.site_ready = true
-    @master.site_progress = 1.0
     @master.save
 
   rescue Exception => boom
