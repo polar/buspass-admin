@@ -1,7 +1,7 @@
+
+
 BuspassAdmin::Application.routes.draw do
 
-  #root :to => "/"
-  #
   match "/auth/:provider/callback" => "sessions#create"
   match "/auth/failure" => "auth#failure"
   match "/:siteslug/auth/:provider/callback" => "sessions#create", :constraints => { :host => "busme.us" }
@@ -57,15 +57,6 @@ BuspassAdmin::Application.routes.draw do
   resources :feedbacks
   resources :page_errors
 
-  namespace :cms_admin, :path => "cms-admin" do
-    resources :sites do
-      resources :layouts
-      resources :pages
-      resources :snippets
-      resources :files
-    end
-  end
-
   resources :sessions do
     collection do
       get :new_customer
@@ -106,7 +97,37 @@ BuspassAdmin::Application.routes.draw do
     end
   end
 
-
+  namespace :cms_admin, :path => "/cms-admin", :except => :show do
+    get '/', :to => 'base#jump'
+    resources :sites do
+      get :preview, :controller => :preview
+      resources :pages do
+        get :form_blocks, :on => :member
+        get :toggle_branch, :on => :member
+        put :reorder, :on => :collection
+        resources :revisions, :only => [:index, :show, :revert] do
+          put :revert, :on => :member
+        end
+      end
+      resources :files do
+        put :reorder, :on => :collection
+      end
+      resources :layouts do
+        put :reorder, :on => :collection
+        resources :revisions, :only => [:index, :show, :revert] do
+          put :revert, :on => :member
+        end
+      end
+      resources :snippets do
+        put :reorder, :on => :collection
+        resources :revisions, :only => [:index, :show, :revert] do
+          put :revert, :on => :member
+        end
+      end
+      resources :categories
+      get 'dialog/:type' => 'dialogs#show', :as => 'dialog'
+    end
+  end
 
 =begin
 
@@ -136,6 +157,11 @@ BuspassAdmin::Application.routes.draw do
     collection do
       get :my_index
       get :admin
+    end
+    member do
+      get :create_confirm
+      post :admin_cms
+      delete :admin_cms
     end
   end
 
@@ -228,14 +254,38 @@ BuspassAdmin::Application.routes.draw do
       end
     end
 
-    namespace :cms_admin, :path => "cms-admin" do
+    namespace :cms_admin, :path => "/cms-admin", :except => :show do
+      get '/', :to => 'base#jump'
       resources :sites do
-        resources :layouts
-        resources :pages
-        resources :snippets
-        resources :files
+        get :preview, :controller => :preview
+        resources :pages do
+          get :form_blocks, :on => :member
+          get :toggle_branch, :on => :member
+          put :reorder, :on => :collection
+          resources :revisions, :only => [:index, :show, :revert] do
+            put :revert, :on => :member
+          end
+        end
+        resources :files do
+          put :reorder, :on => :collection
+        end
+        resources :layouts do
+          put :reorder, :on => :collection
+          resources :revisions, :only => [:index, :show, :revert] do
+            put :revert, :on => :member
+          end
+        end
+        resources :snippets do
+          put :reorder, :on => :collection
+          resources :revisions, :only => [:index, :show, :revert] do
+            put :revert, :on => :member
+          end
+        end
+        resources :categories
+        get 'dialog/:type' => 'dialogs#show', :as => 'dialog'
       end
     end
+
 
     resource "admin", :only => [:show], :controller => "masters/admin"
 
@@ -497,11 +547,11 @@ BuspassAdmin::Application.routes.draw do
     end
   end
 
-  root :to =>  "cms_content#render_html", :constraints => { :host => "busme.us" }
-  root :to =>  "cms_content#render_html", :constraints => { :host => "localhost" }
+  root :to => "cms_content#render_html"
+
   match "/transport.php" => "transport#transport"
+
   match "/busme-admin" => "masters#index"
-  match "/cms-admin" => "cms_admin/sites#index"
   match "/:master_id/cms-admin" => "cms_admin/sites#index"
   match "/(*cms_path)/sitemap" => "cms_content#render_sitemap"
 
@@ -510,5 +560,4 @@ BuspassAdmin::Application.routes.draw do
   match "/:master_id/(*cms_path)" => "cms_content#master_render_cms", :as => "master_render_cms",
         :constraints => { :host => Rails.application.base_host }
   match "/(*cms_path)" => "cms_content#render_html"
-  mount ComfortableMexicanSofa::Engine => "/", :as => :cms
 end

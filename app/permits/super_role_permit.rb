@@ -50,10 +50,14 @@ class SuperRolePermit < CanTango::RolePermit
     can([:read, :edit, :delete], User) do |user1|
       user.master == user1.master if user.is_a? MuniAdmin
     end
+    # We make sure that a MuniAdmin can only edit their webpages after they
+    # signed an agreement with Busme.us.
+    can(:manage, Cms::Site) do |site|
+      site.master == user.master && user.master.cms_admin_allowed if muni_admin.is_a? MuniAdmin && site.master
+    end
   end
 
   def permit_rules
-    can(:manage, Cms::Site)
     can(:create, Network)
     can(:create, Deployment)
     can(:create, MuniAdmin)

@@ -1,0 +1,12 @@
+<%= render :partial => "shared/set_flash" -%>
+<%- if @redirect -%>
+   window.location = '<%= @redirect -%>';
+<%- end -%>
+<%- if @show -%>
+    $("#wait_modal_message").html("<h3>We are busy creating your site for <%= @master.name -%>.");
+    $("#wait_progress_bar").css('width', '10%');
+    $("#wait_modal").show();
+    setTimeout(function () {
+        $.get('<%= escape_javascript( create_confirm_website_path(@master, :format => :js)) -%>')
+    }, 2000);
+<%- end -%>

@@ -8,3 +8,28 @@
     </div>
     <div id="map" class=""></div>
 <div class="clear"></div>
+
+
+<%= content_for :modals do %>
+
+<div id="wait_modal" class="modal hide">
+  <div class="modal-header">
+    <h3>
+    Creating your site!
+    </h3>
+  </div>
+  <div class="modal-body">
+    <div class="row-fluid">
+      <div class="span10">
+        <div class="progress">
+          <div id="wait_progress_bar" class="bar" style="width: 5%;"></div>
+        </div>
+        <div id="wait_modal_message"></div>
+
+      </div>
+      <div id="wait_spinner" class="span2"></div>
+    </div>
+  </div>
+</div>
+
+<%- end -%>

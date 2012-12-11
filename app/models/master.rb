@@ -16,17 +16,23 @@ class Master
   key :max_workers, Integer, :default => 3
   key :date_format, String, :default => "%Y-%m-%d"
 
+  # Only a Busme.us Administrator can turn this on.
+  key :cms_admin_allowed, Boolean, :default => false
+
   key :base_host, :default => Rails.application.base_host
   key :admin_host
   key :main_host
   key :api_host
-
 
   key :nw_lat, Float
   key :nw_lon, Float
   key :se_lat, Float
   key :se_lon, Float
   key :nw_lon_lte_se_lon, Boolean
+
+  # This field is merely to communicate to the webserver from the background job creating its site is completed.
+  key :site_ready, Boolean, :default => false
+  key :site_progress, Float, :default => 0.0
 
   # This will be used if we shard the Master off to its own Database.
   key :dbname, String #, :unique => true, :allow_nil => true
@@ -237,7 +243,7 @@ class Master
     MuniAdmin.where(:master_id => self.id).all.each { |m| m.destroy }
     User.where(:master_id => self.id).all.each { |m| m.destroy }
     # We will get rid of the customer if this was his only master and the customer isn't a Busme Administrator.
-    if self.owner && self.owner.masters.count == 1 && ! self.owner.has_role?(:super)
+    if self.owner && self.owner.masters.count == 1 && ! self.owner.has_role?(:admin)
       self.owner.destroy
     end
   end

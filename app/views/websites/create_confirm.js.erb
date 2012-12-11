@@ -1,0 +1,13 @@
+<%= render :partial => "shared/set_flash" -%>
+<%- if @redirect -%>
+     window.location = '<%= @redirect -%>';
+<%- else  -%>
+    <%- if @dismiss -%>
+        $("#wait_modal").hide();
+    <%- else -%>
+        $("#wait_progress_bar").css('width', '<%=(@progress * 100).floor -%>%');
+        setTimeout(function () {
+            $.get('<%= escape_javascript( create_confirm_website_path(@master, :format => :js)) -%>')
+        }, 2000);
+    <%- end -%>
+<%- end -%>

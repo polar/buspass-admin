@@ -1,0 +1,11 @@
+<td><%= link_to master.name, website_path(master) %></td>
+<td><%= link_to "#{master.siteurl}", master_active_path(master) %></td>
+<td><%= link_to "#{master.owner.name}", customer_path(master.owner) %></td>
+<td><%= master.cms_admin_allowed ? "Allowed" : "Disallowed" %></td>
+<td><%= link_to "Delete", website_path(master), :class => "btn", :confirm => "Are you sure?", :method => :delete, :remote => true if customer_can?(:delete, master)%>
+  <% if master.cms_admin_allowed %>
+      <%= link_to "Disallow", admin_cms_website_path(master), :class => "btn", :confirm => "Are you sure?", :method => :delete, :remote => true if customer_can?(:edit, master) %>
+  <% else %>
+      <%= link_to "Allow", admin_cms_website_path(master), :class => "btn", :confirm => "Are you sure?", :method => :post, :remote => true if customer_can?(:edit, master) %>
+  <% end %>
+</td>

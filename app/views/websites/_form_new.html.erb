@@ -1,4 +1,4 @@
-<%= form_for(@master, :url => websites_path, :validate => true) do |f| %>
+<%= form_for(@master, :url => websites_path, :validate => true, :remote => true) do |f| %>
     <%= error_messages!(@master) %>
 
     <div><%= f.label :name, "Name" %>

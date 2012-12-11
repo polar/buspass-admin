@@ -1,0 +1,4 @@
+<%= render :partial => "shared/set_flash" -%>
+<% if @remove %>
+$('#master_<%= @master.id -%>').remove();
+<% end %>

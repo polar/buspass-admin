@@ -330,7 +330,7 @@ of the layout regardless of where it appears here.
         :layout          => normal_layout,
         :parent          => admin,
         :is_protected    => true,
-        :controller_path => "/cms-admin/sites?master_id=:master_id")
+        :controller_path => "/masters/:master_id/cms-admin/sites")
 
     pages_import_export = site.pages.create!(
         :slug            => "pages",
@@ -338,7 +338,7 @@ of the layout regardless of where it appears here.
         :layout          => normal_layout,
         :parent          => pages_admin,
         :is_protected    => true,
-        :controller_path => "/:master_id/import_export_sites")
+        :controller_path => "/masters/:master_id/import_export_sites")
 
     workers = site.pages.create!(
         :slug            => "workers",

@@ -22,6 +22,11 @@ class CmsAdmin::BaseController  < CmsBaseController
     @vehicle_journey = Route.find(params[:vehicle_journey_id]) if params[:vehicle_journey_id]
     @site = Cms::Site.find(params[:site_id]) if params[:site_id]
     @master ||= @site.master if @site
+
+    if @master && !@master.cms_admin_allowed
+      flash[:error] = "You must sign an agreement with Busme.us to alter your web pages."
+      redirect_to main_app.master_path(@master)
+    end
   end
 
   def jump

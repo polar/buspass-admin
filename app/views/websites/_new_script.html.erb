@@ -6,6 +6,24 @@
         coordinates = <%= "[#{@master.longitude},#{@master.latitude}]" %>;
       <% end %>
         init(coordinates);
+          $("#wait_spinner").spin(spin_opts);
+          $("#wait_modal .modal-body").height(100);
+          $("#new_master").on("submit", function () {
+              $("#wait_modal").show();
+          });
       });
+      var spin_opts = {
+          lines:18, // The number of lines to draw
+          length:30, // The length of each line
+          width:4, // The line thickness
+          radius:10, // The radius of the inner circle
+          color:'#342233', // #rgb or #rrggbb
+          speed:1, // Rounds per second
+          trail:60, // Afterglow percentage
+          top:0,
+          left:0,
+          shadow:false // Whether to render a shadow
+      };
+
     </script>
 <% end %>

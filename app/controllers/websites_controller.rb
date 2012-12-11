@@ -62,8 +62,99 @@ class WebsitesController < ApplicationController
 
   MASTER_ALLOWABLE_UPDATE_ATTRIBUTES = [:name, :longitude, :latitude, :timezone, :slug]
 
+  def admin_cms
+    authenticate_customer!
+    @master = Master.find(params[:id])
+    if @master
+      if customer_can?(:edit, @master)
+        if request.method == "DELETE"
+          flash[:notice] = "Supers of #{@master.name} will NOT be allowed to edit their web pages."
+          @master.cms_admin_allowed = false
+          @master.save
+        elsif request.method == "POST"
+          flash[:notice] = "Supers of #{@master.name} will be allowed to edit their web pages."
+          @master.cms_admin_allowed = true
+          @master.save
+        else
+        end
+      else
+        flash[:error] = "You do not have the privilege"
+      end
+    else
+      flash[:error] = "Site does not exist."
+    end
+  end
 
   def create
+    authenticate_customer!
+    authorize_customer!(:create, Master)
+
+    # Make sure Customer isn't going nuts creating new Masters. They have a limit and only applies if they
+    # are not a Busme Admin.
+
+    if current_customer.masters.count >= current_customer.masters_limit && !current_customer.has_role?(:admin)
+      flash[:error] = "You have exhausted your limit on creating sites."
+      @redirect = my_index_websites_path
+      return
+    end
+
+    # Security Integrity Check, ignoring any unwanted inserted attributes
+    master_attributes = params[:master].slice(*MASTER_ALLOWABLE_UPDATE_ATTRIBUTES)
+
+    local_master  = nil
+    @master       = Master.new(master_attributes)
+    @master.owner = current_customer
+
+    @master.site_ready = false
+    @master.site_progress = 0.1
+
+    if !@master.save
+      flash[:error] = "There were #{@master.errors.count} errors."
+      return
+    end
+
+    Delayed::Job.enqueue(:payload_object => CreateSiteJob.new(current_customer.id, @master.id))
+
+    if current_customer.has_role?(:admin) || current_customer.has_role?(:super)
+      flash[:notice] = "We are busy creating the #{@master.name} site. Please check #{@master.siteurl} in a few moments."
+
+      @show = true
+    else
+      @show = true
+    end
+  end
+
+  def create_confirm
+    authenticate_customer!
+    @master = Master.find(params[:id])
+
+    if @master
+      if @master.site_ready
+        # We are going to switch from the Customer site to the Master site
+        if current_customer.has_role?(:admin) || current_customer.has_role?(:super)
+          flash[:notice] = "Site #{@master.name} site has been created. Please check #{@master.siteurl}/admin."
+          @redirect  = my_index_websites_path
+        else
+          # We will throw up a progress dialog and redirect
+          @customer = current_customer
+          @old_auth = current_customer_authentication
+          sign_out(current_customer)
+          # We have copied over all the authentications to the MuniAdmin
+          # We will just say that he is still authenticated with the one from the
+          # same provider, since we only allow one from each.
+          sign_in(@muni_admin, @muni_admin.authentications.find_by_provider(@old_auth.provider))
+          @redirect = master_path(@master)
+        end
+      else
+        @progress = @master.site_progress
+      end
+    else
+      flash[:error] = "We are sorry. There was a problem in creating your site."
+      @dismiss = true
+    end
+  end
+
+  def create_old
     authorize_customer!(:create, Master)
 
     # Make sure Customer isn't going nuts creating new Masters. Allow him three mas.
@@ -270,29 +361,19 @@ class WebsitesController < ApplicationController
   end
 
   def destroy
+   authenticate_customer!
     @master = Master.find(params[:id])
-
-    authorize_customer!(:delete, @master)
 
     if @master == nil
       flash[:error] = "Site #{params[:id]} doesn't exist"
-      error         = true
-    elsif customer_cannot?(:delete, @master)
-      flash[:error] = "You do not have permission to delete the #{@master.name} Deployment."
-      error = true
-    else
+      return
+    end
+    if customer_can?(:delete, @master)
       @master.destroy()
       flash[:notice] = "Site #{@master.name} has been deleted."
-    end
-    respond_to do |format|
-      format.html {
-        redirect_to websites_path
-      }
-      format.all do
-        method = "to_#{request_format}"
-        text   = { }.respond_to?(method) ? { }.send(method) : ""
-        render :text => text, :status => :ok
-      end
+      @remove = true
+    else
+      flash[:error] = "You do not have permission to delete the #{@master.name} site."
     end
   end
 

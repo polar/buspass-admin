@@ -1,0 +1,4 @@
+<%= render :partial => "shared/set_flash" -%>
+<% if @master %>
+$('#master_<%= @master.id -%>').html('<%= escape_javascript(render :partial => 'websites/row_cols_table_admin', :locals => { :master => @master }) -%>');
+<% end %>
