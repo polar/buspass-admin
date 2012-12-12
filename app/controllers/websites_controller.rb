@@ -110,6 +110,7 @@ class WebsitesController < ApplicationController
 
     if !@master.save
       flash[:error] = "There were #{@master.errors.count} errors."
+      @dismiss = true
       return
     end
 
@@ -117,7 +118,6 @@ class WebsitesController < ApplicationController
 
     if current_customer.has_role?(:admin) || current_customer.has_role?(:super)
       flash[:notice] = "We are busy creating the #{@master.name} site. Please check #{@master.siteurl} in a few moments."
-
       @show = true
     else
       @show = true
@@ -134,6 +134,7 @@ class WebsitesController < ApplicationController
         if current_customer.has_role?(:admin) || current_customer.has_role?(:super)
           flash[:notice] = "Site #{@master.name} site has been created. Please check #{@master.siteurl}/admin."
           @redirect  = my_index_websites_path
+          @dismiss = true
         else
           # We will throw up a progress dialog and redirect
           @customer = current_customer
@@ -144,6 +145,7 @@ class WebsitesController < ApplicationController
           # same provider, since we only allow one from each.
           sign_in(@muni_admin, @muni_admin.authentications.find_by_provider(@old_auth.provider))
           @redirect = master_path(@master)
+          @dismiss = true
         end
       else
         @progress = @master.site_progress

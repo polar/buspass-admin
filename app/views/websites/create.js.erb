@@ -9,4 +9,8 @@
     setTimeout(function () {
         $.get('<%= escape_javascript( create_confirm_website_path(@master, :format => :js)) -%>')
     }, 2000);
+<%- else -%>
+    <%- if @dismiss -%>
+         $("#wait_modal").show();
+    <%- end -%>
 <%- end -%>
