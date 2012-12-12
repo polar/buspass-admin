@@ -58,6 +58,7 @@
     <orderEntry type="library" scope="PROVIDED" name="distribution (v0.7.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubis (v2.7.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="eventmachine (v0.12.10, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="excon (v0.16.10, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="execjs (v1.4.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="extendmatrix (v0.3.1, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="factory_girl (v4.0.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
@@ -67,6 +68,8 @@
     <orderEntry type="library" scope="PROVIDED" name="fastthread (v1.0.7, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fattr (v2.2.1, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.1.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="fog (v1.8.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="formatador (v0.2.4, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fssm (v0.2.9, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gherkin (v2.11.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashie (v1.2.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
@@ -93,6 +96,8 @@
     <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.3.6, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_xml (v0.5.1, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multipart-post (v1.1.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="net-scp (v1.0.4, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="net-ssh (v2.6.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="newrelic_rpm (v3.5.2.17, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.5.5, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="oauth (v0.4.7, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
@@ -127,6 +132,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v2.11.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-rails (v2.11.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rtf (v0.3.3, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby-hmac (v0.4.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-ole (v1.2.11.4, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-openid (v2.2.0, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyvis (v0.2.2, RVM: ruby-1.9.3-p194 [buspass1.0]) [gem]" level="application" />
