@@ -30,6 +30,22 @@ class Masters::WorkersController < Masters::MasterBaseController
     get_master_context
     authenticate_muni_admin!
     authorize_muni_admin!(:manage, @master)
+    job = WorkerDaemonJob.new(@master.id, "start")
+    Delayed::Job.enqueue job, :queue => :daemon
+  end
+
+  def stop
+    get_master_context
+    authenticate_muni_admin!
+    authorize_muni_admin!(:manage, @master)
+    job = WorkerDaemonJob.new(@master.id, "stop")
+    Delayed::Job.enqueue job, :queue => :daemon
+  end
+
+  def start_direct
+    get_master_context
+    authenticate_muni_admin!
+    authorize_muni_admin!(:manage, @master)
     if @master
       @master.delayed_job_start_workers
       flash[:notice] = "Starting Delayed::Job workers."
@@ -41,7 +57,7 @@ class Masters::WorkersController < Masters::MasterBaseController
 
   end
 
-  def stop
+  def stop_direct
     get_master_context
     authenticate_muni_admin!
     authorize_muni_admin!(:manage, @master)

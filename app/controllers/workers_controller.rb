@@ -1,6 +1,9 @@
 class WorkersController < ApplicationController
 
+  # TODO : Access Control.
+
   def index
+    authenticate_customer!
     @masters = {}
     Master.order("name asc").each do |master|
         @masters[master] = {
@@ -9,6 +12,7 @@ class WorkersController < ApplicationController
   end
 
   def show
+    authenticate_customer!
     @master = Master.find(params[:id])
     @counts = {
         :workers => @master.delayed_job_worker_count,
@@ -24,6 +28,20 @@ class WorkersController < ApplicationController
   end
 
   def start
+    authenticate_customer!
+    job = WorkerDaemonJob.new(params[:id] || params[:master_id], "start")
+    Delayed::Job.enqueue job, :queue => :daemon
+  end
+
+  def stop
+    authenticate_customer!
+    job = WorkerDaemonJob.new(params[:id] || params[:master_id], "stop")
+    Delayed::Job.enqueue job, :queue => :daemon
+  end
+
+
+  def start_direct
+    authenticate_customer!
     @master = Master.find(params[:id])
     if @master
       @master.delayed_job_start_workers
@@ -36,7 +54,8 @@ class WorkersController < ApplicationController
 
   end
 
-  def stop
+  def stop_direct
+    authenticate_customer!
     @master = Master.find(params[:id])
     if @master
       @master.delayed_job_stop_workers
@@ -49,6 +68,7 @@ class WorkersController < ApplicationController
   end
 
   def up_limit
+    authenticate_customer!
     @master = Master.find(params[:id])
     if @master
       @master.max_workers += 1
@@ -61,6 +81,7 @@ class WorkersController < ApplicationController
   end
 
   def down_limit
+    authenticate_customer!
     @master = Master.find(params[:id])
     if @master
       @master.max_workers -= 1
@@ -73,6 +94,7 @@ class WorkersController < ApplicationController
   end
 
   def remove_jobs
+    authenticate_customer!
     @master = Master.find(params[:id])
     if @master
       @master.delayed_jobs.each {|job| job.destroy }
