@@ -8,8 +8,8 @@
   <title>Busme <%= @master ? @master.name : "US" %></title>
   <meta name="description" content="">
   <meta name="author" content="">
-  <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
-  <%= javascript_include_tag "normal-layout", :debug => true  %>
+  <%= stylesheet_link_tag    "normal-layout", :media => "all" %>
+  <%= javascript_include_tag "normal-layout"  %>
   <%= stylesheet_link_tag "#{controller_path}" %>
   <%= javascript_include_tag "#{controller_path}" %>
   <%= csrf_meta_tags %>
