@@ -8,8 +8,8 @@
   <title>Busme US</title>
   <meta name="description" content="">
   <meta name="author" content="">
-  <%= stylesheet_link_tag    "normal-layout", :media => "all", :debug => true %>
-  <%= javascript_include_tag "normal-layout", :debug => true  %>
+  <%= stylesheet_link_tag    "normal-layout", :media => "all" %>
+  <%= javascript_include_tag "normal-layout"  %>
   <%= conditional_stylesheet_link_tag "#{controller_path}" %>
   <%= conditional_javascript_include_tag "#{controller_path}" %>
   <%= conditional_stylesheet_link_tag "#{controller_path}/#{@render_action || params[:action]}" %>
