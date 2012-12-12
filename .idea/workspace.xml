@@ -6,8 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/javascripts/application.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
     </list>
     <list id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="progress" />
     <ignored path="buspass.admin.iws" />
@@ -38,35 +38,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="websites_controller.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/websites_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="126" column="0" selection-start="3641" selection-end="3641" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_new.html.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/websites/_new.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="57" selection-start="431" selection-end="431" vertical-scroll-proportion="-10.0">
-              <folding>
-                <element signature="e#614#632#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create_confirm.js.erb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/websites/create_confirm.js.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="39" selection-start="461" selection-end="461" vertical-scroll-proportion="-8.125">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="new.css.scss" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/websites/new.css.scss">
           <provider selected="true" editor-type-id="text-editor">
@@ -123,10 +94,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webmap.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="webmap.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="82" selection-start="496" selection-end="496" vertical-scroll-proportion="0.32085562">
+            <state line="12" column="82" selection-start="496" selection-end="496" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="normal-layout.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flash.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/flash.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="91" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.77319586">
               <folding />
             </state>
           </provider>
@@ -1983,7 +1974,11 @@
       <created>1355277580831</created>
       <updated>1355277580832</updated>
     </task>
-    <option name="localTasksCounter" value="182" />
+    <task id="LOCAL-00182" summary="Progress">
+      <created>1355277613555</created>
+      <updated>1355277613556</updated>
+    </task>
+    <option name="localTasksCounter" value="183" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="7868393abb3dd2ff5f2d196f68f8e3884bbe7646" />
@@ -2019,12 +2014,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1278" y="-3" width="1684" height="1008" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2445465" sideWeight="0.57099146" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272933" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32616082" sideWeight="0.49754903" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3114383" sideWeight="0.46572828" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3114383" sideWeight="0.46572828" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28518972" sideWeight="0.6761042" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17319462" sideWeight="0.68856174" order="0" side_tool="false" content_ui="combo" />
@@ -2135,27 +2130,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/models/master.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="153" column="144" selection-start="4751" selection-end="4751" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/create_site_job.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="29" selection-start="2568" selection-end="2568" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/cms_content_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="0" selection-start="284" selection-end="284" vertical-scroll-proportion="-5.4">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/rvm/gems/ruby-1.9.3-p194@buspass1.0/bundler/gems/comfortable-mexican-sofa-17703629a3bf/app/controllers/cms_content_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="7" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0">
@@ -2246,7 +2220,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="82" selection-start="496" selection-end="496" vertical-scroll-proportion="0.32085562">
+        <state line="12" column="82" selection-start="496" selection-end="496" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/flash.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="91" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.77319586">
           <folding />
         </state>
       </provider>
