@@ -1,4 +1,6 @@
 //
+//= require jquery
+//= require jquery_ujs
 //= require jshashtable-2.1
 //= require bootstrap
 //= require jquery.layout-latest

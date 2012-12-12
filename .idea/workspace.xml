@@ -8,10 +8,6 @@
     <list default="true" id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/websites/map-layout.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/websites/map-layout.html.erb" />
     </list>
     <list id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="progress" />
     <ignored path="buspass.admin.iws" />
@@ -42,10 +38,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="normal-layout.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="normal-layout.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
+            <state line="3" column="0" selection-start="3" selection-end="45" vertical-scroll-proportion="0.080213904">
               <folding />
             </state>
           </provider>
@@ -114,19 +110,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mobile.html.erb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="mobile.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/layouts/mobile.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="flash.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/assets/javascripts/flash.js">
+      <file leaf-file-name="_left.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/layouts/cms_admin/_left.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="91" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -166,11 +162,11 @@
         <option value="$PROJECT_DIR$/app/views/websites/create.js.erb" />
         <option value="$PROJECT_DIR$/app/controllers/websites_controller.rb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
         <option value="$PROJECT_DIR$/app/views/layouts/websites/map-layout.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/masters/map-layout.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/masters/normal-layout.html.erb" />
         <option value="$PROJECT_DIR$/app/views/layouts/main-layout.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/normal-layout.js" />
       </list>
     </option>
   </component>
@@ -2061,7 +2057,11 @@
       <created>1355279998085</created>
       <updated>1355279998086</updated>
     </task>
-    <option name="localTasksCounter" value="184" />
+    <task id="LOCAL-00184" summary="Progress">
+      <created>1355281313530</created>
+      <updated>1355281313531</updated>
+    </task>
+    <option name="localTasksCounter" value="185" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="7868393abb3dd2ff5f2d196f68f8e3884bbe7646" />
@@ -2213,13 +2213,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/websites/edit.css.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/webmap.css.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="42" selection-start="45" selection-end="45" vertical-scroll-proportion="0.0">
@@ -2260,13 +2253,6 @@
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/flash.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="91" selection-start="1024" selection-end="1024" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="3" selection-end="3" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -2323,6 +2309,20 @@
     <entry file="file://$PROJECT_DIR$/app/views/layouts/mobile.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/cms_admin/_left.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/normal-layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="3" selection-end="45" vertical-scroll-proportion="0.080213904">
           <folding />
         </state>
       </provider>
