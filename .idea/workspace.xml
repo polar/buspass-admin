@@ -7,7 +7,6 @@
   <component name="ChangeListManager">
     <list default="true" id="eb0eafc0-8c90-4cb6-84fe-2d6edcb43766" name="Failed commit: Failed commit: Default (2)" comment="Progress">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/webmap.js" />
     </list>
     <list id="f04e9e15-4232-4c1b-9e44-e358b2c0a8d8" name="99045-19 Run Log doesn't have html_escape on Heroku" comment="progress" />
@@ -127,7 +126,7 @@
       <file leaf-file-name="webmap.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="79" selection-start="492" selection-end="492" vertical-scroll-proportion="0.32085562">
+            <state line="12" column="82" selection-start="496" selection-end="496" vertical-scroll-proportion="0.32085562">
               <folding />
             </state>
           </provider>
@@ -1980,7 +1979,11 @@
       <created>1355274358052</created>
       <updated>1355274358053</updated>
     </task>
-    <option name="localTasksCounter" value="181" />
+    <task id="LOCAL-00181" summary="Progress">
+      <created>1355277580831</created>
+      <updated>1355277580832</updated>
+    </task>
+    <option name="localTasksCounter" value="182" />
     <servers>
       <Lighthouse shared="false" url="http://busme.lighthouseapp.com">
         <option name="APIKey" value="7868393abb3dd2ff5f2d196f68f8e3884bbe7646" />
@@ -2243,7 +2246,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/javascripts/webmap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="79" selection-start="492" selection-end="492" vertical-scroll-proportion="0.32085562">
+        <state line="12" column="82" selection-start="496" selection-end="496" vertical-scroll-proportion="0.32085562">
           <folding />
         </state>
       </provider>
