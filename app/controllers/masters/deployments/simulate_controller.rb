@@ -107,10 +107,12 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
       @time_interval = 10.0 / @mult
     end
     @job.processing_log << "Submitting simulation job #{@job.name} to system."
-    djob = Delayed::Job.enqueue(:queue          => @master.slug,
-                                :payload_object =>
-                                    VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
-                                                                  @clock, @mult, @duration))
+    vjsjob = VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
+                                           @clock, @mult, @duration)
+    djob = Delayed::Job.enqueue vjsjob, :queue => @master.slug
+    if djob
+      Delayed::Job.enqueue WorkerDaemonJob.new(@master.id, "start"), :queue => :daemon
+    end
     @job.save!
     @status = "Simulation for #{@deployment.name} has been started."
   end

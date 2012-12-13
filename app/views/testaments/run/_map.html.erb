@@ -11,7 +11,7 @@
   <script type="text/javascript">
       var runStatusView;
       $(function () {
-          $("body").layout({ applyDefaultStyles:true });
+          $("#ui-layout-container").layout({ applyDefaultStyles:true });
           runStatusView = new BusPass.RunStatusView();
           runStatusView.statusView("#processing_status", {
               // The route helpers don't seem to be available here.

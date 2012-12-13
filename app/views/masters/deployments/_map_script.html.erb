@@ -5,7 +5,7 @@
         var view;
 
         $(function() {
-            $("body").layout({ applyDefaultStyles: true });
+            $("#ui-layout-container").layout({ applyDefaultStyles: true });
             // The API presents a journey pattern link as a route, with its route
             // code being its position in the journey pattern.
             api = new BusPassAPI( {
@@ -17,7 +17,8 @@
             view = new BusPass.ActivePlanController( {
                 scope : this,
                 busAPI : api,
-                disableRouteClick : true
+                disableRouteClick : true,
+                center: <%= @center %>
             });
             view.mapView($("#map")[0]);
             view.listView($("#routesView"));

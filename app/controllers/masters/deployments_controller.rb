@@ -138,15 +138,6 @@ class Masters::DeploymentsController < Masters::MasterBaseController
     redirect_to master_deployments_path(@master)
   end
 
-  def map
-    get_master_context
-    authenticate_muni_admin!
-    @deployment = Deployment.find(params[:id])
-    authorize_muni_admin!(:read, @deployment)
-    @routes = @deployment.routes
-    @routes = @routes.sort { |s1, s2| codeOrd(s1.code, s2.code) }
-  end
-
   def deploy
     get_master_context
     authenticate_muni_admin!
@@ -204,6 +195,7 @@ class Masters::DeploymentsController < Masters::MasterBaseController
     @deployment = Deployment.find(params[:id])
     authorize_muni_admin!(:read, @deployment)
     @networks = @deployment.networks
+    @center = [@master.longitude.to_f, @master.latitude.to_f]
   end
 
   def api

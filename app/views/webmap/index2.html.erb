@@ -53,7 +53,7 @@
 <script>
 // execute your scripts when DOM is ready. this is a good habit
 $(function() {
-        $("body").layout({ applyDefaultStyles: true });
+    $("#ui-layout-container").layout({ applyDefaultStyles:true });
         // initialize scrollable with mousewheel support
         $("#routesView").scrollable({ vertical: true, mousewheel: true });
         api = new BusPassAPI("http://localhost:3000/");

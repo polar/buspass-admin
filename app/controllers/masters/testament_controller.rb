@@ -84,10 +84,12 @@ class Masters::TestamentController < ApplicationController
     @time_interval = 10
 
     @job.processing_log << "Submitting Testing Deployment job #{@job.name} to system."
-    djob = Delayed::Job.enqueue(:queue          => @master.slug,
-                                :payload_object =>
-                                    VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
-                                                                  @clock, @mult, @duration))
+    vjsjob = VehicleJourneySimulateJob.new(@job.id, @find_interval, @time_interval,
+                                           @clock, @mult, @duration)
+    djob = Delayed::Job.enqueue vjsjob, :queue => @master.slug
+    if djob
+      Delayed::Job.enqueue WorkerDaemonJob.new(@master.id, "start"), :queue => :daemon
+    end
     @job.save!
     @status = "Testing Run for #{@deployment.name} has been started."
   end
