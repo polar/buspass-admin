@@ -41,7 +41,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
 
 # We are going return two types, Routes and Active VehicleJourneys.
   def route_journeys
-    @routes = Route.where(:master_id => @master.id, :deployment_id => @deployment.id).all
+    @routes = @deployment.routes
     rs      = []
     if params[:routes] != nil
       rs = params[:routes].split(',')
@@ -57,7 +57,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
     @vehicle_journeys = @active_journeys.map { |x| x.vehicle_journey }
 
     specs = []
-    specs += @journey_locations.map { |x| getJourneySpec(x.vehicle_journey, x.route) }
+    specs += @vehicle_journeys.map { |x| getJourneySpec(x.vehicle_journey, x.route) }
     specs += @routes.map { |x| getRouteSpec(x) }
 
     respond_to do |format|
