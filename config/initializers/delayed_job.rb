@@ -26,5 +26,5 @@ Delayed::Worker.max_run_time = 2.years
 #
 # NOTE: 2012-08-22 - This works on Heroku, but not quite sure of the performance and financial ramifications.
 #
-Delayed::Backend::MongoMapper::Job.send(:include, MasterScaler) if defined?(Delayed::Backend::MongoMapper::Job)
+#Delayed::Backend::MongoMapper::Job.send(:include, MasterScaler) if defined?(Delayed::Backend::MongoMapper::Job)
 

@@ -293,12 +293,12 @@ class JourneyPattern
     kml = Hpricot(kml_string)
     if kml
       placemarks = kml.search("placemark")
-      puts "Got #{placemarks.length} placemarks"
+      #puts "Got #{placemarks.length} placemarks"
       i = 0;
       position = 0
       last_stop_point = nil
       while i < placemarks.length && sp = find_placemark(i,"sp", placemarks) do
-        puts "Loooking at #{i}..... #{sp.inspect}"
+        #puts "Loooking at #{i}..... #{sp.inspect}"
         name = sp.at("name").inner_text
         name = name.split(":")[1] if /^sp_[0-9]+\:/ =~ name
         lonlatliteral = sp.at("point/coordinates").inner_text
@@ -307,11 +307,11 @@ class JourneyPattern
           if i > 0
             link = find_placemark(i-1, "link", placemarks)
             if link
-              puts " Link #{i-1} #{link.inspect}"
+              #puts " Link #{i-1} #{link.inspect}"
               coordslit = link.at("linestring/coordinates").inner_text
               coords = coordslit.split(" ").map {|s| s.split(",").take(2).map {|x| x.to_f}} if coordslit
-              p coords
-              p coords.length
+              #p coords
+              #p coords.length
               if coords.length > 2
                 # Create Link.
                 jptl = self.get_journey_pattern_timing_link(position)

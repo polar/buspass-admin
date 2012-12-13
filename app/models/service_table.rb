@@ -31,10 +31,12 @@ class ServiceTable
 
   class Progress < NullProgress
     def error(s)
+      puts "[Error] #{s}"
       network.processing_errors << s
     end
 
     def log(s)
+      puts "[Log] #{s}"
       network.processing_log << s
     end
 
@@ -52,6 +54,7 @@ class ServiceTable
 
     def continue!
       # if we started by a job, then we don't continue if it goes away. effective abort.
+      network.reload
       if @started_with_job && !network.processing_job
         raise JobAborted.new("Job has been aborted.")
       end
@@ -72,11 +75,8 @@ class ServiceTable
         value = (value + ((@prog[i] / @totals[i]) * (1.0 / @totals[i+1])) * @totals[i+1]) / @totals[i+1]
         i += 1
       end
-      p [glevel, j, n]
-      p @prog
-      p @totals
-      p value
       network.processing_progress = value
+      puts "[Progress] #{(value*100).floor}%"
     end
 
     def commit
@@ -602,6 +602,8 @@ class ServiceTable
         i = 0
         vehicle_journey = nil
         while i < stop_point_names.size
+          progress.continue!
+
           column = column_start + i  # True file column.
           if i == indexNOTE
             # We've got the note, regardless of extra columns, we end here.

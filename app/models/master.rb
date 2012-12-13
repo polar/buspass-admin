@@ -30,6 +30,8 @@ class Master
   key :se_lon, Float
   key :nw_lon_lte_se_lon, Boolean
 
+  key :worker_count, Integer, :default => 0
+
   # This field is merely to communicate to the webserver from the background job creating its site is completed.
   key :site_ready, Boolean, :default => false
   key :site_progress, Float, :default => 0.0
@@ -58,6 +60,9 @@ class Master
     # This is for querying in MongoDB, since it's really difficult to compare two fields.
     # we just do that comparison here and store it.
     self.nw_lon_lte_se_lon = self.nw_lon <= self.se_lon
+
+    # Didn't know before_validations had to return true! WTF?
+    return true
   end
 
   def self.by_location(lon, lat)
@@ -105,15 +110,24 @@ class Master
   def delayed_job_start_workers
     jcount = delayed_job_count # This count includes this job
     wcount = delayed_job_worker_count
+    # This actually finds the active processes, so update the worker count
+    self.worker_count = wcount
+    self.save
     if jcount > wcount && wcount < max_workers
-      Rush::Box.new[Rails.root].bash("script/delayed_job start -i workless-#{self.delayed_job_queue}-#{Time.now.to_i} --queues=#{self.delayed_job_queue} --exit_on_zero", :background => true)
+      # This puts  is for the benefit of the job logs.
+      puts "[Master #{self.name}:#{self.slug}] Starting a new worker"
+      cmd = "script/master_worker start --master=#{self.id} -i master-#{self.delayed_job_queue}-#{Time.now.to_i} --queue=#{self.delayed_job_queue} --exit_on_zero"
+      # We do this invocation in the background so that we can return to processing.
+      ret = Rush::Box.new[Rails.root].bash(cmd)
       sleep 1
     end
     true
   end
 
   def delayed_job_stop_workers
-    Rush::Box.new.processes.filter(:cmdline => /delayed_job start -i workless-#{self.delayed_job_queue}|delayed_job.workless-#{self.delayed_job_queue}/).each do |p|
+    # We could just issue stop commands here, but this approach will work better.
+    regexp = /master_worker start --master=#{self.id}|master_worker.master-#{self.delayed_job_queue}/
+    Rush::Box.new.processes.filter(:cmdline => regexp).each do |p|
       p.kill
     end
 
@@ -122,7 +136,8 @@ class Master
   # TODO Integrate with Delayed::Job
   def delayed_job_worker_count
     # We count the number of matching lines
-    Rush::Box.new.processes.filter(:cmdline => /delayed_job start -i workless-#{self.delayed_job_queue}|delayed_job.workless-#{self.delayed_job_queue}/).size
+    regexp = /master_worker start --master=#{self.id}|master_worker.master-#{self.delayed_job_queue}/
+    Rush::Box.new.processes.filter(:cmdline => regexp).size
   end
 
   # embedded

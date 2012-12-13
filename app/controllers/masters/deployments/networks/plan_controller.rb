@@ -105,23 +105,16 @@ class Masters::Deployments::Networks::PlanController < Masters::Deployments::Net
       @network.processing_lock = nil
     end
 
-    if @network.upload_file && @network.upload_file.url && File.exists?(@network.upload_file.url)
-      File.rm(@network_file.url)
+    if @network.upload_file && @network.upload_file.url && @network.upload_file.present?
+      @network.upload_file.remove!
       @network.upload_file = nil
     end
 
     @network.upload_file = params[:plan][:upload_file]
-    # Save automatically reads the uploaded file and stores it
+    # Save automatically reads the uploaded file and stores it to the FOG
     @network.save!
 
-    @network.file_path = nil
-
-    if @network.upload_file && @network.upload_file.url
-      # TODO: We should *move* this file somewhere?
-      @network.file_path = File.expand_path(File.join(Rails.root, File.join("public", @network.upload_file.url)))
-    end
-
-    if @network.file_path && File.exists?(@network.file_path)
+    if @network.upload_file && @network.upload_file.url && @network.upload_file.present?
 
       @network.processing_token        = rand.to_s
       @network.processing_lock         = current_muni_admin
@@ -152,13 +145,20 @@ class Masters::Deployments::Networks::PlanController < Masters::Deployments::Net
       if (muni_admin_cannot?(:abort, @network))
         flash[:error] = "You are not authorized to abort this processing."
       else
-        # This may have to be reset, because of rake jobs:clear
-        jobs = Delayed::Job.all.each do |job|
-          if job.payload_object && job.payload_object.is_a?(CompileServiceTableJob) && job.payload_object.network_id == @network.id
-            job.destroy()
-            flash[:notice] = "The job has been aborted."
-          else
-            flash[:error] = "There is already a job processing."
+        @network.reload
+        if @network.processing_job
+          @network.processing_job.destroy()
+          @network.save
+          flash[:notice] = "The job has been aborted."
+        else
+          # This may have to be reset, because of rake jobs:clear
+          jobs = Delayed::Job.all.each do |job|
+            if job.payload_object && job.payload_object.is_a?(CompileServiceTableJob) && job.payload_object.network_id == @network.id
+              job.destroy()
+              flash[:notice] = "The job has been aborted."
+            else
+              flash[:error] = "There is already a job processing."
+            end
           end
         end
       end

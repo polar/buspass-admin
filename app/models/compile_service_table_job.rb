@@ -11,6 +11,12 @@ require 'carrierwave/orm/mongomapper'
 #
 class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_job_id)
 
+  attr_accessor :network
+
+  def master
+    network.master
+  end
+
   def self.to_mongo(value)
     value.nil? ||
         !value.is_a?(self) ?
@@ -30,11 +36,15 @@ class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_jo
 
   def logger
     @logger ||= ::ActiveSupport::BufferedLogger.new(
-        File.open(File.join(Rails.root, "log", "service_table.log"), "a+")).tap {|l| l.auto_flushing = true }
+        File.open(File.join(Rails.root, "log", "service_table.log"), "a+"))
   end
 
   def say(text, level = Logger::INFO)
-    text = "[Compile Service Table] #{text}"
+    if network.nil?
+      text = "[Compile Service Table] #{text}"
+    else
+      text = "[CST #{master.name}:#{network.name}] #{text}"
+    end
     puts text unless @quiet
     logger.add level, "#{Time.now.strftime('%FT%T%z')}: #{text}" if logger
   end
@@ -46,9 +56,9 @@ class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_jo
 
   def enqueue(job)
     say "Queued: Network.id #{network_id} token #{token}"
-    net = Network.find(network_id)
-    net.processing_job = job
-    net.save
+    network = Network.find(network_id)
+    network.processing_job = job
+    network.save
     if find_service_table_job
       service_table_job.status!("Enqueued")
     end
@@ -64,16 +74,16 @@ class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_jo
 
   def perform
     say "Perform: Network.id #{network_id} token #{token} service_table_job #{service_table_job_id}"
-    net = Network.find(network_id)
-    if (find_service_table_job.nil? || net.nil?)
+    self.network = Network.find(network_id)
+    if (find_service_table_job.nil? || network.nil?)
       say "Network job aborted."
       return
     end
+    # We need to reload because we may have gotten this out of the IdentityMap?
+    network.reload
     check!("Perform")
 
-    say "Network.file #{net.file_path} Network.token #{net.processing_token}"
-
-    if net.processing_token != token
+    if network.processing_token != token
       # This job is currently being processed by some other entity.
       # Don't touch, just leave
       dont_touch = true
@@ -82,25 +92,27 @@ class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_jo
     end
 
     # Start processing anew
-    net.processing_started_at = Time.now
-    net.processing_errors = []
-    net.processing_log = []
-    net.save
+    network.processing_started_at = Time.now
+    network.processing_errors = []
+    network.processing_log = []
+    network.save
 
-    if !net.file_path || !File.exists?(net.file_path)
-      net.processing_errors << "Failed to get zip file"
-      raise "No file at '#{net.file_path}'"
+    if !network.upload_file || !network.upload_file.present?
+      network.processing_errors << "Failed to get zip file"
+      raise "No file at '#{network.upload_file.url}'"
     end
 
     dir = Dir.mktmpdir()
 
     begin
-      say "Begin Unzip"
-      zipfile_path = net.file_path
-      unzip(zipfile_path, dir)
+      network.upload_file.cache_stored_file!
+
+      # WTF: upload_file.filename is only something after the cache_stored_file! call
+      say "Unzipping #{network.upload_file.filename} as local #{network.upload_file.full_cache_path}"
+      unzip(network.upload_file.full_cache_path, dir)
     rescue Exception => boom
       say "Bad unzip"
-      net.processing_errors << "Failed to unzip uploaded file."
+      network.processing_errors << "Failed to unzip uploaded file."
       raise "Unzip #{boom}"
       return
     end
@@ -108,33 +120,21 @@ class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_jo
     check!("Processing")
 
     say "Begin process network"
-    ServiceTable.processNetwork(net, dir)
+    ServiceTable.processNetwork(network, dir)
     say "End process network"
 
     check!("Finished")
-
-    begin
-      say "Creating Zip file #{net.file_path}"
-      zip(net, net.file_path, dir)
-      # net.processing_log << "Result File is prepared and zipped at #{net.file_path}."
-      say "Created Zip file #{net.file_path}"
-      say "Removing Tmp Dir #{dir}"
-     # FileUtils.rm_rf(dir)
-    rescue Exception => boom2
-      say "Bad zip"
-      net.processing_errors << "Failed to zip resultant directory #{dir}"
-      raise "Zip #{boom2}"
-    end
   rescue Exception => boom
     say "#{boom}"
 
   ensure
     unless dont_touch
       say "Ending Job: Network.id #{network_id} token #{token}"
-      net.processing_lock = nil
-      net.processing_job = nil
-      net.processing_completed_at = Time.now
-      net.save
+      network.processing_lock = nil
+      network.processing_job = nil
+      network.processing_completed_at = Time.now
+      network.processing_token = nil
+      network.save
     else
       say "Ignoring Job: Network.id #{network_id} token #{token} One is currently running"
     end
@@ -145,7 +145,7 @@ class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_jo
 
   private
 
-  def unzip(zip, unzip_dir, remove_after = false)
+  def unzip(zip, unzip_dir)
     Zip::Archive.open(zip) do |zip_file|
       zip_file.each do |f|
         f_path = File.join(unzip_dir, f.name)
@@ -159,7 +159,6 @@ class CompileServiceTableJob < Struct.new(:network_id, :token, :service_table_jo
         end
       end
     end
-    FileUtils.rm(zip) if remove_after
   end
 
   def zip(network, zip, dir)

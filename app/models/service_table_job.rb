@@ -34,9 +34,13 @@ class ServiceTableJob
   def enqueue
     self.delayed_job =
         # TODO: Will change Queue to ID
-        Delayed::Job.enqueue(:queue => master.slug,
-                             :payload_object => compile_service_table_job)
+        Delayed::Job.enqueue compile_service_table_job, :queue => master.slug
+
     if self.delayed_job
+      network.processing_job = delayed_job
+      network.save
+      # This is a notification to the worker app.
+      Delayed::Job.enqueue WorkerDaemonJob.new(master.id, "start", nil), :queue => "daemon"
       self.status = "Enqueued"
     else
       self.status = "Didn't Work"

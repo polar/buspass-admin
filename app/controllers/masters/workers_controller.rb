@@ -13,8 +13,9 @@ class Masters::WorkersController < Masters::MasterBaseController
     get_master_context
     authenticate_muni_admin!
     authorize_muni_admin!(:manage, @master)
+    @master.reload
     @counts = {
-        :workers => @master.delayed_job_worker_count,
+        :workers => @master.worker_count,
         :jobs    => @master.delayed_job_count,
         :simulate => @master.simulate_jobs.select { |x| x.delayed_job }.count,
         :compile  => @master.service_table_jobs.select { |x| x.delayed_job }.count
