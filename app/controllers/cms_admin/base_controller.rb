@@ -33,9 +33,9 @@ class CmsAdmin::BaseController  < CmsBaseController
     path = ComfortableMexicanSofa.config.admin_route_redirect
     return redirect_to(path) unless path.blank?
     if @site
-      redirect_to cms.cms_admin_site_pages_path
+      redirect_to main_app.cms_admin_site_pages_path
     else
-      redirect_to cms.cms_admin_sites_path
+      redirect_to main_app.cms_admin_sites_path
     end
   end
 

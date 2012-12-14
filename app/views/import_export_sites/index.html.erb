@@ -19,8 +19,8 @@
   <tbody>
   <% @sites.each do |site| %>
     <tr>
-      <td><%= link_to site.identifier, cms.cms_admin_site_pages_path(site) %></td>
-      <td><%= link_to site.label, cms.cms_admin_site_pages_path(site) %></td>
+      <td><%= link_to site.identifier, main_app.cms_admin_site_pages_path(site) %></td>
+      <td><%= link_to site.label, main_app.cms_admin_site_pages_path(site) %></td>
       <td><%= button_to "Export", export_import_export_site_path(site), :class => "btn" %></td>
       <td><%= link_to "Import", "#site_#{site.id}", :class => "btn", :data => { :toggle => "modal" }%></td>
     </tr>
