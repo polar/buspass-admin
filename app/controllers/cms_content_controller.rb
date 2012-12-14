@@ -10,8 +10,14 @@ class CmsContentController < CmsBaseController
   def render_html(status = 200)
     load_cms_page
     @master = @cms_site.master
-    if @cms_page.redirect_path
-      redirect_to @cms_page.redirect_path
+    if @cms_page
+      if @cms_page.redirect_path
+        redirect_to @cms_page.redirect_path
+        return
+      end
+    else
+      site = Cms::Site::find_by_identifier("busme-main-error")
+      @cms_page = site.pages.find_by_full_path("/not_found")
     end
   end
 
@@ -40,22 +46,7 @@ class CmsContentController < CmsBaseController
       params[:master_id] ||= match[:master_id]
     end
     get_master_context
-    if @master
-      @cms_path = params[:cms_path]
-      if /^admin/ =~ @cms_path
-        @cms_site = @master.admin_site
-        @cms_path = @cms_path.gsub(/^admin/, "/").squeeze("/")
-      else
-        @cms_site = @master.main_site
-        @cms_path = "/#{@cms_path}".squeeze("/")
-      end
-      @cms_page = @cms_site.pages.find_by_full_path(@cms_path)
-    end
-    if @cms_page && @cms_page.redirect_path
-      redirect_to @cms_page.redirect_path
-    else
-      render :render_html
-    end
+    find_and_render_page
   end
 
   #
@@ -68,38 +59,84 @@ class CmsContentController < CmsBaseController
   #                      ^-- cms_path
   def master_render_cms
     get_master_context
+    find_and_render_page
+  end
+
+  protected
+
+  def find_and_render_page
     if @master
       @cms_path = params[:cms_path]
-      if /^admin/ =~ @cms_path
+      if /^admin\// =~ @cms_path
         @cms_site = @master.admin_site
-        @cms_path = @cms_path.gsub(/^admin/,"/").squeeze("/")
+        @cms_path = @cms_path.gsub(/^admin\//,"/").squeeze("/")
+        @cms_page = @cms_site.pages.published.find_by_full_path(@cms_path)
+        if @cms_page
+          if @cms_page.redirect_path
+            redirect_to @cms_page.redirect_path
+            return
+          else
+            render :render_html
+            return
+          end
+        else
+            @cms_site = @master.error_site
+            @cms_page = @cms_site.pages.find_by_full_path("admin/not_found")
+            render :render_html
+            return
+        end
       else
         @cms_site = @master.main_site
         @cms_path = "/#{@cms_path}".squeeze("/")
+        @cms_page = @cms_site.pages.published.find_by_full_path(@cms_path)
+        if @cms_page
+          if @cms_page.redirect_path
+            redirect_to @cms_page.redirect_path
+            return
+          else
+            render :render_html
+            return
+          end
+        else
+          @cms_site = @master.errors_site
+          @cms_page = @cms_site.pages.find_by_full_path("users/not_found")
+          render :render_html
+          return
+        end
       end
+      @cms_page = @cms_site.pages.published.find_by_full_path(@cms_path)
     else
-      @cms_path = "#{params[:master_id]}/#{params[:cms_path]}"
+      @cms_path = params[:cms_path]
       @cms_site = Cms::Site.find_by_identifier("busme-main")
+      @cms_page = @cms_site.pages.published.find_by_full_path(@cms_path)
+      if @cms_page
+        if @cms_page.redirect_path
+          redirect_to @cms_page.redirect_path
+          return
+        else
+          render :render_html
+          return
+        end
+      else
+        @cms_site = Cms::Site.find_by_identifier("busme-main-error")
+        @cms_page = @cms_site.pages.find_by_full_path("/not_found")
+        render :render_html
+        return
+      end
     end
-    @cms_page = @cms_site.pages.find_by_full_path(@cms_path)
-    if @cms_page && @cms_page.redirect_path
-      redirect_to @cms_page.redirect_path
-    else
-      render :render_html
-    end
-
   end
 
-protected
   def get_master_context
     @master = Master.find_by_slug(params[:master_id])
     @master ||= Master.find(params[:master_id])
+    if @master.nil?
+      params[:cms_path] = "/#{params[:master_id]}/#{params[:cms_path]}".squeeze("/").gsub(/\/$/,"")
+    end
   end
 
   def get_master_host_context
 
   end
-
 
   def load_cms_site
     base_host = ENV['BUSME_BASEHOST'] || Rails.application.base_host || "busme.us"
