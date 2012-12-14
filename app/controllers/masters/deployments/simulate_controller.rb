@@ -24,9 +24,6 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     @loginUrl = api_master_deployment_simulate_path(@master, @deployment)
     @center = [@master.longitude.to_f, @master.latitude.to_f]
     @updateUrl = partial_status_master_deployment_simulate_path(@master, @deployment)
-
-    @disable_start = @job && @job.is_processing?
-    @disable_stop  = @job.nil? || !@job.is_stopped?
   end
 
   def status
@@ -166,6 +163,8 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
     options = {:master_id => @master.id, :deployment_id => @deployment.id, :disposition => "simulate"}
     @job = SimulateJob.first(options)
     if @job
+      # Job may have been updated by another process.
+      @job.reload
       @last_log = params[:log].to_i
       @limit    = (params[:limit] || 10000000).to_i # makes take(@limit) work if no limit.
 
@@ -174,7 +173,7 @@ class Masters::Deployments::SimulateController < Masters::Deployments::Deploymen
       resp = { :logs => @logs, :last_log => @last_log }
 
       resp[:start] = !@job.is_processing?
-      resp[:stop] = !["Stopped"].include?(@job.processing_status)
+      resp[:stop] = !@job.is_stopped?
 
       if (@job.processing_status)
         resp[:status] = @job.processing_status

@@ -3,10 +3,11 @@
  *
  * @requires ActivePlanBasketController
  */
-
-var activePlanView;
-
 var clock_set = false;
+/*
+ * This variable will be set by a map_script.
+ */
+var activePlanView;
 
 function onUpdateStatus(data) {
     console.log("onUpdateStatus");
@@ -19,8 +20,8 @@ function onUpdateStatus(data) {
     if (data['clock_mult'] !== undefined) {
         mult = data['clock_mult'] + 0;
         if (mult > 1) {
-            activePlanView.basket.setPollTime(10000 / mult);
-            activePlanView.activePlanController.overrideLocationPollTime(30000 / mult);
+            activePlanView.basket.setPollTime(Math.max(2500, 20000 / mult));
+            activePlanView.activePlanController.overrideLocationPollTime(Math.max(3000, 10000 / mult));
         }
     }
     if (data['sim_time'] !== undefined) {
@@ -43,7 +44,7 @@ function onUpdateStatus(data) {
             clock_set = false;
         }
     }
-    $("#start").attr("disabled", !data['start']);
-    $("#stop").attr("disabled", !data['stop']);
+    $("#start").prop("disabled", !data['start']);
+    $("#stop").prop("disabled", !data['stop']);
 }
 

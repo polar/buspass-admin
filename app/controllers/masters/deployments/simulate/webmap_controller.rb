@@ -9,6 +9,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
 
     data = getGeoJSON(@object)
     respond_to do |format|
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => data }
     end
   end
@@ -18,6 +19,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
 
     data = getGeoJSON(@object)
     respond_to do |format|
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => data }
     end
   end
@@ -35,6 +37,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
       @object = @object.first
     end
     respond_to do |format|
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => getDefinitionJSON(@object) }
     end
   end
@@ -53,53 +56,41 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
       @routes.select { |x| rs.include?(x.id) }
     end
 
-    @active_journeys  = ActiveJourney.where(:journey_location_id.ne => nil, :disposition => "", :deployment_id => @deployment.id).all
+    @active_journeys  = ActiveJourney.where(:journey_location_id.ne => nil, :disposition => "simulate", :deployment_id => @deployment.id).all
     @vehicle_journeys = @active_journeys.map { |x| x.vehicle_journey }
 
     specs = []
-    specs += @vehicle_journeys.map { |x| getJourneySpec(x.vehicle_journey, x.route) }
+    specs += @vehicle_journeys.map { |x| getJourneySpec(x, x.route) }
     specs += @routes.map { |x| getRouteSpec(x) }
 
     respond_to do |format|
-      format.html { render :nothing => true, :status => 403 } #forbidden
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => specs }
     end
   end
 
+  # The ref is the journey.id.
   def curloc
     @active_journey = ActiveJourney.where(:journey_location_id.ne => nil,
                                           :disposition   => "simulate",
-                                          :persistentid  => params[:ref],
+                                          :vehicle_journey_id  => params[:ref],
                                           :deployment_id => @deployment.id).first
 
-    if @active_journey != nil && @active_journey.journey_location != nil
-      @journey_location = @active_journey.journey_location
+    if @active_journey != nil
+      @vehicle_journey = @active_journey.vehicle_journey
+      if @active_journey.journey_location != nil
+        @journey_location = @active_journey.journey_location
+      end
     end
 
     respond_to do |format|
-      format.html { render :nothing => true, :status => 403 } #forbidden
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json {
-        render :json => getJourneyLocationJSON(@vehicle_journey, @journey_location)
-      }
-      format.text {
         if @vehicle_journey == nil
-          render :nothing, :status => 505 # not found
-        end
-        if @journey_location == nil
-          render :text => "#{params[:id]},!\n"
+          render :nothing => true, :status => 404 # not found
         else
-          render :text => getJourneyLocationText(@journey_location)
+          render :json => getJourneyLocationJSON(@vehicle_journey, @journey_location)
         end
-      }
-      format.xml  {
-        if @vehicle_journey == nil
-          render :nothing, :status => 505
-        end
-        if @journey_location == nil
-          render :xml => "<NotInService id='#{params[:id]}'/>"
-        else
-          render :xml =>  getJourneyLocationXML(@journey_location)
-      end
       }
     end
   end
@@ -109,7 +100,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
   def getRouteSpec(route)
     data            = { }
     data["name"]    = route.name.tr(",", "_")
-    data["id"]      = route.id
+    data["id"]      = "#{route.id}"
     data["type"]    = "R"
     data["version"] = route.version
     return data
@@ -119,9 +110,9 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
   def getJourneySpec(journey, route)
     data         = { }
     data["name"] = journey.display_name.tr(",", "_")
-    data["id"]   = journey.id
+    data["id"]   = "#{journey.id}"
     data["type"] = "V";
-    data["routeid"] = route.id
+    data["routeid"] = "#{route.id}"
     data["version"] = route.version
     return data
   end
@@ -139,7 +130,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
   def getRouteDefinitionJSON(route)
     box                = route.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
     data               = { }
-    data[:_id]         = "#{route.id.to_s}"
+    data[:_id]         = "#{route.id}"
     data[:_type]       = 'route'
     data[:_name]       = "#{route.display_name}"
     data[:_code]       = "#{route.code}"
@@ -155,7 +146,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
   def getJourneyDefinitionJSON(journey)
     box                         = journey.journey_pattern.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
     data                        = { }
-    data[:_id]                  = "#{journey.id.to_s}"
+    data[:_id]                  = "#{journey.id}"
     data[:_type]                = 'journey'
     data[:_name]                = "#{journey.display_name}"
     data[:_code]                = "#{journey.service.route.code}"
@@ -164,8 +155,8 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
     data[:_startOffset]         = "#{journey.start_time}"
     data[:_duration]            = "#{journey.duration}"
     # TODO: TimeZone for Locality.
-    data[:_startTime]           = (Time.parse("0:00") + journey.start_time.minutes).strftime("%H:%M %P")
-    data[:_endTime]             = (Time.parse("0:00") + journey.start_time.minutes + journey.duration.minutes).strftime("%H:%M %P")
+    data[:_startTime]           = (@master.base_time + journey.start_time.minutes).strftime("%H:%M %P")
+    data[:_endTime]             = (@master.base_time + journey.start_time.minutes + journey.duration.minutes).strftime("%H:%M %P")
     data[:_locationRefreshRate] = "10"
     data[:_nw_lon]              = "#{box[0][0]}"
     data[:_nw_lat]              = "#{box[0][1]}"
@@ -230,7 +221,7 @@ class Masters::Deployments::Simulate::WebmapController < Masters::Deployments::D
 
   def getJourneyLocationJSON(journey, journey_location)
     data        = { }
-    data[:id]   ="#{journey.id.to_s}"
+    data[:id]   ="#{journey.id}"
     data[:type] = 'journey'
     data[:name] ="#{journey.display_name}"
     data[:code] ="#{journey.service.route.code}"

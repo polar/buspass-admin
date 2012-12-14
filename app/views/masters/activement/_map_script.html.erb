@@ -3,6 +3,9 @@
     <script type="text/javascript">
         var debug = false;
         var runStatusView;
+
+        // var activePlanView will be set by onUpdateStatus.js
+
         $(function () {
             runStatusView = new BusPass.RunStatusView();
             runStatusView.statusView("#processing_status", {
@@ -23,6 +26,14 @@
                 console.log("Submit start");
                 activePlanView.reset();
                 runStatusView.clearAll();
+                $("#start").prop("disabled", true);
+                $("#stop").prop("disabled", true);
+            });
+
+            // When we click the Stop button we let onUpdateStatus decide
+            $("#stop").parents("form").submit(function () {
+                $("#start").prop("disabled", true);
+                $("#stop").prop("disabled", true);
             });
 
             // Start the show!

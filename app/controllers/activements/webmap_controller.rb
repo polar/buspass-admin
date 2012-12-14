@@ -9,6 +9,7 @@ class Activements::WebmapController < ApplicationController
                     :deployment_id => @deployment.id).first
     data    = getRouteGeoJSON(@object)
     respond_to do |format|
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => data }
     end
   end
@@ -23,6 +24,7 @@ class Activements::WebmapController < ApplicationController
 
     data = getRouteGeoJSON(@object)
     respond_to do |format|
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => data }
     end
   end
@@ -40,6 +42,7 @@ class Activements::WebmapController < ApplicationController
                     :deployment_id => @deployment.id).first
 
     respond_to do |format|
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => getDefinitionJSON(@object) }
     end
   end
@@ -68,7 +71,7 @@ class Activements::WebmapController < ApplicationController
     specs += @routes.map { |x| getRouteSpec(x) }
 
     respond_to do |format|
-      format.html { render :nothing, :status => 403 } #forbidden
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => specs }
     end
   end
@@ -86,10 +89,10 @@ class Activements::WebmapController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :nothing, :status => 403 } #forbidden
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json {
         if (@active_journey == nil)
-          render :nothing, :status => 505 # not found
+          render :nothing => true, :status => 404 # not found
         end
         render :json => getJourneyLocationJSON(@active_journey.vehicle_journey, @journey_location)
       }
@@ -129,7 +132,7 @@ class Activements::WebmapController < ApplicationController
 
     puts("WE HAVE #{specs.length} RECORDS TO RETURN!");
     respond_to do |format|
-      format.html { render :nothing, :status => 403 } #forbidden
+      format.html { render :nothing => true, :status => 404 } # not found
       format.json { render :json => specs }
     end
   end
@@ -139,7 +142,7 @@ class Activements::WebmapController < ApplicationController
   def getRouteSpec(route)
     data            = { }
     data["name"]    = route.name.tr(",", "_")
-    data["id"]      = route.persistentid
+    data["id"]      = "#{route.persistentid}"
     data["type"]    = "R"
     data["version"] = route.version
     return data
@@ -152,9 +155,9 @@ class Activements::WebmapController < ApplicationController
   def getJourneySpec(journey, route)
     data         = { }
     data["name"] = journey.display_name.tr(",", "_")
-    data["id"]   = journey.persistentid
+    data["id"]   = "#{journey.persistentid}"
     data["type"] = "V";
-    data["routeid"] = route.persistentid
+    data["routeid"] = "#{route.persistentid}"
     data["version"] = route.version
     return data
   end
@@ -182,7 +185,7 @@ class Activements::WebmapController < ApplicationController
     data[:_name]      ="#{route.display_name}"
     data[:_code]      ="#{route.code}"
     data[:_version]   ="#{route.version}"
-    data[:_geoJSONUrl]= route_activement_webmap_path(:ref => route.persistentid, :format => :json)
+    data[:_geoJSONUrl]= route_activement_webmap_path(@activement, :ref => route.persistentid, :format => :json)
     data[:_nw_lon]    ="#{box[0][0]}"
     data[:_nw_lat]    ="#{box[0][1]}"
     data[:_se_lon]    ="#{box[1][0]}"
@@ -193,17 +196,17 @@ class Activements::WebmapController < ApplicationController
   def getJourneyDefinitionJSON(journey)
     box                         = journey.journey_pattern.theBox # [[nw_lon,nw_lat],[se_lon,se_lat]]
     data                        = { }
-    data[:_id]                  ="#{journey.persistentid}"
+    data[:_id]                  = "#{journey.persistentid}"
     data[:_type]                = 'journey'
-    data[:_name]                ="#{journey.display_name}"
-    data[:_code]                ="#{journey.service.route.code}"
-    data[:_version]             ="#{journey.service.route.version}"
-    data[:_geoJSONUrl]          = journey_activement_webmap_path(:ref => journey.persistentid, :format => :json)
+    data[:_name]                = "#{journey.display_name}"
+    data[:_code]                = "#{journey.service.route.code}"
+    data[:_version]             = "#{journey.service.route.version}"
+    data[:_geoJSONUrl]          = journey_activement_webmap_path(@activement, :ref => journey.persistentid, :format => :json)
     data[:_startOffset]         = "#{journey.start_time}"
-    data[:_duration]            ="#{journey.duration}"
+    data[:_duration]            = "#{journey.duration}"
                                                                  # TODO: TimeZone for Locality.
-    data[:_startTime]           = (Time.parse("0:00") + journey.start_time.minutes).strftime("%H:%M %P")
-    data[:_endTime]             = (Time.parse("0:00") + journey.start_time.minutes + journey.duration.minutes).strftime("%H:%M %P")
+    data[:_startTime]           = (@master.base_time + journey.start_time.minutes).strftime("%H:%M %P")
+    data[:_endTime]             = (@master.base_time + journey.start_time.minutes + journey.duration.minutes).strftime("%H:%M %P")
     data[:_locationRefreshRate] = "10"
     data[:_nw_lon]              ="#{box[0][0]}"
     data[:_nw_lat]              ="#{box[0][1]}"

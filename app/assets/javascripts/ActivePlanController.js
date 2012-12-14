@@ -90,6 +90,7 @@ BusPass.ActivePlanController.prototype = {
     },
 
     overrideLocationPollTime : function (pollTime) {
+        console.log("LocationController: overriding LocationPolltime : " + pollTime);
         this._locationC.pollTime = pollTime;
     },
 

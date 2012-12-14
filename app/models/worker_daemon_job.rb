@@ -5,6 +5,11 @@ class WorkerDaemonJob < Struct.new(:master_id, :op, :master_answer_id)
 
   def perform
     @master = Master.find(master_id)
+    # due to the nature of a continuous running delayed job the master
+    # needs to be reloaded because we use the IdentityMap on it.
+    # The delayed_job_start_workers method pulls a save call. so it restores
+    # the previous state.
+    @master.reload
     if @master
       case op
         when "start"

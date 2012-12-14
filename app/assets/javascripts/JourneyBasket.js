@@ -39,7 +39,7 @@ BusPass.JourneyBasket = function (options) {
                 break;
             default:
                 console.log("JourneyBasket: Unknown command from worker: " + data.msg);
-        };
+        }
     }, false);
 
     this._worker.addEventListener( 'error', function (event) {
@@ -300,7 +300,7 @@ BusPass.JourneyBasket.prototype = {
                 as.push(xs[i]);
             }
             return as;
-        };
+        }
 
         console.log("JourneyBasket: Syncing with "+journeyids.length+" journey ids");
         var copy_journeys = this._journeys.slice(0);
@@ -553,6 +553,7 @@ BusPass.JourneyBasket.prototype = {
     },
 
     setPollTime : function (pollTime) {
+        console.log("Basket: PollTime set to " + pollTime);
         this._pollTime = pollTime;
     },
 

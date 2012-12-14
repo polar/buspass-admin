@@ -80,12 +80,23 @@ class SimulateJob
     self.delayed_job             = nil
   end
 
+  def update_processing_status
+    processing = delayed_job ? delayed_job.reload != nil : true
+    if !processing
+      if processing_status != "Stopped"
+        self.processing_status = "Aborted"
+        self.save
+      end
+    end
+    processing && !["Stopped", "Aborted"].include?(self.processing_status)
+  end
+
   def is_processing?
-    return delayed_job != nil && !["Stopped"].include?(processing_status)
+    return update_processing_status()
   end
 
   def is_stopped?
-    return ["Stopped"].include?(processing_status)
+    return ! update_processing_status()
   end
 
   def set_processing_status(status)
@@ -198,6 +209,7 @@ class SimulateJob
     destroy_delayed_job()
     self.please_stop = true
     self.processing_status= "Stopped"
+    self.save
   end
 
   after_destroy :destroy_delayed_job, :destroy_journey_locations

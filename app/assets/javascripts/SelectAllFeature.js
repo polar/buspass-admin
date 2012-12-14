@@ -520,7 +520,9 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
      */
     redrawHighlighted : function (feature) {
         var style = this.highlightStyle || this.highlightIntent || this.selectStyle || this.selectIntent;
-        feature.layer.drawFeature(feature, style);
+        if (feature.layer) {
+            feature.layer.drawFeature(feature, style);
+        }
     },
 
     /**
@@ -529,7 +531,9 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
      */
     redrawSelected : function (feature) {
         var style = this.selectStyle || this.selectIntent;
-        feature.layer.drawFeature(feature, style);
+        if (feature.layer) {
+            feature.layer.drawFeature(feature, style);
+        }
     },
 
     /**
@@ -537,8 +541,10 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
      * This method sets the style on the feature to its original style or default.
      */
     redrawNormal : function (feature) {
-        feature.layer.drawFeature(feature, feature.style || feature.layer.style ||
-            "default");
+        if (feature.layer) {
+            feature.layer.drawFeature(feature, feature.style || feature.layer.style ||
+                "default");
+        }
     },
 
     /**
@@ -546,7 +552,9 @@ BusPass.SelectAllFeature = OpenLayers.Class(OpenLayers.Control, {
      * This method sets the style on the feature to its current to trigger a redraw.
      */
     redraw : function (feature) {
-        feature.layer.drawFeature(feature, feature.renderIntent || "default");
+        if (feature.layer) {
+            feature.layer.drawFeature(feature, feature.renderIntent || "default");
+        }
     },
 
     /**

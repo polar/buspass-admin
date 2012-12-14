@@ -166,8 +166,13 @@ class Master
 
   validates_uniqueness_of :name
   validates_uniqueness_of :slug
-  validates_format_of :slug, :with => /[a-z][a-z0-9-]*/, :message => "only lower case letters, numbers, and dashes, and must start with a letter"
-  validates_length_of :slug, :maximum => 100, :message => "can be upto 100 characters long"
+  validates_format_of :slug, :with => /[a-z][a-z0-9-]*/,
+                      :message => "only lower case letters, numbers, and dashes, and must start with a letter"
+  validates_length_of :slug, :minimum => 4, :maximum => 100, :message => "must be between 4 and 100 characters"
+  validates_exclusion_of :slug, :in => %w( apis admin cms-admin workers active master deployment activement
+                                           testament auth cms_content page_errors sessions muni_admins transport
+                                           websites admins users customers feedbacks ),
+                         :message => "reserved name or already taken"
   validates_numericality_of :longitude, :greater_than_or_equal_to => -180.0, :less_than_or_equal_to => 180.0
   validates_numericality_of :latitude, :greater_than_or_equal_to => -90.0, :less_than_or_equal_to => 90.0
 
